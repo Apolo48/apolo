@@ -37,12 +37,10 @@
 								<row spans="1,3" style="border:none;">
 									<label value="Cédula" />
 									<div>
-										<combobox value="-"
-											width="5%">
+										<combobox value="-" width="5%" focus="true" >
 											<comboitem label="V" />
 											<comboitem label="E" />
 										</combobox>
-
 										<intbox constraint="no negative"
 											width="22%" />
 										<button
@@ -57,7 +55,6 @@
 ]]></attribute>
 										</button>
 									</div>
-
 								</row>
 								<row style="border:none;">
 									<label value="Primer Nombre" />
@@ -83,7 +80,6 @@
 										width="85%" />
 									<textbox maxlength="40" width="75%" />
 								</row>
-
 							</rows>
 						</grid>
 						<grid style="border:none;"
@@ -145,7 +141,6 @@
 														style="border:none;">
 														<label
 															value="Estado" />
-
 														<div>
 															<combobox
 																value="-Seleccione-" width="75%">
@@ -191,7 +186,6 @@
 														style="border:none;">
 														<label
 															value="Ciudad" />
-
 														<div>
 															<combobox
 																value="-Seleccione-" width="28%">
@@ -213,7 +207,6 @@
 															<label
 																value="(*)" style="color:red" />
 														</div>
-
 													</row>
 													<row spans="1,5"
 														style="border:none;">
@@ -227,7 +220,6 @@
 																value="(*)" style="color:red" />
 														</div>
 													</row>
-
 												</rows>
 											</grid>
 										</groupbox>
@@ -246,7 +238,6 @@
 													<column width="32%" />
 												</columns>
 												<rows>
-
 													<row
 														style="border:none;">
 														<label
@@ -263,7 +254,6 @@
 																<comboitem
 																	label="0255" />
 															</combobox>
-
 															<intbox
 																constraint="no negative" width="50%" />
 														</div>
@@ -283,7 +273,6 @@
 																<comboitem
 																	label="0412" />
 															</combobox>
-
 															<intbox
 																constraint="no negative" width="50%" />
 														</div>
@@ -292,16 +281,13 @@
 														style="border:none;">
 														<label
 															value="Correo Electrónico" />
-
 														<textbox
 															width="90%" />
-
 														<label
 															value="Twitter" />
 														<div>
 															<label
 																value="@" />
-
 															<textbox
 																width="80%" />
 														</div>
@@ -323,10 +309,8 @@
 									<column width="32%" />
 								</columns>
 								<rows>
-
 									<row spans="4"
 										style="border:none;">
-
 										<groupbox closable="false"
 											style="border-color:orange">
 											<caption
@@ -374,7 +358,6 @@
 														<textbox
 															maxlength="40" width="90%" disabled="true" />
 													</row>
-
 													<row spans="4"
 														style="border:none;">
 														<groupbox
@@ -392,59 +375,59 @@
 																	<column />
 																</columns>
 																<rows>
-																	<row
-																		spans="1,3" style="border:none;">
-																		<label
-																			value="Enfermedad" />
-																		<combobox
-																			value="-Seleccione-" width="40%">
-																			<comboitem
-																				label="Alérgia a medicamentos" />
-																			<comboitem
-																				label="Alérgia a picaduras de insectos" />
-																			<comboitem
-																				label="Asma" />
-																			<comboitem
-																				label="Insolación" />
+																	<row spans="1,3" style="border:none;">
+																		<label value="Enfermedad" />
+																		<combobox value="-Seleccione-" width="40%">
+																			<comboitem label="Alérgia a medicamentos" />
+																			<comboitem label="Alérgia a picaduras de insectos" />
+																			<comboitem label="Asma" />
+																			<comboitem label="Insolación" />
 																		</combobox>
-
 																	</row>
-																	<row
-																		spans="4" style="border:none;">
-
-
-																		<listbox>
-
-																			<listhead
-																				width="100%">
-																				<listheader>
-																					Enfermedad
-																				</listheader>
-
+																	<row spans="4" style="border:none;">
+																		<grid style="border:none">
+																			<columns>
+																				<column width="95%" />
+																				<column />
+																			</columns>
+																			<rows>
+																				<row style="border:none">
+																					<listbox>
+																						<listhead width="100%">
+																							<listheader label="Enfermedad" />
+																						</listhead>
+																						<listitem>
+																							<listcell label="Alérgia a medicamentos" />
+																						</listitem>
+																						<listitem>
+																							<listcell label="Asma"/>
+																						</listitem>
+																					</listbox>
+																					<vbox>
+																						<button image="../../Recursos/Imagenes/agregar.ico" />
+																					   <button image="../../Recursos/Imagenes/editar.ico" />
+																					   <button image="../../Recursos/Imagenes/quitar.ico" />
+																					</vbox>
+																				</row>
+																			</rows>
+																		</grid>
+																	
+																		<!-- listbox>
+																			<listhead width="100%">
+																				<listheader value="Enfermedad" />
 																			</listhead>
-
 																			<listitem>
-																				<listcell
-																					label="Alérgia a medicamentos">
-																				</listcell>
-
+																				<listcell label="Alérgia a medicamentos" />
 																			</listitem>
 																			<listitem>
-																				<listcell
-																					label="Asma">
-																				</listcell>
+																				<listcell label="Asma"/>
 																			</listitem>
 																		</listbox>
 																		<div>
-																			<button
-																				id="btnAgregar"
-																				image="../../Recursos/Imagenes/agregar.ico" />
-																			<separator
-																				height="5px" />
-																			<button
-																				id="btnQuitar"
-																				image="../../Recursos/Imagenes/quitar.ico" />
-																		</div>
+																			<button id="btnAgregar" image="../../Recursos/Imagenes/agregar.ico" />
+																			<separator height="5px" />
+																			<button id="btnQuitar" image="../../Recursos/Imagenes/quitar.ico" />
+																		</div-->
 																	</row>
 																</rows>
 															</grid>
@@ -497,7 +480,6 @@
 												</button>
 											</div>
 										</row>
-
 										<row style="border:none;">
 											<label value="Curso" />
 											<combobox
@@ -587,7 +569,6 @@
 													</row>
 												</rows>
 											</grid>
-
 											<div>
 												<button id="btnAgregar2"
 													image="../../Recursos/Imagenes/agregar.ico" />
@@ -596,8 +577,6 @@
 													image="../../Recursos/Imagenes/quitar.ico"
 													tooltiptext="Deshacer" />
 											</div>
-
-
 										</row>
 									</rows>
 								</grid>
@@ -924,13 +903,13 @@
 									</rows>
 								</grid>
 							</groupbox>
-
 						</tabpanel>
 					</tabpanels>
 				</tabbox>
 			</panelchildren>
 		</panel>
 
+		<label value="(*) Campos Obligatorios" style="color:red" />
 		<div align="right">
 			<button id="btnGuardar" label="Guardar"
 				image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"
@@ -954,7 +933,5 @@
 ]]></attribute>
 			</button>
 		</div>
-		<label value="(*) Estos campos son obligatorios"
-			style="color:red" />
 	</window>
 </div>

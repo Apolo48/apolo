@@ -1,10 +1,7 @@
 <?page title="Ascender Equipos" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Ascender Equipos" border="normal" width="500px"
-		closable="true">
-		<panel title="">
-			<panelchildren>
-				<groupbox>
+	<window title="Ascender Equipos" border="normal" width="500px" closable="true">
+				<groupbox style="border-color:orange" closable="false">
 					<caption label="Actual" />
 					<grid style="border:none;" oddRowSclass="none">
 						<columns>
@@ -15,19 +12,20 @@
 							<column />
 						</columns>
 						<rows>
-							<row>
+							<row style="border:none;">
 								<label value="Categoría" />
 								<textbox width="70%" value="Juvenil"
-									disabled="true" />
+									readonly="true" />
 								<label value="Equipo" />
 								<textbox width="40%" value="A"
-									disabled="true" />
+									readonly="true" />
 							</row>
 						</rows>
 					</grid>
 				</groupbox>
-				<space />
-				<groupbox>
+				<space height="10px" />
+				
+				<groupbox style="border-color:orange" closable="false">
 					<caption label="Ascenso" />
 					<grid style="border:none;" oddRowSclass="none">
 						<columns>
@@ -38,72 +36,86 @@
 							<column />
 						</columns>
 						<rows>
-							<row>
+							<row style="border:none;">
 								<label value="Categoría" />
 								<textbox width="70%" value="Juvenil"
-									disabled="true" />
+									readonly="true" />
 								<label value="Equipo" />
 								<textbox width="40%" value="A"
-									disabled="true" />
+									readonly="true" />
 							</row>
 						</rows>
 					</grid>
 				</groupbox>
-			</panelchildren>
-		</panel>
+				<space height="10px" />
 		
-		<toolbar align="end">
+		<!--toolbar align="end">
 			<toolbarbutton id="ascenderGr"
 				image="../../Recursos/Imagenes/arriba.png" />
 			<toolbarbutton id="modificarGr"
 				image="../../Recursos/Imagenes/editar.ico" />
 			<toolbarbutton id="removerGr"
 				image="../../Recursos/Imagenes/quitar.ico" />
-		</toolbar>
+		</toolbar-->
 		
-		<grid id="grid" mold="paging">
-			<columns menupopup="auto">
-				<column sort="auto" label="Nro" width="10%" />
-				<column sort="auto" label="Nombre" width="40%" />
-				<column sort="auto" label="Apellido" width="40%" />
-				<column sort="auto" label="Edad" width="10%" />
+		<grid style="border:none">
+			<columns>
+				<column width="95%" />
+				<column />
 			</columns>
 			<rows>
-				<row>
-					<label value="88" />
-					<label value="Pedro Augusto" />
-					<label value="Perez" />
-					<label value="10" />
-				</row>
-				<row>
-					<label value="02" />
-					<label value="Pablo Jesus" />
-					<label value="Oshiro" />
-					<label value="10" />
-				</row>
-				<row>
-					<label value="10" />
-					<label value="Gabriel" />
-					<label value="Valenzuela" />
-					<label value="10" />
-				</row>
-				<row>
-					<label value="14" />
-					<label value="Romel" />
-					<label value="Rodriguez" />
-					<label value="10" />
-				</row>
-				<row>
-					<label value="46" />
-					<label value="David" />
-					<label value="Monsalve Chavez" />
-					<label value="11" />
-				</row>
-				<row>
-					<label value="55" />
-					<label value="Miguel" />
-					<label value="Orozco" />
-					<label value="10" />
+				<row style="border:none">
+					<grid id="grid" mold="paging">
+						<columns menupopup="auto">
+							<column sort="auto" label="Nombre" width="37%" />
+							<column sort="auto" label="Apellido" width="37%" />
+							<column sort="auto" label="Edad" width="10%" />
+							<column sort="auto" label="Número" width="16%" />
+						</columns>
+						<rows>
+							<row>
+								<label value="Pedro Augusto" />
+								<label value="Perez" />
+								<label value="10" />
+								<label value="88" />
+							</row>
+							<row>
+								<label value="Pablo Jesus" />
+								<label value="Oshiro" />
+								<label value="10" />
+								<label value="02" />
+							</row>
+							<row>
+								<label value="Gabriel" />
+								<label value="Valenzuela" />
+								<label value="10" />
+								<label value="10" />
+							</row>
+							<row>
+								<label value="Romel" />
+								<label value="Rodriguez" />
+								<label value="10" />
+								<label value="14" />
+							</row>
+							<row>
+								<label value="David" />
+								<label value="Monsalve Chavez" />
+								<label value="11" />
+								<label value="46" />
+							</row>
+							<row>
+								<label value="Miguel" />
+								<label value="Orozco" />
+								<label value="10" />
+								<label value="55" />
+							</row>
+						</rows>
+					</grid>
+					<vbox>
+						<button image="../../Recursos/Imagenes/agregar.ico" />
+					   <button image="../../Recursos/Imagenes/editar.ico" />
+					   <button image="../../Recursos/Imagenes/quitar.ico" />
+					</vbox>
 				</row>
 			</rows>
 		</grid>

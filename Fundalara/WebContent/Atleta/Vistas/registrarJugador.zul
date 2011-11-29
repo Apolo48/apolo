@@ -141,23 +141,17 @@
 														style="border-color:orange" closable="false">
 														<caption
 															label="Datos de Nacimiento" />
-														<grid
-															style="border:none;" oddRowSclass="none">
+														<grid style="border:none;" oddRowSclass="none">
 															<columns>
-																<column
-																	width="18%" />
-																<column
-																	width="32%" />
-																<column
-																	width="18%" />
-																<column
-																	width="32%" />
+																<column width="18%" />
+																<column width="32%" />
+																<column width="10%" />
+																<column />
 															</columns>
 															<rows>
 																<row
 																	style="border:none;">
-																	<label
-																		value="Fecha " />
+																	<label value="Fecha " />
 																	<div>
 																		<datebox
 																			id="dtboxFechaNac" constraint="no future"
@@ -425,47 +419,34 @@
 										
 											</rows>
 										</grid>
-													<groupbox
-														style="border-color:orange" closable="false">
-														<caption
-															label="Datos de Revisión Médica" />
-														<grid
-															style="border:none;" oddRowSclass="none">
+													<groupbox style="border-color:orange" closable="false">
+														<caption label="Datos de Revisión Médica" />
+														<grid style="border:none;" oddRowSclass="none">
 															<columns>
-																<column
-																	width="18%" />
-																<column
-																	width="32%" />
-																<column
-																	width="10%" />
-																<column
-																	width="20%" />
+																<column width="14%" />
+																<column width="32%" />
+																<column width="10%" />
+																<column />
 															</columns>
 															<rows>
 																<row
 																	style="border:none;" spans="1,3">
-																	<label
-																		value="Fecha" />
-																	<datebox
-																		constraint="no future" format="dd/MM/yyyy"
+																	<label value="Fecha" />
+																	<datebox constraint="no future" format="dd/MM/yyyy"
 																		style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 																</row>
 																<row style="border:none;" >
-																	<label
-																		value="Matrícula" />
+																	<label value="Matrícula" />
 																	<div>
-																		<textbox
-																			width="50%" />
+																		<textbox width="50%" />
 																		<space />
 																		<button
 																			id="btnCatalogoMedico"
 																			image="../../Recursos/Imagenes/consultar.ico"
 																			orient="horizontal" />
 																	</div>
-																	<label
-																		value="Médico" />
-																	<textbox
-																		maxlength="40" width="90%" disabled="true" />
+																	<label value="Médico" />
+																	<textbox maxlength="40" width="90%" disabled="true" />
 																</row>
 
 																<row
@@ -477,10 +458,8 @@
 																		<grid
 																			style="border:none;" oddRowSclass="none">
 																			<columns>
-																				<column
-																					width="19%" />
-																				<column
-																					width="31%" />
+																				<column width="19%" />
+																				<column width="31%" />
 																				<column />
 																				<column />
 																			</columns>
@@ -489,17 +468,11 @@
 																					style="border:none;" spans="1,3">
 																					<label
 																						value="Enfermedad" />
-																					<combobox
-																						readonly="true" value="--Seleccione--"
-																						width="40%">
-																						<comboitem
-																							label="Alérgia a medicamentos" />
-																						<comboitem
-																							label="Alérgia a picaduras de insectos" />
-																						<comboitem
-																							label="Asma" />
-																						<comboitem
-																							label="Insolación" />
+																					<combobox readonly="true" value="--Seleccione--" width="40%">
+																						<comboitem label="Alérgia a medicamentos" />
+																						<comboitem label="Alérgia a picaduras de insectos" />
+																						<comboitem label="Asma" />
+																						<comboitem label="Insolación" />
 																					</combobox>
 
 																				</row>

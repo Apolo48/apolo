@@ -23,7 +23,7 @@
 								<label value="Cédula" />
 								<div>
 									<combobox value="-" width="4%"
-										readonly="true">
+										readonly="true" focus="true">
 										<comboitem label="V" />
 										<comboitem label="E" />
 									</combobox>
@@ -201,7 +201,7 @@
 														<label
 															value="(*)" style="color:red" />
 													</div>
-													<label value="RIF" />
+													<!--label value="RIF" />
 													<div>
 														<combobox
 															value="-" width="10%" readonly="true">
@@ -213,7 +213,7 @@
 														<textbox
 															width="52%">
 														</textbox>
-													</div>
+													</div-->
 												</row>
 												<row
 													style="border:none;">

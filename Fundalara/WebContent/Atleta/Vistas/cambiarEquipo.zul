@@ -1,7 +1,7 @@
 <?page title="Cambio de Equipo" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window title="Cambio de Equipo" border="normal"
-		width="695px" maximizable="true" minimizable="true" closable="true">
+		width="695px" maximizable="true">
 				<zscript>
 							<![CDATA[
 	//@IMPORT
@@ -21,9 +21,9 @@
 		String valor1 = cmbEquipo.getSelectedItem().getValue();
 		enlace("");
 		if (Objects.equals(valor1, "1")) {
-			enlace("/Atleta/Vista/cambiarEquipoContenido.zul");
+			enlace("/Atleta/Vistas/cambiarEquipoContenido.zul");
 		} else
-			enlace("/Atleta/Vista/cambiarEquipoContenido.zul");
+			enlace("/Atleta/Vistas/cambiarEquipoContenido.zul");
 	}
 ]]></zscript>
 		<panel title="">

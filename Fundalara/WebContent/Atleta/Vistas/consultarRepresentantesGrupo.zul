@@ -1,10 +1,10 @@
-<?page title="Auto Generated index.zul"?>
+<?page title="Consulta Hospedaje"?>
 <div align="left">
 	<window title="" border="none">
 		<grid id="grid" mold="paging" pageSize="5">
 			<columns menupopup="auto">
-				<column width="14%" label="Cédula" />
-				<column width="24%" label="Nombre" />
+				<column width="12%" label="Cédula" />
+				<column width="26%" label="Nombre" />
 				<column width="36%" label="Dirección" />
 				<column width="18%" label="Teléfono" />
 				<column width="8%" label="Detalle" />
