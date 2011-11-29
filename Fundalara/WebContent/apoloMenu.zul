@@ -104,7 +104,7 @@
 										</treeitem>
 										<treeitem open="true">
 											<treerow>
-												<treecell label="Sanción" onClick='enlace("Atleta/Vistas/registrarSanciones.zul")'/>
+												<treecell label="Sanción" />
 											</treerow>
 											<treechildren>
 												<treeitem>
