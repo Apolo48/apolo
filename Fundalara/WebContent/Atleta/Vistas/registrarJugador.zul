@@ -107,7 +107,7 @@
 											</row>
 											<row style="border:none;"
 												height="20%" align="center">
-												<button id="btnfoto"
+												<button id="btnFoto"
 													image="../../Recursos/Imagenes/foto.png">
 												</button>
 											</row>
