@@ -17,7 +17,7 @@ import org.zkoss.zul.Image;
  */
 public class FileLoader {
 
-	private static final int MAX_FILE_SIZE = 102400;
+	private static final int MAX_FILE_SIZE = 20480000;
 	private static final int BUFFER_SIZE = 1024;
 	private static final String SAVE_PATH = "C:\\fundalaraTemp\\archivos\\";
 

@@ -1,7 +1,7 @@
 <?page title="Registrar Jugador"?>
 <div align="left">
 	<window title="Actualizar Jugador" id="win1" border="normal"
-		width="677px" apply="vista.atleta.ActualizarJugadorctrl"
+		width="677px" apply="vista.atleta.ActualizarJugadorCtrl"
 		closable="true">
 		<zscript>
 		<![CDATA[

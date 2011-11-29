@@ -16,18 +16,18 @@
 						<grid style="border:none;"
 							oddRowSclass="none">
 							<columns>
-								<column width="85%" />
-								<column width="15%" />
+								<column width="90%" />
+								<column width="10%" />
 							</columns>
 							<rows>
 								<row style="border:none;">
 									<grid style="border:none;"
 										oddRowSclass="none">
 										<columns>
-											<column width="20%" />
-											<column width="30%" />
-											<column width="20%" />
-											<column width="30%" />
+											<column width="22%" />
+											<column width="28%" />
+											<column width="22%" />
+											<column width="28%" />
 										</columns>
 										<rows>
 											<row style="border:none;"
@@ -387,17 +387,17 @@
 										<grid style="border:none;"
 											oddRowSclass="none">
 											<columns>
-												<column width="18%" />
-												<column width="32%" />
-												<column width="18%" />
-												<column width="32%" />
+												<column width="20%" />
+												<column  width="70%" />
+												
 											</columns>
 											<rows>
 												<row
-													style="border:none;" spans="1,3">
-													<label
-														value="Grupo Sanguíneo" />
-													<div>
+													style="border:none;" >
+													
+														<label
+															value="Grupo Sanguíneo" />
+<div>
 														<combobox
 															readonly="true" value="--Seleccione--">
 															<comboitem
@@ -422,9 +422,9 @@
 													</div>
 
 												</row>
-												<row
-													style="border:none;" spans="4">
-
+										
+											</rows>
+										</grid>
 													<groupbox
 														style="border-color:orange" closable="false">
 														<caption
@@ -437,9 +437,9 @@
 																<column
 																	width="32%" />
 																<column
-																	width="18%" />
+																	width="10%" />
 																<column
-																	width="32%" />
+																	width="20%" />
 															</columns>
 															<rows>
 																<row
@@ -450,8 +450,7 @@
 																		constraint="no future" format="dd/MM/yyyy"
 																		style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 																</row>
-																<row
-																	style="border:none;">
+																<row style="border:none;" >
 																	<label
 																		value="Matrícula" />
 																	<div>
@@ -603,9 +602,7 @@
 															</rows>
 														</grid>
 													</groupbox>
-												</row>
-											</rows>
-										</grid>
+										
 									</tabpanel>
 									<tabpanel>
 										<groupbox
@@ -698,7 +695,7 @@
 												<columns>
 													<column width="18%" />
 													<column width="32%" />
-													<column width="18%" />
+													<column width="10%" />
 													<column width="32%" />
 												</columns>
 												<rows>
@@ -1465,7 +1462,7 @@
 																label="Ambidiestro" />
 														</radiogroup>
 														<label
-															value="Posición de Bateo" />
+															value="Posición Bateo" />
 														<radiogroup
 															orient="vertical">
 															<radio
@@ -1575,18 +1572,18 @@
 						<grid style="border:none;"
 							oddRowSclass="none">
 							<columns>
-								<column width="85%" />
-								<column width="15%" />
+								<column width="90%" />
+								<column width="10%" />
 							</columns>
 							<rows>
 								<row style="border:none;">
 									<grid style="border:none;"
 										oddRowSclass="none">
 										<columns>
-											<column width="20%" />
-											<column width="30%" />
-											<column width="20%" />
-											<column width="30%" />
+											<column width="22%" />
+											<column width="28%" />
+											<column width="22%" />
+											<column width="28%" />
 										</columns>
 										<rows>
 											<row style="border:none;"
@@ -1673,7 +1670,8 @@
 													<column width="15%" />
 												</columns>
 												<rows>
-													<row style="border:none;">
+													<row
+														style="border:none;">
 														<grid
 															style="border:none;" oddRowSclass="none">
 															<columns>
@@ -1692,8 +1690,9 @@
 																	<label
 																		value="Cédula" />
 																	<div>
-																		<combobox id="cmbNacionalidadFamiliar"
-																			readonly="true" value="-" width="10%">
+																		<combobox
+																			id="cmbNacionalidadFamiliar" readonly="true"
+																			value="-" width="10%">
 																			<comboitem
 																				label="V" />
 																			<comboitem
@@ -1704,8 +1703,9 @@
 																		<label
 																			value="(*)" style="color:red" />
 																	</div>
-																	<button id="btnCatalogoFamiliar"
-														image="../../Recursos/Imagenes/consultar.ico" />
+																	<button
+																		id="btnCatalogoFamiliar"
+																		image="../../Recursos/Imagenes/consultar.ico" />
 
 
 																</row>
@@ -1872,23 +1872,23 @@
 																		</combobox>
 																	</div>
 
-<!-- 
-																	<label
+																	<!-- 
+																		<label
 																		value="RIF" />
-																	<div>
+																		<div>
 																		<combobox
-																			readonly="true" value="-" width="10%">
-																			<comboitem
-																				label="J" />
-																			<comboitem
-																				label="G" />
+																		readonly="true" value="-" width="10%">
+																		<comboitem
+																		label="J" />
+																		<comboitem
+																		label="G" />
 																		</combobox>
 																		<textbox
-																			width="52%">
+																		width="52%">
 																		</textbox>
-																	</div>
-																	
-																	 -->
+																		</div>
+																		
+																	-->
 																</row>
 
 															</rows>
@@ -1904,8 +1904,8 @@
 																		style="border-color:orange" mold="3d">
 																		<image
 																			id="imgFamiliar"
-																			src="../../Recursos/Imagenes/imgPadre.jpg" height="80px"
-																			width="80px" />
+																			src="../../Recursos/Imagenes/imgPadre.jpg"
+																			height="80px" width="80px" />
 																	</groupbox>
 																</row>
 																<row
