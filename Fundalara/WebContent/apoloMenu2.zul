@@ -1,0 +1,396 @@
+<?page title="Menu Apolo"?>
+<zk>
+	<zscript><![CDATA[
+		public void enlace(String cad) {
+			cuerpo.setSrc(cad);
+		}
+	]]></zscript>
+	
+	<style>
+		.z-tab-accordion, .z-tab-accordion-seld{ width:260px; }
+	</style>
+	
+	<popup id="nombre" width="300px">
+		<html>		
+			<![CDATA[ <font color="black">Permite introducir la
+			informacion necesaria para llevar a cabo las actividades
+			deportivas y administrativas de la empresa </font>.<br />
+			]]>
+		</html>
+	</popup>
+	
+	<div style="display:inline">
+		<div style="float:left">
+			<tabbox mold="accordion">
+				<tabs>
+					<tab label="Registros" tooltip="nombre"/>
+					<tab label="Funcionalidades Deportivas" />
+					<tab label="Reportes" />
+					<tab label="Configuracion Web" />
+				</tabs>
+				<tabpanels width="260px">
+					<tabpanel id="registro">
+						<tree>
+							<treechildren>
+								<treeitem open="true">
+									<treerow>
+										<treecell label="Datos Basicos" />
+									</treerow>
+									<treechildren>
+										<treeitem>
+											<treerow>
+												<treecell label="No Configurables" onClick='enlace("Atleta/Vistas/Datos_Basicos_NC.zul")'/>
+											</treerow>
+											<treechildren>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Año Escolar*"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Categoría " onClick='enlace("Atleta/Vistas/categoria.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Ciudad"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Compromiso*"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Concepto de Pago***" onClick='enlace("Atleta/Vistas/tipoConceptoPago.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Enfermedad"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Estado"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Frecuencia Pago"/>
+													</treerow>
+												</treeitem>
+												<treeitem>
+													<treerow visible="false">
+														<treecell label="Grupo Equipo*"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Grupo Sanguíneo"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Horario"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Hospedaje*"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Médico" onClick='enlace("Atleta/Vistas/registrarMedico.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Municipio"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Parroquia"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Periodo Sanción"/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Recaudo***" onClick='enlace("Atleta/Vistas/tipoRecaudo.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem visible="false">
+													<treerow>
+														<treecell label="Turno"/>
+													</treerow>
+												</treeitem>
+											</treechildren>
+										</treeitem>
+										<treeitem>
+											<treerow>
+												<treecell label="Configurables" />
+											</treerow>
+											<treechildren>
+												<treeitem>
+													<treerow>
+														<treecell label="Compromiso de Pago" onClick='enlace("Atleta/Vistas/parametrosCompromisoPago.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem>
+													<treerow>
+														<treecell label="Equipo" onClick='enlace("Atleta/Vistas/equipoParametros.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem open="false">
+													<treerow>
+														<treecell label="Plan Vacacional*" onClick='enlace("Atleta/Vistas/configuracionPVacacional.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem>
+													<treerow>
+														<treecell label="Recaudos" onClick='enlace("Atleta/Vistas/parametroRecaudo.zul")'/>
+													</treerow>
+												</treeitem>
+											</treechildren>
+										</treeitem>
+									</treechildren>
+								</treeitem>
+							</treechildren>
+						</tree>
+					</tabpanel>
+					<tabpanel id="funcdeportiva">
+						<tree>
+							<treechildren>
+								<treeitem open="true">
+									<treerow>
+										<treecell label="Jugador" />
+									</treerow>
+									<treechildren>
+										<treeitem open="false">
+											<treerow>
+												<treecell label="Inscribir" onClick='enlace("Atleta/Vistas/inscripcion.zul")'/>
+											</treerow>
+										</treeitem>
+										<treeitem open="true">
+											<treerow>
+												<treecell label="Actualización OPC1" onClick='enlace("Atleta/Vistas/ActualizarJugador.zul")'/>
+											</treerow>
+										</treeitem>
+										<treeitem open="true">
+											<treerow>
+												<treecell label="Actualización OPC2" onClick='enlace("Atleta/Vistas/ActualizarJugador2.zul")'/>
+											</treerow>
+										</treeitem>
+										<treeitem open="false">
+											<treerow>
+												<treecell label="Lesionados" onClick='enlace("Atleta/Vistas/registroLesionado.zul")'/>
+											</treerow>
+										</treeitem>
+										<treeitem open="false">
+											<treerow>
+												<treecell label="Sanción" onClick='enlace("Atleta/Vistas/registrarSanciones.zul")'/>
+											</treerow>
+										</treeitem>
+										<treeitem open="true">
+											<treerow>
+												<treecell label="Ascenso de Categoría"/>
+											</treerow>
+											<treechildren>
+												<treeitem>
+													<treerow>
+														<treecell label="Edad" onClick='enlace("Atleta/Vistas/ascensoCategoria.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem>
+													<treerow>
+														<treecell label="Especial" onClick='enlace("Atleta/Vistas/ascensoEspecial.zul")'/>
+													</treerow>
+												</treeitem>
+											</treechildren>
+										</treeitem>
+										<treeitem open="false">
+											<treerow>
+												<treecell label="Cambio de Equipo*"/>
+											</treerow>
+										</treeitem>
+										<treeitem>
+											<treerow>
+												<treecell label="Pase o Retirar*" />
+											</treerow>
+										</treeitem>
+									</treechildren>
+								</treeitem>
+					<treeitem open="true">
+									<treerow>
+										<treecell label="Familiar" />
+									</treerow>
+									<treechildren>
+										<treeitem open="false">
+											<treerow>
+												<treecell label="Actualizar" onClick='enlace("Atleta/Vistas/ActualizarFamiliar2.zul")'/>
+											</treerow>
+									 </treeitem>
+									</treechildren>
+								</treeitem>
+								
+								
+								
+								<treeitem open="true">
+									<treerow>
+										<treecell label="Hospedaje" />
+									</treerow>
+									<treechildren>
+										<treeitem open="false">
+											<treerow>
+												<treecell label="Registro*" onClick='enlace("Atleta/Vistas/registrarHospedaje.zul")'/>
+											</treerow>
+										</treeitem>
+									</treechildren>
+								</treeitem>
+								<treeitem open="true">
+									<treerow>
+										<treecell label="Competencias" />
+									</treerow>
+									<treechildren>
+										<treeitem open="false">
+											<treerow>
+												<treecell label="Registrar Hospedaje*" onClick='enlace("Atleta/Vistas/registrarHospedaje.zul")'/>
+											</treerow>
+										</treeitem>
+									</treechildren>
+								</treeitem>
+							</treechildren>
+						</tree>
+					</tabpanel>
+					<tabpanel id="reporte">
+						<tree>
+							<treechildren>
+								<treeitem open="true">
+									<treerow>
+										<treecell label="Deportivos" />
+									</treerow>
+									<treechildren>
+										<treeitem open="true">
+											<treerow>
+												<treecell label="Jugador" />
+											</treerow>
+											<treechildren>
+												<treeitem>
+													<treerow>
+														<treecell label="Inscritos" onClick='enlace("Atleta/Vistas/consultaAtletas.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem>
+													<treerow>
+														<treecell label="Sancionados" onClick='enlace("Atleta/Vistas/consultaSanciones.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem>
+													<treerow>
+														<treecell label="Lesionados" onClick='enlace("Atleta/Vistas/consultarLesion.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem>
+													<treerow>
+														<treecell label="Expediente" onClick='enlace("Atleta/Vistas/expedienteJugador.zul")'/>
+													</treerow>
+												</treeitem>
+											</treechildren>
+										</treeitem>
+										<treeitem open="false" visible="false">
+											<treerow>
+												<treecell label="Categoria" />
+											</treerow>
+										</treeitem>
+										<treeitem>
+											<treerow>
+												<treecell label="Equipos" onClick='enlace("Atleta/Vistas/consultarEquiposxCategoria.zul")'/>
+											</treerow>
+										</treeitem>
+										<treeitem>
+											<treerow>
+												<treecell label="Anuario" onClick='enlace("Atleta/Vistas/anuario.zul")'/>
+											</treerow>
+										</treeitem>
+									</treechildren>
+								</treeitem>
+								<treeitem open="true">
+									<treerow>
+										<treecell label="Otros" />
+									</treerow>
+									<treechildren>
+										<treeitem open="false">
+											<treerow>
+												<treecell label="Representantes" onClick='enlace("Atleta/Vistas/consultaRepresentantes.zul")'/>
+											</treerow>
+										</treeitem>
+										<treeitem open="false">
+											<treerow>
+												<treecell label="Familia" onClick='enlace("Atleta/Vistas/consultaFamiliar.zul")'/>
+											</treerow>
+										</treeitem>
+										<treeitem open="false">
+											<treerow>
+												<treecell label="Hospedaje" onClick='enlace("Atleta/Vistas/consultarHospedaje.zul")'/>
+											</treerow>
+										</treeitem>
+									</treechildren>
+								</treeitem>
+							</treechildren>
+						</tree>
+					</tabpanel>
+					<tabpanel id="Web">
+						<tree>
+							<treechildren>
+								<treeitem>
+									<treerow>
+										<treecell label="Eventos" />
+									</treerow>
+								</treeitem>
+								<treeitem>
+									<treerow>
+										<treecell label="Estadisticas" />
+									</treerow>
+								</treeitem>
+								<treeitem>
+									<treerow>
+										<treecell label="Encuestas" />
+									</treerow>
+								</treeitem>
+								<treeitem>
+									<treerow>
+										<treecell label="Enlaces" />
+									</treerow>
+								</treeitem>
+								<treeitem>
+									<treerow>
+										<treecell
+											label="Noticias Recientes" />
+									</treerow>
+								</treeitem>
+								<treeitem>
+									<treerow>
+										<treecell
+											label="Redes Sociales" />
+									</treerow>
+								</treeitem>
+							</treechildren>
+						</tree>
+					</tabpanel>
+				
+				</tabpanels>
+			</tabbox>
+		</div>
+		<div style="display:inline">
+			<include id="cuerpo" />
+		</div>
+	</div>
+</zk>

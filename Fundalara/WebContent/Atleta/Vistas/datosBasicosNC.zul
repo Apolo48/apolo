@@ -1,0 +1,210 @@
+<?page title="Auto Generated index.zul"?>
+<div align="center">
+	<separator height="15px" />
+	<window closable="true" title="Datos Basicos" border="normal"
+		width="690px" height="">
+		<grid>
+			<rows>
+				<row>
+					<hbox height="30px" align="center">
+						<label value="Tipo de Dato " width="140px" />
+						<space />
+						<combobox value="--Seleccione--"
+							width="140px">
+							<comboitem label="Actividad" />
+							<comboitem label="Año Escolar" />
+							<comboitem label="Categoría" />
+							<comboitem label="Clasificación Equipo" />
+							<comboitem label="Curso" />
+							<comboitem label="Enfermedad" />
+							<comboitem label="Función" />
+							<comboitem label="Horario" />
+							<comboitem label="Lesión" />
+							<comboitem label="Logros Deportivos" />
+							<comboitem label="Motivo Sanción" />
+							<comboitem label="Parentesco" />
+							<comboitem label="Profesión/Ocupación" />
+							<comboitem label="Recaudos" />
+							<comboitem label="Parentesco" />
+							<comboitem label="Profesión/Ocupación" />
+							<comboitem label="Recaudos" />
+							<comboitem label="Tipo Código Telefónico" />
+							<comboitem label="Tipo Indumentaria" />
+							<comboitem label="Tipo Inscripción" />
+							<comboitem label="Tipo Institución" />
+							<comboitem label="Tipo Sanción" />
+							<comboitem label="Turno" />
+						</combobox>
+					</hbox>
+				</row>
+				<row>
+					<hbox>
+
+						<grid mold="paging" pageSize="10"
+							width="625px">
+							<auxhead>
+								<auxheader align="center"
+									label="Nombre" />
+								<auxheader align="center"
+									label="Descripción" />
+								<auxheader align="center" label="Fecha" />
+								<auxheader align="center" label="Hora" />
+								<auxheader align="center"
+									label="Registrado por" />
+							</auxhead>
+							
+							<columns>
+								<column width="140px" align="center">
+									<hbox align="center">
+										<image
+											src="../Recursos/Imagenes/filtro.png" />
+										<textbox width="110px"
+											height="20px" />
+									</hbox>
+								</column>
+								<column width="160px" align="center">
+									<hbox align="center">
+										<image
+											src="../Recursos/Imagenes/filtro.png" />
+										<textbox width="120px"
+											height="20px" />
+									</hbox>
+								</column>
+								<column width="110px" align="center">
+									<datebox width="80px" height="20px" />
+								</column>
+								<column width="80px" align="center">
+									<hbox align="center">
+										<timebox width="50px"
+											height="20px" />
+									</hbox>
+								</column>
+								<column width="130px" align="center">
+									<hbox align="center">
+										<textbox width="120px"
+											height="20px" />
+									</hbox>
+								</column>
+							</columns>
+							<rows>
+								<row height="25px">
+									<label value="Calentamiento" />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+								<row height="25px">
+									<label value="Tecnico" />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+								<row height="25px">
+									<label value="Enfriamiento" />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+								<row height="25px">
+									<label value="" />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+								<row height="25px">
+									<label />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+								<row height="25px">
+									<label value="" />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+								<row height="25px">
+									<label />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+								<row height="25px">
+									<label value="" />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+								<row height="25px">
+									<label />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+								<row height="25px">
+									<label value="" />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+								<row height="25px">
+
+									<label />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+								<row height="25px">
+									<label />
+									<label />
+									<label />
+									<label />
+									<label />
+								</row>
+							</rows>
+						</grid>
+
+						<vbox height="50px">							
+							<button
+								image="../../Recursos/Imagenes/agregar.ico"  />
+							<separator height="5px" />
+							<button
+								image="../../Recursos/Imagenes/editar.ico"  />
+							<separator height="5px" />
+							<button
+								image="../../Recursos/Imagenes/quitar.ico"/>
+						</vbox>
+					</hbox>
+				</row>
+			</rows>
+		</grid>
+		<separator />
+		<grid>
+			<columns>
+				<column width="345px" align="center" />
+				<column width="120px" align="center" />
+				<column width="120px" align="center" />
+			</columns>
+			<rows>
+				<row height="15px">
+					<label value="" />
+					<button image="../../Recursos/Imagenes/cancelar.ico"
+						label="Cancelar" width="110px" />
+					<button image="../../Recursos/Imagenes/salir.png"
+						label="Salir" width="110px" />
+				</row>
+			</rows>
+		</grid>
+	</window>
+</div>
