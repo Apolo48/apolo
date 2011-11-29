@@ -11,6 +11,10 @@ import org.zkoss.util.media.Media;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Image;
 
+/**
+ * @author Miguel
+ *
+ */
 public class FileLoader {
 
 	private static final int MAX_FILE_SIZE = 102400;
