@@ -781,7 +781,9 @@
 			</panelchildren>
 		</panel>
 		</div>
-				
+				<label value="(*) Campos obligatorios" style="color:red" />
+		<separator/>
+		<label value="Si no hay cambio de liga, llenar solo A, B y C" style="color:red" />
 		<div align="right">
 			<button label="Guardar" image="../../Recursos/Imagenes/guardar.ico"
 				orient="horizontal" width="100px" />
@@ -795,8 +797,6 @@
 							]]></attribute>
 			</button>											
 		</div>
-		<label value="(*) Campos obligatorios" style="color:red" />
-		<separator/>
-		<label value="Si no hay cambio de liga, llenar solo A, B y C" style="color:red" />
+		
 	</window>
 </div>
