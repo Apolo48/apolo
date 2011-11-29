@@ -110,7 +110,7 @@
 											</row>
 											<row style="border:none;"
 												height="20%" align="center">
-												<button id="btnfoto"
+												<button id="btnFoto"
 													image="../../Recursos/Imagenes/foto.png">
 												</button>
 											</row>
@@ -1628,6 +1628,21 @@
 													value="Segundo Apellido" width="95%" />
 												<textbox maxlength="40"
 													width="80%" disabled="true" />
+											</row>
+											<row style="border:none;"
+												spans="1,3">
+												<label value="Género" />
+												<div>
+													<radiogroup>
+														<radio
+															label="Masculino" checked="true" disabled="true"  />
+														<space />
+														<radio
+															label="Femenino" disabled="true" />
+													</radiogroup>
+													<label value="(*)"
+														style="color:red" />
+												</div>
 											</row>
 										</rows>
 									</grid>
