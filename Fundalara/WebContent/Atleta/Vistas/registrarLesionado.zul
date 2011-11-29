@@ -2,34 +2,38 @@
 <window title="Registro de Lesiones" border="normal" width="671px"
 	closable="true">
 
-	<groupbox>
-		<caption label="Jugador" />
-		<grid oddRowSclass="none">
+	<groupbox style="border-color:orange">
+		<caption style="font-weight: bold" label="Jugador" />
+		<grid style="border:none;" oddRowSclass="none">
 			<columns>
-				<column width="85%" />
-				<column width="15%" />
+				<column width="90%" />
+				<column width="10%" />
 			</columns>
 			<rows>
-				<row style="border:none;">
-					<grid oddRowSclass="none" style="border:none;">
+				<row style="border:none">
+					<grid style="border:none;" oddRowSclass="none">
 						<columns>
-							<column width="4%" />
-							<column width="10%" />
-							<column width="4%" />
-							<column width="10%" />
-							<column width="2%" />
-							<column width="4%" />
+							<column width="21%" />
+							<column width="32%" />
+							<column />
+							<column width="32%" />
 						</columns>
 						<rows>
-							<row style="border:none;">
-								<label value="Nombres" />
-								<textbox width="90%" readonly="true" />
-								<label value="Apellidos" />
-								<textbox width="90%" readonly="true" />
-								<button label="Jugador" onClick=""
-									image="../../Recursos/Imagenes/consultar.ico"
-									orient="horizontal">
-									<attribute name="onClick"><![CDATA[
+							<row spans="1,3" style="border:none">
+								<label value="Cédula" />
+								<div>
+									<combobox value="-" width="4%"
+										readonly="true">
+										<comboitem label="V" />
+										<comboitem label="E" />
+									</combobox>
+
+									<intbox constraint="no negative"
+										width="19%" disabled="false" />
+									<button id="Jugador"
+										tooltiptext="Consultar Jugador"
+										image="../../Recursos/Imagenes/consultar.ico">
+										<attribute name="onClick"><![CDATA[
 	Window nuevaVentana = (Window) Executions.createComponents(
 			"Atleta/Vistas/buscarJugador.zul", null, null);
 	try {
@@ -37,51 +41,78 @@
 	} catch (Exception e) {
 	}
 ]]></attribute>
-								</button>
+									</button>
+								</div>
 							</row>
-							<row align="left" style="border:none;">
-								<label value="Categoria" />
-								<textbox width="90%" readonly="true" />
-								<label value="Equipo" />
-								<textbox width="90%" readonly="true" />
-								<label value="Número" />
-								<textbox width="60%" readonly="true" />
+							<row style="border:none">
+								<label value="Nombres" />
+
+								<textbox maxlength="50" width="95%"
+									constraint="no empty" disabled="true" />
+
+
+								<label value="Apellidos" />
+								<textbox maxlength="40" width="95%"
+									disabled="true" />
+							</row>
+
+							<row style="border:none">
+								<label value="Fecha Nacimiento"
+									width="95%" />
+								<datebox id="dtboxFechaNac"
+									constraint="no future" format="dd/MM/yyyy"
+									style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;"
+									disabled="true" width="85%" />
+
+
+								<label value="Categoría" width="95%" />
+								<textbox maxlength="40" width="95%"
+									disabled="true" />
+							</row>
+							<row style="border:none">
+								<label value="Equipo" width="95%" />
+
+								<textbox maxlength="40" width="95%"
+									disabled="true" />
+
+								<label value="Número" width="95%" />
+								<textbox maxlength="2" width="15%"
+									disabled="true" />
 							</row>
 						</rows>
 					</grid>
-					<grid align="right" style="border:none;"
-						oddRowSclass="none">
-						<columns>
-							<column />
-						</columns>
+
+					<grid style="border:none" oddRowSclass="none">
 						<rows>
-							<row height="80%" align="center"
-								valign="middle" style="border:none;">
+							<row style="border:none" height="80%"
+								align="center" valign="middle">
 								<groupbox mold="3d">
-									<image id="imgJugador"
+									<image
 										src="../../Recursos/Imagenes/jug.png" height="80px"
 										width="80px" />
 								</groupbox>
 							</row>
+
 						</rows>
 					</grid>
 				</row>
 			</rows>
 		</grid>
 	</groupbox>
-	<panel title="Lesión" collapsible="true" open="true">
+	<separator height="10px" />
+	<panel title="Lesión" open="true">
 		<panelchildren>
-			<groupbox id="datoslesion">
+			<groupbox id="datoslesion" style="border-color:orange">
 				<caption label="Datos de la Lesión" />
-				<grid oddRowSclass="none">
+				<grid oddRowSclass="none" style="border:none">
 					<columns>
-						<column width="150px" />
-						<column width="150px" />
-						<column width="100px" />
-						<column width="150px" />
+						<column width="20%" />
+						<column />
+						<column width="20%" />
+						<column  />
 					</columns>
 					<rows>
-						<row>
+						<row style="border:none">
 							<label value="Actividad" />
 							<div>
 								<combobox value="-Seleccione-"
@@ -100,7 +131,7 @@
 								<label value="(*)" style="color:red" />
 							</div>
 						</row>
-						<row spans="1,3">
+						<row spans="1,3" style="border:none">
 							<label value="Lesión Diagnosticada" />
 							<div>
 								<combobox value="-Seleccione-"
@@ -113,7 +144,7 @@
 								<label value="(*)" style="color:red" />
 							</div>
 						</row>
-						<row spans="1,3">
+						<row spans="1,3" style="border:none">
 							<label value="Detalle" />
 							<div>
 								<textbox maxlength="200" height="40px"
@@ -124,61 +155,76 @@
 
 					</rows>
 				</grid>
-				<toolbar align="end">
-					<toolbarbutton
-						image="../../Recursos/Imagenes/agregar.ico" />
-					<toolbarbutton
-						image="../../Recursos/Imagenes/quitar.ico" />
-				</toolbar>
-				<grid>
+			
+
+				<grid style="border:none">
 					<columns>
-						<column label="Lesión" width="30%" />
-						<column label="Detalle" width="70%" />
+						<column width="90%" />
+						<column  />
 					</columns>
 					<rows>
-						<row>
-							<label value="Esguince" />
-							<label value="Lesión en el tobillo derecho" />
-						</row>
-						<row>
-							<label value="Fractura" />
-							<label
-								value="Fractura en la mano izquierda" />
+						<row style="border:none">
+							<grid>
+								<columns>
+									<column label="Lesión" width="30%" />
+									<column label="Detalle" width="70%" />
+								</columns>
+								<rows>
+									<row >
+										<label value="Esguince" />
+										<label
+											value="Lesión en el tobillo derecho" />
+									</row>
+									<row>
+										<label value="Fractura" />
+										<label
+											value="Fractura en la mano izquierda" />
+									</row>
+								</rows>
+							</grid>
+							<vbox>
+								<button
+									image="../../Recursos/Imagenes/agregar.ico" />
+								<button
+									image="../../Recursos/Imagenes/quitar.ico" />
+							</vbox>
 						</row>
 					</rows>
 				</grid>
+
 			</groupbox>
 
-			<groupbox>
+			<groupbox style="border-color:orange">
 				<caption label="Datos de Informe Médico" />
-				<grid oddRowSclass="none">
+				<grid oddRowSclass="none" style="border:none">
 					<columns>
-						<column width="150px" />
-						<column width="150px" />
-						<column width="100px" />
-						<column width="150px" />
-						<column width="50px" />
+						<column width="20%" />
+						<column  />
+						<column width="20%" />
+						<column  />
 					</columns>
 					<rows>
-						<row spans="1,3,1">
+						<row spans="1,3,1" style="border:none">
 							<label value=" Médico" />
+							<div>
 							<textbox maxlength="40" width="90%"
 								disabled="true" />
 
 							<button onClick=""
-									image="../../Recursos/Imagenes/consultar.ico"
-									orient="horizontal">
-									<attribute name="onClick"><![CDATA[
-										Window nuevaVentana = (Window) Executions.createComponents(
-												"Atleta/Vistas/buscarMedico.zul", null, null);
-										try {
-											nuevaVentana.doModal();
-										} catch (Exception e) {
-										}
-									]]></attribute>
-								</button>
+								image="../../Recursos/Imagenes/consultar.ico"
+								orient="horizontal">
+								<attribute name="onClick"><![CDATA[
+	Window nuevaVentana = (Window) Executions.createComponents(
+			"Atleta/Vistas/buscarMedico.zul", null, null);
+	try {
+		nuevaVentana.doModal();
+	} catch (Exception e) {
+	}
+]]></attribute>
+							</button>
+							</div>
 						</row>
-						<row>
+						<row style="border:none">
 							<label value="Fecha Informe" />
 							<div>
 								<datebox id="fechainformebox"
@@ -188,7 +234,7 @@
 							</div>
 
 							<label value="Fecha Reincorporación" />
-							<div>
+							<div style="border:none">
 								<datebox id="fechaincorporacionbox"
 									constraint="no future" format="dd/MM/yyyy"
 									style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
@@ -196,7 +242,7 @@
 							</div>
 
 						</row>
-						<row spans="1,4">
+						<row spans="1,4" style="border:none">
 
 							<label value="Documentos" />
 
@@ -231,7 +277,7 @@
 			</groupbox>
 		</panelchildren>
 	</panel>
-
+	<label value="(*) Campos obligatorios" style="color:red" />
 	<div align="right">
 		<button label="Guardar"
 			image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"
@@ -242,5 +288,5 @@
 		<button label="Salir" image="../../Recursos/Imagenes/salir.png"
 			orient="horizontal" width="100px" />
 	</div>
-	<label value="(*) Estos campos son obligatorios" style="color:red" />
+
 </window>
