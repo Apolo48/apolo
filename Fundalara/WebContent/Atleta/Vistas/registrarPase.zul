@@ -11,14 +11,12 @@
 					<column width="32%" />
 				</columns>
 				<rows>
-					<row>
-						<label value="Nro de Pase" />
+					<row style="border:none;">
+						<label value="Número Pase" />
 						<textbox width="87%" />
 						<label value="Fecha Solicitud" />
 						<textbox width="87%" />						
-					</row>
-					
-							
+					</row>						
 				</rows>
 			</grid>
 		</div>
@@ -29,8 +27,8 @@
 			<panelchildren>
 				<grid oddRowSclass="none">
 					<rows>
-					<row>					
-						<groupbox  closable="false">
+					<row style="border:none;">					
+						<groupbox style="border-color:orange"  closable="false">
 							<caption label="Datos del Jugador" />
 							<grid style="border:none;" oddRowSclass="none">
 								<columns>
@@ -40,7 +38,7 @@
 									<column	width="32%" />
 								</columns>
 								<rows>
-									<row>
+									<row style="border:none;">
 										<label value="Cédula" />
 										<div>
 											<combobox value="-" width="10%"
@@ -65,7 +63,7 @@
 										<label value="F.Nacimiento" />
 										<datebox width="78%" readonly="true" />								
 									</row>																
-									<row>
+									<row style="border:none;">
 										<label value="Nombre" />
 										<textbox width="87%" />
 										<label value="Apellido" />
@@ -76,8 +74,8 @@
 						</groupbox>										
 					</row>
 					
-					<row>					
-						<groupbox  closable="false">
+					<row style="border:none;">					
+						<groupbox style="border-color:orange"  closable="false">
 							<caption label="Datos del Representante" />
 							<grid style="border:none;" oddRowSclass="none">
 								<columns>
@@ -87,7 +85,7 @@
 									<column	width="32%" />
 								</columns>
 								<rows>
-									<row>									
+									<row style="border:none;">									
 										<label value="Cédula" />
 										<div>
 											<combobox value="-" width="10%"
@@ -116,8 +114,8 @@
 						</groupbox>										
 					</row>					
 
-					<row>					
-						<groupbox  closable="false">
+					<row style="border:none;">					
+						<groupbox style="border-color:orange"  closable="false">
 							<caption label="Datos de Donde desea jugar" />
 							<grid style="border:none;" oddRowSclass="none">
 								<columns>
@@ -127,7 +125,7 @@
 									<column	width="32%" />
 								</columns>
 								<rows>
-									<row>									
+									<row style="border:none;">									
 										<label value="Divisa" />
 										<textbox width="87%" />
 										<label value="Categoría" />
@@ -141,7 +139,7 @@
 											<comboitem label="Juvenil" />
 										</combobox>																			
 									</row>
-									<row>									
+									<row style="border:none;">									
 										<label value="Liga" />
 										<textbox width="87%" />
 										<label value="Estado" />
@@ -151,7 +149,7 @@
 											<comboitem label="Yaracuy" />
 										</combobox>								
 									</row>
-									<row>
+									<row style="border:none;">
 										<label value="Motivo Cambio" />
 										<textbox maxlength="46" rows="1"
 											width="87%" multiline="true" />
@@ -165,6 +163,7 @@
 					</row>					
 					</rows>
 				</grid>
+				<space height="10px"/>
 			</panelchildren>
 		</panel>
 		</div>
@@ -181,17 +180,17 @@
 						<column	width="32%" />
 					</columns>				
 					<rows>
-						<row>
+						<row style="border:none;">
 							<label value="Divisa"/>
 							<textbox width="87%"  readonly="true" />
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Presidente"/>
 							<textbox width="87%" readonly="true" />
 							<label value="Sec.General"/>
 							<textbox width="87%" readonly="true" />							
 						</row>						
-						<row>
+						<row style="border:none;">
 							<label value="Becado" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -205,7 +204,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>					
-						<row>
+						<row style="border:none;">
 							<label value="Tiempo en Divisa" />
 							<div>
 								<intbox width="12%" />
@@ -222,7 +221,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Divisa reforzada" />
 							<textbox width="87%" />
 							<label value="Categoría" />
@@ -236,7 +235,7 @@
 								<comboitem label="Juvenil" />
 							</combobox>
 						</row>
-						<row spans="1,3">
+						<row spans="1,3" style="border:none;">
 							<label value="Observaciones" />
 							<textbox maxlength="200" rows="1"
 								width="95%" multiline="true" />
@@ -259,21 +258,21 @@
 						<column	width="32%" />
 					</columns>				
 					<rows>
-						<row>
+						<row style="border:none;">
 							<label value="Liga"/>
 							<textbox width="87%"  readonly="true" />
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Presidente"/>
 							<textbox width="87%" readonly="true" />
 							<label value="Sec.General"/>
 							<textbox width="87%" readonly="true" />							
 						</row>						
-						<row>
+						<row style="border:none;">
 							<label value="Nueva Divisa"/>
 							<textbox width="87%" />							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Categoría" />
 							<combobox value="-Seleccione-" width="78%" readonly="true" >
 								<comboitem label="Preparatorio Nivel 1" />
@@ -287,13 +286,13 @@
 							<label value="Posición"/>
 							<textbox width="87%" />						
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Camp.Oficial Temporada"/>
 							<textbox width="87%" />
 							<label value="Total Equipos"/>
 							<textbox width="87%" />							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Cumple 3.22" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -307,7 +306,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="J.Clave Lanzador" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -321,7 +320,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Cambio de Residencia 3.26.3" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -335,7 +334,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Ha sido refuerzo" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -349,7 +348,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Participación Mínima 3.26.1" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -363,7 +362,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Regresa a la organización" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -377,7 +376,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Excepción 3.26.2" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -399,7 +398,7 @@
 								<radio label="No"/>
 							</radiogroup>
 						</row>
-						<row spans="1,3">
+						<row spans="1,3" style="border:none;">
 							<label value="Observaciones" />
 							<textbox maxlength="200" rows="1"
 								width="95%" multiline="true" />
@@ -422,29 +421,29 @@
 						<column	width="32%" />
 					</columns>				
 					<rows>
-						<row>
+						<row style="border:none;">
 							<label value="Entidad Federal"/>
 							<textbox width="87%"  readonly="true" />
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Presidente"/>
 							<textbox width="87%" readonly="true" />
 							<label value="Sec.General"/>
 							<textbox width="87%" readonly="true" />							
 						</row>						
-						<row>
+						<row style="border:none;">
 							<label value="Nueva Divisa"/>
 							<textbox width="87%" />
 							<label value="Liga"/>
 							<textbox width="87%" />															
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Ciudad"/>
 							<textbox width="87%" />
 							<label value="Entidad Federal"/>
 							<textbox width="87%" />															
 						</row>						
-						<row>
+						<row style="border:none;">
 							<label value="Jugador Clave" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -458,7 +457,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Cambia de municipio" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -472,7 +471,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Cambia de entidad federal" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -486,7 +485,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Ha sido refuerzo" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -500,7 +499,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Participación Mínima 3.26.1" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -514,7 +513,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Regresa a la organización" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -528,7 +527,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Excepción 3.26.2" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -542,7 +541,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>						
-						<row>
+						<row style="border:none;">
 							<label value="Pase autorizado" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -556,11 +555,11 @@
 								<radio label="No"/>
 							</radiogroup>
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Pase de liga nro"/>
 							<textbox width="87%" />															
 						</row>							
-						<row spans="1,3">
+						<row spans="1,3" style="border:none;">
 							<label value="Observaciones" />
 							<textbox maxlength="200" rows="1"
 								width="95%" multiline="true" />
@@ -583,21 +582,21 @@
 						<column	width="32%" />
 					</columns>				
 					<rows>
-						<row>
+						<row style="border:none;">
 							<label value="Liga"/>
 							<textbox width="87%" />
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Presidente"/>
 							<textbox width="87%" />
 							<label value="Sec.General"/>
 							<textbox width="87%" />							
 						</row>						
-						<row>
+						<row style="border:none;">
 							<label value="Nueva Divisa"/>
 							<textbox width="87%" />							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Categoría" />
 							<combobox value="-Seleccione-" width="78%" readonly="true" >
 								<comboitem label="Preparatorio Nivel 1" />
@@ -611,13 +610,13 @@
 							<label value="Posición"/>
 							<textbox width="87%" />						
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Camp.Oficial Temporada"/>
 							<textbox width="87%" />
 							<label value="Total Equipos"/>
 							<textbox width="87%" />							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Cumple 3.22" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -631,7 +630,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="J.Clave Lanzador" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -645,7 +644,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Cambio de Residencia 3.26.3" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -659,7 +658,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Ha sido refuerzo" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -673,7 +672,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Participación Mínima 3.26.1" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -687,7 +686,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Regresa a la organización" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -701,7 +700,7 @@
 								<radio label="No"/>
 							</radiogroup>							
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Excepción 3.26.2" />
 							<radiogroup>
 								<radio label="Si" checked="true" />
@@ -715,7 +714,7 @@
 								<radio label="No"/>
 							</radiogroup>
 						</row>																							
-						<row spans="1,3">
+						<row spans="1,3" style="border:none;">
 							<label value="Observaciones" />
 							<textbox maxlength="200" rows="1"
 								width="95%" multiline="true" />
@@ -738,21 +737,21 @@
 						<column	width="32%" />
 					</columns>				
 					<rows>
-						<row>
+						<row style="border:none;">
 							<label value="Entidad Federal"/>
 							<textbox width="87%" />
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Presidente"/>
 							<textbox width="87%" />
 							<label value="Sec.General"/>
 							<textbox width="87%" />							
 						</row>						
-						<row>
+						<row style="border:none;">
 							<label value="Nueva Divisa"/>
 							<textbox width="87%" />
 						</row>
-						<row>							
+						<row style="border:none;">							
 							<label value="Categoría" />
 							<combobox value="-Seleccione-" width="78%" readonly="true" >
 								<comboitem label="Preparatorio Nivel 1" />
@@ -766,13 +765,13 @@
 							<label value="Liga"/>
 							<textbox width="87%" />												
 						</row>
-						<row>
+						<row style="border:none;">
 							<label value="Municipio"/>
 							<textbox width="87%" />
 							<label value="Ciudad"/>
 							<textbox width="87%" />							
 						</row>																							
-						<row spans="1,3">
+						<row spans="1,3" style="border:none;" >
 							<label value="Observaciones" />
 							<textbox maxlength="200" rows="1"
 								width="95%" multiline="true" />
