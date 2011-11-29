@@ -12,7 +12,7 @@ import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Image;
 
 /**
- * @author Miguel
+ * @author Miguel B
  *
  */
 public class FileLoader {
