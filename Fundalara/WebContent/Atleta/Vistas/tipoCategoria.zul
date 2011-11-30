@@ -18,13 +18,13 @@
 								<label value="Nombre" />
 									<textbox width="80%" focus="true" />
 									<label value="Cantidad Equipos" />
-									<spinner width="15%" />
+									<spinner width="20%" />
 							</row>
 							<row style="border:none">
 								<label value="Edad Inferior" />
 								<div>
 									<spinner maxlength="2" value="3"
-										width="23%" />
+										width="7%" />
 									<label value="años" />
 								</div>
 									<label value="Edad Superior" />

@@ -91,162 +91,6 @@
 			</grid>
 		</groupbox>
 		<space height="10px" />
-
-		<panel title="Documentos">
-			<panelchildren>
-				<grid>
-					<columns>
-						<column width="40" label="Responsable" />
-						<column width="20%" label="Fecha Emisión" />
-						<column width="13%" label="Entregado" align="center"/>
-						<column width="18" label="Documento"
-							align="center" />
-					</columns>
-					<rows>
-						<row>
-							<label value="Médico" />
-							<datebox
-								style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
-							<checkbox />
-							<button label="Subir">
-								<attribute name="onClick"><![CDATA[
-									Object media = Fileupload.get();
-								]]></attribute>
-							</button>
-						</row>
-						<row>
-							<label value="Representante" />
-							<datebox
-								style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
-							<checkbox />
-							<button label="Subir">
-								<attribute name="onClick"><![CDATA[
-									Object media = Fileupload.get();
-								]]></attribute>
-							</button>
-						</row>
-						<row>
-							<label value="Manager" />
-							<datebox
-								style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
-							<checkbox />
-							<button label="Subir">
-								<attribute name="onClick"><![CDATA[
-									Object media = Fileupload.get();
-								]]></attribute>
-							</button>
-						</row>
-						<row>
-							<label value="Delegado" />
-							<datebox
-								style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
-							<checkbox />
-							<button label="Subir">
-								<attribute name="onClick"><![CDATA[
-									Object media = Fileupload.get();
-								]]></attribute>
-							</button>
-						</row>
-						<row>
-							<label
-								value="Presidente del Directorio de Liga" />
-							<datebox
-								style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
-							<checkbox />
-							<button label="Subir">
-								<attribute name="onClick"><![CDATA[
-									Object media = Fileupload.get();
-								]]></attribute>
-							</button>
-						</row>
-					</rows>
-				</grid>
-			</panelchildren>
-		</panel>
-		<space height="10px" />
-
-		<panel title="Especificaciones Técnicas">
-			<panelchildren>
-				<groupbox style="border-color:orange" closable="false">
-					<caption label="Ofensiva" />
-					<grid>
-						<columns>
-							<column label="Al día de hoy" width="40%" align="center" />
-							<column label="VB" width="10%" align="center" tooltip="VB" />
-							<column label="HC" width="10%" align="center" tooltip="HC" />
-							<column label="2B" width="10%" align="center" tooltip="doB" />
-							<column label="3B" width="10%" align="center" tooltip="triB" />
-							<column label="HR" width="10%" align="center" tooltip="HR" />
-							<column label="AVG" width="10%" align="center" tooltip="AVG" />
-						</columns>
-						<rows>
-							<row>
-								<label value="25/11/2011" />
-								<label value="75" />
-								<label value="20" />
-								<label value="10" />
-								<label value="7" />
-								<label value="13" />
-								<label value=".240" />
-							</row>
-						</rows>
-					</grid>
-				</groupbox>
-
-				<groupbox style="border-color:orange" closable="false">
-					<caption label="Defensiva" />
-					<grid>
-						<columns>
-							<column label="Al día de hoy" width="40%" align="center" />
-							<column label="LE" width="12%" align="center" tooltip="LE" />
-							<column label="E" width="12%" align="center" tooltip="E" />
-							<column label="ASIS" width="12%" align="center" tooltip="ASIS" />
-							<column label="DP" width="12%" align="center" tooltip="DP" />
-							<column label="PFIL" width="12%" align="center" tooltip="PFIL" />
-						</columns>
-						<rows>
-							<row>
-								<label value="25/11/2011" />
-								<label value="25" />
-								<label value="16" />
-								<label value="27" />
-								<label value="17" />
-								<label value="66%" />
-							</row>
-						</rows>
-					</grid>
-				</groupbox>
-
-				<groupbox style="border-color:orange" closable="false">
-					<caption label="Pitcheo" />
-					<grid>
-						<columns>
-							<column label="Al día de hoy" width="40%" align="center" />
-							<column label="JG" width="8%" align="center" tooltip="JG" />
-							<column label="JP" width="8%" align="center" tooltip="JP" />
-							<column label="JS" width="8%" align="center" tooltip="JS" />
-							<column label="K" width="8%" align="center" tooltip="KK" />
-							<column label="BB" width="8%" align="center" tooltip="BxB" />
-							<column label="EFE" width="8%" align="center" tooltip="EFE" />
-							<column label="WHIP" width="12%" align="center" tooltip="WHIP" />
-						</columns>
-						<rows>
-							<row>
-								<label value="25/11/2011" />
-								<label value="15" />
-								<label value="13" />
-								<label value="7" />
-								<label value="24" />
-								<label value="12" />
-								<label value=".280 " />
-								<label value="5" />
-							</row>
-						</rows>
-					</grid>
-				</groupbox>
-			</panelchildren>
-		</panel>
-		<space height="10px" />
 		
 		<panel title="Datos Cambio">
 			<panelchildren>
@@ -481,6 +325,162 @@
 		</panel>
 		<space height="10px" />
 
+		<panel title="Documentos">
+			<panelchildren>
+				<grid>
+					<columns>
+						<column width="40" label="Responsable" />
+						<column width="20%" label="Fecha Emisión" />
+						<column width="13%" label="Entregado" align="center"/>
+						<column width="18" label="Documento"
+							align="center" />
+					</columns>
+					<rows>
+						<row>
+							<label value="Médico" />
+							<datebox
+								style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
+							<checkbox />
+							<button label="Subir">
+								<attribute name="onClick"><![CDATA[
+									Object media = Fileupload.get();
+								]]></attribute>
+							</button>
+						</row>
+						<row>
+							<label value="Representante" />
+							<datebox
+								style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
+							<checkbox />
+							<button label="Subir">
+								<attribute name="onClick"><![CDATA[
+									Object media = Fileupload.get();
+								]]></attribute>
+							</button>
+						</row>
+						<row>
+							<label value="Manager" />
+							<datebox
+								style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
+							<checkbox />
+							<button label="Subir">
+								<attribute name="onClick"><![CDATA[
+									Object media = Fileupload.get();
+								]]></attribute>
+							</button>
+						</row>
+						<row>
+							<label value="Delegado" />
+							<datebox
+								style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
+							<checkbox />
+							<button label="Subir">
+								<attribute name="onClick"><![CDATA[
+									Object media = Fileupload.get();
+								]]></attribute>
+							</button>
+						</row>
+						<row>
+							<label
+								value="Presidente del Directorio de Liga" />
+							<datebox
+								style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
+							<checkbox />
+							<button label="Subir">
+								<attribute name="onClick"><![CDATA[
+									Object media = Fileupload.get();
+								]]></attribute>
+							</button>
+						</row>
+					</rows>
+				</grid>
+			</panelchildren>
+		</panel>
+		<space height="10px" />
+
+		<panel title="Especificaciones Técnicas">
+			<panelchildren>
+				<groupbox style="border-color:orange" closable="false">
+					<caption label="Ofensiva" />
+					<grid>
+						<columns>
+							<column label="Al día de hoy" width="40%" align="center" />
+							<column label="VB" width="10%" align="center" tooltip="VB" />
+							<column label="HC" width="10%" align="center" tooltip="HC" />
+							<column label="2B" width="10%" align="center" tooltip="doB" />
+							<column label="3B" width="10%" align="center" tooltip="triB" />
+							<column label="HR" width="10%" align="center" tooltip="HR" />
+							<column label="AVG" width="10%" align="center" tooltip="AVG" />
+						</columns>
+						<rows>
+							<row>
+								<label value="25/11/2011" />
+								<label value="75" />
+								<label value="20" />
+								<label value="10" />
+								<label value="7" />
+								<label value="13" />
+								<label value=".240" />
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+
+				<groupbox style="border-color:orange" closable="false">
+					<caption label="Defensiva" />
+					<grid>
+						<columns>
+							<column label="Al día de hoy" width="40%" align="center" />
+							<column label="LE" width="12%" align="center" tooltip="LE" />
+							<column label="E" width="12%" align="center" tooltip="E" />
+							<column label="ASIS" width="12%" align="center" tooltip="ASIS" />
+							<column label="DP" width="12%" align="center" tooltip="DP" />
+							<column label="PFIL" width="12%" align="center" tooltip="PFIL" />
+						</columns>
+						<rows>
+							<row>
+								<label value="25/11/2011" />
+								<label value="25" />
+								<label value="16" />
+								<label value="27" />
+								<label value="17" />
+								<label value="66%" />
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+
+				<groupbox style="border-color:orange" closable="false">
+					<caption label="Pitcheo" />
+					<grid>
+						<columns>
+							<column label="Al día de hoy" width="40%" align="center" />
+							<column label="JG" width="8%" align="center" tooltip="JG" />
+							<column label="JP" width="8%" align="center" tooltip="JP" />
+							<column label="JS" width="8%" align="center" tooltip="JS" />
+							<column label="K" width="8%" align="center" tooltip="KK" />
+							<column label="BB" width="8%" align="center" tooltip="BxB" />
+							<column label="EFE" width="8%" align="center" tooltip="EFE" />
+							<column label="WHIP" width="12%" align="center" tooltip="WHIP" />
+						</columns>
+						<rows>
+							<row>
+								<label value="25/11/2011" />
+								<label value="15" />
+								<label value="13" />
+								<label value="7" />
+								<label value="24" />
+								<label value="12" />
+								<label value=".280 " />
+								<label value="5" />
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+			</panelchildren>
+		</panel>
+		<space height="10px" />
+		
 		<div align="right">
 			<button id="btnGuardar" label="Guardar"
 				image="/Recursos/Imagenes/guardar.ico" orient="horizontal"

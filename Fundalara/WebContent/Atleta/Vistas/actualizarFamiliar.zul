@@ -1,6 +1,7 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 
 <window title="Actualizar Familiar" id="win" border="normal"
+	apply="vista.atleta.ActualizarFamiliarCtrl"
 	closable="true">
 	<groupbox style="border-color:orange">
 		<caption style="font-weight: bold" label="Jugador" />
@@ -23,7 +24,7 @@
 								<label value="Cédula" />
 								<div>
 									<combobox value="-" width="4%"
-										readonly="true">
+										readonly="true" focus="true">
 										<comboitem label="V" />
 										<comboitem label="E" />
 									</combobox>
@@ -107,7 +108,7 @@
 			<column width="10%" />
 		</columns>
 		<rows>
-			<row style="border:none;">
+			<row spans="2" style="border:none;">
 				<grid id="gridFamiliares">
 					<columns>
 						<column label="Cédula" width="15%" />
@@ -177,10 +178,10 @@
 										<grid style="border:none;"
 											oddRowSclass="none">
 											<columns>
-												<column width="20%" />
+												<column width="22%" />
 												<column width="30%" />
-												<column width="20%" />
-												<column width="30%" />
+												<column width="26%" />
+												<column  />
 											</columns>
 											<rows>
 												<row
@@ -197,11 +198,11 @@
 																label="E" />
 														</combobox>
 														<intbox
-															constraint="no negative" width="50%" />
+															constraint="no negative" width="51%" />
 														<label
 															value="(*)" style="color:red" />
 													</div>
-													<label value="RIF" />
+													<!--label value="RIF" />
 													<div>
 														<combobox
 															value="-" width="10%" readonly="true">
@@ -213,7 +214,7 @@
 														<textbox
 															width="52%">
 														</textbox>
-													</div>
+													</div-->
 												</row>
 												<row
 													style="border:none;">
@@ -229,7 +230,7 @@
 													<label
 														value="Segundo Nombre" />
 													<textbox
-														width="80%">
+														width="95%">
 													</textbox>
 
 												</row>
@@ -247,7 +248,7 @@
 													<label
 														value="Segundo Apellido" />
 													<textbox
-														width="80%">
+														width="95%">
 													</textbox>
 												</row>
 
@@ -258,7 +259,7 @@
 														value="Parentesco" />
 													<div>
 														<combobox
-															readonly="true" value="--Seleccione--" width="65%">
+															readonly="true" value="--Seleccione--" width="67%">
 															<comboitem
 																label="Abuelo(a)" />
 															<comboitem
@@ -278,27 +279,10 @@
 															value="(*)" style="color:red" />
 													</div>
 													<label
-														value="Función" />
-													<combobox
-														readonly="true" value="--Seleccione--" width="75%"
-														tooltiptext="Función del familiar en la Escuela">
-														<comboitem
-															label="Directivo" />
-														<comboitem
-															label="Técnico" />
-														<comboitem
-															label="Ninguno" />
-													</combobox>
-
-												</row>
-												<row
-													style="border:none;">
-
-													<label
 														value="Profesión/ Ocupación" />
 													<div>
 														<combobox
-															readonly="true" value="--Seleccione--" width="65%">
+															readonly="true" value="--Seleccione--" width="80%">
 															<comboitem
 																label="Abogado" />
 															<comboitem
@@ -375,8 +359,23 @@
 																label="Licenciado" />
 															<comboitem
 																label="Médico" />
-														</combobox>
-													</div>
+														</combobox>		
+													</div>											
+												</row>
+												<row
+													style="border:none;">
+													<label
+														value="Función" />
+													<combobox
+														readonly="true" value="--Seleccione--" width="70%"
+														tooltiptext="Función del familiar en la Escuela">
+														<comboitem
+															label="Directivo" />
+														<comboitem
+															label="Técnico" />
+														<comboitem
+															label="Ninguno" />
+													</combobox>							
 												</row>
 											</rows>
 										</grid>
@@ -396,8 +395,7 @@
 												</row>
 												<row
 													style="border:none;" height="20%" align="center">
-													<button
-														id="btnFotoFamiliar"
+													<button	id="btnFotoFamiliar" tooltiptext="Cargar Foto"
 														image="../../Recursos/Imagenes/foto.png">
 													</button>
 												</row>

@@ -1,26 +1,22 @@
 <?page title="Buscador de Medicos"?>
 <zk xmlns:c="client">
-	<window id="win" title="Buscador de Médico" border="normal" width="500px"
+	<window id="win" title="Buscar Médico" border="normal" width="510px"
 		closable="true">
 	
-		<groupbox >
 		<listbox mold="paging" pageSize="10"
 							width="490px">
 		<attribute name="onSelect"><![CDATA[
-									win.detach();
-								]]></attribute>
+			win.detach();
+		]]></attribute>
 			<auxhead sclass="category-center">
-			 <auxheader label="Listado Médicos" colspan="4"></auxheader>
+			 <auxheader label="Listado Médicos" colspan="4" align="center"/>
 			</auxhead>
-			
 			<listhead>
 			    <listheader width="22%" align="center">Matrícula</listheader>
-				<listheader width="28%" align="center">Número Colegio</listheader>
-				<listheader width="28%" >Nombre</listheader>
-				<listheader width="25%" >Apellido</listheader>
-				
+				<listheader width="23%" align="center">Número Colegio</listheader>
+				<listheader width="29%" >Nombre</listheader>
+				<listheader width="29%" >Apellido</listheader>
 			</listhead>
-			
 			<auxhead>
 				<auxheader colspan="1">
 					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
@@ -117,14 +113,13 @@
 				<listcell></listcell>
 			</listitem>
 		</listbox>
-		</groupbox>
 
 			<div align="right">
 				<button label="Salir"
 					image="/Recursos/Imagenes/salir.png">
 					<attribute name="onClick"><![CDATA[
-									win.detach();
-								]]></attribute>
+						win.detach();
+					]]></attribute>
 				</button>
 			</div>
 	

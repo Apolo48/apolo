@@ -16,12 +16,13 @@
 			public void changeWindowRA() {
 				String valor = tipoI.getSelectedItem().getValue();
 				enlace("");
-				imprimir.setDisabled(true);
 				if (Objects.equals(valor, "1")) {
-					//tipoA.setButtonVisible(true); // 
+					//tipoA.setButtonVisible(true); //
+					imprimir.setDisabled(true);
 					tipoA.setVisible(true);
 					tipoC.setVisible(true);
 				} else {
+					imprimir.setDisabled(false);
 					tipoA.setVisible(false);
 					tipoC.setVisible(false);
 					enlace("Atleta/Vistas/consultarHospedajeRepresentante.zul");

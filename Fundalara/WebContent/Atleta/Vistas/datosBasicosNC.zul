@@ -2,189 +2,539 @@
 <div align="center">
 	<separator height="15px" />
 	<window closable="true" title="Datos Basicos" border="normal"
-		width="690px" height="">
+		width="320px" height="">
+		<zscript>
+							<![CDATA[
+	//@IMPORT
+	import org.zkoss.lang.Strings;
+	import org.zkoss.lang.Objects;
+	import javax.swing.JOptionPane;
+	import javax.swing.JDialog;
+	import javax.swing.JComboBox;
+]]><![CDATA[
+	//@DECLARATION
+	public void enlace(String cad) {
+		cuerpo.setSrc(cad);
+	}
+]]>
+
+</zscript>
+
 		<grid>
 			<rows>
 				<row>
-					<hbox height="30px" align="center">
-						<label value="Tipo de Dato " width="140px" />
-						<space />
-						<combobox value="--Seleccione--"
-							width="140px">
-							<comboitem label="Actividad" />
-							<comboitem label="Año Escolar" />
-							<comboitem label="Categoría" />
-							<comboitem label="Clasificación Equipo" />
-							<comboitem label="Curso" />
-							<comboitem label="Enfermedad" />
-							<comboitem label="Función" />
-							<comboitem label="Horario" />
-							<comboitem label="Lesión" />
-							<comboitem label="Logros Deportivos" />
-							<comboitem label="Motivo Sanción" />
-							<comboitem label="Parentesco" />
-							<comboitem label="Profesión/Ocupación" />
-							<comboitem label="Recaudos" />
-							<comboitem label="Parentesco" />
-							<comboitem label="Profesión/Ocupación" />
-							<comboitem label="Recaudos" />
-							<comboitem label="Tipo Código Telefónico" />
-							<comboitem label="Tipo Indumentaria" />
-							<comboitem label="Tipo Inscripción" />
-							<comboitem label="Tipo Institución" />
-							<comboitem label="Tipo Sanción" />
-							<comboitem label="Turno" />
-						</combobox>
-					</hbox>
+					<grid>
+						<columns>
+							<column width="110px" align="left" />
+							<column width="160px" align="center" />
+						</columns>
+						<rows>
+							<row height="30px">
+								<label value="Tipo de Dato"
+									width="140px" />
+								<combobox id="cmbTipo"
+									value="--Seleccione--" width="140px">
+									<comboitem label="Actividad"
+										value="Actividad" />
+									<comboitem label="Categoría"
+										value="Categoria" />
+									<comboitem label="Código de Área"
+										value="CodigoArea" />
+									<comboitem label="Código de Celular"
+										value="CodigoCelular" />
+									<comboitem label="Comisión"
+										value="Comision" />
+									<comboitem label="Competencia"
+										value="Competencia" />
+									<comboitem label="Concepto"
+										value="Concepto" />
+									<comboitem label="Curso"
+										value="Curso" />
+									<comboitem label="Falta"
+										value="Falta" />
+									<comboitem label="Función"
+										value="Funcion" />
+									<comboitem label="Grupo Sanguíneo"
+										value="GrupoSanguineo" />
+								
+									<comboitem label="Lesion"
+										value="Lesion" />
+									<comboitem label="Logro Deportivo"
+										value="Logro" />
+									<comboitem label="Médico"
+										value="Medico" />
+									<comboitem label="Nacionalidad"
+										value="Nacionalidad" />
+									<comboitem label="Parentesco"
+										value="Parentesco" />
+									<comboitem
+										label="Profesión/Ocupación" value="Profesion" />
+									<comboitem label="Recaudo"
+										value="Recaudo" />
+									<comboitem label="Sanción"
+										value="Sancion" />
+									<comboitem label="Talla de Calzado"
+										value="TallaCalzado" />
+									<comboitem label="Talla de Camisa"
+										value="TallaCamisa" />
+									<comboitem label="Talla de Pantalon"
+										value="TallaPantalon" />
+									<comboitem label="Tipo de Alumno"
+										value="TipoAlumno" />
+									<comboitem label="Tipo de Equipo"
+										value="TipoEquipo" />
+									<comboitem
+										label="Tipo de Inscripción" value="TipoInscripcion" />
+									<comboitem
+										label="Tipo de Institución" value="TipoInstitucion" />
+								</combobox>
+							</row>
+						</rows>
+					</grid>
 				</row>
 				<row>
 					<hbox>
-
-						<grid mold="paging" pageSize="10"
-							width="625px">
-							<auxhead>
-								<auxheader align="center"
-									label="Nombre" />
-								<auxheader align="center"
-									label="Descripción" />
-								<auxheader align="center" label="Fecha" />
-								<auxheader align="center" label="Hora" />
-								<auxheader align="center"
-									label="Registrado por" />
-							</auxhead>
-							
-							<columns>
-								<column width="140px" align="center">
-									<hbox align="center">
-										<image
-											src="../Recursos/Imagenes/filtro.png" />
-										<textbox width="110px"
-											height="20px" />
-									</hbox>
-								</column>
-								<column width="160px" align="center">
-									<hbox align="center">
-										<image
-											src="../Recursos/Imagenes/filtro.png" />
-										<textbox width="120px"
-											height="20px" />
-									</hbox>
-								</column>
-								<column width="110px" align="center">
-									<datebox width="80px" height="20px" />
-								</column>
-								<column width="80px" align="center">
-									<hbox align="center">
-										<timebox width="50px"
-											height="20px" />
-									</hbox>
-								</column>
-								<column width="130px" align="center">
-									<hbox align="center">
-										<textbox width="120px"
-											height="20px" />
-									</hbox>
-								</column>
+						<grid height="280px" width="280px">
+							<columns sizable="true">
+								<column width="260px" align="center" />
 							</columns>
 							<rows>
-								<row height="25px">
-									<label value="Calentamiento" />
-									<label />
-									<label />
-									<label />
-									<label />
-								</row>
-								<row height="25px">
-									<label value="Tecnico" />
-									<label />
-									<label />
-									<label />
-									<label />
-								</row>
-								<row height="25px">
-									<label value="Enfriamiento" />
-									<label />
-									<label />
-									<label />
-									<label />
-								</row>
-								<row height="25px">
-									<label value="" />
-									<label />
-									<label />
-									<label />
-									<label />
-								</row>
-								<row height="25px">
-									<label />
-									<label />
-									<label />
-									<label />
-									<label />
-								</row>
-								<row height="25px">
-									<label value="" />
-									<label />
-									<label />
-									<label />
-									<label />
-								</row>
-								<row height="25px">
-									<label />
-									<label />
-									<label />
-									<label />
-									<label />
-								</row>
-								<row height="25px">
-									<label value="" />
-									<label />
-									<label />
-									<label />
-									<label />
-								</row>
-								<row height="25px">
-									<label />
-									<label />
-									<label />
-									<label />
-									<label />
-								</row>
-								<row height="25px">
-									<label value="" />
-									<label />
-									<label />
-									<label />
-									<label />
-								</row>
-								<row height="25px">
+								<row>
+									<toolbar align="end">
+										<toolbarbutton id="agregar"
+											image="../../Recursos/Imagenes/agregar.ico"
+											orient="horizontal"><attribute name="onClick">
+												<![CDATA[
+	if (cmbTipo.getSelectedItem().getValue().equals("Actividad")) {
+		Window nuevaVentana = (Window) Executions.createComponents(
+				"Atleta/Vistas/tipoActividad.zul", null, null);
+		try {
+			nuevaVentana.doModal();
+		} catch (Exception e) {
+		}
+	} else {
+		if (cmbTipo.getSelectedItem().getValue().equals("CodigoArea")) {
+			Window nuevaVentana = (Window) Executions.createComponents(
+					"Atleta/Vistas/tipoCodigoArea.zul", null, null);
+			try {
+				nuevaVentana.doModal();
+			} catch (Exception e) {
+			}
+		} else {
+			if (cmbTipo.getSelectedItem().getValue().equals("CodigoCelular")) {
+				Window nuevaVentana = (Window) Executions.createComponents(
+						"Atleta/Vistas/tipoCodigoCelular.zul", null, null);
+				try {
+					nuevaVentana.doModal();
+				} catch (Exception e) {
+				}
+			} else {
+				if (cmbTipo.getSelectedItem().getValue().equals("Comision")) {
+					Window nuevaVentana = (Window) Executions.createComponents(
+							"Atleta/Vistas/tipoComision.zul", null, null);
+					try {
+						nuevaVentana.doModal();
+					} catch (Exception e) {
+					}
+				} else {
+					if (cmbTipo.getSelectedItem().getValue()
+							.equals("Competencia")) {
+						Window nuevaVentana = (Window) Executions
+								.createComponents(
+										"Atleta/Vistas/tipoCompetencia.zul",
+										null, null);
+						try {
+							nuevaVentana.doModal();
+						} catch (Exception e) {
+						}
+					} else {
+						if (cmbTipo.getSelectedItem().getValue()
+								.equals("Concepto")) {
+							Window nuevaVentana = (Window) Executions
+									.createComponents(
+											"Atleta/Vistas/tipoConcepto.zul",
+											null, null);
+							try {
+								nuevaVentana.doModal();
+							} catch (Exception e) {
+							}
+						} else {
+							if (cmbTipo.getSelectedItem().getValue()
+									.equals("Curso")) {
+								Window nuevaVentana = (Window) Executions
+										.createComponents(
+												"Atleta/Vistas/tipoCurso.zul",
+												null, null);
+								try {
+									nuevaVentana.doModal();
+								} catch (Exception e) {
+								}
+							} else {
+								if (cmbTipo.getSelectedItem().getValue()
+										.equals("Falta")) {
+									Window nuevaVentana = (Window) Executions
+											.createComponents(
+													"Atleta/Vistas/tipoFalta.zul",
+													null, null);
+									try {
+										nuevaVentana.doModal();
+									} catch (Exception e) {
+									}
+								} else {
+									if (cmbTipo.getSelectedItem().getValue()
+											.equals("Funcion")) {
+										Window nuevaVentana = (Window) Executions
+												.createComponents(
+														"Atleta/Vistas/tipoFuncion.zul",
+														null, null);
+										try {
+											nuevaVentana.doModal();
+										} catch (Exception e) {
+										}
+									} else {
+										if (cmbTipo.getSelectedItem()
+												.getValue()
+												.equals("GrupoSanguineo")) {
+											Window nuevaVentana = (Window) Executions
+													.createComponents(
+															"Atleta/Vistas/tipoGrupoSanguineo.zul",
+															null, null);
+											try {
+												nuevaVentana.doModal();
+											} catch (Exception e) {
+											}
+										
+										
 
-									<label />
-									<label />
-									<label />
-									<label />
-									<label />
+											} else {
+												if (cmbTipo.getSelectedItem()
+														.getValue()
+														.equals("Lesion")) {
+													Window nuevaVentana = (Window) Executions
+															.createComponents(
+																	"Atleta/Vistas/tipoLesion.zul",
+																	null, null);
+													try {
+														nuevaVentana.doModal();
+													} catch (Exception e) {
+													}
+
+												} else {
+													if (cmbTipo
+															.getSelectedItem()
+															.getValue()
+															.equals("Logro")) {
+														Window nuevaVentana = (Window) Executions
+																.createComponents(
+																		"Atleta/Vistas/tipoLogro.zul",
+																		null,
+																		null);
+														try {
+															nuevaVentana
+																	.doModal();
+														} catch (Exception e) {
+														}
+
+													} else {
+														if (cmbTipo
+																.getSelectedItem()
+																.getValue()
+																.equals("Nacionalidad")) {
+															Window nuevaVentana = (Window) Executions
+																	.createComponents(
+																			"Atleta/Vistas/tipoNacionalidad.zul",
+																			null,
+																			null);
+															try {
+																nuevaVentana
+																		.doModal();
+															} catch (Exception e) {
+															}
+
+														} else {
+															if (cmbTipo
+																	.getSelectedItem()
+																	.getValue()
+																	.equals("Parentesco")) {
+																Window nuevaVentana = (Window) Executions
+																		.createComponents(
+																				"Atleta/Vistas/tipoParentesco.zul",
+																				null,
+																				null);
+																try {
+																	nuevaVentana
+																			.doModal();
+																} catch (Exception e) {
+																}
+
+															} else {
+																if (cmbTipo
+																		.getSelectedItem()
+																		.getValue()
+																		.equals("Profesion")) {
+																	Window nuevaVentana = (Window) Executions
+																			.createComponents(
+																					"Atleta/Vistas/tipoProfesion.zul",
+																					null,
+																					null);
+																	try {
+																		nuevaVentana
+																				.doModal();
+																	} catch (Exception e) {
+																	}
+
+																} else {
+																	if (cmbTipo
+																			.getSelectedItem()
+																			.getValue()
+																			.equals("Recaudo")) {
+																		Window nuevaVentana = (Window) Executions
+																				.createComponents(
+																						"Atleta/Vistas/tipoRecaudo.zul",
+																						null,
+																						null);
+																		try {
+																			nuevaVentana
+																					.doModal();
+																		} catch (Exception e) {
+																		}
+
+																	} else {
+																		if (cmbTipo
+																				.getSelectedItem()
+																				.getValue()
+																				.equals("Sancion")) {
+																			Window nuevaVentana = (Window) Executions
+																					.createComponents(
+																							"Atleta/Vistas/tipoSancion.zul",
+																							null,
+																							null);
+																			try {
+																				nuevaVentana
+																						.doModal();
+																			} catch (Exception e) {
+																			}
+
+																		} else {
+																			if (cmbTipo
+																					.getSelectedItem()
+																					.getValue()
+																					.equals("TallaCalzado")) {
+																				Window nuevaVentana = (Window) Executions
+																						.createComponents(
+																								"Atleta/Vistas/tipoTallaCalzado.zul",
+																								null,
+																								null);
+																				try {
+																					nuevaVentana
+																							.doModal();
+																				} catch (Exception e) {
+																				}
+
+																			} else {
+																				if (cmbTipo
+																						.getSelectedItem()
+																						.getValue()
+																						.equals("TallaCamisa")) {
+																					Window nuevaVentana = (Window) Executions
+																							.createComponents(
+																									"Atleta/Vistas/tipoTallaCamisa.zul",
+																									null,
+																									null);
+																					try {
+																						nuevaVentana
+																								.doModal();
+																					} catch (Exception e) {
+																					}
+
+																				} else {
+																					if (cmbTipo
+																							.getSelectedItem()
+																							.getValue()
+																							.equals("TallaPantalon")) {
+																						Window nuevaVentana = (Window) Executions
+																								.createComponents(
+																										"Atleta/Vistas/tipoTallaPantalon.zul",
+																										null,
+																										null);
+																						try {
+																							nuevaVentana
+																									.doModal();
+																						} catch (Exception e) {
+																						}
+
+																					} else {
+																						if (cmbTipo
+																								.getSelectedItem()
+																								.getValue()
+																								.equals("TipoAlumno")) {
+																							Window nuevaVentana = (Window) Executions
+																									.createComponents(
+																											"Atleta/Vistas/tipoAlumno.zul",
+																											null,
+																											null);
+																							try {
+																								nuevaVentana
+																										.doModal();
+																							} catch (Exception e) {
+																							}
+
+																						} else {
+																							if (cmbTipo
+																									.getSelectedItem()
+																									.getValue()
+																									.equals("TipoEquipo")) {
+																								Window nuevaVentana = (Window) Executions
+																										.createComponents(
+																												"Atleta/Vistas/tipoEquipo.zul",
+																												null,
+																												null);
+																								try {
+																									nuevaVentana
+																											.doModal();
+																								} catch (Exception e) {
+																								}
+
+																							} else {
+																								if (cmbTipo
+																										.getSelectedItem()
+																										.getValue()
+																										.equals("TipoInscripcion")) {
+																									Window nuevaVentana = (Window) Executions
+																											.createComponents(
+																													"Atleta/Vistas/tipoInscripcion.zul",
+																													null,
+																													null);
+																									try {
+																										nuevaVentana
+																												.doModal();
+																									} catch (Exception e) {
+																									}
+
+																								} else {
+																									if (cmbTipo
+																											.getSelectedItem()
+																											.getValue()
+																											.equals("TipoInstitucion")) {
+																										Window nuevaVentana = (Window) Executions
+																												.createComponents(
+																														"Atleta/Vistas/tipoInstitucion.zul",
+																														null,
+																														null);
+																										try {
+																											nuevaVentana
+																													.doModal();
+																										} catch (Exception e) {
+																										}
+
+
+																								} else {
+																									if (cmbTipo
+																											.getSelectedItem()
+																											.getValue()
+																											.equals("Categoria")) {
+																										Window nuevaVentana = (Window) Executions
+																												.createComponents(
+																														"Atleta/Vistas/tipoCategoria.zul",
+																														null,
+																														null);
+																										try {
+																											nuevaVentana
+																													.doModal();
+																										} catch (Exception e) {
+																										}
+
+
+																								} else {
+																									if (cmbTipo
+																											.getSelectedItem()
+																											.getValue()
+																											.equals("Medico")) {
+																										Window nuevaVentana = (Window) Executions
+																												.createComponents(
+																														"Atleta/Vistas/tipoMedico.zul",
+																														null,
+																														null);
+																										try {
+																											nuevaVentana
+																													.doModal();
+																										} catch (Exception e) {
+																										}
+
+																									} else
+																										JOptionPane
+																												.showMessageDialog(
+																														null,
+																														"Seleccione un tipo dato");
+																								}
+																								}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	
+]]>
+											</attribute>
+										</toolbarbutton>
+										<toolbarbutton id="editar"
+											image="../../Recursos/Imagenes/editar.ico" orient="horizontal" />
+										<toolbarbutton id="quitar"
+											image="../../Recursos/Imagenes/quitar.ico" orient="horizontal" />
+									</toolbar>
 								</row>
-								<row height="25px">
-									<label />
-									<label />
-									<label />
-									<label />
-									<label />
+								<row>
+									<listbox>
+										<listhead sizable="true">
+											<listheader sort="auto"
+												width="245px" align="center">
+												<bandbox width="230px" />
+											</listheader>
+										</listhead>
+										<listitem>
+											<listcell label="Madre" />
+										</listitem>
+										<listitem>
+											<listcell label="Padre" />
+										</listitem>
+										<listitem>
+											<listcell
+												label="Hermano(a)" />
+										</listitem>
+										<listitem>
+											<listcell label="Tío(a)" />
+										</listitem>
+										<listitem>
+											<listcell label="Abuelo(a)" />
+										</listitem>
+										<listitem>
+											<listcell label="Primo(a)" />
+										</listitem>
+										<listitem>
+											<listcell label="Vecino(a)" />
+										</listitem>
+									</listbox>
 								</row>
 							</rows>
 						</grid>
-
-						<vbox height="50px">							
-							<button
-								image="../../Recursos/Imagenes/agregar.ico"  />
-							<separator height="5px" />
-							<button
-								image="../../Recursos/Imagenes/editar.ico"  />
-							<separator height="5px" />
-							<button
-								image="../../Recursos/Imagenes/quitar.ico"/>
-						</vbox>
 					</hbox>
 				</row>
 			</rows>
@@ -192,13 +542,10 @@
 		<separator />
 		<grid>
 			<columns>
-				<column width="345px" align="center" />
-				<column width="120px" align="center" />
-				<column width="120px" align="center" />
+				<column width="145px" align="center" />
 			</columns>
 			<rows>
 				<row height="15px">
-					<label value="" />
 					<button image="../../Recursos/Imagenes/cancelar.ico"
 						label="Cancelar" width="110px" />
 					<button image="../../Recursos/Imagenes/salir.png"
@@ -207,4 +554,5 @@
 			</rows>
 		</grid>
 	</window>
+	<include id="cuerpo" />
 </div>

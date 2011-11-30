@@ -60,7 +60,7 @@
 												]]></attribute>
 											</button>												
 										</div>
-										<label value="F.Nacimiento" />
+										<label value="Fecha Nacimiento" />
 										<datebox width="78%" readonly="true" />								
 									</row>																
 									<row style="border:none;">

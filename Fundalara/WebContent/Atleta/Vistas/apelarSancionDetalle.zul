@@ -3,7 +3,7 @@
 	<window title="Apelar" border="normal" width="620px"
 		closable="true">
 		<groupbox style="border-color:orange" closable="false">
-			<caption label="Datos de Sancíon" />
+			<caption label="Datos de Sanción" />
 
 			<grid style="border:none;" oddRowSclass="none">
 				<columns>

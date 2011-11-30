@@ -27,7 +27,7 @@
 				</grid>
 				<grid>
 					<columns>
-						<column label="Nombre de los Jugadores" width="40%" />
+						<column label="Jugadores" width="40%" />
 						<column label="Categoría" width="40%" />
 					</columns>
 					<rows>

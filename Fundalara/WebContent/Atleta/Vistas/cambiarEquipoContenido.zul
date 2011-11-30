@@ -22,7 +22,7 @@
 											image="../../Recursos/Imagenes/aceptar.ico">
 											<attribute name="onClick"><![CDATA[
 											Window nuevaVentana = (Window) Executions.createComponents(
-											"/Atleta/Vista/cambiarEquipoDetalle.zul", null, null);
+											"/Atleta/Vistas/cambiarEquipoDetalle.zul", null, null);
 											try {
 												nuevaVentana.doModal();
 											} catch (Exception e) {
@@ -40,7 +40,7 @@
 											image="../../Recursos/Imagenes/aceptar.ico">
 											<attribute name="onClick"><![CDATA[
 											Window nuevaVentana = (Window) Executions.createComponents(
-											"/Atleta/Vista/cambiarEquipoDetalle.zul", null, null);
+											"/Atleta/Vistas/cambiarEquipoDetalle.zul", null, null);
 											try {
 												nuevaVentana.doModal();
 											} catch (Exception e) {
@@ -58,7 +58,7 @@
 											image="../../Recursos/Imagenes/aceptar.ico">
 											<attribute name="onClick"><![CDATA[
 											Window nuevaVentana = (Window) Executions.createComponents(
-											"/Atleta/Vista/cambiarEquipoDetalle.zul", null, null);
+											"/Atleta/Vistas/cambiarEquipoDetalle.zul", null, null);
 											try {
 												nuevaVentana.doModal();
 											} catch (Exception e) {

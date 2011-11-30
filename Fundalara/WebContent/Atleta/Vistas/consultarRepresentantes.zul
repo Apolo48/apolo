@@ -18,18 +18,13 @@
 				enlace("");
 				if (Objects.equals(valor, "1")) {
 					imprimir.setDisabled(true);
-					tipoB.setVisible(false);
-					tipoD.setVisible(false);
-					tipoE.setVisible(false);
 					tipoA.setVisible(true);
 					tipoC.setVisible(true);
 				} else {
-					imprimir.setDisabled(true);
+					imprimir.setDisabled(false);
 					tipoA.setVisible(false);
 					tipoC.setVisible(false);
-					tipoB.setVisible(true);
-					tipoD.setVisible(true);
-					tipoE.setVisible(true);
+					enlace("Atleta/Vistas/ConsultarRepresentantesIndividual.zul");
 				}
 			}
 			public void changeWindow() {
@@ -64,18 +59,9 @@
 						</combobox>
 				</hbox>
 				<hbox>
-						<label id="tipoB" visible="false" >Cédula Representante</label>
 						<label id="tipoC" visible="false" >Categoría</label>
 				</hbox>
 				<hbox>
-						<textbox width="85%" id="tipoD" visible="false"></textbox>
-						<button visible="false" id="tipoE" onClick=""
-							image="../../Recursos/Imagenes/consultar.ico">
-							<attribute name="onClick"><![CDATA[
-							enlace("Atleta/Vistas/ConsultarRepresentantesIndividual.zul");
-							imprimir.setDisabled(false);
-							]]></attribute>
-						</button>
 						<combobox value="-Seleccione-" width="90%"
 							id="tipoA" visible="false" onChange="changeWindow()">
 							<comboitem label="Todos"></comboitem>

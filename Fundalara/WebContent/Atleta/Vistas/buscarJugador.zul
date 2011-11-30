@@ -1,5 +1,5 @@
 <zk xmlns:c="client">
-	<window id="win2" title="Buscar Jugador" border="normal" width="62%"
+	<window id="win2" title="Buscar Jugador" border="normal" width="500px"
 		closable="true">
 		<!-- NO crear estilos dentro de los .zul -->
 
@@ -37,17 +37,17 @@
 		<separator></separator>
 		<listbox mold="paging" pageSize="10">
 			<attribute name="onSelect"><![CDATA[
-	win2.detach();
-]]></attribute>
+				win2.detach();
+			]]></attribute>
 			<auxhead sclass="category-center">
 				<auxheader label="Listado Equipo" colspan="4"
 					align="center">
 				</auxheader>
 			</auxhead>
 			<listhead>
-				<listheader width="28%" label="Cédula" />
-				<listheader width="28%" label="Nombre" />
-				<listheader width="28%" label="Apellido" />
+				<listheader width="20%" label="Cédula" />
+				<listheader width="32%" label="Nombre" />
+				<listheader width="32%" label="Apellido" />
 				<listheader width="16%" label="Número" align="center" />
 			</listhead>
 			<auxhead width="100%">
@@ -96,8 +96,8 @@
 		<div align="right">
 			<button label="Salir" image="Recursos/Imagenes/salir.png">
 				<attribute name="onClick"><![CDATA[
-	win2.detach();
-]]></attribute>
+					win2.detach();
+				]]></attribute>
 			</button>
 		</div>
 
