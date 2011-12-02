@@ -3,10 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <!--
-    Created by Artisteer v3.0.0.32906
-    Base template (without user's data) checked by http://validator.w3.org : "This page is valid XHTML 1.0 Transitional"
-    -->
+   
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Sistema E.B.M Fundalara </title>
     <link rel="stylesheet" href="Recursos/Estilos/style.css" type="text/css" media="screen" />
