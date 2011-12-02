@@ -97,28 +97,6 @@
 												<treecell label="Actualizar" onClick='enlace("Atleta/Vistas/actualizarJugador.zul")'/>
 											</treerow>
 										</treeitem>
-										<treeitem open="false">
-											<treerow>
-												<treecell label="Lesionados" onClick='enlace("Atleta/Vistas/registrarLesionado.zul")'/>
-											</treerow>
-										</treeitem>
-										<treeitem open="true">
-											<treerow>
-												<treecell label="Sanción" />
-											</treerow>
-											<treechildren>
-												<treeitem>
-													<treerow>
-														<treecell label="Registrar" onClick='enlace("Atleta/Vistas/registrarSanciones.zul")'/>
-													</treerow>
-												</treeitem>
-												<treeitem>
-													<treerow>
-														<treecell label="Apelar" onClick='enlace("Atleta/Vistas/apelarSancion.zul")'/>
-													</treerow>
-												</treeitem>
-												</treechildren>
-										</treeitem>
 										<treeitem open="true">
 											<treerow>
 												<treecell label="Ascenso de Categoría"/>
