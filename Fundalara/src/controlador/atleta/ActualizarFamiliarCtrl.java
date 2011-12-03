@@ -1,9 +1,10 @@
-package vista.atleta;
+package controlador.atleta;
 
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Image;
 
-import vista.comun.FileLoader;
+import comun.FileLoader;
+
 
 public class ActualizarFamiliarCtrl extends GenericForwardComposer{
 	private Image imgFamiliar;

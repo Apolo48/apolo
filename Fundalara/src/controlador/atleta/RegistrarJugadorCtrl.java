@@ -1,4 +1,4 @@
-package vista.atleta;
+package controlador.atleta;
 
 import java.util.Date;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -11,8 +11,9 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
 
-import vista.comun.FileLoader;
-import vista.comun.Util;
+import comun.FileLoader;
+import comun.Util;
+
 
 /**
  * Clase controladora de los eventos de la vista de igual nombre.

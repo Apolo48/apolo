@@ -1,7 +1,7 @@
 <?page title="Registrar Jugador"?>
 <div align="left">
 	<window border="none" width="670px" height="800px"
-		apply="vista.atleta.RegistrarJugadorCtrl">
+		apply="controlador.atleta.RegistrarJugadorCtrl">
 		<tabbox id="pestanas">
 			<tabs>
 				<tab label="Paso 01- Registro Jugador" id="tabRA" />

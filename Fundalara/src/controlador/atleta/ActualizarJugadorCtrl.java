@@ -1,4 +1,4 @@
-package vista.atleta;
+package controlador.atleta;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -12,7 +12,8 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.*;
 
-import vista.comun.FileLoader;
+import comun.FileLoader;
+
 
 
 public class ActualizarJugadorCtrl extends GenericForwardComposer {

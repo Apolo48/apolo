@@ -1,6 +1,5 @@
-package vista.atleta;
+package controlador.atleta;
 
-import vista.comun.Util;
 import java.util.Date;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
@@ -9,6 +8,8 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
+
+import comun.Util;
 
 /**
  * Clase controladora de los eventos de la vista Plan Vacacional.

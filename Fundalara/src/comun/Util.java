@@ -1,7 +1,7 @@
 /**
  * 
  */
-package vista.comun;
+package comun;
 
 
 import java.util.Calendar;

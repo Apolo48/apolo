@@ -1,10 +1,11 @@
-package vista.atleta;
+package controlador.atleta;
 
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Include;
 
-import vista.comun.Util;
+import comun.Util;
+
 
 public class InscribirJugadorCtrl extends GenericForwardComposer {
 	private Combobox cmbTipoInscrip;

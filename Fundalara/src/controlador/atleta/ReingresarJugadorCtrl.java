@@ -1,4 +1,4 @@
-package vista.atleta;
+package controlador.atleta;
 
 
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -9,9 +9,9 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
 
+import comun.FileLoader;
+import comun.Util;
 
-import vista.comun.FileLoader;
-import vista.comun.Util;
 
 public class ReingresarJugadorCtrl extends GenericForwardComposer {
 	private Button btnGuardar;

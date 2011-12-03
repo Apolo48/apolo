@@ -1,4 +1,4 @@
-package vista.comun;
+package comun;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
