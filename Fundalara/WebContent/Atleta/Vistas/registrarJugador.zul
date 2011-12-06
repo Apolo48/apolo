@@ -5,8 +5,7 @@
 <zscript>
 <![CDATA[ 
   List cursos = servicioCurso.buscar();
-  
-   String[] data = new String[]{"a","b","c"};
+
 
 ]]>
 </zscript>
