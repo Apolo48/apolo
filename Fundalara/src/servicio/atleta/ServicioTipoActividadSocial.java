@@ -1,20 +1,20 @@
 package servicio.atleta;
 
-import dao.general.GenericDAO;
+import dao.atleta.DaoTipoActividadSocial;
 import modelo.TipoActividadSocial;
 
 public class ServicioTipoActividadSocial implements
 		IServicioTipoActividadSocial {
 
 	
-	GenericDAO daoP;
+	DaoTipoActividadSocial daoTipoActividadSocial;
 	
-	public GenericDAO getDaoP() {
-		return daoP;
+	public DaoTipoActividadSocial getDaoActividadSocial() {
+		return daoTipoActividadSocial;
 	}
 
-	public void setDaoP(GenericDAO daoP) {
-		this.daoP = daoP;
+	public void setDaoP(DaoTipoActividadSocial daoTipoActividadSocial) {
+		this.daoTipoActividadSocial = daoTipoActividadSocial;
 	}
 	
 	@Override
@@ -25,7 +25,7 @@ public class ServicioTipoActividadSocial implements
 
 	@Override
 	public void agregar(TipoActividadSocial c) {
-		daoP.guardar(c);
+		daoTipoActividadSocial.guardar(c);
 
 	}
 
@@ -33,6 +33,15 @@ public class ServicioTipoActividadSocial implements
 	public void actualizar(TipoActividadSocial c) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public DaoTipoActividadSocial getDaoTipoActividadSocial() {
+		return daoTipoActividadSocial;
+	}
+
+	public void setDaoTipoActividadSocial(
+			DaoTipoActividadSocial daoTipoActividadSocial) {
+		this.daoTipoActividadSocial = daoTipoActividadSocial;
 	}
 
 }

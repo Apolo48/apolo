@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 05-dic-2011 18:58:46 by Hibernate Tools 3.4.0.CR1
+// Generated 05-dic-2011 22:14:58 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -23,16 +23,18 @@ public class DatoDeportivo implements java.io.Serializable {
 	private Competencia competencia;
 	private Jugador jugador;
 	private TipoLogro tipoLogro;
+	private char estatus;
 
 	public DatoDeportivo() {
 	}
 
 	public DatoDeportivo(DatoDeportivoId id, Competencia competencia,
-			Jugador jugador, TipoLogro tipoLogro) {
+			Jugador jugador, TipoLogro tipoLogro, char estatus) {
 		this.id = id;
 		this.competencia = competencia;
 		this.jugador = jugador;
 		this.tipoLogro = tipoLogro;
+		this.estatus = estatus;
 	}
 
 	@EmbeddedId
@@ -76,6 +78,15 @@ public class DatoDeportivo implements java.io.Serializable {
 
 	public void setTipoLogro(TipoLogro tipoLogro) {
 		this.tipoLogro = tipoLogro;
+	}
+
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
 	}
 
 }

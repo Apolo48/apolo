@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 05-dic-2011 18:58:46 by Hibernate Tools 3.4.0.CR1
+// Generated 05-dic-2011 22:14:58 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.AttributeOverride;
@@ -25,8 +25,7 @@ public class AfeccionJugador implements java.io.Serializable {
 	private AfeccionJugadorId id;
 	private DatoMedico datoMedico;
 	private TipoAfeccion tipoAfeccion;
-	private String detalleAfeccion;
-	private int duracion;
+	private String duracion;
 	private Date fechaRevision;
 	private Date fechaReincorporacion;
 	private byte[] documento1;
@@ -37,13 +36,12 @@ public class AfeccionJugador implements java.io.Serializable {
 	}
 
 	public AfeccionJugador(AfeccionJugadorId id, DatoMedico datoMedico,
-			TipoAfeccion tipoAfeccion, String detalleAfeccion, int duracion,
-			Date fechaRevision, Date fechaReincorporacion, byte[] documento1,
-			byte[] documento2, char estatus) {
+			TipoAfeccion tipoAfeccion, String duracion, Date fechaRevision,
+			Date fechaReincorporacion, byte[] documento1, byte[] documento2,
+			char estatus) {
 		this.id = id;
 		this.datoMedico = datoMedico;
 		this.tipoAfeccion = tipoAfeccion;
-		this.detalleAfeccion = detalleAfeccion;
 		this.duracion = duracion;
 		this.fechaRevision = fechaRevision;
 		this.fechaReincorporacion = fechaReincorporacion;
@@ -84,21 +82,12 @@ public class AfeccionJugador implements java.io.Serializable {
 		this.tipoAfeccion = tipoAfeccion;
 	}
 
-	@Column(name = "detalle_afeccion", nullable = false)
-	public String getDetalleAfeccion() {
-		return this.detalleAfeccion;
-	}
-
-	public void setDetalleAfeccion(String detalleAfeccion) {
-		this.detalleAfeccion = detalleAfeccion;
-	}
-
 	@Column(name = "duracion", nullable = false)
-	public int getDuracion() {
+	public String getDuracion() {
 		return this.duracion;
 	}
 
-	public void setDuracion(int duracion) {
+	public void setDuracion(String duracion) {
 		this.duracion = duracion;
 	}
 

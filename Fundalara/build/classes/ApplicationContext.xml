@@ -2,15 +2,15 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-   <bean id="genericDao" class="dao.general.GenericDAO">
+   <bean id="daoTipoActividadSocial" class="dao.atleta.DaoTipoActividadSocial">
    </bean>
-   <bean id="cursoDAO" class="dao.DaoCurso">
+   <bean id="daoCurso" class="dao.atleta.DaoCurso">
    </bean>
    <bean id="servicioTipoActividadSocial" class="servicio.atleta.ServicioTipoActividadSocial">
-   <property name="daoP" ref="genericDao"></property>	   
+   <property name="daoTipoActividadSocial" ref="daoTipoActividadSocial"></property>	   
    </bean>
-   <bean id="servicioCurso" class="servicio.ServicioCurso">
-   <property name="cursoDAO" ref="cursoDAO"></property>	   
+   <bean id="servicioCurso" class="servicio.atleta.ServicioCurso">
+   <property name="daoCurso" ref="daoCurso"></property>	   
    </bean>
 	
 </beans>

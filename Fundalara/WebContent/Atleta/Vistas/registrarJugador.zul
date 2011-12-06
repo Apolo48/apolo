@@ -4,7 +4,7 @@
 <zk>
 <zscript>
 <![CDATA[ 
-  List cursos = servicioCurso.buscar();
+  List cursos = servicioCurso.listar();
 
 
 ]]>
@@ -386,6 +386,47 @@
 												</row>
 											</rows>
 										</grid>
+										<groupbox
+											style="border-color:orange" closable="false">
+											<caption label="Documentos" />
+											<grid>
+												<columns>
+													<column width="30%"
+														label="Nombre" />
+													<column width="15%"
+														label="Solicitado" />
+													<column width="15%"
+														label=" Entregado" />
+													<column width="20%"
+														label="¿Obligatorio?" />
+													<column width="20%"
+														label="Documento" align="center" />
+												</columns>
+												<rows>
+													<row
+														style="border:none;">
+														<label
+															value="Partida de Nacimiento" />
+														<label
+															value="1" />
+														<spinner
+															width="60%" value="0" focus="true" />
+														<label
+															value="Sí" />
+														<button
+															label="Subir">
+															<attribute name="onClick">
+									<![CDATA[
+	Object media = Fileupload.get();
+]]></attribute>
+														</button>
+													</row>
+											
+												</rows>
+
+											</grid>
+										</groupbox>
+										
 									</tabpanel>
 									<tabpanel>
 										<grid style="border:none;"
@@ -585,6 +626,46 @@
 															</rows>
 														</grid>
 													</groupbox>
+										<groupbox
+											style="border-color:orange" closable="false">
+											<caption label="Documentos" />
+											<grid>
+												<columns>
+													<column width="30%"
+														label="Nombre" />
+													<column width="15%"
+														label="Solicitado" />
+													<column width="15%"
+														label=" Entregado" />
+													<column width="20%"
+														label="¿Obligatorio?" />
+													<column width="20%"
+														label="Documento" align="center" />
+												</columns>
+												<rows>
+													
+													<row
+														style="border:none;">
+														<label
+															value="Informe Médico" />
+														<label
+															value="2" />
+														<spinner
+															width="60%" value="2" />
+														<label
+															value="Sí" />
+														<button
+															label="Subir">
+															<attribute name="onClick">
+									<![CDATA[
+	Object media = Fileupload.get();
+]]></attribute>
+														</button>
+													</row>
+												</rows>
+
+											</grid>
+										</groupbox>
 										
 									</tabpanel>
 									<tabpanel>
@@ -637,6 +718,47 @@
 												</rows>
 											</grid>
 										</groupbox>
+										<groupbox
+											style="border-color:orange" closable="false">
+											<caption label="Documentos" />
+											<grid>
+												<columns>
+													<column width="30%"
+														label="Nombre" />
+													<column width="15%"
+														label="Solicitado" />
+													<column width="15%"
+														label=" Entregado" />
+													<column width="20%"
+														label="¿Obligatorio?" />
+													<column width="20%"
+														label="Documento" align="center" />
+												</columns>
+												<rows>
+													<row
+														style="border:none;">
+														<label
+															value="Constancia de Estudio" />
+														<label
+															value="1" />
+														<spinner
+															width="60%" value="0" focus="true" />
+														<label
+															value="Sí" />
+														<button
+															label="Subir">
+															<attribute name="onClick">
+									<![CDATA[
+	Object media = Fileupload.get();
+]]></attribute>
+														</button>
+													</row>
+													
+												</rows>
+
+											</grid>
+										</groupbox>
+										
 									</tabpanel>
 									<tabpanel>
 										<groupbox
@@ -867,7 +989,7 @@
 
 											</grid>
 										</groupbox>
-
+										
 									</tabpanel>
 
 									<tabpanel>
