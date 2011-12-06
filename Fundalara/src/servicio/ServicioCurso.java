@@ -2,18 +2,18 @@ package servicio;
 
 import java.util.List;
 
-import dao.CursoDAO;
+import dao.DaoCurso;
 import modelo.Curso;
 
 public class ServicioCurso implements IServicioCurso {
 
-	CursoDAO cursoDAO;
+	DaoCurso cursoDAO;
 	
-	public CursoDAO getCursoDAO() {
+	public DaoCurso getCursoDAO() {
 		return cursoDAO;
 	}
 
-	public void setCursoDAO(CursoDAO cursoDAO) {
+	public void setCursoDAO(DaoCurso cursoDAO) {
 		this.cursoDAO = cursoDAO;
 	}
 

@@ -4,7 +4,7 @@
 <beans>
    <bean id="genericDao" class="dao.general.GenericDAO">
    </bean>
-   <bean id="cursoDAO" class="dao.CursoDAO">
+   <bean id="cursoDAO" class="dao.DaoCurso">
    </bean>
    <bean id="servicioTipoActividadSocial" class="servicio.atleta.ServicioTipoActividadSocial">
    <property name="daoP" ref="genericDao"></property>	   
