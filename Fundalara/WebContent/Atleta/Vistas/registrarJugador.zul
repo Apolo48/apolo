@@ -1,4 +1,16 @@
 <?page title="Registrar Jugador"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<zk>
+<zscript>
+<![CDATA[ 
+  List cursos = servicioCurso.buscar();
+  
+   String[] data = new String[]{"a","b","c"};
+
+]]>
+</zscript>
+
 <div align="left">
 	<window border="none" width="670px" height="800px"
 		apply="controlador.atleta.RegistrarJugadorCtrl">
@@ -606,40 +618,10 @@
 														style="border:none;">
 														<label
 															value="Curso" />
-														<combobox
+															<combobox model="@{cursos}"
 															readonly="true" value="--Seleccione--">
-															<comboitem
-																label="1er Nivel" />
-															<comboitem
-																label="2do Nivel" />
-															<comboitem
-																label="3er Nivel" />
-															<comboitem
-																label="Preparatorio" />
-															<comboitem
-																label="1er Grado" />
-															<comboitem
-																label="2do Grado" />
-															<comboitem
-																label="3er Grado" />
-															<comboitem
-																label="4to Grado" />
-															<comboitem
-																label="5to Grado" />
-															<comboitem
-																label="6to Grado" />
-															<comboitem
-																label="7mo Grado" />
-															<comboitem
-																label="8vo Grado" />
-															<comboitem
-																label="9no Grado" />
-															<comboitem
-																label="4to Año" />
-															<comboitem
-																label="5to Año" />
-															<comboitem
-																label="6to Año" />
+															<comboitem self="@{each='curso'}"
+																label="@{curso.nombre}" />
 														</combobox>
 														<label
 															value="Año escolar" />
@@ -2356,3 +2338,4 @@
 
 	</window>
 </div>
+</zk>

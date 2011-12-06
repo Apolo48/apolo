@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+   <bean id="genericDao" class="dao.general.GenericDAO">
+   </bean>
+   <bean id="cursoDAO" class="dao.CursoDAO">
+   </bean>
+   <bean id="servicioTipoActividadSocial" class="servicio.atleta.ServicioTipoActividadSocial">
+   <property name="daoP" ref="genericDao"></property>	   
+   </bean>
+   <bean id="servicioCurso" class="servicio.ServicioCurso">
+   <property name="cursoDAO" ref="cursoDAO"></property>	   
+   </bean>
+	
+</beans>
