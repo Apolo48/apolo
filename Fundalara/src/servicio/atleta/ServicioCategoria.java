@@ -1,7 +1,8 @@
 package servicio.atleta;
 
 import java.util.List;
-import dao.atleta.DaoCategoria;
+
+import dao.jugador.DaoCategoria;
 import modelo.Categoria;
 
 public class ServicioCategoria implements IServicioCategoria {

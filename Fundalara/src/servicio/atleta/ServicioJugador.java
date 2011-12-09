@@ -1,13 +1,22 @@
 package servicio.atleta;
 
 import java.util.List;
-import dao.atleta.DaoJugador;
+
+import dao.jugador.DaoJugador;
 import modelo.Jugador;
 
 public class ServicioJugador implements IServicioJugador {
     
 	DaoJugador daoJugador;
 	
+	public DaoJugador getDaoJugador() {
+		return daoJugador;
+	}
+
+	public void setDaoJugador(DaoJugador daoJugador) {
+		this.daoJugador = daoJugador;
+	}
+
 	@Override
 	public void eliminar(Jugador c) {
 		daoJugador.eliminar(c);

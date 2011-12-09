@@ -2,14 +2,21 @@ package servicio.atleta;
 
 import java.util.List;
 
-import dao.atleta.DaoMunicipio;
-
-import modelo.Cliente;
+import dao.jugador.DaoMunicipio;
 import modelo.Municipio;
 
 public class ServicioMunicipio implements IServicioMunicipio {
     DaoMunicipio daoMunicipio;
-    @Override
+    
+    public DaoMunicipio getDaoMunicipio() {
+		return daoMunicipio;
+	}
+
+	public void setDaoMunicipio(DaoMunicipio daoMunicipio) {
+		this.daoMunicipio = daoMunicipio;
+	}
+
+	@Override
 	
 	public void eliminar(Municipio c) {
 
@@ -33,7 +40,6 @@ public class ServicioMunicipio implements IServicioMunicipio {
 
 	@Override
 	public List<Municipio> listar() {
-		// TODO Auto-generated method stub
 		return (List<Municipio>) daoMunicipio.listar(new Municipio());
 	}
 

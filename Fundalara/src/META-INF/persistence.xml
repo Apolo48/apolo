@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="Fundalara">
+	<persistence-unit name="fundalara">
 		<class>modelo.ValorEscalaMedicion</class>
 		<class>modelo.UnidadMedida</class>
 		<class>modelo.TipoNomina</class>
@@ -36,6 +36,7 @@
 		<class>modelo.PeriodicidadPago</class>
 		<class>modelo.Periodicidad</class>
 		<class>modelo.Parroquia</class>
+		<class>modelo.Parentesco</class>
 		<class>modelo.Pais</class>
 		<class>modelo.Municipio</class>
 		<class>modelo.ModalidadCompetencia</class>
@@ -114,6 +115,5 @@
 		<class>modelo.AfeccionJugadorId</class>
 		<class>modelo.AfeccionJugador</class>
 		<class>modelo.ActividadEntrenamiento</class>
-		<class>modelo.Parentesco</class>
 	</persistence-unit>
 </persistence>

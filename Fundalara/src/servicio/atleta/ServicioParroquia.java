@@ -2,13 +2,19 @@ package servicio.atleta;
 
 import java.util.List;
 
-import dao.atleta.DaoParroquia;
-
-import modelo.Cliente;
+import dao.jugador.DaoParroquia;
 import modelo.Parroquia;
 
 public class ServicioParroquia implements IServicioParroquia {
 	DaoParroquia daoParroquia;
+
+	public DaoParroquia getDaoParroquia() {
+		return daoParroquia;
+	}
+
+	public void setDaoParroquia(DaoParroquia daoParroquia) {
+		this.daoParroquia = daoParroquia;
+	}
 
 	@Override
 	public void eliminar(Parroquia c) {

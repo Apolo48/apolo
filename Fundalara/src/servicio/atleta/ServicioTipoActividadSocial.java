@@ -1,6 +1,6 @@
 package servicio.atleta;
 
-import dao.atleta.DaoTipoActividadSocial;
+import dao.jugador.DaoTipoActividadSocial;
 import modelo.TipoActividadSocial;
 
 public class ServicioTipoActividadSocial implements
@@ -9,14 +9,7 @@ public class ServicioTipoActividadSocial implements
 	
 	DaoTipoActividadSocial daoTipoActividadSocial;
 	
-	public DaoTipoActividadSocial getDaoActividadSocial() {
-		return daoTipoActividadSocial;
-	}
-
-	public void setDaoP(DaoTipoActividadSocial daoTipoActividadSocial) {
-		this.daoTipoActividadSocial = daoTipoActividadSocial;
-	}
-	
+			
 	@Override
 	public void eliminar(TipoActividadSocial c) {
 		// TODO Auto-generated method stub

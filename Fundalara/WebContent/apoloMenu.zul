@@ -39,7 +39,7 @@
 									<treechildren>
 										<treeitem>
 											<treerow>
-												<treecell label="No Configurables" onClick='enlace("Atleta/Vistas/datosBasicosNC.zul")'/>
+												<treecell label="No Configurables" onClick='enlace("General/Datos_Basicos_NC.zul")'/>
 											</treerow>
 										</treeitem>
 										<treeitem>
@@ -49,27 +49,32 @@
 											<treechildren>
 												<treeitem>
 													<treerow>
-														<treecell label="Compromiso de Pago" onClick='enlace("Atleta/Vistas/configurarCompromisoPago.zul")'/>
+														<treecell label="Compromiso de Pago" onClick='enlace("Jugador/Vistas/configurarCompromisoPago.zul")'/>
 													</treerow>
 												</treeitem>
 												<treeitem>
 													<treerow>
-														<treecell label="Equipo" onClick='enlace("Atleta/Vistas/configurarEquipo.zul")'/>
+														<treecell label="Equipo" onClick='enlace("Jugador/Vistas/configurarEquipo.zul")'/>
 													</treerow>
 												</treeitem>
 												<treeitem>
 													<treerow>
-														<treecell label="Institución" onClick='enlace("Atleta/Vistas/configurarInstitucion.zul")'/>
+														<treecell label="Institución" onClick='enlace("Jugador/Vistas/configurarInstitucion.zul")'/>
+													</treerow>
+												</treeitem>
+												<treeitem>
+													<treerow>
+														<treecell label="Médico" onClick='enlace("Jugador/Vistas/configurarMedico.zul")'/>
 													</treerow>
 												</treeitem>
 												<treeitem open="false" visible="false">
 													<treerow>
-														<treecell label="Plan Vacacional*" onClick='enlace("Atleta/Vistas/configurarPlanVacacional.zul")'/>
+														<treecell label="Plan Vacacional*" onClick='enlace("Jugador/Vistas/configurarPlanVacacional.zul")'/>
 													</treerow>
 												</treeitem>
 												<treeitem>
 													<treerow>
-														<treecell label="Recaudos" onClick='enlace("Atleta/Vistas/configurarRecaudo.zul")'/>
+														<treecell label="Recaudos" onClick='enlace("Jugador/Vistas/configurarRecaudo.zul")'/>
 													</treerow>
 												</treeitem>
 											</treechildren>
@@ -89,12 +94,12 @@
 									<treechildren>
 										<treeitem open="false">
 											<treerow>
-												<treecell label="Inscribir" onClick='enlace("Atleta/Vistas/inscribirJugador.zul")'/>
+												<treecell label="Inscribir" onClick='enlace("Jugador/Vistas/inscribirJugador.zul")'/>
 											</treerow>
 										</treeitem>
 										<treeitem open="true">
 											<treerow>
-												<treecell label="Actualizar" onClick='enlace("Atleta/Vistas/actualizarJugador.zul")'/>
+												<treecell label="Actualizar" onClick='enlace("Jugador/Vistas/actualizarJugador.zul")'/>
 											</treerow>
 										</treeitem>
 										<treeitem open="true">
@@ -104,29 +109,29 @@
 											<treechildren>
 												<treeitem>
 													<treerow>
-														<treecell label="Edad" onClick='enlace("Atleta/Vistas/ascensoCategoria.zul")'/>
+														<treecell label="Edad" onClick='enlace("Jugador/Vistas/ascensoCategoria.zul")'/>
 													</treerow>
 												</treeitem>
 												<treeitem>
 													<treerow>
-														<treecell label="Especial" onClick='enlace("Atleta/Vistas/ascensoEspecial.zul")'/>
+														<treecell label="Especial" onClick='enlace("Jugador/Vistas/ascensoEspecial.zul")'/>
 													</treerow>
 												</treeitem>
 											</treechildren>
 										</treeitem>
 										<treeitem open="false">
 											<treerow>
-												<treecell label="Cambiar de Equipo" onClick='enlace("Atleta/Vistas/cambiarEquipo.zul")' />
+												<treecell label="Cambiar de Equipo" onClick='enlace("Jugador/Vistas/cambiarEquipo.zul")' />
 											</treerow>
 										</treeitem>
 										<treeitem>
 											<treerow>
-												<treecell label="Retirar" onClick='enlace("Atleta/Vistas/retirarJugador.zul")' />
+												<treecell label="Retirar" onClick='enlace("Jugador/Vistas/retirarJugador.zul")' />
 											</treerow>
 										</treeitem>
 										<treeitem>
 											<treerow>
-												<treecell label="Pase" onClick='enlace("Atleta/Vistas/registrarPase.zul")' />
+												<treecell label="Pase" onClick='enlace("Jugador/Vistas/registrarPase.zul")' />
 											</treerow>
 										</treeitem>
 									</treechildren>
@@ -138,7 +143,7 @@
 									<treechildren>
 										<treeitem open="false">
 											<treerow>
-												<treecell label="Actualizar" onClick='enlace("Atleta/Vistas/actualizarFamiliar.zul")'/>
+												<treecell label="Actualizar" onClick='enlace("Jugador/Vistas/actualizarFamiliar.zul")'/>
 											</treerow>
 									 </treeitem>
 									</treechildren>
@@ -150,7 +155,7 @@
 									<treechildren>
 										<treeitem open="false">
 											<treerow>
-												<treecell label="Hospedaje" onClick='enlace("Atleta/Vistas/registrarHospedaje.zul")'/>
+												<treecell label="Hospedaje" onClick='enlace("Jugador/Vistas/registrarHospedaje.zul")'/>
 											</treerow>
 										</treeitem>
 									</treechildren>
@@ -173,22 +178,22 @@
 											<treechildren>
 												<treeitem>
 													<treerow>
-														<treecell label="Inscritos" onClick='enlace("Atleta/Vistas/consultarJugador.zul")'/>
+														<treecell label="Inscritos" onClick='enlace("Jugador/Vistas/consultarJugador.zul")'/>
 													</treerow>
 												</treeitem>
 												<treeitem>
 													<treerow>
-														<treecell label="Sancionados" onClick='enlace("Atleta/Vistas/consultarSanciones.zul")'/>
+														<treecell label="Sancionados" onClick='enlace("Jugador/Vistas/consultarSanciones.zul")'/>
 													</treerow>
 												</treeitem>
 												<treeitem>
 													<treerow>
-														<treecell label="Lesionados" onClick='enlace("Atleta/Vistas/consultarLesion.zul")'/>
+														<treecell label="Lesionados" onClick='enlace("Jugador/Vistas/consultarLesion.zul")'/>
 													</treerow>
 												</treeitem>
 												<treeitem>
 													<treerow>
-														<treecell label="Expediente" onClick='enlace("Atleta/Vistas/consultarExpedienteJugador.zul")'/>
+														<treecell label="Expediente" onClick='enlace("Jugador/Vistas/consultarExpedienteJugador.zul")'/>
 													</treerow>
 												</treeitem>
 											</treechildren>
@@ -200,12 +205,12 @@
 										</treeitem>
 										<treeitem>
 											<treerow>
-												<treecell label="Equipos" onClick='enlace("Atleta/Vistas/consultarEquipos.zul")'/>
+												<treecell label="Equipos" onClick='enlace("Jugador/Vistas/consultarEquipos.zul")'/>
 											</treerow>
 										</treeitem>
 										<treeitem>
 											<treerow>
-												<treecell label="Anuario" onClick='enlace("Atleta/Vistas/consultarAnuario.zul")'/>
+												<treecell label="Anuario" onClick='enlace("Jugador/Vistas/consultarAnuario.zul")'/>
 											</treerow>
 										</treeitem>
 									</treechildren>
@@ -217,17 +222,17 @@
 									<treechildren>
 										<treeitem open="false">
 											<treerow>
-												<treecell label="Representantes" onClick='enlace("Atleta/Vistas/consultarRepresentantes.zul")'/>
+												<treecell label="Representantes" onClick='enlace("Jugador/Vistas/consultarRepresentantes.zul")'/>
 											</treerow>
 										</treeitem>
 										<treeitem open="false">
 											<treerow>
-												<treecell label="Familiares" onClick='enlace("Atleta/Vistas/consultarFamiliar.zul")'/>
+												<treecell label="Familiares" onClick='enlace("Jugador/Vistas/consultarFamiliar.zul")'/>
 											</treerow>
 										</treeitem>
 										<treeitem open="false">
 											<treerow>
-												<treecell label="Hospedaje" onClick='enlace("Atleta/Vistas/consultarHospedaje.zul")'/>
+												<treecell label="Hospedaje" onClick='enlace("Jugador/Vistas/consultarHospedaje.zul")'/>
 											</treerow>
 										</treeitem>
 									</treechildren>

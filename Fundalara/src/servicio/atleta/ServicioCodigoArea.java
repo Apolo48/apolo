@@ -1,7 +1,8 @@
 package servicio.atleta;
 
 import java.util.List;
-import dao.atleta.DaoCodigoArea;
+
+import dao.jugador.DaoCodigoArea;
 import modelo.CodigoArea;
 
 public class ServicioCodigoArea implements IServicioCodigoArea {
