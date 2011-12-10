@@ -15,11 +15,11 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.*;
 
-import servicio.atleta.ServicioInstitucion;
-import servicio.atleta.ServicioTipoInstitucion;
-import servicio.atleta.ServicioMunicipio;
-import servicio.atleta.ServicioEstadoVenezuela;
-import servicio.atleta.ServicioParroquia;
+import servicio.jugador.ServicioEstadoVenezuela;
+import servicio.jugador.ServicioInstitucion;
+import servicio.jugador.ServicioMunicipio;
+import servicio.jugador.ServicioParroquia;
+import servicio.jugador.ServicioTipoInstitucion;
 
 public class cntrlConfigurarInstitucion extends GenericForwardComposer {
 	ServicioInstitucion servicioInstitucion;

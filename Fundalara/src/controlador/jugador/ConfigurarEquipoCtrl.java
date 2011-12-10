@@ -15,10 +15,10 @@ import modelo.Categoria;
 import modelo.ClasificacionEquipo;
 import modelo.Divisa;
 import modelo.Equipo;
-import servicio.atleta.ServicioCategoria;
-import servicio.atleta.ServicioClasificacionEquipo;
-import servicio.atleta.ServicioEquipo;
 import servicio.compentencia.*;
+import servicio.jugador.ServicioCategoria;
+import servicio.jugador.ServicioClasificacionEquipo;
+import servicio.jugador.ServicioEquipo;
 
 /**
  * Clase controladora de los eventos de la vista de igual nombre.
