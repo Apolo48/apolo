@@ -1,26 +1,8 @@
 <?page title="Buscar Representante"?>
 <zk xmlns:c="client">
-	<window id="win2" title="Buscar Representante" border="normal" width="500px" closable="true">
-		<!--style>
-			.z-label { 
-			display: block; 
-			} 
-			tr.z-row td.z-row-inner { 
-			padding: 2px 5px; 
-			} 
-			.z-row-cnt, .z-column-cnt {
-			text-align: center; 
-			} 
-			.category-center .z-auxheader-cnt { 
-			text-align: center; 
-			}
-			.footer_right .z-footer-cnt {
-			text-align: right;
-			font-weight: bold; 
-			}
-			</style-->
+	<window id="windBuscarRepresentante" title="Buscar Representante" border="normal" width="500px" closable="true" apply="controlador.jugador.BuscarRepresentanteCtrl">
 
-		<listbox mold="paging" pageSize="10">
+		<listbox id="listListadoRepresentantes" mold="paging" pageSize="10">
 			<auxhead sclass="category-center">
 				<auxheader label="Listado Representantes" colspan="4" align="center"/>
 			</auxhead>
@@ -44,19 +26,19 @@
 				</auxheader>
 			</auxhead>
 			<listitem>
-				<listcell>7357683</listcell>
-				<listcell>Perez</listcell>
-				<listcell>Javier</listcell>
+				<listcell label="7357683"/>
+				<listcell label="Perez"/>
+				<listcell label="Javier"/>
 			</listitem>
 			<listitem>
-				<listcell>21326547</listcell>
-				<listcell>Saavedra</listcell>
-				<listcell>Juan</listcell>
+				<listcell label="21326547"/>
+				<listcell label="Saavedra"/>
+				<listcell label="Juan"/>
 			</listitem>
 			<listitem>
-				<listcell>26468963</listcell>
-				<listcell>Hernadez</listcell>
-				<listcell>Carlos</listcell>
+				<listcell label="26468963"/>
+				<listcell label="Hernandez"/>
+				<listcell label="Carlos"/>
 			</listitem>
 			<listitem>
 				<listcell></listcell>
@@ -102,11 +84,7 @@
 
 		<div align="right">
 			<button label="Salir"
-				image="Recursos/Imagenes/salir.png">
-				<attribute name="onClick"><![CDATA[
-					win2.detach();
-				]]></attribute>
-			</button>
+				image="Recursos/Imagenes/salir.png" id="btnRepresentanteSalir"/>
 			</div>
 	</window>
 </zk>

@@ -1,7 +1,7 @@
 <?page title="Atletas Hospedados" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Atletas Hospedados por Representante" border="normal"
-		width="520px" closable="true">
+	<window title="Atletas Hospedados por Representante" border="normal" apply="controlador.jugador.ConsultarHospedajeDetalleCtrl"
+		width="520px" closable="true" >
 		<panel title="">
 			<panelchildren>
 				<grid style="border:none;" oddRowSclass="none">
@@ -51,7 +51,7 @@
 		   <button label="Imprimir"
 					image="/Recursos/Imagenes/imprimir.ico" orient="horizontal"
 					width="100px" />
-				<button label="Salir"
+				<button id="btnSalir" label="Salir"
 					image="/Recursos/Imagenes/salir.png" orient="horizontal"
 					width="100px" focus="true"/>
 		</div>

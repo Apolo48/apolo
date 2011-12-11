@@ -1,6 +1,6 @@
 <?page title="Auto Generated index.zul"?>
 <div align="left">
-	<window title="" border="none">
+	<window title="" border="none" apply="controlador.jugador.ConulstarHospedajeCompetenciaCtrl">
 		<grid id="grid" mold="paging" pageSize="5">
 			<columns menupopup="auto">
 				<column width="12%" label="Cédula" />
@@ -21,17 +21,7 @@
 					<label value="14/10/2011" />
 					<label value="19/10/2011" />
 					<div align="center"> 									
-						<button onClick=""
-								image="../../Recursos/Imagenes/reporte.ico">
-								<attribute name="onClick"><![CDATA[
-								Window nuevaVentana = (Window) Executions.createComponents(
-								"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-								try {
-									nuevaVentana.doModal();
-								} catch (Exception e) {
-								}
-								]]></attribute>
-						</button>									
+						<button id="btnReporteNac1"	image="/Recursos/Imagenes/reporte.ico"/>									
 					</div>																								
 				</row>
 				<row>
@@ -42,17 +32,7 @@
 					<label value="10/10/2011"/>
 					<label value="17/10/2011"/>
 					<div align="center"> 
-						<button onClick=""
-								image="../../Recursos/Imagenes/reporte.ico">
-								<attribute name="onClick"><![CDATA[
-								Window nuevaVentana = (Window) Executions.createComponents(
-								"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-								try {
-									nuevaVentana.doModal();
-								} catch (Exception e) {
-								}
-								]]></attribute>
-						</button>
+						<button id="btnReporteNac2" image="/Recursos/Imagenes/reporte.ico"/>
 					</div>								
 				</row>
 					<group label="Competencia: Copa Lara"/>
@@ -64,17 +44,7 @@
 					<label value="04/05/2011"/>
 					<label value="08/05/2011"/>
 					<div align="center"> 
-						<button onClick=""
-								image="../../Recursos/Imagenes/reporte.ico">
-								<attribute name="onClick"><![CDATA[
-								Window nuevaVentana = (Window) Executions.createComponents(
-								"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-								try {
-									nuevaVentana.doModal();
-								} catch (Exception e) {
-								}
-								]]></attribute>
-						</button>
+						<button id="btnReporteCopa1" image="/Recursos/Imagenes/reporte.ico"/>
 					</div>								
 				</row>
 				<row>
@@ -85,17 +55,7 @@
 					<label value="14/10/2011"/>
 					<label value="19/10/2011"/>
 					<div align="center"> 
-						<button onClick=""
-								image="../../Recursos/Imagenes/reporte.ico">
-								<attribute name="onClick"><![CDATA[
-								Window nuevaVentana = (Window) Executions.createComponents(
-								"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-								try {
-									nuevaVentana.doModal();
-								} catch (Exception e) {
-								}
-								]]></attribute>
-						</button>
+						<button id="btnReporteCopa2" image="/Recursos/Imagenes/reporte.ico"/>
 					</div>								
 				</row>
 				<row>
@@ -106,17 +66,7 @@
 					<label value="20/07/2011"/>
 					<label value="26/07/2011"/>
 					<div align="center"> 
-						<button onClick=""
-								image="../../Recursos/Imagenes/reporte.ico">
-								<attribute name="onClick"><![CDATA[
-								Window nuevaVentana = (Window) Executions.createComponents(
-								"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-								try {
-									nuevaVentana.doModal();
-								} catch (Exception e) {
-								}
-								]]></attribute>
-						</button>
+						<button id="btnReporteCopa3" image="/Recursos/Imagenes/reporte.ico"/>
 					</div>								
 				</row>
 				<row>
@@ -127,17 +77,7 @@
 					<label value="12/09/2011"/>
 					<label value="15/09/2011"/>
 					<div align="center"> 
-						<button onClick=""
-								image="../../Recursos/Imagenes/reporte.ico">
-								<attribute name="onClick"><![CDATA[
-								Window nuevaVentana = (Window) Executions.createComponents(
-								"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-								try {
-									nuevaVentana.doModal();
-								} catch (Exception e) {
-								}
-								]]></attribute>
-						</button>
+						<button id="btnReporteCopa4" image="/Recursos/Imagenes/reporte.ico"/>
 					</div>								
 				</row>
 				 
@@ -149,17 +89,7 @@
 					<label value="14/10/2011"/>
 					<label value="19/10/2011"/>
 					<div align="center"> 
-						<button onClick=""
-								image="../../Recursos/Imagenes/reporte.ico">
-								<attribute name="onClick"><![CDATA[
-								Window nuevaVentana = (Window) Executions.createComponents(
-								"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-								try {
-									nuevaVentana.doModal();
-								} catch (Exception e) {
-								}
-								]]></attribute>
-						</button>
+						<button id="btnReporteCopa5" image="/Recursos/Imagenes/reporte.ico"/>
 					</div>								
 				</row>
 				<row>
@@ -170,17 +100,7 @@
 					<label value="14/10/2011"/>
 					<label value="19/10/2011"/>
 					<div align="center"> 
-						<button onClick=""
-								image="../../Recursos/Imagenes/reporte.ico">
-								<attribute name="onClick"><![CDATA[
-								Window nuevaVentana = (Window) Executions.createComponents(
-								"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-								try {
-									nuevaVentana.doModal();
-								} catch (Exception e) {
-								}
-								]]></attribute>
-						</button>
+						<button id="btnReporteCopa6" image="/Recursos/Imagenes/reporte.ico"/>
 					</div>								
 				</row>
 			</rows>

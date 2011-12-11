@@ -1,6 +1,6 @@
 <?page title="Auto Generated index.zul"?>
 <div align="left">
-	<window title="" border="none">
+	<window title="" border="none" apply="controlador.jugador.ConsultarHospedajeRepresentanteCtrl">
 	 	<groupbox style="border-color:orange">
 		<caption style="font-weight: bold" label="Representante" />
 		<grid style="border:none;" oddRowSclass="none">
@@ -27,37 +27,26 @@
 										<comboitem label="E" />
 									</combobox>
 
-									<intbox constraint="no negative"
+									<intbox id="txtRepresentCed" constraint="no negative"
 										width="19%" disabled="false" />
-									<button id="Representante"
-										tooltiptext="Consultar Representante"
-										image="../../Recursos/Imagenes/consultar.ico">
-										<attribute name="onClick"><![CDATA[
-	Window nuevaVentana = (Window) Executions.createComponents(
-			"Jugador/Vistas/buscarRepresentante.zul", null, null);
-	try {
-		nuevaVentana.doModal();
-	} catch (Exception e) {
-	}
-]]></attribute>
-									</button>
+									<button id="btnBuscarRepresentante" tooltiptext="Consultar Representante" image="/Recursos/Imagenes/consultar.ico" />
 								</div>
 							</row>
 							<row style="border:none">
 								<label value="Nombres" />
 
-								<textbox maxlength="50" width="95%"
-									constraint="no empty" disabled="true" />
+								<textbox id="txtRepresenteNomb" maxlength="50" width="95%"
+									constraint="no empty" disabled="false" readonly="true"/>
 
 
 								<label value="Apellidos" />
-								<textbox maxlength="40" width="95%"
-									disabled="true" />
+								<textbox id="txtRepresentApell" maxlength="40" width="95%"
+									disabled="false" readonly="true"/>
 							</row>
 							<row style="border:none">
 								<label value="Teléfono" width="95%" />
-								<textbox maxlength="12" width="65%"
-									disabled="true" />
+								<textbox id="txtRepresentTelf" maxlength="12" width="65%"
+									disabled="false" readonly="true"/>
 							</row>
 
 						</rows>
@@ -68,7 +57,7 @@
 								align="center" valign="middle">
 								<groupbox mold="3d">
 									<image
-										src="../../Recursos/Imagenes/imgPadre.jpg" height="100px"
+										src="/Recursos/Imagenes/imgPadre.jpg" height="100px"
 										width="80px" />
 								</groupbox>
 							</row>
@@ -96,17 +85,7 @@
 						<label value="14/10/2011" />
 						<label value="19/10/2011" />
 						<div align="center"> 									
-							<button onClick=""
-									image="../../Recursos/Imagenes/reporte.ico">
-									<attribute name="onClick"><![CDATA[
-									Window nuevaVentana = (Window) Executions.createComponents(
-									"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-									try {
-										nuevaVentana.doModal();
-									} catch (Exception e) {
-									}
-									]]></attribute>
-							</button>									
+							<button id="btnReporteNac1" image="/Recursos/Imagenes/reporte.ico"/>								
 						</div>																								
 					</row>
 						<group label="Temporada: 2009-2010"/>
@@ -115,17 +94,7 @@
 						<label value="10/10/2010"/>
 						<label value="17/10/2010"/>
 						<div align="center"> 
-							<button onClick=""
-									image="../../Recursos/Imagenes/reporte.ico">
-									<attribute name="onClick"><![CDATA[
-									Window nuevaVentana = (Window) Executions.createComponents(
-									"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-									try {
-										nuevaVentana.doModal();
-									} catch (Exception e) {
-									}
-									]]></attribute>
-							</button>
+							<button id="btnReporteNac2" image="/Recursos/Imagenes/reporte.ico"/>
 						</div>								
 					</row>
 					<row>
@@ -133,17 +102,7 @@
 						<label value="04/05/2010"/>
 						<label value="08/05/2010"/>
 						<div align="center"> 
-							<button onClick=""
-									image="../../Recursos/Imagenes/reporte.ico">
-									<attribute name="onClick"><![CDATA[
-									Window nuevaVentana = (Window) Executions.createComponents(
-									"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-									try {
-										nuevaVentana.doModal();
-									} catch (Exception e) {
-									}
-									]]></attribute>
-							</button>
+							<button id="btnReporteCopa" image="/Recursos/Imagenes/reporte.ico"/>
 						</div>								
 					</row>
 					<group label="Temporada: 2008-2009"/>
@@ -152,17 +111,7 @@
 						<label value="14/10/2011"/>
 						<label value="19/10/2011"/>
 						<div align="center"> 
-							<button onClick=""
-									image="../../Recursos/Imagenes/reporte.ico">
-									<attribute name="onClick"><![CDATA[
-									Window nuevaVentana = (Window) Executions.createComponents(
-									"Jugador/Vistas/consultarHospedajeDetalle.zul", null, null);
-									try {
-										nuevaVentana.doModal();
-									} catch (Exception e) {
-									}
-									]]></attribute>
-							</button>
+							<button id="btnReporteNac3" image="/Recursos/Imagenes/reporte.ico" />
 						</div>								
 					</row>
 				</rows>
