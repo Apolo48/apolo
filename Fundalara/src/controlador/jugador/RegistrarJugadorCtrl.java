@@ -14,20 +14,22 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
 
+import servicio.jugador.ServicioCategoria;
 import servicio.jugador.ServicioCurso;
 
 import comun.FileLoader;
 import comun.Rutas;
 import comun.Util;
+import modelo.Categoria;
 import modelo.Curso;
 
 
 /**
- * Clase controladora de los eventos de la vista de igual nombre.
+ * Clase controladora de los eventos de la vista de igual nombre y manejo de los servicios de datos.
  * 
  * @author Robert A 
- * 
- * @version 1.0 22/11/2011
+ * @author German L
+ * @version 0.2 22/11/2011
  *
  * */
 public class RegistrarJugadorCtrl extends GenericForwardComposer {
@@ -41,12 +43,11 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private Tab tabRegFamiliar;
 	private Textbox txtPrimerNombre;
 	private Button btnCatalogoMedico;
-	private Button btnCatalogoInstitucion;
-	private Button btnCatalogoInstitucion1;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
 	private ServicioCurso servicioCurso;
+	private ServicioCategoria servicioCategoria;
 	private String rutasJug= Rutas.JUGADOR.getRutaVista();
 
 	@Override
@@ -55,6 +56,60 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		comp.setVariable("controller", this, false); // Hacemos visible el
 														// modelo para el
 														// databinder
+	}
+	
+	public List<Categoria> getCategorias() {
+		return servicioCategoria.listar();
+	}
+
+	public List<Curso> getCursos(){
+		return servicioCurso.listar();
+	}
+
+	public void onChange$dtboxFechaNac() {
+		Date fecha = dtboxFechaNac.getValue();
+		txtEdad.setValue(Util.calcularDiferenciaAnnios(fecha));
+	}
+
+	public void onClick$btnGuardar() {
+		new Util().crearVentana(rutasJug+"vistaCompromisoPago.zul",
+				null, null);
+		
+	}
+	public void onClick$btnVistaPrevia() {
+		new Util().crearVentana(rutasJug+"vistaRegistroJugador.zul",
+				null, null);
+	}
+
+	public void onClick$btnDesp() {
+		isFirstStepComplete();
+	}
+
+	public void onClick$btnAntes() {
+		moveStep(false);
+	}
+	
+	public void onClick$btnCatalogoMedico() {
+		new Util().crearVentana(rutasJug+"buscarMedico.zul", null, null);
+	}
+	
+	public void onClick$btnCatalogoInstitucionRecreativa() {
+		new Util().crearVentana(rutasJug+"buscarInstitucion.zul", null, null);
+	}
+
+	public void onClick$btnCatalogoInstitucionEducativa() {
+		new Util().crearVentana(rutasJug+"buscarInstitucion.zul", null, null);
+	}
+
+	public void onClick$btnFoto() {
+		new FileLoader().cargarImagen(imgJugador);
+	}
+	public void onClick$btnFotoFamiliar() {
+		new FileLoader().cargarImagen(imgFamiliar);
+	}
+	
+	public void onClick$btnCatalogoFamiliar() {
+		new Util().crearVentana(rutasJug+"buscarFamiliar.zul", null, null);
 	}
 	
 	private void moveStep(boolean flag) {
@@ -87,54 +142,5 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 				e.printStackTrace();
 			}
 		}
-	}
-	public List<Curso> getCursos(){
-		return servicioCurso.listar();
-	}
-
-	public void onChange$dtboxFechaNac() {
-		Date fecha = dtboxFechaNac.getValue();
-		txtEdad.setValue(Util.calcularDiferenciaAnnios(fecha));
-	}
-
-	public void onClick$btnGuardar() {
-		new Util().crearVentana(rutasJug+"vistaCompromisoPago.zul",
-				null, null);
-		
-	}
-	public void onClick$btnVistaPrevia() {
-		new Util().crearVentana(rutasJug+"vistaRegistroJugador.zul",
-				null, null);
-	}
-
-	public void onClick$btnDesp() {
-		isFirstStepComplete();
-	}
-
-	public void onClick$btnAntes() {
-		moveStep(false);
-	}
-	
-	public void onClick$btnCatalogoMedico() {
-		new Util().crearVentana(rutasJug+"buscarMedico.zul", null, null);
-	}
-	
-	public void onClick$btnCatalogoInstitucion() {
-		new Util().crearVentana(rutasJug+"buscarInstitucion.zul", null, null);
-	}
-
-	public void onClick$btnCatalogoInstitucion1() {
-		new Util().crearVentana(rutasJug+"buscarInstitucion.zul", null, null);
-	}
-
-	public void onClick$btnFoto() {
-		new FileLoader().cargarImagen(imgJugador);
-	}
-	public void onClick$btnFotoFamiliar() {
-		new FileLoader().cargarImagen(imgFamiliar);
-	}
-	
-	public void onClick$btnCatalogoFamiliar() {
-		new Util().crearVentana(rutasJug+"buscarFamiliar.zul", null, null);
 	}
 }

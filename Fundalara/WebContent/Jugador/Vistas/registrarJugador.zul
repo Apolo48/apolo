@@ -3,7 +3,8 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
 	<div align="left">
-		<window border="none" width="670px" height="1000px" id="winRegistroJugador"
+		<window border="none" width="670px" height="1000px"
+			id="winRegistroJugador"
 			apply="controlador.jugador.RegistrarJugadorCtrl">
 			<groupbox id="grboxPerfilJugador"
 				style="border-color:orange" closable="false">
@@ -39,7 +40,10 @@
 												constraint="no negative" width="20%" />
 											<label value="-" />
 											<intbox
-												id="txtCedulaSecuencia" constraint="no negative" width="5%" readonly="true" />
+												id="txtCedulaSecuencia" constraint="no negative" width="5%"
+												readonly="true" />
+												<label value="(*)"
+												style="color:red" />
 										</div>
 									</row>
 									<row style="border:none;">
@@ -110,19 +114,19 @@
 					</rows>
 				</grid>
 			</groupbox>
-
+			<separator height="10px" />
 			<tabbox id="tbboxPasosRegistro">
 				<tabs>
 					<tab label="Paso 01 de 02 - Registro Jugador"
-						id="tabRegJugador"  width="49%"/>
+						id="tabRegJugador" width="49%" />
 					<tab label="Paso 02 de 02 - Registro Familiar"
 						id="tabRegFamiliar" width="49%" visible="false" />
 				</tabs>
 				<tabpanels>
 					<tabpanel>
-
 						<panel title="Detalle Jugador">
 							<panelchildren>
+								<!-- Inicio tbboxDetalleBasico -->
 								<tabbox id="tbboxDetalleBasico"
 									height="680px">
 									<tabs id="tabs" width="90px">
@@ -493,7 +497,7 @@
 												<caption
 													label="Documentos" />
 												<grid
-													id="gridDocPersonales">
+													id="gridDocPersonales" mold="paging" pageSize="2">
 													<columns>
 														<column
 															width="30%" label="Nombre" />
@@ -514,7 +518,7 @@
 															<label
 																value="1" />
 															<spinner
-																width="60%" value="0"  />
+																width="60%" value="0" />
 															<label
 																value="Sí" />
 															<button
@@ -647,7 +651,7 @@
 																		<row
 																			style="border:none;">
 																			<label
-																				value="Afecciones" />
+																				value="Afección" />
 																			<combobox
 																				readonly="true" value="--Seleccione--" width="60%"
 																				id="cmbAfecciones">
@@ -675,7 +679,8 @@
 																				<rows>
 																					<row
 																						style="border:none;">
-																						<listbox id="listAfeccionesActuales" >
+																						<listbox mold="paging" pageSize="2"
+																							id="listAfeccionesActuales">
 																							<listhead>
 																								<listheader
 																									label="Afección" />
@@ -689,19 +694,19 @@
 																									label="Asma" />
 																							</listitem>
 																						</listbox>
-																		
 																						<vbox>
 																							<button
+																								id="btnAgregarAfeccion"
 																								image="../../Recursos/Imagenes/agregar.ico" />
 																							<button
+																								id="btnModificarAfeccion"
 																								image="../../Recursos/Imagenes/editar.ico" />
 																							<button
+																								id="btnEliminarAfeccion"
 																								image="../../Recursos/Imagenes/quitar.ico" />
-
 																						</vbox>
 																					</row>
 																				</rows>
-
 																			</grid>
 																		</row>
 																	</rows>
@@ -714,7 +719,7 @@
 																value="Observaciones" />
 															<textbox
 																maxlength="200" height="40px" width="95%"
-																multiline="true" />
+																multiline="true" id="txtObervaciones" />
 														</row>
 													</rows>
 												</grid>
@@ -723,7 +728,8 @@
 												style="border-color:orange" closable="false">
 												<caption
 													label="Documentos" />
-												<grid>
+												<grid
+													id="gridDocMedicos" mold="paging" pageSize="2">
 													<columns>
 														<column
 															width="30%" label="Nombre" />
@@ -737,7 +743,6 @@
 															width="20%" label="Documento" align="center" />
 													</columns>
 													<rows>
-
 														<row
 															style="border:none;">
 															<label
@@ -757,12 +762,11 @@
 															</button>
 														</row>
 													</rows>
-
 												</grid>
 											</groupbox>
 
-										</tabpanel> <!-- Fin tabJugMedicos -->
-										<tabpanel> <!-- Inicio tabJugAcademicos -->
+										</tabpanel><!-- Fin tabJugMedicos -->
+										<tabpanel><!-- Inicio tabJugAcademicos -->
 											<groupbox
 												style="border-color:orange" closable="false">
 												<caption
@@ -786,9 +790,9 @@
 																value="Institución" />
 															<div>
 																<textbox
-																	width="80%" />
+																	width="80%" id="txtInstitucionEducativa" />
 																<button
-																	id="btnCatalogoInstitucion"
+																	id="btnCatalogoInstitucionEducativa"
 																	image="../../Recursos/Imagenes/consultar.ico" />
 															</div>
 														</row>
@@ -797,15 +801,18 @@
 															<label
 																value="Curso" />
 															<combobox
-																 model="@{winRegistroJugador$composer.cursos}" readonly="true"
-																value="--Seleccione--">
+																id="cmbCurso"
+																model="@{winRegistroJugador$composer.cursos}"
+																readonly="true" value="--Seleccione--">
 																<comboitem
-																	self="@{each='curso'}" label="@{curso.nombre}" value="@{curso.codigoCurso}" />
+																	self="@{each='curso'}" label="@{curso.nombre}"
+																	value="@{curso.codigoCurso}" />
 															</combobox>
 															<label
 																value="Año escolar" />
 															<combobox
-																readonly="true" value="--Seleccione--" width="80%">
+																id="cmbAnnioEscolar" readonly="true"
+																value="--Seleccione--" width="80%">
 																<comboitem
 																	label="2009-2010" />
 																<comboitem
@@ -821,7 +828,8 @@
 												style="border-color:orange" closable="false">
 												<caption
 													label="Documentos" />
-												<grid>
+												<grid
+													id="gridDocAcademicos" mold="paging" pageSize="2">
 													<columns>
 														<column
 															width="30%" label="Nombre" />
@@ -842,7 +850,7 @@
 															<label
 																value="1" />
 															<spinner
-																width="60%" value="0"  />
+																width="60%" value="0" />
 															<label
 																value="Sí" />
 															<button
@@ -853,14 +861,12 @@
 ]]></attribute>
 															</button>
 														</row>
-
 													</rows>
-
 												</grid>
 											</groupbox>
 
-										</tabpanel> <!-- Fin tabJugAcademicos -->
-										<tabpanel> <!-- Inicio tabJugSociales -->
+										</tabpanel><!-- Fin tabJugAcademicos -->
+										<tabpanel><!-- Inicio tabJugSociales -->
 											<groupbox
 												style="border-color:orange" closable="false">
 												<caption
@@ -884,9 +890,10 @@
 																value="Institución" />
 															<div>
 																<textbox
-																	maxlength="50" width="80%" />
+																	maxlength="50" width="80%"
+																	id="txtInsitucionRecreativa" />
 																<button
-																	id="btnCatalogoInstitucion1"
+																	id="btnCatalogoInstitucionRecreativa"
 																	image="../../Recursos/Imagenes/consultar.ico" />
 															</div>
 														</row>
@@ -896,7 +903,8 @@
 																value="Actividad" />
 
 															<combobox
-																readonly="true" value="--Seleccione--" width="80%">
+																id="cmbActividad" readonly="true" value="--Seleccione--"
+																width="80%">
 																<comboitem
 																	label="Danza" />
 																<comboitem
@@ -910,8 +918,8 @@
 															<label
 																value="Horas" />
 															<div>
-																<textbox
-																	width="20%" />
+																<intbox
+																	width="20%" id="txtHorasSemanales" />
 																<space />
 																<label
 																	value="Semanales" />
@@ -923,15 +931,12 @@
 																value="Fecha inicio" />
 
 															<datebox
-																format="dd/MM/yyyy"
+																id="dtboxFechaInicioActividad" format="dd/MM/yyyy"
 																style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
-
 														</row>
-
 													</rows>
 												</grid>
 											</groupbox>
-
 											<grid style="border:none">
 												<columns>
 													<column width="95%" />
@@ -940,58 +945,58 @@
 												<rows>
 													<row
 														style="border:none">
-														<grid>
-															<columns>
-																<column
+
+														<listbox id="listActvidades"  mold="paging" pageSize="2">
+															<listhead>
+																<listheader
 																	label="Actividad" width="20%" />
-																<column
+																<listheader
 																	label="Institución" width="55%" />
-																<column
+																<listheader
 																	label="Horas" width="10%" />
-																<column
+																<listheader
 																	label="Fecha" width="15%" />
-															</columns>
-															<rows>
-																<row
-																	style="border:none;">
-																	<label
-																		value="Música" />
-																	<label
-																		value="Conservatorio Vicente Emilio Sojo" />
-																	<label
-																		value="3" />
-																	<label
-																		value="01/01/2007" />
-																</row>
-																<row
-																	style="border:none;">
-																	<label
-																		value="Otro Deporte" />
-																	<label
-																		value="Escuela de Fútbol Menor Polideportivo Máximo Viloria" />
-																	<label
-																		value="2" />
-																	<label
-																		value="01/01/2009" />
-																</row>
-															</rows>
-														</grid>
+															</listhead>
+															<listitem>
+																<listcell
+																	label="Música" />
+																<listcell
+																	label="Conservatorio Vicente Emilio Sojo" />
+																<listcell
+																	label="3" />
+																<listcell
+																	label="01/01/2007" />
+															</listitem>
+															<listitem>
+																<listcell
+																	label="Otro Deporte" />
+																<listcell
+																	label="Escuela de Fútbol Menor Polideportivo Máximo Viloria" />
+																<listcell
+																	label="2" />
+																<listcell
+																	label="01/01/2009" />
+															</listitem>
+														</listbox>
 
 														<vbox>
 															<button
+																id="btnAgregarActividad"
 																image="../../Recursos/Imagenes/agregar.ico" />
 															<button
+																id="btnModificarActividad"
 																image="../../Recursos/Imagenes/editar.ico" />
 															<button
+																id="btnEliminarActividad"
 																image="../../Recursos/Imagenes/quitar.ico" />
 														</vbox>
 													</row>
 												</rows>
 											</grid>
 
-										</tabpanel> <!-- Inicio tabJugSociales -->
+										</tabpanel><!-- Fin tabJugSociales -->
 
-										<tabpanel>
+										<tabpanel><!-- Inicio tabJugDeportivos -->
 											<groupbox
 												style="border-color:orange" closable="false">
 												<caption
@@ -1015,21 +1020,12 @@
 																value="Categoría" />
 															<div>
 																<combobox
-																	readonly="true" value="--Seleccione--" width="65%">
+																	id="cmbCategoria" value="--Seleccione--" width="65%"
+																	readonly="true"
+																	model="@{winRegistroJugador$composer.categorias}">
 																	<comboitem
-																		label="Preparatorio Nivel 1" />
-																	<comboitem
-																		label="Preparatorio Nivel 2" />
-																	<comboitem
-																		label="Pre-Infantil" />
-																	<comboitem
-																		label="Infantil" />
-																	<comboitem
-																		label="Pre-Junior" />
-																	<comboitem
-																		label="Junior" />
-																	<comboitem
-																		label="Juvenil" />
+																		self="@{each='categoria'}" label="@{categoria.nombre}"
+																		value="@{categoria.codigoCategoria}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
@@ -1038,7 +1034,8 @@
 																value="Equipo" />
 															<div>
 																<combobox
-																	readonly="true" value="--Seleccione--" width="65%">
+																	id="cmbEquipo" readonly="true" value="--Seleccione--"
+																	width="65%">
 																	<comboitem
 																		label="Equipo A" />
 																	<comboitem
@@ -1056,7 +1053,6 @@
 														</row>
 														<row
 															style="border:none;">
-
 														</row>
 														<row
 															style="border:none;" spans="1,3">
@@ -1066,8 +1062,6 @@
 															<div>
 																<!--intbox
 																	maxlength="2" /-->
-
-
 
 																<bandbox
 																	id="bboxNumero" maxlength="2" width="10%"
@@ -1494,7 +1488,6 @@
 												<grid
 													style="border:none;" oddRowSclass="none">
 													<columns>
-
 														<column
 															width="18%" />
 														<column
@@ -1504,7 +1497,6 @@
 														<column
 															width="32%" />
 													</columns>
-
 													<rows>
 														<row
 															style="border:none;">
@@ -1512,7 +1504,7 @@
 																value="Peso" />
 															<div>
 																<decimalbox
-																	constraint="no negative" />
+																	id="txtPeso" constraint="no negative" />
 																<label
 																	value="Kg." />
 																<label
@@ -1522,7 +1514,7 @@
 																value="Altura" />
 															<div>
 																<decimalbox
-																	constraint="no negative" />
+																	id="txtAltura" constraint="no negative" />
 																<label
 																	value="mts." />
 																<label
@@ -1535,7 +1527,7 @@
 															<label
 																value="Brazo Lanzar" />
 															<radiogroup
-																orient="vertical">
+																id="radioGrBrazoLanzar" orient="vertical">
 																<radio
 																	label="Zurdo" />
 																<radio
@@ -1546,7 +1538,7 @@
 															<label
 																value="Posición Bateo" />
 															<radiogroup
-																orient="vertical">
+																id="radioGrPosicionBateo" orient="vertical">
 																<radio
 																	label="Zurdo" />
 																<radio
@@ -1582,7 +1574,8 @@
 																value="Camisa" />
 															<div>
 																<combobox
-																	readonly="true" value="--Seleccione--" width="65%">
+																	id="cmbTallaCamisa" readonly="true"
+																	value="--Seleccione--" width="65%">
 																	<comboitem
 																		label="SS" />
 																	<comboitem
@@ -1601,7 +1594,8 @@
 																value="Pantalón" />
 															<div>
 																<combobox
-																	readonly="true" value="--Seleccione--" width="65%">
+																	id="cmbTallaPantalon" readonly="true"
+																	value="--Seleccione--" width="65%">
 																	<comboitem
 																		label="XS" />
 																	<comboitem
@@ -1625,7 +1619,8 @@
 																value="Calzado" />
 															<div>
 																<combobox
-																	readonly="true" value="--Seleccione--" width="26%">
+																	id="cmbTallaCalzado" readonly="true"
+																	value="--Seleccione--" width="26%">
 																	<comboitem
 																		label="25" />
 																	<comboitem
@@ -1644,23 +1639,26 @@
 													</rows>
 												</grid>
 											</groupbox>
-										</tabpanel>
+										</tabpanel><!-- Fin tabJugDeportivos -->
 									</tabpanels>
-								</tabbox>
+								</tabbox><!-- Fin tbboxDetalleBasico -->
 							</panelchildren>
 						</panel>
 					</tabpanel>
-					<tabpanel>				
+					<tabpanel>
 						<panel title="Familiares">
 							<panelchildren>
 								<tabbox height="380px">
 									<tabs width="90px">
-										<tab label="Básicos" />
-										<tab label="Ubicación" />
-										<tab label="Comisiones" />
+										<tab id="tabFamBasicos"
+											label="Básicos" />
+										<tab id="tabFamUbicacion"
+											label="Ubicación" />
+										<tab id="tabFamComisiones"
+											label="Comisiones" />
 									</tabs>
 									<tabpanels>
-										<tabpanel>
+										<tabpanel><!-- Inicio tabFamBasicos -->
 											<groupbox
 												style="border-color:orange" closable="false">
 												<caption
@@ -1684,9 +1682,9 @@
 																	<column
 																		width="30%" />
 																	<column
-																		width="20%" />
+																		width="24%" />
 																	<column
-																		width="30%" />
+																		width="26%" />
 																</columns>
 																<rows>
 																	<row
@@ -1703,15 +1701,14 @@
 																					label="E" />
 																			</combobox>
 																			<intbox
-																				constraint="no negative" width="50%" />
+																				id="txtCedulaFamiliar" constraint="no negative"
+																				width="50%" />
 																			<label
 																				value="(*)" style="color:red" />
 																		</div>
 																		<button
 																			id="btnCatalogoFamiliar"
 																			image="../../Recursos/Imagenes/consultar.ico" />
-
-
 																	</row>
 																	<row
 																		style="border:none;">
@@ -1719,7 +1716,7 @@
 																			value="Primer Nombre" />
 																		<div>
 																			<textbox
-																				width="80%">
+																				width="80%" id="txtPrimerNombreFamiliar">
 																			</textbox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1727,7 +1724,7 @@
 																		<label
 																			value="Segundo Nombre" />
 																		<textbox
-																			width="80%">
+																			width="80%" id="txtSegundoNombreFamiliar">
 																		</textbox>
 
 																	</row>
@@ -1737,7 +1734,7 @@
 																			value="Primer Apellido" />
 																		<div>
 																			<textbox
-																				width="80%">
+																				width="80%" id="txtPrimerApellidoFamiliar">
 																			</textbox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1745,19 +1742,17 @@
 																		<label
 																			value="Segundo Apellido" />
 																		<textbox
-																			width="80%">
+																			width="80%" id="txtSegundoApellidoFamiliar">
 																		</textbox>
 																	</row>
-
-
 																	<row
 																		style="border:none;">
 																		<label
 																			value="Parentesco" />
 																		<div>
 																			<combobox
-																				readonly="true" value="--Seleccione--"
-																				width="65%">
+																				id="cmbParentesco" readonly="true"
+																				value="--Seleccione--" width="65%">
 																				<comboitem
 																					label="Abuelo(a)" />
 																				<comboitem
@@ -1779,7 +1774,8 @@
 																		<label
 																			value="Función" />
 																		<combobox
-																			readonly="true" value="--Seleccione--" width="75%"
+																			id="cmbFuncionFamiliar" readonly="true"
+																			value="--Seleccione--" width="75%"
 																			tooltiptext="Función del familiar en la Escuela">
 																			<comboitem
 																				label="Directivo" />
@@ -1797,8 +1793,8 @@
 																			value="Profesión/ Ocupación" />
 																		<div>
 																			<combobox
-																				readonly="true" value="--Seleccione--"
-																				width="65%">
+																				id="cmbProfesion" readonly="true"
+																				value="--Seleccione--" width="65%">
 																				<comboitem
 																					label="Abogado" />
 																				<comboitem
@@ -1931,8 +1927,8 @@
 
 
 											</groupbox>
-										</tabpanel>
-										<tabpanel>
+										</tabpanel><!-- Fin tabFamBasicos -->
+										<tabpanel><!-- Inicio tabFamUbicacion -->
 											<groupbox
 												style="border-color:orange" closable="false">
 												<caption
@@ -1956,7 +1952,8 @@
 																value="Estado" />
 															<div>
 																<combobox
-																	readonly="true" value="--Seleccione--" width="65%">
+																	id="cmbEstadoFamiliar" readonly="true"
+																	value="--Seleccione--" width="65%">
 																	<comboitem
 																		label="Lara" />
 																	<comboitem
@@ -1971,7 +1968,8 @@
 																value="Municipio" />
 															<div>
 																<combobox
-																	readonly="true" value="--Seleccione--" width="65%">
+																	id="cmbMunicipioFamiliar" readonly="true"
+																	value="--Seleccione--" width="65%">
 																	<comboitem
 																		label="Andrés Eloy Blanco" />
 																	<comboitem
@@ -1999,10 +1997,11 @@
 														<row
 															style="border:none;">
 															<label
-																value="Ciudad" />
+																value="Parroquia" />
 															<div>
 																<combobox
-																	readonly="true" value="--Seleccione--" width="65%">
+																	id="cmbParroquiaFamiliar" readonly="true"
+																	value="--Seleccione--" width="65%">
 																	<comboitem
 																		label="Barquisimeto" />
 																	<comboitem
@@ -2032,7 +2031,7 @@
 															<div>
 																<textbox
 																	maxlength="180" height="40px" width="90%"
-																	multiline="true" />
+																	multiline="true" id="txtDireccionHabFamiliar" />
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -2064,7 +2063,8 @@
 																value="Teléfono Habitación" />
 															<div>
 																<combobox
-																	readonly="true" width="25%" value="0251">
+																	id="cmbCodAreaFamiliar" readonly="true" width="25%"
+																	value="0251">
 																	<comboitem
 																		label="0252" />
 																	<comboitem
@@ -2085,7 +2085,8 @@
 
 															<div>
 																<combobox
-																	readonly="true" width="25%" value="0412">
+																	id="cmbCodCelularFamiliar" readonly="true" width="25%"
+																	value="0412">
 																	<comboitem
 																		label="0414" />
 																	<comboitem
@@ -2095,7 +2096,6 @@
 																	<comboitem
 																		label="0426" />
 																</combobox>
-
 																<textbox
 																	width="40%" />
 																<label
@@ -2108,21 +2108,29 @@
 															<label
 																value="Correo Electrónico" />
 															<textbox
-																value="" width="88%" />
+																value="" width="88%" id="txtCorreoFamiliar" />
 															<label
 																value="Twitter" />
 															<hbox>
 																<label
 																	value="@" />
 																<textbox
-																	value="" width="80%" />
+																	value="" width="80%" id="txtTwitterFamiliar" />
 															</hbox>
+														</row>
+														<row spans="1,3"
+															style="border:none;">
+															<label
+																value="Facebook" />
+
+															<textbox
+																id="txtFacebookFalimiar" width="33%" />
 														</row>
 													</rows>
 												</grid>
 											</groupbox>
-										</tabpanel>
-										<tabpanel>
+										</tabpanel><!-- Fin tabFamUbicacion -->
+										<tabpanel><!-- Inicio tabFamComisiones -->
 											<groupbox
 												style="border-color:orange" closable="false">
 												<caption
@@ -2141,7 +2149,8 @@
 															<label
 																value="Comisión" />
 															<combobox
-																readonly="true" value="--Seleccione--">
+																id="cmbComisiones" readonly="true"
+																value="--Seleccione--">
 																<comboitem
 																	label="Disciplina" />
 																<comboitem
@@ -2165,96 +2174,49 @@
 																<rows>
 																	<row
 																		style="border:none">
-																		<grid>
-																			<columns>
-																				<column
-																					label="Comisiones" width="30%" />
+																		<listbox
+																			id="listComisiones" mold="paging" pageSize="2">
+																			<listhead>
+																				<listheader
+																					value="Comisiones" width="30%" />
+																				<listheader
+																					value="Descripción" width="70%" />
+																			</listhead>
 
-																				<column
-																					label="Descripción" width="70%" />
-																			</columns>
-																			<rows>
-																				<row>
-																					<label
-																						value="Disciplina" />
+																			<listitem>
+																				<listcell
+																					label="Disciplina" />
 
-																					<label
-																						value="Evaluar comportamiento de los atletas" />
-																				</row>
-																				<row>
-																					<label
-																						value="Información y Medios" />
+																				<listcell
+																					label="Evaluar comportamiento de los jugadores" />
+																			</listitem>
+																			<listitem>
+																				<listcell
+																					label="Información y Medios" />
 
-																					<label
-																						value="Difundir información de eventos" />
-																				</row>
-
-																			</rows>
-																		</grid>
-
+																				<listcell
+																					label="Difundir información de eventoss" />
+																			</listitem>
+																		</listbox>
 																		<vbox>
 																			<button
+																				id="btnAgregarComision"
 																				image="../../Recursos/Imagenes/agregar.ico" />
 																			<button
+																				id="btnModificarComision"
 																				image="../../Recursos/Imagenes/editar.ico" />
 																			<button
+																				id="btnEliminarComision"
 																				image="../../Recursos/Imagenes/quitar.ico" />
 																		</vbox>
 																	</row>
 																</rows>
 															</grid>
-
-
-															<!-- 	
-																
-																<div>
-																<toolbar
-																align="end">
-																<toolbarbutton
-																image="../../Recursos/Imagenes/agregar.ico"
-																orient="horizontal" />
-																<toolbarbutton
-																image="../../Recursos/Imagenes/editar.ico"
-																orient="horizontal" />
-																<toolbarbutton
-																image="../../Recursos/Imagenes/quitar.ico"
-																orient="horizontal" />
-																</toolbar>
-																<grid>
-																<columns>
-																<column
-																label="Comisiones" width="30%" />
-																
-																<column
-																label="Descripción" width="70%" />
-																</columns>
-																<rows>
-																<row>
-																<label
-																value="Disciplina" />
-																
-																<label
-																value="Evaluar comportamiento de los atletas" />
-																</row>
-																<row>
-																<label
-																value="Información y Medios" />
-																
-																<label
-																value="Difundir información de eventos" />
-																</row>
-																
-																</rows>
-																</grid>
-																</div>
-																
-															-->
-
 														</row>
 													</rows>
 												</grid>
 											</groupbox>
-										</tabpanel>
+										</tabpanel><!-- Fin tabFamComisiones -->
 									</tabpanels>
 								</tabbox>
 							</panelchildren>
@@ -2268,43 +2230,48 @@
 							</columns>
 							<rows>
 								<row style="border:none">
-									<grid mold="paging" pageSize="2">
-										<columns>
-											<column label="Cédula"
+
+									<listbox id="listFamiliares"
+										mold="paging" pageSize="2">
+										<listhead>
+											<listheader value="Cédula"
 												width="15%" />
-											<column label="Nombres"
+											<listheader value="Nombres"
 												width="25%" />
-											<column label="Apellidos"
-												width="25%" />
-											<column label="Parentesco"
-												width="17%" />
-											<column
-												label="Representante" width="18%" />
-										</columns>
-										<rows>
-											<row>
-												<label value="" />
-												<label value="" />
-												<label value="" />
-												<label value="" />
+											<listheader
+												value="Apellidos" width="25%" />
+											<listheader
+												value="Parentesco" width="17%" />
+											<listheader
+												value="Representante" width="18%" />
+										</listhead>
+										<listitem>
+											<listcell label="" />
+											<listcell />
+											<listcell />
+											<listcell />
+											<listcell>
 												<checkbox />
-											</row>
-											<row>
-												<label value="" />
-												<label value="" />
-												<label value="" />
-												<label value="" />
+											</listcell>
+										</listitem>
+										<listitem>
+											<listcell />
+											<listcell />
+											<listcell />
+											<listcell />
+											<listcell>
 												<checkbox />
-											</row>
-										</rows>
-									</grid>
+											</listcell>
+										</listitem>
+									</listbox>
 
 									<vbox>
-										<button
+										<button id="btnAgregarFamiliar"
 											image="../../Recursos/Imagenes/agregar.ico" />
 										<button
+											id="btnModificarFamiliar"
 											image="../../Recursos/Imagenes/editar.ico" />
-										<button
+										<button id="btnElimnarFamiliar"
 											image="../../Recursos/Imagenes/quitar.ico" />
 									</vbox>
 								</row>
@@ -2331,11 +2298,11 @@
 					image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"
 					width="100px" visible="false" />
 
-				<button label="Cancelar"
+				<button id="btnCancelar" label="Cancelar"
 					image="../../Recursos/Imagenes/cancelar.ico" orient="horizontal"
 					width="100px" />
 
-				<button label="Salir"
+				<button id="btnSalir" label="Salir"
 					image="../../Recursos/Imagenes/salir.png" orient="horizontal"
 					width="100px" />
 
