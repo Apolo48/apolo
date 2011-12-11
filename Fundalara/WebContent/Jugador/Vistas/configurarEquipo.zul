@@ -6,16 +6,25 @@
 		closable="true" apply="controlador.jugador.ConfigurarEquipoCtrl">
 		<grid style="border:none;" oddRowSclass="none">
 			<columns>
-			<column width="16%" />
+				<column width="16%" />
 				<column width="40%" />
 				<column width="10%" />
 				<column />
 			</columns>
 			<rows>
+			    <row style="border:none;">
+			    <label value="Divisa" />
+					<combobox id="cmbDivisa" value="--Seleccione--" selectedItem="@{controller.divisa}"
+						width="80%" focus="true" model="@{winConfigurarEquipo$composer.divisas}">
+						<comboitem self="@{each='divisa'}"
+								label="@{divisa.nombre}" />
+					</combobox>
+			  
+			  </row>
 				<row style="border:none;">
 					<label value="Categoría" />
 					<combobox id="cmbCategoria" value="--Seleccione--" selectedItem="@{controller.categoria}"
-						width="80%" focus="true" model="@{winConfigurarEquipo$composer.categorias}">
+						width="80%" model="@{winConfigurarEquipo$composer.categorias}">
 						<comboitem self="@{each='categoria'}"
 								label="@{categoria.nombre}" />
 					</combobox>
@@ -33,6 +42,9 @@
 			</rows>
 		</grid>
 
+		
+<!-- 	  otra forma  -->
+
 		<grid style="border:none;">
 			<columns>
 				<column width="90%" />
@@ -41,21 +53,24 @@
 			</columns>
 			<rows>
 				<row style="border:none;">
-					<grid id="gridDetalleEquipo" mold="paging"
-						pageSize="5" model="@{winConfigurarEquipo$composer.equipos}">
-						<columns>
-							<column label="Nombre" width="40%"/>
-							<column label="Categoría" width="40%" />
-							<column label="Tipo" width="10%" />
-						</columns>
-						<rows>
-							<row  self="@{each='equipo'}">
-								<label value="@{equipo.nombre}" />
-								<label value="@{equipo.categoria.nombre}" />
-								<label value="@{equipo.clasificacionEquipo.nombre}" />
-							</row>					
-						</rows>
-					</grid>
+					<listbox id="listEquipo" mold="paging" pageSize="5"  model="@{winConfigurarEquipo$composer.equipos}" 
+					    selectedItem="@{winConfigurarEquipo$composer.equipo}">
+						<listhead>
+							<listheader label="Nombre" />
+							<listheader label="Categoría" />
+							<listheader label="Tipo" width="15%" />
+							<listheader label="Divisa" width="15%" />
+						</listhead>
+						<listitem self="@{each='equipo'}" value="@{equipo}">
+							<listcell label="@{equipo.nombre}" />
+							<listcell label="@{equipo.categoria.nombre}" />
+							<listcell label="@{equipo.clasificacionEquipo.nombre}" />
+							<listcell label="@{equipo.divisa.nombre}" />
+						</listitem>
+					
+					</listbox>
+
+
 					<div>
 						<button id="btnAgregar"
 							image="../../Recursos/Imagenes/agregar.ico" />
@@ -73,9 +88,9 @@
 		</grid>
 
 		<div align="right">
-			<button id="btnBuscar" label="Guardar"
-				image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"
-				width="100px" />
+<!-- 			<button id="btnBuscar" label="Guardar" -->
+<!-- 				image="../../Recursos/Imagenes/guardar.ico" orient="horizontal" -->
+<!-- 				width="100px" /> -->
 			<button id="btnCancelar" label="Cancelar"
 				image="../../Recursos/Imagenes/cancelar.ico" orient="horizontal"
 				width="100px" />
@@ -83,8 +98,8 @@
 				image="../../Recursos/Imagenes/salir.png" orient="horizontal"
 				width="100px">
 				<attribute name="onClick"><![CDATA[
-	win.detach();
-]]></attribute>
+					winConfigurarEquipo.detach();
+				]]></attribute>
 			</button>
 		</div>
 	</window>
