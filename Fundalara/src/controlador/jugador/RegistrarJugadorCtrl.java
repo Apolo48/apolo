@@ -1,6 +1,9 @@
 package controlador.jugador;
 
 import java.util.Date;
+import java.util.List;
+
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
@@ -11,8 +14,11 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
 
+import servicio.jugador.ServicioCurso;
+
 import comun.FileLoader;
 import comun.Util;
+import modelo.Curso;
 
 
 /**
@@ -30,8 +36,8 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private Button btnAntes;
 	private Button btnDesp;
 	private Button btnVistaPrevia;
-	private Tab tabRA;
-	private Tab tabRF;
+	private Tab tabRegJugador;
+	private Tab tabRegFamiliar;
 	private Textbox txtPrimerNombre;
 	private Button btnCatalogoMedico;
 	private Button btnCatalogoInstitucion;
@@ -39,16 +45,24 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
+	private ServicioCurso servicioCurso;
 
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		comp.setVariable("controller", this, false); // Hacemos visible el
+														// modelo para el
+														// databinder
+	}
 	
 	private void moveStep(boolean flag) {
-		tabRA.setVisible(!flag);
-		tabRF.setVisible(flag);
+		tabRegJugador.setVisible(!flag);
+		tabRegFamiliar.setVisible(flag);
 		if (flag) {
-			tabRF.setSelected(flag);
+			tabRegFamiliar.setSelected(flag);
 			cmbNacionalidadFamiliar.setFocus(true);
 		} else {
-			tabRA.setSelected(!flag);
+			tabRegJugador.setSelected(!flag);
 		}
 		btnAntes.setVisible(flag);
 		btnGuardar.setVisible(flag);
@@ -71,6 +85,9 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 				e.printStackTrace();
 			}
 		}
+	}
+	public List<Curso> getCursos(){
+		return servicioCurso.listar();
 	}
 
 	public void onChange$dtboxFechaNac() {
