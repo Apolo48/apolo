@@ -2178,9 +2178,9 @@
 																			id="listComisiones" mold="paging" pageSize="2">
 																			<listhead>
 																				<listheader
-																					value="Comisiones" width="30%" />
+																					label="Comisiones" width="30%" />
 																				<listheader
-																					value="Descripción" width="70%" />
+																					label="Descripción" width="70%" />
 																			</listhead>
 
 																			<listitem>
@@ -2234,16 +2234,16 @@
 									<listbox id="listFamiliares"
 										mold="paging" pageSize="2">
 										<listhead>
-											<listheader value="Cédula"
+											<listheader label="Cédula"
 												width="15%" />
-											<listheader value="Nombres"
+											<listheader label="Nombres"
 												width="25%" />
 											<listheader
-												value="Apellidos" width="25%" />
+												label="Apellidos" width="25%" />
 											<listheader
-												value="Parentesco" width="17%" />
+												label="Parentesco" width="17%" />
 											<listheader
-												value="Representante" width="18%" />
+												label="Representante" width="18%" />
 										</listhead>
 										<listitem>
 											<listcell label="" />
