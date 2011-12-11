@@ -17,6 +17,7 @@ import org.zkoss.zul.api.Tab;
 import servicio.jugador.ServicioCurso;
 
 import comun.FileLoader;
+import comun.Rutas;
 import comun.Util;
 import modelo.Curso;
 
@@ -46,6 +47,7 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
 	private ServicioCurso servicioCurso;
+	private String rutasJug= Rutas.JUGADOR.getRutaVista();
 
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -96,12 +98,12 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	}
 
 	public void onClick$btnGuardar() {
-		new Util().crearVentana("Jugador/Vistas/vistaCompromisoPago.zul",
+		new Util().crearVentana(rutasJug+"vistaCompromisoPago.zul",
 				null, null);
 		
 	}
 	public void onClick$btnVistaPrevia() {
-		new Util().crearVentana("Jugador/Vistas/vistaRegistroJugador.zul",
+		new Util().crearVentana(rutasJug+"vistaRegistroJugador.zul",
 				null, null);
 	}
 
@@ -114,15 +116,15 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	}
 	
 	public void onClick$btnCatalogoMedico() {
-		new Util().crearVentana("Jugador/Vistas/buscarMedico.zul", null, null);
+		new Util().crearVentana(rutasJug+"buscarMedico.zul", null, null);
 	}
 	
 	public void onClick$btnCatalogoInstitucion() {
-		new Util().crearVentana("Jugador/Vistas/buscarInstitucion.zul", null, null);
+		new Util().crearVentana(rutasJug+"buscarInstitucion.zul", null, null);
 	}
 
 	public void onClick$btnCatalogoInstitucion1() {
-		new Util().crearVentana("Jugador/Vistas/buscarInstitucion.zul", null, null);
+		new Util().crearVentana(rutasJug+"buscarInstitucion.zul", null, null);
 	}
 
 	public void onClick$btnFoto() {
@@ -133,6 +135,6 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	}
 	
 	public void onClick$btnCatalogoFamiliar() {
-		new Util().crearVentana("Jugador/Vistas/buscarFamiliar.zul", null, null);
+		new Util().crearVentana(rutasJug+"buscarFamiliar.zul", null, null);
 	}
 }
