@@ -38,7 +38,7 @@
 											</combobox>
 											<intbox id="txtCedula"
 												constraint="no negative" width="20%" />
-											<label value="-" />
+											<label value="-" id="lblSeparador" />
 											<intbox
 												id="txtCedulaSecuencia" constraint="no negative" width="5%"
 												readonly="true" />
