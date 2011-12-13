@@ -57,6 +57,11 @@
 													label="Entrenamiento" />
 											</treerow>
 											<treechildren>
+													<treeitem>
+													<treerow>
+														<treecell label="Categoría" onClick='enlace("Jugador/Vistas/configurarCategoria.zul")'/>
+													</treerow>
+												</treeitem>
 											<treeitem>
 													<treerow>
 														<treecell label="Equipo" onClick='enlace("Jugador/Vistas/configurarEquipo.zul")'/>
