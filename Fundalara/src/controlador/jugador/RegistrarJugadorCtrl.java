@@ -10,6 +10,7 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
@@ -22,33 +23,46 @@ import comun.Rutas;
 import comun.Util;
 import modelo.Categoria;
 import modelo.Curso;
-
+import modelo.Jugador;
 
 /**
- * Clase controladora de los eventos de la vista de igual nombre y manejo de los servicios de datos.
+ * Clase controladora de los eventos de la vista de igual nombre y manejo de los
+ * servicios de datos para la inscripcion de jugadores nuevo ingreso
  * 
- * @author Robert A 
+ * @author Robert A
  * @author German L
  * @version 0.2 22/11/2011
- *
+ * 
  * */
 public class RegistrarJugadorCtrl extends GenericForwardComposer {
+	// Componentes visuales
 	private Datebox dtboxFechaNac;
-	private Intbox txtEdad;
 	private Button btnGuardar;
 	private Button btnAntes;
 	private Button btnDesp;
 	private Button btnVistaPrevia;
+	private Button btnCatalogoMedico;
 	private Tab tabRegJugador;
 	private Tab tabRegFamiliar;
+	private Intbox txtEdad;
+	private Intbox txtCedulaSecuencia;
 	private Textbox txtPrimerNombre;
-	private Button btnCatalogoMedico;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
+	private Combobox cmbNacionalidad;
+	private Combobox cmbGenero;
+	private Label lblSeparador;
+	
+	private String rutasJug = Rutas.JUGADOR.getRutaVista();
+
+	// Servicios
 	private ServicioCurso servicioCurso;
 	private ServicioCategoria servicioCategoria;
-	private String rutasJug= Rutas.JUGADOR.getRutaVista();
+	// Model
+	private Jugador jugador = new Jugador();
+
+
 
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -56,13 +70,22 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		comp.setVariable("controller", this, false); // Hacemos visible el
 														// modelo para el
 														// databinder
+
 	}
-	
+
+	public Jugador getJugador() {
+		return jugador;
+	}
+
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
+	}
+
 	public List<Categoria> getCategorias() {
 		return servicioCategoria.listar();
 	}
 
-	public List<Curso> getCursos(){
+	public List<Curso> getCursos() {
 		return servicioCurso.listar();
 	}
 
@@ -71,14 +94,24 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		txtEdad.setValue(Util.calcularDiferenciaAnnios(fecha));
 	}
 
-	public void onClick$btnGuardar() {
-		new Util().crearVentana(rutasJug+"vistaCompromisoPago.zul",
-				null, null);
-		
+	public void onChange$cmbNacionalidad() {
+		boolean flag = false;
+		if (cmbNacionalidad.getSelectedItem().getValue().equals("R")) {
+			flag = true;
+		}
+		lblSeparador.setVisible(flag);
+		txtCedulaSecuencia.setVisible(flag);
 	}
+
+	public void onClick$btnGuardar() {
+		new Util().crearVentana(rutasJug + "vistaCompromisoPago.zul", null,
+				null);
+
+	}
+
 	public void onClick$btnVistaPrevia() {
-		new Util().crearVentana(rutasJug+"vistaRegistroJugador.zul",
-				null, null);
+		new Util().crearVentana(rutasJug + "vistaRegistroJugador.zul", null,
+				null);
 	}
 
 	public void onClick$btnDesp() {
@@ -88,30 +121,36 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	public void onClick$btnAntes() {
 		moveStep(false);
 	}
-	
+
 	public void onClick$btnCatalogoMedico() {
-		new Util().crearVentana(rutasJug+"buscarMedico.zul", null, null);
+		new Util().crearVentana(rutasJug + "buscarMedico.zul", null, null);
 	}
-	
+
 	public void onClick$btnCatalogoInstitucionRecreativa() {
-		new Util().crearVentana(rutasJug+"buscarInstitucion.zul", null, null);
+		new Util().crearVentana(rutasJug + "buscarInstitucion.zul", null, null);
 	}
 
 	public void onClick$btnCatalogoInstitucionEducativa() {
-		new Util().crearVentana(rutasJug+"buscarInstitucion.zul", null, null);
+		new Util().crearVentana(rutasJug + "buscarInstitucion.zul", null, null);
 	}
 
 	public void onClick$btnFoto() {
-		new FileLoader().cargarImagen(imgJugador);
+		new FileLoader().cargarImagenEnBean(imgJugador);
 	}
+
 	public void onClick$btnFotoFamiliar() {
 		new FileLoader().cargarImagen(imgFamiliar);
 	}
-	
+
 	public void onClick$btnCatalogoFamiliar() {
-		new Util().crearVentana(rutasJug+"buscarFamiliar.zul", null, null);
+		new Util().crearVentana(rutasJug + "buscarFamiliar.zul", null, null);
 	}
-	
+
+	public void onClick$btnPruebaMostrar() {
+		alert("En el obj hay: " + jugador.getFoto());
+		//jugador.setFoto( imgJugador.getContent().getByteData());
+	}
+
 	private void moveStep(boolean flag) {
 		tabRegJugador.setVisible(!flag);
 		tabRegFamiliar.setVisible(flag);

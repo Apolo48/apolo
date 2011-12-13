@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import org.zkoss.util.media.Media;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Image;
+import org.zkoss.zul.Messagebox;
 
 /**
  * @author Miguel B
@@ -78,6 +79,30 @@ public class FileLoader {
 			}
 		}
 
+	}
+	
+	public void cargarImagenEnBean(Image image){
+		try {
+			Media media = Fileupload.get();
+			if (media == null) {
+				return;
+			}
+		if (media instanceof org.zkoss.image.Image)		{
+			org.zkoss.image.Image img = (org.zkoss.image.Image) media;
+			image.setContent(img);
+		
+		}
+		else if (media != null)
+			try {
+				Messagebox.show("El archivo seleccionado no es una imagen: "+media, "Error",
+				Messagebox.OK, Messagebox.ERROR);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
