@@ -8,7 +8,7 @@
 <?page title="Calendario" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window title="Calendario" border="none" mode="embedded" closable="true"
-		width="690px" height="600px" apply="vista.general.Agenda">
+		width="690px" height="600px" apply="controlador.general.Agenda">
 		<borderlayout>
 			<north>
 				<toolbar />
