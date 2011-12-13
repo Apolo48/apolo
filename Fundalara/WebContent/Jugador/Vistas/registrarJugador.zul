@@ -42,7 +42,7 @@
 											<intbox
 												id="txtCedulaSecuencia" constraint="no negative" width="5%"
 												readonly="true" />
-												<label value="(*)"
+											<label value="(*)"
 												style="color:red" />
 										</div>
 									</row>
@@ -77,13 +77,13 @@
 										spans="1,3">
 										<label value="Género" />
 										<div>
-											<radiogroup
-												id="radioGrGenero">
-												<radio label="Masculino"
-													checked="true" />
-												<space />
-												<radio label="Femenino" />
-											</radiogroup>
+											<combobox id="cmbGenero"
+												readonly="true" value="--Seleccione--" width="25%">
+												<comboitem
+													label="Masculino" value="M" />
+												<comboitem
+													label="Femenino" value="F" />
+											</combobox>
 											<label value="(*)"
 												style="color:red" />
 										</div>
@@ -679,7 +679,8 @@
 																				<rows>
 																					<row
 																						style="border:none;">
-																						<listbox mold="paging" pageSize="2"
+																						<listbox
+																							mold="paging" pageSize="2"
 																							id="listAfeccionesActuales">
 																							<listhead>
 																								<listheader
@@ -946,7 +947,8 @@
 													<row
 														style="border:none">
 
-														<listbox id="listActvidades"  mold="paging" pageSize="2">
+														<listbox
+															id="listActvidades" mold="paging" pageSize="2">
 															<listhead>
 																<listheader
 																	label="Actividad" width="20%" />
@@ -1771,8 +1773,8 @@
 																			<label
 																				value="(*)" style="color:red" />
 																		</div>
-																	
-																	
+
+
 																		<label
 																			value="Profesión/ Ocupación" />
 																		<div>
@@ -1857,10 +1859,10 @@
 																					label="Médico" />
 																			</combobox>
 																		</div>
-																	
-																	
+
+
 																	</row>
-								
+
 
 																</rows>
 
