@@ -614,10 +614,10 @@
 														<row
 															style="border:none;">
 															<label
-																value="Matrícula" />
+																value="Número Colegio" />
 															<div>
 																<textbox
-																	width="50%" id="txtMatricula" />
+																	width="50%" id="txtNroColegio" />
 																<space />
 																<button
 																	id="btnCatalogoMedico"
@@ -1771,24 +1771,8 @@
 																			<label
 																				value="(*)" style="color:red" />
 																		</div>
-																		<label
-																			value="Función" />
-																		<combobox
-																			id="cmbFuncionFamiliar" readonly="true"
-																			value="--Seleccione--" width="75%"
-																			tooltiptext="Función del familiar en la Escuela">
-																			<comboitem
-																				label="Directivo" />
-																			<comboitem
-																				label="Técnico" />
-																			<comboitem
-																				label="Ninguno" />
-																		</combobox>
-
-																	</row>
-																	<row
-																		style="border:none;">
-
+																	
+																	
 																		<label
 																			value="Profesión/ Ocupación" />
 																		<div>
@@ -1873,25 +1857,10 @@
 																					label="Médico" />
 																			</combobox>
 																		</div>
-
-																		<!-- 
-																			<label
-																			value="RIF" />
-																			<div>
-																			<combobox
-																			readonly="true" value="-" width="10%">
-																			<comboitem
-																			label="J" />
-																			<comboitem
-																			label="G" />
-																			</combobox>
-																			<textbox
-																			width="52%">
-																			</textbox>
-																			</div>
-																			
-																		-->
+																	
+																	
 																	</row>
+								
 
 																</rows>
 
