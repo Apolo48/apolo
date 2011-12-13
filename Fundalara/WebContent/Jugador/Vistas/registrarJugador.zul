@@ -1528,26 +1528,28 @@
 															style="border:none;">
 															<label
 																value="Brazo Lanzar" />
-															<radiogroup
-																id="radioGrBrazoLanzar" orient="vertical">
-																<radio
-																	label="Zurdo" />
-																<radio
-																	label="Derecho" checked="true" />
-																<radio
-																	label="Ambidiestro" />
-															</radiogroup>
+																<combobox
+																	id="cmbBrazoLanzar" readonly="true"
+																	value="--Seleccione--" width="65%">
+																	<comboitem
+																		label="Zurdo" />
+																	<comboitem
+																		label="Derecho" />
+																	<comboitem label="Ambidiestro"/>
+																</combobox>
+													
 															<label
 																value="Posición Bateo" />
-															<radiogroup
-																id="radioGrPosicionBateo" orient="vertical">
-																<radio
-																	label="Zurdo" />
-																<radio
-																	label="Derecho" checked="true" />
-																<radio
-																	label="Ambidiestro" />
-															</radiogroup>
+																<combobox
+																	id="cmbPosicionBateo" readonly="true"
+																	value="--Seleccione--" width="65%">
+																	<comboitem
+																		label="Zurdo" />
+																	<comboitem
+																		label="Derecho" />
+																	<comboitem label="Ambidiestro"/>
+																</combobox>
+															
 														</row>
 
 													</rows>
