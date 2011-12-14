@@ -1,12 +1,15 @@
 package controlador.jugador;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.jruby.ext.posix.FreeBSDHeapFileStat.time_t;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
@@ -16,6 +19,7 @@ import modelo.Categoria;
 import modelo.ClasificacionEquipo;
 import modelo.Divisa;
 import modelo.Equipo;
+import modelo.TipoActividadSocial;
 import modelo.ValorEscalaMedicion;
 import servicio.jugador.ServicioCategoria;
 import servicio.jugador.ServicioClasificacionEquipo;
@@ -39,7 +43,7 @@ public class ConfigurarEquipoCtrl extends GenericForwardComposer {
 	private Categoria categoria = new Categoria();
 	private Divisa divisa = new Divisa();
 	Listbox listEquipo;
-	List<Equipo> listaEquipos;
+	List<Equipo> equipos;
 	
 	
 	public Divisa getDivisa() {
@@ -60,6 +64,11 @@ public class ConfigurarEquipoCtrl extends GenericForwardComposer {
 
 	private ClasificacionEquipo clasificacionEquipo= new ClasificacionEquipo(); 
 	private Textbox txtNombre;
+	private Textbox txt;
+	private Combobox cmbTipo;
+	private Combobox cmbCategoria;
+	private Combobox cmbDivisa;
+	
 	private AnnotateDataBinder binder ;
 	 
 	 
@@ -93,6 +102,7 @@ public class ConfigurarEquipoCtrl extends GenericForwardComposer {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);  //Hacemos visible el modelo para el databinder
+	equipos=servicioEquipo.listar();
 	}
 	
 	public  List<Categoria> getCategorias() {
@@ -106,8 +116,13 @@ public class ConfigurarEquipoCtrl extends GenericForwardComposer {
 	}
 	
 	public  List<Equipo> getEquipos() {
+		//return equipos;
 		return servicioEquipo.listar();
 		
+	}
+	
+	public void setEquipos(List<Equipo> equipos) {
+		this.equipos = equipos;
 	}
 	
 	public  List<Divisa> getDivisas() {
@@ -119,11 +134,27 @@ public class ConfigurarEquipoCtrl extends GenericForwardComposer {
 		
 		//Divisa y Clasificacion fijas
 //		equipo.setDivisa(servicioDivisa.listar().get(0));
+		for (int i = 0; i < equipos.size(); i++) {
+			if(cmbTipo.getSelectedItem().getLabel().equals(equipos.get(i).getClasificacionEquipo().getNombre())){
+				if(cmbCategoria.getSelectedItem().getLabel().equals(equipos.get(i).getCategoria().getNombre())){
+					alert("Ya existe el equipo para la categoria");
+					return;
+					
+				}
+			
+			}
+			
+			
+		}
+		
+		
 		equipo.setDivisa(divisa);
 		equipo.setClasificacionEquipo(clasificacionEquipo);
 		equipo.setEstatus('A');
 		equipo.setCategoria(categoria);
-		equipo.setCodigoEquipo(String.valueOf(servicioEquipo.listar().size()+1));
+		equipo.setNombre(txtNombre.getValue());
+		equipo.setCodigoEquipo("eq0"+String.valueOf(servicioEquipo.listar().size()+1));
+		
 		servicioEquipo.agregar(equipo);
 		 try {
 			Messagebox.show("Equipo agregado", "Exito", Messagebox.OK, Messagebox.INFORMATION);
@@ -132,10 +163,30 @@ public class ConfigurarEquipoCtrl extends GenericForwardComposer {
 			e.printStackTrace();
 		}
 		 limpiar();
+		 
+		 binder.loadAll();
+		
+	}
+	
+
+	public void onSelect$listEquipo(){
+	 int n= listEquipo.getSelectedIndex();
+	 
+	 cmbTipo.setValue(equipos.get(n).getClasificacionEquipo().getNombre());
+	 txtNombre.setValue(equipos.get(n).getNombre().toString());
+	 cmbCategoria.setValue(equipos.get(n).getCategoria().getNombre());
+	 cmbDivisa.setValue(equipos.get(n).getDivisa().getNombre());
+	
+	 
+		
+		
 	}
 	
 	public void onClick$btnEditar(){
-	
+		
+		
+		
+		
 	}
 	
 	public void onClick$btnQuitar(){
@@ -152,6 +203,7 @@ public class ConfigurarEquipoCtrl extends GenericForwardComposer {
 	public void limpiar(){
 		equipo= new Equipo();
 		binder.loadAll();
+		txtNombre.setValue("");
 	}
 	
 	public void onClick$btnCancelar(){
@@ -159,3 +211,4 @@ public class ConfigurarEquipoCtrl extends GenericForwardComposer {
 	}
 
 }
+

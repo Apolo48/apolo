@@ -9,26 +9,32 @@ import modelo.TipoInstitucion;
 import modelo.Institucion;
 import modelo.Municipio;
 import modelo.Parroquia;
+import modelo.TipoActividadSocial;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.*;
 
+//import servicio.general.ServicioDatosBasicos;
 import servicio.jugador.ServicioEstadoVenezuela;
 import servicio.jugador.ServicioInstitucion;
 import servicio.jugador.ServicioMunicipio;
 import servicio.jugador.ServicioParroquia;
 import servicio.jugador.ServicioTipoInstitucion;
 
-public class cntrlConfigurarInstitucion extends GenericForwardComposer {
+public class ConfigurarInstitucionCtrl extends GenericForwardComposer {
 	ServicioInstitucion servicioInstitucion;
 	ServicioTipoInstitucion servicioTipoInstitucion;
 	ServicioEstadoVenezuela servicioEstadoVenezuela;
 	ServicioMunicipio servicioMunicipio;
 	ServicioParroquia servicioParroquia;
+	
+	//ServicioDatosBasicos servicioDatosBasicos;
+	
 	Institucion institucion;
 	TipoInstitucion tipoInstitucion;
+	List<EstadoVenezuela> estadoVenezuela;
 	Textbox txtCodigo;
 	Textbox txtNombre;
 	Textbox txtDireccion;
@@ -49,10 +55,22 @@ public class cntrlConfigurarInstitucion extends GenericForwardComposer {
 		institucion = new Institucion();
 
 		 int codigo = servicioInstitucion.listar().size();
-		 institucion.setCodigoInstitucion(String.valueOf(codigo + 1));
+		institucion.setCodigoInstitucion(String.valueOf(codigo + 1));
 		lista = new ArrayList<String>();
 		tipoInst = servicioTipoInstitucion.listar();
 		estados = servicioEstadoVenezuela.listar();
+		
+		estadoVenezuela= servicioEstadoVenezuela.listar();
+		for (int i = 0; i < estadoVenezuela.size(); i++) {
+				Comboitem item = new Comboitem();
+				item.setLabel(estadoVenezuela.get(i).getNombre());
+				item.setValue(estadoVenezuela.get(i).getCodigoEstado());
+				cmbEstado.appendChild(item);
+			
+		}
+		
+		
+		
 	}
 
 	public void onSelect$cmbEstado() {

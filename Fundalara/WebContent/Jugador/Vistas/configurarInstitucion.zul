@@ -10,7 +10,7 @@
 </zscript>
 
 <window id="win" title="Institución" border="normal" width="420px"
-	closable="true" apply="controlador.jugador.cntrlConfigurarInstitucion">
+	closable="true" apply="controlador.jugador.ConfigurarInstitucionCtrl">
 	<grid oddRowSclass="none">
 		<columns>
 			<column width="25%" />
@@ -36,9 +36,8 @@
 			</row>
 				<row style="border:none;">
 				<label value="Estado" />
-				<combobox id="cmbEstado" value="--Seleccione--" width="46%" model="@{win$composer.estadoVenezuela}">
-				<comboitem self="@{each='estado'}" label="@{estado.nombre}" value="@{estado.codigoEstado}" />
-				
+				<combobox id="cmbEstado" value="--Seleccione--" width="46%">
+								
 				</combobox>
 			</row>
 			<row style="border:none;">

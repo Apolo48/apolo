@@ -32,7 +32,7 @@
 	  	medico = medicoTemp;
 	  }
 	  else {
-	  	Messagebox.show("Cliente no encontrado", "Information", Messagebox.OK, Messagebox.INFORMATION);
+	  	Messagebox.show("Médico no encontrado", "Information", Messagebox.OK, Messagebox.INFORMATION);
 	  	medico = new modelo.Medico();
 	  }
 	  binder.loadAll();
