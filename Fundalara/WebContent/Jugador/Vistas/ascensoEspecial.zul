@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window id="win" title="Ascenso Especial" border="normal"
+	<window id="win"  border="none"
 		width="600px" closable="true">
 		<groupbox style="border-color:orange" closable="false">
 			<caption style="font-weight: bold" label="Jugador" />

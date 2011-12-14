@@ -1,6 +1,6 @@
 <?page title="Ascender Equipos" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Ascender Equipos" border="normal" width="500px" closable="true">
+	<window  border="none"  closable="true">
 				<groupbox style="border-color:orange" closable="false">
 					<caption label="Actual" />
 					<grid style="border:none;" oddRowSclass="none">
