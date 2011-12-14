@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 05/12/2011 04:52:07 PM by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +35,7 @@ public class Divisa implements java.io.Serializable {
 
 	public Divisa(String codigoDivisa, Parroquia parroquia, String nombre,
 			String direccion, String telefono, String correoElectronico,
-			String personaContacto, byte[] logo) {
+			String personaContacto) {
 		this.codigoDivisa = codigoDivisa;
 		this.parroquia = parroquia;
 		this.nombre = nombre;
@@ -43,7 +43,6 @@ public class Divisa implements java.io.Serializable {
 		this.telefono = telefono;
 		this.correoElectronico = correoElectronico;
 		this.personaContacto = personaContacto;
-		this.logo = logo;
 	}
 
 	public Divisa(String codigoDivisa, Parroquia parroquia, String nombre,
@@ -125,7 +124,7 @@ public class Divisa implements java.io.Serializable {
 		this.personaContacto = personaContacto;
 	}
 
-	@Column(name = "logo", nullable = false)
+	@Column(name = "logo")
 	public byte[] getLogo() {
 		return this.logo;
 	}

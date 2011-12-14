@@ -1,13 +1,11 @@
 package modelo;
 
-// Generated 05/12/2011 04:52:07 PM by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -19,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "dato_social")
 public class DatoSocial implements java.io.Serializable {
 
-	private DatoSocialId id;
+	private String codigoDatoSocial;
 	private Institucion institucion;
 	private Jugador jugador;
 	private TipoActividadSocial tipoActividadSocial;
@@ -30,10 +28,10 @@ public class DatoSocial implements java.io.Serializable {
 	public DatoSocial() {
 	}
 
-	public DatoSocial(DatoSocialId id, Institucion institucion,
+	public DatoSocial(String codigoDatoSocial, Institucion institucion,
 			Jugador jugador, TipoActividadSocial tipoActividadSocial,
 			int horasDedicadas, String fechaInicio, char estatus) {
-		this.id = id;
+		this.codigoDatoSocial = codigoDatoSocial;
 		this.institucion = institucion;
 		this.jugador = jugador;
 		this.tipoActividadSocial = tipoActividadSocial;
@@ -42,20 +40,18 @@ public class DatoSocial implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "cedulaJugador", column = @Column(name = "cedula_jugador", nullable = false)),
-			@AttributeOverride(name = "codigoInstitucion", column = @Column(name = "codigo_institucion", nullable = false)) })
-	public DatoSocialId getId() {
-		return this.id;
+	@Id
+	@Column(name = "codigo_dato_social", unique = true, nullable = false)
+	public String getCodigoDatoSocial() {
+		return this.codigoDatoSocial;
 	}
 
-	public void setId(DatoSocialId id) {
-		this.id = id;
+	public void setCodigoDatoSocial(String codigoDatoSocial) {
+		this.codigoDatoSocial = codigoDatoSocial;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_institucion", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "codigo_institucion", nullable = false)
 	public Institucion getInstitucion() {
 		return this.institucion;
 	}
@@ -65,7 +61,7 @@ public class DatoSocial implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cedula_jugador", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "cedula_jugador", nullable = false)
 	public Jugador getJugador() {
 		return this.jugador;
 	}

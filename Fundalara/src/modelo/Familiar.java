@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 05/12/2011 04:52:07 PM by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -30,14 +30,18 @@ public class Familiar implements java.io.Serializable {
 	private String segundoNombre;
 	private String primerApellido;
 	private String segundoApellido;
-	private String direccionHabitacion;
-	private String email;
+	private String direccion;
+	private String correoElectronico;
 	private String twitter;
 	private String telefonoHabitacion;
-	private String telefonoCelular;
+	private String celular;
 	private byte[] foto;
 	private Date fechaIngreso;
 	private char estatus;
+	private String facebook;
+	private Date fechaEgreso;
+	private Character genero;
+	private Date fechaNacimiento;
 	private Set<FamiliarJugador> familiarJugadors = new HashSet<FamiliarJugador>(
 			0);
 
@@ -46,14 +50,13 @@ public class Familiar implements java.io.Serializable {
 
 	public Familiar(String cedulaFamiliar, Profesion profesion,
 			Parroquia parroquia, String primerNombre, String primerApellido,
-			String direccionHabitacion, byte[] foto, Date fechaIngreso,
-			char estatus) {
+			String direccion, byte[] foto, Date fechaIngreso, char estatus) {
 		this.cedulaFamiliar = cedulaFamiliar;
 		this.profesion = profesion;
 		this.parroquia = parroquia;
 		this.primerNombre = primerNombre;
 		this.primerApellido = primerApellido;
-		this.direccionHabitacion = direccionHabitacion;
+		this.direccion = direccion;
 		this.foto = foto;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
@@ -61,10 +64,11 @@ public class Familiar implements java.io.Serializable {
 
 	public Familiar(String cedulaFamiliar, Profesion profesion,
 			Parroquia parroquia, String primerNombre, String segundoNombre,
-			String primerApellido, String segundoApellido,
-			String direccionHabitacion, String email, String twitter,
-			String telefonoHabitacion, String telefonoCelular, byte[] foto,
-			Date fechaIngreso, char estatus,
+			String primerApellido, String segundoApellido, String direccion,
+			String correoElectronico, String twitter,
+			String telefonoHabitacion, String celular, byte[] foto,
+			Date fechaIngreso, char estatus, String facebook, Date fechaEgreso,
+			Character genero, Date fechaNacimiento,
 			Set<FamiliarJugador> familiarJugadors) {
 		this.cedulaFamiliar = cedulaFamiliar;
 		this.profesion = profesion;
@@ -73,14 +77,18 @@ public class Familiar implements java.io.Serializable {
 		this.segundoNombre = segundoNombre;
 		this.primerApellido = primerApellido;
 		this.segundoApellido = segundoApellido;
-		this.direccionHabitacion = direccionHabitacion;
-		this.email = email;
+		this.direccion = direccion;
+		this.correoElectronico = correoElectronico;
 		this.twitter = twitter;
 		this.telefonoHabitacion = telefonoHabitacion;
-		this.telefonoCelular = telefonoCelular;
+		this.celular = celular;
 		this.foto = foto;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
+		this.facebook = facebook;
+		this.fechaEgreso = fechaEgreso;
+		this.genero = genero;
+		this.fechaNacimiento = fechaNacimiento;
 		this.familiarJugadors = familiarJugadors;
 	}
 
@@ -150,22 +158,22 @@ public class Familiar implements java.io.Serializable {
 		this.segundoApellido = segundoApellido;
 	}
 
-	@Column(name = "direccion_habitacion", nullable = false)
-	public String getDireccionHabitacion() {
-		return this.direccionHabitacion;
+	@Column(name = "direccion", nullable = false)
+	public String getDireccion() {
+		return this.direccion;
 	}
 
-	public void setDireccionHabitacion(String direccionHabitacion) {
-		this.direccionHabitacion = direccionHabitacion;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
-	@Column(name = "email")
-	public String getEmail() {
-		return this.email;
+	@Column(name = "correo_electronico")
+	public String getCorreoElectronico() {
+		return this.correoElectronico;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCorreoElectronico(String correoElectronico) {
+		this.correoElectronico = correoElectronico;
 	}
 
 	@Column(name = "twitter")
@@ -186,13 +194,13 @@ public class Familiar implements java.io.Serializable {
 		this.telefonoHabitacion = telefonoHabitacion;
 	}
 
-	@Column(name = "telefono_celular")
-	public String getTelefonoCelular() {
-		return this.telefonoCelular;
+	@Column(name = "celular")
+	public String getCelular() {
+		return this.celular;
 	}
 
-	public void setTelefonoCelular(String telefonoCelular) {
-		this.telefonoCelular = telefonoCelular;
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 
 	@Column(name = "foto", nullable = false)
@@ -221,6 +229,44 @@ public class Familiar implements java.io.Serializable {
 
 	public void setEstatus(char estatus) {
 		this.estatus = estatus;
+	}
+
+	@Column(name = "facebook")
+	public String getFacebook() {
+		return this.facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fecha_egreso", length = 13)
+	public Date getFechaEgreso() {
+		return this.fechaEgreso;
+	}
+
+	public void setFechaEgreso(Date fechaEgreso) {
+		this.fechaEgreso = fechaEgreso;
+	}
+
+	@Column(name = "genero", length = 1)
+	public Character getGenero() {
+		return this.genero;
+	}
+
+	public void setGenero(Character genero) {
+		this.genero = genero;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fecha_nacimiento", length = 13)
+	public Date getFechaNacimiento() {
+		return this.fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "familiar")

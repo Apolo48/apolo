@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 05/12/2011 04:52:07 PM by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +28,8 @@ public class EmpleadoMantenimientoPlanificado implements java.io.Serializable {
 	private char estatus;
 	private Set<TareaMantenimientoPlanificado> tareaMantenimientoPlanificados = new HashSet<TareaMantenimientoPlanificado>(
 			0);
+	private Set<TareaMantenimientoPlanificado> tareaMantenimientoPlanificados_1 = new HashSet<TareaMantenimientoPlanificado>(
+			0);
 
 	public EmpleadoMantenimientoPlanificado() {
 	}
@@ -46,12 +48,14 @@ public class EmpleadoMantenimientoPlanificado implements java.io.Serializable {
 			EmpleadoMantenimientoPlanificadoId id,
 			PlanificacionMantenimiento planificacionMantenimiento,
 			Empleado empleado, char estatus,
-			Set<TareaMantenimientoPlanificado> tareaMantenimientoPlanificados) {
+			Set<TareaMantenimientoPlanificado> tareaMantenimientoPlanificados,
+			Set<TareaMantenimientoPlanificado> tareaMantenimientoPlanificados_1) {
 		this.id = id;
 		this.planificacionMantenimiento = planificacionMantenimiento;
 		this.empleado = empleado;
 		this.estatus = estatus;
 		this.tareaMantenimientoPlanificados = tareaMantenimientoPlanificados;
+		this.tareaMantenimientoPlanificados_1 = tareaMantenimientoPlanificados_1;
 	}
 
 	@EmbeddedId
@@ -104,6 +108,16 @@ public class EmpleadoMantenimientoPlanificado implements java.io.Serializable {
 	public void setTareaMantenimientoPlanificados(
 			Set<TareaMantenimientoPlanificado> tareaMantenimientoPlanificados) {
 		this.tareaMantenimientoPlanificados = tareaMantenimientoPlanificados;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empleadoMantenimientoPlanificado")
+	public Set<TareaMantenimientoPlanificado> getTareaMantenimientoPlanificados_1() {
+		return this.tareaMantenimientoPlanificados_1;
+	}
+
+	public void setTareaMantenimientoPlanificados_1(
+			Set<TareaMantenimientoPlanificado> tareaMantenimientoPlanificados_1) {
+		this.tareaMantenimientoPlanificados_1 = tareaMantenimientoPlanificados_1;
 	}
 
 }

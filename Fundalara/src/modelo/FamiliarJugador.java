@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 05/12/2011 04:52:07 PM by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,10 +30,10 @@ public class FamiliarJugador implements java.io.Serializable {
 	private Parentesco parentesco;
 	private Jugador jugador;
 	private Familiar familiar;
-	private String parentesco_1;
-	private boolean representante;
 	private char estatus;
 	private Date fechaIngreso;
+	private Representante representante;
+	private Set<Hospedaje> hospedajes = new HashSet<Hospedaje>(0);
 	private Set<FamiliarComisionEquipo> familiarComisionEquipos = new HashSet<FamiliarComisionEquipo>(
 			0);
 
@@ -40,30 +41,28 @@ public class FamiliarJugador implements java.io.Serializable {
 	}
 
 	public FamiliarJugador(FamiliarJugadorId id, Parentesco parentesco,
-			Jugador jugador, Familiar familiar, String parentesco_1,
-			boolean representante, char estatus, Date fechaIngreso) {
+			Jugador jugador, Familiar familiar, char estatus, Date fechaIngreso) {
 		this.id = id;
 		this.parentesco = parentesco;
 		this.jugador = jugador;
 		this.familiar = familiar;
-		this.parentesco_1 = parentesco_1;
-		this.representante = representante;
 		this.estatus = estatus;
 		this.fechaIngreso = fechaIngreso;
 	}
 
 	public FamiliarJugador(FamiliarJugadorId id, Parentesco parentesco,
-			Jugador jugador, Familiar familiar, String parentesco_1,
-			boolean representante, char estatus, Date fechaIngreso,
+			Jugador jugador, Familiar familiar, char estatus,
+			Date fechaIngreso, Representante representante,
+			Set<Hospedaje> hospedajes,
 			Set<FamiliarComisionEquipo> familiarComisionEquipos) {
 		this.id = id;
 		this.parentesco = parentesco;
 		this.jugador = jugador;
 		this.familiar = familiar;
-		this.parentesco_1 = parentesco_1;
-		this.representante = representante;
 		this.estatus = estatus;
 		this.fechaIngreso = fechaIngreso;
+		this.representante = representante;
+		this.hospedajes = hospedajes;
 		this.familiarComisionEquipos = familiarComisionEquipos;
 	}
 
@@ -109,24 +108,6 @@ public class FamiliarJugador implements java.io.Serializable {
 		this.familiar = familiar;
 	}
 
-	@Column(name = "parentesco", nullable = false)
-	public String getParentesco_1() {
-		return this.parentesco_1;
-	}
-
-	public void setParentesco_1(String parentesco_1) {
-		this.parentesco_1 = parentesco_1;
-	}
-
-	@Column(name = "representante", nullable = false)
-	public boolean isRepresentante() {
-		return this.representante;
-	}
-
-	public void setRepresentante(boolean representante) {
-		this.representante = representante;
-	}
-
 	@Column(name = "estatus", nullable = false, length = 1)
 	public char getEstatus() {
 		return this.estatus;
@@ -144,6 +125,24 @@ public class FamiliarJugador implements java.io.Serializable {
 
 	public void setFechaIngreso(Date fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "familiarJugador")
+	public Representante getRepresentante() {
+		return this.representante;
+	}
+
+	public void setRepresentante(Representante representante) {
+		this.representante = representante;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "familiarJugador")
+	public Set<Hospedaje> getHospedajes() {
+		return this.hospedajes;
+	}
+
+	public void setHospedajes(Set<Hospedaje> hospedajes) {
+		this.hospedajes = hospedajes;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "familiarJugador")

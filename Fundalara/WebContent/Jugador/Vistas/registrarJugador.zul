@@ -332,7 +332,7 @@
 																		<!-- Pendiente asignarlo ejemplo  selectedItem="@{controller.jugador.parroquia}" -->
 																			<combobox
 																				id="cmbParroquiaResi" readonly="true"
-																				value="--Seleccione--" width="70%"  model="@{winRegistroJugador$composer.parroquiasMunicipioResi}">
+																				value="--Seleccione--" width="27%"  model="@{winRegistroJugador$composer.parroquiasMunicipioResi}">
 																				<comboitem
 																					self="@{each='parroquia'}" label="@{parroquia.nombre}"
 																					 />

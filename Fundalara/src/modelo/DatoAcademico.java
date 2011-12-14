@@ -1,16 +1,17 @@
 package modelo;
 
-// Generated 05/12/2011 04:52:07 PM by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,22 +23,23 @@ import javax.persistence.TemporalType;
 @Table(name = "dato_academico")
 public class DatoAcademico implements java.io.Serializable {
 
-	private DatoAcademicoId id;
+	private String codigoAcademico;
 	private Institucion institucion;
 	private Jugador jugador;
 	private Curso curso;
 	private AnnoEscolar annoEscolar;
-	private byte[] documento;
 	private Date fechaIngreso;
 	private char estatus;
+	private Set<DocumentoAcademico> documentoAcademicos = new HashSet<DocumentoAcademico>(
+			0);
 
 	public DatoAcademico() {
 	}
 
-	public DatoAcademico(DatoAcademicoId id, Institucion institucion,
+	public DatoAcademico(String codigoAcademico, Institucion institucion,
 			Jugador jugador, Curso curso, AnnoEscolar annoEscolar,
 			Date fechaIngreso, char estatus) {
-		this.id = id;
+		this.codigoAcademico = codigoAcademico;
 		this.institucion = institucion;
 		this.jugador = jugador;
 		this.curso = curso;
@@ -46,34 +48,32 @@ public class DatoAcademico implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	public DatoAcademico(DatoAcademicoId id, Institucion institucion,
+	public DatoAcademico(String codigoAcademico, Institucion institucion,
 			Jugador jugador, Curso curso, AnnoEscolar annoEscolar,
-			byte[] documento, Date fechaIngreso, char estatus) {
-		this.id = id;
+			Date fechaIngreso, char estatus,
+			Set<DocumentoAcademico> documentoAcademicos) {
+		this.codigoAcademico = codigoAcademico;
 		this.institucion = institucion;
 		this.jugador = jugador;
 		this.curso = curso;
 		this.annoEscolar = annoEscolar;
-		this.documento = documento;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
+		this.documentoAcademicos = documentoAcademicos;
 	}
 
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "cedulaJugador", column = @Column(name = "cedula_jugador", nullable = false)),
-			@AttributeOverride(name = "codigoInstitucion", column = @Column(name = "codigo_institucion", nullable = false)),
-			@AttributeOverride(name = "codigoAnnoEscolar", column = @Column(name = "codigo_anno_escolar", nullable = false)) })
-	public DatoAcademicoId getId() {
-		return this.id;
+	@Id
+	@Column(name = "codigo_academico", unique = true, nullable = false)
+	public String getCodigoAcademico() {
+		return this.codigoAcademico;
 	}
 
-	public void setId(DatoAcademicoId id) {
-		this.id = id;
+	public void setCodigoAcademico(String codigoAcademico) {
+		this.codigoAcademico = codigoAcademico;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_institucion", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "codigo_institucion", nullable = false)
 	public Institucion getInstitucion() {
 		return this.institucion;
 	}
@@ -83,7 +83,7 @@ public class DatoAcademico implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cedula_jugador", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "cedula_jugador", nullable = false)
 	public Jugador getJugador() {
 		return this.jugador;
 	}
@@ -103,22 +103,13 @@ public class DatoAcademico implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_anno_escolar", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "codigo_anno_escolar", nullable = false)
 	public AnnoEscolar getAnnoEscolar() {
 		return this.annoEscolar;
 	}
 
 	public void setAnnoEscolar(AnnoEscolar annoEscolar) {
 		this.annoEscolar = annoEscolar;
-	}
-
-	@Column(name = "documento")
-	public byte[] getDocumento() {
-		return this.documento;
-	}
-
-	public void setDocumento(byte[] documento) {
-		this.documento = documento;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -138,6 +129,16 @@ public class DatoAcademico implements java.io.Serializable {
 
 	public void setEstatus(char estatus) {
 		this.estatus = estatus;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoAcademico")
+	public Set<DocumentoAcademico> getDocumentoAcademicos() {
+		return this.documentoAcademicos;
+	}
+
+	public void setDocumentoAcademicos(
+			Set<DocumentoAcademico> documentoAcademicos) {
+		this.documentoAcademicos = documentoAcademicos;
 	}
 
 }

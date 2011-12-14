@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 05/12/2011 04:52:07 PM by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,10 +26,19 @@ public class Categoria implements java.io.Serializable {
 	private int minimoJugador;
 	private int maximoJugador;
 	private char estatus;
-	private Set<Liga> ligas = new HashSet<Liga>(0);
+	private Set<LigaCategoria> ligaCategorias = new HashSet<LigaCategoria>(0);
+	private Set<HospedajeJudador> hospedajeJudadors = new HashSet<HospedajeJudador>(
+			0);
+	private Set<ParticipantePlan> participantePlans = new HashSet<ParticipantePlan>(
+			0);
 	private Set<CategoriaCompetencia> categoriaCompetencias = new HashSet<CategoriaCompetencia>(
 			0);
+	private Set<LigaCategoria> ligaCategorias_1 = new HashSet<LigaCategoria>(0);
+	private Set<CategoriaCompetencia> categoriaCompetencias_1 = new HashSet<CategoriaCompetencia>(
+			0);
 	private Set<ActividadEntrenamiento> actividadEntrenamientos = new HashSet<ActividadEntrenamiento>(
+			0);
+	private Set<ActividadEntrenamiento> actividadEntrenamientos_1 = new HashSet<ActividadEntrenamiento>(
 			0);
 	private Set<Equipo> equipos = new HashSet<Equipo>(0);
 
@@ -52,9 +60,14 @@ public class Categoria implements java.io.Serializable {
 
 	public Categoria(String codigoCategoria, String nombre, int edadInferior,
 			int edadSuperior, int cantidadEquipo, int minimoJugador,
-			int maximoJugador, char estatus, Set<Liga> ligas,
+			int maximoJugador, char estatus, Set<LigaCategoria> ligaCategorias,
+			Set<HospedajeJudador> hospedajeJudadors,
+			Set<ParticipantePlan> participantePlans,
 			Set<CategoriaCompetencia> categoriaCompetencias,
+			Set<LigaCategoria> ligaCategorias_1,
+			Set<CategoriaCompetencia> categoriaCompetencias_1,
 			Set<ActividadEntrenamiento> actividadEntrenamientos,
+			Set<ActividadEntrenamiento> actividadEntrenamientos_1,
 			Set<Equipo> equipos) {
 		this.codigoCategoria = codigoCategoria;
 		this.nombre = nombre;
@@ -64,9 +77,14 @@ public class Categoria implements java.io.Serializable {
 		this.minimoJugador = minimoJugador;
 		this.maximoJugador = maximoJugador;
 		this.estatus = estatus;
-		this.ligas = ligas;
+		this.ligaCategorias = ligaCategorias;
+		this.hospedajeJudadors = hospedajeJudadors;
+		this.participantePlans = participantePlans;
 		this.categoriaCompetencias = categoriaCompetencias;
+		this.ligaCategorias_1 = ligaCategorias_1;
+		this.categoriaCompetencias_1 = categoriaCompetencias_1;
 		this.actividadEntrenamientos = actividadEntrenamientos;
+		this.actividadEntrenamientos_1 = actividadEntrenamientos_1;
 		this.equipos = equipos;
 	}
 
@@ -143,13 +161,31 @@ public class Categoria implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "categorias")
-	public Set<Liga> getLigas() {
-		return this.ligas;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")
+	public Set<LigaCategoria> getLigaCategorias() {
+		return this.ligaCategorias;
 	}
 
-	public void setLigas(Set<Liga> ligas) {
-		this.ligas = ligas;
+	public void setLigaCategorias(Set<LigaCategoria> ligaCategorias) {
+		this.ligaCategorias = ligaCategorias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")
+	public Set<HospedajeJudador> getHospedajeJudadors() {
+		return this.hospedajeJudadors;
+	}
+
+	public void setHospedajeJudadors(Set<HospedajeJudador> hospedajeJudadors) {
+		this.hospedajeJudadors = hospedajeJudadors;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")
+	public Set<ParticipantePlan> getParticipantePlans() {
+		return this.participantePlans;
+	}
+
+	public void setParticipantePlans(Set<ParticipantePlan> participantePlans) {
+		this.participantePlans = participantePlans;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")
@@ -163,6 +199,25 @@ public class Categoria implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")
+	public Set<LigaCategoria> getLigaCategorias_1() {
+		return this.ligaCategorias_1;
+	}
+
+	public void setLigaCategorias_1(Set<LigaCategoria> ligaCategorias_1) {
+		this.ligaCategorias_1 = ligaCategorias_1;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")
+	public Set<CategoriaCompetencia> getCategoriaCompetencias_1() {
+		return this.categoriaCompetencias_1;
+	}
+
+	public void setCategoriaCompetencias_1(
+			Set<CategoriaCompetencia> categoriaCompetencias_1) {
+		this.categoriaCompetencias_1 = categoriaCompetencias_1;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")
 	public Set<ActividadEntrenamiento> getActividadEntrenamientos() {
 		return this.actividadEntrenamientos;
 	}
@@ -170,6 +225,16 @@ public class Categoria implements java.io.Serializable {
 	public void setActividadEntrenamientos(
 			Set<ActividadEntrenamiento> actividadEntrenamientos) {
 		this.actividadEntrenamientos = actividadEntrenamientos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")
+	public Set<ActividadEntrenamiento> getActividadEntrenamientos_1() {
+		return this.actividadEntrenamientos_1;
+	}
+
+	public void setActividadEntrenamientos_1(
+			Set<ActividadEntrenamiento> actividadEntrenamientos_1) {
+		this.actividadEntrenamientos_1 = actividadEntrenamientos_1;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "categoria")

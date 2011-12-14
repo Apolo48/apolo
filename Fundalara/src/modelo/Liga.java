@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 05/12/2011 04:52:07 PM by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,9 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,7 +21,8 @@ public class Liga implements java.io.Serializable {
 	private String codigoLiga;
 	private String nombre;
 	private byte[] logo;
-	private Set<Categoria> categorias = new HashSet<Categoria>(0);
+	private Set<LigaCategoria> ligaCategorias = new HashSet<LigaCategoria>(0);
+	private Set<LigaCategoria> ligaCategorias_1 = new HashSet<LigaCategoria>(0);
 
 	public Liga() {
 	}
@@ -35,11 +34,13 @@ public class Liga implements java.io.Serializable {
 	}
 
 	public Liga(String codigoLiga, String nombre, byte[] logo,
-			Set<Categoria> categorias) {
+			Set<LigaCategoria> ligaCategorias,
+			Set<LigaCategoria> ligaCategorias_1) {
 		this.codigoLiga = codigoLiga;
 		this.nombre = nombre;
 		this.logo = logo;
-		this.categorias = categorias;
+		this.ligaCategorias = ligaCategorias;
+		this.ligaCategorias_1 = ligaCategorias_1;
 	}
 
 	@Id
@@ -70,14 +71,22 @@ public class Liga implements java.io.Serializable {
 		this.logo = logo;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "liga_categoria", joinColumns = { @JoinColumn(name = "codigo_liga", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_categoria", nullable = false, updatable = false) })
-	public Set<Categoria> getCategorias() {
-		return this.categorias;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "liga")
+	public Set<LigaCategoria> getLigaCategorias() {
+		return this.ligaCategorias;
 	}
 
-	public void setCategorias(Set<Categoria> categorias) {
-		this.categorias = categorias;
+	public void setLigaCategorias(Set<LigaCategoria> ligaCategorias) {
+		this.ligaCategorias = ligaCategorias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "liga")
+	public Set<LigaCategoria> getLigaCategorias_1() {
+		return this.ligaCategorias_1;
+	}
+
+	public void setLigaCategorias_1(Set<LigaCategoria> ligaCategorias_1) {
+		this.ligaCategorias_1 = ligaCategorias_1;
 	}
 
 }

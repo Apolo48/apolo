@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 05/12/2011 04:52:07 PM by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.AttributeOverride;
@@ -23,8 +23,8 @@ import javax.persistence.TemporalType;
 public class AfeccionJugador implements java.io.Serializable {
 
 	private AfeccionJugadorId id;
-	private DatoMedico datoMedico;
 	private TipoAfeccion tipoAfeccion;
+	private DatoMedico datoMedico;
 	private String duracion;
 	private Date fechaRevision;
 	private Date fechaReincorporacion;
@@ -35,13 +35,13 @@ public class AfeccionJugador implements java.io.Serializable {
 	public AfeccionJugador() {
 	}
 
-	public AfeccionJugador(AfeccionJugadorId id, DatoMedico datoMedico,
-			TipoAfeccion tipoAfeccion, String duracion, Date fechaRevision,
+	public AfeccionJugador(AfeccionJugadorId id, TipoAfeccion tipoAfeccion,
+			DatoMedico datoMedico, String duracion, Date fechaRevision,
 			Date fechaReincorporacion, byte[] documento1, byte[] documento2,
 			char estatus) {
 		this.id = id;
-		this.datoMedico = datoMedico;
 		this.tipoAfeccion = tipoAfeccion;
+		this.datoMedico = datoMedico;
 		this.duracion = duracion;
 		this.fechaRevision = fechaRevision;
 		this.fechaReincorporacion = fechaReincorporacion;
@@ -63,16 +63,6 @@ public class AfeccionJugador implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_registro", nullable = false, insertable = false, updatable = false)
-	public DatoMedico getDatoMedico() {
-		return this.datoMedico;
-	}
-
-	public void setDatoMedico(DatoMedico datoMedico) {
-		this.datoMedico = datoMedico;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_afeccion", nullable = false, insertable = false, updatable = false)
 	public TipoAfeccion getTipoAfeccion() {
 		return this.tipoAfeccion;
@@ -80,6 +70,16 @@ public class AfeccionJugador implements java.io.Serializable {
 
 	public void setTipoAfeccion(TipoAfeccion tipoAfeccion) {
 		this.tipoAfeccion = tipoAfeccion;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_registro", nullable = false, insertable = false, updatable = false)
+	public DatoMedico getDatoMedico() {
+		return this.datoMedico;
+	}
+
+	public void setDatoMedico(DatoMedico datoMedico) {
+		this.datoMedico = datoMedico;
 	}
 
 	@Column(name = "duracion", nullable = false)

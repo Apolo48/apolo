@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 05/12/2011 04:52:07 PM by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -21,8 +21,8 @@ import javax.persistence.TemporalType;
 @Table(name = "medico")
 public class Medico implements java.io.Serializable {
 
-	private String matricula;
 	private String numeroColegio;
+	private String matricula;
 	private String cedulaMedico;
 	private String nombre;
 	private String apellido;
@@ -33,10 +33,10 @@ public class Medico implements java.io.Serializable {
 	public Medico() {
 	}
 
-	public Medico(String matricula, String numeroColegio, String cedulaMedico,
+	public Medico(String numeroColegio, String matricula, String cedulaMedico,
 			String nombre, String apellido, Date fechaIngreso, char estatus) {
-		this.matricula = matricula;
 		this.numeroColegio = numeroColegio;
+		this.matricula = matricula;
 		this.cedulaMedico = cedulaMedico;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -44,11 +44,11 @@ public class Medico implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	public Medico(String matricula, String numeroColegio, String cedulaMedico,
+	public Medico(String numeroColegio, String matricula, String cedulaMedico,
 			String nombre, String apellido, Date fechaIngreso, char estatus,
 			Set<DatoMedico> datoMedicos) {
-		this.matricula = matricula;
 		this.numeroColegio = numeroColegio;
+		this.matricula = matricula;
 		this.cedulaMedico = cedulaMedico;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -58,22 +58,22 @@ public class Medico implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "matricula", unique = true, nullable = false)
-	public String getMatricula() {
-		return this.matricula;
-	}
-
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
-
-	@Column(name = "numero_colegio", nullable = false)
+	@Column(name = "numero_colegio", unique = true, nullable = false)
 	public String getNumeroColegio() {
 		return this.numeroColegio;
 	}
 
 	public void setNumeroColegio(String numeroColegio) {
 		this.numeroColegio = numeroColegio;
+	}
+
+	@Column(name = "matricula", nullable = false)
+	public String getMatricula() {
+		return this.matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
 	@Column(name = "cedula_medico", nullable = false)

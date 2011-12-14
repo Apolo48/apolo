@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 05/12/2011 04:52:07 PM by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +22,8 @@ public class TipoConceptoNomina implements java.io.Serializable {
 	private String descripcion;
 	private char estatus;
 	private Set<ConceptoNomina> conceptoNominas = new HashSet<ConceptoNomina>(0);
+	private Set<ConceptoNomina> conceptoNominas_1 = new HashSet<ConceptoNomina>(
+			0);
 
 	public TipoConceptoNomina() {
 	}
@@ -35,11 +37,13 @@ public class TipoConceptoNomina implements java.io.Serializable {
 
 	public TipoConceptoNomina(String codigoTipoConceptoNomina,
 			String descripcion, char estatus,
-			Set<ConceptoNomina> conceptoNominas) {
+			Set<ConceptoNomina> conceptoNominas,
+			Set<ConceptoNomina> conceptoNominas_1) {
 		this.codigoTipoConceptoNomina = codigoTipoConceptoNomina;
 		this.descripcion = descripcion;
 		this.estatus = estatus;
 		this.conceptoNominas = conceptoNominas;
+		this.conceptoNominas_1 = conceptoNominas_1;
 	}
 
 	@Id
@@ -77,6 +81,15 @@ public class TipoConceptoNomina implements java.io.Serializable {
 
 	public void setConceptoNominas(Set<ConceptoNomina> conceptoNominas) {
 		this.conceptoNominas = conceptoNominas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoConceptoNomina")
+	public Set<ConceptoNomina> getConceptoNominas_1() {
+		return this.conceptoNominas_1;
+	}
+
+	public void setConceptoNominas_1(Set<ConceptoNomina> conceptoNominas_1) {
+		this.conceptoNominas_1 = conceptoNominas_1;
 	}
 
 }
