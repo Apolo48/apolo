@@ -1,6 +1,9 @@
 <?page title="Plan Vacacional" contentType="text/html;charset=UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
-	<window id="win" title="" border="none" width="670px" apply="controlador.jugador.RegistrarPlanVacacionalCtrl">
+	<window id="wndPlan" title="" width="670px"
+		apply="controlador.jugador.RegistrarPlanVacacionalCtrl">
 
 		<panel title="Plan Vacacional">
 			<panelchildren>
@@ -16,7 +19,7 @@
 							<label value="Turno" />
 							<div>
 								<combobox id="cmbTurno"
-									value="--Seleccione--" focus="true" width="76%" >
+									value="--Seleccione--" focus="true" width="76%">
 									<comboitem label="Mañana" />
 									<comboitem label="Tarde" />
 									<comboitem label="Noche" />
@@ -40,7 +43,6 @@
 				</grid>
 			</panelchildren>
 		</panel>
-
 		<panel title="Jugador">
 			<panelchildren>
 				<grid id="gridJugador" style="border:none;"
@@ -68,7 +70,6 @@
 									tooltiptext="Haga click para buscar un jugador"
 									image="../../Recursos/Imagenes/consultar.ico"
 									orient="horizontal" visible="false" />
-
 							</div>
 						</row>
 						<row style="border:none;">
@@ -133,13 +134,10 @@
 								<label value="(*)" style="color:red" />
 							</div>
 						</row>
-
-
 					</rows>
 				</grid>
 			</panelchildren>
 		</panel>
-
 		<panel title="Representante">
 			<panelchildren>
 				<grid id="gridRepresentante" style="border:none;"
@@ -168,7 +166,8 @@
 						<row style="border:none;">
 							<label value="Nombre" />
 							<div>
-								<textbox id="txtNombreRepr" width="84%">
+								<textbox id="txtNombreRepr"
+									width="84%">
 								</textbox>
 								<label value="(*)" style="color:red" />
 							</div>
@@ -179,7 +178,6 @@
 								</textbox>
 								<label value="(*)" style="color:red" />
 							</div>
-
 						</row>
 						<row style="border:none;">
 							<label value="Teléfono Habitación" />
@@ -191,12 +189,10 @@
 									<comboitem label="0254" />
 									<comboitem label="0255" />
 								</combobox>
-
 								<intbox id="txtTelefono"
 									constraint="no negative" width="54%" />
 							</div>
 							<label value="Teléfono Celular" />
-
 							<div>
 								<combobox id="cmbCodCelular" width="17%"
 									value="0412">
@@ -214,8 +210,7 @@
 				</grid>
 			</panelchildren>
 		</panel>
-		
-		<space/>
+		<space />
 		<div>
 			<label value="(*) Campo Obligatorio" style="color:red" />
 		</div>
@@ -223,17 +218,19 @@
 			<button id="btnGuardar" label="Guardar"
 				image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"
 				width="100px" />
+			<button id="btnModificar" label="Modificar"
+				image="../../Recursos/Imagenes/editar.ico" orient="horizontal"
+				width="100px" />
+			<button id="btnEliminar" label="Eliminar"
+				image="../../Recursos/Imagenes/eliminar.ico" orient="horizontal"
+				width="100px" />
 			<button id="btnCancelar" label="Cancelar"
 				image="../../Recursos/Imagenes/cancelar.ico" orient="horizontal"
 				width="100px" />
 			<button id="btnSalir" label="Salir"
 				image="../../Recursos/Imagenes/salir.png" orient="horizontal"
-				width="100px">
-				<attribute name="onClick"><![CDATA[
-					win.detach();
-				]]></attribute>
-		   </button>
+				width="100px" />
 		</div>
-
+		
 	</window>
 </zk>

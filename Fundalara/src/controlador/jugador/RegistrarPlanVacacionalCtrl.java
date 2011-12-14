@@ -1,6 +1,11 @@
 package controlador.jugador;
 
 import java.util.Date;
+
+import modelo.Institucion;
+
+import org.zkoss.zhtml.Form;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
@@ -8,17 +13,20 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
 import comun.Util;
 
 /**
  * Clase controladora de los eventos de la vista Plan Vacacional.
  * 
- * @author María F
+ * @author Marï¿½a F,Luis D
  * @version 1.0 26/11/2011
  */
 
 public class RegistrarPlanVacacionalCtrl extends GenericForwardComposer {
+	private Combobox cmbTurno;
+	private Combobox cmbHorario;
 	private Combobox cmbTipoAlumno;
 	private Combobox cmbCategoria;
 	private Combobox cmbTalla;
@@ -30,13 +38,26 @@ public class RegistrarPlanVacacionalCtrl extends GenericForwardComposer {
 	private Intbox txtCedula;
 	private Intbox txtTelefono;
 	private Intbox txtCelular;
-	private Button btnBuscar;
 	private Textbox txtNombre;
 	private Textbox txtApellido;
 	private Textbox txtNombreRepr;
 	private Textbox txtApellidoRepr;
-
+	private Button btnBuscar;
+	private Button btnGuardar;
+	private Button btnModificar;
+	private Button btnEliminar;
+	private Button btnCancelar;
+	private Button btnSalir;
+	private Window wndPlan;
 	
+
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		comp.setVariable("controller", this, false); // Hacemos visible el
+														// modelo para el
+														// databinder
+	}
 /*Habilita o deshabilita los campos de la vista.*/
 	
 	private void disabledFields(boolean flag) {
@@ -44,7 +65,6 @@ public class RegistrarPlanVacacionalCtrl extends GenericForwardComposer {
 		txtApellido.setDisabled(flag);
 		dtboxFechaNac.setDisabled(flag);
 		cmbCategoria.setDisabled(flag);
-		cmbTalla.setDisabled(flag);
 		cmbNacionalidad.setDisabled(flag);
 		txtCedula.setDisabled(flag);
 		txtNombreRepr.setDisabled(flag);
@@ -57,8 +77,8 @@ public class RegistrarPlanVacacionalCtrl extends GenericForwardComposer {
 	}
 
 	/**
-	 * Coloca visible o no el botón buscar y habilita o deshabilita los campos
-	 * según la selección del combo Tipo Alumno.
+	 * Coloca visible o no el botï¿½n buscar y habilita o deshabilita los campos
+	 * segï¿½n la selecciï¿½n del combo Tipo Alumno.
 	 */
 	private void visibleButton(boolean flag) {
 		if (cmbTipoAlumno.getSelectedItem().getValue().equals("R")) {
@@ -93,7 +113,32 @@ public class RegistrarPlanVacacionalCtrl extends GenericForwardComposer {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		} else {
+		}
+		
+		else if (txtApellido.getValue().equals("")) {
+			try {
+				Messagebox.show(
+						"Existen campos obligatorios, por favor verifique.",
+						"Fundalara", Messagebox.OK, Messagebox.EXCLAMATION);
+
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else if (txtNombreRepr.getValue().equals("")) {
+			try {
+				Messagebox.show(
+						"Existen campos obligatorios, por favor verifique.",
+						"Fundalara", Messagebox.OK, Messagebox.EXCLAMATION);
+
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		else {
 			new Util().crearVentana("Jugador/Vistas/vistaCompromisoPago.zul",
 					null, null);
 		}
@@ -107,6 +152,11 @@ public class RegistrarPlanVacacionalCtrl extends GenericForwardComposer {
 	public void onClick$btnGuardar() {
 		viewcompromiso();
 	}
+	
+	public void onClick$btnCancelar() {
+		/*plan= new PlanVacacional();
+		binder.loadAll();*/
+	}
 
 	public void onClick$btnBuscar() {
 		new Util().crearVentana("Jugador/Vistas/buscarJugador.zul", null, null);
@@ -115,6 +165,11 @@ public class RegistrarPlanVacacionalCtrl extends GenericForwardComposer {
 	public void onChange$dtboxFechaNac() {
 		Date fecha = dtboxFechaNac.getValue();
 		txtEdad.setValue(Util.calcularDiferenciaAnnios(fecha));
+	}
+	
+	public void onClick$btnSalir() {
+		wndPlan.detach();
+		               			
 	}
 
 }
