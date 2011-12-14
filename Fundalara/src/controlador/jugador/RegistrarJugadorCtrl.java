@@ -20,6 +20,7 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
 
 import servicio.compentencia.ServicioDivisa;
+import servicio.jugador.ServicioAfeccionJugador;
 import servicio.jugador.ServicioCategoria;
 import servicio.jugador.ServicioClasificacionEquipo;
 import servicio.jugador.ServicioCurso;
@@ -27,12 +28,15 @@ import servicio.jugador.ServicioEstadoVenezuela;
 import servicio.jugador.ServicioMunicipio;
 import servicio.jugador.ServicioPais;
 import servicio.jugador.ServicioParroquia;
+import servicio.jugador.ServicioTipoAfeccion;
 
 import comun.FileLoader;
 import comun.Rutas;
 import comun.Util;
+import modelo.AfeccionJugador;
 import modelo.Categoria;
 import modelo.Curso;
+import modelo.DatoMedico;
 import modelo.Divisa;
 import modelo.Equipo;
 import modelo.EstadoVenezuela;
@@ -40,6 +44,7 @@ import modelo.Jugador;
 import modelo.Municipio;
 import modelo.Pais;
 import modelo.Parroquia;
+import modelo.TipoAfeccion;
 
 /**
  * Clase controladora de los eventos de la vista de igual nombre y manejo de los
@@ -89,12 +94,16 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private ServicioMunicipio servicioMunicipio;
 	private ServicioParroquia servicioParroquia;
 	private ServicioPais servicioPais;
+	private ServicioTipoAfeccion servicioTipoAfeccion;
 	// Model
 	private Jugador jugador = new Jugador();
 	private EstadoVenezuela estadoVenezuela = new EstadoVenezuela();
 	private EstadoVenezuela estadoVenezuelaResi = new EstadoVenezuela();
 	private Municipio municipioNac = new Municipio();
 	private Municipio municipioResi = new Municipio();
+	private DatoMedico datoMedico = new DatoMedico();
+	private List<TipoAfeccion> afeccionesActuales;
+	private List<AfeccionJugador> afeccionJugador;// = new AfeccionJugador();
 	// Binder
 	private AnnotateDataBinder binder;
 
@@ -129,7 +138,10 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	public List<Pais> getPaises() {
 		return servicioPais.listar();
 	}
-
+	
+	public List<TipoAfeccion> getAfecciones() {
+		return servicioTipoAfeccion.listar();
+	}
 	
 	public EstadoVenezuela getEstadoVenezuela() {
 		return estadoVenezuela;
@@ -177,6 +189,14 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 
 	public void setMunicipioResi(Municipio municipioResi) {
 		this.municipioResi = municipioResi;
+	}
+
+	public List<TipoAfeccion> getAfeccionesActuales() {
+		return afeccionesActuales;
+	}
+
+	public void setAfeccionesActuales(List<TipoAfeccion> afeccionesActuales) {
+		this.afeccionesActuales = afeccionesActuales;
 	}
 
 	public void onChange$dtboxFechaNac() {
@@ -241,6 +261,22 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		List<Parroquia> lista = servicioParroquia.buscar(municipioResi);
 		return lista;
 	}
+
+	public DatoMedico getDatoMedico() {
+		return datoMedico;
+	}
+
+	public void setDatoMedico(DatoMedico datoMedico) {
+		this.datoMedico = datoMedico;
+	}
+
+/*	public AfeccionJugador getAfeccionJugador() {
+		return afeccionJugador;
+	}
+
+	public void setAfeccionJugador(AfeccionJugador afeccionJugador) {
+		this.afeccionJugador = afeccionJugador;
+	}*/
 
 	public void onChange$cmbEstadoResi() {
 		cmbMunicipioResi.setValue("--Seleccione--");

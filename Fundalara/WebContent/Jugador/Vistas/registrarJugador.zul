@@ -509,7 +509,7 @@
 															value="Grupo Sanguíneo" />
 														<div>
 															<combobox
-																id="cmbGrupoSanguineo" width="20%" readonly="true"
+																id="cmbGrupoSanguineo" width="20%" readonly="true" selectedItem="@{controller.jugador.tipoSangre}"
 																value="--">
 																<comboitem
 																	label="O" />
@@ -564,7 +564,7 @@
 																value="Fecha" />
 															<datebox
 																id="dtboxFechaRev" constraint="no future"
-																format="dd/MM/yyyy"
+																format="dd/MM/yyyy" value="@{controller.datoMedico.fechaInforme}"
 																style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 														</row>
 														<row
@@ -608,19 +608,13 @@
 																			style="border:none;">
 																			<label
 																				value="Afección" />
-																			<combobox
-																				readonly="true" value="--Seleccione--" width="60%"
-																				id="cmbAfecciones">
+																			<combobox readonly="true" value="--Seleccione--" width="60%"
+																				id="cmbAfecciones"  model="@{winRegistroJugador$composer.afecciones}" >
 																				<comboitem
-																					label="Alérgia a medicamentos" />
-																				<comboitem
-																					label="Alérgia a picaduras de insectos" />
-																				<comboitem
-																					label="Asma" />
-																				<comboitem
-																					label="Insolación" />
+																					self="@{each='afeccion'}" label="@{afeccion.nombre}"
+																					 />
 																			</combobox>
-
+																		
 																		</row>
 																		<row
 																			style="border:none;" spans="4">
@@ -676,7 +670,7 @@
 																value="Observaciones" />
 															<textbox
 																maxlength="200" height="40px" width="95%"
-																multiline="true" id="txtObervaciones" />
+																multiline="true" id="txtObervaciones" value="@{controller.datoMedico.obsevacion}"/>
 														</row>
 													</rows>
 												</grid>

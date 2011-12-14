@@ -75,4 +75,10 @@
 	<bean id="servicioPais" class="servicio.jugador.ServicioPais">
 		<property name="daoPais" ref="daoPais"></property>
 	</bean>
+	
+		<bean id="daoTipoAfeccion" class="dao.jugador.DaoTipoAfeccion">
+	</bean>
+	<bean id="servicioTipoAfeccion" class="servicio.jugador.ServicioTipoAfeccion">
+		<property name="daoTipoAfeccion" ref="daoTipoAfeccion"></property>
+	</bean>
 </beans>
