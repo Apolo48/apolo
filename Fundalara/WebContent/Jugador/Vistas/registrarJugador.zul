@@ -14,9 +14,9 @@
 						   
 			
 			<groupbox id="grboxPerfilJugador"
-				style="border-color:orange" closable="false">
+				style="border-color:orange" closable="false" >
 				<caption label="Jugador" />
-				<grid style="border:none;" oddRowSclass="none">
+				<grid style="border:none;" oddRowSclass="none" >
 					<columns>
 						<column width="90%" />
 						<column width="10%" />
@@ -38,7 +38,7 @@
 										<div>
 											<combobox
 												id="cmbNacionalidad" readonly="true" value="-" width="4%"
-												focus="true">
+												focus="true" >
 												<comboitem label="V"
 													value="V" />
 												<comboitem label="E"
@@ -212,14 +212,11 @@
 																			value="País" />
 																		<div>
 																			<combobox
-																				id="cmbPaisNac" readonly="true"
-																				value="--Seleccione--" width="70%">
+																				id="cmbPaisNac" readonly="true" selectedItem="@{controller.jugador.pais}"
+																				model="@{winRegistroJugador$composer.paises}">
 																				<comboitem
-																					label="Venezuela" />
-																				<comboitem
-																					label="Colombia" />
-																				<comboitem
-																					label="Argentina" />
+																					self="@{each='pais'}" label="@{pais.nombre}"
+																					 />
 																			</combobox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -378,7 +375,6 @@
 																		width="32%" />
 																</columns>
 																<rows>
-
 																	<row
 																		style="border:none;">
 																		<label
@@ -428,7 +424,7 @@
 																			value="Correo Electrónico"  />
 
 																		<textbox
-																			id="txtCorreo" width="90%" value="@{controller.jugador.email}"/>
+																			id="txtCorreo" width="90%" value="@{controller.jugador.correoElectronico}"/>
 
 																		<label
 																			value="Twitter" />
@@ -446,7 +442,7 @@
 																			value="Facebook" />
 
 																		<textbox
-																			id="txtFacebook" width="35%" />
+																			id="txtFacebook" width="35%" value="@{controller.jugador.facebook}"/>
 																	</row>
 																</rows>
 															</grid>

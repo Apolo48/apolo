@@ -69,4 +69,10 @@
 	<bean id="servicioMedico" class="servicio.jugador.ServicioMedico">
 		<property name="daoMedico" ref="daoMedico"></property>
 	</bean>
+	
+	<bean id="daoPais" class="dao.jugador.DaoPais">
+	</bean>
+	<bean id="servicioPais" class="servicio.jugador.ServicioPais">
+		<property name="daoPais" ref="daoPais"></property>
+	</bean>
 </beans>

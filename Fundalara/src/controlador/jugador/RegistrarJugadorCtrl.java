@@ -25,6 +25,7 @@ import servicio.jugador.ServicioClasificacionEquipo;
 import servicio.jugador.ServicioCurso;
 import servicio.jugador.ServicioEstadoVenezuela;
 import servicio.jugador.ServicioMunicipio;
+import servicio.jugador.ServicioPais;
 import servicio.jugador.ServicioParroquia;
 
 import comun.FileLoader;
@@ -37,6 +38,7 @@ import modelo.Equipo;
 import modelo.EstadoVenezuela;
 import modelo.Jugador;
 import modelo.Municipio;
+import modelo.Pais;
 import modelo.Parroquia;
 
 /**
@@ -55,12 +57,17 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private Button btnAntes;
 	private Button btnDesp;
 	private Button btnVistaPrevia;
+	private Button btnFoto;
 	private Button btnCatalogoMedico;
 	private Tab tabRegJugador;
 	private Tab tabRegFamiliar;
 	private Intbox txtEdad;
 	private Intbox txtCedulaSecuencia;
+	private Intbox txtCedula;
 	private Textbox txtPrimerNombre;
+	private Textbox txtPrimerApellido;
+	private Textbox txtSegundoNombre;
+	private Textbox txtSegundoApellido;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
@@ -81,6 +88,7 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	ServicioEstadoVenezuela servicioEstadoVenezuela;
 	private ServicioMunicipio servicioMunicipio;
 	private ServicioParroquia servicioParroquia;
+	private ServicioPais servicioPais;
 	// Model
 	private Jugador jugador = new Jugador();
 	private EstadoVenezuela estadoVenezuela = new EstadoVenezuela();
@@ -96,7 +104,6 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		comp.setVariable("controller", this, false); // Hacemos visible el
 														// modelo para el
 														// databinder
-
 	}
 
 	public Jugador getJugador() {
@@ -119,6 +126,11 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		return servicioEstadoVenezuela.listar();
 	}
 
+	public List<Pais> getPaises() {
+		return servicioPais.listar();
+	}
+
+	
 	public EstadoVenezuela getEstadoVenezuela() {
 		return estadoVenezuela;
 	}
@@ -270,9 +282,11 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		if (flag) {
 			tabRegFamiliar.setSelected(flag);
 			cmbNacionalidadFamiliar.setFocus(true);
+			
 		} else {
 			tabRegJugador.setSelected(!flag);
 		}
+		inhabilitarPerfil(flag);
 		btnAntes.setVisible(flag);
 		btnGuardar.setVisible(flag);
 		btnDesp.setVisible(!flag);
@@ -295,4 +309,17 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 			}
 		}
 	}
+	
+	private void inhabilitarPerfil(boolean flag){
+		cmbNacionalidad.setDisabled(flag);
+		txtCedula.setDisabled(flag);
+		txtCedulaSecuencia.setDisabled(flag);
+		txtPrimerApellido.setDisabled(flag);
+		txtPrimerNombre.setDisabled(flag);
+		txtSegundoApellido.setDisabled(flag);
+		txtSegundoNombre.setDisabled(flag);
+		cmbGenero.setDisabled(flag);
+		//btnFoto.setDisabled(flag);
+	}
 }
+
