@@ -2,13 +2,17 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
-<zscript><![CDATA[//@IMPORT 
-                  import controlador.jugador.*;
+	<zscript><![CDATA[
+	//@IMPORT
+	import controlador.jugador.*;
 ]]></zscript>
 	<div align="left">
 		<window border="none" width="670px" height="1000px"
 			id="winRegistroJugador"
 			apply="controlador.jugador.RegistrarJugadorCtrl">
+			
+						   
+			
 			<groupbox id="grboxPerfilJugador"
 				style="border-color:orange" closable="false">
 				<caption label="Jugador" />
@@ -32,19 +36,24 @@
 										spans="1,3">
 										<label value="Cédula" />
 										<div>
-											<combobox  
+											<combobox
 												id="cmbNacionalidad" readonly="true" value="-" width="4%"
 												focus="true">
-												<comboitem label="V" value="V"/>
-												<comboitem label="E" value="E"/>
-												<comboitem label="R" value="R"/>
+												<comboitem label="V"
+													value="V" />
+												<comboitem label="E"
+													value="E" />
+												<comboitem label="R"
+													value="R" />
 											</combobox>
-											<intbox id="txtCedula" value="@{controller.jugador.cedulaJugador}"
+											<intbox id="txtCedula"
+												value="@{controller.jugador.cedulaJugador}"
 												constraint="no negative" width="20%" />
-											<label value="-" id="lblSeparador" visible="false"/>
+											<label value="-"
+												id="lblSeparador" visible="false" />
 											<intbox
-												id="txtCedulaSecuencia" constraint="no negative" width="5%" 
-												readonly="true"  visible="false"/>
+												id="txtCedulaSecuencia" constraint="no negative" width="5%"
+												readonly="true" visible="false" />
 											<label value="(*)"
 												style="color:red" />
 										</div>
@@ -53,34 +62,39 @@
 										<label value="Primer Nombre" />
 										<div>
 											<textbox
-												id="txtPrimerNombre" maxlength="40" width="80%" 
-												constraint="no empty" value="@{controller.jugador.primerNombre}"/>
+												id="txtPrimerNombre" maxlength="40" width="80%"
+												constraint="no empty"
+												value="@{controller.jugador.primerNombre}" />
 											<label value="(*)"
 												style="color:red" />
 										</div>
 										<label value="Segundo Nombre" />
 										<textbox maxlength="40"
-											id="txtSegundoNombre" width="80%" value="@{controller.jugador.segundoNombre}"/>
+											id="txtSegundoNombre" width="80%"
+											value="@{controller.jugador.segundoNombre}" />
 									</row>
 									<row style="border:none;">
 										<label value="Primer Apellido"
 											width="95%" />
 										<div>
 											<textbox maxlength="40"
-												width="80%" id="txtPrimerApellido" value="@{controller.jugador.primerApellido}"/>
+												width="80%" id="txtPrimerApellido"
+												value="@{controller.jugador.primerApellido}" />
 											<label value="(*)"
 												style="color:red" />
 										</div>
 										<label value="Segundo Apellido"
 											width="95%" />
 										<textbox maxlength="40"
-											id="txtSegundoApellido" width="80%" value="@{controller.jugador.segundoApellido}"/>
+											id="txtSegundoApellido" width="80%"
+											value="@{controller.jugador.segundoApellido}" />
 									</row>
 									<row style="border:none;"
 										spans="1,3">
 										<label value="Género" />
 										<div>
-											<combobox id="cmbGenero"  selectedItem="@{controller.jugador.genero, converter='CharConverter'}"
+											<combobox id="cmbGenero"
+												selectedItem="@{controller.jugador.genero, converter='CharConverter'}"
 												readonly="true" value="--Seleccione--" width="25%">
 												<comboitem
 													label="Masculino" value="M" />
@@ -101,7 +115,7 @@
 										<groupbox
 											style="border-color:orange" mold="3d">
 											<!--  content="@{controller.jugador.foto, converter='ImageConverter'}"  -->
-											<image id="imgJugador"  
+											<image id="imgJugador" 
 												src="../../Recursos/Imagenes/noFoto.jpg" height="80px"
 												width="80px" />
 										</groupbox>
@@ -174,6 +188,7 @@
 																			value="Fecha " />
 																		<div>
 																			<datebox
+																				value="@{controller.jugador.fechaNacimiento}"
 																				id="dtboxFechaNac" constraint="no future"
 																				format="dd/MM/yyyy"
 																				style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
@@ -211,21 +226,17 @@
 																		</div>
 																		<label
 																			value="Estado" />
-																		<div>
-																			<combobox
-																				id="cmbEstadoNac" readonly="true"
-																				value="--Seleccione--" width="70%">
+																		<div>																
+																	<combobox
+																				id="cmbEstadoNac" value="--Seleccione--" width="70%" readonly="true"  selectedItem="@{controller.estadoVenezuela}"
+																				model="@{winRegistroJugador$composer.estadosVenezuela}">
 																				<comboitem
-																					label="Lara" />
-																				<comboitem
-																					label="Portuguesa" />
-																				<comboitem
-																					label="Yaracuy" />
+																					self="@{each='estadoV'}" label="@{estadoV.nombre}"
+																					value="@{estadoV.codigoEstado}" />
 																			</combobox>
-																			<label
-																				value="(*)" style="color:red" />
+																				<label
+																					value="(*)" style="color:red" /> 
 																		</div>
-
 																	</row>
 																	<row
 																		style="border:none;">
@@ -233,26 +244,11 @@
 																			value="Municipio" />
 																		<div>
 																			<combobox
-																				id="cmbMunicipioNac" readonly="true"
-																				value="--Seleccione--" width="70%">
+																				id="cmbMunicipioNac" readonly="true" selectedItem="@{controller.municipioNac}"
+																				value="--Seleccione--" width="70%"  model="@{winRegistroJugador$composer.municipiosEstados}">
 																				<comboitem
-																					label="Andrés Eloy Blanco" />
-																				<comboitem
-																					label="Crespo" />
-																				<comboitem
-																					label="Iribarren" />
-																				<comboitem
-																					label="Jiménez" />
-																				<comboitem
-																					label="Morán" />
-																				<comboitem
-																					label="Palavecino" />
-																				<comboitem
-																					label="Simón Planas" />
-																				<comboitem
-																					label="Torres" />
-																				<comboitem
-																					label="Urdaneta" />
+																					self="@{each='municipioN'}" label="@{municipioN.nombre}"
+																					 />
 																			</combobox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -262,22 +258,11 @@
 
 																		<div>
 																			<combobox
-																				id="cmbParroquiaNac" readonly="true"
-																				value="--Seleccione--" width="70%">
+																				id="cmbParroquiaNac" readonly="true" selectedItem="@{controller.jugador.parroquia}"
+																				value="--Seleccione--" width="70%"  model="@{winRegistroJugador$composer.parroquiasMunicipio}">
 																				<comboitem
-																					label="Barquisimeto" />
-																				<comboitem
-																					label="Cabudare" />
-																				<comboitem
-																					label="Carora" />
-																				<comboitem
-																					label="Duaca" />
-																				<comboitem
-																					label="El Cují" />
-																				<comboitem
-																					label="El Tocuyo" />
-																				<comboitem
-																					label="Quibor" />
+																					self="@{each='parroquiaN'}" label="@{parroquiaN.nombre}"
+																					 />
 																			</combobox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -312,16 +297,13 @@
 																		style="border:none;">
 																		<label
 																			value="Estado" />
-																		<div>
-																			<combobox
-																				id="cmbEstadoResi" readonly="true"
-																				value="--Seleccione--" width="70%">
+																		<div>																
+																			<combobox readonly="true"
+																				id="cmbEstadoResi" value="--Seleccione--" width="70%" selectedItem="@{controller.estadoVenezuelaResi}"
+																				model="@{winRegistroJugador$composer.estadosVenezuela}">
 																				<comboitem
-																					label="Lara" />
-																				<comboitem
-																					label="Portuguesa" />
-																				<comboitem
-																					label="Yaracuy" />
+																					self="@{each='estado'}" label="@{estado.nombre}"
+																					value="@{estado.codigoEstado}" />
 																			</combobox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -331,25 +313,11 @@
 																		<div>
 																			<combobox
 																				id="cmbMunicipioResi" readonly="true"
-																				value="--Seleccione--" width="70%">
+																	 selectedItem="@{controller.municipioResi}"
+																				value="--Seleccione--" width="70%"  model="@{winRegistroJugador$composer.municipiosEstadosResi}">
 																				<comboitem
-																					label="Andrés Eloy Blanco" />
-																				<comboitem
-																					label="Crespo" />
-																				<comboitem
-																					label="Iribarren" />
-																				<comboitem
-																					label="Jiménez" />
-																				<comboitem
-																					label="Morán" />
-																				<comboitem
-																					label="Palavecino" />
-																				<comboitem
-																					label="Simón Planas" />
-																				<comboitem
-																					label="Torres" />
-																				<comboitem
-																					label="Urdaneta" />
+																					self="@{each='municipio'}" label="@{municipio.nombre}"
+																					 />
 																			</combobox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -361,23 +329,13 @@
 																			value="Parroquia" />
 
 																		<div>
+																		<!-- Pendiente asignarlo ejemplo  selectedItem="@{controller.jugador.parroquia}" -->
 																			<combobox
 																				id="cmbParroquiaResi" readonly="true"
-																				value="--Seleccione--" width="27%">
+																				value="--Seleccione--" width="70%"  model="@{winRegistroJugador$composer.parroquiasMunicipioResi}">
 																				<comboitem
-																					label="Barquisimeto" />
-																				<comboitem
-																					label="Cabudare" />
-																				<comboitem
-																					label="Carora" />
-																				<comboitem
-																					label="Duaca" />
-																				<comboitem
-																					label="El Cují" />
-																				<comboitem
-																					label="El Tocuyo" />
-																				<comboitem
-																					label="Quibor" />
+																					self="@{each='parroquia'}" label="@{parroquia.nombre}"
+																					 />
 																			</combobox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -391,7 +349,7 @@
 																		<div>
 																			<textbox
 																				maxlength="200" height="40px" width="90%"
-																				multiline="true" />
+																				multiline="true" value="@{controller.jugador.direccion}" />
 																			<label
 																				value="(*)" style="color:red" />
 																		</div>
@@ -439,7 +397,7 @@
 																					label="0255" />
 																			</combobox>
 
-																			<intbox
+																			<intbox id="txtTelefonoHabitacion" value="@{controller.jugador.telefonoHabitacion}"
 																				constraint="no negative" width="50%" />
 																		</div>
 																		<label
@@ -460,17 +418,17 @@
 																					label="0412" />
 																			</combobox>
 
-																			<intbox
+																			<intbox  id="txtTelefonoCelular" value="@{controller.jugador.telefonoCelular}"
 																				constraint="no negative" width="50%" />
 																		</div>
 																	</row>
 																	<row
 																		style="border:none;">
 																		<label
-																			value="Correo Electrónico" />
+																			value="Correo Electrónico"  />
 
 																		<textbox
-																			id="txtCorreo" width="90%" />
+																			id="txtCorreo" width="90%" value="@{controller.jugador.email}"/>
 
 																		<label
 																			value="Twitter" />
@@ -479,7 +437,7 @@
 																				value="@" />
 
 																			<textbox
-																				id="txtTwitter" width="80%" />
+																				id="txtTwitter" width="80%"  value="@{controller.jugador.twitter}" />
 																		</div>
 																	</row>
 																	<row
@@ -1532,28 +1490,30 @@
 															style="border:none;">
 															<label
 																value="Brazo Lanzar" />
-																<combobox
-																	id="cmbBrazoLanzar" readonly="true"
-																	value="--Seleccione--" width="65%">
-																	<comboitem
-																		label="Zurdo" />
-																	<comboitem
-																		label="Derecho" />
-																	<comboitem label="Ambidiestro"/>
-																</combobox>
-													
+															<combobox
+																id="cmbBrazoLanzar" readonly="true"
+																value="--Seleccione--" width="65%">
+																<comboitem
+																	label="Zurdo" />
+																<comboitem
+																	label="Derecho" />
+																<comboitem
+																	label="Ambidiestro" />
+															</combobox>
+
 															<label
 																value="Posición Bateo" />
-																<combobox
-																	id="cmbPosicionBateo" readonly="true"
-																	value="--Seleccione--" width="65%">
-																	<comboitem
-																		label="Zurdo" />
-																	<comboitem
-																		label="Derecho" />
-																	<comboitem label="Ambidiestro"/>
-																</combobox>
-															
+															<combobox
+																id="cmbPosicionBateo" readonly="true"
+																value="--Seleccione--" width="65%">
+																<comboitem
+																	label="Zurdo" />
+																<comboitem
+																	label="Derecho" />
+																<comboitem
+																	label="Ambidiestro" />
+															</combobox>
+
 														</row>
 
 													</rows>
@@ -2282,9 +2242,7 @@
 				<button id="btnSalir" label="Salir"
 					image="../../Recursos/Imagenes/salir.png" orient="horizontal"
 					width="100px" />
-	<button id="btnPruebaMostrar" label="Mostrar"
-					 orient="horizontal"
-					width="100px" />
+				
 
 			</div>
 

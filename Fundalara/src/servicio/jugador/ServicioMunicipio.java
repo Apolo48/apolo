@@ -3,6 +3,7 @@ package servicio.jugador;
 import java.util.List;
 
 import dao.jugador.DaoMunicipio;
+import modelo.EstadoVenezuela;
 import modelo.Municipio;
 
 public class ServicioMunicipio implements IServicioMunicipio {
@@ -41,6 +42,10 @@ public class ServicioMunicipio implements IServicioMunicipio {
 	@Override
 	public List<Municipio> listar() {
 		return (List<Municipio>) daoMunicipio.listar(new Municipio());
+	}
+	
+	public List<Municipio> buscar(EstadoVenezuela estado) {
+		return  daoMunicipio.buscar(estado);
 	}
 
 }

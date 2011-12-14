@@ -18,24 +18,20 @@ public class ImageConverter implements TypeConverter{
 
 	@Override
 	public Object coerceToBean(Object arg0, Component arg1) {
-		try {
-			byte[] foto=(byte[]) arg0;
-			InputStream in = new ByteArrayInputStream(foto);
-			BufferedImage image = ImageIO.read(in);			
-			return image;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 		 return null;
 
 	}
 
 	@Override
 	public Object coerceToUi(Object arg0, Component arg1) {
-		if (arg0==null)
-			return new Image("");
-		else
+		Image img ; 
+		if (arg0==null){
+			 img = new Image();
+			img.setSrc("../../Recursos/Imagenes/noFoto.jpg");
+			return img;//.getContent().getByteData();
+		
+		}else
 			return arg0;
 	}
 

@@ -3,6 +3,8 @@ package servicio.jugador;
 import java.util.List;
 
 import dao.jugador.DaoParroquia;
+import modelo.EstadoVenezuela;
+import modelo.Municipio;
 import modelo.Parroquia;
 
 public class ServicioParroquia implements IServicioParroquia {
@@ -42,4 +44,8 @@ public class ServicioParroquia implements IServicioParroquia {
 		return (List<Parroquia>) daoParroquia.listar(new Parroquia());
 	}
 
+	public List<Parroquia> buscar(Municipio municipio) {
+		return  daoParroquia.buscar(municipio);
+	}
+	
 }
