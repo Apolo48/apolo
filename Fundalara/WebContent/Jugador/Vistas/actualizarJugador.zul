@@ -1,50 +1,9 @@
 <?page title="Actualizar Jugador"?>
+<zk>
 <div align="left">
 	<window title="Actualizar Jugador" id="win1" border="normal" height="800px"
 		width="677px" apply="controlador.jugador.ActualizarJugadorCtrl"
 		closable="true">
-		<zscript>
-		<![CDATA[
-	//@IMPORT
-	import org.zkoss.lang.Strings;
-	import org.zkoss.lang.Objects;
-]]><![CDATA[
-	//@DECLARATION
-	public void enlace(String cad) {
-		cuerpo.setSrc(cad);
-	}
-	public void changeWindowRA() {
-		String valor = tipoI.getSelectedItem().getValue();
-		enlace("");
-
-		if (Objects.equals(valor, "1")) {
-			enlace("Jugador/Vistas/actualizarDatosMedicos.zul");
-			btnGuardar.setVisible(true);
-			btnCancelar.setVisible(true);
-				
-			} else {
-			
-			enlace("Jugador/Vistas/actualizarAfeccion.zul");
-			btnGuardar.setVisible(true);
-			btnCancelar.setVisible(true);
-		}
-	}
-	
-	public void validar() {
-		if (cmbtipoSancion.getSelectedItem().getValue().toString()
-				.equals("Juegos")) {
-			lbcantidad.setVisible(true);
-			lbcantidad.setValue("Juegos");
-		} else {
-			if (cmbtipoSancion.getSelectedItem().getValue().equals("Dias")) {
-				lbcantidad.setVisible(true);
-				lbcantidad.setValue("Días");
-			}
-		}
-	}
-
-	
-]]></zscript>
 
 		<groupbox closable="false" style="border-color:orange">
 			<caption label="Jugador" />
@@ -59,6 +18,7 @@
 						<grid style="border:none;"
 							oddRowSclass="none">
 							<columns>
+							
 								<column width="20%" />
 								<column width="30%" />
 								<column width="25%" />
@@ -68,49 +28,41 @@
 								<row spans="1,3" style="border:none;">
 									<label value="Cédula" />
 									<div>
-										<combobox value="-" width="5%"
+										<combobox id="cmbNacionalidad" value="-" width="5%"
 											focus="true">
 											<comboitem label="V" />
 											<comboitem label="E" />
+											<comboitem label="R" />
 										</combobox>
-										<intbox constraint="no negative"
+										<intbox id="txtCedula" constraint="no negative"
 											width="22%" />
-										<button
-											image="../../Recursos/Imagenes/consultar.ico">
-											<attribute name="onClick"><![CDATA[
-	Window nuevaVentana = (Window) Executions.createComponents(
-			"Jugador/Vistas/buscarJugador.zul", null, null);
-	try {
-		nuevaVentana.doModal();
-	} catch (Exception e) {
-	}
-]]></attribute>
-										</button>
+										<button id="btnCatalogoJugador"
+											image="../../Recursos/Imagenes/consultar.ico" />
 									</div>
 								</row>
 								<row style="border:none;">
 									<label value="Primer Nombre" />
 									<div>
-										<textbox maxlength="40"
-											width="70%" constraint="no empty" />
+										<textbox id="txtPrimerNombre" maxlength="40"
+											width="70%" />
 										<label value="(*)"
 											style="color:red" />
 									</div>
 									<label value="Segundo Nombre" />
-									<textbox maxlength="40" width="75%" />
+									<textbox id="txtSegundoNombre" maxlength="40" width="75%" />
 								</row>
 								<row style="border:none;">
 									<label value="Primer Apellido"
 										width="70%" />
 									<div>
-										<textbox maxlength="40"
+										<textbox id="txtPrimerApellido" maxlength="40"
 											width="70%" />
 										<label value="(*)"
 											style="color:red" />
 									</div>
 									<label value="Segundo Apellido"
 										width="85%" />
-									<textbox maxlength="40" width="75%" />
+									<textbox id="txtSegundoApellido" maxlength="40" width="75%" />
 								</row>
 							</rows>
 						</grid>
@@ -137,10 +89,11 @@
 				</rows>
 			</grid>
 		</groupbox>
+		
 		<separator height="5px" />
 		<panel title="Detalle de Jugador">
 			<panelchildren>
-				<tabbox id="detalleBasico" orient="horizontal" height="680px">
+				<tabbox id="detalleBasico" orient="horizontal">
 					<tabs id="tabs" width="90px">
 						<tab id="A" label="Personales" />
 						<tab id="B" label="Médicos" />
@@ -173,14 +126,14 @@
 														<label
 															value="Estado" />
 														<div>
-															<combobox
-																value="--Seleccione--" width="75%">
-																<comboitem
-																	label="Lara" />
-																<comboitem
-																	label="Portuguesa" />
-																<comboitem
-																	label="Yaracuy" />
+															<combobox id="cmbEstado"
+																value="--Seleccione--" width="75%" >
+																				<comboitem
+																					label="Lara" />
+																				<comboitem
+																					label="Portuguesa" />
+																				<comboitem
+																					label="Yaracuy" />
 															</combobox>
 															<label
 																value="(*)" style="color:red" />
@@ -188,26 +141,26 @@
 														<label
 															value="Municipio" />
 														<div>
-															<combobox
+															<combobox id="cmbMunicipio"
 																value="--Seleccione--" width="75%">
 																<comboitem
-																	label="Andrés Eloy Blanco" />
-																<comboitem
-																	label="Crespo" />
-																<comboitem
-																	label="Iribarren" />
-																<comboitem
-																	label="Jiménez" />
-																<comboitem
-																	label="Morán" />
-																<comboitem
-																	label="Palavecino" />
-																<comboitem
-																	label="Simón Planas" />
-																<comboitem
-																	label="Torres" />
-																<comboitem
-																	label="Urdaneta" />
+																					label="Andrés Eloy Blanco" />
+																				<comboitem
+																					label="Crespo" />
+																				<comboitem
+																					label="Iribarren" />
+																				<comboitem
+																					label="Jiménez" />
+																				<comboitem
+																					label="Morán" />
+																				<comboitem
+																					label="Palavecino" />
+																				<comboitem
+																					label="Simón Planas" />
+																				<comboitem
+																					label="Torres" />
+																				<comboitem
+																					label="Urdaneta" />
 															</combobox>
 															<label
 																value="(*)" style="color:red" />
@@ -216,24 +169,24 @@
 													<row spans="1,3"
 														style="border:none;">
 														<label
-															value="Ciudad" />
+															value="Parroquia" />
 														<div>
-															<combobox
+															<combobox id="cmbParroquia"
 																value="--Seleccione--" width="28%">
-																<comboitem
-																	label="Barquisimeto" />
-																<comboitem
-																	label="Cabudare" />
-																<comboitem
-																	label="Carora" />
-																<comboitem
-																	label="Duaca" />
-																<comboitem
-																	label="El Cují" />
-																<comboitem
-																	label="El Tocuyo" />
-																<comboitem
-																	label="Quibor" />
+																<comboitem																				label="Barquisimeto" />
+																				<comboitem
+																					label="Cabudare" />
+																				<comboitem
+																					label="Carora" />
+																				<comboitem
+																					label="Duaca" />
+																				<comboitem
+																					label="El Cují" />
+																				<comboitem
+																					label="El Tocuyo" />
+																				<comboitem
+																					label="Quibor" />
+																
 															</combobox>
 															<label
 																value="(*)" style="color:red" />
@@ -244,7 +197,7 @@
 														<label
 															value="Dirección Habitación" />
 														<div>
-															<textbox
+															<textbox id="txtDireccionHabitacion"
 																maxlength="200" height="40px" width="90%"
 																multiline="true" />
 															<label
@@ -274,7 +227,7 @@
 														<label
 															value="Teléfono Habitación" />
 														<div>
-															<combobox
+															<combobox id="cmbCodigoArea"
 																value="0251" width="30%">
 																<comboitem
 																	label="0252" />
@@ -285,13 +238,13 @@
 																<comboitem
 																	label="0255" />
 															</combobox>
-															<intbox
+															<intbox id="txtTelefonoHabitacion"
 																constraint="no negative" width="50%" />
 														</div>
 														<label
 															value="Teléfono Celular" />
 														<div>
-															<combobox
+															<combobox id="cmbTelefonoCelular"
 																value="0416" width="30%">
 																<comboitem
 																	label="0416" />
@@ -304,7 +257,7 @@
 																<comboitem
 																	label="0412" />
 															</combobox>
-															<intbox
+															<intbox id="txtTelefonoCelular"
 																constraint="no negative" width="50%" />
 														</div>
 													</row>
@@ -312,17 +265,26 @@
 														style="border:none;">
 														<label
 															value="Correo Electrónico" />
-														<textbox
+														<textbox id="txtCorreoElectronico"
 															width="90%" />
 														<label
 															value="Twitter" />
 														<div>
 															<label
 																value="@" />
-															<textbox
+															<textbox id="txtTwitter"
 																width="80%" />
 														</div>
 													</row>
+													<row
+																		spans="1,3" style="border:none;">
+																		<label
+																			value="Facebook" />
+
+																		<textbox
+																			id="txtFacebook" width="35%" />
+																	</row>
+													
 												</rows>
 											</grid>
 										</groupbox>
@@ -346,7 +308,7 @@
 				<row style="border:none;" >
 					<label value="Tipo Actualización"/>
 					<combobox value="--Seleccione--" width="70%"
-						id="tipoI" focus="true" onChange="changeWindowRA()">
+						id="cmbTipoActualizacion" 	readonly="true" focus="true">
 						<comboitem label="Datos Médicos" value="1" />
 						<comboitem label="Afección" value="2" />
 					</combobox>
@@ -354,11 +316,9 @@
 				</row>
 			</rows>
 		</grid>						
-		
-					
-			<div style="display:inline">
-			<include id="cuerpo" />
-</div>
+		<div style="display:inline">
+			<include id="incCuerpo" />
+		</div>
 							</div>
 
 						</tabpanel>
@@ -381,8 +341,8 @@
 											style="border:none;">
 											<label value="Institución" />
 											<div>
-												<textbox width="80%" />
-												<button
+												<textbox id="txtInstitucion" width="80%" />
+												<button id="btnCatalogoInstitucion"
 													image="../../Recursos/Imagenes/consultar.ico">
 													<attribute name="onClick"><![CDATA[
 	Window nuevaVentana = (Window) Executions.createComponents(
@@ -397,7 +357,7 @@
 										</row>
 										<row style="border:none;">
 											<label value="Curso" />
-											<combobox
+											<combobox id="cmbCurso"
 												value="-Seleccione-">
 												<comboitem
 													label="1er Nivel" />
@@ -433,7 +393,7 @@
 													label="6to Año" />
 											</combobox>
 											<label value="Año escolar" />
-											<combobox
+											<combobox id="cmbAnnoEscolar"
 												value="-Seleccione-" width="80%">
 												<comboitem
 													label="2009-2010" />
@@ -454,7 +414,7 @@
 									<rows>
 										<row spans="3"
 											style="border:none;">
-											<grid>
+											<grid id="gridDetalleInstitucion">
 												<columns>
 													<column
 														label="Institución" width="55%" />
@@ -485,10 +445,10 @@
 												</rows>
 											</grid>
 											<div>
-												<button id="btnAgregar2"
+												<button id="btnAgregarInstitucion"
 													image="../../Recursos/Imagenes/agregar.ico" />
 												<separator height="5px" />
-												<button id="btnQuitar2"
+												<button id="btnQuitarInstitucion"
 													image="../../Recursos/Imagenes/quitar.ico"
 													tooltiptext="Deshacer" />
 											</div>
@@ -516,9 +476,9 @@
 											style="border:none;">
 											<label value="Institución" />
 											<div>
-												<textbox maxlength="50"
+												<textbox id="txtInstitucionSocial" maxlength="50"
 													width="80%" />
-												<button
+												<button id="btnCatalogoInstitucionSocial"
 													image="../../Recursos/Imagenes/consultar.ico">
 													<attribute name="onClick"><![CDATA[
 	Window nuevaVentana = (Window) Executions.createComponents(
@@ -533,7 +493,7 @@
 										</row>
 										<row style="border:none;">
 											<label value="Actividad" />
-											<combobox
+											<combobox id="cmbActividad"
 												value="-Seleccione-" width="80%">
 												<comboitem
 													label="Danza" />
@@ -546,7 +506,7 @@
 											</combobox>
 											<label value="Horas" />
 											<div>
-												<textbox width="20%" />
+												<textbox id="txtHoras" width="20%" />
 												<space />
 												<label
 													value="Semanales" />
@@ -555,7 +515,7 @@
 										<row spans="1,3"
 											style="border:none;">
 											<label value="Fecha inicio" />
-											<datebox format="dd/MM/yyyy"
+											<datebox id="dtboxFechaInicioAct" format="dd/MM/yyyy"
 												style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 										</row>
 									</rows>
@@ -570,7 +530,7 @@
 									<rows>
 										<row style="border:none;">
 
-											<listbox>
+											<listbox id="listDetalleActividad">
 												<listhead>
 													<listheader
 														width="20%">
@@ -619,13 +579,13 @@
 												</listitem>
 											</listbox>
 											<div>
-												<button id="btnAgregar3"
+												<button id="btnAgregarActividad"
 													image="../../Recursos/Imagenes/agregar.ico" />
 												<separator height="5px" />
-												<button id="btnEditar"
+												<button id="btnEditarActividad"
 													image="../../Recursos/Imagenes/editar.ico" />
 												<separator height="5px" />
-												<button id="btnQuitar3"
+												<button id="btnQuitarActividad"
 													image="../../Recursos/Imagenes/quitar.ico"
 													tooltiptext="Deshacer" />
 											</div>
@@ -653,7 +613,7 @@
 								<label value="Motivo" maxlength="30" width="100%" />
 							</div>
 							<div>
-								<combobox value="-Seleccione-">
+								<combobox id="cmbMotivo" value="--Seleccione--">
 									<comboitem
 										label="Agresión al adversario" />
 									<comboitem
@@ -673,7 +633,7 @@
 								</columns>
 								<rows>
 									<row style="border:none" >
-										<grid>
+										<grid id="gridMotivo">
 											<columns>
 												<column label="Motivo"/>
 											</columns>
@@ -687,9 +647,9 @@
 											</rows>
 										</grid>
 										<vbox>
-											<button image="../../Recursos/Imagenes/agregar.ico" />
-											<button image="../../Recursos/Imagenes/editar.ico" />
-											<button image="../../Recursos/Imagenes/quitar.ico" />
+											<button id="btnAgregarMotivo" image="../../Recursos/Imagenes/agregar.ico" />
+											<button id="btnEditarMotivo" image="../../Recursos/Imagenes/editar.ico" />
+											<button id="btnQuitarMotivo" image="../../Recursos/Imagenes/quitar.ico" />
 										</vbox>		
 									</row>
 								</rows>
@@ -701,8 +661,8 @@
 								<label value="Tipo Sanción" />
 							</div>
 							<div>
-								<combobox id="cmbtipoSancion"
-									value="-Seleccione-" onChange="validar()">
+								<combobox id="cmbTipoSancion"
+									value="-Seleccione-">
 									<comboitem label="Juegos"
 										value="Juegos" />
 									<comboitem label="Días"
@@ -713,7 +673,7 @@
 							<label value="Cantidad" />
 							<div>
 								<spinner width="25%"/>
-								<label id="lbcantidad" visible="false" />
+								<label id="lbCantidad" visible="false" />
 								<label value="(*)" style="color:red" />
 							</div>
 						</row>
@@ -723,7 +683,7 @@
 								<label value="Fecha Inicio" />
 							</div>
 							<div>
-								<datebox constraint="no future" format="dd/MM/yyyy"
+								<datebox id="dtboxFechaInicioSancion" constraint="no future" format="dd/MM/yyyy"
 									style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 								<label value="(*)" style="color:red" />
 							</div>
@@ -733,7 +693,7 @@
 								<space width="2%"/>
 								<label value="Documentos" />
 							</div>
-							<grid width="97%">
+							<grid id="gridDocumentos" width="97%">
 								<columns>
 									<column label="Nombre" width="70%"/>
 									<column label=" Entregado" align="center" width="15%" />
@@ -743,7 +703,7 @@
 									<row>
 										<label value="Informe Técnico de Sanción" />
 										<checkbox />
-										<button label="Subir">
+										<button id="btnSubirDocumentoInf" label="Subir">
 											<attribute name="onClick"><![CDATA[
 												Object media = Fileupload.get();
 											]]></attribute>
@@ -752,7 +712,7 @@
 									<row>
 										<label value="Memorandum de Sanción" />
 										<checkbox />
-										<button label="Subir">
+										<button id="btnSubirDocumentoMem" label="Subir">
 											<attribute name="onClick"><![CDATA[
 												Object media = Fileupload.get();
 											]]></attribute>
@@ -766,7 +726,7 @@
 								<space width="2%"/>
 								<label value="Observación"/>
 							</div>
-							<textbox multiline="true" height="40px" width="96.5%"/>
+							<textbox id="txtObservacion" multiline="true" height="40px" width="96.5%"/>
 						</row>
 					</rows>
 				</grid>
@@ -789,7 +749,7 @@
 										<row style="border:none;">
 											<label value="Peso" />
 											<div>
-												<decimalbox
+												<decimalbox id="dcboxPeso"
 													constraint="no negative" />
 												<label value="Kg." />
 												<label value="(*)"
@@ -797,7 +757,7 @@
 											</div>
 											<label value="Altura" />
 											<div>
-												<decimalbox
+												<decimalbox id="dcboxAltura"
 													constraint="no negative" />
 												<label value="mts." />
 												<label value="(*)"
@@ -806,7 +766,7 @@
 										</row>
 										<row style="border:none;">
 											<label value="Brazo Lanzar" />
-											<radiogroup
+											<radiogroup id="rdBrazoLanzar"
 												orient="vertical">
 												<radio label="Zurdo" />
 												<radio label="Derecho"
@@ -816,7 +776,7 @@
 											</radiogroup>
 											<label
 												value="Posición de Bateo" />
-											<radiogroup
+											<radiogroup id="rdPosicionBateo"
 												orient="vertical">
 												<radio label="Zurdo" />
 												<radio label="Derecho"
@@ -843,7 +803,7 @@
 										<row style="border:none;">
 											<label value="Camisa" />
 											<div>
-												<combobox
+												<combobox id="cmbCamisa"
 													value="-Seleccione-" width="75%">
 													<comboitem
 														label="SS" />
@@ -861,7 +821,7 @@
 											</div>
 											<label value="Pantalón" />
 											<div>
-												<combobox
+												<combobox id="cmbPantalon"
 													value="-Seleccione-" width="75%">
 													<comboitem
 														label="XS" />
@@ -884,7 +844,7 @@
 											style="border:none;">
 											<label value="Calzado" />
 											<div>
-												<combobox
+												<combobox id="cmbCalzado"
 													value="-Seleccione-" width="30%">
 													<comboitem
 														label="25" />
@@ -915,13 +875,7 @@
 			<button id="btnGuardar" label="Guardar"
 				image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"
 				width="100px" visible="true">
-				<attribute name="onClick">
-	{
-
-		Messagebox.show("¿Desea Guardar los cambios?", "Question",
-				Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
-	}
-</attribute>
+				
 			</button>
 			<button id="btnCancelar" label="Cancelar"
 				image="../../Recursos/Imagenes/cancelar.ico" orient="horizontal"
@@ -929,11 +883,10 @@
 			<button id="btnSalir" label="Salir"
 				image="../../Recursos/Imagenes/salir.png" orient="horizontal"
 				width="100px">
-				<attribute name="onClick"><![CDATA[
-	win1.detach();
-]]></attribute>
 			</button>
 
 		</div>
+		
 	</window>
 </div>
+</zk>

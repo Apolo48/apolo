@@ -1,7 +1,7 @@
 <?page title="Registro de Pases"?>
 <div align="left">
-	<window id="registrarPase" title="Registro de Pases" border="normal" width="670px"
-		closable="true">		
+	<window id="windregistrarPase" title="Registro de Pases" border="normal" width="670px"
+		closable="true" apply="controlador.jugador.RegistrarPaseCtrl">		
 		<div>
 			<grid oddRowSclass="none">
 				<columns>
@@ -785,17 +785,12 @@
 		<separator/>
 		<label value="Si no hay cambio de liga, llenar solo A, B y C" style="color:red" />
 		<div align="right">
-			<button label="Guardar" image="../../Recursos/Imagenes/guardar.ico"
+			<button id="btnExportar" label="Exportar" image="../../Recursos/Imagenes/guardar.ico"
 				orient="horizontal" width="100px" />
-			<button label="Cancelar" image="../../Recursos/Imagenes/cancelar.ico"
-				orient="horizontal" width="100px" />
-				
-			<button label="Salir" image="../../Recursos/Imagenes/salir.png"
-				orient="horizontal" width="100px">
-				<attribute name="onClick"><![CDATA[
-								registrarPase.detach();
-							]]></attribute>
-			</button>											
+			<button id="btnCancelar" label="Cancelar" image="../../Recursos/Imagenes/cancelar.ico"
+				orient="horizontal" width="100px" />				
+			<button id="btnSalir" label="Salir" image="../../Recursos/Imagenes/salir.png"
+				orient="horizontal" width="100px" />											
 		</div>
 		
 	</window>
