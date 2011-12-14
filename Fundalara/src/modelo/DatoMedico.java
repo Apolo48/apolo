@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 21:15:29 by Hibernate Tools 3.4.0.CR1
+// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -32,8 +32,6 @@ public class DatoMedico implements java.io.Serializable {
 	private Date fechaReincorporacion;
 	private Set<AfeccionJugador> afeccionJugadors = new HashSet<AfeccionJugador>(
 			0);
-	private Set<AfeccionJugador> afeccionJugadors_1 = new HashSet<AfeccionJugador>(
-			0);
 	private Set<DocumentoMedico> documentoMedicos = new HashSet<DocumentoMedico>(
 			0);
 
@@ -53,7 +51,6 @@ public class DatoMedico implements java.io.Serializable {
 	public DatoMedico(String codigoDatoMedico, Medico medico, Jugador jugador,
 			String observacion, char estatus, Date fechaInforme,
 			Date fechaReincorporacion, Set<AfeccionJugador> afeccionJugadors,
-			Set<AfeccionJugador> afeccionJugadors_1,
 			Set<DocumentoMedico> documentoMedicos) {
 		this.codigoDatoMedico = codigoDatoMedico;
 		this.medico = medico;
@@ -63,7 +60,6 @@ public class DatoMedico implements java.io.Serializable {
 		this.fechaInforme = fechaInforme;
 		this.fechaReincorporacion = fechaReincorporacion;
 		this.afeccionJugadors = afeccionJugadors;
-		this.afeccionJugadors_1 = afeccionJugadors_1;
 		this.documentoMedicos = documentoMedicos;
 	}
 
@@ -142,15 +138,6 @@ public class DatoMedico implements java.io.Serializable {
 
 	public void setAfeccionJugadors(Set<AfeccionJugador> afeccionJugadors) {
 		this.afeccionJugadors = afeccionJugadors;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoMedico")
-	public Set<AfeccionJugador> getAfeccionJugadors_1() {
-		return this.afeccionJugadors_1;
-	}
-
-	public void setAfeccionJugadors_1(Set<AfeccionJugador> afeccionJugadors_1) {
-		this.afeccionJugadors_1 = afeccionJugadors_1;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoMedico")
