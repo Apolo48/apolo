@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.0.5
 -- Dumped by pg_dump version 9.0.3
--- Started on 2011-12-16 17:45:02
+-- Started on 2011-12-16 19:21:20
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -214,7 +214,7 @@ CREATE TABLE dato_basico (
     fecha_registro date NOT NULL,
     responsable character varying NOT NULL,
     hora_registro time without time zone NOT NULL,
-    parent_codigo_dato_basico character varying NOT NULL
+    parent_codigo_dato_basico character varying
 );
 
 
@@ -969,7 +969,7 @@ CREATE TABLE tipo_dato (
     nombre character varying NOT NULL,
     descripcion character varying NOT NULL,
     estatus character(1) NOT NULL,
-    parent_codigo_tipo_dato character varying NOT NULL
+    parent_codigo_tipo_dato character varying
 );
 
 
@@ -3065,7 +3065,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2011-12-16 17:45:02
+-- Completed on 2011-12-16 19:21:21
 
 --
 -- PostgreSQL database dump complete
