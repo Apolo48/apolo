@@ -37,7 +37,7 @@ public class ServicioAfeccionJugador implements IServicioAfeccionJugador {
 
 	@Override
 	public List<AfeccionJugador> listar() {
-		return daoAfeccionJugador.listar(new AfeccionJugador());
+		return daoAfeccionJugador.listar( AfeccionJugador.class);
 	}
 
 }

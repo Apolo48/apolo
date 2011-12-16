@@ -37,7 +37,7 @@ public class ServicioEquipo implements IServicioEquipo {
 
 	@Override
 	public List<Equipo> listar() {
-		return daoEquipo.listar(new Equipo());
+		return daoEquipo.listar( Equipo.class);
 	}
 
 }

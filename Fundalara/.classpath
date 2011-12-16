@@ -63,6 +63,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/zml.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/zul.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/zweb.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/servlet-api.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>

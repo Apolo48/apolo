@@ -35,7 +35,7 @@ public class ServicioEstado implements IServicioEstado {
 
 	@Override
 	public List<Estado> listar() {
-		return daoEstado.listar(new Estado());
+		return daoEstado.listar( Estado.class);
 	}
 
 }

@@ -37,7 +37,7 @@ public class ServicioProfesion implements IServicioProfesion {
 
 	@Override
 	public List<Profesion> listar() {
-		return daoProfesion.listar(new Profesion());
+		return daoProfesion.listar( Profesion.class);
 	}
 
 }

@@ -37,7 +37,7 @@ public class ServicioTipoAfeccion implements IServicioTipoAfeccion {
 
 	@Override
 	public List<TipoAfeccion> listar() {
-		return daoTipoAfeccion.listar(new TipoAfeccion());
+		return daoTipoAfeccion.listar( TipoAfeccion.class);
 	}
 
 }

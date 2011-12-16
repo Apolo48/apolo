@@ -39,7 +39,7 @@ public class ServicioPais implements IServicioPais {
 
 	@Override
 	public List<Pais> listar() {
-		return daoPais.listar(new Pais());
+		return daoPais.listar( Pais.class);
 		 
 	}
 

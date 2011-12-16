@@ -41,7 +41,7 @@ public class ServicioParroquia implements IServicioParroquia {
 	@Override
 	public List<Parroquia> listar() {
 		// TODO Auto-generated method stub
-		return (List<Parroquia>) daoParroquia.listar(new Parroquia());
+		return (List<Parroquia>) daoParroquia.listar( Parroquia.class);
 	}
 
 	public List<Parroquia> buscar(Municipio municipio) {

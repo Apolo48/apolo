@@ -37,7 +37,7 @@ public class ServicioFamiliarJugador implements IServicioFamiliarJugador {
 
 	@Override
 	public List<FamiliarJugador> listar() {
-		return daofamiliarJugador.listar(new FamiliarJugador());
+		return daofamiliarJugador.listar( FamiliarJugador.class);
 	}
 
 }

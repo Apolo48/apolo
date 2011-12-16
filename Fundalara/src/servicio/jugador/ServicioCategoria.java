@@ -37,7 +37,7 @@ public class ServicioCategoria implements IServicioCategoria {
 
 	@Override
 	public List<Categoria> listar() {
-		return daoCategoria.listar(new Categoria());
+		return daoCategoria.listar( Categoria.class);
 	}
 
 }

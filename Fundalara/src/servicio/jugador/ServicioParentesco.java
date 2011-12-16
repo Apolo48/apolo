@@ -39,7 +39,7 @@ public class ServicioParentesco implements IServicioParentesco {
 
 	@Override
 	public List<Parentesco> listar() {
-		return daoParentesco.listar(new Parentesco()); 
+		return daoParentesco.listar( Parentesco.class); 
 	}
 
 }

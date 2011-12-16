@@ -38,7 +38,7 @@ public class ServicioPlanVacacional implements IServicioPlanVacacional {
 
 	@Override
 	public List<PlanVacacional> listar() {
-		return daoPlanVacacional.listar(new PlanVacacional()); 
+		return daoPlanVacacional.listar( PlanVacacional.class); 
 	}
 
 }

@@ -39,7 +39,7 @@ public class ServicioDivisa implements IServicioDivisa {
 	@Override
 	public List<Divisa> listar() {
 		// TODO Auto-generated method stub
-		return daoDivisa.listar(new Divisa());
+		return daoDivisa.listar( Divisa.class);
 	}
 
 }

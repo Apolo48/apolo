@@ -36,7 +36,7 @@ public class ServicioEstadoVenezuela implements IServicioEstadoVenezuela {
 
 	@Override
 	public List<EstadoVenezuela> listar() {
-		return daoEstadoVenezuela.listar(new EstadoVenezuela());
+		return daoEstadoVenezuela.listar( EstadoVenezuela.class);
 	}
 
 }

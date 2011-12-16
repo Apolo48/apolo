@@ -40,7 +40,7 @@ public class ServicioClasificacionEquipo implements
 
 	@Override
 	public List<ClasificacionEquipo> listar() {
-		return daoClasificacionEquipo.listar(new ClasificacionEquipo());
+		return daoClasificacionEquipo.listar(ClasificacionEquipo.class );
 	}
 
 }

@@ -37,7 +37,7 @@ public class ServicioTipoLogro implements IServicioTipoLogro {
 
 	@Override
 	public List<TipoLogro> listar() {
-		return daoTipoLogro.listar(new TipoLogro());
+		return daoTipoLogro.listar(TipoLogro.class);
 	}
 
 }

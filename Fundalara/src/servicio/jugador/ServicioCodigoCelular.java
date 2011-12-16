@@ -37,7 +37,7 @@ public class ServicioCodigoCelular implements IServicioCodigoCelular {
 
 	@Override
 	public List<CodigoCelular> listar() {
-		return daoCodigoCelular.listar(new CodigoCelular());
+		return daoCodigoCelular.listar(CodigoCelular.class);
 	}
 
 }

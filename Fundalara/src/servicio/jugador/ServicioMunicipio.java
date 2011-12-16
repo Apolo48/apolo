@@ -41,7 +41,7 @@ public class ServicioMunicipio implements IServicioMunicipio {
 
 	@Override
 	public List<Municipio> listar() {
-		return (List<Municipio>) daoMunicipio.listar(new Municipio());
+		return (List<Municipio>) daoMunicipio.listar( Municipio.class);
 	}
 	
 	public List<Municipio> buscar(EstadoVenezuela estado) {

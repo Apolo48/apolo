@@ -37,7 +37,7 @@ public class ServicioCodigoArea implements IServicioCodigoArea {
 
 	@Override
 	public List<CodigoArea> listar() {
-		return daoCodigoArea.listar(new CodigoArea());
+		return daoCodigoArea.listar( CodigoArea.class);
 	}
 
 }
