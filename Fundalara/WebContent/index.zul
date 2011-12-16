@@ -268,8 +268,8 @@
 										<treeitem>
 											<treerow>
 												<treecell
-													label="Trasladar (Pase)"
-													onClick='enlace("Jugador/Vistas/registrarPase.zul")' />
+													label="Retirar/Trasladar(Pase)"
+													onClick='enlace("Jugador/Vistas/trasladarJugador.zul")' />
 											</treerow>
 										</treeitem>
 										<treeitem open="false">

@@ -27,12 +27,7 @@ import javax.persistence.AttributeOverrides;
 
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
-import modelo.EstadoVenezuela;
-import modelo.Institucion;
-import modelo.Municipio;
-import modelo.Parroquia;
 import modelo.TipoInstitucion;
 
 import org.zkoss.zul.Button;
@@ -53,7 +48,6 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
-import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.*;
 import comun.FileLoader;
 import comun.Util;
@@ -73,7 +67,6 @@ import servicio.jugador.ServicioJugador;
 import servicio.jugador.ServicioMedico;
 import servicio.jugador.ServicioMunicipio;
 import servicio.jugador.ServicioParroquia;
-/* import servicio.jugador.ServicioTalla;*/
 import servicio.jugador.ServicioTipoActividadSocial;
 import servicio.jugador.ServicioTipoAfeccion;
 import servicio.jugador.ServicioTipoInstitucion;
@@ -154,8 +147,8 @@ public class ActualizarJugadorCtrl extends GenericForwardComposer {
 	//Pestaña Deportivos
 	private Decimalbox dcboxPeso=null;
 	private Decimalbox dcboxAltura=null;
-	private Radiogroup rdBrazoLanzar=null;
-	private Radiogroup rdPosicionBateo=null;
+	private Combobox cmbBrazoLanzar=null;
+	private Combobox cmbPosicionBateo=null;
 	private Combobox cmbCamisa=null;
 	private Combobox cmbPantalon=null;
 	private Combobox cmbCalzado=null;
@@ -164,8 +157,7 @@ public class ActualizarJugadorCtrl extends GenericForwardComposer {
 	private Button btnCancelar;
 	private Button btnSalir;
 	
-	ServicioInstitucion servicioInstitucion;
-	ServicioTipoInstitucion servicioTipoInstitucion;
+	
 	ServicioEstadoVenezuela servicioEstadoVenezuela;
 	ServicioMunicipio servicioMunicipio;
 	ServicioParroquia servicioParroquia;
@@ -595,20 +587,20 @@ public class ActualizarJugadorCtrl extends GenericForwardComposer {
 		this.dcboxAltura = dcboxAltura;
 	}
 
-	public Radiogroup getRdBrazoLanzar() {
-		return rdBrazoLanzar;
+	public Combobox getcmbBrazoLanzar() {
+		return cmbBrazoLanzar;
 	}
 
-	public void setRdBrazoLanzar(Radiogroup rdBrazoLanzar) {
-		this.rdBrazoLanzar = rdBrazoLanzar;
+	public void setcmbBrazoLanzar(Combobox cmbBrazoLanzar) {
+		this.cmbBrazoLanzar = cmbBrazoLanzar;
 	}
 
-	public Radiogroup getRdPosicionBateo() {
-		return rdPosicionBateo;
+	public Combobox getcmbPosicionBateo() {
+		return cmbPosicionBateo;
 	}
 
-	public void setRdPosicionBateo(Radiogroup rdPosicionBateo) {
-		this.rdPosicionBateo = rdPosicionBateo;
+	public void setcmbPosicionBateo(Combobox cmbPosicionBateo) {
+		this.cmbPosicionBateo = cmbPosicionBateo;
 	}
 
 	public Combobox getCmbCamisa() {
@@ -670,9 +662,9 @@ public class ActualizarJugadorCtrl extends GenericForwardComposer {
 		String valor = cmbTipoActualizacion.getSelectedItem().getValue().toString();
 		Util enlace = new Util();
 		if (valor.equals("1")) {
-			src = "Jugador/Vistas/actualizarAfeccion.zul";
-		} else {
 			src = "Jugador/Vistas/actualizarDatosMedicos.zul";
+		} else {
+			src = "Jugador/Vistas/actualizarAfeccion.zul";
 		}
 		enlace.insertarContenido(incCuerpo, src);
 	  }
@@ -695,10 +687,6 @@ public class ActualizarJugadorCtrl extends GenericForwardComposer {
 				null, null);
 	}	
 	
-	public void onClick$btnCatalogoMedico() {
-		new Util().crearVentana("Jugador/Vistas/buscarMedico.zul",
-				null, null);
-	}	
 	
 	public void onClick$btnCatalogoInstitucion() {
 		new Util().crearVentana("Jugador/Vistas/buscarInstitucion.zul",
@@ -706,8 +694,8 @@ public class ActualizarJugadorCtrl extends GenericForwardComposer {
 	}
 
 	public void onClick$btnCatalogoInstitucionSocial() {
-		new Util().crearVentana("Jugador/Vistas/buscarInstitucion.zul",
-				null, null);
+		new Util().crearVentana("Jugador/Vistas/buscarInstitucion.zul", null,
+				null);
 	}
 	
 	public void onClick$btnGuardar() {
@@ -735,8 +723,7 @@ public class ActualizarJugadorCtrl extends GenericForwardComposer {
 	
 	public boolean validarVacios(){
 		boolean error=false;
-        //if(this.getCmbEstado().getSelectedIndex() == -1)
-		if(this.getTxtPrimerNombre().getValue() == "")
+       	if(this.getTxtPrimerNombre().getValue() == "")
         	error = true;
 		if(this.getTxtPrimerApellido().getValue() == "")
         	error = true;

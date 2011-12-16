@@ -62,8 +62,8 @@ public class RetirarJugadorCtrl extends GenericForwardComposer {
 	
 	private Window winRetirarJugador;
 	
-	private Intbox txtCedula;
 	private Combobox cmbNacionalidadJugador;
+	private Intbox txtCedula;	
 	private Button btnCatalogoJugador;
 	private Textbox txtPrimerNombre;
 	private Textbox txtSegundoNombre;
@@ -72,10 +72,10 @@ public class RetirarJugadorCtrl extends GenericForwardComposer {
 	private Datebox dtboxFechaIngreso;
 	private Textbox txtCategoriaActual;
 	private Radiogroup radioGneroJ;
+	private Textbox txtMotivo;
 	private Jugador jugador;
 	
 	private Button btnVerExpediente;
-	private Button btnGuardar;
 	private Button btnRetirar;
 	private Button btnCancelar;
 	private Button btnSalir;
@@ -85,26 +85,7 @@ public class RetirarJugadorCtrl extends GenericForwardComposer {
 	private ServicioCategoria servicioCategoria;
 	private String rutasJug= Rutas.JUGADOR.getRutaVista();
 
-	public void onCreate$win(ForwardEvent event){
-		 binder = (AnnotateDataBinder) event.getTarget().getVariable("binder", false);  
- }
-	
-	
-	public void onClick$btnCatalogoJugador() {
-		new Util().crearVentana("Jugador/Vistas/buscarJugador.zul",
-				null, null);
-	}
-
-
-
-	public Intbox getTxtCedula() {
-		return txtCedula;
-	}
-
-	public void setTxtCedula(Intbox txtCedula) {
-		this.txtCedula = txtCedula;
-	}
-
+	//Set y Get
 	public Combobox getCmbNacionalidadJugador() {
 		return cmbNacionalidadJugador;
 	}
@@ -112,13 +93,13 @@ public class RetirarJugadorCtrl extends GenericForwardComposer {
 	public void setCmbNacionalidadJugador(Combobox cmbNacionalidadJugador) {
 		this.cmbNacionalidadJugador = cmbNacionalidadJugador;
 	}
-
-	public Button getBtnCatalogoJugador() {
-		return btnCatalogoJugador;
+	
+	public Intbox getTxtCedula() {
+		return txtCedula;
 	}
 
-	public void setBtnCatalogoJugador(Button btnCatalogoJugador) {
-		this.btnCatalogoJugador = btnCatalogoJugador;
+	public void setTxtCedula(Intbox txtCedula) {
+		this.txtCedula = txtCedula;
 	}
 
 	public Textbox getTxtPrimerNombre() {
@@ -128,7 +109,6 @@ public class RetirarJugadorCtrl extends GenericForwardComposer {
 	public void setTxtPrimerNombre(Textbox txtPrimerNombre) {
 		this.txtPrimerNombre = txtPrimerNombre;
 	}
-
 
 	public Textbox getTxtSegundoNombre() {
 		return txtSegundoNombre;
@@ -182,12 +162,16 @@ public class RetirarJugadorCtrl extends GenericForwardComposer {
 		return jugador;
 	}
 
-	public void setJugador(Jugador jugador) {
-		this.jugador = jugador;
+	public Textbox getTxtMotivo() {
+		return txtMotivo;
 	}
 
-	public void setBtnRetirar(Button btnRetirar) {
-		this.btnRetirar = btnRetirar;
+	public void setTxtMotivo(Textbox txtMotivo) {
+		this.txtMotivo = txtMotivo;
+	}	
+	
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
 	}
 
 	public Image getImgJugador() {
@@ -198,6 +182,7 @@ public class RetirarJugadorCtrl extends GenericForwardComposer {
 		this.imgJugador = imgJugador;
 	}
 
+	//Servicios, Procesos y Metodos
 	public ServicioCategoria getServicioCategoria() {
 		return servicioCategoria;
 	}
@@ -213,7 +198,15 @@ public class RetirarJugadorCtrl extends GenericForwardComposer {
 	public void setRutasJug(String rutasJug) {
 		this.rutasJug = rutasJug;
 	}
-		
+	
+	public void onCreate$win(ForwardEvent event){
+		 binder = (AnnotateDataBinder) event.getTarget().getVariable("binder", false);  
+	}
+	
+	public void onClick$btnCatalogoJugador() {
+		new Util().crearVentana("Jugador/Vistas/buscarJugador.zul",
+				null, null);
+	}		
 	
 	public boolean camposVacios(){
 		
@@ -243,30 +236,7 @@ public class RetirarJugadorCtrl extends GenericForwardComposer {
 				e.printStackTrace();
 			}			
 		}
-	}
-
-/*	public void onClick$btnRetirar() {
-		if (!camposVacios()){
-			try {
-				Messagebox.show(
-						"Al pelo",
-						"Fundalara", Messagebox.OK, Messagebox.EXCLAMATION);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		else{
-			try {
-				Messagebox.show(
-						"No jodas!",
-						"Fundalara", Messagebox.OK, Messagebox.EXCLAMATION);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}			
-		}		
-	}		
-*/
-	
+	}	
 
 	public void onClick$btnRetirar(){
 		if (!camposVacios()){
@@ -289,13 +259,8 @@ public class RetirarJugadorCtrl extends GenericForwardComposer {
 		}
 		else{
 			try {
-				/*
-				 * NOTA: ELiminar "mensajes de prueba" (EJ:" Messagebox.show(
-						"No jodas!",
-						"Fundalara", Messagebox.OK, Messagebox.EXCLAMATION);" ), antes de realizar el envio de las interfaces"
-				 * */
 				Messagebox.show(
-						"Debe buscar primero al jugador.",
+						"No jodas!",
 						"Fundalara", Messagebox.OK, Messagebox.EXCLAMATION);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

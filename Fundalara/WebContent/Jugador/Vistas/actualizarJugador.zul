@@ -733,7 +733,7 @@
 		</groupbox>
 							
 						</tabpanel>
-						<tabpanel>
+						<tabpanel id="deportivos">
 							<groupbox closable="false"
 								style="border-color:orange">
 								<caption label="Datos físicos" />
@@ -764,28 +764,36 @@
 													style="color:red" />
 											</div>
 										</row>
-										<row style="border:none;">
-											<label value="Brazo Lanzar" />
-											<radiogroup id="rdBrazoLanzar"
-												orient="vertical">
-												<radio label="Zurdo" />
-												<radio label="Derecho"
-													checked="true" />
-												<radio
-													label="Ambidiestro" />
-											</radiogroup>
-											<label
-												value="Posición de Bateo" />
-											<radiogroup id="rdPosicionBateo"
-												orient="vertical">
-												<radio label="Zurdo" />
-												<radio label="Derecho"
-													checked="true" />
-												<radio
-													label="Ambidiestro" />
-											</radiogroup>
-										</row>
-									</rows>
+										<row
+															style="border:none;">
+															<label
+																value="Brazo Lanzar" />
+															<combobox
+																id="cmbBrazoLanzar" readonly="true"
+																value="--Seleccione--" width="65%">
+																<comboitem
+																	label="Zurdo" />
+																<comboitem
+																	label="Derecho" />
+																<comboitem
+																	label="Ambidiestro" />
+															</combobox>
+
+															<label
+																value="Posición Bateo" />
+															<combobox
+																id="cmbPosicionBateo" readonly="true"
+																value="--Seleccione--" width="65%">
+																<comboitem
+																	label="Zurdo" />
+																<comboitem
+																	label="Derecho" />
+																<comboitem
+																	label="Ambidiestro" />
+															</combobox>
+
+														</row>
+	</rows>
 								</grid>
 							</groupbox>
 							<groupbox closable="false"
