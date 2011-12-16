@@ -18,8 +18,9 @@
     	</columns>
 		<rows>
 			<row style="border:none;">
-				<label value="Código" />
-				<textbox id="txtCodigo" width="52%" maxlength="5" disabled="false" value="@{cntrl.institucion.codigoInstitucion}"/>
+				<label value="Nombre" />
+				<textbox id="txtNombre" width="95%" maxlength="80"
+					constraint="no empty" value="@{cntrl.institucion.nombre}" />
 				<button id="btnConsultar"  image="/Recursos/Imagenes/consultar.ico"   />
 			</row>
 			<row style="border:none;">
@@ -29,11 +30,7 @@
 				 </combobox> 
 
 			</row>
-			<row style="border:none;">
-				<label value="Nombre" />
-				<textbox id="txtNombre" width="95%" maxlength="80"
-					constraint="no empty" value="@{cntrl.institucion.nombre}" />
-			</row>
+			
 				<row style="border:none;">
 				<label value="Estado" />
 				<combobox id="cmbEstado" value="--Seleccione--" width="46%">
