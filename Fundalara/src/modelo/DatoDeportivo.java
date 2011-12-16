@@ -1,7 +1,9 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,26 +25,34 @@ public class DatoDeportivo implements java.io.Serializable {
 	private DatoDeportivoId id;
 	private Competencia competencia;
 	private Jugador jugador;
-	private TipoLogro tipoLogro;
 	private char estatus;
+	private Set<LogroPorJugador> logroPorJugadors = new HashSet<LogroPorJugador>(
+			0);
 
 	public DatoDeportivo() {
 	}
 
 	public DatoDeportivo(DatoDeportivoId id, Competencia competencia,
-			Jugador jugador, TipoLogro tipoLogro, char estatus) {
+			Jugador jugador, char estatus) {
 		this.id = id;
 		this.competencia = competencia;
 		this.jugador = jugador;
-		this.tipoLogro = tipoLogro;
 		this.estatus = estatus;
+	}
+
+	public DatoDeportivo(DatoDeportivoId id, Competencia competencia,
+			Jugador jugador, char estatus, Set<LogroPorJugador> logroPorJugadors) {
+		this.id = id;
+		this.competencia = competencia;
+		this.jugador = jugador;
+		this.estatus = estatus;
+		this.logroPorJugadors = logroPorJugadors;
 	}
 
 	@EmbeddedId
 	@AttributeOverrides({
-			@AttributeOverride(name = "cedulaJugador", column = @Column(name = "cedula_jugador", nullable = false)),
 			@AttributeOverride(name = "codigoCompetencia", column = @Column(name = "codigo_competencia", nullable = false)),
-			@AttributeOverride(name = "codigoLogro", column = @Column(name = "codigo_logro", nullable = false)) })
+			@AttributeOverride(name = "cedulaRif", column = @Column(name = "cedula_rif", nullable = false)) })
 	public DatoDeportivoId getId() {
 		return this.id;
 	}
@@ -61,23 +72,13 @@ public class DatoDeportivo implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cedula_jugador", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "cedula_rif", nullable = false, insertable = false, updatable = false)
 	public Jugador getJugador() {
 		return this.jugador;
 	}
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_logro", nullable = false, insertable = false, updatable = false)
-	public TipoLogro getTipoLogro() {
-		return this.tipoLogro;
-	}
-
-	public void setTipoLogro(TipoLogro tipoLogro) {
-		this.tipoLogro = tipoLogro;
 	}
 
 	@Column(name = "estatus", nullable = false, length = 1)
@@ -87,6 +88,15 @@ public class DatoDeportivo implements java.io.Serializable {
 
 	public void setEstatus(char estatus) {
 		this.estatus = estatus;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoDeportivo")
+	public Set<LogroPorJugador> getLogroPorJugadors() {
+		return this.logroPorJugadors;
+	}
+
+	public void setLogroPorJugadors(Set<LogroPorJugador> logroPorJugadors) {
+		this.logroPorJugadors = logroPorJugadors;
 	}
 
 }

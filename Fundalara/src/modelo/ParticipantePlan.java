@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,9 +24,9 @@ import javax.persistence.TemporalType;
 public class ParticipantePlan implements java.io.Serializable {
 
 	private String codigoParticipante;
+	private TallaPorIndumentaria tallaPorIndumentaria;
 	private Categoria categoria;
 	private Jugador jugador;
-	private String codigoTallaIndumentaria;
 	private String tipoJugador;
 	private String cedulaJugador;
 	private String nombre;
@@ -38,14 +38,14 @@ public class ParticipantePlan implements java.io.Serializable {
 	public ParticipantePlan() {
 	}
 
-	public ParticipantePlan(String codigoParticipante, Categoria categoria,
-			Jugador jugador, String codigoTallaIndumentaria,
-			String tipoJugador, String cedulaJugador, String nombre,
-			String apellido, Date fechaNacimiento, char estatus) {
+	public ParticipantePlan(String codigoParticipante,
+			TallaPorIndumentaria tallaPorIndumentaria, Categoria categoria,
+			Jugador jugador, String tipoJugador, String cedulaJugador,
+			String nombre, String apellido, Date fechaNacimiento, char estatus) {
 		this.codigoParticipante = codigoParticipante;
+		this.tallaPorIndumentaria = tallaPorIndumentaria;
 		this.categoria = categoria;
 		this.jugador = jugador;
-		this.codigoTallaIndumentaria = codigoTallaIndumentaria;
 		this.tipoJugador = tipoJugador;
 		this.cedulaJugador = cedulaJugador;
 		this.nombre = nombre;
@@ -54,15 +54,15 @@ public class ParticipantePlan implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	public ParticipantePlan(String codigoParticipante, Categoria categoria,
-			Jugador jugador, String codigoTallaIndumentaria,
-			String tipoJugador, String cedulaJugador, String nombre,
-			String apellido, Date fechaNacimiento, char estatus,
+	public ParticipantePlan(String codigoParticipante,
+			TallaPorIndumentaria tallaPorIndumentaria, Categoria categoria,
+			Jugador jugador, String tipoJugador, String cedulaJugador,
+			String nombre, String apellido, Date fechaNacimiento, char estatus,
 			Set<PlanJugador> planJugadors) {
 		this.codigoParticipante = codigoParticipante;
+		this.tallaPorIndumentaria = tallaPorIndumentaria;
 		this.categoria = categoria;
 		this.jugador = jugador;
-		this.codigoTallaIndumentaria = codigoTallaIndumentaria;
 		this.tipoJugador = tipoJugador;
 		this.cedulaJugador = cedulaJugador;
 		this.nombre = nombre;
@@ -83,6 +83,17 @@ public class ParticipantePlan implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_talla_indumentaria", nullable = false)
+	public TallaPorIndumentaria getTallaPorIndumentaria() {
+		return this.tallaPorIndumentaria;
+	}
+
+	public void setTallaPorIndumentaria(
+			TallaPorIndumentaria tallaPorIndumentaria) {
+		this.tallaPorIndumentaria = tallaPorIndumentaria;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_categoria", nullable = false)
 	public Categoria getCategoria() {
 		return this.categoria;
@@ -100,15 +111,6 @@ public class ParticipantePlan implements java.io.Serializable {
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
-	}
-
-	@Column(name = "codigo_talla_indumentaria", nullable = false)
-	public String getCodigoTallaIndumentaria() {
-		return this.codigoTallaIndumentaria;
-	}
-
-	public void setCodigoTallaIndumentaria(String codigoTallaIndumentaria) {
-		this.codigoTallaIndumentaria = codigoTallaIndumentaria;
 	}
 
 	@Column(name = "tipo_jugador", nullable = false)

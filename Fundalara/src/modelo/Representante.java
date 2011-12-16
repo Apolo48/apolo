@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.AttributeOverride;
@@ -41,7 +41,7 @@ public class Representante implements java.io.Serializable {
 
 	@EmbeddedId
 	@AttributeOverrides({
-			@AttributeOverride(name = "cedulaJugador", column = @Column(name = "cedula_jugador", nullable = false)),
+			@AttributeOverride(name = "cedulaRif", column = @Column(name = "cedula_rif", nullable = false)),
 			@AttributeOverride(name = "cedulaFamiliar", column = @Column(name = "cedula_familiar", nullable = false)) })
 	public RepresentanteId getId() {
 		return this.id;

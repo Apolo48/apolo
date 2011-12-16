@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -27,9 +27,13 @@ public class DocumentoEntregado implements java.io.Serializable {
 	private RecaudoPorProceso recaudoPorProceso;
 	private byte[] documento;
 	private Date fecha;
-	private int cantidad;
 	private char estatus;
+	private int cantidad;
 	private Set<DocumentoAcademico> documentoAcademicos = new HashSet<DocumentoAcademico>(
+			0);
+	private Set<DocumentoAscenso> documentoAscensos = new HashSet<DocumentoAscenso>(
+			0);
+	private Set<DocumentoConducta> documentoConductas = new HashSet<DocumentoConducta>(
 			0);
 	private Set<DocumentoMedico> documentoMedicos = new HashSet<DocumentoMedico>(
 			0);
@@ -39,27 +43,31 @@ public class DocumentoEntregado implements java.io.Serializable {
 
 	public DocumentoEntregado(String codigoDocumentoEntregado,
 			RecaudoPorProceso recaudoPorProceso, byte[] documento, Date fecha,
-			int cantidad, char estatus) {
+			char estatus, int cantidad) {
 		this.codigoDocumentoEntregado = codigoDocumentoEntregado;
 		this.recaudoPorProceso = recaudoPorProceso;
 		this.documento = documento;
 		this.fecha = fecha;
-		this.cantidad = cantidad;
 		this.estatus = estatus;
+		this.cantidad = cantidad;
 	}
 
 	public DocumentoEntregado(String codigoDocumentoEntregado,
 			RecaudoPorProceso recaudoPorProceso, byte[] documento, Date fecha,
-			int cantidad, char estatus,
+			char estatus, int cantidad,
 			Set<DocumentoAcademico> documentoAcademicos,
+			Set<DocumentoAscenso> documentoAscensos,
+			Set<DocumentoConducta> documentoConductas,
 			Set<DocumentoMedico> documentoMedicos) {
 		this.codigoDocumentoEntregado = codigoDocumentoEntregado;
 		this.recaudoPorProceso = recaudoPorProceso;
 		this.documento = documento;
 		this.fecha = fecha;
-		this.cantidad = cantidad;
 		this.estatus = estatus;
+		this.cantidad = cantidad;
 		this.documentoAcademicos = documentoAcademicos;
+		this.documentoAscensos = documentoAscensos;
+		this.documentoConductas = documentoConductas;
 		this.documentoMedicos = documentoMedicos;
 	}
 
@@ -102,15 +110,6 @@ public class DocumentoEntregado implements java.io.Serializable {
 		this.fecha = fecha;
 	}
 
-	@Column(name = "cantidad", nullable = false)
-	public int getCantidad() {
-		return this.cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
-
 	@Column(name = "estatus", nullable = false, length = 1)
 	public char getEstatus() {
 		return this.estatus;
@@ -118,6 +117,15 @@ public class DocumentoEntregado implements java.io.Serializable {
 
 	public void setEstatus(char estatus) {
 		this.estatus = estatus;
+	}
+
+	@Column(name = "cantidad", nullable = false)
+	public int getCantidad() {
+		return this.cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "documentoEntregado")
@@ -128,6 +136,24 @@ public class DocumentoEntregado implements java.io.Serializable {
 	public void setDocumentoAcademicos(
 			Set<DocumentoAcademico> documentoAcademicos) {
 		this.documentoAcademicos = documentoAcademicos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "documentoEntregado")
+	public Set<DocumentoAscenso> getDocumentoAscensos() {
+		return this.documentoAscensos;
+	}
+
+	public void setDocumentoAscensos(Set<DocumentoAscenso> documentoAscensos) {
+		this.documentoAscensos = documentoAscensos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "documentoEntregado")
+	public Set<DocumentoConducta> getDocumentoConductas() {
+		return this.documentoConductas;
+	}
+
+	public void setDocumentoConductas(Set<DocumentoConducta> documentoConductas) {
+		this.documentoConductas = documentoConductas;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "documentoEntregado")

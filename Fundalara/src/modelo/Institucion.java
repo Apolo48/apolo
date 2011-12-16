@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,8 +21,7 @@ import javax.persistence.Table;
 public class Institucion implements java.io.Serializable {
 
 	private String codigoInstitucion;
-	private TipoInstitucion tipoInstitucion;
-	private Parroquia parroquia;
+	private DatoBasico datoBasico;
 	private String nombre;
 	private String direccion;
 	private char estatus;
@@ -32,24 +31,20 @@ public class Institucion implements java.io.Serializable {
 	public Institucion() {
 	}
 
-	public Institucion(String codigoInstitucion,
-			TipoInstitucion tipoInstitucion, Parroquia parroquia,
+	public Institucion(String codigoInstitucion, DatoBasico datoBasico,
 			String nombre, String direccion, char estatus) {
 		this.codigoInstitucion = codigoInstitucion;
-		this.tipoInstitucion = tipoInstitucion;
-		this.parroquia = parroquia;
+		this.datoBasico = datoBasico;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.estatus = estatus;
 	}
 
-	public Institucion(String codigoInstitucion,
-			TipoInstitucion tipoInstitucion, Parroquia parroquia,
+	public Institucion(String codigoInstitucion, DatoBasico datoBasico,
 			String nombre, String direccion, char estatus,
 			Set<DatoAcademico> datoAcademicos, Set<DatoSocial> datoSocials) {
 		this.codigoInstitucion = codigoInstitucion;
-		this.tipoInstitucion = tipoInstitucion;
-		this.parroquia = parroquia;
+		this.datoBasico = datoBasico;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.estatus = estatus;
@@ -68,23 +63,13 @@ public class Institucion implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_tipo", nullable = false)
-	public TipoInstitucion getTipoInstitucion() {
-		return this.tipoInstitucion;
-	}
-
-	public void setTipoInstitucion(TipoInstitucion tipoInstitucion) {
-		this.tipoInstitucion = tipoInstitucion;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_parroquia", nullable = false)
-	public Parroquia getParroquia() {
-		return this.parroquia;
+	public DatoBasico getDatoBasico() {
+		return this.datoBasico;
 	}
 
-	public void setParroquia(Parroquia parroquia) {
-		this.parroquia = parroquia;
+	public void setDatoBasico(DatoBasico datoBasico) {
+		this.datoBasico = datoBasico;
 	}
 
 	@Column(name = "nombre", nullable = false)

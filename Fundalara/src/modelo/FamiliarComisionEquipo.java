@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -39,10 +39,10 @@ public class FamiliarComisionEquipo implements java.io.Serializable {
 
 	@EmbeddedId
 	@AttributeOverrides({
+			@AttributeOverride(name = "codigoEquipo", column = @Column(name = "codigo_equipo", nullable = false)),
 			@AttributeOverride(name = "codigoComision", column = @Column(name = "codigo_comision", nullable = false)),
-			@AttributeOverride(name = "cedulaJugador", column = @Column(name = "cedula_jugador", nullable = false)),
-			@AttributeOverride(name = "cedulaFamiliar", column = @Column(name = "cedula_familiar", nullable = false)),
-			@AttributeOverride(name = "codigoEquipo", column = @Column(name = "codigo_equipo", nullable = false)) })
+			@AttributeOverride(name = "cedulaRif", column = @Column(name = "cedula_rif", nullable = false)),
+			@AttributeOverride(name = "cedulaFamiliar", column = @Column(name = "cedula_familiar", nullable = false)) })
 	public FamiliarComisionEquipoId getId() {
 		return this.id;
 	}
@@ -53,7 +53,7 @@ public class FamiliarComisionEquipo implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
-			@JoinColumn(name = "cedula_jugador", referencedColumnName = "cedula_jugador", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "cedula_rif", referencedColumnName = "cedula_rif", nullable = false, insertable = false, updatable = false),
 			@JoinColumn(name = "cedula_familiar", referencedColumnName = "cedula_familiar", nullable = false, insertable = false, updatable = false) })
 	public FamiliarJugador getFamiliarJugador() {
 		return this.familiarJugador;
@@ -65,8 +65,8 @@ public class FamiliarComisionEquipo implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
-			@JoinColumn(name = "codigo_comision", referencedColumnName = "codigo_comision", nullable = false, insertable = false, updatable = false),
-			@JoinColumn(name = "codigo_equipo", referencedColumnName = "codigo_equipo", nullable = false, insertable = false, updatable = false) })
+			@JoinColumn(name = "codigo_equipo", referencedColumnName = "codigo_equipo", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "codigo_comision", referencedColumnName = "codigo_clasificacion", nullable = false, insertable = false, updatable = false) })
 	public ComisionEquipo getComisionEquipo() {
 		return this.comisionEquipo;
 	}

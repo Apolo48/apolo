@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,8 +24,9 @@ import javax.persistence.TemporalType;
 public class Competencia implements java.io.Serializable {
 
 	private String codigoCompetencia;
-	private EstadoCompetencia estadoCompetencia;
-	private TipoModalidadCompetencia tipoModalidadCompetencia;
+	private DatoBasico datoBasicoByCodigoTipo;
+	private Temporada temporada;
+	private DatoBasico datoBasicoByCodigoEstado;
 	private String nombre;
 	private Date fechaInicio;
 	private Date fechaFin;
@@ -39,29 +40,28 @@ public class Competencia implements java.io.Serializable {
 	private byte[] documento;
 	private Set<FaseCompetencia> faseCompetencias = new HashSet<FaseCompetencia>(
 			0);
-	private Set<DatoDeportivo> datoDeportivos = new HashSet<DatoDeportivo>(0);
 	private Set<CategoriaCompetencia> categoriaCompetencias = new HashSet<CategoriaCompetencia>(
 			0);
-	private Set<CategoriaCompetencia> categoriaCompetencias_1 = new HashSet<CategoriaCompetencia>(
+	private Set<EquipoCompetencia> equipoCompetencias = new HashSet<EquipoCompetencia>(
 			0);
-	private Set<DatoDeportivo> datoDeportivos_1 = new HashSet<DatoDeportivo>(0);
+	private Set<DatoDeportivo> datoDeportivos = new HashSet<DatoDeportivo>(0);
 	private Set<Hospedaje> hospedajes = new HashSet<Hospedaje>(0);
-	private Set<FaseCompetencia> faseCompetencias_1 = new HashSet<FaseCompetencia>(
-			0);
+	private Set<Juego> juegos = new HashSet<Juego>(0);
 
 	public Competencia() {
 	}
 
 	public Competencia(String codigoCompetencia,
-			EstadoCompetencia estadoCompetencia,
-			TipoModalidadCompetencia tipoModalidadCompetencia, String nombre,
+			DatoBasico datoBasicoByCodigoTipo, Temporada temporada,
+			DatoBasico datoBasicoByCodigoEstado, String nombre,
 			Date fechaInicio, Date fechaFin, int cantidadEquipo,
 			int cantidadFase, int cantidadJugador, float montoInscripcion,
 			String condicionesGenerales, String desempate, String extrainning,
 			byte[] documento) {
 		this.codigoCompetencia = codigoCompetencia;
-		this.estadoCompetencia = estadoCompetencia;
-		this.tipoModalidadCompetencia = tipoModalidadCompetencia;
+		this.datoBasicoByCodigoTipo = datoBasicoByCodigoTipo;
+		this.temporada = temporada;
+		this.datoBasicoByCodigoEstado = datoBasicoByCodigoEstado;
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
@@ -76,20 +76,20 @@ public class Competencia implements java.io.Serializable {
 	}
 
 	public Competencia(String codigoCompetencia,
-			EstadoCompetencia estadoCompetencia,
-			TipoModalidadCompetencia tipoModalidadCompetencia, String nombre,
+			DatoBasico datoBasicoByCodigoTipo, Temporada temporada,
+			DatoBasico datoBasicoByCodigoEstado, String nombre,
 			Date fechaInicio, Date fechaFin, int cantidadEquipo,
 			int cantidadFase, int cantidadJugador, float montoInscripcion,
 			String condicionesGenerales, String desempate, String extrainning,
 			byte[] documento, Set<FaseCompetencia> faseCompetencias,
-			Set<DatoDeportivo> datoDeportivos,
 			Set<CategoriaCompetencia> categoriaCompetencias,
-			Set<CategoriaCompetencia> categoriaCompetencias_1,
-			Set<DatoDeportivo> datoDeportivos_1, Set<Hospedaje> hospedajes,
-			Set<FaseCompetencia> faseCompetencias_1) {
+			Set<EquipoCompetencia> equipoCompetencias,
+			Set<DatoDeportivo> datoDeportivos, Set<Hospedaje> hospedajes,
+			Set<Juego> juegos) {
 		this.codigoCompetencia = codigoCompetencia;
-		this.estadoCompetencia = estadoCompetencia;
-		this.tipoModalidadCompetencia = tipoModalidadCompetencia;
+		this.datoBasicoByCodigoTipo = datoBasicoByCodigoTipo;
+		this.temporada = temporada;
+		this.datoBasicoByCodigoEstado = datoBasicoByCodigoEstado;
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
@@ -102,12 +102,11 @@ public class Competencia implements java.io.Serializable {
 		this.extrainning = extrainning;
 		this.documento = documento;
 		this.faseCompetencias = faseCompetencias;
-		this.datoDeportivos = datoDeportivos;
 		this.categoriaCompetencias = categoriaCompetencias;
-		this.categoriaCompetencias_1 = categoriaCompetencias_1;
-		this.datoDeportivos_1 = datoDeportivos_1;
+		this.equipoCompetencias = equipoCompetencias;
+		this.datoDeportivos = datoDeportivos;
 		this.hospedajes = hospedajes;
-		this.faseCompetencias_1 = faseCompetencias_1;
+		this.juegos = juegos;
 	}
 
 	@Id
@@ -121,24 +120,33 @@ public class Competencia implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "estado_competencia_codigo_estado_competencia_seq1", nullable = false)
-	public EstadoCompetencia getEstadoCompetencia() {
-		return this.estadoCompetencia;
+	@JoinColumn(name = "codigo_tipo", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoTipo() {
+		return this.datoBasicoByCodigoTipo;
 	}
 
-	public void setEstadoCompetencia(EstadoCompetencia estadoCompetencia) {
-		this.estadoCompetencia = estadoCompetencia;
+	public void setDatoBasicoByCodigoTipo(DatoBasico datoBasicoByCodigoTipo) {
+		this.datoBasicoByCodigoTipo = datoBasicoByCodigoTipo;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_tipo_modalidad_competencia", nullable = false)
-	public TipoModalidadCompetencia getTipoModalidadCompetencia() {
-		return this.tipoModalidadCompetencia;
+	@JoinColumn(name = "codigo_temporada", nullable = false)
+	public Temporada getTemporada() {
+		return this.temporada;
 	}
 
-	public void setTipoModalidadCompetencia(
-			TipoModalidadCompetencia tipoModalidadCompetencia) {
-		this.tipoModalidadCompetencia = tipoModalidadCompetencia;
+	public void setTemporada(Temporada temporada) {
+		this.temporada = temporada;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_estado", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoEstado() {
+		return this.datoBasicoByCodigoEstado;
+	}
+
+	public void setDatoBasicoByCodigoEstado(DatoBasico datoBasicoByCodigoEstado) {
+		this.datoBasicoByCodigoEstado = datoBasicoByCodigoEstado;
 	}
 
 	@Column(name = "nombre", nullable = false)
@@ -252,15 +260,6 @@ public class Competencia implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")
-	public Set<DatoDeportivo> getDatoDeportivos() {
-		return this.datoDeportivos;
-	}
-
-	public void setDatoDeportivos(Set<DatoDeportivo> datoDeportivos) {
-		this.datoDeportivos = datoDeportivos;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")
 	public Set<CategoriaCompetencia> getCategoriaCompetencias() {
 		return this.categoriaCompetencias;
 	}
@@ -271,22 +270,21 @@ public class Competencia implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")
-	public Set<CategoriaCompetencia> getCategoriaCompetencias_1() {
-		return this.categoriaCompetencias_1;
+	public Set<EquipoCompetencia> getEquipoCompetencias() {
+		return this.equipoCompetencias;
 	}
 
-	public void setCategoriaCompetencias_1(
-			Set<CategoriaCompetencia> categoriaCompetencias_1) {
-		this.categoriaCompetencias_1 = categoriaCompetencias_1;
+	public void setEquipoCompetencias(Set<EquipoCompetencia> equipoCompetencias) {
+		this.equipoCompetencias = equipoCompetencias;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")
-	public Set<DatoDeportivo> getDatoDeportivos_1() {
-		return this.datoDeportivos_1;
+	public Set<DatoDeportivo> getDatoDeportivos() {
+		return this.datoDeportivos;
 	}
 
-	public void setDatoDeportivos_1(Set<DatoDeportivo> datoDeportivos_1) {
-		this.datoDeportivos_1 = datoDeportivos_1;
+	public void setDatoDeportivos(Set<DatoDeportivo> datoDeportivos) {
+		this.datoDeportivos = datoDeportivos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")
@@ -299,12 +297,12 @@ public class Competencia implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")
-	public Set<FaseCompetencia> getFaseCompetencias_1() {
-		return this.faseCompetencias_1;
+	public Set<Juego> getJuegos() {
+		return this.juegos;
 	}
 
-	public void setFaseCompetencias_1(Set<FaseCompetencia> faseCompetencias_1) {
-		this.faseCompetencias_1 = faseCompetencias_1;
+	public void setJuegos(Set<Juego> juegos) {
+		this.juegos = juegos;
 	}
 
 }

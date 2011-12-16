@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,10 +24,13 @@ import javax.persistence.TemporalType;
 public class Medico implements java.io.Serializable {
 
 	private String numeroColegio;
+	private DatoBasico datoBasico;
 	private String matricula;
 	private String cedulaMedico;
 	private String nombre;
 	private String apellido;
+	private String telefonoOficina;
+	private String telefonoCelular;
 	private Date fechaIngreso;
 	private char estatus;
 	private Set<DatoMedico> datoMedicos = new HashSet<DatoMedico>(0);
@@ -33,25 +38,28 @@ public class Medico implements java.io.Serializable {
 	public Medico() {
 	}
 
-	public Medico(String numeroColegio, String matricula, String cedulaMedico,
-			String nombre, String apellido, Date fechaIngreso, char estatus) {
+	public Medico(String numeroColegio, DatoBasico datoBasico, String nombre,
+			String apellido, Date fechaIngreso, char estatus) {
 		this.numeroColegio = numeroColegio;
-		this.matricula = matricula;
-		this.cedulaMedico = cedulaMedico;
+		this.datoBasico = datoBasico;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
 	}
 
-	public Medico(String numeroColegio, String matricula, String cedulaMedico,
-			String nombre, String apellido, Date fechaIngreso, char estatus,
-			Set<DatoMedico> datoMedicos) {
+	public Medico(String numeroColegio, DatoBasico datoBasico,
+			String matricula, String cedulaMedico, String nombre,
+			String apellido, String telefonoOficina, String telefonoCelular,
+			Date fechaIngreso, char estatus, Set<DatoMedico> datoMedicos) {
 		this.numeroColegio = numeroColegio;
+		this.datoBasico = datoBasico;
 		this.matricula = matricula;
 		this.cedulaMedico = cedulaMedico;
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.telefonoOficina = telefonoOficina;
+		this.telefonoCelular = telefonoCelular;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
 		this.datoMedicos = datoMedicos;
@@ -67,7 +75,17 @@ public class Medico implements java.io.Serializable {
 		this.numeroColegio = numeroColegio;
 	}
 
-	@Column(name = "matricula", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_especialidad", nullable = false)
+	public DatoBasico getDatoBasico() {
+		return this.datoBasico;
+	}
+
+	public void setDatoBasico(DatoBasico datoBasico) {
+		this.datoBasico = datoBasico;
+	}
+
+	@Column(name = "matricula")
 	public String getMatricula() {
 		return this.matricula;
 	}
@@ -76,7 +94,7 @@ public class Medico implements java.io.Serializable {
 		this.matricula = matricula;
 	}
 
-	@Column(name = "cedula_medico", nullable = false)
+	@Column(name = "cedula_medico")
 	public String getCedulaMedico() {
 		return this.cedulaMedico;
 	}
@@ -101,6 +119,24 @@ public class Medico implements java.io.Serializable {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
+	}
+
+	@Column(name = "telefono_oficina")
+	public String getTelefonoOficina() {
+		return this.telefonoOficina;
+	}
+
+	public void setTelefonoOficina(String telefonoOficina) {
+		this.telefonoOficina = telefonoOficina;
+	}
+
+	@Column(name = "telefono_celular")
+	public String getTelefonoCelular() {
+		return this.telefonoCelular;
+	}
+
+	public void setTelefonoCelular(String telefonoCelular) {
+		this.telefonoCelular = telefonoCelular;
 	}
 
 	@Temporal(TemporalType.DATE)

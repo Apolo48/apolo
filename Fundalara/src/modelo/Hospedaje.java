@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -25,7 +25,7 @@ public class Hospedaje implements java.io.Serializable {
 	private Competencia competencia;
 	private FamiliarJugador familiarJugador;
 	private char estatus;
-	private HospedajeJudador hospedajeJudador;
+	private HospedajeJugador hospedajeJugador;
 
 	public Hospedaje() {
 	}
@@ -40,18 +40,18 @@ public class Hospedaje implements java.io.Serializable {
 
 	public Hospedaje(HospedajeId id, Competencia competencia,
 			FamiliarJugador familiarJugador, char estatus,
-			HospedajeJudador hospedajeJudador) {
+			HospedajeJugador hospedajeJugador) {
 		this.id = id;
 		this.competencia = competencia;
 		this.familiarJugador = familiarJugador;
 		this.estatus = estatus;
-		this.hospedajeJudador = hospedajeJudador;
+		this.hospedajeJugador = hospedajeJugador;
 	}
 
 	@EmbeddedId
 	@AttributeOverrides({
 			@AttributeOverride(name = "codigoHospedaje", column = @Column(name = "codigo_hospedaje", nullable = false)),
-			@AttributeOverride(name = "cedulaJugador", column = @Column(name = "cedula_jugador", nullable = false)),
+			@AttributeOverride(name = "cedulaRif", column = @Column(name = "cedula_rif", nullable = false)),
 			@AttributeOverride(name = "cedulaFamiliar", column = @Column(name = "cedula_familiar", nullable = false)) })
 	public HospedajeId getId() {
 		return this.id;
@@ -73,7 +73,7 @@ public class Hospedaje implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
-			@JoinColumn(name = "cedula_jugador", referencedColumnName = "cedula_jugador", nullable = false, insertable = false, updatable = false),
+			@JoinColumn(name = "cedula_rif", referencedColumnName = "cedula_rif", nullable = false, insertable = false, updatable = false),
 			@JoinColumn(name = "cedula_familiar", referencedColumnName = "cedula_familiar", nullable = false, insertable = false, updatable = false) })
 	public FamiliarJugador getFamiliarJugador() {
 		return this.familiarJugador;
@@ -93,12 +93,12 @@ public class Hospedaje implements java.io.Serializable {
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "hospedaje")
-	public HospedajeJudador getHospedajeJudador() {
-		return this.hospedajeJudador;
+	public HospedajeJugador getHospedajeJugador() {
+		return this.hospedajeJugador;
 	}
 
-	public void setHospedajeJudador(HospedajeJudador hospedajeJudador) {
-		this.hospedajeJudador = hospedajeJudador;
+	public void setHospedajeJugador(HospedajeJugador hospedajeJugador) {
+		this.hospedajeJugador = hospedajeJugador;
 	}
 
 }

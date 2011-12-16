@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,9 +21,9 @@ import javax.persistence.Table;
 public class RecaudoPorProceso implements java.io.Serializable {
 
 	private String codigoRecaudoPorProceso;
-	private Proceso proceso;
-	private Importancia importancia;
-	private Documento documento;
+	private DatoBasico datoBasicoByCodigoDocumento;
+	private DatoBasico datoBasicoByCodigoImportancia;
+	private DatoBasico datoBasicoByCodigoProceso;
 	private int cantidad;
 	private char estatus;
 	private Set<DocumentoEntregado> documentoEntregados = new HashSet<DocumentoEntregado>(
@@ -32,24 +32,27 @@ public class RecaudoPorProceso implements java.io.Serializable {
 	public RecaudoPorProceso() {
 	}
 
-	public RecaudoPorProceso(String codigoRecaudoPorProceso, Proceso proceso,
-			Importancia importancia, Documento documento, int cantidad,
-			char estatus) {
+	public RecaudoPorProceso(String codigoRecaudoPorProceso,
+			DatoBasico datoBasicoByCodigoDocumento,
+			DatoBasico datoBasicoByCodigoImportancia,
+			DatoBasico datoBasicoByCodigoProceso, int cantidad, char estatus) {
 		this.codigoRecaudoPorProceso = codigoRecaudoPorProceso;
-		this.proceso = proceso;
-		this.importancia = importancia;
-		this.documento = documento;
+		this.datoBasicoByCodigoDocumento = datoBasicoByCodigoDocumento;
+		this.datoBasicoByCodigoImportancia = datoBasicoByCodigoImportancia;
+		this.datoBasicoByCodigoProceso = datoBasicoByCodigoProceso;
 		this.cantidad = cantidad;
 		this.estatus = estatus;
 	}
 
-	public RecaudoPorProceso(String codigoRecaudoPorProceso, Proceso proceso,
-			Importancia importancia, Documento documento, int cantidad,
-			char estatus, Set<DocumentoEntregado> documentoEntregados) {
+	public RecaudoPorProceso(String codigoRecaudoPorProceso,
+			DatoBasico datoBasicoByCodigoDocumento,
+			DatoBasico datoBasicoByCodigoImportancia,
+			DatoBasico datoBasicoByCodigoProceso, int cantidad, char estatus,
+			Set<DocumentoEntregado> documentoEntregados) {
 		this.codigoRecaudoPorProceso = codigoRecaudoPorProceso;
-		this.proceso = proceso;
-		this.importancia = importancia;
-		this.documento = documento;
+		this.datoBasicoByCodigoDocumento = datoBasicoByCodigoDocumento;
+		this.datoBasicoByCodigoImportancia = datoBasicoByCodigoImportancia;
+		this.datoBasicoByCodigoProceso = datoBasicoByCodigoProceso;
 		this.cantidad = cantidad;
 		this.estatus = estatus;
 		this.documentoEntregados = documentoEntregados;
@@ -66,33 +69,36 @@ public class RecaudoPorProceso implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_proceso", nullable = false)
-	public Proceso getProceso() {
-		return this.proceso;
+	@JoinColumn(name = "codigo_documento", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoDocumento() {
+		return this.datoBasicoByCodigoDocumento;
 	}
 
-	public void setProceso(Proceso proceso) {
-		this.proceso = proceso;
+	public void setDatoBasicoByCodigoDocumento(
+			DatoBasico datoBasicoByCodigoDocumento) {
+		this.datoBasicoByCodigoDocumento = datoBasicoByCodigoDocumento;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_importancia", nullable = false)
-	public Importancia getImportancia() {
-		return this.importancia;
+	public DatoBasico getDatoBasicoByCodigoImportancia() {
+		return this.datoBasicoByCodigoImportancia;
 	}
 
-	public void setImportancia(Importancia importancia) {
-		this.importancia = importancia;
+	public void setDatoBasicoByCodigoImportancia(
+			DatoBasico datoBasicoByCodigoImportancia) {
+		this.datoBasicoByCodigoImportancia = datoBasicoByCodigoImportancia;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_documento", nullable = false)
-	public Documento getDocumento() {
-		return this.documento;
+	@JoinColumn(name = "codigo_proceso", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoProceso() {
+		return this.datoBasicoByCodigoProceso;
 	}
 
-	public void setDocumento(Documento documento) {
-		this.documento = documento;
+	public void setDatoBasicoByCodigoProceso(
+			DatoBasico datoBasicoByCodigoProceso) {
+		this.datoBasicoByCodigoProceso = datoBasicoByCodigoProceso;
 	}
 
 	@Column(name = "cantidad", nullable = false)

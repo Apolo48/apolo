@@ -3,9 +3,6 @@ package dao.jugador;
 import java.util.List;
 
 
-import modelo.Municipio;
-import modelo.Parroquia;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -13,7 +10,7 @@ import dao.general.GenericDAO;
 import dao.general.SessionManager;
 
 public class DaoParroquia extends GenericDAO {
-
+/*
 	public List<Parroquia> buscar (Municipio municipio){
 		 Session session = SessionManager.getSession();
          org.hibernate.Transaction tx = session.beginTransaction();
@@ -22,5 +19,5 @@ public class DaoParroquia extends GenericDAO {
 		tx.commit();
 	
 		return  lista;
-	}
+	}*/
 }

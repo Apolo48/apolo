@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,24 +11,15 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ComisionEquipoId implements java.io.Serializable {
 
-	private String codigoComision;
 	private String codigoEquipo;
+	private String codigoClasificacion;
 
 	public ComisionEquipoId() {
 	}
 
-	public ComisionEquipoId(String codigoComision, String codigoEquipo) {
-		this.codigoComision = codigoComision;
+	public ComisionEquipoId(String codigoEquipo, String codigoClasificacion) {
 		this.codigoEquipo = codigoEquipo;
-	}
-
-	@Column(name = "codigo_comision", nullable = false)
-	public String getCodigoComision() {
-		return this.codigoComision;
-	}
-
-	public void setCodigoComision(String codigoComision) {
-		this.codigoComision = codigoComision;
+		this.codigoClasificacion = codigoClasificacion;
 	}
 
 	@Column(name = "codigo_equipo", nullable = false)
@@ -40,6 +31,15 @@ public class ComisionEquipoId implements java.io.Serializable {
 		this.codigoEquipo = codigoEquipo;
 	}
 
+	@Column(name = "codigo_clasificacion", nullable = false)
+	public String getCodigoClasificacion() {
+		return this.codigoClasificacion;
+	}
+
+	public void setCodigoClasificacion(String codigoClasificacion) {
+		this.codigoClasificacion = codigoClasificacion;
+	}
+
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -49,14 +49,16 @@ public class ComisionEquipoId implements java.io.Serializable {
 			return false;
 		ComisionEquipoId castOther = (ComisionEquipoId) other;
 
-		return ((this.getCodigoComision() == castOther.getCodigoComision()) || (this
-				.getCodigoComision() != null
-				&& castOther.getCodigoComision() != null && this
-				.getCodigoComision().equals(castOther.getCodigoComision())))
-				&& ((this.getCodigoEquipo() == castOther.getCodigoEquipo()) || (this
-						.getCodigoEquipo() != null
-						&& castOther.getCodigoEquipo() != null && this
-						.getCodigoEquipo().equals(castOther.getCodigoEquipo())));
+		return ((this.getCodigoEquipo() == castOther.getCodigoEquipo()) || (this
+				.getCodigoEquipo() != null
+				&& castOther.getCodigoEquipo() != null && this
+				.getCodigoEquipo().equals(castOther.getCodigoEquipo())))
+				&& ((this.getCodigoClasificacion() == castOther
+						.getCodigoClasificacion()) || (this
+						.getCodigoClasificacion() != null
+						&& castOther.getCodigoClasificacion() != null && this
+						.getCodigoClasificacion().equals(
+								castOther.getCodigoClasificacion())));
 	}
 
 	public int hashCode() {
@@ -64,12 +66,12 @@ public class ComisionEquipoId implements java.io.Serializable {
 
 		result = 37
 				* result
-				+ (getCodigoComision() == null ? 0 : this.getCodigoComision()
+				+ (getCodigoEquipo() == null ? 0 : this.getCodigoEquipo()
 						.hashCode());
 		result = 37
 				* result
-				+ (getCodigoEquipo() == null ? 0 : this.getCodigoEquipo()
-						.hashCode());
+				+ (getCodigoClasificacion() == null ? 0 : this
+						.getCodigoClasificacion().hashCode());
 		return result;
 	}
 

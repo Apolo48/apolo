@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,46 +11,19 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class FamiliarComisionEquipoId implements java.io.Serializable {
 
-	private String codigoComision;
-	private String cedulaJugador;
-	private String cedulaFamiliar;
 	private String codigoEquipo;
+	private String codigoComision;
+	private String cedulaRif;
+	private String cedulaFamiliar;
 
 	public FamiliarComisionEquipoId() {
 	}
 
-	public FamiliarComisionEquipoId(String codigoComision,
-			String cedulaJugador, String cedulaFamiliar, String codigoEquipo) {
-		this.codigoComision = codigoComision;
-		this.cedulaJugador = cedulaJugador;
-		this.cedulaFamiliar = cedulaFamiliar;
+	public FamiliarComisionEquipoId(String codigoEquipo, String codigoComision,
+			String cedulaRif, String cedulaFamiliar) {
 		this.codigoEquipo = codigoEquipo;
-	}
-
-	@Column(name = "codigo_comision", nullable = false)
-	public String getCodigoComision() {
-		return this.codigoComision;
-	}
-
-	public void setCodigoComision(String codigoComision) {
 		this.codigoComision = codigoComision;
-	}
-
-	@Column(name = "cedula_jugador", nullable = false)
-	public String getCedulaJugador() {
-		return this.cedulaJugador;
-	}
-
-	public void setCedulaJugador(String cedulaJugador) {
-		this.cedulaJugador = cedulaJugador;
-	}
-
-	@Column(name = "cedula_familiar", nullable = false)
-	public String getCedulaFamiliar() {
-		return this.cedulaFamiliar;
-	}
-
-	public void setCedulaFamiliar(String cedulaFamiliar) {
+		this.cedulaRif = cedulaRif;
 		this.cedulaFamiliar = cedulaFamiliar;
 	}
 
@@ -63,6 +36,33 @@ public class FamiliarComisionEquipoId implements java.io.Serializable {
 		this.codigoEquipo = codigoEquipo;
 	}
 
+	@Column(name = "codigo_comision", nullable = false)
+	public String getCodigoComision() {
+		return this.codigoComision;
+	}
+
+	public void setCodigoComision(String codigoComision) {
+		this.codigoComision = codigoComision;
+	}
+
+	@Column(name = "cedula_rif", nullable = false)
+	public String getCedulaRif() {
+		return this.cedulaRif;
+	}
+
+	public void setCedulaRif(String cedulaRif) {
+		this.cedulaRif = cedulaRif;
+	}
+
+	@Column(name = "cedula_familiar", nullable = false)
+	public String getCedulaFamiliar() {
+		return this.cedulaFamiliar;
+	}
+
+	public void setCedulaFamiliar(String cedulaFamiliar) {
+		this.cedulaFamiliar = cedulaFamiliar;
+	}
+
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -72,24 +72,24 @@ public class FamiliarComisionEquipoId implements java.io.Serializable {
 			return false;
 		FamiliarComisionEquipoId castOther = (FamiliarComisionEquipoId) other;
 
-		return ((this.getCodigoComision() == castOther.getCodigoComision()) || (this
-				.getCodigoComision() != null
-				&& castOther.getCodigoComision() != null && this
-				.getCodigoComision().equals(castOther.getCodigoComision())))
-				&& ((this.getCedulaJugador() == castOther.getCedulaJugador()) || (this
-						.getCedulaJugador() != null
-						&& castOther.getCedulaJugador() != null && this
-						.getCedulaJugador()
-						.equals(castOther.getCedulaJugador())))
+		return ((this.getCodigoEquipo() == castOther.getCodigoEquipo()) || (this
+				.getCodigoEquipo() != null
+				&& castOther.getCodigoEquipo() != null && this
+				.getCodigoEquipo().equals(castOther.getCodigoEquipo())))
+				&& ((this.getCodigoComision() == castOther.getCodigoComision()) || (this
+						.getCodigoComision() != null
+						&& castOther.getCodigoComision() != null && this
+						.getCodigoComision().equals(
+								castOther.getCodigoComision())))
+				&& ((this.getCedulaRif() == castOther.getCedulaRif()) || (this
+						.getCedulaRif() != null
+						&& castOther.getCedulaRif() != null && this
+						.getCedulaRif().equals(castOther.getCedulaRif())))
 				&& ((this.getCedulaFamiliar() == castOther.getCedulaFamiliar()) || (this
 						.getCedulaFamiliar() != null
 						&& castOther.getCedulaFamiliar() != null && this
 						.getCedulaFamiliar().equals(
-								castOther.getCedulaFamiliar())))
-				&& ((this.getCodigoEquipo() == castOther.getCodigoEquipo()) || (this
-						.getCodigoEquipo() != null
-						&& castOther.getCodigoEquipo() != null && this
-						.getCodigoEquipo().equals(castOther.getCodigoEquipo())));
+								castOther.getCedulaFamiliar())));
 	}
 
 	public int hashCode() {
@@ -97,19 +97,17 @@ public class FamiliarComisionEquipoId implements java.io.Serializable {
 
 		result = 37
 				* result
-				+ (getCodigoComision() == null ? 0 : this.getCodigoComision()
+				+ (getCodigoEquipo() == null ? 0 : this.getCodigoEquipo()
 						.hashCode());
 		result = 37
 				* result
-				+ (getCedulaJugador() == null ? 0 : this.getCedulaJugador()
+				+ (getCodigoComision() == null ? 0 : this.getCodigoComision()
 						.hashCode());
+		result = 37 * result
+				+ (getCedulaRif() == null ? 0 : this.getCedulaRif().hashCode());
 		result = 37
 				* result
 				+ (getCedulaFamiliar() == null ? 0 : this.getCedulaFamiliar()
-						.hashCode());
-		result = 37
-				* result
-				+ (getCodigoEquipo() == null ? 0 : this.getCodigoEquipo()
 						.hashCode());
 		return result;
 	}

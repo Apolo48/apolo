@@ -22,6 +22,7 @@ import org.zkoss.zul.api.Tab;
 import servicio.compentencia.ServicioDivisa;
 import servicio.jugador.ServicioAfeccionJugador;
 import servicio.jugador.ServicioCategoria;
+/*
 import servicio.jugador.ServicioClasificacionEquipo;
 import servicio.jugador.ServicioCurso;
 import servicio.jugador.ServicioEstadoVenezuela;
@@ -29,23 +30,23 @@ import servicio.jugador.ServicioMunicipio;
 import servicio.jugador.ServicioPais;
 import servicio.jugador.ServicioParroquia;
 import servicio.jugador.ServicioTipoAfeccion;
-
+*/
 import comun.FileLoader;
 import comun.Rutas;
 import comun.Util;
 import modelo.AfeccionJugador;
 import modelo.Categoria;
-import modelo.Curso;
+//import modelo.Curso;
 import modelo.DatoMedico;
 import modelo.Divisa;
 import modelo.Equipo;
-import modelo.EstadoVenezuela;
+//import modelo.EstadoVenezuela;
 import modelo.Jugador;
-import modelo.Municipio;
+/*import modelo.Municipio;
 import modelo.Pais;
 import modelo.Parroquia;
 import modelo.TipoAfeccion;
-
+*/
 /**
  * Clase controladora de los eventos de la vista de igual nombre y manejo de los
  * servicios de datos para la inscripcion de jugadores nuevo ingreso

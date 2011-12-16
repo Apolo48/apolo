@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,24 +11,24 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class FamiliarJugadorId implements java.io.Serializable {
 
-	private String cedulaJugador;
+	private String cedulaRif;
 	private String cedulaFamiliar;
 
 	public FamiliarJugadorId() {
 	}
 
-	public FamiliarJugadorId(String cedulaJugador, String cedulaFamiliar) {
-		this.cedulaJugador = cedulaJugador;
+	public FamiliarJugadorId(String cedulaRif, String cedulaFamiliar) {
+		this.cedulaRif = cedulaRif;
 		this.cedulaFamiliar = cedulaFamiliar;
 	}
 
-	@Column(name = "cedula_jugador", nullable = false)
-	public String getCedulaJugador() {
-		return this.cedulaJugador;
+	@Column(name = "cedula_rif", nullable = false)
+	public String getCedulaRif() {
+		return this.cedulaRif;
 	}
 
-	public void setCedulaJugador(String cedulaJugador) {
-		this.cedulaJugador = cedulaJugador;
+	public void setCedulaRif(String cedulaRif) {
+		this.cedulaRif = cedulaRif;
 	}
 
 	@Column(name = "cedula_familiar", nullable = false)
@@ -49,10 +49,9 @@ public class FamiliarJugadorId implements java.io.Serializable {
 			return false;
 		FamiliarJugadorId castOther = (FamiliarJugadorId) other;
 
-		return ((this.getCedulaJugador() == castOther.getCedulaJugador()) || (this
-				.getCedulaJugador() != null
-				&& castOther.getCedulaJugador() != null && this
-				.getCedulaJugador().equals(castOther.getCedulaJugador())))
+		return ((this.getCedulaRif() == castOther.getCedulaRif()) || (this
+				.getCedulaRif() != null && castOther.getCedulaRif() != null && this
+				.getCedulaRif().equals(castOther.getCedulaRif())))
 				&& ((this.getCedulaFamiliar() == castOther.getCedulaFamiliar()) || (this
 						.getCedulaFamiliar() != null
 						&& castOther.getCedulaFamiliar() != null && this
@@ -63,10 +62,8 @@ public class FamiliarJugadorId implements java.io.Serializable {
 	public int hashCode() {
 		int result = 17;
 
-		result = 37
-				* result
-				+ (getCedulaJugador() == null ? 0 : this.getCedulaJugador()
-						.hashCode());
+		result = 37 * result
+				+ (getCedulaRif() == null ? 0 : this.getCedulaRif().hashCode());
 		result = 37
 				* result
 				+ (getCedulaFamiliar() == null ? 0 : this.getCedulaFamiliar()

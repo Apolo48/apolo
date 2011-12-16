@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +23,7 @@ import javax.persistence.Table;
 public class ComisionEquipo implements java.io.Serializable {
 
 	private ComisionEquipoId id;
-	private Comision comision;
+	private DatoBasico datoBasico;
 	private Equipo equipo;
 	private int maximoComision;
 	private int cantidadComision;
@@ -34,22 +34,22 @@ public class ComisionEquipo implements java.io.Serializable {
 	public ComisionEquipo() {
 	}
 
-	public ComisionEquipo(ComisionEquipoId id, Comision comision,
+	public ComisionEquipo(ComisionEquipoId id, DatoBasico datoBasico,
 			Equipo equipo, int maximoComision, int cantidadComision,
 			char estatus) {
 		this.id = id;
-		this.comision = comision;
+		this.datoBasico = datoBasico;
 		this.equipo = equipo;
 		this.maximoComision = maximoComision;
 		this.cantidadComision = cantidadComision;
 		this.estatus = estatus;
 	}
 
-	public ComisionEquipo(ComisionEquipoId id, Comision comision,
+	public ComisionEquipo(ComisionEquipoId id, DatoBasico datoBasico,
 			Equipo equipo, int maximoComision, int cantidadComision,
 			char estatus, Set<FamiliarComisionEquipo> familiarComisionEquipos) {
 		this.id = id;
-		this.comision = comision;
+		this.datoBasico = datoBasico;
 		this.equipo = equipo;
 		this.maximoComision = maximoComision;
 		this.cantidadComision = cantidadComision;
@@ -59,8 +59,8 @@ public class ComisionEquipo implements java.io.Serializable {
 
 	@EmbeddedId
 	@AttributeOverrides({
-			@AttributeOverride(name = "codigoComision", column = @Column(name = "codigo_comision", nullable = false)),
-			@AttributeOverride(name = "codigoEquipo", column = @Column(name = "codigo_equipo", nullable = false)) })
+			@AttributeOverride(name = "codigoEquipo", column = @Column(name = "codigo_equipo", nullable = false)),
+			@AttributeOverride(name = "codigoClasificacion", column = @Column(name = "codigo_clasificacion", nullable = false)) })
 	public ComisionEquipoId getId() {
 		return this.id;
 	}
@@ -70,13 +70,13 @@ public class ComisionEquipo implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_comision", nullable = false, insertable = false, updatable = false)
-	public Comision getComision() {
-		return this.comision;
+	@JoinColumn(name = "codigo_clasificacion", nullable = false, insertable = false, updatable = false)
+	public DatoBasico getDatoBasico() {
+		return this.datoBasico;
 	}
 
-	public void setComision(Comision comision) {
-		this.comision = comision;
+	public void setDatoBasico(DatoBasico datoBasico) {
+		this.datoBasico = datoBasico;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

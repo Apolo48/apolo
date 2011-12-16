@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -26,10 +26,10 @@ public class DatoMedico implements java.io.Serializable {
 	private String codigoDatoMedico;
 	private Medico medico;
 	private Jugador jugador;
-	private String observacion;
-	private char estatus;
 	private Date fechaInforme;
 	private Date fechaReincorporacion;
+	private String observacion;
+	private char estatus;
 	private Set<AfeccionJugador> afeccionJugadors = new HashSet<AfeccionJugador>(
 			0);
 	private Set<DocumentoMedico> documentoMedicos = new HashSet<DocumentoMedico>(
@@ -39,26 +39,24 @@ public class DatoMedico implements java.io.Serializable {
 	}
 
 	public DatoMedico(String codigoDatoMedico, Medico medico, Jugador jugador,
-			String observacion, char estatus, Date fechaInforme) {
+			char estatus) {
 		this.codigoDatoMedico = codigoDatoMedico;
 		this.medico = medico;
 		this.jugador = jugador;
-		this.observacion = observacion;
 		this.estatus = estatus;
-		this.fechaInforme = fechaInforme;
 	}
 
 	public DatoMedico(String codigoDatoMedico, Medico medico, Jugador jugador,
-			String observacion, char estatus, Date fechaInforme,
-			Date fechaReincorporacion, Set<AfeccionJugador> afeccionJugadors,
+			Date fechaInforme, Date fechaReincorporacion, String observacion,
+			char estatus, Set<AfeccionJugador> afeccionJugadors,
 			Set<DocumentoMedico> documentoMedicos) {
 		this.codigoDatoMedico = codigoDatoMedico;
 		this.medico = medico;
 		this.jugador = jugador;
-		this.observacion = observacion;
-		this.estatus = estatus;
 		this.fechaInforme = fechaInforme;
 		this.fechaReincorporacion = fechaReincorporacion;
+		this.observacion = observacion;
+		this.estatus = estatus;
 		this.afeccionJugadors = afeccionJugadors;
 		this.documentoMedicos = documentoMedicos;
 	}
@@ -84,7 +82,7 @@ public class DatoMedico implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cedula_jugador", nullable = false)
+	@JoinColumn(name = "cedula_rif", nullable = false)
 	public Jugador getJugador() {
 		return this.jugador;
 	}
@@ -93,26 +91,8 @@ public class DatoMedico implements java.io.Serializable {
 		this.jugador = jugador;
 	}
 
-	@Column(name = "observacion", nullable = false)
-	public String getObservacion() {
-		return this.observacion;
-	}
-
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
-	}
-
-	@Column(name = "estatus", nullable = false, length = 1)
-	public char getEstatus() {
-		return this.estatus;
-	}
-
-	public void setEstatus(char estatus) {
-		this.estatus = estatus;
-	}
-
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha_informe", nullable = false, length = 13)
+	@Column(name = "fecha_informe", length = 13)
 	public Date getFechaInforme() {
 		return this.fechaInforme;
 	}
@@ -129,6 +109,24 @@ public class DatoMedico implements java.io.Serializable {
 
 	public void setFechaReincorporacion(Date fechaReincorporacion) {
 		this.fechaReincorporacion = fechaReincorporacion;
+	}
+
+	@Column(name = "observacion")
+	public String getObservacion() {
+		return this.observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoMedico")

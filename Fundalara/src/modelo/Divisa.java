@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,8 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,7 +19,6 @@ import javax.persistence.Table;
 public class Divisa implements java.io.Serializable {
 
 	private String codigoDivisa;
-	private Parroquia parroquia;
 	private String nombre;
 	private String direccion;
 	private String telefono;
@@ -33,23 +30,22 @@ public class Divisa implements java.io.Serializable {
 	public Divisa() {
 	}
 
-	public Divisa(String codigoDivisa, Parroquia parroquia, String nombre,
-			String direccion, String telefono, String correoElectronico,
-			String personaContacto) {
+	public Divisa(String codigoDivisa, String nombre, String direccion,
+			String telefono, String correoElectronico, String personaContacto,
+			byte[] logo) {
 		this.codigoDivisa = codigoDivisa;
-		this.parroquia = parroquia;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.correoElectronico = correoElectronico;
 		this.personaContacto = personaContacto;
+		this.logo = logo;
 	}
 
-	public Divisa(String codigoDivisa, Parroquia parroquia, String nombre,
-			String direccion, String telefono, String correoElectronico,
-			String personaContacto, byte[] logo, Set<Equipo> equipos) {
+	public Divisa(String codigoDivisa, String nombre, String direccion,
+			String telefono, String correoElectronico, String personaContacto,
+			byte[] logo, Set<Equipo> equipos) {
 		this.codigoDivisa = codigoDivisa;
-		this.parroquia = parroquia;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.telefono = telefono;
@@ -67,16 +63,6 @@ public class Divisa implements java.io.Serializable {
 
 	public void setCodigoDivisa(String codigoDivisa) {
 		this.codigoDivisa = codigoDivisa;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_parroquia", nullable = false)
-	public Parroquia getParroquia() {
-		return this.parroquia;
-	}
-
-	public void setParroquia(Parroquia parroquia) {
-		this.parroquia = parroquia;
 	}
 
 	@Column(name = "nombre", nullable = false)
@@ -124,7 +110,7 @@ public class Divisa implements java.io.Serializable {
 		this.personaContacto = personaContacto;
 	}
 
-	@Column(name = "logo")
+	@Column(name = "logo", nullable = false)
 	public byte[] getLogo() {
 		return this.logo;
 	}

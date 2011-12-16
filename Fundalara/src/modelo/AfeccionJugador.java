@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -21,17 +21,17 @@ public class AfeccionJugador implements java.io.Serializable {
 
 	private AfeccionJugadorId id;
 	private DatoMedico datoMedico;
-	private TipoAfeccion tipoAfeccion;
+	private DatoBasico datoBasico;
 	private char estatus;
 
 	public AfeccionJugador() {
 	}
 
 	public AfeccionJugador(AfeccionJugadorId id, DatoMedico datoMedico,
-			TipoAfeccion tipoAfeccion, char estatus) {
+			DatoBasico datoBasico, char estatus) {
 		this.id = id;
 		this.datoMedico = datoMedico;
-		this.tipoAfeccion = tipoAfeccion;
+		this.datoBasico = datoBasico;
 		this.estatus = estatus;
 	}
 
@@ -59,12 +59,12 @@ public class AfeccionJugador implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_afeccion", nullable = false, insertable = false, updatable = false)
-	public TipoAfeccion getTipoAfeccion() {
-		return this.tipoAfeccion;
+	public DatoBasico getDatoBasico() {
+		return this.datoBasico;
 	}
 
-	public void setTipoAfeccion(TipoAfeccion tipoAfeccion) {
-		this.tipoAfeccion = tipoAfeccion;
+	public void setDatoBasico(DatoBasico datoBasico) {
+		this.datoBasico = datoBasico;
 	}
 
 	@Column(name = "estatus", nullable = false, length = 1)

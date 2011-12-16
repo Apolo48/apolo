@@ -2,10 +2,6 @@ package dao.jugador;
 
 import java.util.List;
 
-import modelo.EstadoVenezuela;
-import modelo.Municipio;
-
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -15,7 +11,7 @@ import dao.general.SessionManager;
 
 public class DaoMunicipio extends GenericDAO {
 
-	
+	/*
 	public List<Municipio> buscar (EstadoVenezuela estado){
 		 Session session = SessionManager.getSession();
          org.hibernate.Transaction tx = session.beginTransaction();
@@ -26,4 +22,6 @@ public class DaoMunicipio extends GenericDAO {
       
 		return  lista;
 	}
+	
+	*/
 }

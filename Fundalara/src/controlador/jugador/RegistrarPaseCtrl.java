@@ -20,7 +20,7 @@ import java.util.List;
 
 import modelo.Categoria;
 import modelo.Institucion;
-import modelo.Parroquia;
+//import modelo.Parroquia;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.ForwardEvent;
@@ -43,7 +43,7 @@ import servicio.jugador.ServicioEquipo;
 import servicio.jugador.ServicioFamiliar;
 import servicio.jugador.ServicioJugador;
 //import servicio.jugador.ServicioLiga;
-import servicio.jugador.ServicioMunicipio;
+//import servicio.jugador.ServicioMunicipio;
 
 
 import comun.Util;

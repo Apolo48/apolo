@@ -2,46 +2,31 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-	 <bean id="daoTipoActividadSocial" class="dao.jugador.DaoTipoActividadSocial">
+<!-- 	 <bean id="daoTipoActividadSocial" class="dao.jugador.DaoTipoActividadSocial">
    </bean>
-   <bean id="daoCurso" class="dao.jugador.DaoCurso">
+     <bean id="daoCurso" class="dao.jugador.DaoCurso">
    </bean>
-      <bean id="daoEquipo" class="dao.jugador.DaoEquipo">
-   </bean>
-   <bean id="daoCategoria" class="dao.jugador.DaoCategoria">
-   </bean>
-   <bean id="servicioTipoActividadSocial" class="servicio.jugador.ServicioTipoActividadSocial">
+    <bean id="servicioTipoActividadSocial" class="servicio.jugador.ServicioTipoActividadSocial">
    <property name="daoTipoActividadSocial" ref="daoTipoActividadSocial"></property>	   
    </bean>
    <bean id="servicioCurso" class="servicio.jugador.ServicioCurso">
    <property name="daoCurso" ref="daoCurso"></property>	   
    </bean>
-    <bean id="servicioCategoria" class="servicio.jugador.ServicioCategoria">
-   <property name="daoCategoria" ref="daoCategoria"></property>	   
-   </bean>
-    <bean id="servicioEquipo" class="servicio.jugador.ServicioEquipo">
-   <property name="daoEquipo" ref="daoEquipo"></property>	   
-   </bean>
-   
-   
-   <bean id="daoInstitucion" class="dao.jugador.DaoInstitucion">
-	</bean>
-	<bean id="servicioInstitucion" class="servicio.jugador.ServicioInstitucion">
-		<property name="daoInstitucion" ref="daoInstitucion"></property>
-	</bean>
-
-	<bean id="daoTipoInstitucion" class="dao.jugador.DaoTipoInstitucion">
+   <bean id="daoTipoInstitucion" class="dao.jugador.DaoTipoInstitucion">
 	</bean>
 	<bean id="servicioTipoInstitucion" class="servicio.jugador.ServicioTipoInstitucion">
 		<property name="daoTipoInstitucion" ref="daoTipoInstitucion"></property>
 	</bean>
-
+	
 	<bean id="daoEstadoVenezuela" class="dao.jugador.DaoEstadoVenezuela">
 	</bean>
+	
 	<bean id="servicioEstadoVenezuela" class="servicio.jugador.ServicioEstadoVenezuela">
 		<property name="daoEstadoVenezuela" ref="daoEstadoVenezuela"></property>
 	</bean>
-	<bean id="daoMunicipio" class="dao.jugador.DaoMunicipio">
+   
+   
+   	<bean id="daoMunicipio" class="dao.jugador.DaoMunicipio">
 	</bean>
 	<bean id="servicioMunicipio" class="servicio.jugador.ServicioMunicipio">
 		<property name="daoMunicipio" ref="daoMunicipio"></property>
@@ -57,6 +42,42 @@
 		<property name="daoClasificacionEquipo" ref="daoClasificacionEquipo"></property>
 	</bean>
 	
+	<bean id="daoPais" class="dao.jugador.DaoPais">
+	</bean>
+	<bean id="servicioPais" class="servicio.jugador.ServicioPais">
+		<property name="daoPais" ref="daoPais"></property>
+	</bean>
+	<bean id="daoTipoAfeccion" class="dao.jugador.DaoTipoAfeccion">
+	</bean>
+	<bean id="servicioTipoAfeccion" class="servicio.jugador.ServicioTipoAfeccion">
+		<property name="daoTipoAfeccion" ref="daoTipoAfeccion"></property>
+	</bean>
+    -->
+ 
+      <bean id="daoEquipo" class="dao.jugador.DaoEquipo">
+   </bean>
+   <bean id="daoCategoria" class="dao.jugador.DaoCategoria">
+   </bean>
+  
+    <bean id="servicioCategoria" class="servicio.jugador.ServicioCategoria">
+   <property name="daoCategoria" ref="daoCategoria"></property>	   
+   </bean>
+    <bean id="servicioEquipo" class="servicio.jugador.ServicioEquipo">
+   <property name="daoEquipo" ref="daoEquipo"></property>	   
+   </bean>
+   
+   
+   <bean id="daoInstitucion" class="dao.jugador.DaoInstitucion">
+	</bean>
+	<bean id="servicioInstitucion" class="servicio.jugador.ServicioInstitucion">
+		<property name="daoInstitucion" ref="daoInstitucion"></property>
+	</bean>
+
+	
+
+	
+
+	
 	
 		<bean id="daoDivisa" class="dao.compentencia.DaoDivisa">
 	</bean>
@@ -70,15 +91,7 @@
 		<property name="daoMedico" ref="daoMedico"></property>
 	</bean>
 	
-	<bean id="daoPais" class="dao.jugador.DaoPais">
-	</bean>
-	<bean id="servicioPais" class="servicio.jugador.ServicioPais">
-		<property name="daoPais" ref="daoPais"></property>
-	</bean>
 	
-		<bean id="daoTipoAfeccion" class="dao.jugador.DaoTipoAfeccion">
-	</bean>
-	<bean id="servicioTipoAfeccion" class="servicio.jugador.ServicioTipoAfeccion">
-		<property name="daoTipoAfeccion" ref="daoTipoAfeccion"></property>
-	</bean>
+	
+		
 </beans>

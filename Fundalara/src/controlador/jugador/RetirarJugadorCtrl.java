@@ -44,16 +44,16 @@ import antlr.debug.Event;
 
 import servicio.jugador.ServicioJugador;
 import servicio.jugador.ServicioCategoria;
-import servicio.jugador.ServicioCurso;
+//import servicio.jugador.ServicioCurso;
 
 import comun.FileLoader;
 import comun.Rutas;
 import comun.Util;
 import modelo.Categoria;
-import modelo.Curso;
+//import modelo.Curso;
 import modelo.Institucion;
 import modelo.Jugador;
-import modelo.Parroquia;
+//import modelo.Parroquia;
 
 
 

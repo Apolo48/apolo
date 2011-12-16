@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -12,16 +12,16 @@ import javax.persistence.Embeddable;
 public class HospedajeId implements java.io.Serializable {
 
 	private String codigoHospedaje;
-	private String cedulaJugador;
+	private String cedulaRif;
 	private String cedulaFamiliar;
 
 	public HospedajeId() {
 	}
 
-	public HospedajeId(String codigoHospedaje, String cedulaJugador,
+	public HospedajeId(String codigoHospedaje, String cedulaRif,
 			String cedulaFamiliar) {
 		this.codigoHospedaje = codigoHospedaje;
-		this.cedulaJugador = cedulaJugador;
+		this.cedulaRif = cedulaRif;
 		this.cedulaFamiliar = cedulaFamiliar;
 	}
 
@@ -34,13 +34,13 @@ public class HospedajeId implements java.io.Serializable {
 		this.codigoHospedaje = codigoHospedaje;
 	}
 
-	@Column(name = "cedula_jugador", nullable = false)
-	public String getCedulaJugador() {
-		return this.cedulaJugador;
+	@Column(name = "cedula_rif", nullable = false)
+	public String getCedulaRif() {
+		return this.cedulaRif;
 	}
 
-	public void setCedulaJugador(String cedulaJugador) {
-		this.cedulaJugador = cedulaJugador;
+	public void setCedulaRif(String cedulaRif) {
+		this.cedulaRif = cedulaRif;
 	}
 
 	@Column(name = "cedula_familiar", nullable = false)
@@ -65,11 +65,10 @@ public class HospedajeId implements java.io.Serializable {
 				.getCodigoHospedaje() != null
 				&& castOther.getCodigoHospedaje() != null && this
 				.getCodigoHospedaje().equals(castOther.getCodigoHospedaje())))
-				&& ((this.getCedulaJugador() == castOther.getCedulaJugador()) || (this
-						.getCedulaJugador() != null
-						&& castOther.getCedulaJugador() != null && this
-						.getCedulaJugador()
-						.equals(castOther.getCedulaJugador())))
+				&& ((this.getCedulaRif() == castOther.getCedulaRif()) || (this
+						.getCedulaRif() != null
+						&& castOther.getCedulaRif() != null && this
+						.getCedulaRif().equals(castOther.getCedulaRif())))
 				&& ((this.getCedulaFamiliar() == castOther.getCedulaFamiliar()) || (this
 						.getCedulaFamiliar() != null
 						&& castOther.getCedulaFamiliar() != null && this
@@ -84,10 +83,8 @@ public class HospedajeId implements java.io.Serializable {
 				* result
 				+ (getCodigoHospedaje() == null ? 0 : this.getCodigoHospedaje()
 						.hashCode());
-		result = 37
-				* result
-				+ (getCedulaJugador() == null ? 0 : this.getCedulaJugador()
-						.hashCode());
+		result = 37 * result
+				+ (getCedulaRif() == null ? 0 : this.getCedulaRif().hashCode());
 		result = 37
 				* result
 				+ (getCedulaFamiliar() == null ? 0 : this.getCedulaFamiliar()

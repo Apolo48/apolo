@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,23 +18,32 @@ import javax.persistence.Table;
 public class DatoSocial implements java.io.Serializable {
 
 	private String codigoDatoSocial;
+	private DatoBasico datoBasico;
 	private Institucion institucion;
 	private Jugador jugador;
-	private TipoActividadSocial tipoActividadSocial;
-	private int horasDedicadas;
+	private Integer horasDedicadas;
 	private String fechaInicio;
 	private char estatus;
 
 	public DatoSocial() {
 	}
 
-	public DatoSocial(String codigoDatoSocial, Institucion institucion,
-			Jugador jugador, TipoActividadSocial tipoActividadSocial,
-			int horasDedicadas, String fechaInicio, char estatus) {
+	public DatoSocial(String codigoDatoSocial, DatoBasico datoBasico,
+			Institucion institucion, Jugador jugador, char estatus) {
 		this.codigoDatoSocial = codigoDatoSocial;
+		this.datoBasico = datoBasico;
 		this.institucion = institucion;
 		this.jugador = jugador;
-		this.tipoActividadSocial = tipoActividadSocial;
+		this.estatus = estatus;
+	}
+
+	public DatoSocial(String codigoDatoSocial, DatoBasico datoBasico,
+			Institucion institucion, Jugador jugador, Integer horasDedicadas,
+			String fechaInicio, char estatus) {
+		this.codigoDatoSocial = codigoDatoSocial;
+		this.datoBasico = datoBasico;
+		this.institucion = institucion;
+		this.jugador = jugador;
 		this.horasDedicadas = horasDedicadas;
 		this.fechaInicio = fechaInicio;
 		this.estatus = estatus;
@@ -51,6 +60,16 @@ public class DatoSocial implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_actividad_social", nullable = false)
+	public DatoBasico getDatoBasico() {
+		return this.datoBasico;
+	}
+
+	public void setDatoBasico(DatoBasico datoBasico) {
+		this.datoBasico = datoBasico;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_institucion", nullable = false)
 	public Institucion getInstitucion() {
 		return this.institucion;
@@ -61,7 +80,7 @@ public class DatoSocial implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cedula_jugador", nullable = false)
+	@JoinColumn(name = "cedula_rif", nullable = false)
 	public Jugador getJugador() {
 		return this.jugador;
 	}
@@ -70,26 +89,16 @@ public class DatoSocial implements java.io.Serializable {
 		this.jugador = jugador;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_actividad_social", nullable = false)
-	public TipoActividadSocial getTipoActividadSocial() {
-		return this.tipoActividadSocial;
-	}
-
-	public void setTipoActividadSocial(TipoActividadSocial tipoActividadSocial) {
-		this.tipoActividadSocial = tipoActividadSocial;
-	}
-
-	@Column(name = "horas_dedicadas", nullable = false)
-	public int getHorasDedicadas() {
+	@Column(name = "horas_dedicadas")
+	public Integer getHorasDedicadas() {
 		return this.horasDedicadas;
 	}
 
-	public void setHorasDedicadas(int horasDedicadas) {
+	public void setHorasDedicadas(Integer horasDedicadas) {
 		this.horasDedicadas = horasDedicadas;
 	}
 
-	@Column(name = "fecha_inicio", nullable = false)
+	@Column(name = "fecha_inicio")
 	public String getFechaInicio() {
 		return this.fechaInicio;
 	}

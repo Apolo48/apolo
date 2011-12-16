@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-dic-2011 23:21:03 by Hibernate Tools 3.4.0.CR1
+// Generated 16-dic-2011 17:19:16 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,10 +24,10 @@ import javax.persistence.TemporalType;
 public class DatoAcademico implements java.io.Serializable {
 
 	private String codigoAcademico;
+	private DatoBasico datoBasicoByCodigoCurso;
 	private Institucion institucion;
+	private DatoBasico datoBasicoByCodigoAnnoEscolar;
 	private Jugador jugador;
-	private Curso curso;
-	private AnnoEscolar annoEscolar;
 	private Date fechaIngreso;
 	private char estatus;
 	private Set<DocumentoAcademico> documentoAcademicos = new HashSet<DocumentoAcademico>(
@@ -36,27 +36,29 @@ public class DatoAcademico implements java.io.Serializable {
 	public DatoAcademico() {
 	}
 
-	public DatoAcademico(String codigoAcademico, Institucion institucion,
-			Jugador jugador, Curso curso, AnnoEscolar annoEscolar,
+	public DatoAcademico(String codigoAcademico,
+			DatoBasico datoBasicoByCodigoCurso, Institucion institucion,
+			DatoBasico datoBasicoByCodigoAnnoEscolar, Jugador jugador,
 			Date fechaIngreso, char estatus) {
 		this.codigoAcademico = codigoAcademico;
+		this.datoBasicoByCodigoCurso = datoBasicoByCodigoCurso;
 		this.institucion = institucion;
+		this.datoBasicoByCodigoAnnoEscolar = datoBasicoByCodigoAnnoEscolar;
 		this.jugador = jugador;
-		this.curso = curso;
-		this.annoEscolar = annoEscolar;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
 	}
 
-	public DatoAcademico(String codigoAcademico, Institucion institucion,
-			Jugador jugador, Curso curso, AnnoEscolar annoEscolar,
+	public DatoAcademico(String codigoAcademico,
+			DatoBasico datoBasicoByCodigoCurso, Institucion institucion,
+			DatoBasico datoBasicoByCodigoAnnoEscolar, Jugador jugador,
 			Date fechaIngreso, char estatus,
 			Set<DocumentoAcademico> documentoAcademicos) {
 		this.codigoAcademico = codigoAcademico;
+		this.datoBasicoByCodigoCurso = datoBasicoByCodigoCurso;
 		this.institucion = institucion;
+		this.datoBasicoByCodigoAnnoEscolar = datoBasicoByCodigoAnnoEscolar;
 		this.jugador = jugador;
-		this.curso = curso;
-		this.annoEscolar = annoEscolar;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
 		this.documentoAcademicos = documentoAcademicos;
@@ -73,6 +75,16 @@ public class DatoAcademico implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_curso", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoCurso() {
+		return this.datoBasicoByCodigoCurso;
+	}
+
+	public void setDatoBasicoByCodigoCurso(DatoBasico datoBasicoByCodigoCurso) {
+		this.datoBasicoByCodigoCurso = datoBasicoByCodigoCurso;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_institucion", nullable = false)
 	public Institucion getInstitucion() {
 		return this.institucion;
@@ -83,33 +95,24 @@ public class DatoAcademico implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cedula_jugador", nullable = false)
+	@JoinColumn(name = "codigo_anno_escolar", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoAnnoEscolar() {
+		return this.datoBasicoByCodigoAnnoEscolar;
+	}
+
+	public void setDatoBasicoByCodigoAnnoEscolar(
+			DatoBasico datoBasicoByCodigoAnnoEscolar) {
+		this.datoBasicoByCodigoAnnoEscolar = datoBasicoByCodigoAnnoEscolar;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cedula_rif", nullable = false)
 	public Jugador getJugador() {
 		return this.jugador;
 	}
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_curso", nullable = false)
-	public Curso getCurso() {
-		return this.curso;
-	}
-
-	public void setCurso(Curso curso) {
-		this.curso = curso;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_anno_escolar", nullable = false)
-	public AnnoEscolar getAnnoEscolar() {
-		return this.annoEscolar;
-	}
-
-	public void setAnnoEscolar(AnnoEscolar annoEscolar) {
-		this.annoEscolar = annoEscolar;
 	}
 
 	@Temporal(TemporalType.DATE)
