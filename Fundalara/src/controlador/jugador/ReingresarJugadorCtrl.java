@@ -5,6 +5,8 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Image;
+import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
@@ -22,21 +24,24 @@ public class ReingresarJugadorCtrl extends GenericForwardComposer {
 	private Button btnCatalogoInstitucion;
 	private Button btnCatalogoInstitucion1;
 	private Image imgJugador;
-	private Tab tabRA;
-	private Tab tabRF;
+	private Tab tabRegJugador;
+	private Tab tabRegFamiliar;
+	private Intbox txtCedulaSecuencia;
 	private Textbox txtPrimerNombre;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
+	private Combobox cmbNacionalidad;
+	private Label lblSeparador;
 
 	
 	private void moveStep(boolean flag) {
-		tabRA.setVisible(!flag);
-		tabRF.setVisible(flag);
+		tabRegJugador.setVisible(!flag);
+		tabRegFamiliar.setVisible(flag);
 		if (flag) {
-			tabRF.setSelected(flag);
+			tabRegFamiliar.setSelected(flag);
 			cmbNacionalidadFamiliar.setFocus(true);
 		} else {
-			tabRA.setSelected(!flag);
+			tabRegJugador.setSelected(!flag);
 		}
 		btnAntes.setVisible(flag);
 		btnGuardar.setVisible(flag);
@@ -103,5 +108,14 @@ public class ReingresarJugadorCtrl extends GenericForwardComposer {
 	
 	public void onClick$btnCatalogoFamiliar() {
 		new Util().crearVentana("Jugador/Vistas/buscarFamiliar.zul", null, null);
+	}
+	
+	public void onChange$cmbNacionalidad() {
+		boolean flag = false;
+		if (cmbNacionalidad.getSelectedItem().getValue().equals("R")) {
+			flag = true;
+		}
+		lblSeparador.setVisible(flag);
+		txtCedulaSecuencia.setVisible(flag);
 	}
 }
