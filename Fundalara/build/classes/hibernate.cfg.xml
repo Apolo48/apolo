@@ -35,7 +35,6 @@
         <mapping class="modelo.Familiar" />
         <mapping class="modelo.EquipoCompetencia" />
         <mapping class="modelo.MotivoSancion" />
-        <mapping class="modelo.HospedajeJugador" />
         <mapping class="modelo.Representante" />
         <mapping class="modelo.EquipoJuego" />
         <mapping class="modelo.Ascenso" />
