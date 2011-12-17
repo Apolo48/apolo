@@ -2,7 +2,7 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
-	<window id="winAscensoEspecial" title="Ascenso Especial" border="normal"
+	<window id="winAscensoEspecial" 
 		width="600px" closable="true" apply="controlador.jugador.AscensoEspecialCtrl">
 		<groupbox style="border-color:orange" closable="false">
 			<caption style="font-weight: bold" label="Jugador" />
