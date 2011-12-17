@@ -32,7 +32,7 @@ import servicio.jugador.ServicioParroquia;
 import servicio.jugador.ServicioTipoAfeccion;
 */
 import comun.FileLoader;
-import comun.Rutas;
+import comun.Ruta;
 import comun.Util;
 import modelo.AfeccionJugador;
 import modelo.Categoria;
@@ -86,7 +86,7 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private Combobox cmbMunicipioResi;
 	private Label lblSeparador;
 
-	private String rutasJug = Rutas.JUGADOR.getRutaVista();
+	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 /*
 	// Servicios
 	private ServicioCurso servicioCurso;

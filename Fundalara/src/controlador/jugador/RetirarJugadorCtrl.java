@@ -47,7 +47,7 @@ import servicio.jugador.ServicioCategoria;
 //import servicio.jugador.ServicioCurso;
 
 import comun.FileLoader;
-import comun.Rutas;
+import comun.Ruta;
 import comun.Util;
 import modelo.Categoria;
 //import modelo.Curso;
@@ -83,7 +83,7 @@ public class RetirarJugadorCtrl extends GenericForwardComposer {
 	private Image imgJugador;
 	AnnotateDataBinder binder;
 	private ServicioCategoria servicioCategoria;
-	private String rutasJug= Rutas.JUGADOR.getRutaVista();
+	private String rutasJug= Ruta.JUGADOR.getRutaVista();
 
 	//Set y Get
 	public Combobox getCmbNacionalidadJugador() {

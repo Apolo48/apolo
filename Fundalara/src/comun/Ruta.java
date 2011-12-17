@@ -1,6 +1,6 @@
 package comun;
 
-public enum Rutas {
+public enum Ruta {
 
 
     JUGADOR("Jugador/Vistas/", "Jugador/Reportes/"), 
@@ -10,7 +10,7 @@ public enum Rutas {
     private String rutaVista;
     private String rutaReporte;
 
-    private Rutas(String vista, String reporte) {
+    private Ruta(String vista, String reporte) {
        rutaVista = vista;
        rutaReporte= reporte;
     }
