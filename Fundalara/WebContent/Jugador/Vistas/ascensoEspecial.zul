@@ -1,7 +1,9 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="Ascenso Especial" contentType="text/html;charset=UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
-	<window id="win"  border="none"
-		width="600px" closable="true">
+	<window id="winAscensoEspecial" title="Ascenso Especial" border="normal"
+		width="600px" closable="true" apply="controlador.jugador.AscensoEspecialCtrl">
 		<groupbox style="border-color:orange" closable="false">
 			<caption style="font-weight: bold" label="Jugador" />
 			<grid style="border:none;" oddRowSclass="none">
@@ -23,33 +25,25 @@
 								<row spans="1,3" style="border:none">
 									<label value="Cédula" />
 									<div>
-										<combobox value="-" width="4%"
+										<combobox id="cmbNacionalidad" value="--" width="4%"
 											readonly="true">
 											<comboitem label="V" />
 											<comboitem label="E" />
 										</combobox>
-										<intbox constraint="no negative"
-											width="19%" disabled="false" />
-										<button id="Jugador"
+										<textbox id="txtCedula" constraint="no negative"
+											width="19%" disabled="false" focus="true"/>
+										<button id="btnBuscar"
 											tooltiptext="Consultar Jugador"
-											image="../../Recursos/Imagenes/consultar.ico">
-											<attribute name="onClick"><![CDATA[
-												Window nuevaVentana = (Window) Executions.createComponents(
-														"Jugador/Vistas/buscarJugador.zul", null, null);
-												try {
-													nuevaVentana.doModal();
-												} catch (Exception e) {
-												}
-											]]></attribute>
-										</button>
+											image="../../Recursos/Imagenes/consultar.ico"/>
+										
 									</div>
 								</row>
 								<row style="border:none">
 									<label value="Nombres" />
-									<textbox maxlength="50" width="95%"
-										constraint="no empty" disabled="true" />
+									<textbox id="txtNombre" maxlength="50" width="95%"
+										disabled="true" />
 									<label value="Apellidos" />
-									<textbox maxlength="40" width="95%" disabled="true" />
+									<textbox id="txtApellido" maxlength="40" width="95%" disabled="true" />
 								</row>
 								<row style="border:none">
 									<label value="Fecha Nacimiento"
@@ -60,15 +54,15 @@
 										disabled="true" width="85%" />
 									<label value="Categoría"
 										width="95%" />
-									<textbox maxlength="40" width="95%"
+									<textbox id="txtCategoria" maxlength="40" width="95%"
 										disabled="true" />
 								</row>
 								<row style="border:none">
 									<label value="Equipo" width="95%" />
-									<textbox maxlength="40" width="95%"
+									<textbox id="txtEquipo" maxlength="40" width="95%"
 										disabled="true" />
 									<label value="Número" width="95%" />
-									<textbox maxlength="2" width="15%"
+									<textbox id="txtNumero" maxlength="2" width="15%"
 										disabled="true" />
 								</row>
 							</rows>
@@ -109,21 +103,18 @@
 								<space/>
 								<label value="Categoría"/>
 							</div>
-							<combobox	value="-Seleccione-" width="85%">
-								<comboitem label="Preparatorio Nivel 1" />
-								<comboitem label="Preparatorio Nivel 2" />
-								<comboitem label="Pre-Infantil" />
-								<comboitem label="Infantil" />
-								<comboitem label="Pre-Junior" />
-								<comboitem label="Junior" />
-								<comboitem label="Juvenil" />
-							</combobox>							
+							<combobox id="cmbCategoria"
+								value="--Seleccione--" selectedItem="@{controller.categoria}"
+								width="80%" model="@{winAscensoEspecial$composer.categorias}">
+								<comboitem self="@{each='categoria'}"
+									label="@{categoria.nombre}" />
+							</combobox>
 							<div>
-								<space/>
-								<label value="Equipo"/>
+								<space />
+								<label value="Equipo" />
 							</div>
-							<combobox
-								value="-Seleccione-" width="65%">
+							<combobox id="cmbEquipo"
+								value="--Seleccione--" width="65%">
 								<comboitem label="Equipo A" />
 								<comboitem label="Equipo B" />
 								<comboitem label="Equipo C" />
@@ -135,7 +126,7 @@
 								<label value="Número" />
 							</div>
 							<bandbox id="bboxNumero" maxlength="2" width="40%" readonly="true"
-							style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;">
+							constraint="no empty" style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;">
 								<bandpopup>
 									<panel title="00-19" collapsible="true" open="false"
 										width="180px" id="pnl1" onClick="pnl2.setOpen(false);pnl3.setOpen(false);pnl4.setOpen(false);pnl5.setOpen(false);">
@@ -338,10 +329,10 @@
 					<rows>
 						<row>
 							<label value="Médico" />
-							<datebox
+							<datebox id="dtboxFecha"
 								style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 							<checkbox />
-							<button label="Subir">
+							<button id="btnSubir" label="Subir">
 								<attribute name="onClick"><![CDATA[
 									Object media = Fileupload.get();
 								]]></attribute>
@@ -492,7 +483,7 @@
 				image="/Recursos/Imagenes/salir.png" orient="horizontal"
 				width="100px">
 				<attribute name="onClick"><![CDATA[
-					win.detach();
+					winAscensoEspecial.detach();
 				]]></attribute>
 			</button>
 		</div>

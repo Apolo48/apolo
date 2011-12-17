@@ -2,6 +2,7 @@ package servicio.jugador;
 
 import java.util.List;
 
+import modelo.Institucion;
 import modelo.Roster;
 
 public interface IServicioRoster {
@@ -12,4 +13,8 @@ public interface IServicioRoster {
 	public abstract void actualizar(Roster c);
 
 	public abstract List<Roster> listar();
+	
+	public void buscar (String ced);
+	
+	public void buscarCategoria(String ced);
 }
