@@ -641,9 +641,6 @@
 																								id="btnAgregarAfeccion"
 																								image="../../Recursos/Imagenes/agregar.ico" />
 																							<button
-																								id="btnModificarAfeccion"
-																								image="../../Recursos/Imagenes/editar.ico" />
-																							<button
 																								id="btnEliminarAfeccion"
 																								image="../../Recursos/Imagenes/quitar.ico" />
 																						</vbox>
