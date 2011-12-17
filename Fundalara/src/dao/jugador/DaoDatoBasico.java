@@ -23,7 +23,7 @@ public class DaoDatoBasico extends GenericDAO {
 	 * @return lista de los datos asociados al tipo de dato suministrado
 	 * 
 	 */
-	public List<DatoBasico> buscar ( TipoDatoBasico tipoDato){
+	public List<DatoBasico> buscar(TipoDatoBasico tipoDato){
 		 Session session = SessionManager.getSession();
         org.hibernate.Transaction tx = session.beginTransaction();
 		Query query = getSession().createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"'").addEntity(DatoBasico.class);
@@ -37,7 +37,7 @@ public class DaoDatoBasico extends GenericDAO {
 	 * @param datoBasico dato del cual se desea buscar sus hijos (relacion de dependencia hacia el)
 	 * @return lista de datos hijos
 	 */
-	public List<DatoBasico> buscarPorRelacion ( DatoBasico datoBasico){
+	public List<DatoBasico> buscarPorRelacion(DatoBasico datoBasico){
 		 Session session = SessionManager.getSession();
        org.hibernate.Transaction tx = session.beginTransaction();
 		Query query = getSession().createSQLQuery("SELECT * FROM dato_basico WHERE parent_codigo_dato_basico='"+ datoBasico.getCodigoDatoBasico()+"'").addEntity(DatoBasico.class);
