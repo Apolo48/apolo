@@ -28,7 +28,7 @@ import javax.persistence.AttributeOverrides;
 import java.util.Date;
 import java.util.List;
 
-import modelo.TipoInstitucion;
+//import modelo.TipoInstitucion;
 
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
@@ -56,16 +56,16 @@ import servicio.jugador.ServicioAfeccionJugador;
 import servicio.jugador.ServicioCategoria;
 import servicio.jugador.ServicioCodigoArea;
 import servicio.jugador.ServicioCodigoCelular;
-import servicio.jugador.ServicioCurso;
+//import servicio.jugador.ServicioCurso;
 import servicio.jugador.ServicioDatoAcademico;
 import servicio.jugador.ServicioDatoDeportivo;
 import servicio.jugador.ServicioDatoMedico;
 import servicio.jugador.ServicioDatoSocial;
-import servicio.jugador.ServicioEstadoVenezuela;
+//import servicio.jugador.ServicioEstadoVenezuela;
 import servicio.jugador.ServicioInstitucion;
 import servicio.jugador.ServicioJugador;
 import servicio.jugador.ServicioMedico;
-import servicio.jugador.ServicioMunicipio;
+/*import servicio.jugador.ServicioMunicipio;
 import servicio.jugador.ServicioParroquia;
 import servicio.jugador.ServicioTipoActividadSocial;
 import servicio.jugador.ServicioTipoAfeccion;
@@ -74,7 +74,7 @@ import servicio.jugador.ServicioTipoInstitucion;
 import modelo.EstadoVenezuela;
 import modelo.Municipio;
 import modelo.Parroquia;
-
+*/
 public class ActualizarJugadorCtrl extends GenericForwardComposer {
 	
 	private Include incCuerpo;
@@ -158,7 +158,7 @@ public class ActualizarJugadorCtrl extends GenericForwardComposer {
 	private Button btnSalir;
 	
 	
-	ServicioEstadoVenezuela servicioEstadoVenezuela;
+/*	ServicioEstadoVenezuela servicioEstadoVenezuela;
 	ServicioMunicipio servicioMunicipio;
 	ServicioParroquia servicioParroquia;
 	TipoInstitucion tipoInstitucion;
@@ -656,7 +656,7 @@ public class ActualizarJugadorCtrl extends GenericForwardComposer {
 		new FileLoader().cargarImagen(img);
 		
 	}
-	
+	*/
 	public void onChange$cmbTipoActualizacion() {
 		String src = "";
 		String valor = cmbTipoActualizacion.getSelectedItem().getValue().toString();
@@ -697,7 +697,7 @@ public class ActualizarJugadorCtrl extends GenericForwardComposer {
 		new Util().crearVentana("Jugador/Vistas/buscarInstitucion.zul", null,
 				null);
 	}
-	
+/*	
 	public void onClick$btnGuardar() {
 		if (validarVacios() == false){
 			try {
@@ -739,7 +739,7 @@ public class ActualizarJugadorCtrl extends GenericForwardComposer {
         
 		return error;
 	}
-	
+*/
 }
 
 

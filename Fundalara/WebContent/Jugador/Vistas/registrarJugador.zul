@@ -1,6 +1,6 @@
 <?page title="Registrar Jugador"?>
-<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<!--<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
+  <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>  -->
 <zk>
 	<zscript><![CDATA[
 	//@IMPORT

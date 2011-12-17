@@ -87,7 +87,7 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private Label lblSeparador;
 
 	private String rutasJug = Rutas.JUGADOR.getRutaVista();
-
+/*
 	// Servicios
 	private ServicioCurso servicioCurso;
 	private ServicioCategoria servicioCategoria;
@@ -96,15 +96,17 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private ServicioParroquia servicioParroquia;
 	private ServicioPais servicioPais;
 	private ServicioTipoAfeccion servicioTipoAfeccion;
+	*/
 	// Model
 	private Jugador jugador = new Jugador();
-	private EstadoVenezuela estadoVenezuela = new EstadoVenezuela();
+/*	private EstadoVenezuela estadoVenezuela = new EstadoVenezuela();
 	private EstadoVenezuela estadoVenezuelaResi = new EstadoVenezuela();
 	private Municipio municipioNac = new Municipio();
 	private Municipio municipioResi = new Municipio();
 	private DatoMedico datoMedico = new DatoMedico();
 	private List<TipoAfeccion> afeccionesActuales;
 	private List<AfeccionJugador> afeccionJugador;// = new AfeccionJugador();
+	/*/
 	// Binder
 	private AnnotateDataBinder binder;
 
@@ -125,21 +127,25 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	}
 
 	public List<Categoria> getCategorias() {
-		return servicioCategoria.listar();
+		return null;
+				//servicioCategoria.listar();
 	}
 
-	public List<Curso> getCursos() {
-		return servicioCurso.listar();
+	public List getCursos() {
+		return null;
+				//servicioCurso.listar();
 	}
 
-	public List<EstadoVenezuela> getEstadosVenezuela() {
-		return servicioEstadoVenezuela.listar();
+	public List getEstadosVenezuela() {
+		return null;
+				//servicioEstadoVenezuela.listar();
 	}
 
-	public List<Pais> getPaises() {
-		return servicioPais.listar();
+	public List getPaises() {
+		return null;
+				//servicioPais.listar();
 	}
-	
+/*	
 	public List<TipoAfeccion> getAfecciones() {
 		return servicioTipoAfeccion.listar();
 	}
@@ -277,7 +283,7 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 
 	public void setAfeccionJugador(AfeccionJugador afeccionJugador) {
 		this.afeccionJugador = afeccionJugador;
-	}*/
+	}
 
 	public void onChange$cmbEstadoResi() {
 		cmbMunicipioResi.setValue("--Seleccione--");
@@ -312,7 +318,7 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	public void onClick$btnCatalogoFamiliar() {
 		new Util().crearVentana(rutasJug + "buscarFamiliar.zul", null, null);
 	}
-
+*/
 	private void moveStep(boolean flag) {
 		tabRegJugador.setVisible(!flag);
 		tabRegFamiliar.setVisible(flag);
@@ -328,6 +334,7 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		btnGuardar.setVisible(flag);
 		btnDesp.setVisible(!flag);
 	}
+
 
 	/**
 	 * Valida que se haya completado la primera fase de la inscripcion
