@@ -3,57 +3,39 @@ package controlador.jugador;
 import java.util.Date;
 import java.util.List;
 
-import org.python.apache.xerces.impl.xpath.regex.REUtil;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
-import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
 
-import servicio.compentencia.ServicioDivisa;
-import servicio.jugador.ServicioAfeccionJugador;
 import servicio.jugador.ServicioCategoria;
-/*
-import servicio.jugador.ServicioClasificacionEquipo;
-import servicio.jugador.ServicioCurso;
-import servicio.jugador.ServicioEstadoVenezuela;
-import servicio.jugador.ServicioMunicipio;
-import servicio.jugador.ServicioPais;
-import servicio.jugador.ServicioParroquia;
-import servicio.jugador.ServicioTipoAfeccion;
-*/
+import servicio.jugador.ServicioDatoBasico;
+
 import comun.FileLoader;
 import comun.Ruta;
 import comun.Util;
+import comun.TipoDatoBasico;
 import modelo.AfeccionJugador;
 import modelo.Categoria;
-//import modelo.Curso;
+import modelo.DatoBasico;
 import modelo.DatoMedico;
-import modelo.Divisa;
-import modelo.Equipo;
-//import modelo.EstadoVenezuela;
 import modelo.Jugador;
-/*import modelo.Municipio;
-import modelo.Pais;
-import modelo.Parroquia;
-import modelo.TipoAfeccion;
-*/
+
 /**
  * Clase controladora de los eventos de la vista de igual nombre y manejo de los
  * servicios de datos para la inscripcion de jugadores nuevo ingreso
  * 
  * @author Robert A
  * @author German L
- * @version 0.2 22/11/2011
+ * @version 0.2.1 17/12/2011 
  * 
  * */
 public class RegistrarJugadorCtrl extends GenericForwardComposer {
@@ -87,36 +69,31 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private Label lblSeparador;
 
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
-/*
+
 	// Servicios
-	private ServicioCurso servicioCurso;
+	private ServicioDatoBasico servicioDatoBasico;
 	private ServicioCategoria servicioCategoria;
-	ServicioEstadoVenezuela servicioEstadoVenezuela;
-	private ServicioMunicipio servicioMunicipio;
-	private ServicioParroquia servicioParroquia;
-	private ServicioPais servicioPais;
-	private ServicioTipoAfeccion servicioTipoAfeccion;
-	*/
-	// Model
+
+	// Modelos
 	private Jugador jugador = new Jugador();
-/*	private EstadoVenezuela estadoVenezuela = new EstadoVenezuela();
-	private EstadoVenezuela estadoVenezuelaResi = new EstadoVenezuela();
-	private Municipio municipioNac = new Municipio();
-	private Municipio municipioResi = new Municipio();
+	private DatoBasico estadoVenezuela = new DatoBasico();
+	private DatoBasico estadoVenezuelaResi = new DatoBasico();
+	private DatoBasico municipioNac = new DatoBasico();
+	private DatoBasico municipioResi = new DatoBasico();
 	private DatoMedico datoMedico = new DatoMedico();
-	private List<TipoAfeccion> afeccionesActuales;
-	private List<AfeccionJugador> afeccionJugador;// = new AfeccionJugador();
-	/*/
+	// private List<TipoAfeccion> afeccionesActuales;
+	// private List<AfeccionJugador> afeccionJugador;// = new AfeccionJugador();
+
 	// Binder
 	private AnnotateDataBinder binder;
 
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-		comp.setVariable("controller", this, false); // Hacemos visible el
-														// modelo para el
-														// databinder
+		comp.setVariable("controller", this, false);
 	}
+
+	// Getters y setters
 
 	public Jugador getJugador() {
 		return jugador;
@@ -126,84 +103,95 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		this.jugador = jugador;
 	}
 
-	public List<Categoria> getCategorias() {
-		return null;
-				//servicioCategoria.listar();
-	}
-
-	public List getCursos() {
-		return null;
-				//servicioCurso.listar();
-	}
-
-	public List getEstadosVenezuela() {
-		return null;
-				//servicioEstadoVenezuela.listar();
-	}
-
-	public List getPaises() {
-		return null;
-				//servicioPais.listar();
-	}
-/*	
-	public List<TipoAfeccion> getAfecciones() {
-		return servicioTipoAfeccion.listar();
-	}
-	
-	public EstadoVenezuela getEstadoVenezuela() {
+	public DatoBasico getEstadoVenezuela() {
 		return estadoVenezuela;
 	}
 
-	public void setEstadoVenezuela(EstadoVenezuela estado) {
-		this.estadoVenezuela = estado;
+	public void setEstadoVenezuela(DatoBasico estadoVenezuela) {
+		this.estadoVenezuela = estadoVenezuela;
 	}
 
-	public Municipio getMunicipioNac() {
-		return municipioNac;
-	}
-
-	public void setMunicipioNac(Municipio municipioNac) {
-		this.municipioNac = municipioNac;
-	}
-
-	public Combobox getCmbParroquiaResi() {
-		return cmbParroquiaResi;
-	}
-
-	public void setCmbParroquiaResi(Combobox cmbParroquiaResi) {
-		this.cmbParroquiaResi = cmbParroquiaResi;
-	}
-
-	public Combobox getCmbMunicipioResi() {
-		return cmbMunicipioResi;
-	}
-
-	public void setCmbMunicipioResi(Combobox cmbMunicipioResi) {
-		this.cmbMunicipioResi = cmbMunicipioResi;
-	}
-
-	public EstadoVenezuela getEstadoVenezuelaResi() {
+	public DatoBasico getEstadoVenezuelaResi() {
 		return estadoVenezuelaResi;
 	}
 
-	public void setEstadoVenezuelaResi(EstadoVenezuela estadoVenezuelaResi) {
+	public void setEstadoVenezuelaResi(DatoBasico estadoVenezuelaResi) {
 		this.estadoVenezuelaResi = estadoVenezuelaResi;
 	}
 
-	public Municipio getMunicipioResi() {
+	public DatoBasico getMunicipioNac() {
+		return municipioNac;
+	}
+
+	public void setMunicipioNac(DatoBasico municipioNac) {
+		this.municipioNac = municipioNac;
+	}
+
+	public DatoBasico getMunicipioResi() {
 		return municipioResi;
 	}
 
-	public void setMunicipioResi(Municipio municipioResi) {
+	public void setMunicipioResi(DatoBasico municipioResi) {
 		this.municipioResi = municipioResi;
 	}
 
-	public List<TipoAfeccion> getAfeccionesActuales() {
-		return afeccionesActuales;
+	public DatoMedico getDatoMedico() {
+		return datoMedico;
 	}
 
-	public void setAfeccionesActuales(List<TipoAfeccion> afeccionesActuales) {
-		this.afeccionesActuales = afeccionesActuales;
+	public void setDatoMedico(DatoMedico datoMedico) {
+		this.datoMedico = datoMedico;
+	}
+
+	// Metodos para carga de combos/listbox
+
+	public List<Categoria> getCategorias() {
+		return servicioCategoria.listar();
+	}
+
+	public List<DatoBasico> getCursos() {
+		return servicioDatoBasico.listar(TipoDatoBasico.PAIS);
+	}
+
+	public List<DatoBasico> getEstadosVenezuela() {
+		return servicioDatoBasico.listar(TipoDatoBasico.ESTADO_VENEZUELA);
+	}
+
+	public List<DatoBasico> getPaises() {
+		return servicioDatoBasico.listar(TipoDatoBasico.PAIS);
+	}
+
+	public List<DatoBasico> getAfecciones() {
+		return servicioDatoBasico.listar(TipoDatoBasico.PAIS);
+	}
+
+	public List<DatoBasico> getInstitucionesEducativas() {
+		return servicioDatoBasico.listar(TipoDatoBasico.PAIS);
+	}
+
+	public List<DatoBasico> getInstitucionesRecreativas() {
+		return servicioDatoBasico.listar(TipoDatoBasico.PAIS);
+	}
+
+	public List<DatoBasico> getMunicipiosEstados() {
+		return servicioDatoBasico.buscarDatosPorRelacion(estadoVenezuela);
+	}
+
+	public List<DatoBasico> getMunicipiosEstadosResi() {
+		return servicioDatoBasico.buscarDatosPorRelacion(estadoVenezuelaResi);
+	}
+
+	public List<DatoBasico> getParroquiasMunicipio() {
+		return servicioDatoBasico.buscarDatosPorRelacion(municipioNac);
+	}
+
+	public List<DatoBasico> getParroquiasMunicipioResi() {
+		return servicioDatoBasico.buscarDatosPorRelacion(municipioResi);
+	}
+
+	// Eventos
+	public void onClick$btnCatalogoMedico() {
+		new Util().crearVentana(rutasJug + "buscarMedico.zul", null, null);
 	}
 
 	public void onChange$dtboxFechaNac() {
@@ -220,10 +208,29 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		txtCedulaSecuencia.setVisible(flag);
 	}
 
+	public void onChange$cmbEstadoResi() {
+		cmbMunicipioResi.setValue("--Seleccione--");
+		binder.loadAttribute(cmbMunicipioResi, "model");
+	}
+
+	public void onChange$cmbMunicipioResi() {
+		cmbParroquiaResi.setValue("--Seleccione--");
+		binder.loadAttribute(cmbParroquiaResi, "model");
+	}
+
+	public void onChange$cmbEstadoNac() {
+		cmbMunicipioNac.setValue("--Seleccione--");
+		binder.loadAttribute(cmbMunicipioNac, "model");
+	}
+
+	public void onChange$cmbMunicipioNac() {
+		cmbParroquiaNac.setValue("--Seleccione--");
+		binder.loadAttribute(cmbParroquiaNac, "model");
+	}
+
 	public void onClick$btnGuardar() {
 		new Util().crearVentana(rutasJug + "vistaCompromisoPago.zul", null,
 				null);
-
 	}
 
 	public void onClick$btnVistaPrevia() {
@@ -239,74 +246,6 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		moveStep(false);
 	}
 
-	public void onChange$cmbEstadoNac() {
-		cmbMunicipioNac.setValue("--Seleccione--");
-		binder.loadAttribute(cmbMunicipioNac, "model");
-	}
-
-	public List<Municipio> getMunicipiosEstados() {
-		List<Municipio> lista = servicioMunicipio.buscar(estadoVenezuela);
-		return lista;
-	}
-
-	public List<Municipio> getMunicipiosEstadosResi() {
-		List<Municipio> lista = servicioMunicipio.buscar(estadoVenezuelaResi);
-		return lista;
-	}
-
-	public void onChange$cmbMunicipioNac() {
-		cmbParroquiaNac.setValue("--Seleccione--");
-		binder.loadAttribute(cmbParroquiaNac, "model");
-	}
-
-	public List<Parroquia> getParroquiasMunicipio() {
-		List<Parroquia> lista = servicioParroquia.buscar(municipioNac);
-		return lista;
-	}
-
-	public List<Parroquia> getParroquiasMunicipioResi() {
-		List<Parroquia> lista = servicioParroquia.buscar(municipioResi);
-		return lista;
-	}
-
-	public DatoMedico getDatoMedico() {
-		return datoMedico;
-	}
-
-	public void setDatoMedico(DatoMedico datoMedico) {
-		this.datoMedico = datoMedico;
-	}
-
-/*	public AfeccionJugador getAfeccionJugador() {
-		return afeccionJugador;
-	}
-
-	public void setAfeccionJugador(AfeccionJugador afeccionJugador) {
-		this.afeccionJugador = afeccionJugador;
-	}
-
-	public void onChange$cmbEstadoResi() {
-		cmbMunicipioResi.setValue("--Seleccione--");
-		binder.loadAttribute(cmbMunicipioResi, "model");
-	}
-
-	public void onChange$cmbMunicipioResi() {
-		cmbParroquiaResi.setValue("--Seleccione--");
-		binder.loadAttribute(cmbParroquiaResi, "model");
-	}
-
-	public void onClick$btnCatalogoMedico() {
-		new Util().crearVentana(rutasJug + "buscarMedico.zul", null, null);
-	}
-
-	public void onClick$btnCatalogoInstitucionRecreativa() {
-		new Util().crearVentana(rutasJug + "buscarInstitucion.zul", null, null);
-	}
-
-	public void onClick$btnCatalogoInstitucionEducativa() {
-		new Util().crearVentana(rutasJug + "buscarInstitucion.zul", null, null);
-	}
-
 	public void onClick$btnFoto() {
 		new FileLoader().cargarImagenEnBean(imgJugador);
 	}
@@ -318,14 +257,16 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	public void onClick$btnCatalogoFamiliar() {
 		new Util().crearVentana(rutasJug + "buscarFamiliar.zul", null, null);
 	}
-*/
+
+	// Metodos propios del ctrl
+
 	private void moveStep(boolean flag) {
 		tabRegJugador.setVisible(!flag);
 		tabRegFamiliar.setVisible(flag);
 		if (flag) {
 			tabRegFamiliar.setSelected(flag);
 			cmbNacionalidadFamiliar.setFocus(true);
-			
+
 		} else {
 			tabRegJugador.setSelected(!flag);
 		}
@@ -334,7 +275,6 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		btnGuardar.setVisible(flag);
 		btnDesp.setVisible(!flag);
 	}
-
 
 	/**
 	 * Valida que se haya completado la primera fase de la inscripcion
@@ -353,8 +293,8 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 			}
 		}
 	}
-	
-	private void inhabilitarPerfil(boolean flag){
+
+	private void inhabilitarPerfil(boolean flag) {
 		cmbNacionalidad.setDisabled(flag);
 		txtCedula.setDisabled(flag);
 		txtCedulaSecuencia.setDisabled(flag);
@@ -363,7 +303,6 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		txtSegundoApellido.setDisabled(flag);
 		txtSegundoNombre.setDisabled(flag);
 		cmbGenero.setDisabled(flag);
-		//btnFoto.setDisabled(flag);
+		// btnFoto.setDisabled(flag);
 	}
 }
-

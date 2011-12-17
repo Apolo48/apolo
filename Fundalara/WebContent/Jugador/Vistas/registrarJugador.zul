@@ -1,6 +1,6 @@
 <?page title="Registrar Jugador"?>
-<!--<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
-	<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>  -->
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
 	<zscript><![CDATA[
 	//@IMPORT
@@ -45,7 +45,7 @@
 													value="R" />
 											</combobox>
 											<intbox id="txtCedula"
-												value="@{controller.jugador.cedulaJugador}"
+												value="@{controller.jugador.cedulaRif}"
 												constraint="no negative" width="20%" />
 											<label value="-"
 												id="lblSeparador" visible="false" />
@@ -62,14 +62,14 @@
 											<textbox
 												id="txtPrimerNombre" maxlength="40" width="80%"
 												constraint="no empty"
-												value="@{controller.jugador.primerNombre}" />
+												value="@{controller.jugador.persona.personaNatural.primerNombre}" />
 											<label value="(*)"
 												style="color:red" />
 										</div>
 										<label value="Segundo Nombre" />
 										<textbox maxlength="40"
 											id="txtSegundoNombre" width="80%"
-											value="@{controller.jugador.segundoNombre}" />
+											value="@{controller.jugador.persona.personaNatural.segundoNombre}" />
 									</row>
 									<row style="border:none;">
 										<label value="Primer Apellido"
@@ -77,7 +77,7 @@
 										<div>
 											<textbox maxlength="40"
 												width="80%" id="txtPrimerApellido"
-												value="@{controller.jugador.primerApellido}" />
+												value="@{controller.jugador.persona.personaNatural.primerApellido}" />
 											<label value="(*)"
 												style="color:red" />
 										</div>
@@ -85,14 +85,14 @@
 											width="95%" />
 										<textbox maxlength="40"
 											id="txtSegundoApellido" width="80%"
-											value="@{controller.jugador.segundoApellido}" />
+											value="@{controller.jugador.persona.personaNatural.segundoApellido}" />
 									</row>
 									<row style="border:none;"
 										spans="1,3">
 										<label value="Género" />
 										<div>
 											<combobox id="cmbGenero"
-												selectedItem="@{controller.jugador.genero, converter='CharConverter'}"
+												selectedItem="@{controller.jugador.persona.sexo, converter='CharConverter'}"
 												readonly="true" value="--Seleccione--" width="25%">
 												<comboitem
 													label="Masculino" value="M" />
@@ -112,7 +112,7 @@
 										height="80%" align="center" valign="middle">
 										<groupbox
 											style="border-color:orange" mold="3d">
-											<!--  content="@{controller.jugador.foto, converter='ImageConverter'}"  -->
+											<!--  content="@{controller.jugador.persona.personaNatural.foto, converter='ImageConverter'}"  -->
 											<image id="imgJugador"
 												src="../../Recursos/Imagenes/noFoto.jpg" height="80px"
 												width="80px" />
@@ -187,7 +187,7 @@
 																			value="Fecha " />
 																		<div>
 																			<datebox
-																				value="@{controller.jugador.fechaNacimiento}"
+																				value="@{controller.jugador.persona.fechaNacimiento}"
 																				id="dtboxFechaNac" constraint="no future"
 																				format="dd/MM/yyyy"
 																				style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
@@ -213,7 +213,7 @@
 																			<combobox
 																				value="--Seleccione--" id="cmbPaisNac"
 																				readonly="true"
-																				selectedItem="@{controller.jugador.pais}"
+																				selectedItem="@{controller.jugador.datoBasico}"
 																				model="@{winRegistroJugador$composer.paises}">
 																				<comboitem
 																					self="@{each='pais'}" label="@{pais.nombre}" />
@@ -230,8 +230,7 @@
 																				selectedItem="@{controller.estadoVenezuela}"
 																				model="@{winRegistroJugador$composer.estadosVenezuela}">
 																				<comboitem
-																					self="@{each='estadoV'}" label="@{estadoV.nombre}"
-																					value="@{estadoV.codigoEstado}" />
+																					self="@{each='estadoV'}" label="@{estadoV.nombre}" />
 																			</combobox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -260,7 +259,7 @@
 																		<div>
 																			<combobox
 																				id="cmbParroquiaNac" readonly="true"
-																				selectedItem="@{controller.jugador.parroquia}"
+																				selectedItem="@{controller.jugador.persona.datoBasico}"
 																				value="--Seleccione--" width="70%"
 																				model="@{winRegistroJugador$composer.parroquiasMunicipio}">
 																				<comboitem
@@ -354,7 +353,7 @@
 																			<textbox
 																				maxlength="200" height="40px" width="90%"
 																				multiline="true"
-																				value="@{controller.jugador.direccion}" />
+																				value="@{controller.jugador.persona.direccion}" />
 																			<label
 																				value="(*)" style="color:red" />
 																		</div>
@@ -403,7 +402,7 @@
 
 																			<intbox
 																				id="txtTelefonoHabitacion"
-																				value="@{controller.jugador.telefonoHabitacion}"
+																				value="@{controller.jugador.persona.telefonoHabitacion}"
 																				constraint="no negative" width="50%" />
 																		</div>
 																		<label
@@ -426,7 +425,7 @@
 
 																			<intbox
 																				id="txtTelefonoCelular"
-																				value="@{controller.jugador.telefonoCelular}"
+																				value="@{controller.jugador.persona.personaNatutal.celular}"
 																				constraint="no negative" width="50%" />
 																		</div>
 																	</row>
@@ -437,7 +436,7 @@
 
 																		<textbox
 																			id="txtCorreo" width="90%"
-																			value="@{controller.jugador.correoElectronico}" />
+																			value="@{controller.jugador.persona.correoElectronico}" />
 
 																		<label
 																			value="Twitter" />
@@ -447,17 +446,16 @@
 
 																			<textbox
 																				id="txtTwitter" width="80%"
-																				value="@{controller.jugador.twitter}" />
+																				value="@{controller.jugador.persona.twitter}" />
 																		</div>
 																	</row>
 																	<row
 																		spans="1,3" style="border:none;">
 																		<label
 																			value="Facebook" />
-
 																		<textbox
 																			id="txtFacebook" width="35%"
-																			value="@{controller.jugador.facebook}" />
+																			value="@{controller.jugador.persona.facebook}" />
 																	</row>
 																</rows>
 															</grid>
@@ -524,7 +522,7 @@
 														<div>
 															<combobox
 																id="cmbGrupoSanguineo" width="20%" readonly="true"
-																selectedItem="@{controller.jugador.tipoSangre}"
+																selectedItem="@{controller.jugador.tipoDeSangre}"
 																value="--">
 																<comboitem
 																	label="O" />
@@ -684,7 +682,7 @@
 															<textbox
 																maxlength="200" height="40px" width="95%"
 																multiline="true" id="txtObervaciones"
-																value="@{controller.datoMedico.obsevacion}" />
+																value="@{controller.datoMedico.observacion}" />
 														</row>
 													</rows>
 												</grid>
@@ -782,8 +780,7 @@
 																model="@{winRegistroJugador$composer.cursos}"
 																readonly="true" value="--Seleccione--">
 																<comboitem
-																	self="@{each='curso'}" label="@{curso.nombre}"
-																	value="@{curso.codigoCurso}" />
+																	self="@{each='curso'}" label="@{curso.nombre}" />
 															</combobox>
 														</row>
 													</rows>
