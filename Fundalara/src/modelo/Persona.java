@@ -1,14 +1,17 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -34,26 +37,25 @@ public class Persona implements java.io.Serializable {
 	private char sexo;
 	private PersonaJuridica personaJuridica;
 	private Jugador jugador;
+	private Set<EquipoCompetencia> equipoCompetencias = new HashSet<EquipoCompetencia>(
+			0);
+	private Set<DocumentoAcreedor> documentoAcreedorsForCedulaAtleta = new HashSet<DocumentoAcreedor>(
+			0);
+	private Set<CuentaPagar> cuentaPagars = new HashSet<CuentaPagar>(0);
+	private Set<DocumentoAcreedor> documentoAcreedorsForCedulaRif = new HashSet<DocumentoAcreedor>(
+			0);
 	private Familiar familiar;
 	private PersonaNatural personaNatural;
 
 	public Persona() {
 	}
 
-	public Persona(String cedulaRif, DatoBasico datoBasico,
-			String telefonoHabitacion, Date fechaIngreso,
-			String correoElectronico, String facebook, String twitter,
-			String direccion, Date fechaEgreso, Date fechaNacimiento, char sexo) {
+	public Persona(String cedulaRif, DatoBasico datoBasico, Date fechaIngreso,
+			String direccion, char sexo) {
 		this.cedulaRif = cedulaRif;
 		this.datoBasico = datoBasico;
-		this.telefonoHabitacion = telefonoHabitacion;
 		this.fechaIngreso = fechaIngreso;
-		this.correoElectronico = correoElectronico;
-		this.facebook = facebook;
-		this.twitter = twitter;
 		this.direccion = direccion;
-		this.fechaEgreso = fechaEgreso;
-		this.fechaNacimiento = fechaNacimiento;
 		this.sexo = sexo;
 	}
 
@@ -62,6 +64,10 @@ public class Persona implements java.io.Serializable {
 			String correoElectronico, String facebook, String twitter,
 			String direccion, Date fechaEgreso, Date fechaNacimiento,
 			char sexo, PersonaJuridica personaJuridica, Jugador jugador,
+			Set<EquipoCompetencia> equipoCompetencias,
+			Set<DocumentoAcreedor> documentoAcreedorsForCedulaAtleta,
+			Set<CuentaPagar> cuentaPagars,
+			Set<DocumentoAcreedor> documentoAcreedorsForCedulaRif,
 			Familiar familiar, PersonaNatural personaNatural) {
 		this.cedulaRif = cedulaRif;
 		this.datoBasico = datoBasico;
@@ -76,6 +82,10 @@ public class Persona implements java.io.Serializable {
 		this.sexo = sexo;
 		this.personaJuridica = personaJuridica;
 		this.jugador = jugador;
+		this.equipoCompetencias = equipoCompetencias;
+		this.documentoAcreedorsForCedulaAtleta = documentoAcreedorsForCedulaAtleta;
+		this.cuentaPagars = cuentaPagars;
+		this.documentoAcreedorsForCedulaRif = documentoAcreedorsForCedulaRif;
 		this.familiar = familiar;
 		this.personaNatural = personaNatural;
 	}
@@ -100,7 +110,7 @@ public class Persona implements java.io.Serializable {
 		this.datoBasico = datoBasico;
 	}
 
-	@Column(name = "telefono_habitacion", nullable = false)
+	@Column(name = "telefono_habitacion")
 	public String getTelefonoHabitacion() {
 		return this.telefonoHabitacion;
 	}
@@ -119,7 +129,7 @@ public class Persona implements java.io.Serializable {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	@Column(name = "correo_electronico", nullable = false)
+	@Column(name = "correo_electronico")
 	public String getCorreoElectronico() {
 		return this.correoElectronico;
 	}
@@ -128,7 +138,7 @@ public class Persona implements java.io.Serializable {
 		this.correoElectronico = correoElectronico;
 	}
 
-	@Column(name = "facebook", nullable = false)
+	@Column(name = "facebook")
 	public String getFacebook() {
 		return this.facebook;
 	}
@@ -137,7 +147,7 @@ public class Persona implements java.io.Serializable {
 		this.facebook = facebook;
 	}
 
-	@Column(name = "twitter", nullable = false)
+	@Column(name = "twitter")
 	public String getTwitter() {
 		return this.twitter;
 	}
@@ -156,7 +166,7 @@ public class Persona implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha_egreso", nullable = false, length = 13)
+	@Column(name = "fecha_egreso", length = 13)
 	public Date getFechaEgreso() {
 		return this.fechaEgreso;
 	}
@@ -166,7 +176,7 @@ public class Persona implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha_nacimiento", nullable = false, length = 13)
+	@Column(name = "fecha_nacimiento", length = 13)
 	public Date getFechaNacimiento() {
 		return this.fechaNacimiento;
 	}
@@ -200,6 +210,44 @@ public class Persona implements java.io.Serializable {
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
+	public Set<EquipoCompetencia> getEquipoCompetencias() {
+		return this.equipoCompetencias;
+	}
+
+	public void setEquipoCompetencias(Set<EquipoCompetencia> equipoCompetencias) {
+		this.equipoCompetencias = equipoCompetencias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personaByCedulaAtleta")
+	public Set<DocumentoAcreedor> getDocumentoAcreedorsForCedulaAtleta() {
+		return this.documentoAcreedorsForCedulaAtleta;
+	}
+
+	public void setDocumentoAcreedorsForCedulaAtleta(
+			Set<DocumentoAcreedor> documentoAcreedorsForCedulaAtleta) {
+		this.documentoAcreedorsForCedulaAtleta = documentoAcreedorsForCedulaAtleta;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
+	public Set<CuentaPagar> getCuentaPagars() {
+		return this.cuentaPagars;
+	}
+
+	public void setCuentaPagars(Set<CuentaPagar> cuentaPagars) {
+		this.cuentaPagars = cuentaPagars;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personaByCedulaRif")
+	public Set<DocumentoAcreedor> getDocumentoAcreedorsForCedulaRif() {
+		return this.documentoAcreedorsForCedulaRif;
+	}
+
+	public void setDocumentoAcreedorsForCedulaRif(
+			Set<DocumentoAcreedor> documentoAcreedorsForCedulaRif) {
+		this.documentoAcreedorsForCedulaRif = documentoAcreedorsForCedulaRif;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "persona")

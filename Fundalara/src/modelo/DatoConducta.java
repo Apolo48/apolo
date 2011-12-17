@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -23,38 +23,39 @@ import javax.persistence.TemporalType;
 @Table(name = "dato_conducta")
 public class DatoConducta implements java.io.Serializable {
 
-	private String codigoDatoConducta;
+	private int codigoDatoConducta;
 	private DatoBasico datoBasico;
 	private Jugador jugador;
 	private Date fechaInicio;
 	private Date fechaFin;
 	private String observacion;
-	private int cantidad;
+	private String cantidad;
 	private Date fechaOcurrencia;
 	private char estatus;
 	private Set<DocumentoConducta> documentoConductas = new HashSet<DocumentoConducta>(
 			0);
+	private Set<MotivoSancion> motivoSancions = new HashSet<MotivoSancion>(0);
 
 	public DatoConducta() {
 	}
 
-	public DatoConducta(String codigoDatoConducta, DatoBasico datoBasico,
-			Jugador jugador, Date fechaInicio, String observacion,
-			int cantidad, Date fechaOcurrencia, char estatus) {
+	public DatoConducta(int codigoDatoConducta, DatoBasico datoBasico,
+			Jugador jugador, Date fechaInicio, String cantidad,
+			Date fechaOcurrencia, char estatus) {
 		this.codigoDatoConducta = codigoDatoConducta;
 		this.datoBasico = datoBasico;
 		this.jugador = jugador;
 		this.fechaInicio = fechaInicio;
-		this.observacion = observacion;
 		this.cantidad = cantidad;
 		this.fechaOcurrencia = fechaOcurrencia;
 		this.estatus = estatus;
 	}
 
-	public DatoConducta(String codigoDatoConducta, DatoBasico datoBasico,
+	public DatoConducta(int codigoDatoConducta, DatoBasico datoBasico,
 			Jugador jugador, Date fechaInicio, Date fechaFin,
-			String observacion, int cantidad, Date fechaOcurrencia,
-			char estatus, Set<DocumentoConducta> documentoConductas) {
+			String observacion, String cantidad, Date fechaOcurrencia,
+			char estatus, Set<DocumentoConducta> documentoConductas,
+			Set<MotivoSancion> motivoSancions) {
 		this.codigoDatoConducta = codigoDatoConducta;
 		this.datoBasico = datoBasico;
 		this.jugador = jugador;
@@ -65,20 +66,21 @@ public class DatoConducta implements java.io.Serializable {
 		this.fechaOcurrencia = fechaOcurrencia;
 		this.estatus = estatus;
 		this.documentoConductas = documentoConductas;
+		this.motivoSancions = motivoSancions;
 	}
 
 	@Id
 	@Column(name = "codigo_dato_conducta", unique = true, nullable = false)
-	public String getCodigoDatoConducta() {
+	public int getCodigoDatoConducta() {
 		return this.codigoDatoConducta;
 	}
 
-	public void setCodigoDatoConducta(String codigoDatoConducta) {
+	public void setCodigoDatoConducta(int codigoDatoConducta) {
 		this.codigoDatoConducta = codigoDatoConducta;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_periodo_sancion", nullable = false)
+	@JoinColumn(name = "codigo_tipo_suspension", nullable = false)
 	public DatoBasico getDatoBasico() {
 		return this.datoBasico;
 	}
@@ -117,7 +119,7 @@ public class DatoConducta implements java.io.Serializable {
 		this.fechaFin = fechaFin;
 	}
 
-	@Column(name = "observacion", nullable = false)
+	@Column(name = "observacion")
 	public String getObservacion() {
 		return this.observacion;
 	}
@@ -127,11 +129,11 @@ public class DatoConducta implements java.io.Serializable {
 	}
 
 	@Column(name = "cantidad", nullable = false)
-	public int getCantidad() {
+	public String getCantidad() {
 		return this.cantidad;
 	}
 
-	public void setCantidad(int cantidad) {
+	public void setCantidad(String cantidad) {
 		this.cantidad = cantidad;
 	}
 
@@ -161,6 +163,15 @@ public class DatoConducta implements java.io.Serializable {
 
 	public void setDocumentoConductas(Set<DocumentoConducta> documentoConductas) {
 		this.documentoConductas = documentoConductas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoConducta")
+	public Set<MotivoSancion> getMotivoSancions() {
+		return this.motivoSancions;
+	}
+
+	public void setMotivoSancions(Set<MotivoSancion> motivoSancions) {
+		this.motivoSancions = motivoSancions;
 	}
 
 }

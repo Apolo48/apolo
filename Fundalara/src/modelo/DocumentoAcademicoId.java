@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,33 +11,33 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class DocumentoAcademicoId implements java.io.Serializable {
 
-	private String codigoDocumentoEntregado;
-	private String codigoAcademico;
+	private int codigoDocumentoEntregado;
+	private int codigoAcademico;
 
 	public DocumentoAcademicoId() {
 	}
 
-	public DocumentoAcademicoId(String codigoDocumentoEntregado,
-			String codigoAcademico) {
+	public DocumentoAcademicoId(int codigoDocumentoEntregado,
+			int codigoAcademico) {
 		this.codigoDocumentoEntregado = codigoDocumentoEntregado;
 		this.codigoAcademico = codigoAcademico;
 	}
 
 	@Column(name = "codigo_documento_entregado", nullable = false)
-	public String getCodigoDocumentoEntregado() {
+	public int getCodigoDocumentoEntregado() {
 		return this.codigoDocumentoEntregado;
 	}
 
-	public void setCodigoDocumentoEntregado(String codigoDocumentoEntregado) {
+	public void setCodigoDocumentoEntregado(int codigoDocumentoEntregado) {
 		this.codigoDocumentoEntregado = codigoDocumentoEntregado;
 	}
 
 	@Column(name = "codigo_academico", nullable = false)
-	public String getCodigoAcademico() {
+	public int getCodigoAcademico() {
 		return this.codigoAcademico;
 	}
 
-	public void setCodigoAcademico(String codigoAcademico) {
+	public void setCodigoAcademico(int codigoAcademico) {
 		this.codigoAcademico = codigoAcademico;
 	}
 
@@ -50,30 +50,16 @@ public class DocumentoAcademicoId implements java.io.Serializable {
 			return false;
 		DocumentoAcademicoId castOther = (DocumentoAcademicoId) other;
 
-		return ((this.getCodigoDocumentoEntregado() == castOther
-				.getCodigoDocumentoEntregado()) || (this
-				.getCodigoDocumentoEntregado() != null
-				&& castOther.getCodigoDocumentoEntregado() != null && this
-				.getCodigoDocumentoEntregado().equals(
-						castOther.getCodigoDocumentoEntregado())))
-				&& ((this.getCodigoAcademico() == castOther
-						.getCodigoAcademico()) || (this.getCodigoAcademico() != null
-						&& castOther.getCodigoAcademico() != null && this
-						.getCodigoAcademico().equals(
-								castOther.getCodigoAcademico())));
+		return (this.getCodigoDocumentoEntregado() == castOther
+				.getCodigoDocumentoEntregado())
+				&& (this.getCodigoAcademico() == castOther.getCodigoAcademico());
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37
-				* result
-				+ (getCodigoDocumentoEntregado() == null ? 0 : this
-						.getCodigoDocumentoEntregado().hashCode());
-		result = 37
-				* result
-				+ (getCodigoAcademico() == null ? 0 : this.getCodigoAcademico()
-						.hashCode());
+		result = 37 * result + this.getCodigoDocumentoEntregado();
+		result = 37 * result + this.getCodigoAcademico();
 		return result;
 	}
 

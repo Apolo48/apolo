@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,56 +11,33 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class FamiliarComisionEquipoId implements java.io.Serializable {
 
-	private String codigoEquipo;
-	private String codigoComision;
-	private String cedulaRif;
-	private String cedulaFamiliar;
+	private int codigoFamiliarJugador;
+	private int estatus;
 
 	public FamiliarComisionEquipoId() {
 	}
 
-	public FamiliarComisionEquipoId(String codigoEquipo, String codigoComision,
-			String cedulaRif, String cedulaFamiliar) {
-		this.codigoEquipo = codigoEquipo;
-		this.codigoComision = codigoComision;
-		this.cedulaRif = cedulaRif;
-		this.cedulaFamiliar = cedulaFamiliar;
+	public FamiliarComisionEquipoId(int codigoFamiliarJugador, int estatus) {
+		this.codigoFamiliarJugador = codigoFamiliarJugador;
+		this.estatus = estatus;
 	}
 
-	@Column(name = "codigo_equipo", nullable = false)
-	public String getCodigoEquipo() {
-		return this.codigoEquipo;
+	@Column(name = "codigo_familiar_jugador", nullable = false)
+	public int getCodigoFamiliarJugador() {
+		return this.codigoFamiliarJugador;
 	}
 
-	public void setCodigoEquipo(String codigoEquipo) {
-		this.codigoEquipo = codigoEquipo;
+	public void setCodigoFamiliarJugador(int codigoFamiliarJugador) {
+		this.codigoFamiliarJugador = codigoFamiliarJugador;
 	}
 
-	@Column(name = "codigo_comision", nullable = false)
-	public String getCodigoComision() {
-		return this.codigoComision;
+	@Column(name = "estatus", nullable = false)
+	public int getEstatus() {
+		return this.estatus;
 	}
 
-	public void setCodigoComision(String codigoComision) {
-		this.codigoComision = codigoComision;
-	}
-
-	@Column(name = "cedula_rif", nullable = false)
-	public String getCedulaRif() {
-		return this.cedulaRif;
-	}
-
-	public void setCedulaRif(String cedulaRif) {
-		this.cedulaRif = cedulaRif;
-	}
-
-	@Column(name = "cedula_familiar", nullable = false)
-	public String getCedulaFamiliar() {
-		return this.cedulaFamiliar;
-	}
-
-	public void setCedulaFamiliar(String cedulaFamiliar) {
-		this.cedulaFamiliar = cedulaFamiliar;
+	public void setEstatus(int estatus) {
+		this.estatus = estatus;
 	}
 
 	public boolean equals(Object other) {
@@ -72,43 +49,16 @@ public class FamiliarComisionEquipoId implements java.io.Serializable {
 			return false;
 		FamiliarComisionEquipoId castOther = (FamiliarComisionEquipoId) other;
 
-		return ((this.getCodigoEquipo() == castOther.getCodigoEquipo()) || (this
-				.getCodigoEquipo() != null
-				&& castOther.getCodigoEquipo() != null && this
-				.getCodigoEquipo().equals(castOther.getCodigoEquipo())))
-				&& ((this.getCodigoComision() == castOther.getCodigoComision()) || (this
-						.getCodigoComision() != null
-						&& castOther.getCodigoComision() != null && this
-						.getCodigoComision().equals(
-								castOther.getCodigoComision())))
-				&& ((this.getCedulaRif() == castOther.getCedulaRif()) || (this
-						.getCedulaRif() != null
-						&& castOther.getCedulaRif() != null && this
-						.getCedulaRif().equals(castOther.getCedulaRif())))
-				&& ((this.getCedulaFamiliar() == castOther.getCedulaFamiliar()) || (this
-						.getCedulaFamiliar() != null
-						&& castOther.getCedulaFamiliar() != null && this
-						.getCedulaFamiliar().equals(
-								castOther.getCedulaFamiliar())));
+		return (this.getCodigoFamiliarJugador() == castOther
+				.getCodigoFamiliarJugador())
+				&& (this.getEstatus() == castOther.getEstatus());
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37
-				* result
-				+ (getCodigoEquipo() == null ? 0 : this.getCodigoEquipo()
-						.hashCode());
-		result = 37
-				* result
-				+ (getCodigoComision() == null ? 0 : this.getCodigoComision()
-						.hashCode());
-		result = 37 * result
-				+ (getCedulaRif() == null ? 0 : this.getCedulaRif().hashCode());
-		result = 37
-				* result
-				+ (getCedulaFamiliar() == null ? 0 : this.getCedulaFamiliar()
-						.hashCode());
+		result = 37 * result + this.getCodigoFamiliarJugador();
+		result = 37 * result + this.getEstatus();
 		return result;
 	}
 

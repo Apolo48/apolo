@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,25 +24,34 @@ import javax.persistence.TemporalType;
 public class Ingreso implements java.io.Serializable {
 
 	private String numeroDocumento;
+	private DatoBasico datoBasico;
 	private Date fechaPago;
 	private char estatus;
+	private Set<IngresoDocumentoAcreedor> ingresoDocumentoAcreedors = new HashSet<IngresoDocumentoAcreedor>(
+			0);
 	private Set<IngresoFormaPago> ingresoFormaPagos = new HashSet<IngresoFormaPago>(
 			0);
 
 	public Ingreso() {
 	}
 
-	public Ingreso(String numeroDocumento, Date fechaPago, char estatus) {
+	public Ingreso(String numeroDocumento, DatoBasico datoBasico,
+			Date fechaPago, char estatus) {
 		this.numeroDocumento = numeroDocumento;
+		this.datoBasico = datoBasico;
 		this.fechaPago = fechaPago;
 		this.estatus = estatus;
 	}
 
-	public Ingreso(String numeroDocumento, Date fechaPago, char estatus,
+	public Ingreso(String numeroDocumento, DatoBasico datoBasico,
+			Date fechaPago, char estatus,
+			Set<IngresoDocumentoAcreedor> ingresoDocumentoAcreedors,
 			Set<IngresoFormaPago> ingresoFormaPagos) {
 		this.numeroDocumento = numeroDocumento;
+		this.datoBasico = datoBasico;
 		this.fechaPago = fechaPago;
 		this.estatus = estatus;
+		this.ingresoDocumentoAcreedors = ingresoDocumentoAcreedors;
 		this.ingresoFormaPagos = ingresoFormaPagos;
 	}
 
@@ -52,6 +63,16 @@ public class Ingreso implements java.io.Serializable {
 
 	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_tipo_documento", nullable = false)
+	public DatoBasico getDatoBasico() {
+		return this.datoBasico;
+	}
+
+	public void setDatoBasico(DatoBasico datoBasico) {
+		this.datoBasico = datoBasico;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -71,6 +92,16 @@ public class Ingreso implements java.io.Serializable {
 
 	public void setEstatus(char estatus) {
 		this.estatus = estatus;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ingreso")
+	public Set<IngresoDocumentoAcreedor> getIngresoDocumentoAcreedors() {
+		return this.ingresoDocumentoAcreedors;
+	}
+
+	public void setIngresoDocumentoAcreedors(
+			Set<IngresoDocumentoAcreedor> ingresoDocumentoAcreedors) {
+		this.ingresoDocumentoAcreedors = ingresoDocumentoAcreedors;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ingreso")

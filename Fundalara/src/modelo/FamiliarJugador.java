@@ -1,16 +1,14 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -26,11 +24,12 @@ import javax.persistence.TemporalType;
 @Table(name = "familiar_jugador")
 public class FamiliarJugador implements java.io.Serializable {
 
-	private FamiliarJugadorId id;
+	private int codigoFamiliarJugador;
 	private DatoBasico datoBasico;
 	private Jugador jugador;
 	private Familiar familiar;
-	private boolean esrepresentante;
+	private String cedulaFamiliar;
+	private boolean representanteActual;
 	private Date fechaIngreso;
 	private char estatus;
 	private Set<FamiliarComisionEquipo> familiarComisionEquipos = new HashSet<FamiliarComisionEquipo>(
@@ -41,28 +40,30 @@ public class FamiliarJugador implements java.io.Serializable {
 	public FamiliarJugador() {
 	}
 
-	public FamiliarJugador(FamiliarJugadorId id, DatoBasico datoBasico,
-			Jugador jugador, Familiar familiar, boolean esrepresentante,
-			Date fechaIngreso, char estatus) {
-		this.id = id;
+	public FamiliarJugador(int codigoFamiliarJugador, DatoBasico datoBasico,
+			Jugador jugador, Familiar familiar, String cedulaFamiliar,
+			boolean representanteActual, Date fechaIngreso, char estatus) {
+		this.codigoFamiliarJugador = codigoFamiliarJugador;
 		this.datoBasico = datoBasico;
 		this.jugador = jugador;
 		this.familiar = familiar;
-		this.esrepresentante = esrepresentante;
+		this.cedulaFamiliar = cedulaFamiliar;
+		this.representanteActual = representanteActual;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
 	}
 
-	public FamiliarJugador(FamiliarJugadorId id, DatoBasico datoBasico,
-			Jugador jugador, Familiar familiar, boolean esrepresentante,
-			Date fechaIngreso, char estatus,
+	public FamiliarJugador(int codigoFamiliarJugador, DatoBasico datoBasico,
+			Jugador jugador, Familiar familiar, String cedulaFamiliar,
+			boolean representanteActual, Date fechaIngreso, char estatus,
 			Set<FamiliarComisionEquipo> familiarComisionEquipos,
 			Representante representante, Set<Hospedaje> hospedajes) {
-		this.id = id;
+		this.codigoFamiliarJugador = codigoFamiliarJugador;
 		this.datoBasico = datoBasico;
 		this.jugador = jugador;
 		this.familiar = familiar;
-		this.esrepresentante = esrepresentante;
+		this.cedulaFamiliar = cedulaFamiliar;
+		this.representanteActual = representanteActual;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
 		this.familiarComisionEquipos = familiarComisionEquipos;
@@ -70,16 +71,14 @@ public class FamiliarJugador implements java.io.Serializable {
 		this.hospedajes = hospedajes;
 	}
 
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "cedulaRif", column = @Column(name = "cedula_rif", nullable = false)),
-			@AttributeOverride(name = "cedulaFamiliar", column = @Column(name = "cedula_familiar", nullable = false)) })
-	public FamiliarJugadorId getId() {
-		return this.id;
+	@Id
+	@Column(name = "codigo_familiar_jugador", unique = true, nullable = false)
+	public int getCodigoFamiliarJugador() {
+		return this.codigoFamiliarJugador;
 	}
 
-	public void setId(FamiliarJugadorId id) {
-		this.id = id;
+	public void setCodigoFamiliarJugador(int codigoFamiliarJugador) {
+		this.codigoFamiliarJugador = codigoFamiliarJugador;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -93,7 +92,7 @@ public class FamiliarJugador implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cedula_rif", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "cedula_rif", nullable = false)
 	public Jugador getJugador() {
 		return this.jugador;
 	}
@@ -112,13 +111,22 @@ public class FamiliarJugador implements java.io.Serializable {
 		this.familiar = familiar;
 	}
 
-	@Column(name = "esrepresentante", nullable = false)
-	public boolean isEsrepresentante() {
-		return this.esrepresentante;
+	@Column(name = "cedula_familiar", nullable = false)
+	public String getCedulaFamiliar() {
+		return this.cedulaFamiliar;
 	}
 
-	public void setEsrepresentante(boolean esrepresentante) {
-		this.esrepresentante = esrepresentante;
+	public void setCedulaFamiliar(String cedulaFamiliar) {
+		this.cedulaFamiliar = cedulaFamiliar;
+	}
+
+	@Column(name = "representante_actual", nullable = false)
+	public boolean isRepresentanteActual() {
+		return this.representanteActual;
+	}
+
+	public void setRepresentanteActual(boolean representanteActual) {
+		this.representanteActual = representanteActual;
 	}
 
 	@Temporal(TemporalType.DATE)

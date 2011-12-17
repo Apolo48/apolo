@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,33 +11,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class DocumentoAscensoId implements java.io.Serializable {
 
-	private String codigoDocumentoEntregado;
-	private String codigoAscenso;
+	private int codigoDocumentoEntregado;
+	private int codigoAscenso;
 
 	public DocumentoAscensoId() {
 	}
 
-	public DocumentoAscensoId(String codigoDocumentoEntregado,
-			String codigoAscenso) {
+	public DocumentoAscensoId(int codigoDocumentoEntregado, int codigoAscenso) {
 		this.codigoDocumentoEntregado = codigoDocumentoEntregado;
 		this.codigoAscenso = codigoAscenso;
 	}
 
 	@Column(name = "codigo_documento_entregado", nullable = false)
-	public String getCodigoDocumentoEntregado() {
+	public int getCodigoDocumentoEntregado() {
 		return this.codigoDocumentoEntregado;
 	}
 
-	public void setCodigoDocumentoEntregado(String codigoDocumentoEntregado) {
+	public void setCodigoDocumentoEntregado(int codigoDocumentoEntregado) {
 		this.codigoDocumentoEntregado = codigoDocumentoEntregado;
 	}
 
 	@Column(name = "codigo_ascenso", nullable = false)
-	public String getCodigoAscenso() {
+	public int getCodigoAscenso() {
 		return this.codigoAscenso;
 	}
 
-	public void setCodigoAscenso(String codigoAscenso) {
+	public void setCodigoAscenso(int codigoAscenso) {
 		this.codigoAscenso = codigoAscenso;
 	}
 
@@ -50,30 +49,16 @@ public class DocumentoAscensoId implements java.io.Serializable {
 			return false;
 		DocumentoAscensoId castOther = (DocumentoAscensoId) other;
 
-		return ((this.getCodigoDocumentoEntregado() == castOther
-				.getCodigoDocumentoEntregado()) || (this
-				.getCodigoDocumentoEntregado() != null
-				&& castOther.getCodigoDocumentoEntregado() != null && this
-				.getCodigoDocumentoEntregado().equals(
-						castOther.getCodigoDocumentoEntregado())))
-				&& ((this.getCodigoAscenso() == castOther.getCodigoAscenso()) || (this
-						.getCodigoAscenso() != null
-						&& castOther.getCodigoAscenso() != null && this
-						.getCodigoAscenso()
-						.equals(castOther.getCodigoAscenso())));
+		return (this.getCodigoDocumentoEntregado() == castOther
+				.getCodigoDocumentoEntregado())
+				&& (this.getCodigoAscenso() == castOther.getCodigoAscenso());
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37
-				* result
-				+ (getCodigoDocumentoEntregado() == null ? 0 : this
-						.getCodigoDocumentoEntregado().hashCode());
-		result = 37
-				* result
-				+ (getCodigoAscenso() == null ? 0 : this.getCodigoAscenso()
-						.hashCode());
+		result = 37 * result + this.getCodigoDocumentoEntregado();
+		result = 37 * result + this.getCodigoAscenso();
 		return result;
 	}
 

@@ -1,15 +1,13 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -22,55 +20,52 @@ import javax.persistence.Table;
 @Table(name = "comision_equipo")
 public class ComisionEquipo implements java.io.Serializable {
 
-	private ComisionEquipoId id;
+	private int estatus;
 	private DatoBasico datoBasico;
 	private Equipo equipo;
 	private int maximoComision;
 	private int cantidadComision;
-	private char estatus;
+	private char estatus1;
 	private Set<FamiliarComisionEquipo> familiarComisionEquipos = new HashSet<FamiliarComisionEquipo>(
 			0);
 
 	public ComisionEquipo() {
 	}
 
-	public ComisionEquipo(ComisionEquipoId id, DatoBasico datoBasico,
-			Equipo equipo, int maximoComision, int cantidadComision,
-			char estatus) {
-		this.id = id;
+	public ComisionEquipo(int estatus, DatoBasico datoBasico, Equipo equipo,
+			int maximoComision, int cantidadComision, char estatus1) {
+		this.estatus = estatus;
 		this.datoBasico = datoBasico;
 		this.equipo = equipo;
 		this.maximoComision = maximoComision;
 		this.cantidadComision = cantidadComision;
-		this.estatus = estatus;
+		this.estatus1 = estatus1;
 	}
 
-	public ComisionEquipo(ComisionEquipoId id, DatoBasico datoBasico,
-			Equipo equipo, int maximoComision, int cantidadComision,
-			char estatus, Set<FamiliarComisionEquipo> familiarComisionEquipos) {
-		this.id = id;
+	public ComisionEquipo(int estatus, DatoBasico datoBasico, Equipo equipo,
+			int maximoComision, int cantidadComision, char estatus1,
+			Set<FamiliarComisionEquipo> familiarComisionEquipos) {
+		this.estatus = estatus;
 		this.datoBasico = datoBasico;
 		this.equipo = equipo;
 		this.maximoComision = maximoComision;
 		this.cantidadComision = cantidadComision;
-		this.estatus = estatus;
+		this.estatus1 = estatus1;
 		this.familiarComisionEquipos = familiarComisionEquipos;
 	}
 
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "codigoEquipo", column = @Column(name = "codigo_equipo", nullable = false)),
-			@AttributeOverride(name = "codigoClasificacion", column = @Column(name = "codigo_clasificacion", nullable = false)) })
-	public ComisionEquipoId getId() {
-		return this.id;
+	@Id
+	@Column(name = "estatus", unique = true, nullable = false)
+	public int getEstatus() {
+		return this.estatus;
 	}
 
-	public void setId(ComisionEquipoId id) {
-		this.id = id;
+	public void setEstatus(int estatus) {
+		this.estatus = estatus;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_clasificacion", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "codigo_comision", nullable = false)
 	public DatoBasico getDatoBasico() {
 		return this.datoBasico;
 	}
@@ -80,7 +75,7 @@ public class ComisionEquipo implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_equipo", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "codigo_equipo", nullable = false)
 	public Equipo getEquipo() {
 		return this.equipo;
 	}
@@ -107,13 +102,13 @@ public class ComisionEquipo implements java.io.Serializable {
 		this.cantidadComision = cantidadComision;
 	}
 
-	@Column(name = "estatus", nullable = false, length = 1)
-	public char getEstatus() {
-		return this.estatus;
+	@Column(name = "estatus_1", nullable = false, length = 1)
+	public char getEstatus1() {
+		return this.estatus1;
 	}
 
-	public void setEstatus(char estatus) {
-		this.estatus = estatus;
+	public void setEstatus1(char estatus1) {
+		this.estatus1 = estatus1;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "comisionEquipo")

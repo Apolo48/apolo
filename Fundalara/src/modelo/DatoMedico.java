@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 @Table(name = "dato_medico")
 public class DatoMedico implements java.io.Serializable {
 
-	private String codigoDatoMedico;
+	private int codigoDatoMedico;
 	private Medico medico;
 	private Jugador jugador;
 	private Date fechaInforme;
@@ -38,15 +38,16 @@ public class DatoMedico implements java.io.Serializable {
 	public DatoMedico() {
 	}
 
-	public DatoMedico(String codigoDatoMedico, Medico medico, Jugador jugador,
-			char estatus) {
+	public DatoMedico(int codigoDatoMedico, Medico medico, Jugador jugador,
+			Date fechaReincorporacion, char estatus) {
 		this.codigoDatoMedico = codigoDatoMedico;
 		this.medico = medico;
 		this.jugador = jugador;
+		this.fechaReincorporacion = fechaReincorporacion;
 		this.estatus = estatus;
 	}
 
-	public DatoMedico(String codigoDatoMedico, Medico medico, Jugador jugador,
+	public DatoMedico(int codigoDatoMedico, Medico medico, Jugador jugador,
 			Date fechaInforme, Date fechaReincorporacion, String observacion,
 			char estatus, Set<AfeccionJugador> afeccionJugadors,
 			Set<DocumentoMedico> documentoMedicos) {
@@ -63,11 +64,11 @@ public class DatoMedico implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_dato_medico", unique = true, nullable = false)
-	public String getCodigoDatoMedico() {
+	public int getCodigoDatoMedico() {
 		return this.codigoDatoMedico;
 	}
 
-	public void setCodigoDatoMedico(String codigoDatoMedico) {
+	public void setCodigoDatoMedico(int codigoDatoMedico) {
 		this.codigoDatoMedico = codigoDatoMedico;
 	}
 
@@ -102,7 +103,7 @@ public class DatoMedico implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha_reincorporacion", length = 13)
+	@Column(name = "fecha_reincorporacion", nullable = false, length = 13)
 	public Date getFechaReincorporacion() {
 		return this.fechaReincorporacion;
 	}

@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Table(name = "institucion")
 public class Institucion implements java.io.Serializable {
 
-	private String codigoInstitucion;
+	private int codigoInstitucion;
 	private DatoBasico datoBasico;
 	private String nombre;
 	private String direccion;
@@ -31,7 +31,7 @@ public class Institucion implements java.io.Serializable {
 	public Institucion() {
 	}
 
-	public Institucion(String codigoInstitucion, DatoBasico datoBasico,
+	public Institucion(int codigoInstitucion, DatoBasico datoBasico,
 			String nombre, String direccion, char estatus) {
 		this.codigoInstitucion = codigoInstitucion;
 		this.datoBasico = datoBasico;
@@ -40,7 +40,7 @@ public class Institucion implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	public Institucion(String codigoInstitucion, DatoBasico datoBasico,
+	public Institucion(int codigoInstitucion, DatoBasico datoBasico,
 			String nombre, String direccion, char estatus,
 			Set<DatoAcademico> datoAcademicos, Set<DatoSocial> datoSocials) {
 		this.codigoInstitucion = codigoInstitucion;
@@ -54,16 +54,16 @@ public class Institucion implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_institucion", unique = true, nullable = false)
-	public String getCodigoInstitucion() {
+	public int getCodigoInstitucion() {
 		return this.codigoInstitucion;
 	}
 
-	public void setCodigoInstitucion(String codigoInstitucion) {
+	public void setCodigoInstitucion(int codigoInstitucion) {
 		this.codigoInstitucion = codigoInstitucion;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_parroquia", nullable = false)
+	@JoinColumn(name = "codigo_tipo_institucion", nullable = false)
 	public DatoBasico getDatoBasico() {
 		return this.datoBasico;
 	}

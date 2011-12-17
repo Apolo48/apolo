@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,32 +11,32 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class AfeccionJugadorId implements java.io.Serializable {
 
-	private String codigoDatoMedico;
-	private String codigoAfeccion;
+	private int codigoDatoMedico;
+	private int codigoAfeccion;
 
 	public AfeccionJugadorId() {
 	}
 
-	public AfeccionJugadorId(String codigoDatoMedico, String codigoAfeccion) {
+	public AfeccionJugadorId(int codigoDatoMedico, int codigoAfeccion) {
 		this.codigoDatoMedico = codigoDatoMedico;
 		this.codigoAfeccion = codigoAfeccion;
 	}
 
 	@Column(name = "codigo_dato_medico", nullable = false)
-	public String getCodigoDatoMedico() {
+	public int getCodigoDatoMedico() {
 		return this.codigoDatoMedico;
 	}
 
-	public void setCodigoDatoMedico(String codigoDatoMedico) {
+	public void setCodigoDatoMedico(int codigoDatoMedico) {
 		this.codigoDatoMedico = codigoDatoMedico;
 	}
 
 	@Column(name = "codigo_afeccion", nullable = false)
-	public String getCodigoAfeccion() {
+	public int getCodigoAfeccion() {
 		return this.codigoAfeccion;
 	}
 
-	public void setCodigoAfeccion(String codigoAfeccion) {
+	public void setCodigoAfeccion(int codigoAfeccion) {
 		this.codigoAfeccion = codigoAfeccion;
 	}
 
@@ -49,28 +49,15 @@ public class AfeccionJugadorId implements java.io.Serializable {
 			return false;
 		AfeccionJugadorId castOther = (AfeccionJugadorId) other;
 
-		return ((this.getCodigoDatoMedico() == castOther.getCodigoDatoMedico()) || (this
-				.getCodigoDatoMedico() != null
-				&& castOther.getCodigoDatoMedico() != null && this
-				.getCodigoDatoMedico().equals(castOther.getCodigoDatoMedico())))
-				&& ((this.getCodigoAfeccion() == castOther.getCodigoAfeccion()) || (this
-						.getCodigoAfeccion() != null
-						&& castOther.getCodigoAfeccion() != null && this
-						.getCodigoAfeccion().equals(
-								castOther.getCodigoAfeccion())));
+		return (this.getCodigoDatoMedico() == castOther.getCodigoDatoMedico())
+				&& (this.getCodigoAfeccion() == castOther.getCodigoAfeccion());
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37
-				* result
-				+ (getCodigoDatoMedico() == null ? 0 : this
-						.getCodigoDatoMedico().hashCode());
-		result = 37
-				* result
-				+ (getCodigoAfeccion() == null ? 0 : this.getCodigoAfeccion()
-						.hashCode());
+		result = 37 * result + this.getCodigoDatoMedico();
+		result = 37 * result + this.getCodigoAfeccion();
 		return result;
 	}
 

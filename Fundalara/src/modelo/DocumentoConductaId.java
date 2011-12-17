@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,33 +11,33 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class DocumentoConductaId implements java.io.Serializable {
 
-	private String codigoDocumentoEntregado;
-	private String codigoDatoConducta;
+	private int codigoDocumentoEntregado;
+	private int codigoDatoConducta;
 
 	public DocumentoConductaId() {
 	}
 
-	public DocumentoConductaId(String codigoDocumentoEntregado,
-			String codigoDatoConducta) {
+	public DocumentoConductaId(int codigoDocumentoEntregado,
+			int codigoDatoConducta) {
 		this.codigoDocumentoEntregado = codigoDocumentoEntregado;
 		this.codigoDatoConducta = codigoDatoConducta;
 	}
 
 	@Column(name = "codigo_documento_entregado", nullable = false)
-	public String getCodigoDocumentoEntregado() {
+	public int getCodigoDocumentoEntregado() {
 		return this.codigoDocumentoEntregado;
 	}
 
-	public void setCodigoDocumentoEntregado(String codigoDocumentoEntregado) {
+	public void setCodigoDocumentoEntregado(int codigoDocumentoEntregado) {
 		this.codigoDocumentoEntregado = codigoDocumentoEntregado;
 	}
 
 	@Column(name = "codigo_dato_conducta", nullable = false)
-	public String getCodigoDatoConducta() {
+	public int getCodigoDatoConducta() {
 		return this.codigoDatoConducta;
 	}
 
-	public void setCodigoDatoConducta(String codigoDatoConducta) {
+	public void setCodigoDatoConducta(int codigoDatoConducta) {
 		this.codigoDatoConducta = codigoDatoConducta;
 	}
 
@@ -50,31 +50,17 @@ public class DocumentoConductaId implements java.io.Serializable {
 			return false;
 		DocumentoConductaId castOther = (DocumentoConductaId) other;
 
-		return ((this.getCodigoDocumentoEntregado() == castOther
-				.getCodigoDocumentoEntregado()) || (this
-				.getCodigoDocumentoEntregado() != null
-				&& castOther.getCodigoDocumentoEntregado() != null && this
-				.getCodigoDocumentoEntregado().equals(
-						castOther.getCodigoDocumentoEntregado())))
-				&& ((this.getCodigoDatoConducta() == castOther
-						.getCodigoDatoConducta()) || (this
-						.getCodigoDatoConducta() != null
-						&& castOther.getCodigoDatoConducta() != null && this
-						.getCodigoDatoConducta().equals(
-								castOther.getCodigoDatoConducta())));
+		return (this.getCodigoDocumentoEntregado() == castOther
+				.getCodigoDocumentoEntregado())
+				&& (this.getCodigoDatoConducta() == castOther
+						.getCodigoDatoConducta());
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37
-				* result
-				+ (getCodigoDocumentoEntregado() == null ? 0 : this
-						.getCodigoDocumentoEntregado().hashCode());
-		result = 37
-				* result
-				+ (getCodigoDatoConducta() == null ? 0 : this
-						.getCodigoDatoConducta().hashCode());
+		result = 37 * result + this.getCodigoDocumentoEntregado();
+		result = 37 * result + this.getCodigoDatoConducta();
 		return result;
 	}
 

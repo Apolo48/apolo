@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,47 +20,51 @@ import javax.persistence.Table;
 @Table(name = "talla_por_indumentaria")
 public class TallaPorIndumentaria implements java.io.Serializable {
 
-	private String codigoTallaIndumentaria;
+	private int codigoTallaIndumentaria;
 	private DatoBasico datoBasicoByCodigoTalla;
 	private DatoBasico datoBasicoByCodigoIndumentaria;
+	private float precio;
 	private char estatus;
-	private Set<TallaPorJugador> tallaPorJugadors = new HashSet<TallaPorJugador>(
+	private Set<DocumentoIndumentaria> documentoIndumentarias = new HashSet<DocumentoIndumentaria>(
 			0);
-	private Set<ParticipantePlan> participantePlans = new HashSet<ParticipantePlan>(
+	private Set<TallaPorJugador> tallaPorJugadors = new HashSet<TallaPorJugador>(
 			0);
 
 	public TallaPorIndumentaria() {
 	}
 
-	public TallaPorIndumentaria(String codigoTallaIndumentaria,
+	public TallaPorIndumentaria(int codigoTallaIndumentaria,
 			DatoBasico datoBasicoByCodigoTalla,
-			DatoBasico datoBasicoByCodigoIndumentaria, char estatus) {
+			DatoBasico datoBasicoByCodigoIndumentaria, float precio,
+			char estatus) {
 		this.codigoTallaIndumentaria = codigoTallaIndumentaria;
 		this.datoBasicoByCodigoTalla = datoBasicoByCodigoTalla;
 		this.datoBasicoByCodigoIndumentaria = datoBasicoByCodigoIndumentaria;
+		this.precio = precio;
 		this.estatus = estatus;
 	}
 
-	public TallaPorIndumentaria(String codigoTallaIndumentaria,
+	public TallaPorIndumentaria(int codigoTallaIndumentaria,
 			DatoBasico datoBasicoByCodigoTalla,
-			DatoBasico datoBasicoByCodigoIndumentaria, char estatus,
-			Set<TallaPorJugador> tallaPorJugadors,
-			Set<ParticipantePlan> participantePlans) {
+			DatoBasico datoBasicoByCodigoIndumentaria, float precio,
+			char estatus, Set<DocumentoIndumentaria> documentoIndumentarias,
+			Set<TallaPorJugador> tallaPorJugadors) {
 		this.codigoTallaIndumentaria = codigoTallaIndumentaria;
 		this.datoBasicoByCodigoTalla = datoBasicoByCodigoTalla;
 		this.datoBasicoByCodigoIndumentaria = datoBasicoByCodigoIndumentaria;
+		this.precio = precio;
 		this.estatus = estatus;
+		this.documentoIndumentarias = documentoIndumentarias;
 		this.tallaPorJugadors = tallaPorJugadors;
-		this.participantePlans = participantePlans;
 	}
 
 	@Id
 	@Column(name = "codigo_talla_indumentaria", unique = true, nullable = false)
-	public String getCodigoTallaIndumentaria() {
+	public int getCodigoTallaIndumentaria() {
 		return this.codigoTallaIndumentaria;
 	}
 
-	public void setCodigoTallaIndumentaria(String codigoTallaIndumentaria) {
+	public void setCodigoTallaIndumentaria(int codigoTallaIndumentaria) {
 		this.codigoTallaIndumentaria = codigoTallaIndumentaria;
 	}
 
@@ -85,6 +89,15 @@ public class TallaPorIndumentaria implements java.io.Serializable {
 		this.datoBasicoByCodigoIndumentaria = datoBasicoByCodigoIndumentaria;
 	}
 
+	@Column(name = "precio", nullable = false, precision = 8, scale = 8)
+	public float getPrecio() {
+		return this.precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
+	}
+
 	@Column(name = "estatus", nullable = false, length = 1)
 	public char getEstatus() {
 		return this.estatus;
@@ -95,21 +108,22 @@ public class TallaPorIndumentaria implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tallaPorIndumentaria")
+	public Set<DocumentoIndumentaria> getDocumentoIndumentarias() {
+		return this.documentoIndumentarias;
+	}
+
+	public void setDocumentoIndumentarias(
+			Set<DocumentoIndumentaria> documentoIndumentarias) {
+		this.documentoIndumentarias = documentoIndumentarias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tallaPorIndumentaria")
 	public Set<TallaPorJugador> getTallaPorJugadors() {
 		return this.tallaPorJugadors;
 	}
 
 	public void setTallaPorJugadors(Set<TallaPorJugador> tallaPorJugadors) {
 		this.tallaPorJugadors = tallaPorJugadors;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tallaPorIndumentaria")
-	public Set<ParticipantePlan> getParticipantePlans() {
-		return this.participantePlans;
-	}
-
-	public void setParticipantePlans(Set<ParticipantePlan> participantePlans) {
-		this.participantePlans = participantePlans;
 	}
 
 }

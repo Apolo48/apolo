@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -12,12 +12,12 @@ import javax.persistence.Embeddable;
 public class TallaPorJugadorId implements java.io.Serializable {
 
 	private String cedulaRif;
-	private String codigoTallaIndumentaria;
+	private int codigoTallaIndumentaria;
 
 	public TallaPorJugadorId() {
 	}
 
-	public TallaPorJugadorId(String cedulaRif, String codigoTallaIndumentaria) {
+	public TallaPorJugadorId(String cedulaRif, int codigoTallaIndumentaria) {
 		this.cedulaRif = cedulaRif;
 		this.codigoTallaIndumentaria = codigoTallaIndumentaria;
 	}
@@ -32,11 +32,11 @@ public class TallaPorJugadorId implements java.io.Serializable {
 	}
 
 	@Column(name = "codigo_talla_indumentaria", nullable = false)
-	public String getCodigoTallaIndumentaria() {
+	public int getCodigoTallaIndumentaria() {
 		return this.codigoTallaIndumentaria;
 	}
 
-	public void setCodigoTallaIndumentaria(String codigoTallaIndumentaria) {
+	public void setCodigoTallaIndumentaria(int codigoTallaIndumentaria) {
 		this.codigoTallaIndumentaria = codigoTallaIndumentaria;
 	}
 
@@ -52,12 +52,8 @@ public class TallaPorJugadorId implements java.io.Serializable {
 		return ((this.getCedulaRif() == castOther.getCedulaRif()) || (this
 				.getCedulaRif() != null && castOther.getCedulaRif() != null && this
 				.getCedulaRif().equals(castOther.getCedulaRif())))
-				&& ((this.getCodigoTallaIndumentaria() == castOther
-						.getCodigoTallaIndumentaria()) || (this
-						.getCodigoTallaIndumentaria() != null
-						&& castOther.getCodigoTallaIndumentaria() != null && this
-						.getCodigoTallaIndumentaria().equals(
-								castOther.getCodigoTallaIndumentaria())));
+				&& (this.getCodigoTallaIndumentaria() == castOther
+						.getCodigoTallaIndumentaria());
 	}
 
 	public int hashCode() {
@@ -65,10 +61,7 @@ public class TallaPorJugadorId implements java.io.Serializable {
 
 		result = 37 * result
 				+ (getCedulaRif() == null ? 0 : this.getCedulaRif().hashCode());
-		result = 37
-				* result
-				+ (getCodigoTallaIndumentaria() == null ? 0 : this
-						.getCodigoTallaIndumentaria().hashCode());
+		result = 37 * result + this.getCodigoTallaIndumentaria();
 		return result;
 	}
 

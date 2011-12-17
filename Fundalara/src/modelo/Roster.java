@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -23,17 +23,22 @@ import javax.persistence.TemporalType;
 @Table(name = "roster")
 public class Roster implements java.io.Serializable {
 
-	private String codigoRoster;
+	private int codigoRoster;
 	private Jugador jugador;
 	private Equipo equipo;
 	private Date fechaIngreso;
 	private char estatus;
+	private Set<TestJugador> testJugadors = new HashSet<TestJugador>(0);
 	private Set<Ascenso> ascensos = new HashSet<Ascenso>(0);
+	private Set<AsistenciaJugador> asistenciaJugadors = new HashSet<AsistenciaJugador>(
+			0);
+	private Set<RosterCompetencia> rosterCompetencias = new HashSet<RosterCompetencia>(
+			0);
 
 	public Roster() {
 	}
 
-	public Roster(String codigoRoster, Jugador jugador, Equipo equipo,
+	public Roster(int codigoRoster, Jugador jugador, Equipo equipo,
 			Date fechaIngreso, char estatus) {
 		this.codigoRoster = codigoRoster;
 		this.jugador = jugador;
@@ -42,23 +47,28 @@ public class Roster implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	public Roster(String codigoRoster, Jugador jugador, Equipo equipo,
-			Date fechaIngreso, char estatus, Set<Ascenso> ascensos) {
+	public Roster(int codigoRoster, Jugador jugador, Equipo equipo,
+			Date fechaIngreso, char estatus, Set<TestJugador> testJugadors,
+			Set<Ascenso> ascensos, Set<AsistenciaJugador> asistenciaJugadors,
+			Set<RosterCompetencia> rosterCompetencias) {
 		this.codigoRoster = codigoRoster;
 		this.jugador = jugador;
 		this.equipo = equipo;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
+		this.testJugadors = testJugadors;
 		this.ascensos = ascensos;
+		this.asistenciaJugadors = asistenciaJugadors;
+		this.rosterCompetencias = rosterCompetencias;
 	}
 
 	@Id
 	@Column(name = "codigo_roster", unique = true, nullable = false)
-	public String getCodigoRoster() {
+	public int getCodigoRoster() {
 		return this.codigoRoster;
 	}
 
-	public void setCodigoRoster(String codigoRoster) {
+	public void setCodigoRoster(int codigoRoster) {
 		this.codigoRoster = codigoRoster;
 	}
 
@@ -102,12 +112,39 @@ public class Roster implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roster")
+	public Set<TestJugador> getTestJugadors() {
+		return this.testJugadors;
+	}
+
+	public void setTestJugadors(Set<TestJugador> testJugadors) {
+		this.testJugadors = testJugadors;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roster")
 	public Set<Ascenso> getAscensos() {
 		return this.ascensos;
 	}
 
 	public void setAscensos(Set<Ascenso> ascensos) {
 		this.ascensos = ascensos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roster")
+	public Set<AsistenciaJugador> getAsistenciaJugadors() {
+		return this.asistenciaJugadors;
+	}
+
+	public void setAsistenciaJugadors(Set<AsistenciaJugador> asistenciaJugadors) {
+		this.asistenciaJugadors = asistenciaJugadors;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roster")
+	public Set<RosterCompetencia> getRosterCompetencias() {
+		return this.rosterCompetencias;
+	}
+
+	public void setRosterCompetencias(Set<RosterCompetencia> rosterCompetencias) {
+		this.rosterCompetencias = rosterCompetencias;
 	}
 
 }

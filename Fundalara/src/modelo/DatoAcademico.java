@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 @Table(name = "dato_academico")
 public class DatoAcademico implements java.io.Serializable {
 
-	private String codigoAcademico;
+	private int codigoAcademico;
 	private DatoBasico datoBasicoByCodigoCurso;
 	private Institucion institucion;
 	private DatoBasico datoBasicoByCodigoAnnoEscolar;
@@ -36,7 +36,7 @@ public class DatoAcademico implements java.io.Serializable {
 	public DatoAcademico() {
 	}
 
-	public DatoAcademico(String codigoAcademico,
+	public DatoAcademico(int codigoAcademico,
 			DatoBasico datoBasicoByCodigoCurso, Institucion institucion,
 			DatoBasico datoBasicoByCodigoAnnoEscolar, Jugador jugador,
 			Date fechaIngreso, char estatus) {
@@ -49,7 +49,7 @@ public class DatoAcademico implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	public DatoAcademico(String codigoAcademico,
+	public DatoAcademico(int codigoAcademico,
 			DatoBasico datoBasicoByCodigoCurso, Institucion institucion,
 			DatoBasico datoBasicoByCodigoAnnoEscolar, Jugador jugador,
 			Date fechaIngreso, char estatus,
@@ -66,11 +66,11 @@ public class DatoAcademico implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_academico", unique = true, nullable = false)
-	public String getCodigoAcademico() {
+	public int getCodigoAcademico() {
 		return this.codigoAcademico;
 	}
 
-	public void setCodigoAcademico(String codigoAcademico) {
+	public void setCodigoAcademico(int codigoAcademico) {
 		this.codigoAcademico = codigoAcademico;
 	}
 

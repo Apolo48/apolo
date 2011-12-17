@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,38 +20,53 @@ import javax.persistence.Table;
 @Table(name = "equipo_competencia")
 public class EquipoCompetencia implements java.io.Serializable {
 
-	private String codigoEquipoCompetencia;
+	private int codigoEquipoCompetencia;
+	private Persona persona;
 	private Competencia competencia;
 	private Equipo equipo;
+	private Set<JugadorForaneo> jugadorForaneos = new HashSet<JugadorForaneo>(0);
 	private Set<EquipoJuego> equipoJuegos = new HashSet<EquipoJuego>(0);
 
 	public EquipoCompetencia() {
 	}
 
-	public EquipoCompetencia(String codigoEquipoCompetencia,
+	public EquipoCompetencia(int codigoEquipoCompetencia, Persona persona,
 			Competencia competencia, Equipo equipo) {
 		this.codigoEquipoCompetencia = codigoEquipoCompetencia;
+		this.persona = persona;
 		this.competencia = competencia;
 		this.equipo = equipo;
 	}
 
-	public EquipoCompetencia(String codigoEquipoCompetencia,
+	public EquipoCompetencia(int codigoEquipoCompetencia, Persona persona,
 			Competencia competencia, Equipo equipo,
-			Set<EquipoJuego> equipoJuegos) {
+			Set<JugadorForaneo> jugadorForaneos, Set<EquipoJuego> equipoJuegos) {
 		this.codigoEquipoCompetencia = codigoEquipoCompetencia;
+		this.persona = persona;
 		this.competencia = competencia;
 		this.equipo = equipo;
+		this.jugadorForaneos = jugadorForaneos;
 		this.equipoJuegos = equipoJuegos;
 	}
 
 	@Id
 	@Column(name = "codigo_equipo_competencia", unique = true, nullable = false)
-	public String getCodigoEquipoCompetencia() {
+	public int getCodigoEquipoCompetencia() {
 		return this.codigoEquipoCompetencia;
 	}
 
-	public void setCodigoEquipoCompetencia(String codigoEquipoCompetencia) {
+	public void setCodigoEquipoCompetencia(int codigoEquipoCompetencia) {
 		this.codigoEquipoCompetencia = codigoEquipoCompetencia;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "delegado", nullable = false)
+	public Persona getPersona() {
+		return this.persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -72,6 +87,15 @@ public class EquipoCompetencia implements java.io.Serializable {
 
 	public void setEquipo(Equipo equipo) {
 		this.equipo = equipo;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipoCompetencia")
+	public Set<JugadorForaneo> getJugadorForaneos() {
+		return this.jugadorForaneos;
+	}
+
+	public void setJugadorForaneos(Set<JugadorForaneo> jugadorForaneos) {
+		this.jugadorForaneos = jugadorForaneos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipoCompetencia")

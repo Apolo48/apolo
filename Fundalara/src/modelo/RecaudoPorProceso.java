@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Table(name = "recaudo_por_proceso")
 public class RecaudoPorProceso implements java.io.Serializable {
 
-	private String codigoRecaudoPorProceso;
+	private int codigoRecaudoPorProceso;
 	private DatoBasico datoBasicoByCodigoDocumento;
 	private DatoBasico datoBasicoByCodigoImportancia;
 	private DatoBasico datoBasicoByCodigoProceso;
@@ -32,7 +32,7 @@ public class RecaudoPorProceso implements java.io.Serializable {
 	public RecaudoPorProceso() {
 	}
 
-	public RecaudoPorProceso(String codigoRecaudoPorProceso,
+	public RecaudoPorProceso(int codigoRecaudoPorProceso,
 			DatoBasico datoBasicoByCodigoDocumento,
 			DatoBasico datoBasicoByCodigoImportancia,
 			DatoBasico datoBasicoByCodigoProceso, int cantidad, char estatus) {
@@ -44,7 +44,7 @@ public class RecaudoPorProceso implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	public RecaudoPorProceso(String codigoRecaudoPorProceso,
+	public RecaudoPorProceso(int codigoRecaudoPorProceso,
 			DatoBasico datoBasicoByCodigoDocumento,
 			DatoBasico datoBasicoByCodigoImportancia,
 			DatoBasico datoBasicoByCodigoProceso, int cantidad, char estatus,
@@ -60,11 +60,11 @@ public class RecaudoPorProceso implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_recaudo_por_proceso", unique = true, nullable = false)
-	public String getCodigoRecaudoPorProceso() {
+	public int getCodigoRecaudoPorProceso() {
 		return this.codigoRecaudoPorProceso;
 	}
 
-	public void setCodigoRecaudoPorProceso(String codigoRecaudoPorProceso) {
+	public void setCodigoRecaudoPorProceso(int codigoRecaudoPorProceso) {
 		this.codigoRecaudoPorProceso = codigoRecaudoPorProceso;
 	}
 

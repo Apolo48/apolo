@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "dato_social")
 public class DatoSocial implements java.io.Serializable {
 
-	private String codigoDatoSocial;
+	private int codigoDatoSocial;
 	private DatoBasico datoBasico;
 	private Institucion institucion;
 	private Jugador jugador;
@@ -28,7 +28,7 @@ public class DatoSocial implements java.io.Serializable {
 	public DatoSocial() {
 	}
 
-	public DatoSocial(String codigoDatoSocial, DatoBasico datoBasico,
+	public DatoSocial(int codigoDatoSocial, DatoBasico datoBasico,
 			Institucion institucion, Jugador jugador, char estatus) {
 		this.codigoDatoSocial = codigoDatoSocial;
 		this.datoBasico = datoBasico;
@@ -37,7 +37,7 @@ public class DatoSocial implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	public DatoSocial(String codigoDatoSocial, DatoBasico datoBasico,
+	public DatoSocial(int codigoDatoSocial, DatoBasico datoBasico,
 			Institucion institucion, Jugador jugador, Integer horasDedicadas,
 			String fechaInicio, char estatus) {
 		this.codigoDatoSocial = codigoDatoSocial;
@@ -51,11 +51,11 @@ public class DatoSocial implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_dato_social", unique = true, nullable = false)
-	public String getCodigoDatoSocial() {
+	public int getCodigoDatoSocial() {
 		return this.codigoDatoSocial;
 	}
 
-	public void setCodigoDatoSocial(String codigoDatoSocial) {
+	public void setCodigoDatoSocial(int codigoDatoSocial) {
 		this.codigoDatoSocial = codigoDatoSocial;
 	}
 

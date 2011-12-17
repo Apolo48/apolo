@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,10 +24,12 @@ import javax.persistence.TemporalType;
 @Table(name = "competencia")
 public class Competencia implements java.io.Serializable {
 
-	private String codigoCompetencia;
-	private DatoBasico datoBasicoByCodigoTipo;
-	private Temporada temporada;
+	private int codigoCompetencia;
+	private TipoCompetencia tipoCompetencia;
+	private DatoBasico datoBasicoByCodigoEstadoCompetencia;
+	private DatoBasico datoBasicoByCodigoOrganizacion;
 	private DatoBasico datoBasicoByCodigoEstado;
+	private LapsoDeportivo lapsoDeportivo;
 	private String nombre;
 	private Date fechaInicio;
 	private Date fechaFin;
@@ -38,30 +41,40 @@ public class Competencia implements java.io.Serializable {
 	private String desempate;
 	private String extrainning;
 	private byte[] documento;
+	private Set<ActividadCalendario> actividadCalendarios = new HashSet<ActividadCalendario>(
+			0);
 	private Set<FaseCompetencia> faseCompetencias = new HashSet<FaseCompetencia>(
 			0);
 	private Set<CategoriaCompetencia> categoriaCompetencias = new HashSet<CategoriaCompetencia>(
 			0);
 	private Set<EquipoCompetencia> equipoCompetencias = new HashSet<EquipoCompetencia>(
 			0);
+	private Set<Liga> ligas = new HashSet<Liga>(0);
 	private Set<DatoDeportivo> datoDeportivos = new HashSet<DatoDeportivo>(0);
 	private Set<Hospedaje> hospedajes = new HashSet<Hospedaje>(0);
+	private Set<RosterCompetencia> rosterCompetencias = new HashSet<RosterCompetencia>(
+			0);
+	private Set<IndicadorCategoriaCompetencia> indicadorCategoriaCompetencias = new HashSet<IndicadorCategoriaCompetencia>(
+			0);
 	private Set<Juego> juegos = new HashSet<Juego>(0);
 
 	public Competencia() {
 	}
 
-	public Competencia(String codigoCompetencia,
-			DatoBasico datoBasicoByCodigoTipo, Temporada temporada,
-			DatoBasico datoBasicoByCodigoEstado, String nombre,
-			Date fechaInicio, Date fechaFin, int cantidadEquipo,
+	public Competencia(int codigoCompetencia, TipoCompetencia tipoCompetencia,
+			DatoBasico datoBasicoByCodigoEstadoCompetencia,
+			DatoBasico datoBasicoByCodigoOrganizacion,
+			DatoBasico datoBasicoByCodigoEstado, LapsoDeportivo lapsoDeportivo,
+			String nombre, Date fechaInicio, Date fechaFin, int cantidadEquipo,
 			int cantidadFase, int cantidadJugador, float montoInscripcion,
 			String condicionesGenerales, String desempate, String extrainning,
 			byte[] documento) {
 		this.codigoCompetencia = codigoCompetencia;
-		this.datoBasicoByCodigoTipo = datoBasicoByCodigoTipo;
-		this.temporada = temporada;
+		this.tipoCompetencia = tipoCompetencia;
+		this.datoBasicoByCodigoEstadoCompetencia = datoBasicoByCodigoEstadoCompetencia;
+		this.datoBasicoByCodigoOrganizacion = datoBasicoByCodigoOrganizacion;
 		this.datoBasicoByCodigoEstado = datoBasicoByCodigoEstado;
+		this.lapsoDeportivo = lapsoDeportivo;
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
@@ -75,21 +88,27 @@ public class Competencia implements java.io.Serializable {
 		this.documento = documento;
 	}
 
-	public Competencia(String codigoCompetencia,
-			DatoBasico datoBasicoByCodigoTipo, Temporada temporada,
-			DatoBasico datoBasicoByCodigoEstado, String nombre,
-			Date fechaInicio, Date fechaFin, int cantidadEquipo,
+	public Competencia(int codigoCompetencia, TipoCompetencia tipoCompetencia,
+			DatoBasico datoBasicoByCodigoEstadoCompetencia,
+			DatoBasico datoBasicoByCodigoOrganizacion,
+			DatoBasico datoBasicoByCodigoEstado, LapsoDeportivo lapsoDeportivo,
+			String nombre, Date fechaInicio, Date fechaFin, int cantidadEquipo,
 			int cantidadFase, int cantidadJugador, float montoInscripcion,
 			String condicionesGenerales, String desempate, String extrainning,
-			byte[] documento, Set<FaseCompetencia> faseCompetencias,
+			byte[] documento, Set<ActividadCalendario> actividadCalendarios,
+			Set<FaseCompetencia> faseCompetencias,
 			Set<CategoriaCompetencia> categoriaCompetencias,
-			Set<EquipoCompetencia> equipoCompetencias,
+			Set<EquipoCompetencia> equipoCompetencias, Set<Liga> ligas,
 			Set<DatoDeportivo> datoDeportivos, Set<Hospedaje> hospedajes,
+			Set<RosterCompetencia> rosterCompetencias,
+			Set<IndicadorCategoriaCompetencia> indicadorCategoriaCompetencias,
 			Set<Juego> juegos) {
 		this.codigoCompetencia = codigoCompetencia;
-		this.datoBasicoByCodigoTipo = datoBasicoByCodigoTipo;
-		this.temporada = temporada;
+		this.tipoCompetencia = tipoCompetencia;
+		this.datoBasicoByCodigoEstadoCompetencia = datoBasicoByCodigoEstadoCompetencia;
+		this.datoBasicoByCodigoOrganizacion = datoBasicoByCodigoOrganizacion;
 		this.datoBasicoByCodigoEstado = datoBasicoByCodigoEstado;
+		this.lapsoDeportivo = lapsoDeportivo;
 		this.nombre = nombre;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
@@ -101,42 +120,58 @@ public class Competencia implements java.io.Serializable {
 		this.desempate = desempate;
 		this.extrainning = extrainning;
 		this.documento = documento;
+		this.actividadCalendarios = actividadCalendarios;
 		this.faseCompetencias = faseCompetencias;
 		this.categoriaCompetencias = categoriaCompetencias;
 		this.equipoCompetencias = equipoCompetencias;
+		this.ligas = ligas;
 		this.datoDeportivos = datoDeportivos;
 		this.hospedajes = hospedajes;
+		this.rosterCompetencias = rosterCompetencias;
+		this.indicadorCategoriaCompetencias = indicadorCategoriaCompetencias;
 		this.juegos = juegos;
 	}
 
 	@Id
 	@Column(name = "codigo_competencia", unique = true, nullable = false)
-	public String getCodigoCompetencia() {
+	public int getCodigoCompetencia() {
 		return this.codigoCompetencia;
 	}
 
-	public void setCodigoCompetencia(String codigoCompetencia) {
+	public void setCodigoCompetencia(int codigoCompetencia) {
 		this.codigoCompetencia = codigoCompetencia;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_tipo", nullable = false)
-	public DatoBasico getDatoBasicoByCodigoTipo() {
-		return this.datoBasicoByCodigoTipo;
+	@JoinColumn(name = "codigo_tipo_competencia", nullable = false)
+	public TipoCompetencia getTipoCompetencia() {
+		return this.tipoCompetencia;
 	}
 
-	public void setDatoBasicoByCodigoTipo(DatoBasico datoBasicoByCodigoTipo) {
-		this.datoBasicoByCodigoTipo = datoBasicoByCodigoTipo;
+	public void setTipoCompetencia(TipoCompetencia tipoCompetencia) {
+		this.tipoCompetencia = tipoCompetencia;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_temporada", nullable = false)
-	public Temporada getTemporada() {
-		return this.temporada;
+	@JoinColumn(name = "codigo_estado_competencia", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoEstadoCompetencia() {
+		return this.datoBasicoByCodigoEstadoCompetencia;
 	}
 
-	public void setTemporada(Temporada temporada) {
-		this.temporada = temporada;
+	public void setDatoBasicoByCodigoEstadoCompetencia(
+			DatoBasico datoBasicoByCodigoEstadoCompetencia) {
+		this.datoBasicoByCodigoEstadoCompetencia = datoBasicoByCodigoEstadoCompetencia;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_organizacion", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoOrganizacion() {
+		return this.datoBasicoByCodigoOrganizacion;
+	}
+
+	public void setDatoBasicoByCodigoOrganizacion(
+			DatoBasico datoBasicoByCodigoOrganizacion) {
+		this.datoBasicoByCodigoOrganizacion = datoBasicoByCodigoOrganizacion;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -147,6 +182,16 @@ public class Competencia implements java.io.Serializable {
 
 	public void setDatoBasicoByCodigoEstado(DatoBasico datoBasicoByCodigoEstado) {
 		this.datoBasicoByCodigoEstado = datoBasicoByCodigoEstado;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_lapso_deportivo", nullable = false)
+	public LapsoDeportivo getLapsoDeportivo() {
+		return this.lapsoDeportivo;
+	}
+
+	public void setLapsoDeportivo(LapsoDeportivo lapsoDeportivo) {
+		this.lapsoDeportivo = lapsoDeportivo;
 	}
 
 	@Column(name = "nombre", nullable = false)
@@ -251,6 +296,16 @@ public class Competencia implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")
+	public Set<ActividadCalendario> getActividadCalendarios() {
+		return this.actividadCalendarios;
+	}
+
+	public void setActividadCalendarios(
+			Set<ActividadCalendario> actividadCalendarios) {
+		this.actividadCalendarios = actividadCalendarios;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")
 	public Set<FaseCompetencia> getFaseCompetencias() {
 		return this.faseCompetencias;
 	}
@@ -278,6 +333,15 @@ public class Competencia implements java.io.Serializable {
 		this.equipoCompetencias = equipoCompetencias;
 	}
 
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "competencias")
+	public Set<Liga> getLigas() {
+		return this.ligas;
+	}
+
+	public void setLigas(Set<Liga> ligas) {
+		this.ligas = ligas;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")
 	public Set<DatoDeportivo> getDatoDeportivos() {
 		return this.datoDeportivos;
@@ -294,6 +358,25 @@ public class Competencia implements java.io.Serializable {
 
 	public void setHospedajes(Set<Hospedaje> hospedajes) {
 		this.hospedajes = hospedajes;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")
+	public Set<RosterCompetencia> getRosterCompetencias() {
+		return this.rosterCompetencias;
+	}
+
+	public void setRosterCompetencias(Set<RosterCompetencia> rosterCompetencias) {
+		this.rosterCompetencias = rosterCompetencias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")
+	public Set<IndicadorCategoriaCompetencia> getIndicadorCategoriaCompetencias() {
+		return this.indicadorCategoriaCompetencias;
+	}
+
+	public void setIndicadorCategoriaCompetencias(
+			Set<IndicadorCategoriaCompetencia> indicadorCategoriaCompetencias) {
+		this.indicadorCategoriaCompetencias = indicadorCategoriaCompetencias;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competencia")

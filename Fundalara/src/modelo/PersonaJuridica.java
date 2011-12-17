@@ -1,12 +1,15 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -25,6 +28,7 @@ public class PersonaJuridica implements java.io.Serializable {
 	private String nit;
 	private String fax;
 	private String razonSocial;
+	private Set<ProveedorBanco> proveedorBancos = new HashSet<ProveedorBanco>(0);
 
 	public PersonaJuridica() {
 	}
@@ -35,6 +39,15 @@ public class PersonaJuridica implements java.io.Serializable {
 		this.nit = nit;
 		this.fax = fax;
 		this.razonSocial = razonSocial;
+	}
+
+	public PersonaJuridica(Persona persona, String nit, String fax,
+			String razonSocial, Set<ProveedorBanco> proveedorBancos) {
+		this.persona = persona;
+		this.nit = nit;
+		this.fax = fax;
+		this.razonSocial = razonSocial;
+		this.proveedorBancos = proveedorBancos;
 	}
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "persona"))
@@ -84,6 +97,15 @@ public class PersonaJuridica implements java.io.Serializable {
 
 	public void setRazonSocial(String razonSocial) {
 		this.razonSocial = razonSocial;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personaJuridica")
+	public Set<ProveedorBanco> getProveedorBancos() {
+		return this.proveedorBancos;
+	}
+
+	public void setProveedorBancos(Set<ProveedorBanco> proveedorBancos) {
+		this.proveedorBancos = proveedorBancos;
 	}
 
 }

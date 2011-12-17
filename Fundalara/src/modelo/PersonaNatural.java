@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,13 +28,22 @@ public class PersonaNatural implements java.io.Serializable {
 	private String primerApellido;
 	private String segundoApellido;
 	private byte[] foto;
+	private Personal personal;
 
 	public PersonaNatural() {
 	}
 
 	public PersonaNatural(Persona persona, String celular, String primerNombre,
+			String primerApellido) {
+		this.persona = persona;
+		this.celular = celular;
+		this.primerNombre = primerNombre;
+		this.primerApellido = primerApellido;
+	}
+
+	public PersonaNatural(Persona persona, String celular, String primerNombre,
 			String segundoNombre, String primerApellido,
-			String segundoApellido, byte[] foto) {
+			String segundoApellido, byte[] foto, Personal personal) {
 		this.persona = persona;
 		this.celular = celular;
 		this.primerNombre = primerNombre;
@@ -42,6 +51,7 @@ public class PersonaNatural implements java.io.Serializable {
 		this.primerApellido = primerApellido;
 		this.segundoApellido = segundoApellido;
 		this.foto = foto;
+		this.personal = personal;
 	}
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "persona"))
@@ -84,7 +94,7 @@ public class PersonaNatural implements java.io.Serializable {
 		this.primerNombre = primerNombre;
 	}
 
-	@Column(name = "segundo_nombre", nullable = false)
+	@Column(name = "segundo_nombre")
 	public String getSegundoNombre() {
 		return this.segundoNombre;
 	}
@@ -102,7 +112,7 @@ public class PersonaNatural implements java.io.Serializable {
 		this.primerApellido = primerApellido;
 	}
 
-	@Column(name = "segundo_apellido", nullable = false)
+	@Column(name = "segundo_apellido")
 	public String getSegundoApellido() {
 		return this.segundoApellido;
 	}
@@ -111,13 +121,22 @@ public class PersonaNatural implements java.io.Serializable {
 		this.segundoApellido = segundoApellido;
 	}
 
-	@Column(name = "foto", nullable = false)
+	@Column(name = "foto")
 	public byte[] getFoto() {
 		return this.foto;
 	}
 
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "personaNatural")
+	public Personal getPersonal() {
+		return this.personal;
+	}
+
+	public void setPersonal(Personal personal) {
+		this.personal = personal;
 	}
 
 }

@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17/12/2011 10:20:04 AM by Hibernate Tools 3.4.0.CR1
+// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 @Table(name = "ascenso")
 public class Ascenso implements java.io.Serializable {
 
-	private String codigoAscenso;
+	private int codigoAscenso;
 	private Roster roster;
 	private DatoBasico datoBasico;
 	private Date fechaAscenso;
@@ -34,7 +34,7 @@ public class Ascenso implements java.io.Serializable {
 	public Ascenso() {
 	}
 
-	public Ascenso(String codigoAscenso, Roster roster, DatoBasico datoBasico,
+	public Ascenso(int codigoAscenso, Roster roster, DatoBasico datoBasico,
 			Date fechaAscenso, char estatus) {
 		this.codigoAscenso = codigoAscenso;
 		this.roster = roster;
@@ -43,7 +43,7 @@ public class Ascenso implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	public Ascenso(String codigoAscenso, Roster roster, DatoBasico datoBasico,
+	public Ascenso(int codigoAscenso, Roster roster, DatoBasico datoBasico,
 			Date fechaAscenso, char estatus,
 			Set<DocumentoAscenso> documentoAscensos) {
 		this.codigoAscenso = codigoAscenso;
@@ -56,11 +56,11 @@ public class Ascenso implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_ascenso", unique = true, nullable = false)
-	public String getCodigoAscenso() {
+	public int getCodigoAscenso() {
 		return this.codigoAscenso;
 	}
 
-	public void setCodigoAscenso(String codigoAscenso) {
+	public void setCodigoAscenso(int codigoAscenso) {
 		this.codigoAscenso = codigoAscenso;
 	}
 
