@@ -1,6 +1,6 @@
 <?page title="Registrar Jugador"?>
 <!--<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
-  <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>  -->
+	<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>  -->
 <zk>
 	<zscript><![CDATA[
 	//@IMPORT
@@ -497,15 +497,15 @@
 															<button
 																label="Subir">
 																<attribute name="onClick"><![CDATA[
-																	Object media = Fileupload.get();
-																]]></attribute>
+	Object media = Fileupload.get();
+]]></attribute>
 															</button>
 														</row>
 													</rows>
 												</grid>
 											</groupbox>
 										</tabpanel><!-- Fin tabJugPersonales -->
-										
+
 										<tabpanel><!-- Inicio tabJugMedicos -->
 											<grid style="border:none;"
 												oddRowSclass="none">
@@ -572,6 +572,25 @@
 													</columns>
 													<rows>
 														<row
+															style="border:none;">
+															<label
+																value="Médico" />
+															<div>
+																<textbox
+																	maxlength="40" width="70%" disabled="true"
+																	id="txtMedico" />
+																<button
+																	id="btnCatalogoMedico"
+																	image="../../Recursos/Imagenes/consultar.ico"
+																	orient="horizontal" />
+															</div>
+															<label
+																value="Número Colegio" />
+															<textbox
+																width="60%" id="txtNroColegio" disabled="true" />
+															<space />
+														</row>
+														<row
 															style="border:none;" spans="1,3">
 															<label
 																value="Fecha" />
@@ -580,25 +599,6 @@
 																format="dd/MM/yyyy"
 																value="@{controller.datoMedico.fechaInforme}"
 																style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
-														</row>
-														<row
-															style="border:none;">
-															<label
-																value="Número Colegio" />
-															<div>
-																<textbox
-																	width="50%" id="txtNroColegio" />
-																<space />
-																<button
-																	id="btnCatalogoMedico"
-																	image="../../Recursos/Imagenes/consultar.ico"
-																	orient="horizontal" />
-															</div>
-															<label
-																value="Médico" />
-															<textbox
-																maxlength="40" width="90%" disabled="true"
-																id="txtMedico" />
 														</row>
 														<row
 															style="border:none;" spans="4">
@@ -632,7 +632,6 @@
 																		</row>
 																		<row
 																			style="border:none;" spans="4">
-
 																			<grid
 																				style="border:none;">
 																				<columns>
@@ -722,15 +721,15 @@
 															<button
 																label="Subir">
 																<attribute name="onClick"><![CDATA[
-																	Object media = Fileupload.get();
-																]]></attribute>
+	Object media = Fileupload.get();
+]]></attribute>
 															</button>
 														</row>
 													</rows>
 												</grid>
 											</groupbox>
 										</tabpanel><!-- Fin tabJugMedicos -->
-										
+
 										<tabpanel><!-- Inicio tabJugAcademicos -->
 											<groupbox
 												style="border-color:orange" closable="false">
@@ -753,26 +752,17 @@
 															style="border:none;" spans="1,3">
 															<label
 																value="Institución" />
-															<div>
-																<textbox
-																	width="80%" id="txtInstitucionEducativa" />
-																<button
-																	id="btnCatalogoInstitucionEducativa"
-																	image="../../Recursos/Imagenes/consultar.ico" />
-															</div>
+															<combobox
+																id="cmbInstitucionEducativa" width="90%"
+																model="@{winRegistroJugador$composer.institucionesEducativas}"
+																readonly="true" value="--Seleccione--">
+																<comboitem
+																	self="@{each='institucionEdu'}"
+																	label="@{institucionEdu.nombre}" />
+															</combobox>
 														</row>
 														<row
 															style="border:none;">
-															<label
-																value="Curso" />
-															<combobox
-																id="cmbCurso"
-																model="@{winRegistroJugador$composer.cursos}"
-																readonly="true" value="--Seleccione--">
-																<comboitem
-																	self="@{each='curso'}" label="@{curso.nombre}"
-																	value="@{curso.codigoCurso}" />
-															</combobox>
 															<label
 																value="Año escolar" />
 															<combobox
@@ -784,6 +774,16 @@
 																	label="2010-2011" />
 																<comboitem
 																	label="2011-2012" />
+															</combobox>
+															<label
+																value="Curso" />
+															<combobox
+																id="cmbCurso"
+																model="@{winRegistroJugador$composer.cursos}"
+																readonly="true" value="--Seleccione--">
+																<comboitem
+																	self="@{each='curso'}" label="@{curso.nombre}"
+																	value="@{curso.codigoCurso}" />
 															</combobox>
 														</row>
 													</rows>
@@ -821,15 +821,15 @@
 															<button
 																label="Subir">
 																<attribute name="onClick"><![CDATA[
-																	Object media = Fileupload.get();
-																]]></attribute>
+	Object media = Fileupload.get();
+]]></attribute>
 															</button>
 														</row>
 													</rows>
 												</grid>
 											</groupbox>
 										</tabpanel><!-- Fin tabJugAcademicos -->
-										
+
 										<tabpanel><!-- Inicio tabJugSociales -->
 											<groupbox
 												style="border-color:orange" closable="false">
@@ -852,20 +852,19 @@
 															style="border:none;" spans="1,3">
 															<label
 																value="Institución" />
-															<div>
-																<textbox
-																	maxlength="50" width="80%"
-																	id="txtInsitucionRecreativa" />
-																<button
-																	id="btnCatalogoInstitucionRecreativa"
-																	image="../../Recursos/Imagenes/consultar.ico" />
-															</div>
+															<combobox
+																id="cmbInstitucionRecreativa" width="90%"
+																model="@{winRegistroJugador$composer.institucionesRecreativas}"
+																readonly="true" value="--Seleccione--">
+																<comboitem
+																	self="@{each='institucionRecreativa'}"
+																	label="@{institucionRecreativa.nombre}" />
+															</combobox>
 														</row>
 														<row
 															style="border:none;">
 															<label
 																value="Actividad" />
-
 															<combobox
 																id="cmbActividad" readonly="true" value="--Seleccione--"
 																width="80%">
@@ -878,24 +877,23 @@
 																<comboitem
 																	label="Otro Deporte" />
 															</combobox>
-
-															<label
-																value="Horas" />
-															<div>
-																<intbox
-																	width="20%" id="txtHorasSemanales" />
-																<space />
-																<label
-																	value="Semanales" />
-															</div>
-														</row>
-														<row
-															style="border:none;" spans="1,3">
 															<label
 																value="Fecha inicio" />
 															<datebox
 																id="dtboxFechaInicioActividad" format="dd/MM/yyyy"
 																style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
+														</row>
+														<row
+															style="border:none;" spans="1,3">
+															<label
+																value="Horas" />
+															<div>
+																<intbox
+																	width="10%" id="txtHorasSemanales" />
+																<space />
+																<label
+																	value="Semanales" />
+															</div>
 														</row>
 													</rows>
 												</grid>
@@ -1844,7 +1842,7 @@
 												</grid>
 											</groupbox>
 										</tabpanel><!-- Fin tabFamBasicos -->
-										
+
 										<tabpanel><!-- Inicio tabFamUbicacion -->
 											<groupbox
 												style="border-color:orange" closable="false">
@@ -2039,7 +2037,7 @@
 												</grid>
 											</groupbox>
 										</tabpanel><!-- Fin tabFamUbicacion -->
-										
+
 										<tabpanel><!-- Inicio tabFamComisiones -->
 											<groupbox
 												style="border-color:orange" closable="false">
