@@ -81,6 +81,8 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private DatoBasico municipioNac = new DatoBasico();
 	private DatoBasico municipioResi = new DatoBasico();
 	private DatoMedico datoMedico = new DatoMedico();
+	private DatoMedico institucionEducativa = new DatoMedico();
+	private DatoMedico institucionRecreativa = new DatoMedico();
 	// private List<TipoAfeccion> afeccionesActuales;
 	// private List<AfeccionJugador> afeccionJugador;// = new AfeccionJugador();
 
@@ -142,15 +144,38 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	public void setDatoMedico(DatoMedico datoMedico) {
 		this.datoMedico = datoMedico;
 	}
+	
+	public DatoMedico getInstitucionEducativa() {
+		return institucionEducativa;
+	}
+
+	public void setInstitucionEducativa(DatoMedico institucionEducativa) {
+		this.institucionEducativa = institucionEducativa;
+	}
+
+	public DatoMedico getInstitucionRecreativa() {
+		return institucionRecreativa;
+	}
+
+	public void setInstitucionRecreativa(DatoMedico institucionRecreativa) {
+		this.institucionRecreativa = institucionRecreativa;
+	}
 
 	// Metodos para carga de combos/listbox
-
 	public List<Categoria> getCategorias() {
 		return servicioCategoria.listar();
 	}
 
 	public List<DatoBasico> getCursos() {
-		return servicioDatoBasico.listar(TipoDatoBasico.PAIS);
+		return servicioDatoBasico.listar(TipoDatoBasico.CURSO);
+	}
+	
+	public List<DatoBasico> getAnnoEsc() {
+		return servicioDatoBasico.listar(TipoDatoBasico.ANNO_ESCOLAR);
+	}
+
+	public List<DatoBasico> getActividadSoc() {
+		return servicioDatoBasico.listar(TipoDatoBasico.ACTIVIDAD_SOCIAL);
 	}
 
 	public List<DatoBasico> getEstadosVenezuela() {

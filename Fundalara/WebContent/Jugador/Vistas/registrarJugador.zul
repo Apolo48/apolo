@@ -757,13 +757,10 @@
 																value="Año escolar" />
 															<combobox
 																id="cmbAnnioEscolar" readonly="true"
+																model="@{winRegistroJugador$composer.annoEsc}"
 																value="--Seleccione--" width="80%">
 																<comboitem
-																	label="2009-2010" />
-																<comboitem
-																	label="2010-2011" />
-																<comboitem
-																	label="2011-2012" />
+																	self="@{each='anno_escolar'}" label="@{anno_escolar.nombre}" />
 															</combobox>
 															<label
 																value="Curso" />
@@ -856,15 +853,10 @@
 																value="Actividad" />
 															<combobox
 																id="cmbActividad" readonly="true" value="--Seleccione--"
+																model="@{winRegistroJugador$composer.actividadSoc}"
 																width="80%">
 																<comboitem
-																	label="Danza" />
-																<comboitem
-																	label="Música" />
-																<comboitem
-																	label="Pintura" />
-																<comboitem
-																	label="Otro Deporte" />
+																	self="@{each='actividad_social'}" label="@{actividad_social.nombre}" />
 															</combobox>
 															<label
 																value="Fecha inicio" />

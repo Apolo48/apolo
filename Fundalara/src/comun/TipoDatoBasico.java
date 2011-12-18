@@ -10,7 +10,11 @@ public enum TipoDatoBasico {
 	PAIS("1"),
 	ESTADO_VENEZUELA("2"), 
     MUNICIPIO("3"),
-	PARROQUIA("4");
+	PARROQUIA("4"),
+	CURSO("11"),
+	ANNO_ESCOLAR("12"),
+	ACTIVIDAD_SOCIAL("13"),
+	INSTITUCION("20");
 
 	private String codigo;
 
