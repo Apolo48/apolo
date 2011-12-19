@@ -66,5 +66,10 @@
 		<property name="daoDatoBasico" ref="daoDatoBasico"></property>
 	</bean>
 
+<bean id="daoRecaudoPorProceso" class="dao.jugador.DaoRecaudoPorProceso">
+	</bean>
+	<bean id="servicioRecaudoPorProceso" class="servicio.jugador.ServicioRecaudoPorProceso">
+		<property name="daoRecaudoPorProceso" ref="daoRecaudoPorProceso"></property>
+	</bean>
 
 </beans>

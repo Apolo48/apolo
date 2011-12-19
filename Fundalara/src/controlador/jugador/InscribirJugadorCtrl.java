@@ -1,28 +1,85 @@
 package controlador.jugador;
 
+import java.util.List;
+
+import modelo.DatoBasico;
+
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Include;
 
+import servicio.jugador.ServicioDatoBasico;
+
+import comun.Ruta;
+import comun.TipoDatoBasico;
 import comun.Util;
 
 
 public class InscribirJugadorCtrl extends GenericForwardComposer {
+	//componentes visuales
 	private Combobox cmbTipoInscrip;
 	private Include incCuerpo;
+	
+	//Servicios
+	private ServicioDatoBasico servicioDatoBasico;
+	//Nodelo
+	private DatoBasico tipoIncripcion = new DatoBasico();
+	// Binder
+	private AnnotateDataBinder binder;
+	
+	private String rutasJug = Ruta.JUGADOR.getRutaVista();
+	
+	
+	//Getters y setters
+	public DatoBasico getTipoIncripcion() {
+		return tipoIncripcion;
+	}
 
+	public void setTipoIncripcion(DatoBasico tipoIncripcion) {
+		this.tipoIncripcion = tipoIncripcion;
+	}
+	
+	public Include getIncCuerpo() {
+		return incCuerpo;
+	}
+
+	public void setIncCuerpo(Include incCuerpo) {
+		this.incCuerpo = incCuerpo;
+	}
+
+	
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		comp.setVariable("controller", this, false);
+	}
+
+	//Metodos para la carga del combo
+	public List<DatoBasico> getInscripciones() {
+		return servicioDatoBasico.listar(TipoDatoBasico.INSCRIPCION);
+	}
+	
+	//Eventos
 	public void onChange$cmbTipoInscrip() {
 		String src = "";
-		String valor = cmbTipoInscrip.getSelectedItem().getValue().toString();
+		String valor = cmbTipoInscrip.getSelectedItem().getLabel();
 		Util enlace = new Util();
-		if (valor.equals("1")) {
-			src = "Jugador/Vistas/registrarJugador.zul";
-		} else if (valor.equals("2")) {
-			src = "Jugador/Vistas/reingresarJugador.zul";
+		if (valor.equals("Nuevo Ingreso")) {
+			src = "registrarJugador.zul";
+		} else if (valor.equals("Reingreso")) {
+			src = "reingresarJugador.zul";
 		} else {
-			src = "Jugador/Vistas/registrarPlanVacacional.zul";
+			src = "registrarPlanVacacional.zul";
 		}
+		src = rutasJug+src;
+		incCuerpo.setDynamicProperty("tipoInscripcion", tipoIncripcion);
 		enlace.insertarContenido(incCuerpo, src);
 	}
+	
+	
 
 }

@@ -12,7 +12,7 @@ import modelo.DatoBasico;
  * Clase DAO para acceso/manejo de los datos basicos  
  * @author Robert A.
  * @author German L.
- * @version 0.1
+ * @version 0.1 17/12/2011
  *
  */
 public class DaoDatoBasico extends GenericDAO {
@@ -45,5 +45,5 @@ public class DaoDatoBasico extends GenericDAO {
 		tx.commit();  
 		return  lista;
 	}
-	
+
 }

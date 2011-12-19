@@ -2,8 +2,12 @@ package controlador.jugador;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.python.antlr.runtime.debug.DebugEventHub;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
@@ -18,6 +22,7 @@ import org.zkoss.zul.api.Tab;
 
 import servicio.jugador.ServicioCategoria;
 import servicio.jugador.ServicioDatoBasico;
+import servicio.jugador.ServicioRecaudoPorProceso;
 
 import comun.FileLoader;
 import comun.Ruta;
@@ -28,6 +33,7 @@ import modelo.Categoria;
 import modelo.DatoBasico;
 import modelo.DatoMedico;
 import modelo.Jugador;
+import modelo.RecaudoPorProceso;
 
 /**
  * Clase controladora de los eventos de la vista de igual nombre y manejo de los
@@ -73,6 +79,7 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	// Servicios
 	private ServicioDatoBasico servicioDatoBasico;
 	private ServicioCategoria servicioCategoria;
+	private ServicioRecaudoPorProceso servicioRecaudoPorProceso;
 
 	// Modelos
 	private Jugador jugador = new Jugador();
@@ -81,18 +88,28 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private DatoBasico municipioNac = new DatoBasico();
 	private DatoBasico municipioResi = new DatoBasico();
 	private DatoMedico datoMedico = new DatoMedico();
-	private DatoMedico institucionEducativa = new DatoMedico();
-	private DatoMedico institucionRecreativa = new DatoMedico();
+	private DatoBasico institucionEducativa = new DatoBasico();
+	private DatoBasico institucionRecreativa = new DatoBasico();
+	private DatoBasico tipoInscripcion = new DatoBasico();
+	private RecaudoPorProceso recaudoAcademico = new RecaudoPorProceso();
+	private RecaudoPorProceso recaudoMedico = new RecaudoPorProceso();
+	private RecaudoPorProceso recaudoPersonal = new RecaudoPorProceso();
 	// private List<TipoAfeccion> afeccionesActuales;
 	// private List<AfeccionJugador> afeccionJugador;// = new AfeccionJugador();
 
 	// Binder
 	private AnnotateDataBinder binder;
-
+	/**
+	 * Mantiene un Map con todos los atributos asociados a la ejecucion actual
+	 */
+	private Map<String, Object>  requestScope;
+	
+	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
+		this.tipoInscripcion= (DatoBasico) requestScope.get("tipoInscripcion");
 	}
 
 	// Getters y setters
@@ -145,20 +162,52 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		this.datoMedico = datoMedico;
 	}
 	
-	public DatoMedico getInstitucionEducativa() {
+	public DatoBasico getInstitucionEducativa() {
 		return institucionEducativa;
 	}
 
-	public void setInstitucionEducativa(DatoMedico institucionEducativa) {
+	public void setInstitucionEducativa(DatoBasico institucionEducativa) {
 		this.institucionEducativa = institucionEducativa;
 	}
 
-	public DatoMedico getInstitucionRecreativa() {
+	public DatoBasico getInstitucionRecreativa() {
 		return institucionRecreativa;
 	}
 
-	public void setInstitucionRecreativa(DatoMedico institucionRecreativa) {
+	public void setInstitucionRecreativa(DatoBasico institucionRecreativa) {
 		this.institucionRecreativa = institucionRecreativa;
+	}
+
+	public Map<String, Object> getRequestScope() {
+		return requestScope;
+	}
+
+	public void setRequestScope(Map<String, Object> requestScope) {
+		this.requestScope = requestScope;
+	}
+	
+	public RecaudoPorProceso getRecaudoAcademico() {
+		return recaudoAcademico;
+	}
+
+	public void setRecaudoAcademico(RecaudoPorProceso recaudoAcademico) {
+		this.recaudoAcademico = recaudoAcademico;
+	}
+
+	public RecaudoPorProceso getRecaudoMedico() {
+		return recaudoMedico;
+	}
+
+	public void setRecaudoMedico(RecaudoPorProceso recaudoMedico) {
+		this.recaudoMedico = recaudoMedico;
+	}
+
+	public RecaudoPorProceso getRecaudoPersonal() {
+		return recaudoPersonal;
+	}
+
+	public void setRecaudoPersonal(RecaudoPorProceso recaudoPersonal) {
+		this.recaudoPersonal = recaudoPersonal;
 	}
 
 	// Metodos para carga de combos/listbox
@@ -212,6 +261,18 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 
 	public List<DatoBasico> getParroquiasMunicipioResi() {
 		return servicioDatoBasico.buscarDatosPorRelacion(municipioResi);
+	}
+	
+	public List<RecaudoPorProceso> getRecaudosPersonales() {
+		return servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion, TipoDatoBasico.RECAUDOS_PERSONALES);
+	}
+	
+	public List<RecaudoPorProceso> getRecaudosAcademicos() {
+		return servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion, TipoDatoBasico.RECAUDOS_ACADEMICOS);
+	}
+	
+	public List<RecaudoPorProceso> getRecaudosMedicos() {
+		return servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion, TipoDatoBasico.RECAUDOS_MEDICOS);
 	}
 
 	// Eventos

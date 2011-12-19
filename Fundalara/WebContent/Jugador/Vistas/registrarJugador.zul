@@ -6,6 +6,7 @@
 	//@IMPORT
 	import controlador.jugador.*;
 ]]></zscript>
+
 	<div align="left">
 		<window border="none" width="670px" height="1000px"
 			id="winRegistroJugador"
@@ -334,7 +335,7 @@
 																			<combobox
 																				id="cmbParroquiaResi" readonly="true"
 																				value="--Seleccione--" width="27%"
-																			 selectedItem="@{controller.jugador.persona.datoBasico}"
+																				selectedItem="@{controller.jugador.persona.datoBasico}"
 																				model="@{winRegistroJugador$composer.parroquiasMunicipioResi}">
 																				<comboitem
 																					self="@{each='parroquia'}"
@@ -760,7 +761,8 @@
 																model="@{winRegistroJugador$composer.annoEsc}"
 																value="--Seleccione--" width="80%">
 																<comboitem
-																	self="@{each='anno_escolar'}" label="@{anno_escolar.nombre}" />
+																	self="@{each='anno_escolar'}"
+																	label="@{anno_escolar.nombre}" />
 															</combobox>
 															<label
 																value="Curso" />
@@ -779,40 +781,45 @@
 												style="border-color:orange" closable="false">
 												<caption
 													label="Documentos" />
-												<grid
-													id="gridDocAcademicos" mold="paging" pageSize="2">
-													<columns>
-														<column
+												<listbox
+													id="listDocAcademicos" mold="paging" pageSize="2"
+													model="@{winRegistroJugador$composer.recaudosAcademicos}"
+													selectedItem="@{controller.recaudoAcademico}">
+													<listhead>
+														<listheader
 															width="30%" label="Nombre" />
-														<column
+														<listheader
 															width="15%" label="Solicitado" />
-														<column
+														<listheader
 															width="15%" label=" Entregado" />
-														<column
-															width="20%" label="¿Obligatorio?" />
-														<column
-															width="20%" label="Documento" align="center" />
-													</columns>
-													<rows>
-														<row
-															style="border:none;">
-															<label
-																value="Constancia de Estudio" />
-															<label
-																value="1" />
+														<listheader
+															width="20%" label="Importancia" />
+														<listheader
+															width="20%" label="Documento" />
+													</listhead>
+													<listitem
+														self="@{each='docAcad'}" value="docAcad"
+														style="border:none;">
+														<listcell
+															label="@{docAcad.datoBasicoByCodigoDocumento.nombre}" />
+														<listcell
+															label="@{docAcad.cantidad}" />
+														<listcell>
 															<spinner
 																width="60%" value="0" />
-															<label
-																value="Sí" />
+														</listcell>
+														<listcell
+															label="@{docAcad.datoBasicoByCodigoImportancia.nombre}" />
+														<listcell>
 															<button
 																label="Subir">
 																<attribute name="onClick"><![CDATA[
 	Object media = Fileupload.get();
 ]]></attribute>
 															</button>
-														</row>
-													</rows>
-												</grid>
+														</listcell>
+													</listitem>
+												</listbox>
 											</groupbox>
 										</tabpanel><!-- Fin tabJugAcademicos -->
 
@@ -856,7 +863,8 @@
 																model="@{winRegistroJugador$composer.actividadSoc}"
 																width="80%">
 																<comboitem
-																	self="@{each='actividad_social'}" label="@{actividad_social.nombre}" />
+																	self="@{each='actividad_social'}"
+																	label="@{actividad_social.nombre}" />
 															</combobox>
 															<label
 																value="Fecha inicio" />
