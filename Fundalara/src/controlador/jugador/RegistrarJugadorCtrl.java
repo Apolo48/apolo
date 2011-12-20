@@ -1,5 +1,9 @@
 package controlador.jugador;
 
+import Institucion;
+import ServicioInstitucion;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +20,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
@@ -23,15 +28,19 @@ import org.zkoss.zul.api.Tab;
 import servicio.jugador.ServicioCategoria;
 import servicio.jugador.ServicioDatoBasico;
 import servicio.jugador.ServicioRecaudoPorProceso;
+import servicio.jugador.ServicioInstitucion;
 
 import comun.FileLoader;
 import comun.Ruta;
 import comun.Util;
 import comun.TipoDatoBasico;
+import modelo.AactividadSocial;
+import modelo.Aafeccion;
 import modelo.AfeccionJugador;
 import modelo.Categoria;
 import modelo.DatoBasico;
 import modelo.DatoMedico;
+import modelo.Institucion;
 import modelo.Jugador;
 import modelo.RecaudoPorProceso;
 
@@ -47,17 +56,23 @@ import modelo.RecaudoPorProceso;
 public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	// Componentes visuales
 	private Datebox dtboxFechaNac;
+	private Datebox dtboxFechaInicioActividad;
 	private Button btnGuardar;
 	private Button btnAntes;
 	private Button btnDesp;
 	private Button btnVistaPrevia;
 	private Button btnFoto;
 	private Button btnCatalogoMedico;
+	private Button btnAgregarAfeccion;
+	private Button btnEliminarAfeccion;
+	private Button btnAgregarActividad;
+	private Button btnEliminarActividad;
 	private Tab tabRegJugador;
 	private Tab tabRegFamiliar;
 	private Intbox txtEdad;
 	private Intbox txtCedulaSecuencia;
 	private Intbox txtCedula;
+	private Intbox txtHorasSemanales;
 	private Textbox txtPrimerNombre;
 	private Textbox txtPrimerApellido;
 	private Textbox txtSegundoNombre;
@@ -72,7 +87,12 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private Combobox cmbParroquiaNac;
 	private Combobox cmbParroquiaResi;
 	private Combobox cmbMunicipioResi;
+	private Combobox cmbAfecciones;
+	private Combobox cmbInstitucionRecreativa;
+	private Combobox cmbActividad;
 	private Label lblSeparador;
+	private Listbox listAfeccionesActuales;
+	private Listbox listActividadesSociales;
 
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
@@ -80,6 +100,7 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private ServicioDatoBasico servicioDatoBasico;
 	private ServicioCategoria servicioCategoria;
 	private ServicioRecaudoPorProceso servicioRecaudoPorProceso;
+	private ServicioInstitucion servicioInstitucion;
 
 	// Modelos
 	private Jugador jugador = new Jugador();
@@ -94,8 +115,11 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private RecaudoPorProceso recaudoAcademico = new RecaudoPorProceso();
 	private RecaudoPorProceso recaudoMedico = new RecaudoPorProceso();
 	private RecaudoPorProceso recaudoPersonal = new RecaudoPorProceso();
-	// private List<TipoAfeccion> afeccionesActuales;
-	// private List<AfeccionJugador> afeccionJugador;// = new AfeccionJugador();
+	
+	private Aafeccion afeccion = new Aafeccion();
+	List<Aafeccion> afeccionesJugador = new ArrayList<Aafeccion>();
+	private AactividadSocial actividadSocial = new AactividadSocial();
+	List<AactividadSocial> actividadesJugador = new ArrayList<AactividadSocial>();
 
 	// Binder
 	private AnnotateDataBinder binder;
@@ -113,7 +137,6 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	}
 
 	// Getters y setters
-
 	public Jugador getJugador() {
 		return jugador;
 	}
@@ -209,6 +232,22 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	public void setRecaudoPersonal(RecaudoPorProceso recaudoPersonal) {
 		this.recaudoPersonal = recaudoPersonal;
 	}
+	
+	public List<Aafeccion> getAfeccionesJugador() {
+		return afeccionesJugador;
+	}
+
+	public void setAfeccionesJugador(List<Aafeccion> afeccionesJugador) {
+		this.afeccionesJugador = afeccionesJugador;
+	}
+	
+	public List<AactividadSocial> getActividadesJugador() {
+		return actividadesJugador;
+	}
+
+	public void setActividadesJugador(List<AactividadSocial> actividadesJugador) {
+		this.actividadesJugador = actividadesJugador;
+	}
 
 	// Metodos para carga de combos/listbox
 	public List<Categoria> getCategorias() {
@@ -232,18 +271,6 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	}
 
 	public List<DatoBasico> getPaises() {
-		return servicioDatoBasico.listar(TipoDatoBasico.PAIS);
-	}
-
-	public List<DatoBasico> getAfecciones() {
-		return servicioDatoBasico.listar(TipoDatoBasico.PAIS);
-	}
-
-	public List<DatoBasico> getInstitucionesEducativas() {
-		return servicioDatoBasico.listar(TipoDatoBasico.PAIS);
-	}
-
-	public List<DatoBasico> getInstitucionesRecreativas() {
 		return servicioDatoBasico.listar(TipoDatoBasico.PAIS);
 	}
 
@@ -273,6 +300,36 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	
 	public List<RecaudoPorProceso> getRecaudosMedicos() {
 		return servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion, TipoDatoBasico.RECAUDOS_MEDICOS);
+	}
+	
+	public List<Institucion> getInstitucionesEducativas() {
+		List<DatoBasico> datoInstitucion = servicioDatoBasico.buscarTipo(TipoDatoBasico.INSTITUCION, "Educativa");
+		if (datoInstitucion.isEmpty()) {
+			return null;
+		}
+		else{
+			return servicioInstitucion.buscarInstitucionTipo(datoInstitucion.get(datoInstitucion.size()-1));
+		}
+	}
+	
+	public List<Institucion> getInstitucionesRecreativas() {
+		List<DatoBasico> datoInstitucion = servicioDatoBasico.buscarTipo(TipoDatoBasico.INSTITUCION, "Recreativa");
+		if (datoInstitucion.isEmpty()) {
+			return null;
+		}
+		else{
+			return servicioInstitucion.buscarInstitucionTipo(datoInstitucion.get(datoInstitucion.size()-1));
+		}
+	}
+	
+	public List<DatoBasico> getAfecciones() {
+		List<DatoBasico> datoAfeccion = servicioDatoBasico.buscarTipo(TipoDatoBasico.TIPO_AFECCION, "Afeccion");
+		if (datoAfeccion.isEmpty()) {
+			return null;
+		}
+		else{
+			return servicioDatoBasico.buscarDatosPorRelacion(datoAfeccion.get(datoAfeccion.size()-1));
+		}
 	}
 
 	// Eventos
@@ -342,6 +399,87 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 
 	public void onClick$btnCatalogoFamiliar() {
 		new Util().crearVentana(rutasJug + "buscarFamiliar.zul", null, null);
+	}
+	
+	public void onClick$btnAgregarAfeccion(){
+		if (cmbAfecciones.getSelectedIndex() >= 0){
+			for (int i = 0; i < afeccionesJugador.size(); i++) {
+				if(cmbAfecciones.getSelectedItem().getLabel().equals(afeccionesJugador.get(i).getNombre())){
+					alert("Afección Duplicada");
+					return;
+				}
+			}
+	
+			afeccion.setCodigo(cmbAfecciones.getSelectedItem().getValue().toString());
+			afeccion.setNombre(cmbAfecciones.getSelectedItem().getLabel());
+			afeccionesJugador.add(afeccion);
+			limpiarAfeccion();
+			
+		}
+	}
+	
+	public void limpiarAfeccion(){
+		afeccion= new Aafeccion();
+		cmbAfecciones.setSelectedIndex(-1);
+		binder.loadComponent(listAfeccionesActuales);
+	}
+	
+	public void onClick$btnEliminarAfeccion(){
+		if (listAfeccionesActuales.getSelectedIndex() >= 0){
+			Aafeccion afeccionSel = (Aafeccion) listAfeccionesActuales.getSelectedItem().getValue();
+			afeccionesJugador.remove(afeccionSel);
+			limpiarAfeccion();
+		}
+		else{
+			alert("Seleccione un dato para eliminar");
+		}
+	}
+	
+	public void onClick$btnAgregarActividad(){
+		System.out.println("HUUUUMOOOOOO 1");
+		if ((cmbInstitucionRecreativa.getSelectedIndex() >= 0)
+			&& (cmbActividad.getSelectedIndex() >= 0)
+			&& (txtHorasSemanales.getValue() > 0)
+			&& (dtboxFechaInicioActividad.getText() != "")){
+			for (int i = 0; i < actividadesJugador.size(); i++) {
+				if((cmbInstitucionRecreativa.getSelectedItem().getLabel().equals(actividadesJugador.get(i).getNombreInstitucion()))
+					|| ((cmbActividad.getSelectedItem().getLabel().equals(actividadesJugador.get(i).getActividad())))){
+					alert("Actividad Social Duplicada");
+					return;
+				}
+			}
+	
+			actividadSocial.setNombreInstitucion(cmbInstitucionRecreativa.getSelectedItem().getLabel());
+			actividadSocial.setCodigoInstitucion(cmbInstitucionRecreativa.getSelectedItem().getValue().toString());
+			actividadSocial.setActividad(cmbActividad.getSelectedItem().getLabel());
+			actividadSocial.setCodigoActividad(cmbActividad.getSelectedItem().getValue().toString());
+			actividadSocial.setFechaInicio(dtboxFechaInicioActividad.getText());
+			actividadSocial.setHorasDedicadas(txtHorasSemanales.getValue());
+			actividadesJugador.add(actividadSocial);
+			System.out.print("Size: ");
+			System.out.println(actividadesJugador.size());
+			limpiarActividad();
+		}
+	}
+	
+	public void limpiarActividad(){
+		actividadSocial = new AactividadSocial();
+		cmbInstitucionRecreativa.setSelectedIndex(-1);
+		cmbActividad.setSelectedIndex(-1);
+		txtHorasSemanales.setValue(null);
+		dtboxFechaInicioActividad.setValue(null);
+		binder.loadComponent(listActividadesSociales);
+	}
+	
+	public void onClick$btnEliminarActividad(){
+		if (listActividadesSociales.getSelectedIndex() >= 0){
+			AactividadSocial actividadSel = (AactividadSocial) listActividadesSociales.getSelectedItem().getValue();
+			actividadesJugador.remove(actividadSel);
+			limpiarActividad();
+		}
+		else{
+			alert("Seleccione un dato para eliminar");
+		}
 	}
 
 	// Metodos propios del ctrl
