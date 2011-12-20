@@ -55,7 +55,7 @@ public class DaoDatoBasico extends GenericDAO {
 	public List<DatoBasico> buscarTipo(TipoDatoBasico tipoDato, String nombre){
 		Session session = SessionManager.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = getSession().createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"' AND nombre='"+ nombre +"'").addEntity(DatoBasico.class);
+		Query query = getSession().createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"' AND upper(nombre)='"+ nombre.toUpperCase() +"'").addEntity(DatoBasico.class);
 		List<DatoBasico> lista = query.list(); 
 		tx.commit();
 		return  lista;

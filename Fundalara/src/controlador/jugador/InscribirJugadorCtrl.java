@@ -68,9 +68,9 @@ public class InscribirJugadorCtrl extends GenericForwardComposer {
 		String src = "";
 		String valor = cmbTipoInscrip.getSelectedItem().getLabel();
 		Util enlace = new Util();
-		if (valor.equals("Nuevo Ingreso")) {
+		if (valor.equalsIgnoreCase("Nuevo Ingreso")) {
 			src = "registrarJugador.zul";
-		} else if (valor.equals("Reingreso")) {
+		} else if (valor.equalsIgnoreCase("Reingreso")) {
 			src = "reingresarJugador.zul";
 		} else {
 			src = "registrarPlanVacacional.zul";
