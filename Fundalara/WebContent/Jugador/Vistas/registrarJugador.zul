@@ -4,7 +4,7 @@
 <zk>
 	<zscript><![CDATA[
 	//@IMPORT
-	import controlador.jugador.*;
+	import controlador.jugador.converter.*;
 ]]></zscript>
 
 	<div align="left">

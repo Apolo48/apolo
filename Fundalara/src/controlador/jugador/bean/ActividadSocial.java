@@ -1,6 +1,6 @@
-package modelo;
+package controlador.jugador.bean;
 
-public class AactividadSocial {
+public class ActividadSocial {
 
 	String nombreInstitucion;
 	String codigoInstitucion;
@@ -9,7 +9,7 @@ public class AactividadSocial {
 	String fechaInicio;
 	int horasDedicadas;
 	
-	public AactividadSocial(){
+	public ActividadSocial(){
 		
 	}
 

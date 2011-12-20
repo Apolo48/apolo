@@ -1,11 +1,11 @@
-package modelo;
+package controlador.jugador.bean;
 
-public class Aafeccion {
+public class Afeccion {
 
 	String codigo;
 	String nombre;
 	
-	public Aafeccion(){
+	public Afeccion(){
 		
 	}
 

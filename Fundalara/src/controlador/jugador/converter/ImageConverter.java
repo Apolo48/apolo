@@ -1,4 +1,4 @@
-package controlador.jugador;
+package controlador.jugador.converter;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;

@@ -31,8 +31,8 @@ import comun.FileLoader;
 import comun.Ruta;
 import comun.Util;
 import comun.TipoDatoBasico;
-import modelo.AactividadSocial;
-import modelo.Aafeccion;
+import controlador.jugador.bean.ActividadSocial;
+import controlador.jugador.bean.Afeccion;
 import modelo.AfeccionJugador;
 import modelo.Categoria;
 import modelo.DatoBasico;
@@ -113,10 +113,10 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	private RecaudoPorProceso recaudoMedico = new RecaudoPorProceso();
 	private RecaudoPorProceso recaudoPersonal = new RecaudoPorProceso();
 	
-	private Aafeccion afeccion = new Aafeccion();
-	List<Aafeccion> afeccionesJugador = new ArrayList<Aafeccion>();
-	private AactividadSocial actividadSocial = new AactividadSocial();
-	List<AactividadSocial> actividadesJugador = new ArrayList<AactividadSocial>();
+	private Afeccion afeccion = new Afeccion();
+	List<Afeccion> afeccionesJugador = new ArrayList<Afeccion>();
+	private ActividadSocial actividadSocial = new ActividadSocial();
+	List<ActividadSocial> actividadesJugador = new ArrayList<ActividadSocial>();
 
 	// Binder
 	private AnnotateDataBinder binder;
@@ -230,19 +230,19 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		this.recaudoPersonal = recaudoPersonal;
 	}
 	
-	public List<Aafeccion> getAfeccionesJugador() {
+	public List<Afeccion> getAfeccionesJugador() {
 		return afeccionesJugador;
 	}
 
-	public void setAfeccionesJugador(List<Aafeccion> afeccionesJugador) {
+	public void setAfeccionesJugador(List<Afeccion> afeccionesJugador) {
 		this.afeccionesJugador = afeccionesJugador;
 	}
 	
-	public List<AactividadSocial> getActividadesJugador() {
+	public List<ActividadSocial> getActividadesJugador() {
 		return actividadesJugador;
 	}
 
-	public void setActividadesJugador(List<AactividadSocial> actividadesJugador) {
+	public void setActividadesJugador(List<ActividadSocial> actividadesJugador) {
 		this.actividadesJugador = actividadesJugador;
 	}
 
@@ -416,14 +416,14 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	}
 	
 	public void limpiarAfeccion(){
-		afeccion= new Aafeccion();
+		afeccion= new Afeccion();
 		cmbAfecciones.setSelectedIndex(-1);
 		binder.loadComponent(listAfeccionesActuales);
 	}
 	
 	public void onClick$btnEliminarAfeccion(){
 		if (listAfeccionesActuales.getSelectedIndex() >= 0){
-			Aafeccion afeccionSel = (Aafeccion) listAfeccionesActuales.getSelectedItem().getValue();
+			Afeccion afeccionSel = (Afeccion) listAfeccionesActuales.getSelectedItem().getValue();
 			afeccionesJugador.remove(afeccionSel);
 			limpiarAfeccion();
 		}
@@ -457,7 +457,7 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	}
 	
 	public void limpiarActividad(){
-		actividadSocial = new AactividadSocial();
+		actividadSocial = new ActividadSocial();
 		cmbInstitucionRecreativa.setSelectedIndex(-1);
 		cmbActividad.setSelectedIndex(-1);
 		txtHorasSemanales.setValue(null);
@@ -467,7 +467,7 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	
 	public void onClick$btnEliminarActividad(){
 		if (listActividadesSociales.getSelectedIndex() >= 0){
-			AactividadSocial actividadSel = (AactividadSocial) listActividadesSociales.getSelectedItem().getValue();
+			ActividadSocial actividadSel = (ActividadSocial) listActividadesSociales.getSelectedItem().getValue();
 			actividadesJugador.remove(actividadSel);
 			limpiarActividad();
 		}

@@ -1,4 +1,4 @@
-package controlador.jugador;
+package controlador.jugador.converter;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zkplus.databind.TypeConverter;
