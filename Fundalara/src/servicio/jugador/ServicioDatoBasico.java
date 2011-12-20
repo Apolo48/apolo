@@ -49,7 +49,8 @@ public class ServicioDatoBasico implements IServicioDatoBasico {
 	}
 	
 	@Override
-	public List<DatoBasico> buscarTipo(TipoDatoBasico tipoDato, String nombre) {
+	public DatoBasico buscarTipo(TipoDatoBasico tipoDato, String nombre) {
 		return daoDatoBasico.buscarTipo(tipoDato, nombre);
 	}
+	
 }

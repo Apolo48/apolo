@@ -17,5 +17,5 @@ public interface IServicioDatoBasico {
 	
 	public abstract List<DatoBasico> buscarDatosPorRelacion (DatoBasico datoBasico);
 	
-	public abstract List<DatoBasico> buscarTipo( TipoDatoBasico tipoDato, String nombre);
+	public abstract DatoBasico buscarTipo( TipoDatoBasico tipoDato, String nombre);
 }

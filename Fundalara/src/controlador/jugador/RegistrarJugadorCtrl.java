@@ -297,33 +297,54 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	}
 	
 	public List<Institucion> getInstitucionesEducativas() {
-		List<DatoBasico> datoInstitucion = servicioDatoBasico.buscarTipo(TipoDatoBasico.INSTITUCION, "Educativa");
+	/*	List<DatoBasico> datoInstitucion = servicioDatoBasico.buscarTipo(TipoDatoBasico.INSTITUCION, "Educativa");
 		if (datoInstitucion.isEmpty()) {
 			return null;
 		}
 		else{
 			return servicioInstitucion.buscarInstitucionTipo(datoInstitucion.get(datoInstitucion.size()-1));
+		}*/
+		List<Institucion> lista=null;
+		DatoBasico datoInstitucion = servicioDatoBasico.buscarTipo(TipoDatoBasico.INSTITUCION, "Educativa");
+		if (datoInstitucion!=null) {
+			lista= servicioInstitucion.buscarInstitucionTipo(datoInstitucion);
 		}
+		
+		return lista;
 	}
 	
 	public List<Institucion> getInstitucionesRecreativas() {
+		List<Institucion> lista=null;
+		DatoBasico datoInstitucion = servicioDatoBasico.buscarTipo(TipoDatoBasico.INSTITUCION, "Recreativa");
+		if (datoInstitucion!=null) {
+			lista= servicioInstitucion.buscarInstitucionTipo(datoInstitucion);
+		}
+		return lista;
+		/*
 		List<DatoBasico> datoInstitucion = servicioDatoBasico.buscarTipo(TipoDatoBasico.INSTITUCION, "Recreativa");
 		if (datoInstitucion.isEmpty()) {
 			return null;
 		}
 		else{
 			return servicioInstitucion.buscarInstitucionTipo(datoInstitucion.get(datoInstitucion.size()-1));
-		}
+		}*/
 	}
 	
 	public List<DatoBasico> getAfecciones() {
+		List<DatoBasico> lista =null;
+		DatoBasico datoAfeccion = servicioDatoBasico.buscarTipo(TipoDatoBasico.TIPO_AFECCION, "Afeccion");
+		if (datoAfeccion!=null) {
+			lista =servicioDatoBasico.buscarDatosPorRelacion(datoAfeccion);
+		}
+		return lista;
+		/*
 		List<DatoBasico> datoAfeccion = servicioDatoBasico.buscarTipo(TipoDatoBasico.TIPO_AFECCION, "Afeccion");
 		if (datoAfeccion.isEmpty()) {
 			return null;
 		}
 		else{
 			return servicioDatoBasico.buscarDatosPorRelacion(datoAfeccion.get(datoAfeccion.size()-1));
-		}
+		}*/
 	}
 
 	// Eventos
