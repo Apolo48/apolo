@@ -31,7 +31,7 @@ public class DaoTipoDato extends GenericDAO {
 		TipoDato tipo;
 		Session session = SessionManager.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = getSession().createSQLQuery(
+		Query query = session.createSQLQuery(
 				"SELECT * FROM tipo_dato WHERE codigo_tipo_dato='"
 						+ tipoDato.getCodigo() + "'").addEntity(TipoDato.class);
 		List<Object> lista = query.list();
