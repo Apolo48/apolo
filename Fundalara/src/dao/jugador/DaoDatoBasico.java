@@ -24,7 +24,7 @@ public class DaoDatoBasico extends GenericDAO {
 	 * 
 	 */
 	public List<DatoBasico> buscar(TipoDatoBasico tipoDato){
-		 Session session = SessionManager.getSession();
+		Session session = SessionManager.getSession();
         org.hibernate.Transaction tx = session.beginTransaction();
 		Query query = getSession().createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"'").addEntity(DatoBasico.class);
 		List<DatoBasico> lista = query.list(); 
@@ -38,12 +38,26 @@ public class DaoDatoBasico extends GenericDAO {
 	 * @return lista de datos hijos
 	 */
 	public List<DatoBasico> buscarPorRelacion(DatoBasico datoBasico){
-		 Session session = SessionManager.getSession();
-       org.hibernate.Transaction tx = session.beginTransaction();
+		Session session = SessionManager.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
 		Query query = getSession().createSQLQuery("SELECT * FROM dato_basico WHERE parent_codigo_dato_basico='"+ datoBasico.getCodigoDatoBasico()+"'").addEntity(DatoBasico.class);
 		List<DatoBasico> lista = query.list(); 
 		tx.commit();  
 		return  lista;
 	}
-
+	
+	/**
+	 * Busca los datos que tiene como padre el datoBasico suministrado
+	 * @param tipoDato tipo de dato a buscar
+	 * @param nombre Valor constante que define el tipo de dato, con el cual se filtrara y ejecutara busqueda
+	 * @return lista de datos basicos de un tipo especifico
+	 */
+	public List<DatoBasico> buscarTipo(TipoDatoBasico tipoDato, String nombre){
+		Session session = SessionManager.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Query query = getSession().createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"' AND nombre='"+ nombre +"'").addEntity(DatoBasico.class);
+		List<DatoBasico> lista = query.list(); 
+		tx.commit();
+		return  lista;
+	}
 }

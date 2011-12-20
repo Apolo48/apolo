@@ -54,8 +54,8 @@ import comun.Util;
 
 import servicio.jugador.ServicioAfeccionJugador;
 import servicio.jugador.ServicioCategoria;
-import servicio.jugador.ServicioCodigoArea;
-import servicio.jugador.ServicioCodigoCelular;
+/*import servicio.jugador.ServicioCodigoArea;
+import servicio.jugador.ServicioCodigoCelular;*/
 //import servicio.jugador.ServicioCurso;
 import servicio.jugador.ServicioDatoAcademico;
 import servicio.jugador.ServicioDatoDeportivo;

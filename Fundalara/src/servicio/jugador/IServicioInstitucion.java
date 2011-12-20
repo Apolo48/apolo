@@ -2,6 +2,7 @@ package servicio.jugador;
 
 import java.util.List;
 
+import modelo.DatoBasico;
 import modelo.Institucion;
 
 public interface IServicioInstitucion {
@@ -14,4 +15,6 @@ public interface IServicioInstitucion {
 	public abstract List<Institucion> listar();
 	
 	public abstract Institucion buscar (String id);
+	
+	public abstract List<Institucion> buscarInstitucionTipo(DatoBasico datoBasico);
 }

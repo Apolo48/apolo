@@ -11,6 +11,8 @@ public enum TipoDatoBasico {
 	ESTADO_VENEZUELA("2"), 
     MUNICIPIO("3"),
 	PARROQUIA("4"),
+	TIPO_AFECCION("9"),
+	AFECCION("10"),
 	CURSO("11"),
 	ANNO_ESCOLAR("12"),
 	ACTIVIDAD_SOCIAL("13"),

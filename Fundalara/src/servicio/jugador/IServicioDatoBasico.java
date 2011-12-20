@@ -7,7 +7,7 @@ import comun.TipoDatoBasico;
 import modelo.DatoBasico;;
 
 public interface IServicioDatoBasico {
-public abstract void eliminar(DatoBasico c);
+	public abstract void eliminar(DatoBasico c);
 	
 	public abstract void agregar(DatoBasico c);
 		
@@ -16,4 +16,6 @@ public abstract void eliminar(DatoBasico c);
 	public abstract List<DatoBasico> listar( TipoDatoBasico tipoDato);
 	
 	public abstract List<DatoBasico> buscarDatosPorRelacion (DatoBasico datoBasico);
+	
+	public abstract List<DatoBasico> buscarTipo( TipoDatoBasico tipoDato, String nombre);
 }

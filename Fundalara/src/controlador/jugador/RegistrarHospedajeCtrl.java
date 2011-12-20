@@ -2,7 +2,7 @@ package controlador.jugador;
 
 import java.util.List;
 
-import modelo.Curso;
+/*import modelo.Curso;*/
 import modelo.Competencia;
 import modelo.Hospedaje;
 import modelo.HospedajeJugador;
@@ -23,7 +23,7 @@ import org.zkoss.zul.Window;
 import servicio.jugador.ServicioCurso;
 
 import comun.FileLoader;
-import comun.Rutas;
+import comun.Ruta;
 import comun.Util;
 
 /**
@@ -63,7 +63,7 @@ public class RegistrarHospedajeCtrl extends GenericForwardComposer {
 	private Button btnSalir;
 
 	private AnnotateDataBinder binder;
-	private String rutasJug= Rutas.JUGADOR.getRutaVista();
+	private String rutasJug= Ruta.JUGADOR.getRutaVista();
 
 	
 	@Override
