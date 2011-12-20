@@ -1,8 +1,5 @@
 package controlador.jugador;
 
-import Institucion;
-import ServicioInstitucion;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -436,7 +433,6 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	}
 	
 	public void onClick$btnAgregarActividad(){
-		System.out.println("HUUUUMOOOOOO 1");
 		if ((cmbInstitucionRecreativa.getSelectedIndex() >= 0)
 			&& (cmbActividad.getSelectedIndex() >= 0)
 			&& (txtHorasSemanales.getValue() > 0)
@@ -456,8 +452,6 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 			actividadSocial.setFechaInicio(dtboxFechaInicioActividad.getText());
 			actividadSocial.setHorasDedicadas(txtHorasSemanales.getValue());
 			actividadesJugador.add(actividadSocial);
-			System.out.print("Size: ");
-			System.out.println(actividadesJugador.size());
 			limpiarActividad();
 		}
 	}
