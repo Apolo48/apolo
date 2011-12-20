@@ -3,6 +3,7 @@ package servicio.jugador;
 import java.util.List;
 
 import dao.jugador.DaoInstitucion;
+import modelo.DatoBasico;
 import modelo.Institucion;
 
 public class ServicioInstitucion implements IServicioInstitucion {
@@ -42,5 +43,10 @@ public class ServicioInstitucion implements IServicioInstitucion {
     public Institucion buscar (String id){
     	return daoInstitucion.buscar(id);
     }
+	
+	@Override
+	public List<Institucion> buscarInstitucionTipo(DatoBasico datoBasico) {
+		return daoInstitucion.buscarInstitucionTipo(datoBasico);
+	}
 	
 }
