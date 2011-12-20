@@ -246,7 +246,7 @@
 																				id="cmbMunicipioNac" readonly="true"
 																				selectedItem="@{controller.municipioNac}"
 																				value="--Seleccione--" width="70%"
-																				model="@{winRegistroJugador$composer.municipiosEstados}">
+																				model="@{winRegistroJugador$composer.municipiosEstados, load-after='cmbEstadoNac.onChange'}">
 																				<comboitem
 																					self="@{each='municipioN'}"
 																					label="@{municipioN.nombre}" />
@@ -262,7 +262,7 @@
 																				id="cmbParroquiaNac" readonly="true"
 																				selectedItem="@{controller.jugador.datoBasicoByCodigoParroquiaNacimiento}"
 																				value="--Seleccione--" width="70%"
-																				model="@{winRegistroJugador$composer.parroquiasMunicipio}">
+																				model="@{winRegistroJugador$composer.parroquiasMunicipio, load-after='cmbMunicipioNac.onChange'}">
 																				<comboitem
 																					self="@{each='parroquiaN'}"
 																					label="@{parroquiaN.nombre}" />

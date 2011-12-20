@@ -303,17 +303,17 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 		cmbParroquiaResi.setValue("--Seleccione--");
 		binder.loadAttribute(cmbParroquiaResi, "model");
 	}
-
+/*
 	public void onChange$cmbEstadoNac() {
 		cmbMunicipioNac.setValue("--Seleccione--");
 		binder.loadAttribute(cmbMunicipioNac, "model");
 	}
-
+*//*
 	public void onChange$cmbMunicipioNac() {
 		cmbParroquiaNac.setValue("--Seleccione--");
 		binder.loadAttribute(cmbParroquiaNac, "model");
 	}
-
+*/
 	public void onClick$btnGuardar() {
 		new Util().crearVentana(rutasJug + "vistaCompromisoPago.zul", null,
 				null);
