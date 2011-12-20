@@ -4,9 +4,8 @@ import java.util.List;
 
 import comun.TipoDatoBasico;
 
-import dao.jugador.DaoAfeccionJugador;
 import dao.jugador.DaoDatoBasico;
-import modelo.AfeccionJugador;
+
 import modelo.DatoBasico;
 
 public class ServicioDatoBasico implements IServicioDatoBasico {
@@ -49,5 +48,8 @@ public class ServicioDatoBasico implements IServicioDatoBasico {
 		return daoDatoBasico.buscarPorRelacion(datoBasico);
 	}
 	
-	
+	@Override
+	public List<DatoBasico> buscarTipo(TipoDatoBasico tipoDato, String nombre) {
+		return daoDatoBasico.buscarTipo(tipoDato, nombre);
+	}
 }
