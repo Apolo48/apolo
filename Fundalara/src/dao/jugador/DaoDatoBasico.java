@@ -26,7 +26,7 @@ public class DaoDatoBasico extends GenericDAO {
 	public List<DatoBasico> buscar(TipoDatoBasico tipoDato){
 		Session session = SessionManager.getSession();
         org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = getSession().createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"'").addEntity(DatoBasico.class);
+		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"'").addEntity(DatoBasico.class);
 		List<DatoBasico> lista = query.list(); 
 		tx.commit();  
 		return  lista;
@@ -40,7 +40,7 @@ public class DaoDatoBasico extends GenericDAO {
 	public List<DatoBasico> buscarPorRelacion(DatoBasico datoBasico){
 		Session session = SessionManager.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = getSession().createSQLQuery("SELECT * FROM dato_basico WHERE parent_codigo_dato_basico='"+ datoBasico.getCodigoDatoBasico()+"'").addEntity(DatoBasico.class);
+		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE parent_codigo_dato_basico='"+ datoBasico.getCodigoDatoBasico()+"'").addEntity(DatoBasico.class);
 		List<DatoBasico> lista = query.list(); 
 		tx.commit();  
 		return  lista;
@@ -62,7 +62,7 @@ public class DaoDatoBasico extends GenericDAO {
 		
 		Session session = SessionManager.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = getSession().createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"' AND upper(nombre)='"+ nombre.toUpperCase() +"'").addEntity(DatoBasico.class);
+		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"' AND upper(nombre)='"+ nombre.toUpperCase() +"'").addEntity(DatoBasico.class);
 		DatoBasico lista = (DatoBasico)query.uniqueResult(); 
 		tx.commit();
 		return  lista;
