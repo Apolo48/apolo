@@ -5,6 +5,7 @@ import java.util.List;
 import servicio.interfaz.IServicioEquipo;
 
 import dao.general.DaoEquipo;
+import modelo.Categoria;
 import modelo.Equipo;
 
 public class ServicioEquipo implements IServicioEquipo {
@@ -39,7 +40,12 @@ public class ServicioEquipo implements IServicioEquipo {
 
 	@Override
 	public List<Equipo> listar() {
-		return daoEquipo.listar( Equipo.class);
+		return daoEquipo.listar(Equipo.class);
+	}
+	
+	public List<Equipo> buscarPorCategoria(Categoria categoria){
+		return daoEquipo.buscarEquiposPorCategoria(categoria);
+		
 	}
 
 }

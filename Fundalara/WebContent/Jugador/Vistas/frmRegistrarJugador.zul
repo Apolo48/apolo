@@ -910,6 +910,7 @@
 																<combobox
 																	id="cmbCategoria" value="--Seleccione--" width="65%"
 																	readonly="true"
+																	selectedItem="@{controller.categoria}"
 																	model="@{winRegistroJugador$composer.categorias}">
 																	<comboitem
 																		self="@{each='categoria'}" label="@{categoria.nombre}"
@@ -923,17 +924,12 @@
 															<div>
 																<combobox
 																	id="cmbEquipo" readonly="true" value="--Seleccione--"
-																	width="65%">
+																	width="65%"   
+																		selectedItem="@{controller.equipo}"
+																		model="@{winRegistroJugador$composer.equipos, load-after='cmbCategoria.onChange'}">
 																	<comboitem
-																		label="Equipo A" />
-																	<comboitem
-																		label="Equipo B" />
-																	<comboitem
-																		label="Equipo C" />
-																	<comboitem
-																		label="Equipo D" />
-																	<comboitem
-																		label="Equipo E" />
+																					self="@{each='equipo'}"
+																					label="@{equipo.nombre}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />

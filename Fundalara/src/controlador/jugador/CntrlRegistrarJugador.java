@@ -21,6 +21,7 @@ import org.zkoss.zul.api.Tab;
 
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioDatoBasico;
+import servicio.implementacion.ServicioEquipo;
 import servicio.implementacion.ServicioRecaudoPorProceso;
 import servicio.implementacion.ServicioInstitucion;
 
@@ -35,6 +36,7 @@ import modelo.Categoria;
 import modelo.DatoBasico;
 import modelo.DatoMedico;
 import modelo.DocumentoEntregado;
+import modelo.Equipo;
 import modelo.Institucion;
 import modelo.Jugador;
 import modelo.RecaudoPorProceso;
@@ -94,11 +96,14 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	// Servicios
 	private ServicioDatoBasico servicioDatoBasico;
 	private ServicioCategoria servicioCategoria;
+	private ServicioEquipo servicioEquipo;
 	private ServicioRecaudoPorProceso servicioRecaudoPorProceso;
 	private ServicioInstitucion servicioInstitucion;
 
 	// Modelos
 	private Jugador jugador = new Jugador();
+	private Equipo equipo = new Equipo();
+	private Categoria categoria = new Categoria();
 	private DatoBasico estadoVenezuela = new DatoBasico();
 	private DatoBasico estadoVenezuelaResi = new DatoBasico();
 	private DatoBasico municipioNac = new DatoBasico();
@@ -290,6 +295,21 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		this.codCelularJugador = codCelularJugador;
 	}
 
+	public Equipo getEquipo() {
+		return equipo;
+	}
+
+	public void setEquipo(Equipo equipo) {
+		this.equipo = equipo;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 
 	// Metodos para carga de combos/listbox
 	public List<Categoria> getCategorias() {
@@ -393,6 +413,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		return servicioDatoBasico.buscar(TipoDatoBasico.FACTOR_RH);
 	}
 
+	public List<Equipo> getEquipos() {
+		return servicioEquipo.buscarPorCategoria(categoria);
+	}
 	
 
 	// Eventos
