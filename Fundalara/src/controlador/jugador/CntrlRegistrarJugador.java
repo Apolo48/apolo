@@ -107,6 +107,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private DatoBasico institucionEducativa = new DatoBasico();
 	private DatoBasico institucionRecreativa = new DatoBasico();
 	private DatoBasico tipoInscripcion = new DatoBasico();
+	private DatoBasico codAreaJugador = new DatoBasico();
+	private DatoBasico codCelularJugador = new DatoBasico();
 	private RecaudoPorProceso recaudoAcademico = new RecaudoPorProceso();
 	private RecaudoPorProceso recaudoMedico = new RecaudoPorProceso();
 	private RecaudoPorProceso recaudoPersonal = new RecaudoPorProceso();
@@ -271,6 +273,23 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			List<DocumentoEntregado> documentosPersonales) {
 		this.documentosPersonales = documentosPersonales;
 	}
+	
+	public DatoBasico getCodAreaJugador() {
+		return codAreaJugador;
+	}
+
+	public void setCodAreaJugador(DatoBasico codAreaJugador) {
+		this.codAreaJugador = codAreaJugador;
+	}
+
+	public DatoBasico getCodCelularJugador() {
+		return codCelularJugador;
+	}
+
+	public void setCodCelularJugador(DatoBasico codCelularJugador) {
+		this.codCelularJugador = codCelularJugador;
+	}
+
 
 	// Metodos para carga de combos/listbox
 	public List<Categoria> getCategorias() {
@@ -358,6 +377,23 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 		return lista;
 	}
+	
+	public List<DatoBasico> getCodigosArea() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.CODIGO_AREA);
+	}
+	
+	public List<DatoBasico> getCodigosCelular() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.CODIGO_CELULAR);
+	}
+	public List<DatoBasico> getGruposSanguineos() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.GRUPO_SANGUINEO);
+	}
+	
+	public List<DatoBasico> getFactoresRH() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.FACTOR_RH);
+	}
+
+	
 
 	// Eventos
 	public void onClick$btnCatalogoMedico() {

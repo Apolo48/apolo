@@ -386,19 +386,14 @@
 																		<label
 																			value="Teléfono Habitación" />
 																		<div>
-																			<combobox
-																				id="cmbCodArea" readonly="true" value="0251"
-																				width="30%">
+																		<combobox
+																				readonly="true" id="cmbCodArea"
+																				value="--Seleccione--" width="30%"
+																				selectedItem="@{controller.codAreaJugador}"
+																				model="@{winRegistroJugador$composer.codigosArea}">
 																				<comboitem
-																					label="0252" />
-																				<comboitem
-																					label="0253" />
-																				<comboitem
-																					label="0254" />
-																				<comboitem
-																					label="0255" />
-																			</combobox>
-
+																					self="@{each='codAJug'}" label="@{codAJug.nombre}" />
+																		</combobox>																
 																			<intbox
 																				id="txtTelefonoHabitacion"
 																				value="@{controller.jugador.persona.telefonoHabitacion}"
@@ -408,19 +403,13 @@
 																			value="Teléfono Celular" />
 																		<div>
 																			<combobox
-																				id="cmbCodCelular" readonly="true" value="0416"
-																				width="30%">
+																				readonly="true" id="cmbCodCelular"
+																				value="--Seleccione--" width="30%"
+																				selectedItem="@{controller.codCelularJugador}"
+																				model="@{winRegistroJugador$composer.codigosCelular}">
 																				<comboitem
-																					label="0416" />
-																				<comboitem
-																					label="0426" />
-																				<comboitem
-																					label="0414" />
-																				<comboitem
-																					label="0424" />
-																				<comboitem
-																					label="0412" />
-																			</combobox>
+																					self="@{each='codCJug'}" label="@{codCJug.nombre}" />
+																		</combobox>									
 																			<intbox
 																				id="txtTelefonoCelular"
 																				value="@{controller.jugador.persona.personaNatutal.celular}"
@@ -514,19 +503,14 @@
 
 														<label
 															value="Grupo Sanguíneo" />
-														<div>
+														<div>													
 															<combobox
 																id="cmbGrupoSanguineo" width="20%" readonly="true"
-																selectedItem="@{controller.jugador.tipoDeSangre}"
-																value="--">
+																value="--"
+																model="@{winRegistroJugador$composer.gruposSanguineos}">
 																<comboitem
-																	label="O" />
-																<comboitem
-																	label="A" />
-																<comboitem
-																	label="B" />
-																<comboitem
-																	label="AB" />
+																					self="@{each='grupoSang'}"
+																					label="@{grupoSang.nombre}" />
 															</combobox>
 															<label
 																value="(*)" style="color:red" />
@@ -536,11 +520,10 @@
 														<div>
 															<combobox
 																id="cmbFactorRH" width="5%" readonly="true"
-																value="--">
+																value="--" 	model="@{winRegistroJugador$composer.factoresRH}">
 																<comboitem
-																	label="+" />
-																<comboitem
-																	label="-" />
+																					self="@{each='factorRH'}"
+																					label="@{factorRH.nombre}" />
 															</combobox>
 															<label
 																value="(*)" style="color:red" />
@@ -1400,7 +1383,7 @@
 																value="Peso" />
 															<div>
 																<decimalbox
-																	id="txtPeso" constraint="no negative" />
+																	id="txtPeso" constraint="no negative"  />
 																<label
 																	value="Kg." />
 																<label
