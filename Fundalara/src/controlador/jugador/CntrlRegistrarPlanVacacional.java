@@ -24,7 +24,7 @@ import comun.Util;
  * @version 1.0 26/11/2011
  */
 
-public class RegistrarPlanVacacionalCtrl extends GenericForwardComposer {
+public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private Combobox cmbTurno;
 	private Combobox cmbHorario;
 	private Combobox cmbTipoAlumno;
@@ -139,7 +139,7 @@ public class RegistrarPlanVacacionalCtrl extends GenericForwardComposer {
 		
 		
 		else {
-			new Util().crearVentana("Jugador/Vistas/vistaCompromisoPago.zul",
+			new Util().crearVentana("Jugador/Vistas/frmVistaCompromisoPago.zul",
 					null, null);
 		}
 

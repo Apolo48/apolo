@@ -3,7 +3,7 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
 	<window id="wndPlan" title="" width="670px"
-		apply="controlador.jugador.RegistrarPlanVacacionalCtrl">
+		apply="controlador.jugador.CntrlRegistrarPlanVacacional">
 
 		<panel title="Plan Vacacional">
 			<panelchildren>

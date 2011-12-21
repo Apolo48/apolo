@@ -19,7 +19,7 @@ import comun.TipoDatoBasico;
 import comun.Util;
 
 
-public class InscribirJugadorCtrl extends GenericForwardComposer {
+public class CntrlInscribirJugador extends GenericForwardComposer {
 	//componentes visuales
 	private Combobox cmbTipoInscrip;
 	private Include incCuerpo;
@@ -69,11 +69,11 @@ public class InscribirJugadorCtrl extends GenericForwardComposer {
 		String valor = cmbTipoInscrip.getSelectedItem().getLabel();
 		Util enlace = new Util();
 		if (valor.equalsIgnoreCase("Nuevo Ingreso")) {
-			src = "registrarJugador.zul";
+			src = "frmRegistrarJugador.zul";
 		} else if (valor.equalsIgnoreCase("Reingreso")) {
-			src = "reingresarJugador.zul";
+			src = "frmReingresarJugador.zul";
 		} else {
-			src = "registrarPlanVacacional.zul";
+			src = "frmRegistrarPlanVacacional.zul";
 		}
 		src = rutasJug+src;
 		incCuerpo.setDynamicProperty("tipoInscripcion", tipoIncripcion);

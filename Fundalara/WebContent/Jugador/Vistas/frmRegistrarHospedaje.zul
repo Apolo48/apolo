@@ -2,7 +2,7 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <window id="winRegistrarHospedaje" title="Registro de Hospedaje"
-	apply="controlador.jugador.RegistrarHospedajeCtrl" border="normal"
+	apply="controlador.jugador.CntrlRegistrarHospedaje" border="normal"
 	width="620px" closable="true">
 	<panel title="Competencia" collapsible="" open="true">
 		<panelchildren>

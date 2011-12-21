@@ -4,7 +4,7 @@
 <zk>
 	<window id="winInscribirJugador" title="Inscribir" border="normal"
 		width="677px" closable="true"
-		apply="controlador.jugador.InscribirJugadorCtrl">
+		apply="controlador.jugador.CntrlInscribirJugador">
 
 		<grid style="border:none;" oddRowSclass="none">
 			<columns>

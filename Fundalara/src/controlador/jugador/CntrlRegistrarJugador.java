@@ -48,7 +48,7 @@ import modelo.RecaudoPorProceso;
  * @version 0.2.1 17/12/2011
  * 
  * */
-public class RegistrarJugadorCtrl extends GenericForwardComposer {
+public class CntrlRegistrarJugador extends GenericForwardComposer {
 	// Componentes visuales
 	private Datebox dtboxFechaNac;
 	private Datebox dtboxFechaInicioActividad;
@@ -379,12 +379,12 @@ public class RegistrarJugadorCtrl extends GenericForwardComposer {
 	}
 
 	public void onClick$btnGuardar() {
-		new Util().crearVentana(rutasJug + "vistaCompromisoPago.zul", null,
+		new Util().crearVentana(rutasJug + "frmVistaCompromisoPago.zul", null,
 				null);
 	}
 
 	public void onClick$btnVistaPrevia() {
-		new Util().crearVentana(rutasJug + "vistaRegistroJugador.zul", null,
+		new Util().crearVentana(rutasJug + "frmVistaRegistroJugador.zul", null,
 				null);
 	}
 

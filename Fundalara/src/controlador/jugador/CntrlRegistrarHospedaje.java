@@ -36,7 +36,7 @@ import comun.Util;
  * 
  * */
 
-public class RegistrarHospedajeCtrl extends GenericForwardComposer {
+public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 
 	private Window winRegistrarHospedaje;
 

@@ -15,7 +15,7 @@ import comun.FileLoader;
 import comun.Util;
 
 
-public class ReingresarJugadorCtrl extends GenericForwardComposer {
+public class CntrlReingresarJugador extends GenericForwardComposer {
 	private Button btnGuardar;
 	private Button btnAntes;
 	private Button btnDesp;
@@ -74,7 +74,7 @@ public class ReingresarJugadorCtrl extends GenericForwardComposer {
 		moveStep(false);
 	}
 	public void onClick$btnGuardar() {
-		new Util().crearVentana("Jugador/Vistas/vistaCompromisoPago.zul", null,
+		new Util().crearVentana("Jugador/Vistas/frmVistaCompromisoPago.zul", null,
 				null);
 	}
 
