@@ -3,12 +3,13 @@
   <display-name>Fundalara</display-name>
   <filter>
         <filter-name>sessionmanager</filter-name>
-        <filter-class>dao.general.SessionManager</filter-class>
+        <filter-class>dao.generico.SessionManager</filter-class>
     </filter>
 
     <filter-mapping>
         <filter-name>sessionmanager</filter-name>
         <servlet-name>SessionManager</servlet-name>
+        <url-pattern>*.zul</url-pattern>
     </filter-mapping>
      	
   <listener>

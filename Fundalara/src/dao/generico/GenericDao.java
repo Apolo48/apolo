@@ -1,6 +1,5 @@
 package dao.generico;
 
-
 import java.util.List;
 
 import org.hibernate.Session;
@@ -13,38 +12,47 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 @Service
 public class GenericDao {
-
-	public void guardar(Object o) {		
-		Session session = SessionManager.getSession();
+	
+	Session session;
+    public void guardar(Object o) {		
+		Session session = getSession();
 		Transaction tx =  session.beginTransaction();
 		session.saveOrUpdate(o);
 		tx.commit();		
 	}
 
 	public void actualizar(Object o) {
-		Session session = SessionManager.getSession();
+		Session session = getSession();
 		Transaction tx =  session.beginTransaction();
 		session.saveOrUpdate(o);
 		tx.commit();
 	}
-
+	
 	public void eliminar(Object o) {
-		Session session = SessionManager.getSession();
+		Session session = getSession();
 		Transaction tx =  session.beginTransaction();
 		session.saveOrUpdate(o);
 	    tx.commit();
 	}
-
+	
 	public List listar(Class o) {
-		Session session = SessionManager.getSession();
+		Session session = getSession();
 		Transaction tx =  session.beginTransaction();
 		List lista = session.createCriteria(o).list();
 		return lista;
 	}
-
+	
 	public Session getSession(){
-		return SessionManager.getSession();
+	if (session == null){
+			return session = SessionManager.getSession();
+	}else{
+		  if(!session.isOpen())
+		      session = SessionManager.getSession();		    
+	      return session;	
+		}
 	}
 }
+
