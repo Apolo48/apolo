@@ -1,0 +1,278 @@
+<?page title="REGISTRO DE INDICADORES" contentType="text/html;charset=UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
+<!-- <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="rmRegistroIndicadores" ?> -->
+
+<zk>
+	<div align="center">
+		<window title="Registro de Indicadores " border="normal"
+			width="500px" height="auto" closable="true">
+			<zscript><![CDATA[
+	//@DECLARATION
+	public void Seleccion() {
+		//		formula.setText(formula.getText() +  );
+
+	}
+	public void Operador() {
+		formula.setText(formula.getText() + cmbOperador.getText());
+	}
+	public void Tipo() {
+		if (cmbTipo.getText().equals("Sencillo")) {
+			pnlSencillo.setVisible(true);
+			pnlCompuesto.setVisible(false);
+		} else {
+			pnlSencillo.setVisible(false);
+			pnlCompuesto.setVisible(true);
+		}
+	}
+	public void Agregar() {
+		//		if (id1.toString().isEmpty()){
+
+		//		}
+	}
+	public void Quitar() {
+	}
+]]>
+	</zscript>
+			<div align="left">
+				<grid>
+					<columns>
+						<column width="25%" />
+						<column width="75%" />
+					</columns>
+					<rows>
+						<row style="border:none">						   
+							<label value="Tipo Indicador" />
+							 <div>
+							<combobox id="cmbTipo" style="margin-top:5px" cols="13"
+								onChange="Tipo()">
+								<comboitem label="Sencillo" />
+								<comboitem label="Compuesto" />
+							</combobox>
+							<button id="btnBuscarInidicador"
+										image="../../Recursos/Imagenes/consultar.ico" >								
+							</button>
+							</div>
+						</row>
+					</rows>
+				</grid>
+				<panel id="pnlSencillo" title="Indicadores Sencillos"
+					border="normal" visible="false">
+					<panelchildren>
+						<grid width="100%">
+							<columns>
+								<column width="25%" />
+								<column width="25%" />
+								<column width="15%" />
+								<column width="25%" />
+								<column width="25%" />
+							</columns>
+							<rows>
+								<row align="left" style="border:none">
+									<label value="Modalidad" />
+									<combobox id="cmbModalidadSencillo"
+										cols="13" value="--Seleccione--">
+										<comboitem label="Ofensivo"></comboitem>
+										<comboitem label="Defensivo"></comboitem>
+										<comboitem label="Pitcheo"></comboitem>
+									</combobox>
+								</row>
+								<row align="left" style="border:none">
+									<label value="Abreviatura"></label>
+									<textbox cols="16" />								
+									<label value="Nombre"></label>
+									<textbox cols="20" />
+								</row>
+							</rows>
+						</grid>
+					</panelchildren>
+				</panel>
+
+				<panel id="pnlCompuesto" title="Indicadores Compuestos"
+					border="normal" visible="false">
+					<panelchildren>
+						<grid width="100%">
+							<columns>
+								<column width="25%" />
+								<column width="20%" />
+								<column width="10%" />
+								<column width="30%" />
+								<column width="25%" />
+								<column width="25%" />
+								<column width="25%" />
+							</columns>
+							<rows>
+								<row align="left" style="border:none">
+									<label value="Modalidad" />
+									<combobox id="cmbModalidadCompuesto"
+										cols="13" value="--Seleccione--">
+										<comboitem label="Ofensivo"></comboitem>
+										<comboitem label="Defensivo"></comboitem>
+										<comboitem label="Pitcheo"></comboitem>
+									</combobox>
+									<label value="Medición "></label>
+									<combobox id="cmbMedicion"
+										value="--Seleccione--" cols="21">
+										<comboitem label="Individual" />
+										<comboitem label="Colectivo" />
+									</combobox>
+								</row>
+								<row align="left" style="border:none">
+									<label value="Abreviatura"></label>
+									<textbox cols="16" />
+									<label value="Nombre"></label>
+									<textbox cols="24" />
+									<label value="Nombre"></label>
+									<textbox cols="16" />
+									<label value="Descripción"></label>
+									<textbox cols="16" />
+								</row>
+								<row align="left" style="border:none">
+									<label value="Seleccionar Indicador"></label>
+									<button id="btnBuscar" image="../../Recursos/Imagenes/consultar.ico" ></button>
+								</row>
+							</rows>
+						</grid>
+						<div>
+							<panel>
+								<panelchildren>
+									<grid>
+										<columns>
+											<column width="50%" />
+											<column width="50%" />
+										</columns>
+										<rows>
+											<row>
+												<listbox id="lista"
+													onSelect="Seleccion()" width="99%" style="align:left">
+													<listitem>
+														<listcell>
+															<checkbox
+																checked="true" />
+														</listcell>
+														<listcell
+															label="Sencillos" />
+													</listitem>
+													<listitem>
+														<listcell>
+															<checkbox
+																checked="true" />
+														</listcell>
+														<listcell
+															label="Dobles" />
+													</listitem>
+													<listitem>
+														<listcell>
+															<checkbox
+																checked="true" />
+														</listcell>
+														<listcell
+															label="Triples" />
+													</listitem>
+													<listitem>
+														<listcell>
+															<checkbox
+																checked="true" />
+														</listcell>
+														<listcell
+															label="Veces al Bate" />
+													</listitem>
+													<listitem>
+														<listcell>
+															<checkbox
+																checked="true" />
+														</listcell>
+														<listcell
+															label="Home Run" />
+													</listitem>
+													<listitem>
+														<listcell>
+															<checkbox />
+														</listcell>
+														<listcell
+															label="Ponches" />
+													</listitem>
+													<listitem>
+														<listcell>
+															<checkbox />
+														</listcell>
+														<listcell
+															label="Carreras Impulsadas" />
+													</listitem>
+													<listitem>
+														<listcell>
+															<checkbox />
+														</listcell>
+														<listcell
+															label="Carreras Anotadas" />
+													</listitem>
+												</listbox>
+												
+												<div align="left">
+												<grid >
+										
+												
+													<!-- <columns>
+													<column width="20%"></column>
+													<column width="20%"></column>
+													<column width="20%"></column>
+													<column width="20%"></column>												
+													<column width="20%"></column>													
+													</columns>-->
+													
+													<rows>
+														<row>
+															<button id="btnSumar" label="+"></button>
+															<button id="btnRestar" label="-"></button>
+															<button id="btnMultiplicar" label="*"></button>
+															<button id="btnDividir" label="/"></button>
+															<button id="btnParentesisAbre" label="(" ></button>
+															<!-- <button id="btnParentesisCierra" label=")" width="16,6%"></button>-->
+														</row>
+																											
+														<row
+															align="left" style="border-style:none">
+															<label
+																value="Fórmula " />
+														</row>
+														
+													<!--  <row>
+															<textbox
+																id="txtFormula"  multiline="true"
+																value="=(H+(2B*2)+(3B*3)+(HR*4))/VB" />
+														</row>-->
+													</rows>
+												</grid>
+											</div>
+											</row>
+										</rows>
+									</grid>
+								</panelchildren>
+							</panel>
+						</div>
+					</panelchildren>
+				</panel>
+				<div>
+					<panel>
+						<panelchildren style="margin-top:5px ">
+							<div align="right">
+								<button
+									image="../../Recursos/Imagenes/guardar.ico" label="Guardar">
+								</button>
+								<button
+									image="../../Recursos/Imagenes/eliminar.ico" label="Eliminar">
+								</button>
+								<button
+									image="../../Recursos/Imagenes/cancelar.ico"
+									label="Cancelar">
+								</button>
+								<button
+									image="../../Recursos/Imagenes/salir.png" label="Salir">
+								</button>
+							</div>
+						</panelchildren>
+					</panel>
+				</div>
+			</div>
+		</window>
+	</div>
+</zk>

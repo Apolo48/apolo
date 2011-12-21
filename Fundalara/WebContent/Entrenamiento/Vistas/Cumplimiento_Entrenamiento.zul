@@ -1,0 +1,279 @@
+<?page title="Auto Generated index.zul"?>
+
+<window closable="true"
+	title="Cumplimiento de Entrenamiento - EQUIPO A - PREINFANTIL"
+	apply="controlador.entrenamiento.CumplimientoEntrenamiento"
+	border="normal" width="600px" id="CumplimientoEntrenamiento">
+	<grid>
+		<rows>
+			<row>
+				<grid>
+					<columns>
+						<column label="" width="110PX" />
+						<column label="" width="130PX" align="center" />
+						<column label="" width="110PX" />
+						<column label="" width="180PX" align="center" />
+
+
+					</columns>
+					<rows>
+						<row height="40px">
+							<label value="Entrenamiento Realizado"
+								width="100px" />
+							<hbox>
+								<radiogroup>
+									<radio checked="true" label="SI"
+										id="IdSi" />
+									<space />
+									<radio label="NO" id="IdNo" />
+								</radiogroup>
+							</hbox>
+							<label value="Observación"></label>
+							<textbox width="200px" multiline="true"
+								id="ObservEnt" rows="4" />
+
+
+
+						</row>
+
+					</rows>
+				</grid>
+			</row>
+			<row>
+				<panel title="Horario de Entrenamiento"
+					collapsible="true">
+					<panelchildren>
+
+						<grid>
+							<columns>
+								<column label="" width="110PX" />
+								<column label="" width="130PX"
+									align="center" />
+								<column label="" width="110PX" />
+								<column label="" width="180PX"
+									align="center" />
+
+
+							</columns>
+							<rows>
+
+								<row height="40px">
+
+									<label value="Fecha"></label>
+									<datebox width="120px"
+										id="FechaEntren" />
+									<label value="Hora"></label>
+									<hbox>
+										<timebox id="HoraEntrenI" />
+										<space />
+										<label value="---"></label>
+										<space />
+										<timebox id="HoraEntrenF" />
+									</hbox>
+								</row>
+
+							</rows>
+						</grid>
+					</panelchildren>
+				</panel>
+			</row>
+			<row>
+				<panel title="Manager Encargado" collapsible="true">
+					<panelchildren>
+						<grid>
+							<columns>
+								<column label="" width="110PX" />
+								<column label="" width="130PX"
+									align="center" />
+								<column label="" width="110PX" />
+								<column label="" width="180PX"
+									align="center" />
+							</columns>
+							<rows>
+								<row height="40px">
+									<label value="Manager"
+										width="100px" />
+									<combobox value="Francisco Perez"
+										width="120px" id="CmbNombManager">
+										<comboitem
+											label="Emmanuel Ortega" />
+										<comboitem
+											label="Jose Gutierrez" />
+										<comboitem
+											label="Yovanny Mendoza" />
+									</combobox>
+									<label value="Observación"></label>
+									<textbox width="200px"
+										id="ObservManager" multiline="true" rows="3" />
+								</row>
+							</rows>
+						</grid>
+					</panelchildren>
+				</panel>
+			</row>
+			<row>
+				<panel title="Monitor Encargado" collapsible="true">
+					<panelchildren>
+						<grid>
+							<columns>
+								<column label="" width="110PX" />
+								<column label="" width="130PX"
+									align="center" />
+								<column label="" width="110PX" />
+								<column label="" width="180PX"
+									align="center" />
+							</columns>
+							<rows>
+								<row height="40px">
+									<label value="Monitor"
+										width="100px" />
+									<combobox value="Pedro Alvarez"
+										width="120px" id="CmbNombMonitor">
+										<comboitem label="Jose" />
+										<comboitem label="Felipe" />
+
+									</combobox>
+									<label value="Observación"></label>
+									<textbox width="200px"
+										id="ObservMonitor" multiline="true" rows="3" />
+								</row>
+							</rows>
+						</grid>
+					</panelchildren>
+				</panel>
+			</row>
+			<row>
+				<panel title="Instalacion Utilizada"
+					collapsible="true">
+					<panelchildren>
+						<grid>
+							<columns>
+								<column label="" width="110PX" />
+								<column label="" width="130PX"
+									align="center" />
+								<column label="" width="110PX" />
+								<column label="" width="200PX"
+									align="center" />
+							</columns>
+							<rows>
+								<row height="40px">
+									<label value="Instalacion"></label>
+									<combobox value="Tunel de Bateo"
+										width="120px" id="CmbInstUtiliz">
+										<comboitem
+											label="Tunel Derecho" />
+										<comboitem label="Infield" />
+									</combobox>
+									<label value="Observación"></label>
+									<textbox width="200px"
+										id="ObservInst" multiline="true" rows="3" />
+								</row>
+							</rows>
+						</grid>
+						<panel title="Actividades Realizadas"
+							collapsible="true">
+							<panelchildren>
+								<grid height="150px">
+									<columns sizable="true"
+										menupopup="auto">
+										<column width="450px"
+											align="center" />
+										<column width="60px"
+											align="center" />
+									</columns>
+									<rows>
+										<row height="15px">
+											<listbox height="150px"
+												id="Actividades">
+												<listhead>
+
+													<listheader
+														label="Actividad" sort="auto" width="300px"
+														align="center" />
+													<listheader
+														label="Tiempo (min)" sort="auto" align="center" />
+												</listhead>
+
+											</listbox>
+											<button
+												image="Recursos/Imagenes/quitar.ico" id="BtnQuitar" />
+										</row>
+									</rows>
+								</grid>
+								<grid>
+									<columns>
+										<column label="" width="80PX" />
+										<column label="" width="170PX"
+											align="center" />
+										<column label="" width="80PX" />
+										<column label="" width="140PX"
+											align="center" />
+										<column label="" width="40PX"
+											align="left" />
+									</columns>
+									<rows>
+										<row>
+											<label value="Actividad"></label>
+											<combobox
+												value="--Seleccione--" width="120px" id="CmbActRealizada">
+												<comboitem
+													label="BATEO" />
+												<comboitem
+													label="TROTE" />
+												<comboitem
+													label="LANZAMIENTO" />
+
+											</combobox>
+											<label value="Tiempo"></label>
+											<hbox width="130px"
+												align="center">
+												<intbox id="idTiempo"
+													width="70px" />
+
+
+												<label value=" min"
+													width="20px" />
+											</hbox>
+											<button
+												image="Recursos/Imagenes/agregar.ico" id="BtnAgregar" />
+
+										</row>
+									</rows>
+								</grid>
+							</panelchildren>
+						</panel>
+					</panelchildren>
+				</panel>
+			</row>
+
+
+		</rows>
+	</grid>
+
+
+	<separator />
+
+	<grid>
+		<columns>
+			<column width="220px" />
+			<column width="115px" align="right" />
+			<column width="115px" align="right" />
+			<column width="115px" align="right" />
+		</columns>
+		<rows>
+
+			<row height="15px">
+				<label />
+				<button image="Recursos/Imagenes/guardar.ico"
+					label="Guardar" width="100px" id="BtnGuardar" />
+				<button image="Recursos/Imagenes/imprimir.ico"
+					label="Imprimir" width="100px" id="BtnImprimir" />
+				<button image="Recursos/Imagenes/cancelar.ico"
+					label="Cancelar" width="100px" id="BtnCancelar" />
+				<button image="Recursos/Imagenes/salir.png"
+					label="Salir" width="100px" id="BtnSalir" />
+			</row>
+		</rows>
+	</grid>
+
+</window>

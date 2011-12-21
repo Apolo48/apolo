@@ -1,0 +1,56 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<?page title="Auto Generated index.zul"?>
+<!-- <?component name="Calen" macro-uri="index.zul" inline="true"?> -->
+<window id="wndTemporada" title="Temporada" border="normal" width="280px" height=""
+	closable="true" apply="controlador.entrenamiento.ControladorTemporada">
+	<grid>
+		<rows>
+			<row>
+				<grid>
+					<columns>
+						<column width="140px" />
+						<column width="165px" align="center" />
+					</columns>
+					<rows>
+						<row height="30px">
+							<label value="Fecha Inicio" width="160px" />
+							<datebox id="dbInicio" width="125px" />
+						</row>
+						<row height="30px">
+							<label value="Fecha Final" width="160px" />
+							<datebox  id="dbFinal" width="125px" />
+						</row>
+						<row height="30px">
+							<label  value="Nombre"
+								width="160px" />
+							<textbox id="txtNombre"/>
+
+						</row>
+
+
+					</rows>
+				</grid>
+			</row>
+		</rows>
+	</grid>
+	<separator />
+	<grid>
+		<columns>
+			<column width="50px" align="center" />
+			<column width="50px" align="center" />
+			<column width="50px" align="center" />
+		</columns>
+		<rows>
+			<row>
+				<button id="btnGuardar" image="../../Recursos/Imagenes/guardar.ico"
+					width="45px" />
+				<button id="btnCancelar" image="../../Recursos/Imagenes/cancelar.ico"
+					width="45px" />
+				<button id="btnSalir" image="../../Recursos/Imagenes/salir.png"
+					width="45px" />
+			</row>
+		</rows>
+	</grid>
+	<include id="ventana" />
+</window>

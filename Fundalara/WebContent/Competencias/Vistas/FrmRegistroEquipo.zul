@@ -1,0 +1,185 @@
+<?page title="Registro de Equipo" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div align="center">
+		<window title="Equipos" border="normal" width="690px"
+			height="auto" onClose="VerRoster()" closable="true">
+
+
+			<!-- DATOS COMPETENCIA -->
+			<panel border="normal" width="690px">
+				<caption label="Datos de la Competencia"></caption>
+				<panelchildren>
+					<grid>
+						<columns>
+							<column width="5%"></column>
+							<column width="5%"></column>
+							<column width="5%"></column>
+							<column width="25%"></column>
+							<column width="5%"></column>
+							<column width="25%"></column>
+						</columns>
+						<rows>
+							<row style="border-style:none">
+								<label value="Nombre"></label>
+								<hbox>
+									<textbox cols="20" disabled="true"
+										style="margin-left:15px">
+									</textbox>
+									<button
+										image="../../Recursos/Imagenes/consultar.ico">
+									</button>
+								</hbox>
+								<label value="Tipo"></label>
+								<textbox cols="14" disabled="true"
+									style="margin-left:15px">
+								</textbox>
+								<label value="Modalidad"></label>
+								<textbox cols="14" disabled="true"></textbox>
+							</row>
+							<row style="border-style:none">
+								<label value="Fecha Inicio"></label>
+								<datebox cols="10" disabled="true"
+									style="margin-left:15px">
+								</datebox>
+								<label value="Fecha Fin"></label>
+								<datebox cols="10" disabled="true"
+									style="margin-left:15px">
+								</datebox>
+
+							</row>
+						</rows>
+					</grid>
+				</panelchildren>
+			</panel>
+
+			<div>
+				<!-- TABLA REGISTRO DE EQUIPOS -->
+				<div id="PrincipalEquipos" align="left">
+					<panel title="Equipos Internos"
+						collapsible="true">
+						<panelchildren>
+							<grid width="auto" height="auto">
+								<columns>
+									<column width="25%"></column>
+									<column></column>
+								</columns>
+								<rows>
+									<row style="border-style:none">
+										<label
+											value="Buscar por Categoría">
+										</label>
+										<combobox width="120px">
+											<comboitem label="Infantil" />
+											<comboitem
+												label="Pre-Junior" />
+											<comboitem label="Juvenil" />
+										</combobox>
+									</row>
+								</rows>
+							</grid>
+
+							<div>
+								<listbox height="auto" id="ListaEquipos"
+									mold="paging" pageSize="4">
+									<listhead>
+
+										<listheader label="Equipo"
+											width="25%" align="center" id="Equipo" />
+										<listheader label="Delegado"
+											width="25%" align="center" id="Delegado" />
+										<listheader label="Entrenador"
+											width="25%" align="center" id="Entrenador" />
+									</listhead>
+									<listitem>
+
+										<listcell>
+											Nombre Equipo 1
+										</listcell>
+										<listcell>Delegado 1</listcell>
+										<listcell>
+											Entrenador 1
+										</listcell>
+									</listitem>
+									<listitem>
+
+										<listcell>
+											Nombre Equipo 2
+										</listcell>
+										<listcell>Delegado 2</listcell>
+										<listcell>
+											Entrenador 2
+										</listcell>
+									</listitem>
+									<listitem>
+
+										<listcell>
+											Nombre Equipo 3
+										</listcell>
+										<listcell>Delegado 3</listcell>
+										<listcell>
+											Entrenador 3
+										</listcell>
+									</listitem>
+									<listitem>
+
+										<listcell>
+											Nombre Equipo 4
+										</listcell>
+										<listcell>Delegado 4</listcell>
+										<listcell>
+											Entrenador 4
+										</listcell>
+									</listitem>
+									<listitem>
+
+										<listcell>
+											Nombre Equipo 5
+										</listcell>
+										<listcell>Delegado 5</listcell>
+										<listcell>
+											Entrenador 5
+										</listcell>
+									</listitem>
+								</listbox>
+							</div>
+
+						</panelchildren>
+					</panel>
+				</div>
+
+				
+			</div>
+
+			<div>
+				<panel>
+					<panelchildren style="margin-top:5px ">
+						<div align="right">
+							<button
+								image="../../Recursos/Imagenes/guardar.ico" label="Guardar">
+							</button>
+							<button
+								image="../../Recursos/Imagenes/eliminar.ico" label="Eliminar">
+							</button>
+							<button
+								image="../../Recursos/Imagenes/cancelar.ico" label="Cancelar">
+							</button>
+							<button
+								image="../../Recursos/Imagenes/salir.png" label="Salir">
+							</button>
+						</div>
+					</panelchildren>
+				</panel>
+			</div>
+
+			<include id="Rost"></include>
+			<zscript>
+		<![CDATA[
+	public void Enlace(String cad) {
+		Rost.setSrc(cad);
+		PrincipalEquipos.setVisible(false);
+	}
+]]>
+		</zscript>
+		</window>
+	</div>
+</zk>

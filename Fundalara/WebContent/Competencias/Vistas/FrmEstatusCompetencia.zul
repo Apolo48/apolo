@@ -1,0 +1,168 @@
+<?page title="EstatusCompetencia" contentType="text/html;charset=UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="frmEstatusCompetencia"?>
+<zk>
+	<div align="center">
+		<window id="frmEstatusCompetencia" title="Estatus de Competencia"
+			width="690px" height="" border="normal" closable="true">
+
+			<grid style="margin-top:10px">
+				<columns>
+					<column label="" align="left" width="35%" />
+					<column label="" width="35%" />
+					<column label="" width="10%" />
+				</columns>
+				<rows>
+					<row style="border-style:none">
+						<hbox>
+							<label value="Filtrar por:"></label>
+							<space></space>
+							<combobox id="cmbFiltro"
+								value="--Seleccione--">
+								<comboitem label="Nombre Competencia" />
+								<comboitem label="Tipo Competencia" />
+							</combobox>
+						</hbox>
+					</row>
+					<row style="border-style:none">
+						<hbox>
+							<space width="80px"></space>
+							<textbox id="txtFiltro"></textbox>
+							<space></space>
+							<button id="btnBuscar" onClick=""
+								image="../../Recursos/Imagenes/consultar.ico" />
+						</hbox>
+					</row>
+				</rows>
+			</grid>
+
+			<div style="margin-top: 10px">
+				<panel>
+					<caption label=" Seleccione una Competencia">
+					</caption>
+					<panelchildren>
+						<listbox id="lsbxAperCompetencia1" mold="paging"
+							pageSize="2">
+							<listhead>
+								<listheader align="left"
+									label="Nombre Competencia" width="33%" />
+								<listheader label="Tipo Competencia"
+									width="33%" align="left" />
+								<listheader label="Estatus Competencia"
+									width="33%" align="left" />
+							</listhead>
+							<listitem>
+								<listcell label="" />
+								<listcell label="" />
+								<listcell label="" />
+
+							</listitem>
+							<listitem>
+								<listcell label="" />
+								<listcell label="" />
+								<listcell label="" />
+							</listitem>
+							<listitem>
+								<listcell label="" />
+								<listcell label="" />
+								<listcell label="" />
+							</listitem>
+						</listbox>
+					</panelchildren>
+				</panel>
+			</div>
+
+			<div style="margin-top:15px">
+				<panel>
+					<caption label="Datos Competencia"></caption>
+					<panelchildren>
+						<div>
+							<listbox id="lsbxAperCompetencia2"
+								mold="paging" pageSize="2">
+								<listhead>
+									<listheader label="Equipos"
+										width="14%" align="left" />
+									<listheader label="Rosters"
+										width="14%" align="left" />
+									<listheader label="Indicadores"
+										width="14%" align="left" />
+									<listheader label="JP" width="14%"
+										align="left" />
+									<listheader label="JR" width="14%"
+										align="left" />
+									<listheader label="FI" width="14%"
+										align="left" />
+									<listheader label="FC" width="14%"
+										align="left" />
+								</listhead>
+								<listitem>
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+								</listitem>
+								<listitem>
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+								</listitem>
+								<listitem>
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+								</listitem>
+							</listbox>
+						</div>
+						<grid>
+							<rows>
+								<row>
+									<label
+										value="JP: Juegos Programados">
+									</label>
+									<label
+										value="JR: Juegos Registrados">
+									</label>
+									<label
+										value="FI: Fecha de Inicio">
+									</label>
+									<label
+										value="FC: Fecha de Culminación">
+									</label>
+								</row>
+							</rows>
+						</grid>
+					</panelchildren>
+				</panel>
+
+
+			</div>
+			<div align="right">
+				<button id="btnAperturar"
+					image="/Recursos/Imagenes/apertura.png" label="Aperturar">
+				</button>
+				<button id="btnCulminar"
+					image="/Recursos/Imagenes/apertura.png" label="Culminar">
+				</button>
+				<button id="btnCancelar"
+					image="/Recursos/Imagenes/cancelar.ico" label="Cancelar"
+					orient="horizontal">
+				</button>
+				<button id="btnSalir"
+					image="/Recursos/Imagenes/salir.png" label="Salir"
+					orient="horizontal">
+				</button>
+			</div>
+		</window>
+	</div>
+</zk>
