@@ -1621,22 +1621,12 @@
 																			value="Parentesco" />
 																		<div>
 																			<combobox
-																				id="cmbParentesco" readonly="true"
-																				value="--Seleccione--" width="65%">
+																				id="cmbParentesco"
+																				model="@{winRegistroJugador$composer.parentescos}"
+																				readonly="true" value="--Seleccione--" width="65%">
 																				<comboitem
-																					label="Abuelo(a)" />
-																				<comboitem
-																					label="Hermano(a)" />
-																				<comboitem
-																					label="Madre" />
-																				<comboitem
-																					label="Padre" />
-																				<comboitem
-																					label="Primo(a)" />
-																				<comboitem
-																					label="Tio(a)" />
-																				<comboitem
-																					label="Otro" />
+																					self="@{each='parentesco'}" label="@{parentesco.nombre}"
+																					value="@{parentesco.codigoDatoBasico}"/>
 																			</combobox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1647,84 +1637,12 @@
 																			value="Profesión/ Ocupación" />
 																		<div>
 																			<combobox
-																				id="cmbProfesion" readonly="true"
-																				value="--Seleccione--" width="65%">
+																				id="cmbProfesion"
+																				model="@{winRegistroJugador$composer.profesiones}"
+																				readonly="true" value="--Seleccione--" width="65%">
 																				<comboitem
-																					label="Abogado" />
-																				<comboitem
-																					label="Administrador" />
-																				<comboitem
-																					label="Agricultor" />
-																				<comboitem
-																					label="Albañil" />
-																				<comboitem
-																					label="Analista" />
-																				<comboitem
-																					label="Arquitecto" />
-																				<comboitem
-																					label="Artesano" />
-																				<comboitem
-																					label="Asistente" />
-																				<comboitem
-																					label="Atleta" />
-																				<comboitem
-																					label="Auxiliar" />
-																				<comboitem
-																					label="Bachiller" />
-																				<comboitem
-																					label="Bailarin" />
-																				<comboitem
-																					label="Biólogo" />
-																				<comboitem
-																					label="Bionalista" />
-																				<comboitem
-																					label="Bombero" />
-																				<comboitem
-																					label="Botánico" />
-																				<comboitem
-																					label="Cajero" />
-																				<comboitem
-																					label="Cantante" />
-																				<comboitem
-																					label="Carnicero" />
-																				<comboitem
-																					label="Carpintero" />
-																				<comboitem
-																					label="Chef" />
-																				<comboitem
-																					label="Comerciante" />
-																				<comboitem
-																					label="Cosmetología" />
-																				<comboitem
-																					label="Computación" />
-																				<comboitem
-																					label="Comunicador Social" />
-																				<comboitem
-																					label="Conductor" />
-																				<comboitem
-																					label="Del Hogar" />
-																				<comboitem
-																					label="Docente" />
-																				<comboitem
-																					label="Dibujante" />
-																				<comboitem
-																					label="Economista" />
-																				<comboitem
-																					label="Electricista" />
-																				<comboitem
-																					label="Enfermera" />
-																				<comboitem
-																					label="Estudiante" />
-																				<comboitem
-																					label="Farmaceutico" />
-																				<comboitem
-																					label="Gerente" />
-																				<comboitem
-																					label="Ingeniero" />
-																				<comboitem
-																					label="Licenciado" />
-																				<comboitem
-																					label="Médico" />
+																					self="@{each='profesion'}" label="@{profesion.nombre}"
+																					value="@{profesion.codigoDatoBasico}"/>
 																			</combobox>
 																		</div>
 																	</row>
@@ -1973,16 +1891,12 @@
 															<label
 																value="Comisión" />
 															<combobox
-																id="cmbComisiones" readonly="true"
-																value="--Seleccione--">
+																id="cmbComisiones"
+																model="@{winRegistroJugador$composer.comisiones}"
+																readonly="true" value="--Seleccione--">
 																<comboitem
-																	label="Disciplina" />
-																<comboitem
-																	label="Información y Medios" />
-																<comboitem
-																	label="Eventos Especiales" />
-																<comboitem
-																	label="Campo" />
+																	self="@{each='comision'}" label="@{comision.nombre}"
+																	value="@{comision.codigoDatoBasico}"/>
 															</combobox>
 														</row>
 														<row

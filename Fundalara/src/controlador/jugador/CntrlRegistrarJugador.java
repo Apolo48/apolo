@@ -87,6 +87,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Combobox cmbAfecciones;
 	private Combobox cmbInstitucionRecreativa;
 	private Combobox cmbActividad;
+	private Combobox cmbParenteso;
+	private Combobox cmbProfesion;
+	private Combobox cmbComisiones;
 	private Label lblSeparador;
 	private Listbox listAfeccionesActuales;
 	private Listbox listActividadesSociales;
@@ -326,6 +329,18 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public List<DatoBasico> getActividadSoc() {
 		return servicioDatoBasico.buscar(TipoDatoBasico.ACTIVIDAD_SOCIAL);
+	}
+	
+	public List<DatoBasico> getParentescos() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.PARENTESCO);
+	}
+	
+	public List<DatoBasico> getProfesiones() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.PROFESION);
+	}
+	
+	public List<DatoBasico> getComisiones() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.COMISION);
 	}
 
 	public List<DatoBasico> getEstadosVenezuela() {
