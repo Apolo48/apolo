@@ -371,14 +371,10 @@
 															<grid
 																style="border:none;" oddRowSclass="none">
 																<columns>
-																	<column
-																		width="18%" />
-																	<column
-																		width="32%" />
-																	<column
-																		width="18%" />
-																	<column
-																		width="32%" />
+																	<column width="18%" />
+																	<column width="32%" />
+																	<column width="18%" />
+																	<column width="32%" />
 																</columns>
 																<rows>
 																	<row
@@ -1801,46 +1797,29 @@
 															width="30%" />
 													</columns>
 													<rows>
-														<row
-															style="border:none;">
-															<label
-																value="Teléfono Habitación" />
+														<row style="border:none;">
+															<label value="Teléfono Habitación" />
 															<div>
-																<combobox
-																	id="cmbCodAreaFamiliar" readonly="true" width="25%"
-																	value="0251">
+																<combobox readonly="true" id="cmbCodAreaFamiliar"
+																	value="--" width="25%"
+																	model="@{winRegistroJugador$composer.codigosArea}">
 																	<comboitem
-																		label="0252" />
-																	<comboitem
-																		label="0253" />
-																	<comboitem
-																		label="0254" />
-																	<comboitem
-																		label="0255" />
-																</combobox>
-
-																<textbox
-																	width="40%" />
-																<label
-																	value="(*)" style="color:red" />
+																		self="@{each='codAFamiliar'}" label="@{codAFamiliar.nombre}" 
+																		value="@{codAFamiliar.codigoDatoBasico}"/>
+																</combobox>	
+																<intbox id="txtTelefonoHabFamiliar" width="40%" />
+																<label value="(*)" style="color:red" />
 															</div>
-															<label
-																value="Teléfono Celular" />
+															<label value="Teléfono Celular" />
 															<div>
-																<combobox
-																	id="cmbCodCelularFamiliar" readonly="true" width="25%"
-																	value="0412">
+																<combobox readonly="true" id="cmbCodCelularFamiliar"
+																	value="--" width="25%"
+																	model="@{winRegistroJugador$composer.codigosCelular}">
 																	<comboitem
-																		label="0414" />
-																	<comboitem
-																		label="0416" />
-																	<comboitem
-																		label="0424" />
-																	<comboitem
-																		label="0426" />
-																</combobox>
-																<textbox
-																	width="40%" />
+																		self="@{each='codCFamiliar'}" label="@{codCFamiliar.nombre}" 
+																		value="@{codCFamiliar.codigoDatoBasico}"/>
+																</combobox>	
+																<intbox id="txtTelefonoCelFamiliar" width="40%" />
 																<label
 																	value="(*)" style="color:red" />
 															</div>
