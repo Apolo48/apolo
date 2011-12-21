@@ -1395,34 +1395,26 @@
 																<label
 																	value="(*)" style="color:red" />
 															</div>
-
 														</row>
 														<row
 															style="border:none;">
 															<label
-																value="Brazo Lanzar" />
+																value="Brazo Lanzar" />																								
 															<combobox
 																id="cmbBrazoLanzar" readonly="true"
-																value="--Seleccione--" width="65%">
+																value="--Seleccione--" width="65%"
+																	model="@{winRegistroJugador$composer.valoresBrazoLanzamiento}">
 																<comboitem
-																	label="Zurdo" />
-																<comboitem
-																	label="Derecho" />
-																<comboitem
-																	label="Ambidiestro" />
+																		self="@{each='lanzamiento'}" label="@{lanzamiento.nombre}" />
 															</combobox>
-
 															<label
-																value="Posición Bateo" />
+																value="Posición Bateo" />													
 															<combobox
 																id="cmbPosicionBateo" readonly="true"
-																value="--Seleccione--" width="65%">
-																<comboitem
-																	label="Zurdo" />
-																<comboitem
-																	label="Derecho" />
-																<comboitem
-																	label="Ambidiestro" />
+																value="--Seleccione--" width="65%"
+																	model="@{winRegistroJugador$composer.valoresPosicionBateo}">
+															<comboitem
+																		self="@{each='bateo'}" label="@{bateo.nombre}" />
 															</combobox>
 														</row>
 													</rows>

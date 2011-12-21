@@ -28,7 +28,9 @@ public enum TipoDatoBasico {
 	RECAUDOS_ACADEMICOS("26"),
 	RECAUDOS_PERSONALES("27"),
 	RECAUDOS_MEDICOS("28"),
-	INSTITUCION("29");
+	INSTITUCION("29"),
+	BRAZO_LANZAR("30"),
+	POSICION_BATEO("31");
 
 	private String codigo;
 

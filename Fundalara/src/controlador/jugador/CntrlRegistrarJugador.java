@@ -417,7 +417,14 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		return servicioEquipo.buscarPorCategoria(categoria);
 	}
 	
+	public List<DatoBasico> getValoresBrazoLanzamiento() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.BRAZO_LANZAR);
+	}
 
+	public List<DatoBasico> getValoresPosicionBateo() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.POSICION_BATEO);
+	}
+	
 	// Eventos
 	public void onClick$btnCatalogoMedico() {
 		new Util().crearVentana(rutasJug + "buscarMedico.zul", null, null);
