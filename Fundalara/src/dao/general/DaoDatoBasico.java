@@ -51,7 +51,7 @@ public class DaoDatoBasico extends GenericDao {
 	public List<DatoBasico> buscar(TipoDatoBasico tipoDato){
 		Session session = SessionManager.getSession();
         org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"'").addEntity(DatoBasico.class);
+		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"' AND estatus='A'").addEntity(DatoBasico.class);
 		List<DatoBasico> lista = query.list(); 
 		tx.commit();  
 		return  lista;
@@ -65,7 +65,7 @@ public class DaoDatoBasico extends GenericDao {
 	public List<DatoBasico> buscarPorRelacion(DatoBasico datoBasico){
 		Session session = SessionManager.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE parent_codigo_dato_basico='"+ datoBasico.getCodigoDatoBasico()+"'").addEntity(DatoBasico.class);
+		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE parent_codigo_dato_basico='"+ datoBasico.getCodigoDatoBasico()+"' AND estatus='A'").addEntity(DatoBasico.class);
 		List<DatoBasico> lista = query.list(); 
 		tx.commit();  
 		return  lista;
@@ -80,7 +80,7 @@ public class DaoDatoBasico extends GenericDao {
 	public DatoBasico buscarTipo(TipoDatoBasico tipoDato, String nombre){
 		Session session = SessionManager.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"' AND upper(nombre)='"+ nombre.toUpperCase() +"'").addEntity(DatoBasico.class);
+		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"' AND upper(nombre)='"+ nombre.toUpperCase() +"' AND estatus='A'").addEntity(DatoBasico.class);
 		DatoBasico lista = (DatoBasico)query.uniqueResult(); 
 		tx.commit();
 		return  lista;
