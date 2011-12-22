@@ -94,7 +94,7 @@
 										<div>
 											<combobox id="cmbGenero"
 												selectedItem="@{controller.jugador.persona.sexo, converter='CharConverter'}"
-												readonly="true" value="--Seleccione--" width="25%">
+												readonly="true" value="--Seleccione--" width="25%" >
 												<comboitem
 													label="Masculino" value="M" />
 												<comboitem
@@ -213,7 +213,7 @@
 																		<div>
 																			<combobox
 																				value="--Seleccione--" id="cmbPaisNac"
-																				readonly="true"
+																				readonly="true" width="70%"
 																				selectedItem="@{controller.jugador.datoBasicoByCodigoPais}"
 																				model="@{winRegistroJugador$composer.paises}">
 																				<comboitem
@@ -1440,17 +1440,10 @@
 															<div>
 																<combobox
 																	id="cmbTallaCamisa" readonly="true"
-																	value="--Seleccione--" width="65%">
-																	<comboitem
-																		label="SS" />
-																	<comboitem
-																		label="S" />
-																	<comboitem
-																		label="M" />
-																	<comboitem
-																		label="L" />
-																	<comboitem
-																		label="XL" />
+																	value="--Seleccione--" width="65%"
+																	model="@{winRegistroJugador$composer.tallasCamisa}">
+																		<comboitem
+																		self="@{each='tallaCamisa'}" label="@{tallaCamisa.nombre}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
@@ -1460,19 +1453,10 @@
 															<div>
 																<combobox
 																	id="cmbTallaPantalon" readonly="true"
-																	value="--Seleccione--" width="65%">
-																	<comboitem
-																		label="XS" />
-																	<comboitem
-																		label="S-7" />
-																	<comboitem
-																		label="M-8/10" />
-																	<comboitem
-																		label="L-12/14" />
-																	<comboitem
-																		label="XL-16" />
-																	<comboitem
-																		label="XXL" />
+																	value="--Seleccione--" width="65%"	
+																	model="@{winRegistroJugador$composer.tallasPantalon}">
+																		<comboitem
+																		self="@{each='tallaPantalon'}" label="@{tallaPantalon.nombre}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
@@ -1485,18 +1469,11 @@
 															<div>
 																<combobox
 																	id="cmbTallaCalzado" readonly="true"
-																	value="--Seleccione--" width="26%">
-																	<comboitem
-																		label="25" />
-																	<comboitem
-																		label="26" />
-																	<comboitem
-																		label="27" />
-																	<comboitem
-																		label="28" />
-																	<comboitem
-																		label="29" />
-																</combobox>
+																	value="--Seleccione--" width="26%"	
+																	model="@{winRegistroJugador$composer.tallasCalzado}">
+																		<comboitem
+																		self="@{each='tallaCalzado'}" label="@{tallaCalzado.nombre}" />
+																</combobox>											
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -1695,45 +1672,31 @@
 															style="border:none;">
 															<label
 																value="Estado" />
-															<div>
-																<combobox
+															<div>												
+															<combobox
 																	id="cmbEstadoFamiliar" readonly="true"
-																	value="--Seleccione--" width="65%">
-																	<comboitem
-																		label="Lara" />
-																	<comboitem
-																		label="Portuguesa" />
-																	<comboitem
-																		label="Yaracuy" />
+																	value="--Seleccione--" width="65%"
+																	selectedItem="@{controller.estadoVenezuelaFamiliar}"
+																	model="@{winRegistroJugador$composer.estadosVenezuela}">
+																<comboitem
+																					self="@{each='estadoFamiliar'}"
+																					label="@{estadoFamiliar.nombre}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
 															</div>
 															<label
 																value="Municipio" />
-															<div>
+															<div>			
 																<combobox
 																	id="cmbMunicipioFamiliar" readonly="true"
-																	value="--Seleccione--" width="65%">
-																	<comboitem
-																		label="Andrés Eloy Blanco" />
-																	<comboitem
-																		label="Crespo" />
-																	<comboitem
-																		label="Iribarren" />
-																	<comboitem
-																		label="Jiménez" />
-																	<comboitem
-																		label="Morán" />
-																	<comboitem
-																		label="Palavecino" />
-																	<comboitem
-																		label="Simón Planas" />
-																	<comboitem
-																		label="Torres" />
-																	<comboitem
-																		label="Urdaneta" />
-																</combobox>
+																	selectedItem="@{controller.municipioFamiliar}"
+																	value="--Seleccione--" width="65%"
+																		model="@{winRegistroJugador$composer.municipiosEstadosFam, load-after='cmbEstadoFamiliar.onChange'}">
+																		<comboitem
+																					self="@{each='municipioFam'}"
+																					label="@{municipioFam.nombre}" />
+																			</combobox>
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -1745,21 +1708,11 @@
 															<div>
 																<combobox
 																	id="cmbParroquiaFamiliar" readonly="true"
-																	value="--Seleccione--" width="65%">
+																	value="--Seleccione--" width="65%"
+																	model="@{winRegistroJugador$composer.parroquiasMunicipioFam, load-after='cmbMunicipioFamiliar.onChange'}">
 																	<comboitem
-																		label="Barquisimeto" />
-																	<comboitem
-																		label="Cabudare" />
-																	<comboitem
-																		label="Carora" />
-																	<comboitem
-																		label="Duaca" />
-																	<comboitem
-																		label="El Cují" />
-																	<comboitem
-																		label="El Tocuyo" />
-																	<comboitem
-																		label="Quibor" />
+																					self="@{each='parroquiaFam'}"
+																					label="@{parroquiaFam.nombre}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
@@ -1872,6 +1825,7 @@
 															<combobox
 																id="cmbComisiones"
 																model="@{winRegistroJugador$composer.comisiones}"
+																selectedItem="@{controller.comision}"
 																readonly="true" value="--Seleccione--">
 																<comboitem
 																	self="@{each='comision'}" label="@{comision.nombre}"
@@ -1891,7 +1845,8 @@
 																	<row
 																		style="border:none">
 																		<listbox
-																			id="listComisiones" mold="paging" pageSize="2">
+																			id="listComisiones" mold="paging" pageSize="2"
+																			model="@{controller.comisionesFamiliar}">
 																			<listhead>
 																				<listheader
 																					label="Comisiones" width="30%" />
@@ -1899,29 +1854,18 @@
 																					label="Descripción" width="70%" />
 																			</listhead>
 
-																			<listitem>
+																			<listitem self="@{each='comisionFam'}" value="@{comisionFam}" >
+																				<listcell 
+																					label="@{comisionFam.nombre}" />
 																				<listcell
-																					label="Disciplina" />
-
-																				<listcell
-																					label="Evaluar comportamiento de los jugadores" />
-																			</listitem>
-																			<listitem>
-																				<listcell
-																					label="Información y Medios" />
-
-																				<listcell
-																					label="Difundir información de eventoss" />
+																					label="@{comisionFam.descripcion}" />
 																			</listitem>
 																		</listbox>
 																		<vbox>
 																			<button
 																				id="btnAgregarComision"
 																				image="../../Recursos/Imagenes/agregar.ico" />
-																			<button
-																				id="btnModificarComision"
-																				image="../../Recursos/Imagenes/editar.ico" />
-																			<button
+																		<button
 																				id="btnEliminarComision"
 																				image="../../Recursos/Imagenes/quitar.ico" />
 																		</vbox>
