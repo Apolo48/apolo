@@ -22,6 +22,7 @@ public class ServicioEquipo implements IServicioEquipo {
 
 	@Override
 	public void eliminar(Equipo c) {
+		c.setEstatus('E');
 		daoEquipo.eliminar(c);
 
 	}
@@ -40,8 +41,11 @@ public class ServicioEquipo implements IServicioEquipo {
 
 	@Override
 	public List<Equipo> listar() {
-		return daoEquipo.listar(Equipo.class);
+		return daoEquipo.listarActivos(Equipo.class);
+				//daoEquipo.listar(Equipo.class);
 	}
+	
+	
 	
 	public List<Equipo> buscarPorCategoria(Categoria categoria){
 		return daoEquipo.buscarEquiposPorCategoria(categoria);

@@ -1,6 +1,6 @@
-<?page title="Equipo" contentType="text/html;charset=UTF-8"?>
+<?page title="Equipo"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="winConfigurarEquipo"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 
 <zk>
 
@@ -32,10 +32,10 @@
 								label="@{categoria.nombre}"/>
 					</combobox>
 					<label value="Tipo" />
-					<combobox id="cmbTipo" value="--" width="20%"  selectedItem="@{controller.clasificacionEquipo}"
+					<combobox id="cmbTipo" value="--" width="20%"  selectedItem="@{controller.clasificacion}"
 						 model="@{winConfigurarEquipo$composer.tipos}">
-					<comboitem self="@{each='tipo'}"
-								label="@{tipo.nombre}" />
+					<comboitem self="@{each='tiposv'}"
+								label="@{tiposv.nombre}" />
 					</combobox>
 				</row>
 				<row spans="1,3" style="border:none;">
@@ -66,7 +66,7 @@
 						<listitem self="@{each='equipo'}" value="@{equipo}">
 							<listcell label="@{equipo.nombre}" />
 							<listcell label="@{equipo.categoria.nombre}" />
-							<listcell label="@{equipo.clasificacionEquipo.nombre}" />
+							<listcell label="@{equipo.datoBasico.nombre}"/>
 							<listcell label="@{equipo.divisa.nombre}" />
 						</listitem>
 					

@@ -7,39 +7,40 @@ package comun;
  * @version 0.1
  */
 public enum TipoDatoBasico {
-	PAIS("1"),
-	ESTADO_VENEZUELA("2"), 
-    MUNICIPIO("3"),
-	PARROQUIA("4"),
-	CODIGO_AREA("5"),
-	CODIGO_CELULAR("6"),
-	GRUPO_SANGUINEO("7"),
-	FACTOR_RH("8"),
-	TIPO_AFECCION("9"),
-	AFECCION("10"),
-	CURSO("11"),
-	ANNO_ESCOLAR("12"),
-	ACTIVIDAD_SOCIAL("13"),
-	INDUMENTARIA("15"),
-	TALLA_INDUMENTARIA("16"),
-	PARENTESCO("17"),
-	PROFESION("18"),
-	COMISION("19"),
-	INSCRIPCION("24"),
-	RECAUDOS_ACADEMICOS("26"),
-	RECAUDOS_PERSONALES("27"),
-	RECAUDOS_MEDICOS("28"),
-	INSTITUCION("29"),
-	BRAZO_LANZAR("30"),
-	POSICION_BATEO("31");
+	PAIS(1),
+	ESTADO_VENEZUELA(2), 
+    MUNICIPIO(3),
+	PARROQUIA(4),
+	CODIGO_AREA(5),
+	CODIGO_CELULAR(6),
+	GRUPO_SANGUINEO(7),
+	FACTOR_RH(8),
+	TIPO_AFECCION(9),
+	AFECCION(10),
+	CURSO(11),
+	ANNO_ESCOLAR(12),
+	ACTIVIDAD_SOCIAL(13),
+	CLASIFICACION_EQUIPO(14),
+	INDUMENTARIA(15),
+	TALLA_INDUMENTARIA(16),
+	PARENTESCO(17),
+	PROFESION(18),
+	COMISION(19),
+	INSCRIPCION(24),
+	RECAUDOS_ACADEMICOS(26),
+	RECAUDOS_PERSONALES(27),
+	RECAUDOS_MEDICOS(28),
+	INSTITUCION(29),
+	BRAZO_LANZAR(30),
+	POSICION_BATEO(31);
 
-	private String codigo;
+	private int codigo;
 
-    private TipoDatoBasico(String codigo) {
+    private TipoDatoBasico(int codigo) {
        this.codigo = codigo;
     }
 
-    public String getCodigo() {
+    public int getCodigo() {
 		return codigo;
 	}
 }
