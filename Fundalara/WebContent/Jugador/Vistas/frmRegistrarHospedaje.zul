@@ -17,31 +17,29 @@
 					<row style="border:none;">
 						<label value="Nombre" />
 						<div>
-							<!--combobox id="cmbCurso"
-								model="@{winRegistrarHospedaje$composer.cursos}" readonly="true"
-								value="-Seleccione-">
-								<comboitem self="@{each='curso'}"
-									label="@{curso.nombre}" value="@{curso.codigoCurso}" />
-							</combobox-->
-							<combobox readonly="true" value="--Seleccione--">
-								<comboitem/>
-							</combobox>
-							<label value="(*)" style="color:red" />
+						<combobox id="cmbCompetencia"
+							value="--Seleccione--" width="65%" readonly="true"
+							model="@{winRegistrarHospedaje$composer.categorias}">
+							<comboitem self="@{each='categoria'}"
+								label="@{categoria.nombre}"
+								value="@{categoria.codigoCategoria}" />
+						</combobox>
+						<label value="(*)" style="color:red" />
 						</div>
 					</row>
 					<row style="border:none;">
 						<label value="Fecha Inicio" />
-						<datebox id="dtboxFechaIni"
-							constraint="no future" format="dd/MM/yyyy"
+						<datebox id="dtboxFechaIni" 
+							constraint="no future" format="dd/MM/yyyy" disabled="true"
 							style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 						<label value="Fecha Fin" />
-						<datebox id="dtboxFechaFin"
-							constraint="no future" format="dd/MM/yyyy"
+						<datebox id="dtboxFechaFin" 
+							constraint="no future" format="dd/MM/yyyy" disabled="true"
 							style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 					</row>
 					<row spans="1,3" style="border:none;">
 						<label value="Lugar" />
-						<textbox id="txtLugar" maxlength="200" rows="1"
+						<textbox id="txtLugar" maxlength="200" rows="1"  
 							width="95%" multiline="true" disabled="true" />
 					</row>
 				</rows>
@@ -68,6 +66,7 @@
 								<comboitem label="E" />
 							</combobox>
 							<intbox id="txtCedulaRep"
+									
 								constraint="no negative" maxlength="8" width="30%" />
 							<label value="(*)" style="color:red" />
 							<button id="btnCatalogoRepresentante"
@@ -78,15 +77,15 @@
 					</row>
 					<row style="border:none;">
 						<label value="Nombre" />
-						<textbox id="txtNombreRep" width="86%"
-							disabled="true" />
+						<textbox id="txtNombreRep" 
+								width="86%"	disabled="true" />
 						<label value="Apellido" />
 						<textbox id="txtApellidoRep" width="86%"
 							disabled="true" />
 					</row>
 					<row spans="1,3" style="border:none;">
 						<label value="Dirección" />
-						<textbox id="txtDireccionRep" maxlength="200"
+						<textbox id="txtDireccionRep" maxlength="200" 
 							width="95%" multiline="true" disabled="true" height="40px" />
 					</row>
 				</rows>

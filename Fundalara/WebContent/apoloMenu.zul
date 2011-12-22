@@ -360,7 +360,7 @@
 									<treechildren>
 										<treeitem open="false">
 											<treerow>
-												<treecell label="Hospedaje" onClick='enlace("Jugador/Vistas/registrarHospedaje.zul")'/>
+												<treecell label="Hospedaje" onClick='enlace("Jugador/Vistas/frmRegistrarHospedaje.zul")'/>
 											</treerow>
 										</treeitem>
 									</treechildren>

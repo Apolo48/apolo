@@ -1,11 +1,13 @@
 package controlador.jugador;
 
 import java.util.List;
+import java.util.Set;
 
-/*import modelo.Curso;*/
+
+import modelo.Categoria;
 import modelo.Competencia;
 import modelo.Hospedaje;
-/*import modelo.HospedajeJugador;*/
+
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.ForwardEvent;
@@ -20,11 +22,16 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-/*import servicio.implementacion.ServicioCurso;*/
+import servicio.implementacion.ServicioCategoria;
+import servicio.implementacion.ServicioHospedaje;
+
 
 import comun.FileLoader;
 import comun.Ruta;
 import comun.Util;
+
+import modelo.Categoria;
+
 
 /**
  * Clase controladora de los eventos de la vista de igual nombre y manejo de los
@@ -39,6 +46,9 @@ import comun.Util;
 public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 
 	private Window winRegistrarHospedaje;
+
+	private ServicioCategoria servicioCategoria;
+	
 
 	//Datos de la Competencia
 	private Combobox cmbCompetencia;
@@ -64,7 +74,7 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 
 	private AnnotateDataBinder binder;
 	private String rutasJug= Ruta.JUGADOR.getRutaVista();
-
+	private Hospedaje hospedaje;
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -159,9 +169,9 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 		new Util().crearVentana(rutasJug+"buscarRepresentante.zul", null, null);
 	}
 
-	/*public List<Curso> getCursos() {
-		return servicioCurso.listar();
-	}*/
+	public List<Categoria> getCategorias() {
+		return servicioCategoria.listar();
+	}
 
 	public void onClick$btnAgregar() {
 
@@ -171,12 +181,22 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 
 	}
 
-	public void onClick$btnGuardar() {
-		
-	}
+	/*public void onClick$btnGuardar() {
+			  hospedaje.setEstatus('A');
+			  Date fecha = new Date();
+			  java.text.SimpleDateFormat formato = new java.text.SimpleDateFormat("dd/MM/yyyy");
+			  String cadenaFecha = formato.format(fecha);
+			  
+			  hospedaje.setFechaIngreso(fecha);
+			  ServicioHospedaje.agregar(hospedaje);
+			  hospedaje = new modelo.Hospedaje();
+			  binder.loadAll();
+		  }*/
+	
 
 	public void onClick$btnCancelar() {
-
+		hospedaje = new modelo.Hospedaje();
+		binder.loadAll();
 	}
 
 	public void onClick$btnSalir() {

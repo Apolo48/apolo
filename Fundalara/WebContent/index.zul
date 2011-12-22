@@ -354,7 +354,7 @@
 											<treerow>
 												<treecell
 													label="Hospedaje de Jugadores"
-													onClick='enlace("Jugador/Vistas/registrarHospedaje.zul")' />
+													onClick='enlace("Jugador/Vistas/frmRegistrarHospedaje.zul")' />
 											</treerow>
 										</treeitem>										
 										<treeitem open="false">
