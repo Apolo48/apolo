@@ -37,7 +37,8 @@
 										<div>
 											<combobox
 												id="cmbNacionalidad" readonly="true" value="-" width="4%"
-												focus="true">
+												focus="true"
+												selectedItem="@{controller.jugadorBean.nacionalidad}">
 												<comboitem label="V"
 													value="V" />
 												<comboitem label="E"
@@ -46,13 +47,14 @@
 													value="R" />
 											</combobox>
 											<intbox id="txtCedula"
-												value="@{controller.jugador.cedulaRif}"
+												value="@{controller.jugadorBean.cedula}"
 												constraint="no negative" width="20%" />
 											<label value="-"
 												id="lblSeparador" visible="false" />
 											<intbox
 												id="txtCedulaSecuencia" constraint="no negative" width="5%"
-												readonly="true" visible="false" />
+												readonly="true" visible="false"
+												value="@{controller.jugadorBean.secuencia}" />
 											<label value="(*)"
 												style="color:red" />
 										</div>
@@ -63,14 +65,14 @@
 											<textbox
 												id="txtPrimerNombre" maxlength="40" width="80%"
 												constraint="no empty"
-												value="@{controller.jugador.persona.personaNatural.primerNombre}" />
+												value="@{controller.jugadorBean.primerNombre}" />
 											<label value="(*)"
 												style="color:red" />
 										</div>
 										<label value="Segundo Nombre" />
 										<textbox maxlength="40"
 											id="txtSegundoNombre" width="80%"
-											value="@{controller.jugador.persona.personaNatural.segundoNombre}" />
+											value="@{controller.jugadorBean.segundoNombre}" />
 									</row>
 									<row style="border:none;">
 										<label value="Primer Apellido"
@@ -78,7 +80,7 @@
 										<div>
 											<textbox maxlength="40"
 												width="80%" id="txtPrimerApellido"
-												value="@{controller.jugador.persona.personaNatural.primerApellido}" />
+												value="@{controller.jugadorBean.primerApellido}" />
 											<label value="(*)"
 												style="color:red" />
 										</div>
@@ -86,15 +88,15 @@
 											width="95%" />
 										<textbox maxlength="40"
 											id="txtSegundoApellido" width="80%"
-											value="@{controller.jugador.persona.personaNatural.segundoApellido}" />
+											value="@{controller.jugadorBean.segundoApellido}" />
 									</row>
 									<row style="border:none;"
 										spans="1,3">
 										<label value="Género" />
 										<div>
 											<combobox id="cmbGenero"
-												selectedItem="@{controller.jugador.persona.sexo, converter='CharConverter'}"
-												readonly="true" value="--Seleccione--" width="25%" >
+												selectedItem="@{controller.jugadorBean.sexo, converter='CharConverter'}"
+												readonly="true" value="--Seleccione--" width="25%">
 												<comboitem
 													label="Masculino" value="M" />
 												<comboitem
@@ -188,7 +190,7 @@
 																			value="Fecha " />
 																		<div>
 																			<datebox
-																				value="@{controller.jugador.persona.fechaNacimiento}"
+																				value="@{controller.jugadorBean.fechaNacimiento}"
 																				id="dtboxFechaNac" constraint="no future"
 																				format="dd/MM/yyyy"
 																				style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
@@ -214,7 +216,7 @@
 																			<combobox
 																				value="--Seleccione--" id="cmbPaisNac"
 																				readonly="true" width="70%"
-																				selectedItem="@{controller.jugador.datoBasicoByCodigoPais}"
+																				selectedItem="@{controller.jugadorBean.paisNac}"
 																				model="@{winRegistroJugador$composer.paises}">
 																				<comboitem
 																					self="@{each='pais'}" label="@{pais.nombre}" />
@@ -259,7 +261,7 @@
 																		<div>
 																			<combobox
 																				id="cmbParroquiaNac" readonly="true"
-																				selectedItem="@{controller.jugador.datoBasicoByCodigoParroquiaNacimiento}"
+																				selectedItem="@{controller.jugadorBean.parroquiaNac}"
 																				value="--Seleccione--" width="70%"
 																				model="@{winRegistroJugador$composer.parroquiasMunicipio, load-after='cmbMunicipioNac.onChange'}">
 																				<comboitem
@@ -334,7 +336,7 @@
 																			<combobox
 																				id="cmbParroquiaResi" readonly="true"
 																				value="--Seleccione--" width="27%"
-																				selectedItem="@{controller.jugador.persona.datoBasico}"
+																				selectedItem="@{controller.jugadorBean.parroquiaResi}"
 																				model="@{winRegistroJugador$composer.parroquiasMunicipioResi, load-after='cmbMunicipioResi.onChange'}">
 																				<comboitem
 																					self="@{each='parroquia'}"
@@ -352,7 +354,7 @@
 																			<textbox
 																				maxlength="200" height="40px" width="90%"
 																				multiline="true"
-																				value="@{controller.jugador.persona.direccion}" />
+																				value="@{controller.jugadorBean.direccion}" />
 																			<label
 																				value="(*)" style="color:red" />
 																		</div>
@@ -371,10 +373,14 @@
 															<grid
 																style="border:none;" oddRowSclass="none">
 																<columns>
-																	<column width="18%" />
-																	<column width="32%" />
-																	<column width="18%" />
-																	<column width="32%" />
+																	<column
+																		width="18%" />
+																	<column
+																		width="32%" />
+																	<column
+																		width="18%" />
+																	<column
+																		width="32%" />
 																</columns>
 																<rows>
 																	<row
@@ -382,17 +388,17 @@
 																		<label
 																			value="Teléfono Habitación" />
 																		<div>
-																		<combobox
+																			<combobox
 																				readonly="true" id="cmbCodArea"
 																				value="--Seleccione--" width="30%"
-																				selectedItem="@{controller.codAreaJugador}"
+																				selectedItem="@{controller.jugadorBean.telefonoHabitacion.codigo}"
 																				model="@{winRegistroJugador$composer.codigosArea}">
 																				<comboitem
 																					self="@{each='codAJug'}" label="@{codAJug.nombre}" />
-																		</combobox>																
+																			</combobox>
 																			<intbox
 																				id="txtTelefonoHabitacion"
-																				value="@{controller.jugador.persona.telefonoHabitacion}"
+																				value="@{controller.jugadorBean.telefonoHabitacion.numero}"
 																				constraint="no negative" width="50%" />
 																		</div>
 																		<label
@@ -401,14 +407,15 @@
 																			<combobox
 																				readonly="true" id="cmbCodCelular"
 																				value="--Seleccione--" width="30%"
-																				selectedItem="@{controller.codCelularJugador}"
+																				selectedItem="@{controller.jugadorBean.telefonoCelular.codigo}"
 																				model="@{winRegistroJugador$composer.codigosCelular}">
 																				<comboitem
-																					self="@{each='codCJug'}" label="@{codCJug.nombre}" />
-																		</combobox>									
+																					self="@{each='codCJug'}" label="@{codCJug.nombre}"
+																					value="@{codCJug.codigoDatoBasico}" />
+																			</combobox>
 																			<intbox
 																				id="txtTelefonoCelular"
-																				value="@{controller.jugador.persona.personaNatutal.celular}"
+																				value="@{controller.jugadorBean.telefonoCelular.numero}"
 																				constraint="no negative" width="50%" />
 																		</div>
 																	</row>
@@ -418,7 +425,7 @@
 																			value="Correo Electrónico" />
 																		<textbox
 																			id="txtCorreo" width="90%"
-																			value="@{controller.jugador.persona.correoElectronico}" />
+																			value="@{controller.jugadorBean.correoElectronico}" />
 																		<label
 																			value="Twitter" />
 																		<div>
@@ -426,7 +433,7 @@
 																				value="@" />
 																			<textbox
 																				id="txtTwitter" width="80%"
-																				value="@{controller.jugador.persona.twitter}" />
+																				value="@{controller.jugadorBean.twitter}" />
 																		</div>
 																	</row>
 																	<row
@@ -435,7 +442,7 @@
 																			value="Facebook" />
 																		<textbox
 																			id="txtFacebook" width="35%"
-																			value="@{controller.jugador.persona.facebook}" />
+																			value="@{controller.jugadorBean.facebook}" />
 																	</row>
 																</rows>
 															</grid>
@@ -499,14 +506,14 @@
 
 														<label
 															value="Grupo Sanguíneo" />
-														<div>													
+														<div>
 															<combobox
 																id="cmbGrupoSanguineo" width="20%" readonly="true"
 																value="--"
+																selectedItem="@{controller.jugadorBean.tipoSangre.grupoSanguineo}"
 																model="@{winRegistroJugador$composer.gruposSanguineos}">
 																<comboitem
-																					self="@{each='grupoSang'}"
-																					label="@{grupoSang.nombre}" />
+																	self="@{each='grupoSang'}" label="@{grupoSang.nombre}" />
 															</combobox>
 															<label
 																value="(*)" style="color:red" />
@@ -515,11 +522,11 @@
 															value="Factor RH" />
 														<div>
 															<combobox
-																id="cmbFactorRH" width="5%" readonly="true"
-																value="--" 	model="@{winRegistroJugador$composer.factoresRH}">
+																id="cmbFactorRH" width="5%" readonly="true" value="--"
+																model="@{winRegistroJugador$composer.factoresRH}"
+																selectedItem="@{controller.jugadorBean.tipoSangre.factorRH}">
 																<comboitem
-																					self="@{each='factorRH'}"
-																					label="@{factorRH.nombre}" />
+																	self="@{each='factorRH'}" label="@{factorRH.nombre}" />
 															</combobox>
 															<label
 																value="(*)" style="color:red" />
@@ -549,8 +556,8 @@
 																value="Médico" />
 															<div>
 																<textbox
-																	maxlength="40" width="70%" disabled="true"
-																	id="txtMedico" />
+																	value="@{controller.medico.nombre}" width="70%"
+																	readonly="true" id="txtMedico" />
 																<button
 																	id="btnCatalogoMedico"
 																	image="../../Recursos/Imagenes/consultar.ico"
@@ -559,7 +566,8 @@
 															<label
 																value="Número Colegio" />
 															<textbox
-																width="60%" id="txtNroColegio" disabled="true" />
+																value="@{controller.medico.matricula}" width="60%"
+																id="txtNroColegio" readonly="true" />
 															<space />
 														</row>
 														<row
@@ -591,14 +599,16 @@
 																	<rows>
 																		<row
 																			style="border:none;">
-																			<label value="Afección" />
+																			<label
+																				value="Afección" />
 																			<combobox
 																				readonly="true" value="--Seleccione--" width="60%"
 																				id="cmbAfecciones"
 																				model="@{winRegistroJugador$composer.afecciones}">
-																				<comboitem self="@{each='afeccion'}"
+																				<comboitem
+																					self="@{each='afeccion'}"
 																					label="@{afeccion.nombre}"
-																					value="@{afeccion.codigoDatoBasico}"/>
+																					value="@{afeccion.codigoDatoBasico}" />
 																			</combobox>
 																		</row>
 																		<row
@@ -611,16 +621,20 @@
 																					<column />
 																				</columns>
 																				<rows>
-																					<row style="border:none;">
+																					<row
+																						style="border:none;">
 																						<listbox
-																							mold="paging" pageSize="2" id="listAfeccionesActuales"
+																							mold="paging" pageSize="2"
+																							id="listAfeccionesActuales"
 																							model="@{controller.afeccionesJugador}">
 																							<listhead>
 																								<listheader
 																									label="Afección" />
 																							</listhead>
-																							<listitem self="@{each='afeccion'}" value="@{afeccion}">
-																								<listcell label="@{afeccion.nombre}" />
+																							<listitem
+																								self="@{each='afeccion'}" value="@{afeccion}">
+																								<listcell
+																									label="@{afeccion.nombre}" />
 																							</listitem>
 																						</listbox>
 																						<vbox>
@@ -712,12 +726,15 @@
 													<rows>
 														<row
 															style="border:none;" spans="1,3">
-															<label value="Institución" />
+															<label
+																value="Institución" />
 															<combobox
 																id="cmbInstitucionEducativa" width="90%"
 																model="@{winRegistroJugador$composer.institucionesEducativas}"
 																readonly="true" value="--Seleccione--">
-																<comboitem	self="@{each='institucion'}" label="@{institucion.nombre}" />
+																<comboitem
+																	self="@{each='institucion'}"
+																	label="@{institucion.nombre}" />
 															</combobox>
 														</row>
 														<row
@@ -792,19 +809,27 @@
 										</tabpanel><!-- Fin tabJugAcademicos -->
 
 										<tabpanel><!-- Inicio tabJugSociales -->
-											<groupbox style="border-color:orange" closable="false">
-												<caption label="Datos de Actividades Extra-académicas" />
-												<grid style="border:none;" oddRowSclass="none">
+											<groupbox
+												style="border-color:orange" closable="false">
+												<caption
+													label="Datos de Actividades Extra-académicas" />
+												<grid
+													style="border:none;" oddRowSclass="none">
 													<columns>
-														<column width="18%" />
-														<column width="32%" />
-														<column width="10%" />
-														<column width="32%" />
+														<column
+															width="18%" />
+														<column
+															width="32%" />
+														<column
+															width="10%" />
+														<column
+															width="32%" />
 													</columns>
 													<rows>
 														<row
 															style="border:none;" spans="1,3">
-															<label value="Institución" />
+															<label
+																value="Institución" />
 															<combobox
 																id="cmbInstitucionRecreativa" width="90%"
 																model="@{winRegistroJugador$composer.institucionesRecreativas}"
@@ -815,15 +840,18 @@
 																	value="@{institucionRecreativa.codigoInstitucion}" />
 															</combobox>
 														</row>
-														<row style="border:none;">
-															<label value="Actividad" />
+														<row
+															style="border:none;">
+															<label
+																value="Actividad" />
 															<combobox
 																id="cmbActividad" readonly="true" value="--Seleccione--"
 																model="@{winRegistroJugador$composer.actividadSoc}"
 																width="80%">
 																<comboitem
-																	self="@{each='actividad_social'}" label="@{actividad_social.nombre}" 
-																	value="@{actividad_social.codigoDatoBasico}"/>
+																	self="@{each='actividad_social'}"
+																	label="@{actividad_social.nombre}"
+																	value="@{actividad_social.codigoDatoBasico}" />
 															</combobox>
 															<label
 																value="Fecha inicio" />
@@ -833,11 +861,14 @@
 														</row>
 														<row
 															style="border:none;" spans="1,3">
-															<label value="Horas" />
+															<label
+																value="Horas" />
 															<div>
-																<intbox width="10%" id="txtHorasSemanales" />
+																<intbox
+																	width="10%" id="txtHorasSemanales" />
 																<space />
-																<label value="Semanales" />
+																<label
+																	value="Semanales" />
 															</div>
 														</row>
 													</rows>
@@ -855,24 +886,37 @@
 															id="listActividadesSociales" mold="paging" pageSize="2"
 															model="@{controller.actividadesJugador}">
 															<listhead>
-																<listheader label="Actividad" width="20%" />
-																<listheader label="Institución" width="55%" />
-																<listheader label="Horas" width="10%" />
-																<listheader label="Fecha" width="15%" />
+																<listheader
+																	label="Actividad" width="20%" />
+																<listheader
+																	label="Institución" width="55%" />
+																<listheader
+																	label="Horas" width="10%" />
+																<listheader
+																	label="Fecha" width="15%" />
 															</listhead>
-															<listitem self="@{each='actividadSocial'}" value="@{actividadSocial}">
-																	<listcell label="@{actividadSocial.actividad}" />
-																	<listcell label="@{actividadSocial.nombreInstitucion}" />
-																	<listcell label="@{actividadSocial.horasDedicadas}" />
-																	<listcell label="@{actividadSocial.fechaInicio}" />
+															<listitem
+																self="@{each='actividadSocial'}"
+																value="@{actividadSocial}">
+																<listcell
+																	label="@{actividadSocial.actividad}" />
+																<listcell
+																	label="@{actividadSocial.nombreInstitucion}" />
+																<listcell
+																	label="@{actividadSocial.horasDedicadas}" />
+																<listcell
+																	label="@{actividadSocial.fechaInicio}" />
 															</listitem>
 														</listbox>
 														<vbox>
-															<button id="btnAgregarActividad"
+															<button
+																id="btnAgregarActividad"
 																image="../../Recursos/Imagenes/agregar.ico" />
-															<button id="btnModificarActividad"
+															<button
+																id="btnModificarActividad"
 																image="../../Recursos/Imagenes/editar.ico" />
-															<button id="btnEliminarActividad"
+															<button
+																id="btnEliminarActividad"
 																image="../../Recursos/Imagenes/quitar.ico" />
 														</vbox>
 													</row>
@@ -905,8 +949,7 @@
 															<div>
 																<combobox
 																	id="cmbCategoria" value="--Seleccione--" width="65%"
-																	readonly="true"
-																	selectedItem="@{controller.categoria}"
+																	readonly="true" selectedItem="@{controller.categoria}"
 																	model="@{winRegistroJugador$composer.categorias}">
 																	<comboitem
 																		self="@{each='categoria'}" label="@{categoria.nombre}"
@@ -920,12 +963,10 @@
 															<div>
 																<combobox
 																	id="cmbEquipo" readonly="true" value="--Seleccione--"
-																	width="65%"   
-																		selectedItem="@{controller.equipo}"
-																		model="@{winRegistroJugador$composer.equipos, load-after='cmbCategoria.onChange'}">
+																	width="65%" selectedItem="@{controller.equipo}"
+																	model="@{winRegistroJugador$composer.equipos, load-after='cmbCategoria.onChange'}">
 																	<comboitem
-																					self="@{each='equipo'}"
-																					label="@{equipo.nombre}" />
+																		self="@{each='equipo'}" label="@{equipo.nombre}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
@@ -942,7 +983,8 @@
 																<bandbox
 																	id="bboxNumero" maxlength="2" width="10%"
 																	readonly="true"
-																	style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;">
+																	style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;"
+																	value="@{controller.jugadorBean.numero}">
 																	<bandpopup>
 																		<panel
 																			title="00-19" collapsible="true" open="false"
@@ -1374,17 +1416,17 @@
 															<label
 																value="Peso" />
 															<div>
-																<decimalbox
-																	id="txtPeso" constraint="no negative"  />
+																<decimalbox 	value="@{controller.jugadorBean.peso}"
+																	id="txtPeso" constraint="no negative" />
 																<label
 																	value="Kg." />
-																<label
+																<label 
 																	value="(*)" style="color:red" />
 															</div>
 															<label
 																value="Altura" />
 															<div>
-																<decimalbox
+																<decimalbox value="@{controller.jugadorBean.altura}"
 																	id="txtAltura" constraint="no negative" />
 																<label
 																	value="mts." />
@@ -1395,22 +1437,25 @@
 														<row
 															style="border:none;">
 															<label
-																value="Brazo Lanzar" />																								
+																value="Brazo Lanzar" />
 															<combobox
 																id="cmbBrazoLanzar" readonly="true"
 																value="--Seleccione--" width="65%"
-																	model="@{winRegistroJugador$composer.valoresBrazoLanzamiento}">
+																selectedItem="@{controller.jugadorBean.brazoLanzar}"
+																model="@{winRegistroJugador$composer.valoresBrazoLanzamiento}">
 																<comboitem
-																		self="@{each='lanzamiento'}" label="@{lanzamiento.nombre}" />
+																	self="@{each='lanzamiento'}"
+																	label="@{lanzamiento.nombre}" />
 															</combobox>
 															<label
-																value="Posición Bateo" />													
+																value="Posición Bateo" />
 															<combobox
 																id="cmbPosicionBateo" readonly="true"
 																value="--Seleccione--" width="65%"
-																	model="@{winRegistroJugador$composer.valoresPosicionBateo}">
-															<comboitem
-																		self="@{each='bateo'}" label="@{bateo.nombre}" />
+																selectedItem="@{controller.jugadorBean.posicionBateo}"
+																model="@{winRegistroJugador$composer.valoresPosicionBateo}">
+																<comboitem
+																	self="@{each='bateo'}" label="@{bateo.nombre}" />
 															</combobox>
 														</row>
 													</rows>
@@ -1441,9 +1486,12 @@
 																<combobox
 																	id="cmbTallaCamisa" readonly="true"
 																	value="--Seleccione--" width="65%"
-																	model="@{winRegistroJugador$composer.tallasCamisa}">
-																		<comboitem
-																		self="@{each='tallaCamisa'}" label="@{tallaCamisa.nombre}" />
+																	model="@{winRegistroJugador$composer.tallasCamisa}"
+																	selectedItem="@{controller.jugadorBean.tallaCamisa}"
+																	>
+																	<comboitem
+																		self="@{each='tallaCamisa'}"
+																		label="@{tallaCamisa.nombre}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
@@ -1453,10 +1501,12 @@
 															<div>
 																<combobox
 																	id="cmbTallaPantalon" readonly="true"
-																	value="--Seleccione--" width="65%"	
-																	model="@{winRegistroJugador$composer.tallasPantalon}">
-																		<comboitem
-																		self="@{each='tallaPantalon'}" label="@{tallaPantalon.nombre}" />
+																	value="--Seleccione--" width="65%"
+																	model="@{winRegistroJugador$composer.tallasPantalon}"
+																	selectedItem="@{controller.jugadorBean.tallaPantalon}">
+																	<comboitem
+																		self="@{each='tallaPantalon'}"
+																		label="@{tallaPantalon.nombre}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
@@ -1469,11 +1519,13 @@
 															<div>
 																<combobox
 																	id="cmbTallaCalzado" readonly="true"
-																	value="--Seleccione--" width="26%"	
-																	model="@{winRegistroJugador$composer.tallasCalzado}">
-																		<comboitem
-																		self="@{each='tallaCalzado'}" label="@{tallaCalzado.nombre}" />
-																</combobox>											
+																	value="--Seleccione--" width="26%"
+																	model="@{winRegistroJugador$composer.tallasCalzado}"
+																	selectedItem="@{controller.jugadorBean.tallaCalzado}">
+																	<comboitem
+																		self="@{each='tallaCalzado'}"
+																		label="@{tallaCalzado.nombre}" />
+																</combobox>
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -1596,10 +1648,12 @@
 																			<combobox
 																				id="cmbParentesco"
 																				model="@{winRegistroJugador$composer.parentescos}"
-																				readonly="true" value="--Seleccione--" width="65%">
+																				readonly="true" value="--Seleccione--"
+																				width="65%">
 																				<comboitem
-																					self="@{each='parentesco'}" label="@{parentesco.nombre}"
-																					value="@{parentesco.codigoDatoBasico}"/>
+																					self="@{each='parentesco'}"
+																					label="@{parentesco.nombre}"
+																					value="@{parentesco.codigoDatoBasico}" />
 																			</combobox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1612,10 +1666,12 @@
 																			<combobox
 																				id="cmbProfesion"
 																				model="@{winRegistroJugador$composer.profesiones}"
-																				readonly="true" value="--Seleccione--" width="65%">
+																				readonly="true" value="--Seleccione--"
+																				width="65%">
 																				<comboitem
-																					self="@{each='profesion'}" label="@{profesion.nombre}"
-																					value="@{profesion.codigoDatoBasico}"/>
+																					self="@{each='profesion'}"
+																					label="@{profesion.nombre}"
+																					value="@{profesion.codigoDatoBasico}" />
 																			</combobox>
 																		</div>
 																	</row>
@@ -1672,31 +1728,31 @@
 															style="border:none;">
 															<label
 																value="Estado" />
-															<div>												
-															<combobox
+															<div>
+																<combobox
 																	id="cmbEstadoFamiliar" readonly="true"
 																	value="--Seleccione--" width="65%"
 																	selectedItem="@{controller.estadoVenezuelaFamiliar}"
 																	model="@{winRegistroJugador$composer.estadosVenezuela}">
-																<comboitem
-																					self="@{each='estadoFamiliar'}"
-																					label="@{estadoFamiliar.nombre}" />
+																	<comboitem
+																		self="@{each='estadoFamiliar'}"
+																		label="@{estadoFamiliar.nombre}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
 															</div>
 															<label
 																value="Municipio" />
-															<div>			
+															<div>
 																<combobox
 																	id="cmbMunicipioFamiliar" readonly="true"
 																	selectedItem="@{controller.municipioFamiliar}"
 																	value="--Seleccione--" width="65%"
-																		model="@{winRegistroJugador$composer.municipiosEstadosFam, load-after='cmbEstadoFamiliar.onChange'}">
-																		<comboitem
-																					self="@{each='municipioFam'}"
-																					label="@{municipioFam.nombre}" />
-																			</combobox>
+																	model="@{winRegistroJugador$composer.municipiosEstadosFam, load-after='cmbEstadoFamiliar.onChange'}">
+																	<comboitem
+																		self="@{each='municipioFam'}"
+																		label="@{municipioFam.nombre}" />
+																</combobox>
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -1711,8 +1767,8 @@
 																	value="--Seleccione--" width="65%"
 																	model="@{winRegistroJugador$composer.parroquiasMunicipioFam, load-after='cmbMunicipioFamiliar.onChange'}">
 																	<comboitem
-																					self="@{each='parroquiaFam'}"
-																					label="@{parroquiaFam.nombre}" />
+																		self="@{each='parroquiaFam'}"
+																		label="@{parroquiaFam.nombre}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
@@ -1750,29 +1806,39 @@
 															width="30%" />
 													</columns>
 													<rows>
-														<row style="border:none;">
-															<label value="Teléfono Habitación" />
+														<row
+															style="border:none;">
+															<label
+																value="Teléfono Habitación" />
 															<div>
-																<combobox readonly="true" id="cmbCodAreaFamiliar"
-																	value="--" width="25%"
+																<combobox
+																	readonly="true" id="cmbCodAreaFamiliar" value="--"
+																	width="25%"
 																	model="@{winRegistroJugador$composer.codigosArea}">
 																	<comboitem
-																		self="@{each='codAFamiliar'}" label="@{codAFamiliar.nombre}" 
-																		value="@{codAFamiliar.codigoDatoBasico}"/>
-																</combobox>	
-																<intbox id="txtTelefonoHabFamiliar" width="40%" />
-																<label value="(*)" style="color:red" />
+																		self="@{each='codAFamiliar'}"
+																		label="@{codAFamiliar.nombre}"
+																		value="@{codAFamiliar.codigoDatoBasico}" />
+																</combobox>
+																<intbox
+																	id="txtTelefonoHabFamiliar" width="40%" />
+																<label
+																	value="(*)" style="color:red" />
 															</div>
-															<label value="Teléfono Celular" />
+															<label
+																value="Teléfono Celular" />
 															<div>
-																<combobox readonly="true" id="cmbCodCelularFamiliar"
-																	value="--" width="25%"
+																<combobox
+																	readonly="true" id="cmbCodCelularFamiliar" value="--"
+																	width="25%"
 																	model="@{winRegistroJugador$composer.codigosCelular}">
 																	<comboitem
-																		self="@{each='codCFamiliar'}" label="@{codCFamiliar.nombre}" 
-																		value="@{codCFamiliar.codigoDatoBasico}"/>
-																</combobox>	
-																<intbox id="txtTelefonoCelFamiliar" width="40%" />
+																		self="@{each='codCFamiliar'}"
+																		label="@{codCFamiliar.nombre}"
+																		value="@{codCFamiliar.codigoDatoBasico}" />
+																</combobox>
+																<intbox
+																	id="txtTelefonoCelFamiliar" width="40%" />
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -1825,11 +1891,11 @@
 															<combobox
 																id="cmbComisiones"
 																model="@{winRegistroJugador$composer.comisiones}"
-																selectedItem="@{controller.comision}"
-																readonly="true" value="--Seleccione--">
+																selectedItem="@{controller.comision}" readonly="true"
+																value="--Seleccione--">
 																<comboitem
 																	self="@{each='comision'}" label="@{comision.nombre}"
-																	value="@{comision.codigoDatoBasico}"/>
+																	value="@{comision.codigoDatoBasico}" />
 															</combobox>
 														</row>
 														<row
@@ -1854,8 +1920,10 @@
 																					label="Descripción" width="70%" />
 																			</listhead>
 
-																			<listitem self="@{each='comisionFam'}" value="@{comisionFam}" >
-																				<listcell 
+																			<listitem
+																				self="@{each='comisionFam'}"
+																				value="@{comisionFam}">
+																				<listcell
 																					label="@{comisionFam.nombre}" />
 																				<listcell
 																					label="@{comisionFam.descripcion}" />
@@ -1865,7 +1933,7 @@
 																			<button
 																				id="btnAgregarComision"
 																				image="../../Recursos/Imagenes/agregar.ico" />
-																		<button
+																			<button
 																				id="btnEliminarComision"
 																				image="../../Recursos/Imagenes/quitar.ico" />
 																		</vbox>

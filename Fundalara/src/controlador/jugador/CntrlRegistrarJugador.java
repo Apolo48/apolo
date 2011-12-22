@@ -41,6 +41,7 @@ import modelo.Equipo;
 import modelo.Familiar;
 import modelo.Institucion;
 import modelo.Jugador;
+import modelo.Medico;
 import modelo.RecaudoPorProceso;
 
 /**
@@ -108,6 +109,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	// Modelos
 	private Jugador jugador = new Jugador();
+	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador(); 
 	private Familiar familiar = new Familiar();
 	private List<Familiar> familiares = new ArrayList<Familiar>();
 	private Equipo equipo = new Equipo();
@@ -122,8 +124,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private DatoBasico institucionEducativa = new DatoBasico();
 	private DatoBasico institucionRecreativa = new DatoBasico();
 	private DatoBasico tipoInscripcion = new DatoBasico();
-	private DatoBasico codAreaJugador = new DatoBasico();
-	private DatoBasico codCelularJugador = new DatoBasico();
 	private RecaudoPorProceso recaudoAcademico = new RecaudoPorProceso();
 	private RecaudoPorProceso recaudoMedico = new RecaudoPorProceso();
 	private RecaudoPorProceso recaudoPersonal = new RecaudoPorProceso();
@@ -132,6 +132,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private List<DocumentoEntregado> documentosPersonales = new ArrayList<DocumentoEntregado>();
 	private DatoBasico comision = new DatoBasico();
 	private List<DatoBasico> comisionesFamiliar = new ArrayList<DatoBasico>();
+	private Medico medico = new Medico();
+	
 	private Afeccion afeccion = new Afeccion();
 	List<Afeccion> afeccionesJugador = new ArrayList<Afeccion>();
 	private ActividadSocial actividadSocial = new ActividadSocial();
@@ -290,20 +292,12 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		this.documentosPersonales = documentosPersonales;
 	}
 
-	public DatoBasico getCodAreaJugador() {
-		return codAreaJugador;
+	public Medico getMedico() {
+		return medico;
 	}
 
-	public void setCodAreaJugador(DatoBasico codAreaJugador) {
-		this.codAreaJugador = codAreaJugador;
-	}
-
-	public DatoBasico getCodCelularJugador() {
-		return codCelularJugador;
-	}
-
-	public void setCodCelularJugador(DatoBasico codCelularJugador) {
-		this.codCelularJugador = codCelularJugador;
+	public void setMedico(Medico medico) {
+		this.medico = medico;
 	}
 
 	public Equipo getEquipo() {
@@ -368,6 +362,14 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public void setFamiliares(List<Familiar> familiares) {
 		this.familiares = familiares;
+	}
+
+	public controlador.jugador.bean.Jugador getJugadorBean() {
+		return jugadorBean;
+	}
+
+	public void setJugadorBean(controlador.jugador.bean.Jugador jugadorBean) {
+		this.jugadorBean = jugadorBean;
 	}
 
 	// Metodos para carga de combos/listbox
