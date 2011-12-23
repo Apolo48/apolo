@@ -42,7 +42,7 @@ public class ServicioDocumentoIndumentaria implements
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoDocumentoIndumentaria.listar(new DocumentoIndumentaria());
+		return daoDocumentoIndumentaria.listar( DocumentoIndumentaria.class);
 	}
 
 }

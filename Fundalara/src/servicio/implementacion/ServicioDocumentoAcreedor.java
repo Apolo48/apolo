@@ -39,7 +39,7 @@ public class ServicioDocumentoAcreedor implements IServicioDocumentoAcreedor {
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoDocumentoAcreedor.listar(new DocumentoAcreedor());
+		return daoDocumentoAcreedor.listar( DocumentoAcreedor.class);
 	}
 
 }

@@ -39,7 +39,7 @@ public class ServicioEgreso implements IServicioEgreso {
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoEgreso.listar(new Egreso());
+		return daoEgreso.listar( Egreso.class);
 	}
 
 }

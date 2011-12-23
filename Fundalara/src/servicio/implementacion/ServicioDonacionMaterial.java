@@ -38,7 +38,7 @@ public class ServicioDonacionMaterial implements IServicioDonacionMaterial {
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoDonacionMaterial.listar(new DonacionMaterial());
+		return daoDonacionMaterial.listar( DonacionMaterial.class);
 	}
 
 }

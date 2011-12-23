@@ -45,7 +45,7 @@ public class ServicioTipoPagoRepresentante implements
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoTipoPagoRepresentante.listar(new TipoPagoRepresentante());
+		return daoTipoPagoRepresentante.listar( TipoPagoRepresentante.class);
 	}
 
 }

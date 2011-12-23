@@ -48,7 +48,8 @@ public class ServicioFaseCompetencia implements IServicioFaseCompetencia {
 
 	@Override
 	public List<FaseCompetencia> listarActivos() {
-		return daoFaseCompetencia.listarActivos(FaseCompetencia.class);
+		return  null;
+				//daoFaseCompetencia.listarActivos(FaseCompetencia.class);
 	}
 
 	@Override

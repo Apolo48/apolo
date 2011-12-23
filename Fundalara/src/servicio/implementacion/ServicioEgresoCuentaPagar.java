@@ -39,7 +39,7 @@ public class ServicioEgresoCuentaPagar implements IServicioEgresoCuentaPagar {
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoEgresoCuentaPagar.listar(new EgresoCuentaPagar());
+		return daoEgresoCuentaPagar.listar( EgresoCuentaPagar.class);
 	}
 
 }

@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 17-dic-2011 16:31:20 by Hibernate Tools 3.4.0.CR1
+// Generated 22-dic-2011 17:58:31 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -12,14 +12,15 @@ import javax.persistence.Embeddable;
 public class FamiliarComisionEquipoId implements java.io.Serializable {
 
 	private int codigoFamiliarJugador;
-	private int estatus;
+	private int codigoComisionEquipo;
 
 	public FamiliarComisionEquipoId() {
 	}
 
-	public FamiliarComisionEquipoId(int codigoFamiliarJugador, int estatus) {
+	public FamiliarComisionEquipoId(int codigoFamiliarJugador,
+			int codigoComisionEquipo) {
 		this.codigoFamiliarJugador = codigoFamiliarJugador;
-		this.estatus = estatus;
+		this.codigoComisionEquipo = codigoComisionEquipo;
 	}
 
 	@Column(name = "codigo_familiar_jugador", nullable = false)
@@ -31,13 +32,13 @@ public class FamiliarComisionEquipoId implements java.io.Serializable {
 		this.codigoFamiliarJugador = codigoFamiliarJugador;
 	}
 
-	@Column(name = "estatus", nullable = false)
-	public int getEstatus() {
-		return this.estatus;
+	@Column(name = "codigo_comision_equipo", nullable = false)
+	public int getCodigoComisionEquipo() {
+		return this.codigoComisionEquipo;
 	}
 
-	public void setEstatus(int estatus) {
-		this.estatus = estatus;
+	public void setCodigoComisionEquipo(int codigoComisionEquipo) {
+		this.codigoComisionEquipo = codigoComisionEquipo;
 	}
 
 	public boolean equals(Object other) {
@@ -51,14 +52,15 @@ public class FamiliarComisionEquipoId implements java.io.Serializable {
 
 		return (this.getCodigoFamiliarJugador() == castOther
 				.getCodigoFamiliarJugador())
-				&& (this.getEstatus() == castOther.getEstatus());
+				&& (this.getCodigoComisionEquipo() == castOther
+						.getCodigoComisionEquipo());
 	}
 
 	public int hashCode() {
 		int result = 17;
 
 		result = 37 * result + this.getCodigoFamiliarJugador();
-		result = 37 * result + this.getEstatus();
+		result = 37 * result + this.getCodigoComisionEquipo();
 		return result;
 	}
 
