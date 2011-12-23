@@ -29,16 +29,18 @@ public class DaoRecaudoPorProceso extends GenericDao {
 
 	/**
 	 * Busca los recaudos asociados a un proceso y los filtra segun el tipo de documento indicado
-	 * @param proceso Tipo de proceso de la gestion
-	 * @param tipoDocumento Tipo de documento (Academico, Personal,...)
+	 * @param proceso Tipo de proceso de la gestion (Nuevo ingreso, reingreso...)
+	 * @param tipoDocumento Tipo de documento (Enum)
+	 * @param nombre del tipo de documento (academico, personal)
 	 * @return lista de recaudos solicitados 
 	 */
+	
 	public List<RecaudoPorProceso> buscarPorProceso(DatoBasico proceso,
-			TipoDatoBasico tipoDocumento) {
+			TipoDatoBasico tipoDocumento,String nombre) {
 
-		DaoTipoDato daoTipoDato = new DaoTipoDato();
-		TipoDato tipoDoc = daoTipoDato.buscarPorCodigo(tipoDocumento);
-		Session session = SessionManager.getSession();
+		DaoDatoBasico daoDatobasico = new DaoDatoBasico();
+		DatoBasico tipoDoc = daoDatobasico.buscarTipo(tipoDocumento,nombre);
+		Session session = this.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
 		Criteria c = session
 				.createCriteria(RecaudoPorProceso.class)
@@ -48,9 +50,10 @@ public class DaoRecaudoPorProceso extends GenericDao {
 				.setFetchMode("datoBasicoByCodigoImportancia", FetchMode.JOIN)
 				.setFetchMode("datoBasicoByCodigoDocumento.tipoDato",
 						FetchMode.JOIN);
-		Criteria c2 = c.createCriteria("datoBasicoByCodigoDocumento").add(
-				Restrictions.eq("tipoDato", tipoDoc));
+		Criteria c2 = c.createCriteria("datoBasicoByCodigoDocumento").add(Restrictions.eq("datoBasico", tipoDoc));
 		List<RecaudoPorProceso> lista =  c2.list();
+	
 		return lista;
+		
 	}
 }

@@ -2000,7 +2000,6 @@
 											<listcell><checkbox checked="@{comisionFam.representante}"/> </listcell>
 										</listitem>
 									</listbox>
-
 									<vbox>
 										<button id="btnAgregarFamiliar"
 											image="../../Recursos/Imagenes/agregar.ico" />

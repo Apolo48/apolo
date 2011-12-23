@@ -18,5 +18,5 @@ public interface IServicioRecaudoPorProceso {
 	public abstract List<RecaudoPorProceso> listar();
 	
 	public abstract List<RecaudoPorProceso> buscarPorProceso(
-			DatoBasico proceso, TipoDatoBasico tipoDocumento);
+			DatoBasico proceso, TipoDatoBasico tipoDocumento, String nombre);
 }

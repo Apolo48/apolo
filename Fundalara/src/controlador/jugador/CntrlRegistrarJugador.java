@@ -430,8 +430,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public List<RecaudoPorProceso> getRecaudosAcademicos() {
-		return null;// servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
-					// TipoDatoBasico.RECAUDOS_ACADEMICOS);
+		return  servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
+					 TipoDatoBasico.TIPO_DOCUMENTO,"Academico");
 	}
 
 	public List<RecaudoPorProceso> getRecaudosMedicos() {

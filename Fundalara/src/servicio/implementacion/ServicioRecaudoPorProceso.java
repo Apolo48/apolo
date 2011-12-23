@@ -48,8 +48,8 @@ public class ServicioRecaudoPorProceso implements IServicioRecaudoPorProceso {
 	
 	@Override
 	public List<RecaudoPorProceso> buscarPorProceso(DatoBasico proceso,
-			TipoDatoBasico tipoDocumento) {
-		return daoRecaudoPorProceso.buscarPorProceso(proceso, tipoDocumento);
+			TipoDatoBasico tipoDocumento, String nombre) {
+		return daoRecaudoPorProceso.buscarPorProceso(proceso, tipoDocumento, nombre);
 	}
 
 }
