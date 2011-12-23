@@ -27,6 +27,7 @@ public class Persona {
 		telefonoHabitacion = new Telefono();
 		telefonoCelular = new Telefono();
 		parroquiaResi = new DatoBasico();
+		
 	}
 	public String getNacionalidad() {
 		return nacionalidad;

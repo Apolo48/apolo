@@ -1,5 +1,6 @@
 package controlador.jugador;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -149,6 +150,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
 		this.tipoInscripcion = (DatoBasico) requestScope.get("tipoInscripcion");
+
 	}
 
 	// Getters y setters
@@ -424,9 +426,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public List<RecaudoPorProceso> getRecaudosPersonales() {
-		return null;
-		// servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
-		// TipoDatoBasico.RECAUDOS_PERSONALES);
+		return  servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
+				 TipoDatoBasico.TIPO_DOCUMENTO,"Personal");
 	}
 
 	public List<RecaudoPorProceso> getRecaudosAcademicos() {
@@ -435,8 +436,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public List<RecaudoPorProceso> getRecaudosMedicos() {
-		return null; // servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
-						// TipoDatoBasico.RECAUDOS_MEDICOS);
+		return servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
+				 TipoDatoBasico.TIPO_DOCUMENTO,"Medico");
 	}
 
 	public List<Institucion> getInstitucionesEducativas() {
@@ -575,11 +576,19 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnFoto() {
-		new FileLoader().cargarImagenEnBean(imgJugador);
+		FileLoader fl = new FileLoader();
+		byte []  foto =fl.cargarImagenEnBean(imgJugador);
+		if (foto!=null){
+			jugadorBean.setFoto(foto);
+		}	
 	}
 
 	public void onClick$btnFotoFamiliar() {
-		new FileLoader().cargarImagen(imgFamiliar);
+		FileLoader fl = new FileLoader();
+		byte []  foto =fl.cargarImagenEnBean(imgFamiliar);
+		if (foto!=null){
+			familiarBean.setFoto(foto);
+		}	
 	}
 
 	public void onClick$btnCatalogoFamiliar() {

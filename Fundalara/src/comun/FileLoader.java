@@ -81,15 +81,17 @@ public class FileLoader {
 
 	}
 	
-	public void cargarImagenEnBean(Image image){
+	public byte[] cargarImagenEnBean(Image image){
+		byte [] imagenByte=null;
 		try {
 			Media media = Fileupload.get();
 			if (media == null) {
-				return;
+				return null;
 			}
 		if (media instanceof org.zkoss.image.Image)		{
 			org.zkoss.image.Image img = (org.zkoss.image.Image) media;
 			image.setContent(img);
+			imagenByte = image.getContent().getByteData();
 		
 		}
 		else if (media != null)
@@ -103,6 +105,7 @@ public class FileLoader {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		return imagenByte;
 	}
 
 }
