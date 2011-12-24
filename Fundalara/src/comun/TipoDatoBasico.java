@@ -4,7 +4,7 @@ package comun;
  * Enumerado para mantener los valores constantes de los diferentes tipos de datos básicos 
  * @author Robert A.
  * @author German L.
- * @version 0.1
+ * @version 0.1 22/12/2011
  */
 public enum TipoDatoBasico {
 	AFECCION(49),
@@ -37,11 +37,6 @@ public enum TipoDatoBasico {
 	ESPECIALIDAD(90),
 	LOGRO(91),
 	COMISION(92),
-/*	
-	RECAUDOS_ACADEMICOS(26),
-	RECAUDOS_PERSONALES(27),
-	RECAUDOS_MEDICOS(28),
-	*/
 	BRAZO_LANZAR(96),
 	POSICION_BATEO(97),
 	SEXO(98);

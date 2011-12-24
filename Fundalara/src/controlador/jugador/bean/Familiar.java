@@ -5,6 +5,15 @@ import java.util.List;
 
 import modelo.DatoBasico;
 
+
+
+/**
+ * Clase bean para representar al Familiar
+ * @author Robert A
+ * @author German L
+ * @version 0.1 22/12/2011
+ *
+ */
 public class Familiar  extends Persona{
 
 	private DatoBasico parentesco;

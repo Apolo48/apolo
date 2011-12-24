@@ -1,6 +1,5 @@
 package controlador.jugador;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +15,7 @@ import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
@@ -59,6 +59,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Datebox dtboxFechaNac;
 	private Datebox dtboxFechaInicioActividad;
 	private Button btnGuardar;
+	private Button btnInscribir;
 	private Button btnAntes;
 	private Button btnDesp;
 	private Button btnVistaPrevia;
@@ -68,6 +69,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Button btnEliminarAfeccion;
 	private Button btnAgregarActividad;
 	private Button btnEliminarActividad;
+	private Button btnSubirDocumentoAcad;
 	private Tab tabRegJugador;
 	private Tab tabRegFamiliar;
 	private Intbox txtEdad;
@@ -98,7 +100,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Listbox listAfeccionesActuales;
 	private Listbox listActividadesSociales;
 	private Listbox listComisiones;
-
+	private Listbox listDocAcademicos;
+	private Listbox listDocPersonales;
+	private Listbox listDocMedicos;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
 	// Servicios
@@ -132,6 +136,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private List<DocumentoEntregado> documentosAcademicos = new ArrayList<DocumentoEntregado>();
 	private List<DocumentoEntregado> documentosMedicos = new ArrayList<DocumentoEntregado>();
 	private List<DocumentoEntregado> documentosPersonales = new ArrayList<DocumentoEntregado>();
+	private DocumentoEntregado docEntAcad = new DocumentoEntregado();
+	private DocumentoEntregado docEntPersonal = new DocumentoEntregado();
+	private DocumentoEntregado docEntMed = new DocumentoEntregado();
 	private DatoBasico comision = new DatoBasico();
 	private Medico medico = new Medico();
 	private Afeccion afeccion = new Afeccion();
@@ -371,6 +378,29 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void setFamiliarBean(controlador.jugador.bean.Familiar familiarBean) {
 		this.familiarBean = familiarBean;
 	}
+	public DocumentoEntregado getDocEntAcad() {
+		return docEntAcad;
+	}
+
+	public void setDocEntAcad(DocumentoEntregado docEntAcad) {
+		this.docEntAcad = docEntAcad;
+	}
+
+	public DocumentoEntregado getDocEntPersonal() {
+		return docEntPersonal;
+	}
+
+	public void setDocEntPersonal(DocumentoEntregado docEntPersonal) {
+		this.docEntPersonal = docEntPersonal;
+	}
+
+	public DocumentoEntregado getDocEntMed() {
+		return docEntMed;
+	}
+
+	public void setDocEntMed(DocumentoEntregado docEntMed) {
+		this.docEntMed = docEntMed;
+	}
 
 	// Metodos para carga de combos/listbox
 	public List<Categoria> getCategorias() {
@@ -425,19 +455,38 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		return servicioDatoBasico.buscarDatosPorRelacion(municipioResi);
 	}
 
-	public List<RecaudoPorProceso> getRecaudosPersonales() {
-		return  servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
-				 TipoDatoBasico.TIPO_DOCUMENTO,"Personal");
+	public List<DocumentoEntregado> getRecaudosPersonales() {
+		List<RecaudoPorProceso> lista =   servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
+				TipoDatoBasico.TIPO_DOCUMENTO, "Personal");
+		for (RecaudoPorProceso recaudoPorProceso : lista) {
+			DocumentoEntregado docE = new DocumentoEntregado();
+			docE.setRecaudoPorProceso(recaudoPorProceso);
+			documentosPersonales.add(docE);
+		}
+		return documentosPersonales;
 	}
 
-	public List<RecaudoPorProceso> getRecaudosAcademicos() {
-		return  servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
-					 TipoDatoBasico.TIPO_DOCUMENTO,"Academico");
+	public List<DocumentoEntregado> getRecaudosAcademicos() {
+		List<RecaudoPorProceso> lista = servicioRecaudoPorProceso
+				.buscarPorProceso(this.tipoInscripcion,
+						TipoDatoBasico.TIPO_DOCUMENTO, "Academico");
+		for (RecaudoPorProceso recaudoPorProceso : lista) {
+			DocumentoEntregado docE = new DocumentoEntregado();
+			docE.setRecaudoPorProceso(recaudoPorProceso);
+			documentosAcademicos.add(docE);
+		}
+		return documentosAcademicos;
 	}
 
-	public List<RecaudoPorProceso> getRecaudosMedicos() {
-		return servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
-				 TipoDatoBasico.TIPO_DOCUMENTO,"Medico");
+	public List<DocumentoEntregado> getRecaudosMedicos() {
+		List<RecaudoPorProceso> lista = servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
+				TipoDatoBasico.TIPO_DOCUMENTO, "Medico");
+		for (RecaudoPorProceso recaudoPorProceso : lista) {
+			DocumentoEntregado docE = new DocumentoEntregado();
+			docE.setRecaudoPorProceso(recaudoPorProceso);
+			documentosMedicos.add(docE);
+		}
+		return documentosMedicos;
 	}
 
 	public List<Institucion> getInstitucionesEducativas() {
@@ -577,18 +626,18 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public void onClick$btnFoto() {
 		FileLoader fl = new FileLoader();
-		byte []  foto =fl.cargarImagenEnBean(imgJugador);
-		if (foto!=null){
+		byte[] foto = fl.cargarImagenEnBean(imgJugador);
+		if (foto != null) {
 			jugadorBean.setFoto(foto);
-		}	
+		}
 	}
 
 	public void onClick$btnFotoFamiliar() {
 		FileLoader fl = new FileLoader();
-		byte []  foto =fl.cargarImagenEnBean(imgFamiliar);
-		if (foto!=null){
+		byte[] foto = fl.cargarImagenEnBean(imgFamiliar);
+		if (foto != null) {
 			familiarBean.setFoto(foto);
-		}	
+		}
 	}
 
 	public void onClick$btnCatalogoFamiliar() {
@@ -601,7 +650,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				if (cmbAfecciones.getSelectedItem().getLabel()
 						.equals(afeccionesJugador.get(i).getNombre())) {
 					Mensaje.mostrarMensaje("Afección Duplicada.",
-							Messagebox.EXCLAMATION);
+							Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 					return;
 				}
 			}
@@ -622,7 +671,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			limpiarAfeccion();
 		} else {
 			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
-					Messagebox.EXCLAMATION);
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 	}
 
@@ -639,7 +688,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 								.equals(actividadesJugador.get(i)
 										.getActividad())))) {
 					Mensaje.mostrarMensaje("Actividad Social Duplicada.",
-							Messagebox.EXCLAMATION);
+							Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 					return;
 				}
 			}
@@ -667,7 +716,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			limpiarActividad();
 		} else {
 			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
-					Messagebox.EXCLAMATION);
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 	}
 
@@ -679,7 +728,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			binder.loadComponent(listComisiones);
 		} else {
 			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
-					Messagebox.EXCLAMATION);
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 	}
 
@@ -690,16 +739,53 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				limpiarComision();
 			} else {
 				Mensaje.mostrarMensaje("Comisión Duplicada.",
-						Messagebox.EXCLAMATION);
+						Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 			}
 		} else {
 			Mensaje.mostrarMensaje("Seleccione una comisión.",
-					Messagebox.EXCLAMATION);
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbComisiones.setFocus(true);
 		}
 	}
 
 	// Metodos propios del ctrl
+
+	private void actualizarArchivo(String codigo,
+			List<DocumentoEntregado> lista, byte[] archivo) {
+		int cod = Integer.valueOf(codigo);
+		for (DocumentoEntregado de : lista) {
+			if (de.getRecaudoPorProceso().getCodigoRecaudoPorProceso() == cod) {
+				de.setDocumento(archivo);
+				break;
+			}
+		}
+	}
+
+	private void cargarArchivo(String codigo, Listcell lc, List<DocumentoEntregado> docsE ){
+		if (lc.getLabel().equals("Subir")) {
+			FileLoader fl = new FileLoader();
+			byte[] archivo = fl.cargarArchivo();
+			if (archivo != null) {
+				actualizarArchivo(codigo, docsE, archivo);
+				lc.setLabel("Eliminar");
+			}
+		} else {
+			actualizarArchivo(codigo, docsE, null);
+			lc.setLabel("Subir");
+		}
+		
+	} 
+	public void subirDocumento(Listcell lc, Listbox listbox) {
+		Listcell primerElemento = (Listcell) lc.getParent().getFirstChild();
+		String codigo = primerElemento.getLabel();
+		if (listbox.equals(listDocAcademicos)) {
+			cargarArchivo(codigo, lc, documentosAcademicos);
+		}else if(listbox.equals(listDocPersonales)) {
+			cargarArchivo(codigo, lc, documentosPersonales);
+		}else if (listbox.equals(listDocMedicos)) {
+			cargarArchivo(codigo, lc, documentosMedicos);
+		}
+	}
 
 	private void moveStep(boolean flag) {
 		tabRegJugador.setVisible(!flag);
@@ -713,7 +799,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 		inhabilitarPerfil(flag);
 		btnAntes.setVisible(flag);
-		btnGuardar.setVisible(flag);
+		btnInscribir.setVisible(flag);
 		btnDesp.setVisible(!flag);
 	}
 
@@ -726,7 +812,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		else {
 			Mensaje.mostrarMensaje(
 					"Existen campos obligatorios, por favor verifique.",
-					Messagebox.EXCLAMATION);
+					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 		}
 	}
 

@@ -45,6 +45,7 @@ public class DaoRecaudoPorProceso extends GenericDao {
 		Criteria c = session
 				.createCriteria(RecaudoPorProceso.class)
 				.add(Restrictions.eq("datoBasicoByCodigoProceso", proceso))
+				.add(Restrictions.eq("estatus", 'A'))
 				.setFetchMode("datoBasicoByCodigoDocumento", FetchMode.JOIN)
 				.setFetchMode("datoBasicoByCodigoProceso", FetchMode.JOIN)
 				.setFetchMode("datoBasicoByCodigoImportancia", FetchMode.JOIN)

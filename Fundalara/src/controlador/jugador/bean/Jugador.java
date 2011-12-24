@@ -3,6 +3,13 @@ package controlador.jugador.bean;
 
 import modelo.DatoBasico;
 
+/**
+ * Clase bean para representar al Jugador
+ * @author Robert A
+ * @author German L
+ * @version 0.1 22/12/2011
+ *
+ */
 public class Jugador extends Persona {
 
 	private String secuencia;

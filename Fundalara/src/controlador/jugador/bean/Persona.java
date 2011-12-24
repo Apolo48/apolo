@@ -4,6 +4,14 @@ import java.util.Date;
 
 import modelo.DatoBasico;
 
+
+/**
+ * Clase bean para representar a la Persona
+ * @author Robert A
+ * @author German L
+ * @version 0.1 22/12/2011
+ *
+ */
 public class Persona {
 	private String nacionalidad;
 	private String cedula;
