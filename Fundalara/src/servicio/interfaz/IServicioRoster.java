@@ -13,7 +13,5 @@ public interface IServicioRoster {
 
 	public abstract List<Roster> listar();
 	
-	public void buscar (String ced);
-	
-	public void buscarCategoria(String ced);
+	public List<Object> buscarCategoria(String ced);
 }

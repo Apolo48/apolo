@@ -39,16 +39,12 @@ public class ServicioRoster implements IServicioRoster {
 
 	@Override
 	public List<Roster> listar() {
-		return daoRoster.listar(Roster.class);
+		return daoRoster.listar( Roster.class);
 	}
 	
 	@Override
-	public void buscar(String ced) {
-	    daoRoster.buscar(ced);
+	public List<Object> buscarCategoria(String ced) {
+	    return daoRoster.buscarCategoria(ced);
 	}
-	
-	@Override
-	public void buscarCategoria(String ced) {
-	    daoRoster.buscar(ced);
-	}
+
 }

@@ -18,7 +18,7 @@ public class AscenderJugadorCtrl extends GenericForwardComposer {
 		if (valor.equals("1")) {
 			src = "Jugador/Vistas/ascensoCategoria.zul";
 		} else if (valor.equals("2")) {
-			src = "Jugador/Vistas/ascensoEspecial.zul";
+			src = "Jugador/Vistas/frmAscensoEspecial.zul";
 		} 
 		enlace.insertarContenido(incCuerpo, src);
 	}
