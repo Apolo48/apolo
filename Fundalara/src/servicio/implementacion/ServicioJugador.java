@@ -5,7 +5,10 @@ import java.util.List;
 import servicio.interfaz.IServicioJugador;
 
 import dao.general.DaoJugador;
+import dao.general.DaoPersona;
+import dao.general.DaoPersonaNatural;
 import modelo.Jugador;
+import modelo.PersonaNatural;
 
 public class ServicioJugador implements IServicioJugador {
     
@@ -27,6 +30,10 @@ public class ServicioJugador implements IServicioJugador {
 
 	@Override
 	public void agregar(Jugador c) {
+		DaoPersona daoPersona = new DaoPersona();
+		DaoPersonaNatural daoPersonaNatural = new DaoPersonaNatural();
+		daoPersonaNatural.guardar(c.getPersona().getPersonaNatural());
+		daoPersona.guardar(c.getPersona());
 		daoJugador.guardar(c);
 
 	}

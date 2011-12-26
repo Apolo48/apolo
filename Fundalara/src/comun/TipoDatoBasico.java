@@ -36,10 +36,10 @@ public enum TipoDatoBasico {
 	RETIRO(89),
 	ESPECIALIDAD(90),
 	LOGRO(91),
-	COMISION(92),
 	BRAZO_LANZAR(96),
 	POSICION_BATEO(97),
-	SEXO(98);
+	SEXO(98),
+	COMISION(102);
 
 	private int codigo;
 

@@ -763,7 +763,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		personaN.setPrimerNombre(jugadorBean.getPrimerNombre());
 		personaN.setSegundoApellido(jugadorBean.getSegundoApellido());
 		personaN.setSegundoNombre(jugadorBean.getSegundoNombre());
-		personaN.setSexo(jugadorBean.getSexo());
+	//	personaN.setSexo(jugadorBean.getSexo());
 		personaN.setFoto(jugadorBean.getFoto());
 		personaN.setFechaNacimiento(jugadorBean.getFechaNacimiento());
 		
@@ -771,10 +771,10 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		Persona persona= new Persona();
 		persona.setCedulaRif(jugadorBean.getCedulaCompleta());
 		persona.setCorreoElectronico(jugadorBean.getCorreoElectronico());
-		persona.setDatoBasico(jugadorBean.getParroquiaResi());
+	//	persona.setDatoBasico(jugadorBean.getParroquiaResi());
 		persona.setTelefonoHabitacion(jugadorBean.getTelefonoHabitacion().getTelefonoCompleto());
 		persona.setFechaIngreso(new Date());
-		persona.setFacebook(jugadorBean.getFacebook());
+		//persona.setFacebook(jugadorBean.getFacebook());
 		persona.setTwitter(jugadorBean.getTwitter());
 		persona.setDireccion(jugadorBean.getDireccion());
 		persona.setPersonaNatural(personaN);

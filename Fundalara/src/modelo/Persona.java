@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 22-dic-2011 17:58:31 by Hibernate Tools 3.4.0.CR1
+// Generated 26-dic-2011 15:15:53 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -25,14 +25,15 @@ import javax.persistence.TemporalType;
 public class Persona implements java.io.Serializable {
 
 	private String cedulaRif;
-	private DatoBasico datoBasico;
+	private DatoBasico datoBasicoByCodigoParroquia;
+	private DatoBasico datoBasicoByCodigoTipoPersona;
 	private String telefonoHabitacion;
 	private Date fechaIngreso;
 	private String correoElectronico;
-	private String facebook;
 	private String twitter;
 	private String direccion;
 	private Date fechaEgreso;
+	private char estatus;
 	private PersonaJuridica personaJuridica;
 	private Jugador jugador;
 	private Set<EquipoCompetencia> equipoCompetencias = new HashSet<EquipoCompetencia>(
@@ -48,33 +49,37 @@ public class Persona implements java.io.Serializable {
 	public Persona() {
 	}
 
-	public Persona(String cedulaRif, DatoBasico datoBasico, Date fechaIngreso,
-			String direccion) {
+	public Persona(String cedulaRif, DatoBasico datoBasicoByCodigoParroquia,
+			DatoBasico datoBasicoByCodigoTipoPersona, Date fechaIngreso,
+			String direccion, char estatus) {
 		this.cedulaRif = cedulaRif;
-		this.datoBasico = datoBasico;
+		this.datoBasicoByCodigoParroquia = datoBasicoByCodigoParroquia;
+		this.datoBasicoByCodigoTipoPersona = datoBasicoByCodigoTipoPersona;
 		this.fechaIngreso = fechaIngreso;
 		this.direccion = direccion;
+		this.estatus = estatus;
 	}
 
-	public Persona(String cedulaRif, DatoBasico datoBasico,
+	public Persona(String cedulaRif, DatoBasico datoBasicoByCodigoParroquia,
+			DatoBasico datoBasicoByCodigoTipoPersona,
 			String telefonoHabitacion, Date fechaIngreso,
-			String correoElectronico, String facebook, String twitter,
-			String direccion, Date fechaEgreso,
-			PersonaJuridica personaJuridica, Jugador jugador,
-			Set<EquipoCompetencia> equipoCompetencias,
+			String correoElectronico, String twitter, String direccion,
+			Date fechaEgreso, char estatus, PersonaJuridica personaJuridica,
+			Jugador jugador, Set<EquipoCompetencia> equipoCompetencias,
 			Set<DocumentoAcreedor> documentoAcreedorsForCedulaAtleta,
 			Set<CuentaPagar> cuentaPagars,
 			Set<DocumentoAcreedor> documentoAcreedorsForCedulaRif,
 			Familiar familiar, PersonaNatural personaNatural) {
 		this.cedulaRif = cedulaRif;
-		this.datoBasico = datoBasico;
+		this.datoBasicoByCodigoParroquia = datoBasicoByCodigoParroquia;
+		this.datoBasicoByCodigoTipoPersona = datoBasicoByCodigoTipoPersona;
 		this.telefonoHabitacion = telefonoHabitacion;
 		this.fechaIngreso = fechaIngreso;
 		this.correoElectronico = correoElectronico;
-		this.facebook = facebook;
 		this.twitter = twitter;
 		this.direccion = direccion;
 		this.fechaEgreso = fechaEgreso;
+		this.estatus = estatus;
 		this.personaJuridica = personaJuridica;
 		this.jugador = jugador;
 		this.equipoCompetencias = equipoCompetencias;
@@ -97,12 +102,24 @@ public class Persona implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_parroquia", nullable = false)
-	public DatoBasico getDatoBasico() {
-		return this.datoBasico;
+	public DatoBasico getDatoBasicoByCodigoParroquia() {
+		return this.datoBasicoByCodigoParroquia;
 	}
 
-	public void setDatoBasico(DatoBasico datoBasico) {
-		this.datoBasico = datoBasico;
+	public void setDatoBasicoByCodigoParroquia(
+			DatoBasico datoBasicoByCodigoParroquia) {
+		this.datoBasicoByCodigoParroquia = datoBasicoByCodigoParroquia;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_tipo_persona", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoTipoPersona() {
+		return this.datoBasicoByCodigoTipoPersona;
+	}
+
+	public void setDatoBasicoByCodigoTipoPersona(
+			DatoBasico datoBasicoByCodigoTipoPersona) {
+		this.datoBasicoByCodigoTipoPersona = datoBasicoByCodigoTipoPersona;
 	}
 
 	@Column(name = "telefono_habitacion")
@@ -133,15 +150,6 @@ public class Persona implements java.io.Serializable {
 		this.correoElectronico = correoElectronico;
 	}
 
-	@Column(name = "facebook")
-	public String getFacebook() {
-		return this.facebook;
-	}
-
-	public void setFacebook(String facebook) {
-		this.facebook = facebook;
-	}
-
 	@Column(name = "twitter")
 	public String getTwitter() {
 		return this.twitter;
@@ -168,6 +176,15 @@ public class Persona implements java.io.Serializable {
 
 	public void setFechaEgreso(Date fechaEgreso) {
 		this.fechaEgreso = fechaEgreso;
+	}
+
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "persona")

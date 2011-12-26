@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 22-dic-2011 17:58:31 by Hibernate Tools 3.4.0.CR1
+// Generated 26-dic-2011 15:15:53 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -24,6 +26,7 @@ import org.hibernate.annotations.Parameter;
 public class PersonaNatural implements java.io.Serializable {
 
 	private String cedulaRif;
+	private DatoBasico datoBasico;
 	private Persona persona;
 	private String celular;
 	private String primerNombre;
@@ -32,23 +35,25 @@ public class PersonaNatural implements java.io.Serializable {
 	private String segundoApellido;
 	private byte[] foto;
 	private Date fechaNacimiento;
-	private Character sexo;
+	private char estatus;
 	private Personal personal;
 
 	public PersonaNatural() {
 	}
 
 	public PersonaNatural(Persona persona, String primerNombre,
-			String primerApellido) {
+			String primerApellido, char estatus) {
 		this.persona = persona;
 		this.primerNombre = primerNombre;
 		this.primerApellido = primerApellido;
+		this.estatus = estatus;
 	}
 
-	public PersonaNatural(Persona persona, String celular, String primerNombre,
-			String segundoNombre, String primerApellido,
-			String segundoApellido, byte[] foto, Date fechaNacimiento,
-			Character sexo, Personal personal) {
+	public PersonaNatural(DatoBasico datoBasico, Persona persona,
+			String celular, String primerNombre, String segundoNombre,
+			String primerApellido, String segundoApellido, byte[] foto,
+			Date fechaNacimiento, char estatus, Personal personal) {
+		this.datoBasico = datoBasico;
 		this.persona = persona;
 		this.celular = celular;
 		this.primerNombre = primerNombre;
@@ -57,7 +62,7 @@ public class PersonaNatural implements java.io.Serializable {
 		this.segundoApellido = segundoApellido;
 		this.foto = foto;
 		this.fechaNacimiento = fechaNacimiento;
-		this.sexo = sexo;
+		this.estatus = estatus;
 		this.personal = personal;
 	}
 
@@ -71,6 +76,16 @@ public class PersonaNatural implements java.io.Serializable {
 
 	public void setCedulaRif(String cedulaRif) {
 		this.cedulaRif = cedulaRif;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_genero")
+	public DatoBasico getDatoBasico() {
+		return this.datoBasico;
+	}
+
+	public void setDatoBasico(DatoBasico datoBasico) {
+		this.datoBasico = datoBasico;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY)
@@ -147,13 +162,13 @@ public class PersonaNatural implements java.io.Serializable {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	@Column(name = "sexo", length = 1)
-	public Character getSexo() {
-		return this.sexo;
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
 	}
 
-	public void setSexo(Character sexo) {
-		this.sexo = sexo;
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "personaNatural")
