@@ -869,7 +869,7 @@
 																value="Horas" />
 															<div>
 																<intbox
-																	width="10%" id="txtHorasSemanales" />
+																	width="10%" id="txtHorasSemanales" constraint="no negative,no zero"  />
 																<space />
 																<label
 																	value="Semanales" />

@@ -10,6 +10,7 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
@@ -96,6 +97,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Combobox cmbParenteso;
 	private Combobox cmbProfesion;
 	private Combobox cmbComisiones;
+	private Combobox cmbCategoria;
 	private Label lblSeparador;
 	private Listbox listAfeccionesActuales;
 	private Listbox listActividadesSociales;
@@ -378,6 +380,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void setFamiliarBean(controlador.jugador.bean.Familiar familiarBean) {
 		this.familiarBean = familiarBean;
 	}
+
 	public DocumentoEntregado getDocEntAcad() {
 		return docEntAcad;
 	}
@@ -456,8 +459,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public List<DocumentoEntregado> getRecaudosPersonales() {
-		List<RecaudoPorProceso> lista =   servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
-				TipoDatoBasico.TIPO_DOCUMENTO, "Personal");
+		List<RecaudoPorProceso> lista = servicioRecaudoPorProceso
+				.buscarPorProceso(this.tipoInscripcion,
+						TipoDatoBasico.TIPO_DOCUMENTO, "Personal");
 		for (RecaudoPorProceso recaudoPorProceso : lista) {
 			DocumentoEntregado docE = new DocumentoEntregado();
 			docE.setRecaudoPorProceso(recaudoPorProceso);
@@ -479,8 +483,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public List<DocumentoEntregado> getRecaudosMedicos() {
-		List<RecaudoPorProceso> lista = servicioRecaudoPorProceso.buscarPorProceso(this.tipoInscripcion,
-				TipoDatoBasico.TIPO_DOCUMENTO, "Medico");
+		List<RecaudoPorProceso> lista = servicioRecaudoPorProceso
+				.buscarPorProceso(this.tipoInscripcion,
+						TipoDatoBasico.TIPO_DOCUMENTO, "Medico");
 		for (RecaudoPorProceso recaudoPorProceso : lista) {
 			DocumentoEntregado docE = new DocumentoEntregado();
 			docE.setRecaudoPorProceso(recaudoPorProceso);
@@ -595,6 +600,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void onChange$dtboxFechaNac() {
 		Date fecha = dtboxFechaNac.getValue();
 		txtEdad.setValue(Util.calcularDiferenciaAnnios(fecha));
+		sugerirCategoria();
 	}
 
 	public void onChange$cmbNacionalidad() {
@@ -761,7 +767,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
-	private void cargarArchivo(String codigo, Listcell lc, List<DocumentoEntregado> docsE ){
+	private void cargarArchivo(String codigo, Listcell lc,
+			List<DocumentoEntregado> docsE) {
 		if (lc.getLabel().equals("Subir")) {
 			FileLoader fl = new FileLoader();
 			byte[] archivo = fl.cargarArchivo();
@@ -773,16 +780,17 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			actualizarArchivo(codigo, docsE, null);
 			lc.setLabel("Subir");
 		}
-		
-	} 
+
+	}
+
 	public void subirDocumento(Listcell lc, Listbox listbox) {
 		Listcell primerElemento = (Listcell) lc.getParent().getFirstChild();
 		String codigo = primerElemento.getLabel();
 		if (listbox.equals(listDocAcademicos)) {
 			cargarArchivo(codigo, lc, documentosAcademicos);
-		}else if(listbox.equals(listDocPersonales)) {
+		} else if (listbox.equals(listDocPersonales)) {
 			cargarArchivo(codigo, lc, documentosPersonales);
-		}else if (listbox.equals(listDocMedicos)) {
+		} else if (listbox.equals(listDocMedicos)) {
 			cargarArchivo(codigo, lc, documentosMedicos);
 		}
 	}
@@ -847,5 +855,19 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		comision = new DatoBasico();
 		cmbComisiones.setSelectedIndex(-1);
 		binder.loadComponent(listComisiones);
+	}
+
+	private void sugerirCategoria() {
+		Categoria cat = servicioCategoria.buscarPorEdad(txtEdad.getValue());
+		int i = 0;
+		if (cat != null) {
+			for (Object obj : cmbCategoria.getChildren()) {
+				Comboitem c = (Comboitem) obj;
+				if (c.getValue().equals(cat.getCodigoCategoria())) {
+					cmbCategoria.setSelectedIndex(i);
+				}
+				i++;
+			}
+		}
 	}
 }

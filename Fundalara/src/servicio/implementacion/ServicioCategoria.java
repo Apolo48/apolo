@@ -41,5 +41,11 @@ public class ServicioCategoria implements IServicioCategoria {
 	public List<Categoria> listar() {
 		return daoCategoria.listar(Categoria.class);
 	}
+	
+@Override
+	public Categoria buscarPorEdad(int edad) {
+		
+		return daoCategoria.buscarPorEdad(edad);
+	}
 
 }

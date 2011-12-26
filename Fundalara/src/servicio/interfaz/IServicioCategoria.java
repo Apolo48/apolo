@@ -12,4 +12,6 @@ public interface IServicioCategoria {
 	public abstract void actualizar(Categoria c);	
 	
 	public abstract List<Categoria> listar();
+	
+	public abstract Categoria buscarPorEdad(int edad);
 }
