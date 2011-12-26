@@ -1993,14 +1993,14 @@
 											<listcell
 												label="@{familiarJug.cedulaCompleta}" />
 											<listcell
-												label="@{comisionFam.nombres}" />
+												label="@{familiarJug.nombres}" />
 											<listcell
-												label="@{comisionFam.apellidos}" />
+												label="@{familiarJug.apellidos}" />
 											<listcell
-												label="@{comisionFam.parentesco.nombre}" />
+												label="@{familiarJug.parentesco.nombre}" />
 											<listcell>
 												<checkbox
-													checked="@{comisionFam.representante}" />
+													checked="@{familiarJug.representante}" />
 											</listcell>
 										</listitem>
 									</listbox>

@@ -24,6 +24,7 @@ import org.zkoss.zul.api.Tab;
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioEquipo;
+import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioRecaudoPorProceso;
 import servicio.implementacion.ServicioInstitucion;
 
@@ -44,6 +45,9 @@ import modelo.Familiar;
 import modelo.Institucion;
 import modelo.Jugador;
 import modelo.Medico;
+import modelo.Persona;
+import modelo.PersonaNatural;
+import modelo.Personal;
 import modelo.RecaudoPorProceso;
 
 /**
@@ -113,9 +117,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioEquipo servicioEquipo;
 	private ServicioRecaudoPorProceso servicioRecaudoPorProceso;
 	private ServicioInstitucion servicioInstitucion;
+	private ServicioJugador servicioJugador;
 
 	// Modelos
-	private Jugador jugador = new Jugador();
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
 	private controlador.jugador.bean.Familiar familiarBean = new controlador.jugador.bean.Familiar();
 	private Familiar familiar = new Familiar();
@@ -163,13 +167,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	// Getters y setters
-	public Jugador getJugador() {
-		return jugador;
-	}
-
-	public void setJugador(Jugador jugador) {
-		this.jugador = jugador;
-	}
 
 	public DatoBasico getEstadoVenezuela() {
 		return estadoVenezuela;
@@ -753,6 +750,52 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			cmbComisiones.setFocus(true);
 		}
 	}
+	
+	
+	public void onClick$btnInscribir(){
+		
+		//Guardando los valores del bean en  jugador
+		//1. Persona Natural
+		PersonaNatural personaN = new PersonaNatural();
+		personaN.setCedulaRif(jugadorBean.getCedulaCompleta());
+		personaN.setCelular(jugadorBean.getTelefonoCelular().getTelefonoCompleto());
+		personaN.setPrimerApellido(jugadorBean.getPrimerApellido());
+		personaN.setPrimerNombre(jugadorBean.getPrimerNombre());
+		personaN.setSegundoApellido(jugadorBean.getSegundoApellido());
+		personaN.setSegundoNombre(jugadorBean.getSegundoNombre());
+		personaN.setSexo(jugadorBean.getSexo());
+		personaN.setFoto(jugadorBean.getFoto());
+		personaN.setFechaNacimiento(jugadorBean.getFechaNacimiento());
+		
+		//2. Persona
+		Persona persona= new Persona();
+		persona.setCedulaRif(jugadorBean.getCedulaCompleta());
+		persona.setCorreoElectronico(jugadorBean.getCorreoElectronico());
+		persona.setDatoBasico(jugadorBean.getParroquiaResi());
+		persona.setTelefonoHabitacion(jugadorBean.getTelefonoHabitacion().getTelefonoCompleto());
+		persona.setFechaIngreso(new Date());
+		persona.setFacebook(jugadorBean.getFacebook());
+		persona.setTwitter(jugadorBean.getTwitter());
+		persona.setDireccion(jugadorBean.getDireccion());
+		persona.setPersonaNatural(personaN);
+		
+		//3.Jugador
+		Jugador jugador = new Jugador();
+		jugador.setCedulaRif(jugadorBean.getCedulaCompleta());
+		jugador.setDatoBasicoByCodigoPais(jugadorBean.getPaisNac());
+		jugador.setDatoBasicoByCodigoParroquiaNacimiento(jugadorBean.getParroquiaNac());
+		jugador.setNumero(jugadorBean.getNumero());
+		jugador.setPeso(jugadorBean.getPeso());
+		jugador.setAltura(jugadorBean.getAltura());
+		jugador.setPosicionBateo(jugadorBean.getPosicionBateo().getNombre());
+		jugador.setBrazoLanzar(jugadorBean.getBrazoLanzar().getNombre());
+		jugador.setTipoDeSangre(jugadorBean.getTipoSangre().getTipoSangre());
+		jugador.setPersona(persona);
+		
+		servicioJugador.agregar(jugador);
+	
+		
+	}
 
 	// Metodos propios del ctrl
 
@@ -859,6 +902,11 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	private void sugerirCategoria() {
 		Categoria cat = servicioCategoria.buscarPorEdad(txtEdad.getValue());
+		categoria= cat;
+		binder.loadComponent(cmbCategoria);
+		/*
+		 *Forma de implementar sin usar el binding
+		 * 
 		int i = 0;
 		if (cat != null) {
 			for (Object obj : cmbCategoria.getChildren()) {
@@ -868,6 +916,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				}
 				i++;
 			}
-		}
+		}*/
+		
+	
 	}
 }
