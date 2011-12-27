@@ -147,8 +147,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private DocumentoEntregado docEntMed = new DocumentoEntregado();
 	private DatoBasico comision = new DatoBasico();
 	private Medico medico = new Medico();
-	private Afeccion afeccion = new Afeccion();
-	List<Afeccion> afeccionesJugador = new ArrayList<Afeccion>();
+	private DatoBasico afeccion = new DatoBasico();
+	List<DatoBasico> afeccionesJugador = new ArrayList<DatoBasico>();
 	private ActividadSocial actividadSocial = new ActividadSocial();
 	List<ActividadSocial> actividadesJugador = new ArrayList<ActividadSocial>();
 	// Binder
@@ -256,11 +256,11 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		this.recaudoPersonal = recaudoPersonal;
 	}
 
-	public List<Afeccion> getAfeccionesJugador() {
+	public List<DatoBasico> getAfeccionesJugador() {
 		return afeccionesJugador;
 	}
 
-	public void setAfeccionesJugador(List<Afeccion> afeccionesJugador) {
+	public void setAfeccionesJugador(List<DatoBasico> afeccionesJugador) {
 		this.afeccionesJugador = afeccionesJugador;
 	}
 
@@ -400,6 +400,15 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public void setDocEntMed(DocumentoEntregado docEntMed) {
 		this.docEntMed = docEntMed;
+	}
+
+	
+	public DatoBasico getAfeccion() {
+		return afeccion;
+	}
+
+	public void setAfeccion(DatoBasico afeccion) {
+		this.afeccion = afeccion;
 	}
 
 	// Metodos para carga de combos/listbox
@@ -632,7 +641,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public void onClick$btnFoto() {
 		FileLoader fl = new FileLoader();
-		byte[] foto = fl.cargarImagenEnBean(imgJugador);
+ 		byte[] foto = fl.cargarImagenEnBean(imgJugador);
 		if (foto != null) {
 			jugadorBean.setFoto(foto);
 		}
@@ -651,7 +660,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnAgregarAfeccion() {
-		if (cmbAfecciones.getSelectedIndex() >= 0) {
+		/*if (cmbAfecciones.getSelectedIndex() >= 0) {
 			for (int i = 0; i < afeccionesJugador.size(); i++) {
 				if (cmbAfecciones.getSelectedItem().getLabel()
 						.equals(afeccionesJugador.get(i).getNombre())) {
@@ -666,15 +675,43 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			afeccionesJugador.add(afeccion);
 			limpiarAfeccion();
 
+		}*/
+		
+		if (cmbAfecciones.getSelectedIndex() >= 0) {
+			if (!afeccionesJugador.contains(afeccion)) {
+				afeccionesJugador.add(afeccion);
+				limpiarAfeccion();
+			} else {
+				Mensaje.mostrarMensaje("Afección Duplicada.",
+						Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+			}
+		} else {
+			Mensaje.mostrarMensaje("Seleccione una Afección.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+			cmbAfecciones.setFocus(true);
 		}
+		
+	
+		
 	}
 
 	public void onClick$btnEliminarAfeccion() {
-		if (listAfeccionesActuales.getSelectedIndex() >= 0) {
+		/*if (listAfeccionesActuales.getSelectedIndex() >= 0) {
 			Afeccion afeccionSel = (Afeccion) listAfeccionesActuales
 					.getSelectedItem().getValue();
 			afeccionesJugador.remove(afeccionSel);
 			limpiarAfeccion();
+		} else {
+			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+		}*/
+		
+		
+		if (listAfeccionesActuales.getSelectedIndex() >= 0) {
+			DatoBasico afeccionSel = (DatoBasico) listAfeccionesActuales
+					.getSelectedItem().getValue();
+			afeccionesJugador.remove(afeccionSel);
+			binder.loadComponent(listAfeccionesActuales);
 		} else {
 			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
@@ -761,7 +798,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				TipoDatoBasico.TIPO_PERSONA, "Jugador");
 		
 		//Guardando los valores del bean en  jugador
-
 		
 		//1. Persona
 		Persona persona= new Persona();
@@ -775,23 +811,19 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		persona.setDireccion(jugadorBean.getDireccion());
 		persona.setEstatus('A');
 		
-		
-		
 		//2. Persona Natural
-				PersonaNatural personaN = new PersonaNatural();
-				personaN.setCedulaRif(jugadorBean.getCedulaCompleta());
-				personaN.setCelular(jugadorBean.getTelefonoCelular().getTelefonoCompleto());
-				personaN.setPrimerApellido(jugadorBean.getPrimerApellido());
-				personaN.setPrimerNombre(jugadorBean.getPrimerNombre());
-				personaN.setSegundoApellido(jugadorBean.getSegundoApellido());
-				personaN.setSegundoNombre(jugadorBean.getSegundoNombre());
-				personaN.setDatoBasico(jugadorBean.getGenero());
-				personaN.setFoto(jugadorBean.getFoto());
-				personaN.setFechaNacimiento(jugadorBean.getFechaNacimiento());
-				personaN.setPersona(persona);
-				personaN.setEstatus('A');
-				
-	
+		PersonaNatural personaN = new PersonaNatural();
+		personaN.setCedulaRif(jugadorBean.getCedulaCompleta());
+		personaN.setCelular(jugadorBean.getTelefonoCelular().getTelefonoCompleto());
+		personaN.setPrimerApellido(jugadorBean.getPrimerApellido());
+		personaN.setPrimerNombre(jugadorBean.getPrimerNombre());
+		personaN.setSegundoApellido(jugadorBean.getSegundoApellido());
+		personaN.setSegundoNombre(jugadorBean.getSegundoNombre());
+		personaN.setDatoBasico(jugadorBean.getGenero());
+		personaN.setFoto(jugadorBean.getFoto());
+		personaN.setFechaNacimiento(jugadorBean.getFechaNacimiento());
+		personaN.setPersona(persona);
+		personaN.setEstatus('A');	
 		
 		//3.Jugador
 		Jugador jugador = new Jugador();
@@ -805,10 +837,19 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		jugador.setBrazoLanzar(jugadorBean.getBrazoLanzar().getNombre());
 		jugador.setTipoDeSangre(jugadorBean.getTipoSangre().getTipoSangre());
 		jugador.setPersona(persona);
-		
-		
 		servicioJugador.agregar(jugador,personaN);
-	
+		
+		//4. Datos Medicos
+		
+		
+		
+		//5. Datos Sociales
+		
+		//6. Datos Deportivos
+		
+		//7. Documentos
+
+		//8. Familiares
 		
 	}
 
@@ -895,7 +936,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void limpiarAfeccion() {
-		afeccion = new Afeccion();
+		afeccion = new DatoBasico();
 		cmbAfecciones.setSelectedIndex(-1);
 		binder.loadComponent(listAfeccionesActuales);
 	}

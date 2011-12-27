@@ -435,14 +435,6 @@
 																				value="@{controller.jugadorBean.twitter}" />
 																		</div>
 																	</row>
-																	<row
-																		spans="1,3" style="border:none;">
-																		<label
-																			value="Facebook" />
-																		<textbox
-																			id="txtFacebook" width="35%"
-																			value="@{controller.jugadorBean.facebook}" />
-																	</row>
 																</rows>
 															</grid>
 														</groupbox>
@@ -606,11 +598,12 @@
 																			<combobox
 																				readonly="true" value="--Seleccione--" width="60%"
 																				id="cmbAfecciones"
+																					selectedItem="@{controller.afeccion}"
 																				model="@{winRegistroJugador$composer.afecciones}">
 																				<comboitem
-																					self="@{each='afeccion'}"
-																					label="@{afeccion.nombre}"
-																					value="@{afeccion.codigoDatoBasico}" />
+																					self="@{each='afecc'}"
+																					label="@{afecc.nombre}"
+																					value="@{afecc.codigoDatoBasico}" />
 																			</combobox>
 																		</row>
 																		<row
@@ -736,6 +729,7 @@
 															<combobox
 																id="cmbInstitucionEducativa" width="90%"
 																model="@{winRegistroJugador$composer.institucionesEducativas}"
+														
 																readonly="true" value="--Seleccione--">
 																<comboitem
 																	self="@{each='institucion'}"
@@ -836,11 +830,12 @@
 															<combobox
 																id="cmbInstitucionRecreativa" width="90%"
 																model="@{winRegistroJugador$composer.institucionesRecreativas}"
+																
 																readonly="true" value="--Seleccione--">
 																<comboitem
-																	self="@{each='institucionRecreativa'}"
-																	label="@{institucionRecreativa.nombre}"
-																	value="@{institucionRecreativa.codigoInstitucion}" />
+																	self="@{each='insRecreativa'}"
+																	label="@{insRecreativa.nombre}"
+																	value="@{insRecreativa.codigoInstitucion}" />
 															</combobox>
 														</row>
 														<row
@@ -1872,16 +1867,7 @@
 																	value="@{controller.familiarBean.twitter}" width="80%"
 																	id="txtTwitterFamiliar" />
 															</hbox>
-														</row>
-														<row spans="1,3"
-															style="border:none;">
-															<label
-																value="Facebook" />
-															<textbox
-																value="@{controller.familiarBean.facebook}"
-																id="txtFacebookFalimiar" width="33%" />
-														</row>
-													</rows>
+														</row>													</rows>
 												</grid>
 											</groupbox>
 										</tabpanel><!-- Fin tabFamUbicacion -->
