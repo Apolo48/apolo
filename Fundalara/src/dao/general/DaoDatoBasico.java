@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import modelo.DatoBasico;
+import modelo.RecaudoPorProceso;
 import modelo.TipoDato;
 
 import dao.generico.GenericDao;
@@ -49,12 +51,20 @@ public class DaoDatoBasico extends GenericDao {
 	 * 
 	 */
 	public List<DatoBasico> buscar(TipoDatoBasico tipoDato){
-		Session session = SessionManager.getSession();
+		Session session = getSession();
         org.hibernate.Transaction tx = session.beginTransaction();
 		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"' AND estatus='A'").addEntity(DatoBasico.class);
 		List<DatoBasico> lista = query.list(); 
 		tx.commit();  
+		
 		return  lista;
+      /*  
+		Criteria c = session
+				.createCriteria(DatoBasico.class)
+				.add(Restrictions.eq("tipoDato.codigoTipoDato", tipoDato.getCodigo()))
+				.add(Restrictions.eq("estatus",'A'));
+				return  c.list();
+		*/
 	}
 	
 	/**
@@ -63,7 +73,7 @@ public class DaoDatoBasico extends GenericDao {
 	 * @return lista de datos hijos
 	 */
 	public List<DatoBasico> buscarPorRelacion(DatoBasico datoBasico){
-		Session session = SessionManager.getSession();
+		Session session = getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
 		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE parent_codigo_dato_basico='"+ datoBasico.getCodigoDatoBasico()+"' AND estatus='A'").addEntity(DatoBasico.class);
 		List<DatoBasico> lista = query.list(); 

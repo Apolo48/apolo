@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 26-dic-2011 15:15:53 by Hibernate Tools 3.4.0.CR1
+// Generated 26-dic-2011 21:37:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -36,7 +35,8 @@ public class DatoBasico implements java.io.Serializable {
 	private Set<PlanRotacion> planRotacions = new HashSet<PlanRotacion>(0);
 	private Set<EgresoFormaPago> egresoFormaPagosForCodigoTarjeta = new HashSet<EgresoFormaPago>(
 			0);
-	private TipoPagoRepresentante tipoPagoRepresentante;
+	private Set<TipoPagoRepresentante> tipoPagoRepresentantes = new HashSet<TipoPagoRepresentante>(
+			0);
 	private Set<Divisa> divisas = new HashSet<Divisa>(0);
 	private Set<Indicador> indicadorsForCodigoTipo = new HashSet<Indicador>(0);
 	private Set<SolicitudMantenimiento> solicitudMantenimientos = new HashSet<SolicitudMantenimiento>(
@@ -183,8 +183,8 @@ public class DatoBasico implements java.io.Serializable {
 			Set<TallaPorIndumentaria> tallaPorIndumentariasForCodigoIndumentaria,
 			Set<PlanRotacion> planRotacions,
 			Set<EgresoFormaPago> egresoFormaPagosForCodigoTarjeta,
-			TipoPagoRepresentante tipoPagoRepresentante, Set<Divisa> divisas,
-			Set<Indicador> indicadorsForCodigoTipo,
+			Set<TipoPagoRepresentante> tipoPagoRepresentantes,
+			Set<Divisa> divisas, Set<Indicador> indicadorsForCodigoTipo,
 			Set<SolicitudMantenimiento> solicitudMantenimientos,
 			Set<IndicadorActividadEscala> indicadorActividadEscalas,
 			Set<ProveedorBanco> proveedorBancos,
@@ -259,7 +259,7 @@ public class DatoBasico implements java.io.Serializable {
 		this.tallaPorIndumentariasForCodigoIndumentaria = tallaPorIndumentariasForCodigoIndumentaria;
 		this.planRotacions = planRotacions;
 		this.egresoFormaPagosForCodigoTarjeta = egresoFormaPagosForCodigoTarjeta;
-		this.tipoPagoRepresentante = tipoPagoRepresentante;
+		this.tipoPagoRepresentantes = tipoPagoRepresentantes;
 		this.divisas = divisas;
 		this.indicadorsForCodigoTipo = indicadorsForCodigoTipo;
 		this.solicitudMantenimientos = solicitudMantenimientos;
@@ -436,14 +436,14 @@ public class DatoBasico implements java.io.Serializable {
 		this.egresoFormaPagosForCodigoTarjeta = egresoFormaPagosForCodigoTarjeta;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "datoBasico")
-	public TipoPagoRepresentante getTipoPagoRepresentante() {
-		return this.tipoPagoRepresentante;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoBasico")
+	public Set<TipoPagoRepresentante> getTipoPagoRepresentantes() {
+		return this.tipoPagoRepresentantes;
 	}
 
-	public void setTipoPagoRepresentante(
-			TipoPagoRepresentante tipoPagoRepresentante) {
-		this.tipoPagoRepresentante = tipoPagoRepresentante;
+	public void setTipoPagoRepresentantes(
+			Set<TipoPagoRepresentante> tipoPagoRepresentantes) {
+		this.tipoPagoRepresentantes = tipoPagoRepresentantes;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoBasico")

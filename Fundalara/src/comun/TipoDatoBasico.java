@@ -8,6 +8,7 @@ package comun;
  */
 public enum TipoDatoBasico {
 	AFECCION(49),
+	TIPO_PERSONA(54),
 	PAIS(64),
 	ESTADO_VENEZUELA(65), 
     MUNICIPIO(66),
@@ -38,7 +39,7 @@ public enum TipoDatoBasico {
 	LOGRO(91),
 	BRAZO_LANZAR(96),
 	POSICION_BATEO(97),
-	SEXO(98),
+	GENERO(98),
 	COMISION(102);
 
 	private int codigo;

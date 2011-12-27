@@ -95,13 +95,12 @@
 										<label value="Género" />
 										<div>
 											<combobox id="cmbGenero"
-												selectedItem="@{controller.jugadorBean.sexo, converter='CharConverter'}"
-												readonly="true" value="--Seleccione--" width="25%">
-												<comboitem
-													label="Masculino" value="M" />
-												<comboitem
-													label="Femenino" value="F" />
-											</combobox>
+												selectedItem="@{controller.jugadorBean.genero}"
+												readonly="true" value="--Seleccione--" width="25%"
+													model="@{winRegistroJugador$composer.generos}">
+															<comboitem
+														self="@{each='genero'}" label="@{genero.nombre}" />
+																			</combobox>
 											<label value="(*)"
 												style="color:red" />
 										</div>

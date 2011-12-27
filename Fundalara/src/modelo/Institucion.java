@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 26-dic-2011 15:15:53 by Hibernate Tools 3.4.0.CR1
+// Generated 26-dic-2011 21:37:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,11 +33,10 @@ public class Institucion implements java.io.Serializable {
 	}
 
 	public Institucion(int codigoInstitucion,
-			DatoBasico datoBasicoByCodigoTipoInstitucion,
-			DatoBasico datoBasicoByCodigoParroquia, String nombre, char estatus) {
+			DatoBasico datoBasicoByCodigoTipoInstitucion, String nombre,
+			char estatus) {
 		this.codigoInstitucion = codigoInstitucion;
 		this.datoBasicoByCodigoTipoInstitucion = datoBasicoByCodigoTipoInstitucion;
-		this.datoBasicoByCodigoParroquia = datoBasicoByCodigoParroquia;
 		this.nombre = nombre;
 		this.estatus = estatus;
 	}
@@ -79,7 +78,7 @@ public class Institucion implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_parroquia", nullable = false)
+	@JoinColumn(name = "codigo_parroquia")
 	public DatoBasico getDatoBasicoByCodigoParroquia() {
 		return this.datoBasicoByCodigoParroquia;
 	}

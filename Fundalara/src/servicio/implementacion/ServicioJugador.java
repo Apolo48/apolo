@@ -29,11 +29,12 @@ public class ServicioJugador implements IServicioJugador {
 	}
 
 	@Override
-	public void agregar(Jugador c) {
+	public void agregar(Jugador c, PersonaNatural pn) {
 		DaoPersona daoPersona = new DaoPersona();
 		DaoPersonaNatural daoPersonaNatural = new DaoPersonaNatural();
-		daoPersonaNatural.guardar(c.getPersona().getPersonaNatural());
 		daoPersona.guardar(c.getPersona());
+		daoPersonaNatural.guardar(pn);
+	
 		daoJugador.guardar(c);
 
 	}

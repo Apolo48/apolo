@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 26-dic-2011 15:15:53 by Hibernate Tools 3.4.0.CR1
+// Generated 26-dic-2011 21:37:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +29,6 @@ public class Jugador implements java.io.Serializable {
 	private DatoBasico datoBasicoByCodigoPais;
 	private DatoBasico datoBasicoByCodigoParroquiaNacimiento;
 	private Persona persona;
-	private String lugarNacimiento;
 	private int numero;
 	private String tipoDeSangre;
 	private Double peso;
@@ -51,12 +50,10 @@ public class Jugador implements java.io.Serializable {
 	public Jugador() {
 	}
 
-	public Jugador(DatoBasico datoBasicoByCodigoPais,
-			DatoBasico datoBasicoByCodigoParroquiaNacimiento, Persona persona,
+	public Jugador(DatoBasico datoBasicoByCodigoPais, Persona persona,
 			int numero, String tipoDeSangre, String brazoLanzar,
 			String posicionBateo) {
 		this.datoBasicoByCodigoPais = datoBasicoByCodigoPais;
-		this.datoBasicoByCodigoParroquiaNacimiento = datoBasicoByCodigoParroquiaNacimiento;
 		this.persona = persona;
 		this.numero = numero;
 		this.tipoDeSangre = tipoDeSangre;
@@ -66,9 +63,9 @@ public class Jugador implements java.io.Serializable {
 
 	public Jugador(DatoBasico datoBasicoByCodigoPais,
 			DatoBasico datoBasicoByCodigoParroquiaNacimiento, Persona persona,
-			String lugarNacimiento, int numero, String tipoDeSangre,
-			Double peso, Double altura, String brazoLanzar,
-			String posicionBateo, RetiroTraslado retiroTraslado,
+			int numero, String tipoDeSangre, Double peso, Double altura,
+			String brazoLanzar, String posicionBateo,
+			RetiroTraslado retiroTraslado,
 			Set<TallaPorJugador> tallaPorJugadors,
 			Set<FamiliarJugador> familiarJugadors, Set<DatoMedico> datoMedicos,
 			Set<DatoConducta> datoConductas, Set<DatoAcademico> datoAcademicos,
@@ -77,7 +74,6 @@ public class Jugador implements java.io.Serializable {
 		this.datoBasicoByCodigoPais = datoBasicoByCodigoPais;
 		this.datoBasicoByCodigoParroquiaNacimiento = datoBasicoByCodigoParroquiaNacimiento;
 		this.persona = persona;
-		this.lugarNacimiento = lugarNacimiento;
 		this.numero = numero;
 		this.tipoDeSangre = tipoDeSangre;
 		this.peso = peso;
@@ -118,7 +114,7 @@ public class Jugador implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_parroquia_nacimiento", nullable = false)
+	@JoinColumn(name = "codigo_parroquia_nacimiento")
 	public DatoBasico getDatoBasicoByCodigoParroquiaNacimiento() {
 		return this.datoBasicoByCodigoParroquiaNacimiento;
 	}
@@ -136,15 +132,6 @@ public class Jugador implements java.io.Serializable {
 
 	public void setPersona(Persona persona) {
 		this.persona = persona;
-	}
-
-	@Column(name = "lugar_nacimiento")
-	public String getLugarNacimiento() {
-		return this.lugarNacimiento;
-	}
-
-	public void setLugarNacimiento(String lugarNacimiento) {
-		this.lugarNacimiento = lugarNacimiento;
 	}
 
 	@Column(name = "numero", nullable = false)

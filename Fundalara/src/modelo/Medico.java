@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 26-dic-2011 15:15:53 by Hibernate Tools 3.4.0.CR1
+// Generated 26-dic-2011 21:37:05 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -38,10 +38,9 @@ public class Medico implements java.io.Serializable {
 	public Medico() {
 	}
 
-	public Medico(String numeroColegio, DatoBasico datoBasico, String nombre,
-			String apellido, Date fechaIngreso, char estatus) {
+	public Medico(String numeroColegio, String nombre, String apellido,
+			Date fechaIngreso, char estatus) {
 		this.numeroColegio = numeroColegio;
-		this.datoBasico = datoBasico;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaIngreso = fechaIngreso;
@@ -76,7 +75,7 @@ public class Medico implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_especialidad", nullable = false)
+	@JoinColumn(name = "codigo_especialidad")
 	public DatoBasico getDatoBasico() {
 		return this.datoBasico;
 	}

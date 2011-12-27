@@ -20,7 +20,7 @@ public class GenericDao {
     public void guardar(Object o) {		
 		Session session = getSession();
 		Transaction tx =  session.beginTransaction();
-		session.saveOrUpdate(o);
+		session.save(o);
 		tx.commit();		
 	}
 
@@ -47,10 +47,14 @@ public class GenericDao {
 	
 	public Session getSession(){
 	if (session == null){
+		System.out.println("sesion es nula");
 			return session = SessionManager.getSession();
 	}else{
-		  if(!session.isOpen())
-		      session = SessionManager.getSession();		    
+		System.out.println("sesion no es  nula");
+		  if(!session.isConnected()){
+			  System.out.println("sesion no esta abierta");  
+		      session = SessionManager.getSession();
+		  }
 	      return session;	
 		}
 	}

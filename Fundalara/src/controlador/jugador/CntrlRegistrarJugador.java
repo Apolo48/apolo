@@ -411,6 +411,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		return servicioDatoBasico.buscar(TipoDatoBasico.CURSO);
 	}
 
+	public List<DatoBasico> getGeneros() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.GENERO);
+	}
 	public List<DatoBasico> getAnnoEsc() {
 		return servicioDatoBasico.buscar(TipoDatoBasico.ANNO_ESCOLAR);
 	}
@@ -754,30 +757,41 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	
 	public void onClick$btnInscribir(){
 		
-		//Guardando los valores del bean en  jugador
-		//1. Persona Natural
-		PersonaNatural personaN = new PersonaNatural();
-		personaN.setCedulaRif(jugadorBean.getCedulaCompleta());
-		personaN.setCelular(jugadorBean.getTelefonoCelular().getTelefonoCompleto());
-		personaN.setPrimerApellido(jugadorBean.getPrimerApellido());
-		personaN.setPrimerNombre(jugadorBean.getPrimerNombre());
-		personaN.setSegundoApellido(jugadorBean.getSegundoApellido());
-		personaN.setSegundoNombre(jugadorBean.getSegundoNombre());
-	//	personaN.setSexo(jugadorBean.getSexo());
-		personaN.setFoto(jugadorBean.getFoto());
-		personaN.setFechaNacimiento(jugadorBean.getFechaNacimiento());
+		DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.TIPO_PERSONA, "Jugador");
 		
-		//2. Persona
+		//Guardando los valores del bean en  jugador
+
+		
+		//1. Persona
 		Persona persona= new Persona();
 		persona.setCedulaRif(jugadorBean.getCedulaCompleta());
 		persona.setCorreoElectronico(jugadorBean.getCorreoElectronico());
-	//	persona.setDatoBasico(jugadorBean.getParroquiaResi());
+		persona.setDatoBasicoByCodigoParroquia(jugadorBean.getParroquiaResi());
 		persona.setTelefonoHabitacion(jugadorBean.getTelefonoHabitacion().getTelefonoCompleto());
 		persona.setFechaIngreso(new Date());
-		//persona.setFacebook(jugadorBean.getFacebook());
+		persona.setDatoBasicoByCodigoTipoPersona(datoTipoPersona);
 		persona.setTwitter(jugadorBean.getTwitter());
 		persona.setDireccion(jugadorBean.getDireccion());
-		persona.setPersonaNatural(personaN);
+		persona.setEstatus('A');
+		
+		
+		
+		//2. Persona Natural
+				PersonaNatural personaN = new PersonaNatural();
+				personaN.setCedulaRif(jugadorBean.getCedulaCompleta());
+				personaN.setCelular(jugadorBean.getTelefonoCelular().getTelefonoCompleto());
+				personaN.setPrimerApellido(jugadorBean.getPrimerApellido());
+				personaN.setPrimerNombre(jugadorBean.getPrimerNombre());
+				personaN.setSegundoApellido(jugadorBean.getSegundoApellido());
+				personaN.setSegundoNombre(jugadorBean.getSegundoNombre());
+				personaN.setDatoBasico(jugadorBean.getGenero());
+				personaN.setFoto(jugadorBean.getFoto());
+				personaN.setFechaNacimiento(jugadorBean.getFechaNacimiento());
+				personaN.setPersona(persona);
+				personaN.setEstatus('A');
+				
+	
 		
 		//3.Jugador
 		Jugador jugador = new Jugador();
@@ -792,7 +806,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		jugador.setTipoDeSangre(jugadorBean.getTipoSangre().getTipoSangre());
 		jugador.setPersona(persona);
 		
-		servicioJugador.agregar(jugador);
+		
+		servicioJugador.agregar(jugador,personaN);
 	
 		
 	}
