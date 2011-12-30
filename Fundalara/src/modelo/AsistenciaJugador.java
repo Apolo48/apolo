@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 26-dic-2011 21:37:05 by Hibernate Tools 3.4.0.CR1
+// Generated 30-dic-2011 0:38:42 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +21,6 @@ import javax.persistence.Table;
 public class AsistenciaJugador implements java.io.Serializable {
 
 	private int codigoAsistencia;
-	private Roster roster;
 	private SesionEjecutada sesionEjecutada;
 	private DatoBasico datoBasico;
 	private boolean asistencia;
@@ -32,23 +31,21 @@ public class AsistenciaJugador implements java.io.Serializable {
 	public AsistenciaJugador() {
 	}
 
-	public AsistenciaJugador(int codigoAsistencia, Roster roster,
+	public AsistenciaJugador(int codigoAsistencia,
 			SesionEjecutada sesionEjecutada, DatoBasico datoBasico,
 			boolean asistencia, String observacion) {
 		this.codigoAsistencia = codigoAsistencia;
-		this.roster = roster;
 		this.sesionEjecutada = sesionEjecutada;
 		this.datoBasico = datoBasico;
 		this.asistencia = asistencia;
 		this.observacion = observacion;
 	}
 
-	public AsistenciaJugador(int codigoAsistencia, Roster roster,
+	public AsistenciaJugador(int codigoAsistencia,
 			SesionEjecutada sesionEjecutada, DatoBasico datoBasico,
 			boolean asistencia, String observacion,
 			Set<DesempeoJugador> desempeoJugadors) {
 		this.codigoAsistencia = codigoAsistencia;
-		this.roster = roster;
 		this.sesionEjecutada = sesionEjecutada;
 		this.datoBasico = datoBasico;
 		this.asistencia = asistencia;
@@ -64,16 +61,6 @@ public class AsistenciaJugador implements java.io.Serializable {
 
 	public void setCodigoAsistencia(int codigoAsistencia) {
 		this.codigoAsistencia = codigoAsistencia;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_roster", nullable = false)
-	public Roster getRoster() {
-		return this.roster;
-	}
-
-	public void setRoster(Roster roster) {
-		this.roster = roster;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

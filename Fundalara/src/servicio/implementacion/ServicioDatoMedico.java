@@ -10,7 +10,7 @@ import modelo.DatoMedico;
 public class ServicioDatoMedico implements IServicioDatoMedico {
 
 	DaoDatoMedico daoDatoMedico;
-	
+
 	public DaoDatoMedico getDaoDatoMedico() {
 		return daoDatoMedico;
 	}
@@ -27,6 +27,7 @@ public class ServicioDatoMedico implements IServicioDatoMedico {
 
 	@Override
 	public void agregar(DatoMedico c) {
+
 		daoDatoMedico.guardar(c);
 
 	}
@@ -39,7 +40,11 @@ public class ServicioDatoMedico implements IServicioDatoMedico {
 
 	@Override
 	public List<DatoMedico> listar() {
-		return daoDatoMedico.listar( DatoMedico.class);
+		return daoDatoMedico.listar(DatoMedico.class);
 	}
 
+	@Override
+	public int ultimoId() {
+		return daoDatoMedico.ultimoId();
+	}
 }

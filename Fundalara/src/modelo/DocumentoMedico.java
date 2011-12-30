@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 26-dic-2011 21:37:05 by Hibernate Tools 3.4.0.CR1
+// Generated 30-dic-2011 0:38:42 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -37,8 +37,8 @@ public class DocumentoMedico implements java.io.Serializable {
 
 	@EmbeddedId
 	@AttributeOverrides({
-			@AttributeOverride(name = "codigoDatoMedico", column = @Column(name = "codigo_dato_medico", nullable = false)),
-			@AttributeOverride(name = "codigoDocumentoEntregado", column = @Column(name = "codigo_documento_entregado", nullable = false)) })
+			@AttributeOverride(name = "codigoDocumentoEntregado", column = @Column(name = "codigo_documento_entregado", nullable = false)),
+			@AttributeOverride(name = "codigoDatoMedico", column = @Column(name = "codigo_dato_medico", nullable = false)) })
 	public DocumentoMedicoId getId() {
 		return this.id;
 	}

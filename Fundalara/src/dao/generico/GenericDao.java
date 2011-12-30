@@ -2,6 +2,8 @@ package dao.generico;
 
 import java.util.List;
 
+import modelo.DatoBasico;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class GenericDao {
 	
-	Session session;
+	 Session session;
     public void guardar(Object o) {		
 		Session session = getSession();
 		Transaction tx =  session.beginTransaction();
@@ -47,12 +49,9 @@ public class GenericDao {
 	
 	public Session getSession(){
 	if (session == null){
-		System.out.println("sesion es nula");
 			return session = SessionManager.getSession();
 	}else{
-		System.out.println("sesion no es  nula");
 		  if(!session.isConnected()){
-			  System.out.println("sesion no esta abierta");  
 		      session = SessionManager.getSession();
 		  }
 	      return session;	

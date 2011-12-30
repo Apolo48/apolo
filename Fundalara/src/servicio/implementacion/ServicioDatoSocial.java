@@ -10,7 +10,7 @@ import modelo.DatoSocial;
 public class ServicioDatoSocial implements IServicioDatoSocial {
 
 	DaoDatoSocial daoDatoSocial;
-	
+
 	public DaoDatoSocial getDaoDatoSocial() {
 		return daoDatoSocial;
 	}
@@ -31,6 +31,11 @@ public class ServicioDatoSocial implements IServicioDatoSocial {
 
 	}
 
+	public void agregar(List<DatoSocial> datos) {
+		daoDatoSocial.guardar(datos);
+
+	}
+
 	@Override
 	public void actualizar(DatoSocial c) {
 		daoDatoSocial.actualizar(c);
@@ -39,7 +44,7 @@ public class ServicioDatoSocial implements IServicioDatoSocial {
 
 	@Override
 	public List<DatoSocial> listar() {
-    	return daoDatoSocial.listar( DatoSocial.class);
+		return daoDatoSocial.listar(DatoSocial.class);
 	}
 
 }

@@ -729,11 +729,11 @@
 															<combobox
 																id="cmbInstitucionEducativa" width="90%"
 																model="@{winRegistroJugador$composer.institucionesEducativas}"
-														
+														 		selectedItem="@{controller.datoAcademico.institucion}"
 																readonly="true" value="--Seleccione--">
-																<comboitem
-																	self="@{each='institucion'}"
-																	label="@{institucion.nombre}" />
+																<comboitem 
+																	self="@{each='institucionE'}"
+																	label="@{institucionE.nombre}" />
 															</combobox>
 														</row>
 														<row
@@ -743,6 +743,7 @@
 															<combobox
 																id="cmbAnnioEscolar" readonly="true"
 																model="@{winRegistroJugador$composer.annoEsc}"
+																selectedItem="@{controller.datoAcademico.datoBasicoByCodigoAnnoEscolar}"
 																value="--Seleccione--" width="80%">
 																<comboitem
 																	self="@{each='anno_escolar'}"
@@ -753,6 +754,7 @@
 															<combobox
 																id="cmbCurso"
 																model="@{winRegistroJugador$composer.cursos}"
+																selectedItem="@{controller.datoAcademico.datoBasicoByCodigoCurso}"
 																readonly="true" value="--Seleccione--">
 																<comboitem
 																	self="@{each='curso'}" label="@{curso.nombre}" />
@@ -830,7 +832,7 @@
 															<combobox
 																id="cmbInstitucionRecreativa" width="90%"
 																model="@{winRegistroJugador$composer.institucionesRecreativas}"
-																
+																selectedItem="@{controller.datoSocial.institucion}"
 																readonly="true" value="--Seleccione--">
 																<comboitem
 																	self="@{each='insRecreativa'}"
@@ -845,6 +847,7 @@
 															<combobox
 																id="cmbActividad" readonly="true" value="--Seleccione--"
 																model="@{winRegistroJugador$composer.actividadSoc}"
+																	selectedItem="@{controller.datoSocial.datoBasico}"
 																width="80%">
 																<comboitem
 																	self="@{each='actividad_social'}"
@@ -854,6 +857,7 @@
 															<label
 																value="Fecha inicio" />
 															<datebox
+															value="@{controller.datoSocial.fechaInicio}"
 																id="dtboxFechaInicioActividad" format="dd/MM/yyyy"
 																style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 														</row>
@@ -863,7 +867,7 @@
 																value="Horas" />
 															<div>
 																<intbox
-																	width="10%" id="txtHorasSemanales" constraint="no negative,no zero"  />
+																	width="10%" id="txtHorasSemanales" constraint="no negative,no zero" value="@{controller.datoSocial.horasDedicadas}" />
 																<space />
 																<label
 																	value="Semanales" />
@@ -882,7 +886,7 @@
 														style="border:none">
 														<listbox
 															id="listActividadesSociales" mold="paging" pageSize="2"
-															model="@{controller.actividadesJugador}">
+															model="@{controller.datoSociales}">
 															<listhead>
 																<listheader
 																	label="Actividad" width="20%" />
@@ -897,13 +901,13 @@
 																self="@{each='actividadSocial'}"
 																value="@{actividadSocial}">
 																<listcell
-																	label="@{actividadSocial.actividad}" />
+																	label="@{actividadSocial.datoBasico.nombre}" />
 																<listcell
-																	label="@{actividadSocial.nombreInstitucion}" />
+																	label="@{actividadSocial.institucion.nombre}" />
 																<listcell
 																	label="@{actividadSocial.horasDedicadas}" />
 																<listcell
-																	label="@{actividadSocial.fechaInicio}" />
+																	label="@{actividadSocial.fechaInicio, converter='DateConverter'}" />
 															</listitem>
 														</listbox>
 														<vbox>

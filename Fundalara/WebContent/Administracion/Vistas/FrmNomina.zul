@@ -19,7 +19,7 @@
 	public void RegPago() {
 		winNO.setVisible(false);
 		Window window = (Window) Executions.createComponents(
-				"/Administracion/Vistas/FrmRegistrarNomina.zul", null, null);
+				"/Administracion/Vistas/FrmPagoNomina.zul", null, null);
 	}
 	public void mostrar1() {
 		String var = A.getSelectedItem().getValue().toString();
@@ -215,7 +215,7 @@
 					<button id="M3" visible="false"
 						image="/Recursos/Imagenes/reporte.ico" label="Registrar Pago"
 						onClick="RegPago()" />
-					<button image="/Recursos/Imagenes/atras.ico"
+					<button image="/Recursos/Imagenes/salir.png"
 						label="Salir" onClick="" />
 				</div>
 			</panelchildren>

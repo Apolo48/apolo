@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 26-dic-2011 21:37:05 by Hibernate Tools 3.4.0.CR1
+// Generated 30-dic-2011 0:38:42 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -38,8 +38,8 @@ public class FamiliarComisionEquipo implements java.io.Serializable {
 
 	@EmbeddedId
 	@AttributeOverrides({
-			@AttributeOverride(name = "codigoFamiliarJugador", column = @Column(name = "codigo_familiar_jugador", nullable = false)),
-			@AttributeOverride(name = "codigoComisionEquipo", column = @Column(name = "codigo_comision_equipo", nullable = false)) })
+			@AttributeOverride(name = "codigoComisionEquipo", column = @Column(name = "codigo_comision_equipo", nullable = false)),
+			@AttributeOverride(name = "codigoFamiliarJugador", column = @Column(name = "codigo_familiar_jugador", nullable = false)) })
 	public FamiliarComisionEquipoId getId() {
 		return this.id;
 	}

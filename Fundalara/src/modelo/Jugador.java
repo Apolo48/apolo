@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 26-dic-2011 21:37:05 by Hibernate Tools 3.4.0.CR1
+// Generated 30-dic-2011 0:38:42 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -50,10 +50,8 @@ public class Jugador implements java.io.Serializable {
 	public Jugador() {
 	}
 
-	public Jugador(DatoBasico datoBasicoByCodigoPais, Persona persona,
-			int numero, String tipoDeSangre, String brazoLanzar,
-			String posicionBateo) {
-		this.datoBasicoByCodigoPais = datoBasicoByCodigoPais;
+	public Jugador(Persona persona, int numero, String tipoDeSangre,
+			String brazoLanzar, String posicionBateo) {
 		this.persona = persona;
 		this.numero = numero;
 		this.tipoDeSangre = tipoDeSangre;
@@ -104,7 +102,7 @@ public class Jugador implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_pais", nullable = false)
+	@JoinColumn(name = "codigo_pais")
 	public DatoBasico getDatoBasicoByCodigoPais() {
 		return this.datoBasicoByCodigoPais;
 	}

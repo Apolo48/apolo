@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 26-dic-2011 21:37:05 by Hibernate Tools 3.4.0.CR1
+// Generated 30-dic-2011 0:38:42 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -30,8 +30,6 @@ public class Roster implements java.io.Serializable {
 	private char estatus;
 	private Set<TestJugador> testJugadors = new HashSet<TestJugador>(0);
 	private Set<Ascenso> ascensos = new HashSet<Ascenso>(0);
-	private Set<AsistenciaJugador> asistenciaJugadors = new HashSet<AsistenciaJugador>(
-			0);
 	private Set<RosterCompetencia> rosterCompetencias = new HashSet<RosterCompetencia>(
 			0);
 
@@ -49,8 +47,7 @@ public class Roster implements java.io.Serializable {
 
 	public Roster(int codigoRoster, Jugador jugador, Equipo equipo,
 			Date fechaIngreso, char estatus, Set<TestJugador> testJugadors,
-			Set<Ascenso> ascensos, Set<AsistenciaJugador> asistenciaJugadors,
-			Set<RosterCompetencia> rosterCompetencias) {
+			Set<Ascenso> ascensos, Set<RosterCompetencia> rosterCompetencias) {
 		this.codigoRoster = codigoRoster;
 		this.jugador = jugador;
 		this.equipo = equipo;
@@ -58,7 +55,6 @@ public class Roster implements java.io.Serializable {
 		this.estatus = estatus;
 		this.testJugadors = testJugadors;
 		this.ascensos = ascensos;
-		this.asistenciaJugadors = asistenciaJugadors;
 		this.rosterCompetencias = rosterCompetencias;
 	}
 
@@ -127,15 +123,6 @@ public class Roster implements java.io.Serializable {
 
 	public void setAscensos(Set<Ascenso> ascensos) {
 		this.ascensos = ascensos;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roster")
-	public Set<AsistenciaJugador> getAsistenciaJugadors() {
-		return this.asistenciaJugadors;
-	}
-
-	public void setAsistenciaJugadors(Set<AsistenciaJugador> asistenciaJugadors) {
-		this.asistenciaJugadors = asistenciaJugadors;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roster")
