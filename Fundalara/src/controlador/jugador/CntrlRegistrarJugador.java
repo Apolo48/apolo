@@ -55,7 +55,6 @@ import modelo.Jugador;
 import modelo.Medico;
 import modelo.Persona;
 import modelo.PersonaNatural;
-import modelo.Personal;
 import modelo.RecaudoPorProceso;
 
 /**
