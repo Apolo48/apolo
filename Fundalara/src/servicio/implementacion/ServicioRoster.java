@@ -1,11 +1,14 @@
 package servicio.implementacion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import servicio.interfaz.IServicioRoster;
 
 import dao.general.DaoRoster;
 
+import modelo.Equipo;
+import modelo.Jugador;
 import modelo.Roster;
 
 public class ServicioRoster implements IServicioRoster {
@@ -45,6 +48,16 @@ public class ServicioRoster implements IServicioRoster {
 	@Override
 	public List<Object> buscarCategoria(String ced) {
 	    return daoRoster.buscarCategoria(ced);
+	}
+	
+	public List<Jugador> buscarJugadores(Equipo equipo, String filtro2, String filtro3, String filtro4, String filtro1){
+		List<Jugador> jugad = new ArrayList<Jugador>();
+		List<Roster> rosters = new ArrayList<Roster>();
+		rosters=daoRoster.buscarJugadores(equipo, filtro2, filtro3, filtro4, filtro1);
+		for (int i = 0; i < rosters.size(); i++) {
+			jugad.add(rosters.get(i).getJugador());
+		}		
+		return jugad;
 	}
 
 }

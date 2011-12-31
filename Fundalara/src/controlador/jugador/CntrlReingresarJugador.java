@@ -1,7 +1,14 @@
 package controlador.jugador;
 
 
+import modelo.Jugador;
+
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Image;
@@ -32,6 +39,17 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 	private Combobox cmbNacionalidadFamiliar;
 	private Combobox cmbNacionalidad;
 	private Label lblSeparador;
+	private Component formulario;
+	Jugador jugador;
+	AnnotateDataBinder binder;
+	
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		comp.setVariable("controller", this, true); 
+		//se guarda la referencia al formulario actual
+		formulario = comp; 	
+		
+	}
 
 	
 	private void moveStep(boolean flag) {
@@ -79,7 +97,27 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnCatalogoJugador() {
-		new Util().crearVentana("Jugador/Vistas/buscarJugador.zul", null, null);
+		//se crea el catalogo y se llama
+		Component catalogo = Executions.createComponents("/Jugador/Vistas/FrmBuscarJugador.zul", null, null);
+		
+		//asigna una referencia del formulario al catalogo.
+		catalogo.setVariable("formulario",formulario, false);
+			    		
+		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+			@Override
+			//Este metodo se llama cuando se envia la señal desde el catalogo
+			public void onEvent(Event arg0) throws Exception {
+			//se obtiene el jugador
+			 jugador = (Jugador) formulario.getVariable("jugador",false);
+			 txtPrimerNombre.setValue(jugador.getPersona().getPersonaNatural().getPrimerApellido());
+			binder.loadAll();				
+						}
+			});
+		
+		
+		
+		
+		//new Util().crearVentana("Jugador/Vistas/frmBuscarJugador.zul", null, null);
 	}
 
 	public void onClick$btnCatalogoMedico() {
