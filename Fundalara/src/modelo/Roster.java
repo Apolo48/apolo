@@ -8,10 +8,12 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +23,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "roster", schema = "public")
+@SequenceGenerator(name = "roster_seq", sequenceName = "roster_codigo_roster_seq1")
 public class Roster implements java.io.Serializable {
 
 	private int codigoRoster;
@@ -60,6 +63,7 @@ public class Roster implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_roster", unique = true, nullable = false)
+	@GeneratedValue(generator = "roster_seq")
 	public int getCodigoRoster() {
 		return this.codigoRoster;
 	}

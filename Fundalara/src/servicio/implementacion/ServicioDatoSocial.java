@@ -7,6 +7,13 @@ import servicio.interfaz.IServicioDatoSocial;
 import dao.general.DaoDatoSocial;
 import modelo.DatoSocial;
 
+/**
+ * Clase para brindar los servicios para manejar los datos relacionados con los datos sociales de los jugadores
+ * @author Robert A
+ * @author German L
+ * @version 0.1 29/12/2011
+ *
+ */
 public class ServicioDatoSocial implements IServicioDatoSocial {
 
 	DaoDatoSocial daoDatoSocial;

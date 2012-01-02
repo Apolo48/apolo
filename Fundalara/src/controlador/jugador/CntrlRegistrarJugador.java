@@ -32,6 +32,8 @@ import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioMedico;
 import servicio.implementacion.ServicioRecaudoPorProceso;
 import servicio.implementacion.ServicioInstitucion;
+import servicio.implementacion.ServicioRoster;
+import servicio.implementacion.ServicioTallaPorJugador;
 
 import comun.FileLoader;
 import comun.Ruta;
@@ -56,6 +58,7 @@ import modelo.Medico;
 import modelo.Persona;
 import modelo.PersonaNatural;
 import modelo.RecaudoPorProceso;
+import modelo.Roster;
 
 /**
  * Clase controladora de los eventos de la vista de igual nombre y manejo de los
@@ -132,6 +135,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioDatoAcademico servicioDatoAcademico;
 	private ServicioAfeccionJugador servicioAfeccionJugador;
 	private ServicioDatoSocial servicioDatoSocial;
+	private ServicioTallaPorJugador servicioTallaPorJugador;
+	private ServicioRoster servicioRoster;
 
 	// Modelos
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
@@ -903,11 +908,15 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 		// 6. Datos Deportivos
 		//6.1 Asignacion
-		
+		Roster roster = new Roster(0,jugador,equipo,new Date(),'A');	
+		servicioRoster.agregar(roster);
 		//6.2 Tallas
+		servicioTallaPorJugador.agregar(jugador, jugadorBean.getTallaCalzado(),jugadorBean.getTallaCamisa(), jugadorBean.getTallaPantalon());
+		
 		
 		// 7. Documentos
 
+		
 		// 8. Familiares
 
 	}

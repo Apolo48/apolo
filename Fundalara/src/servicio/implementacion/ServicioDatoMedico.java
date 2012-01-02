@@ -7,6 +7,13 @@ import servicio.interfaz.IServicioDatoMedico;
 import dao.general.DaoDatoMedico;
 import modelo.DatoMedico;
 
+/**
+ * Clase para brindar los servicios para manejar los datos relacionados con los datos medicos de los jugadores
+ * @author Robert A
+ * @author German L
+ * @version 0.1 29/12/2011
+ *
+ */
 public class ServicioDatoMedico implements IServicioDatoMedico {
 
 	DaoDatoMedico daoDatoMedico;
