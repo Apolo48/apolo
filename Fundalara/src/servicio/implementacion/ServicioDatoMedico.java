@@ -51,7 +51,7 @@ public class ServicioDatoMedico implements IServicioDatoMedico {
 	}
 
 	@Override
-	public int ultimoId() {
-		return daoDatoMedico.ultimoId();
+	public int obtenerUltimoId() {
+		return daoDatoMedico.obtenerUltimoId();
 	}
 }

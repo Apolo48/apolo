@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 30-dic-2011 0:38:42 by Hibernate Tools 3.4.0.CR1
+// Generated 02-ene-2012 20:17:38 by Hibernate Tools 3.4.0.CR1
 
 import java.math.BigDecimal;
 import java.util.HashSet;

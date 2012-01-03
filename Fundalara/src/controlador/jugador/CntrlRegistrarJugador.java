@@ -27,6 +27,9 @@ import servicio.implementacion.ServicioDatoAcademico;
 import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioDatoMedico;
 import servicio.implementacion.ServicioDatoSocial;
+import servicio.implementacion.ServicioDocumentoAcademico;
+import servicio.implementacion.ServicioDocumentoMedico;
+import servicio.implementacion.ServicioDocumentoPersonal;
 import servicio.implementacion.ServicioEquipo;
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioMedico;
@@ -137,6 +140,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioDatoSocial servicioDatoSocial;
 	private ServicioTallaPorJugador servicioTallaPorJugador;
 	private ServicioRoster servicioRoster;
+	private ServicioDocumentoAcademico servicioDocumentoAcademico;
+	private ServicioDocumentoMedico servicioDocumentoMedico;
+	private ServicioDocumentoPersonal servicioDocumentoPersonal;
 
 	// Modelos
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
@@ -873,7 +879,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		datoMedico.setJugador(jugador);
 		datoMedico.setEstatus('A');
 		servicioDatoMedico.agregar(datoMedico);
-		datoMedico.setCodigoDatoMedico(servicioDatoMedico.ultimoId());
+		datoMedico.setCodigoDatoMedico(servicioDatoMedico.obtenerUltimoId());
 		List<AfeccionJugador> afeccionJugador = new ArrayList<AfeccionJugador>();
 		for (DatoBasico dato : afeccionesJugador) {
 			AfeccionJugador aj = new AfeccionJugador();
@@ -897,6 +903,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		datoAcademico.setJugador(jugador);
 		datoAcademico.setEstatus('A');
 		servicioDatoAcademico.agregar(datoAcademico);
+		datoAcademico.setCodigoAcademico(servicioDatoAcademico.obtenerUltimoId());
 		// 5. Datos Sociales
 		
 		if(!datoSociales.isEmpty()){
@@ -913,9 +920,18 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		//6.2 Tallas
 		servicioTallaPorJugador.agregar(jugador, jugadorBean.getTallaCalzado(),jugadorBean.getTallaCamisa(), jugadorBean.getTallaPantalon());
 		
-		
 		// 7. Documentos
-
+		//7.1 Personales
+		completarDocumentos(documentosPersonales);
+		servicioDocumentoPersonal.guardar(documentosPersonales, jugador);
+		
+		//7.2 Academicos
+		 completarDocumentos(documentosAcademicos);
+		servicioDocumentoAcademico.guardar(documentosAcademicos, datoAcademico);
+		
+		//7.3 Medicos
+		completarDocumentos(documentosMedicos);
+		servicioDocumentoMedico.guardar(documentosMedicos, datoMedico);
 		
 		// 8. Familiares
 
@@ -923,6 +939,13 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	// Metodos propios del ctrl
 
+	private void completarDocumentos( List<DocumentoEntregado> lista){
+		for (DocumentoEntregado documentoEntregado : lista) {
+			documentoEntregado.setFecha(new Date());
+			documentoEntregado.setEstatus('A');
+		}
+	}
+	
 	private void actualizarArchivo(String codigo,
 			List<DocumentoEntregado> lista, byte[] archivo) {
 		int cod = Integer.valueOf(codigo);

@@ -50,4 +50,8 @@ public class ServicioDatoAcademico implements IServicioDatoAcademico {
 		return daoDatoAcademico.listar( DatoAcademico.class);
 	}
 
+	@Override
+	public int obtenerUltimoId() {
+		return daoDatoAcademico.obtenerUltimoId();
+	}
 }

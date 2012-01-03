@@ -679,4 +679,10 @@
 	<bean id="servicioValorEscala" class="servicio.implementacion.ServicioValorEscala">
 		<property name="daoValorEscala" ref="daoValorEscala"></property>
 	</bean>
+	
+	<bean id="daoDocumentoPersonal" class="dao.general.DaoDocumentoPersonal"></bean>
+	<bean id="servicioDocumentoPersonal" class="servicio.implementacion.ServicioDocumentoPersonal">
+		<property name="daoDocumentoPersonal" ref="daoDocumentoPersonal"></property>
+	</bean>
+	
 </beans>

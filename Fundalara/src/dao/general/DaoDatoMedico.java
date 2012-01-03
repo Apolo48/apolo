@@ -15,18 +15,19 @@ import dao.generico.GenericDao;
  * 
  */
 public class DaoDatoMedico extends GenericDao {
+	public static String SECUENCIA ="dato_medico_codigo_dato_medico_seq_1";
 
 	/**
 	 * Busca el ultimo valor de la clave primaria de la tabla DatoMedico
 	 * 
 	 * @return int ultimo id
 	 */
-	public int ultimoId() {
+	public int obtenerUltimoId() {
 
 		Session session = getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
 		Query query = session
-				.createSQLQuery("SELECT last_value FROM dato_medico_codigo_dato_medico_seq1");
+				.createSQLQuery("SELECT last_value FROM "+SECUENCIA);
 		int id = Integer.valueOf(query.uniqueResult().toString());
 		tx.commit();
 

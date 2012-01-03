@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "dato_social", schema = "public")
-@SequenceGenerator(name = "datoSocial_seq", sequenceName = "dato_social_codigo_dato_social_seq1")
+@SequenceGenerator(name = "datoSocial_seq", sequenceName = "dato_social_codigo_dato_social_seq_1")
 public class DatoSocial implements java.io.Serializable {
 
 	private int codigoDatoSocial;

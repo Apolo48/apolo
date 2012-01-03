@@ -41,10 +41,9 @@ public class DaoTallaPorJugador extends GenericDao {
 				Criteria c = session
 						.createCriteria(TallaPorIndumentaria.class)
 						.add(Restrictions
-								.eq("datoBasicoByCodigoTalla", talla))
-						.add(Restrictions.eq("estatus", 'A'))
-						.add(Restrictions.eq("datoBasicoByCodigoIndumentaria",
-								talla.getDatoBasico()));
+								.eq("datoBasico", talla))
+						.add(Restrictions.eq("estatus", 'A'));
+					//	.add(Restrictions.eq("datoBasicoByCodigoIndumentaria",	talla.getDatoBasico()));
 				TallaPorIndumentaria indumentaria = (TallaPorIndumentaria) c
 						.uniqueResult();
 				if (indumentaria != null) {

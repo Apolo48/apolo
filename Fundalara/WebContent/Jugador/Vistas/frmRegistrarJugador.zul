@@ -986,7 +986,7 @@
 																	id="bboxNumero" maxlength="2" width="10%"
 																	readonly="true"
 																	style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;"
-																	value="@{controller.jugadorBean.numero}">
+																	value="@{controller.jugadorBean.numero, save-when=onChange, save-when=onOpen}">
 																	<bandpopup>
 																		<panel
 																			title="00-19" collapsible="true" open="false"

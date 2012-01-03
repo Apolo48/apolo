@@ -30,9 +30,9 @@
         <mapping class="modelo.FamiliarComisionEquipo" />
         <mapping class="modelo.SesionEjecutada" />
         <mapping class="modelo.DocumentoAcreedorMaterial" />
+        <mapping class="modelo.PlanEntrenamiento" />
         <mapping class="modelo.NotaEntrega" />
         <mapping class="modelo.Periodicidad" />
-        <mapping class="modelo.PlanEntrenamiento" />
         <mapping class="modelo.PersonalActividadPlanificada" />
         <mapping class="modelo.Familiar" />
         <mapping class="modelo.EquipoCompetencia" />
@@ -89,6 +89,7 @@
         <mapping class="modelo.FamiliarJugador" />
         <mapping class="modelo.Material" />
         <mapping class="modelo.JugadorForaneo" />
+        <mapping class="modelo.DocumentoPersonal" />
         <mapping class="modelo.AfeccionPersonal" />
         <mapping class="modelo.Indicador" />
         <mapping class="modelo.PersonalEquipo" />

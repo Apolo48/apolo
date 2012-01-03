@@ -20,5 +20,5 @@ public interface IServicioDatoMedico {
 
 	public abstract List<DatoMedico> listar();
 
-	public abstract int ultimoId();
+	public abstract int obtenerUltimoId();
 }

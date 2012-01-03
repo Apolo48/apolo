@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 30-dic-2011 0:38:42 by Hibernate Tools 3.4.0.CR1
+// Generated 02-ene-2012 20:17:38 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,6 +43,8 @@ public class Jugador implements java.io.Serializable {
 	private Set<DatoMedico> datoMedicos = new HashSet<DatoMedico>(0);
 	private Set<DatoConducta> datoConductas = new HashSet<DatoConducta>(0);
 	private Set<DatoAcademico> datoAcademicos = new HashSet<DatoAcademico>(0);
+	private Set<DocumentoPersonal> documentoPersonals = new HashSet<DocumentoPersonal>(
+			0);
 	private Set<DatoSocial> datoSocials = new HashSet<DatoSocial>(0);
 	private Set<Roster> rosters = new HashSet<Roster>(0);
 	private Set<DatoDeportivo> datoDeportivos = new HashSet<DatoDeportivo>(0);
@@ -67,6 +69,7 @@ public class Jugador implements java.io.Serializable {
 			Set<TallaPorJugador> tallaPorJugadors,
 			Set<FamiliarJugador> familiarJugadors, Set<DatoMedico> datoMedicos,
 			Set<DatoConducta> datoConductas, Set<DatoAcademico> datoAcademicos,
+			Set<DocumentoPersonal> documentoPersonals,
 			Set<DatoSocial> datoSocials, Set<Roster> rosters,
 			Set<DatoDeportivo> datoDeportivos) {
 		this.datoBasicoByCodigoPais = datoBasicoByCodigoPais;
@@ -84,6 +87,7 @@ public class Jugador implements java.io.Serializable {
 		this.datoMedicos = datoMedicos;
 		this.datoConductas = datoConductas;
 		this.datoAcademicos = datoAcademicos;
+		this.documentoPersonals = documentoPersonals;
 		this.datoSocials = datoSocials;
 		this.rosters = rosters;
 		this.datoDeportivos = datoDeportivos;
@@ -238,6 +242,15 @@ public class Jugador implements java.io.Serializable {
 
 	public void setDatoAcademicos(Set<DatoAcademico> datoAcademicos) {
 		this.datoAcademicos = datoAcademicos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "jugador")
+	public Set<DocumentoPersonal> getDocumentoPersonals() {
+		return this.documentoPersonals;
+	}
+
+	public void setDocumentoPersonals(Set<DocumentoPersonal> documentoPersonals) {
+		this.documentoPersonals = documentoPersonals;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "jugador")

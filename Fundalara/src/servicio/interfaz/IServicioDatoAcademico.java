@@ -12,4 +12,6 @@ public interface IServicioDatoAcademico {
 	public abstract void actualizar(DatoAcademico c);	
 	
 	public abstract List<DatoAcademico> listar();
+	
+	public abstract int obtenerUltimoId(); 
 }

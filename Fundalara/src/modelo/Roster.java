@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "roster", schema = "public")
-@SequenceGenerator(name = "roster_seq", sequenceName = "roster_codigo_roster_seq1")
+@SequenceGenerator(name = "roster_seq", sequenceName = "roster_codigo_roster_seq_1")
 public class Roster implements java.io.Serializable {
 
 	private int codigoRoster;
