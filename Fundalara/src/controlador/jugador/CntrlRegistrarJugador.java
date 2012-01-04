@@ -18,6 +18,7 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
 
@@ -45,6 +46,7 @@ import comun.Mensaje;
 import comun.TipoDatoBasico;
 import controlador.jugador.bean.ActividadSocial;
 import controlador.jugador.bean.Afeccion;
+import controlador.jugador.restriccion.Restriccion;
 import modelo.AfeccionJugador;
 import modelo.AfeccionJugadorId;
 import modelo.Categoria;
@@ -95,11 +97,12 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Intbox txtEdad;
 	private Intbox txtCedulaSecuencia;
 	private Intbox txtCedula;
-	private Intbox txtHorasSemanales;
+	private Spinner spHorasSemanales;
 	private Textbox txtPrimerNombre;
 	private Textbox txtPrimerApellido;
 	private Textbox txtSegundoNombre;
 	private Textbox txtSegundoApellido;
+	private Textbox txtCorreo;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
@@ -189,7 +192,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
 		this.tipoInscripcion = (DatoBasico) requestScope.get("tipoInscripcion");
-
+		aplicarConstraints();
 	}
 
 	// Getters y setters
@@ -453,7 +456,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	// Metodos para carga de combos/listbox
-	
+
 	public List<Categoria> getCategorias() {
 		return servicioCategoria.listar();
 	}
@@ -739,7 +742,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void onClick$btnAgregarActividad() {
 		if (cmbInstitucionRecreativa.getSelectedIndex() >= 0) {
 			if (cmbActividad.getSelectedIndex() >= 0) {
-				if (txtHorasSemanales.getValue() != null ? txtHorasSemanales
+				if (spHorasSemanales.getValue() != null ? spHorasSemanales
 						.getValue() > 0 : false) {
 					if (dtboxFechaInicioActividad.getText() != "") {
 						for (int i = 0; i < datoSociales.size(); i++) {
@@ -770,7 +773,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					Mensaje.mostrarMensaje(
 							"Ingrese un número de horas semanales válidas.",
 							Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-					txtHorasSemanales.setFocus(true);
+					spHorasSemanales.setFocus(true);
 				}
 			} else {
 				Mensaje.mostrarMensaje("Seleccione una actividad.",
@@ -903,10 +906,11 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		datoAcademico.setJugador(jugador);
 		datoAcademico.setEstatus('A');
 		servicioDatoAcademico.agregar(datoAcademico);
-		datoAcademico.setCodigoAcademico(servicioDatoAcademico.obtenerUltimoId());
+		datoAcademico.setCodigoAcademico(servicioDatoAcademico
+				.obtenerUltimoId());
 		// 5. Datos Sociales
-		
-		if(!datoSociales.isEmpty()){
+
+		if (!datoSociales.isEmpty()) {
 			for (int i = 0; i < datoSociales.size(); i++) {
 				datoSociales.get(i).setJugador(jugador);
 			}
@@ -914,38 +918,39 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 
 		// 6. Datos Deportivos
-		//6.1 Asignacion
-		Roster roster = new Roster(0,jugador,equipo,new Date(),'A');	
+		// 6.1 Asignacion
+		Roster roster = new Roster(0, jugador, equipo, new Date(), 'A');
 		servicioRoster.agregar(roster);
-		//6.2 Tallas
-		servicioTallaPorJugador.agregar(jugador, jugadorBean.getTallaCalzado(),jugadorBean.getTallaCamisa(), jugadorBean.getTallaPantalon());
-		
+		// 6.2 Tallas
+		servicioTallaPorJugador.agregar(jugador, jugadorBean.getTallaCalzado(),
+				jugadorBean.getTallaCamisa(), jugadorBean.getTallaPantalon());
+
 		// 7. Documentos
-		//7.1 Personales
+		// 7.1 Personales
 		completarDocumentos(documentosPersonales);
 		servicioDocumentoPersonal.guardar(documentosPersonales, jugador);
-		
-		//7.2 Academicos
-		 completarDocumentos(documentosAcademicos);
+
+		// 7.2 Academicos
+		completarDocumentos(documentosAcademicos);
 		servicioDocumentoAcademico.guardar(documentosAcademicos, datoAcademico);
-		
-		//7.3 Medicos
+
+		// 7.3 Medicos
 		completarDocumentos(documentosMedicos);
 		servicioDocumentoMedico.guardar(documentosMedicos, datoMedico);
-		
+
 		// 8. Familiares
 
 	}
 
 	// Metodos propios del ctrl
 
-	private void completarDocumentos( List<DocumentoEntregado> lista){
+	private void completarDocumentos(List<DocumentoEntregado> lista) {
 		for (DocumentoEntregado documentoEntregado : lista) {
 			documentoEntregado.setFecha(new Date());
 			documentoEntregado.setEstatus('A');
 		}
 	}
-	
+
 	private void actualizarArchivo(String codigo,
 			List<DocumentoEntregado> lista, byte[] archivo) {
 		int cod = Integer.valueOf(codigo);
@@ -1036,7 +1041,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		datoSocial = new DatoSocial();
 		cmbInstitucionRecreativa.setSelectedIndex(-1);
 		cmbActividad.setSelectedIndex(-1);
-		txtHorasSemanales.setValue(null);
+		spHorasSemanales.setValue(null);
 		dtboxFechaInicioActividad.setValue(null);
 		binder.loadComponent(listActividadesSociales);
 	}
@@ -1051,5 +1056,12 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		Categoria cat = servicioCategoria.buscarPorEdad(txtEdad.getValue());
 		categoria = cat;
 		binder.loadComponent(cmbCategoria);
+	}
+
+	private void aplicarConstraints() {
+		txtCedula.setConstraint(Restriccion.CEDULA.getRestriccion());
+		txtCorreo.setConstraint(Restriccion.EMAIL.getRestriccion());
+		spHorasSemanales.setConstraint(Restriccion.HORAS_SEMANAL_SOCIAL
+				.getRestriccion());
 	}
 }

@@ -47,8 +47,8 @@
 													value="R" />
 											</combobox>
 											<intbox id="txtCedula"
-												value="@{controller.jugadorBean.cedula}"
-												constraint="no negative" width="20%" />
+												value="@{controller.jugadorBean.cedula}" 
+												maxlength="8"  width="20%" />
 											<label value="-"
 												id="lblSeparador" visible="false" />
 											<intbox
@@ -114,7 +114,6 @@
 										height="80%" align="center" valign="middle">
 										<groupbox
 											style="border-color:orange" mold="3d">
-											<!--  content="@{controller.jugador.persona.personaNatural.foto, converter='ImageConverter'}"  -->
 											<image id="imgJugador"
 												src="../../Recursos/Imagenes/noFoto.jpg" height="80px"
 												width="80px" />
@@ -866,8 +865,8 @@
 															<label
 																value="Horas" />
 															<div>
-																<intbox
-																	width="10%" id="txtHorasSemanales" constraint="no negative,no zero" value="@{controller.datoSocial.horasDedicadas}" />
+																<spinner 
+																	width="10%" id="spHorasSemanales" value="@{controller.datoSocial.horasDedicadas}" />
 																<space />
 																<label
 																	value="Semanales" />
