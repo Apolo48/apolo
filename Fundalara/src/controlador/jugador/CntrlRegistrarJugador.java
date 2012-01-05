@@ -1,10 +1,13 @@
 package controlador.jugador;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.python.antlr.PythonParser.elif_clause_return;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
@@ -12,6 +15,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
@@ -21,6 +25,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
+import org.zkoss.zul.impl.InputElement;
 
 import servicio.implementacion.ServicioAfeccionJugador;
 import servicio.implementacion.ServicioCategoria;
@@ -103,6 +108,10 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Textbox txtSegundoNombre;
 	private Textbox txtSegundoApellido;
 	private Textbox txtCorreo;
+	private Textbox txtTelefonoHabitacion;
+	private Textbox txtTelefonoCelular;
+	private Textbox txtTelefonoHabFamiliar;
+	private Textbox txtTelefonoCelFamiliar;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
@@ -1058,10 +1067,95 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		binder.loadComponent(cmbCategoria);
 	}
 
+	/**
+	 * Verifica que los campos obligatorios del perfil sean válidos y estén llenos
+	 * @return true si los campos obligatorios del perfil tiene valores validos, false en caso contrario
+	 */
+	private boolean verificarCamposPerfil(){
+		boolean flag=false;
+		String mensaje="";
+		InputElement componente=null;
+		if (cmbNacionalidad.isValid()){
+			if (txtCedula.isValid()){
+				if (txtPrimerNombre.isValid()){
+					if (txtPrimerApellido.isValid()) {
+						if (cmbGenero.isValid()){
+							flag=true;
+						}else{
+							componente= cmbGenero;
+							mensaje="Seleccione el género del jugador.";
+						}
+					}else{
+						componente= txtPrimerApellido;
+						mensaje="Ingrese un apellido válido.";
+					}
+				}else{
+					componente= txtPrimerNombre;
+					mensaje="Ingrese un nombre válido.";
+				}
+			}else{
+				componente= txtCedula;
+				mensaje="Ingrese una cédula válida.";
+			}
+		}else {
+			componente=cmbNacionalidad;
+			mensaje="Seleccione la nacionalidad del jugador.";
+		}
+		if (!flag){
+			Mensaje.mostrarMensaje(
+					mensaje,
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+			componente.setFocus(true);
+		}
+		return flag;
+	}
+	
+	
+	private boolean verificarCampos(){
+		List<InputElement> campos= Arrays.asList(new InputElement[] {cmbNacionalidad,txtCedula,txtPrimerNombre,txtPrimerApellido,cmbGenero});
+		boolean flag=true;
+		InputElement componente=null;
+		Iterator<InputElement> iterador = campos.iterator();  
+		  
+		while (iterador.hasNext() && flag) {  
+			InputElement e = iterador.next();  
+			if (!e.isValid()){
+				flag=false;
+				componente = e;
+			}
+		}  
+		if (!flag){
+			Mensaje.mostrarMensaje(
+					"Ingrese un valor válido.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+			componente.setFocus(true);
+		}
+		return flag;
+	}
+	public void onClick$btnCancelar(){
+		verificarCampos();
+		
+	}
+	/**
+	 * Aplica las restricciones de captura de datos a lso componentes de la vista
+	 */
 	private void aplicarConstraints() {
+		// Registro Jugador
 		txtCedula.setConstraint(Restriccion.CEDULA.getRestriccion());
+		txtPrimerNombre.setConstraint(Restriccion.TEXTO_SIMPLE.asignarRestriccionExtra("no empty"));
+		txtPrimerApellido.setConstraint(Restriccion.TEXTO_SIMPLE.asignarRestriccionExtra("no empty"));
+		txtSegundoNombre.setConstraint(Restriccion.TEXTO_SIMPLE.getRestriccion());
+		txtSegundoApellido.setConstraint(Restriccion.TEXTO_SIMPLE.getRestriccion());
+		txtTelefonoHabitacion.setConstraint(Restriccion.TELEFONO
+				.getRestriccion());
+		txtTelefonoCelular.setConstraint(Restriccion.TELEFONO.getRestriccion());
 		txtCorreo.setConstraint(Restriccion.EMAIL.getRestriccion());
 		spHorasSemanales.setConstraint(Restriccion.HORAS_SEMANAL_SOCIAL
+				.getRestriccion());
+		// Registro Familiar
+		txtTelefonoHabFamiliar.setConstraint(Restriccion.TELEFONO
+				.getRestriccion());
+		txtTelefonoCelFamiliar.setConstraint(Restriccion.TELEFONO
 				.getRestriccion());
 	}
 }

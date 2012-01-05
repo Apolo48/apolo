@@ -11,7 +11,9 @@ package controlador.jugador.restriccion;
 public enum Restriccion {
 	EMAIL("/.+@.+\\.[a-z]+/","Ingrese un correo electrónico válido, Ej: correo@servidor.com"),
 	HORAS_SEMANAL_SOCIAL("min 1 max 30","Ingrese una cantidad de horas vádilas (01-30)"),
-	CEDULA("no negative,no empty","Ingrese una cédula válida");
+	CEDULA("no negative,no empty","Ingrese una cédula válida"),
+	TELEFONO("/[0-9]{7}/","Ingrese un número válido, Ej: 2660011"),
+	TEXTO_SIMPLE("/^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$/","Ingrese un texto vádilo");
 
 	private String constraint;
 	private String mensaje;
@@ -31,6 +33,21 @@ public enum Restriccion {
 
 	public String getRestriccion() {
 		return constraint + " : " + mensaje;
+	}
+	
+	/**
+	 * Genera texto de restriccion tomando como base el constraint del enumerado añadiendo los pasados por parametro
+	 * @param restricciones restricciones validas para objetos inputElement
+	 * @return restriccion nueva con su mensaje de error
+	 */
+	public String asignarRestriccionExtra(String... restricciones) {
+		String restriccion = constraint;
+		for (String string : restricciones) {
+			if (string != "") {
+				restriccion += "," + string.trim();
+			}
+		}
+		return restriccion + " : " + mensaje;
 	}
 
 }
