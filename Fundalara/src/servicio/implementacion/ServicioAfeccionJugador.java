@@ -6,6 +6,7 @@ import servicio.interfaz.IServicioAfeccionJugador;
 
 import dao.general.DaoAfeccionJugador;
 import modelo.AfeccionJugador;
+import modelo.DatoMedico;
 
 /**
  * Clase para brindar los servicios para manejar los datos relacionados con las afecciones de los jugadores
@@ -41,6 +42,11 @@ public class ServicioAfeccionJugador implements IServicioAfeccionJugador {
 	@Override
 	public void actualizar(AfeccionJugador c) {
 		daoAfeccionJugador.actualizar(c);
+
+	}
+	
+	public void actualizar(List<AfeccionJugador> afecciones, DatoMedico datoMedico) {
+		daoAfeccionJugador.actualizar(afecciones,datoMedico);
 
 	}
 

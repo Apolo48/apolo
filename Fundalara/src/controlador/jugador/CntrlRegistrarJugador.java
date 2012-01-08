@@ -3,10 +3,10 @@ package controlador.jugador;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -72,12 +72,13 @@ import modelo.Roster;
  * 
  * @author Robert A
  * @author German L
- * @version 0.2.7 30/12/2011
+ * @version 0.3 08/01/2012
  * 
  * */
 public class CntrlRegistrarJugador extends GenericForwardComposer {
-	private static final char ESTATUS_PENDIENTE='P';
-	private static final char ESTATUS_INSCRITO='A';
+
+	private static final char ESTATUS_PENDIENTE = 'P';
+	private static final char ESTATUS_INSCRITO = 'A';
 	private static final long serialVersionUID = 1L;
 	// Componentes visuales
 	private Datebox dtboxFechaNac;
@@ -186,7 +187,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private DatoAcademico datoAcademico = new DatoAcademico();
 	private DatoSocial datoSocial = new DatoSocial();
 	private List<DatoSocial> datoSociales = new ArrayList<DatoSocial>();
-	private Persona persona =  new Persona();
+	private Persona persona = new Persona();
 	private PersonaNatural personaN = new PersonaNatural();
 	private Jugador jugador = new Jugador();
 	// Binder
@@ -196,11 +197,23 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 */
 	private Map<String, Object> requestScope;
 
-	private InputElement[] camposPerfil;
 	/**
-	 * Indica si el jugador ya se ha registrado previamente( Temporalmente) o no
+	 * Mantiene un arreglo con los campos a validar en el perfil
 	 */
-	private boolean existe = false;
+	private InputElement[] camposPerfil;
+
+	/**
+	 * Enumerado de los puntos/secciones del registro del jugador
+	 */
+	private enum Point {
+		JUGADOR, DATO_MEDICO, DATO_ACADEMICO
+	};
+
+	/**
+	 * Indica que secciones/puntos el usuario ya ha almacenado en relacion al
+	 * jugador
+	 */
+	private EnumMap<Point, Boolean> checkPoints;
 
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -210,6 +223,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		camposPerfil = new InputElement[] { cmbNacionalidad, txtCedula,
 				txtPrimerNombre, txtPrimerApellido, cmbGenero };
 		aplicarConstraints();
+		inicializarCheckPoints();
 
 	}
 
@@ -841,37 +855,41 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnGuardar() {
-		guardarJugador();
-	}
-
-	public void guardarJugador() {		
-		if (verificarCampos(camposPerfil)) {
-			guardarDatosBeanToModelo();
-			if (existe) {
-				// Actualizamos
-				personaN.setPersona(persona);
-				jugador.setPersona(persona);
-				servicioJugador.actualizar(jugador, personaN);
-			} else {
-				// Guardamos
-				DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
-						TipoDatoBasico.TIPO_PERSONA, "Jugador");
-				persona.setFechaIngreso(new Date());
-				persona.setDatoBasicoByCodigoTipoPersona(datoTipoPersona);
-				persona.setEstatus(ESTATUS_PENDIENTE);
-				personaN.setEstatus(ESTATUS_PENDIENTE);
-				personaN.setPersona(persona);
-				jugador.setPersona(persona);
-				servicioJugador.agregar(jugador, personaN);
-				existe= true;
+		if (verificarCampos(camposPerfil,true)) {
+			guardarJugador();
+			if(medico.getNumeroColegio()!=null){
+				guardarDatoMedico();
 			}
 			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
 					Mensaje.EXITO, Messagebox.EXCLAMATION);
 		}
 	}
 
+	public void guardarJugador() {
+		guardarDatosBeanToModelo();
+		if (checkPoints.get(Point.JUGADOR)) {
+			// Actualizamos
+			personaN.setPersona(persona);
+			jugador.setPersona(persona);
+			servicioJugador.actualizar(jugador, personaN);
+		} else {
+			// Guardamos
+			DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
+					TipoDatoBasico.TIPO_PERSONA, "Jugador");
+			persona.setFechaIngreso(new Date());
+			persona.setDatoBasicoByCodigoTipoPersona(datoTipoPersona);
+			persona.setEstatus(ESTATUS_PENDIENTE);
+			personaN.setEstatus(ESTATUS_PENDIENTE);
+			personaN.setPersona(persona);
+			jugador.setPersona(persona);
+			servicioJugador.agregar(jugador, personaN);
+			checkPoints.put(Point.JUGADOR, true);
+		}
+	}
+
 	/**
-	 *  Guarda los datos "base" asociados al bean Jugador en las clases correspondientes del modelo.
+	 * Guarda los datos "base" asociados al bean Jugador en las clases
+	 * correspondientes del modelo.
 	 */
 	private void guardarDatosBeanToModelo() {
 		// 1. Persona
@@ -894,7 +912,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		personaN.setDatoBasico(jugadorBean.getGenero());
 		personaN.setFoto(jugadorBean.getFoto());
 		personaN.setFechaNacimiento(jugadorBean.getFechaNacimiento());
-	
+
 		// 3.Jugador
 		jugador.setCedulaRif(jugadorBean.getCedulaCompleta());
 		jugador.setDatoBasicoByCodigoPais(jugadorBean.getPaisNac());
@@ -907,6 +925,39 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		jugador.setBrazoLanzar(jugadorBean.getBrazoLanzar().getNombre());
 		jugador.setTipoDeSangre(jugadorBean.getTipoSangre().getTipoSangre());
 
+	}
+
+	private List<AfeccionJugador> guardarDatosAfeccionesToModelo(){
+		List<AfeccionJugador> afeccionJugador = new ArrayList<AfeccionJugador>();
+		for (DatoBasico dato : afeccionesJugador) {
+			AfeccionJugador aj = new AfeccionJugador();
+			aj.setId(new AfeccionJugadorId(dato.getCodigoDatoBasico(),datoMedico.getCodigoDatoMedico()));
+			aj.setDatoBasico(dato);
+			aj.setDatoMedico(datoMedico);
+			aj.setEstatus('A');
+			afeccionJugador.add(aj);
+		}
+		return afeccionJugador;
+	}
+	private void guardarDatoMedico() {
+		// 4. Datos Medicos
+		List<AfeccionJugador> afeccionJugador = new ArrayList<AfeccionJugador>();
+		datoMedico.setMedico(medico);
+		if (checkPoints.get(Point.DATO_MEDICO)) {
+			servicioDatoMedico.actualizar(datoMedico);
+			afeccionJugador = guardarDatosAfeccionesToModelo();
+			servicioAfeccionJugador.actualizar(afeccionJugador,datoMedico);
+		} else {
+			datoMedico.setJugador(jugador);
+			datoMedico.setEstatus('A');
+			servicioDatoMedico.agregar(datoMedico);
+			datoMedico.setCodigoDatoMedico(servicioDatoMedico.obtenerUltimoId());
+			afeccionJugador = guardarDatosAfeccionesToModelo();
+			if (!afeccionJugador.isEmpty()) {
+				servicioAfeccionJugador.agregar(afeccionJugador);
+			}
+			checkPoints.put(Point.DATO_MEDICO, true);
+		}
 	}
 
 	public void onClick$btnInscribir() {
@@ -965,7 +1016,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		datoMedico.setJugador(jugador);
 		datoMedico.setEstatus('A');
 		servicioDatoMedico.agregar(datoMedico);
-		
+
 		datoMedico.setCodigoDatoMedico(servicioDatoMedico.obtenerUltimoId());
 		List<AfeccionJugador> afeccionJugador = new ArrayList<AfeccionJugador>();
 		for (DatoBasico dato : afeccionesJugador) {
@@ -992,8 +1043,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		servicioDatoAcademico.agregar(datoAcademico);
 		datoAcademico.setCodigoAcademico(servicioDatoAcademico
 				.obtenerUltimoId());
-		
-		
+
 		// 5. Datos Sociales
 
 		if (!datoSociales.isEmpty()) {
@@ -1148,14 +1198,15 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	/**
-	 * Verifica que lso campos suminsitrados cumplan las restricciones que se
+	 * Verifica que los campos suminsitrados cumplan las restricciones que se
 	 * les han definido, notificando en los casos que no se cumpla
 	 * 
 	 * @param camposValidar
 	 *            arreglo de campos a validar
+	 * @param mostrarMensaje valor booleano para indicar si se debe mostar el mensaje de error en caso de presentarse
 	 * @return true si los campos son validos, en caso contrario false
 	 */
-	private boolean verificarCampos(InputElement[] camposValidar) {
+	private boolean verificarCampos(InputElement[] camposValidar, boolean mostrarMensaje) {
 		List<InputElement> campos = Arrays.asList(camposValidar);
 		boolean flag = true;
 		InputElement componente = null;
@@ -1168,7 +1219,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				componente = e;
 			}
 		}
-		if (!flag) {
+		if (!flag && mostrarMensaje) {
 			Mensaje.mostrarMensaje("Ingrese un valor válido.",
 					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 			componente.setFocus(true);
@@ -1195,7 +1246,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				.getRestriccion());
 		txtSegundoApellido.setConstraint(Restriccion.TEXTO_SIMPLE
 				.getRestriccion());
-		dtboxFechaNac.setConstraint(Restriccion.FECHA_NACIMIENTO.getRestriccion());
+		dtboxFechaNac.setConstraint(Restriccion.FECHA_NACIMIENTO
+				.getRestriccion());
 		txtTelefonoHabitacion.setConstraint(Restriccion.TELEFONO
 				.getRestriccion());
 		txtTelefonoCelular.setConstraint(Restriccion.TELEFONO.getRestriccion());
@@ -1207,5 +1259,11 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				.getRestriccion());
 		txtTelefonoCelFamiliar.setConstraint(Restriccion.TELEFONO
 				.getRestriccion());
+	}
+
+	private void inicializarCheckPoints() {
+		checkPoints = new EnumMap<Point, Boolean>(Point.class);
+		checkPoints.put(Point.JUGADOR, false);
+		checkPoints.put(Point.DATO_MEDICO, false);
 	}
 }
