@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 02-ene-2012 20:17:38 by Hibernate Tools 3.4.0.CR1
+// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -49,14 +49,11 @@ public class Persona implements java.io.Serializable {
 	public Persona() {
 	}
 
-	public Persona(String cedulaRif, DatoBasico datoBasicoByCodigoParroquia,
-			DatoBasico datoBasicoByCodigoTipoPersona, Date fechaIngreso,
-			String direccion, char estatus) {
+	public Persona(String cedulaRif, DatoBasico datoBasicoByCodigoTipoPersona,
+			Date fechaIngreso, char estatus) {
 		this.cedulaRif = cedulaRif;
-		this.datoBasicoByCodigoParroquia = datoBasicoByCodigoParroquia;
 		this.datoBasicoByCodigoTipoPersona = datoBasicoByCodigoTipoPersona;
 		this.fechaIngreso = fechaIngreso;
-		this.direccion = direccion;
 		this.estatus = estatus;
 	}
 
@@ -101,7 +98,7 @@ public class Persona implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_parroquia", nullable = false)
+	@JoinColumn(name = "codigo_parroquia")
 	public DatoBasico getDatoBasicoByCodigoParroquia() {
 		return this.datoBasicoByCodigoParroquia;
 	}
@@ -159,7 +156,7 @@ public class Persona implements java.io.Serializable {
 		this.twitter = twitter;
 	}
 
-	@Column(name = "direccion", nullable = false)
+	@Column(name = "direccion")
 	public String getDireccion() {
 		return this.direccion;
 	}

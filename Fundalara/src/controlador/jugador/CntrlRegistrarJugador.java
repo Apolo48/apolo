@@ -7,15 +7,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.python.antlr.PythonParser.elif_clause_return;
+
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Grid;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
@@ -49,8 +47,6 @@ import comun.Ruta;
 import comun.Util;
 import comun.Mensaje;
 import comun.TipoDatoBasico;
-import controlador.jugador.bean.ActividadSocial;
-import controlador.jugador.bean.Afeccion;
 import controlador.jugador.restriccion.Restriccion;
 import modelo.AfeccionJugador;
 import modelo.AfeccionJugadorId;
@@ -80,7 +76,8 @@ import modelo.Roster;
  * 
  * */
 public class CntrlRegistrarJugador extends GenericForwardComposer {
-
+	private static final char ESTATUS_PENDIENTE='P';
+	private static final char ESTATUS_INSCRITO='A';
 	private static final long serialVersionUID = 1L;
 	// Componentes visuales
 	private Datebox dtboxFechaNac;
@@ -189,6 +186,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private DatoAcademico datoAcademico = new DatoAcademico();
 	private DatoSocial datoSocial = new DatoSocial();
 	private List<DatoSocial> datoSociales = new ArrayList<DatoSocial>();
+	private Persona persona =  new Persona();
+	private PersonaNatural personaN = new PersonaNatural();
+	private Jugador jugador = new Jugador();
 	// Binder
 	private AnnotateDataBinder binder;
 	/**
@@ -196,12 +196,21 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 */
 	private Map<String, Object> requestScope;
 
+	private InputElement[] camposPerfil;
+	/**
+	 * Indica si el jugador ya se ha registrado previamente( Temporalmente) o no
+	 */
+	private boolean existe = false;
+
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
 		this.tipoInscripcion = (DatoBasico) requestScope.get("tipoInscripcion");
+		camposPerfil = new InputElement[] { cmbNacionalidad, txtCedula,
+				txtPrimerNombre, txtPrimerApellido, cmbGenero };
 		aplicarConstraints();
+
 	}
 
 	// Getters y setters
@@ -681,11 +690,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtCedulaSecuencia.setVisible(flag);
 	}
 
-	public void onClick$btnGuardar() {
-		new Util().crearVentana(rutasJug + "frmVistaCompromisoPago.zul", null,
-				null);
-	}
-
 	public void onClick$btnVistaPrevia() {
 		new Util().crearVentana(rutasJug + "frmVistaRegistroJugador.zul", null,
 				null);
@@ -836,28 +840,50 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
-	public void onClick$btnInscribir() {
+	public void onClick$btnGuardar() {
+		guardarJugador();
+	}
 
-		DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.TIPO_PERSONA, "Jugador");
+	public void guardarJugador() {		
+		if (verificarCampos(camposPerfil)) {
+			guardarDatosBeanToModelo();
+			if (existe) {
+				// Actualizamos
+				personaN.setPersona(persona);
+				jugador.setPersona(persona);
+				servicioJugador.actualizar(jugador, personaN);
+			} else {
+				// Guardamos
+				DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
+						TipoDatoBasico.TIPO_PERSONA, "Jugador");
+				persona.setFechaIngreso(new Date());
+				persona.setDatoBasicoByCodigoTipoPersona(datoTipoPersona);
+				persona.setEstatus(ESTATUS_PENDIENTE);
+				personaN.setEstatus(ESTATUS_PENDIENTE);
+				personaN.setPersona(persona);
+				jugador.setPersona(persona);
+				servicioJugador.agregar(jugador, personaN);
+				existe= true;
+			}
+			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
+					Mensaje.EXITO, Messagebox.EXCLAMATION);
+		}
+	}
 
-		// Guardando los valores del bean en jugador
-
+	/**
+	 *  Guarda los datos "base" asociados al bean Jugador en las clases correspondientes del modelo.
+	 */
+	private void guardarDatosBeanToModelo() {
 		// 1. Persona
-		Persona persona = new Persona();
 		persona.setCedulaRif(jugadorBean.getCedulaCompleta());
 		persona.setCorreoElectronico(jugadorBean.getCorreoElectronico());
 		persona.setDatoBasicoByCodigoParroquia(jugadorBean.getParroquiaResi());
 		persona.setTelefonoHabitacion(jugadorBean.getTelefonoHabitacion()
 				.getTelefonoCompleto());
-		persona.setFechaIngreso(new Date());
-		persona.setDatoBasicoByCodigoTipoPersona(datoTipoPersona);
 		persona.setTwitter(jugadorBean.getTwitter());
 		persona.setDireccion(jugadorBean.getDireccion());
-		persona.setEstatus('A');
 
 		// 2. Persona Natural
-		PersonaNatural personaN = new PersonaNatural();
 		personaN.setCedulaRif(jugadorBean.getCedulaCompleta());
 		personaN.setCelular(jugadorBean.getTelefonoCelular()
 				.getTelefonoCompleto());
@@ -868,8 +894,55 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		personaN.setDatoBasico(jugadorBean.getGenero());
 		personaN.setFoto(jugadorBean.getFoto());
 		personaN.setFechaNacimiento(jugadorBean.getFechaNacimiento());
+	
+		// 3.Jugador
+		jugador.setCedulaRif(jugadorBean.getCedulaCompleta());
+		jugador.setDatoBasicoByCodigoPais(jugadorBean.getPaisNac());
+		jugador.setDatoBasicoByCodigoParroquiaNacimiento(jugadorBean
+				.getParroquiaNac());
+		jugador.setNumero(jugadorBean.getNumero());
+		jugador.setPeso(jugadorBean.getPeso());
+		jugador.setAltura(jugadorBean.getAltura());
+		jugador.setPosicionBateo(jugadorBean.getPosicionBateo().getNombre());
+		jugador.setBrazoLanzar(jugadorBean.getBrazoLanzar().getNombre());
+		jugador.setTipoDeSangre(jugadorBean.getTipoSangre().getTipoSangre());
+
+	}
+
+	public void onClick$btnInscribir() {
+
+		DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.TIPO_PERSONA, "Jugador");
+
+		// Guardando los valores del bean en jugador
+
+		// 1. Persona
+		Persona persona = new Persona();
+		persona.setCedulaRif(jugadorBean.getCedulaCompleta());// 1
+		persona.setCorreoElectronico(jugadorBean.getCorreoElectronico());
+		persona.setDatoBasicoByCodigoParroquia(jugadorBean.getParroquiaResi());
+		persona.setTelefonoHabitacion(jugadorBean.getTelefonoHabitacion()
+				.getTelefonoCompleto());
+		persona.setFechaIngreso(new Date()); // 1-G
+		persona.setDatoBasicoByCodigoTipoPersona(datoTipoPersona);// 1-G
+		persona.setTwitter(jugadorBean.getTwitter());
+		persona.setDireccion(jugadorBean.getDireccion());
+		persona.setEstatus('A');// A-Sins, P , cuando se gaurda
+
+		// 2. Persona Natural
+		PersonaNatural personaN = new PersonaNatural();
+		personaN.setCedulaRif(jugadorBean.getCedulaCompleta());// 1
+		personaN.setCelular(jugadorBean.getTelefonoCelular()
+				.getTelefonoCompleto());
+		personaN.setPrimerApellido(jugadorBean.getPrimerApellido());
+		personaN.setPrimerNombre(jugadorBean.getPrimerNombre());
+		personaN.setSegundoApellido(jugadorBean.getSegundoApellido());
+		personaN.setSegundoNombre(jugadorBean.getSegundoNombre());
+		personaN.setDatoBasico(jugadorBean.getGenero());
+		personaN.setFoto(jugadorBean.getFoto());
+		personaN.setFechaNacimiento(jugadorBean.getFechaNacimiento());
 		personaN.setPersona(persona);
-		personaN.setEstatus('A');
+		personaN.setEstatus('A');// A-Cunado se ins, P- cuando se gaurda
 
 		// 3.Jugador
 		Jugador jugador = new Jugador();
@@ -884,6 +957,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		jugador.setBrazoLanzar(jugadorBean.getBrazoLanzar().getNombre());
 		jugador.setTipoDeSangre(jugadorBean.getTipoSangre().getTipoSangre());
 		jugador.setPersona(persona);
+
 		servicioJugador.agregar(jugador, personaN);
 
 		// 4. Datos Medicos
@@ -891,6 +965,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		datoMedico.setJugador(jugador);
 		datoMedico.setEstatus('A');
 		servicioDatoMedico.agregar(datoMedico);
+		
 		datoMedico.setCodigoDatoMedico(servicioDatoMedico.obtenerUltimoId());
 		List<AfeccionJugador> afeccionJugador = new ArrayList<AfeccionJugador>();
 		for (DatoBasico dato : afeccionesJugador) {
@@ -917,6 +992,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		servicioDatoAcademico.agregar(datoAcademico);
 		datoAcademico.setCodigoAcademico(servicioDatoAcademico
 				.obtenerUltimoId());
+		
+		
 		// 5. Datos Sociales
 
 		if (!datoSociales.isEmpty()) {
@@ -948,6 +1025,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		servicioDocumentoMedico.guardar(documentosMedicos, datoMedico);
 
 		// 8. Familiares
+
+		// new Util().crearVentana(rutasJug + "frmVistaCompromisoPago.zul",
+		// null,null);
 
 	}
 
@@ -1068,84 +1148,54 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	/**
-	 * Verifica que los campos obligatorios del perfil sean válidos y estén llenos
-	 * @return true si los campos obligatorios del perfil tiene valores validos, false en caso contrario
+	 * Verifica que lso campos suminsitrados cumplan las restricciones que se
+	 * les han definido, notificando en los casos que no se cumpla
+	 * 
+	 * @param camposValidar
+	 *            arreglo de campos a validar
+	 * @return true si los campos son validos, en caso contrario false
 	 */
-	private boolean verificarCamposPerfil(){
-		boolean flag=false;
-		String mensaje="";
-		InputElement componente=null;
-		if (cmbNacionalidad.isValid()){
-			if (txtCedula.isValid()){
-				if (txtPrimerNombre.isValid()){
-					if (txtPrimerApellido.isValid()) {
-						if (cmbGenero.isValid()){
-							flag=true;
-						}else{
-							componente= cmbGenero;
-							mensaje="Seleccione el género del jugador.";
-						}
-					}else{
-						componente= txtPrimerApellido;
-						mensaje="Ingrese un apellido válido.";
-					}
-				}else{
-					componente= txtPrimerNombre;
-					mensaje="Ingrese un nombre válido.";
-				}
-			}else{
-				componente= txtCedula;
-				mensaje="Ingrese una cédula válida.";
-			}
-		}else {
-			componente=cmbNacionalidad;
-			mensaje="Seleccione la nacionalidad del jugador.";
-		}
-		if (!flag){
-			Mensaje.mostrarMensaje(
-					mensaje,
-					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-			componente.setFocus(true);
-		}
-		return flag;
-	}
-	
-	
-	private boolean verificarCampos(){
-		List<InputElement> campos= Arrays.asList(new InputElement[] {cmbNacionalidad,txtCedula,txtPrimerNombre,txtPrimerApellido,cmbGenero});
-		boolean flag=true;
-		InputElement componente=null;
-		Iterator<InputElement> iterador = campos.iterator();  
-		  
-		while (iterador.hasNext() && flag) {  
-			InputElement e = iterador.next();  
-			if (!e.isValid()){
-				flag=false;
+	private boolean verificarCampos(InputElement[] camposValidar) {
+		List<InputElement> campos = Arrays.asList(camposValidar);
+		boolean flag = true;
+		InputElement componente = null;
+		Iterator<InputElement> iterador = campos.iterator();
+
+		while (iterador.hasNext() && flag) {
+			InputElement e = iterador.next();
+			if (!e.isValid()) {
+				flag = false;
 				componente = e;
 			}
-		}  
-		if (!flag){
-			Mensaje.mostrarMensaje(
-					"Ingrese un valor válido.",
-					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+		}
+		if (!flag) {
+			Mensaje.mostrarMensaje("Ingrese un valor válido.",
+					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 			componente.setFocus(true);
 		}
 		return flag;
 	}
-	public void onClick$btnCancelar(){
-		verificarCampos();
-		
+
+	public void onClick$btnCancelar() {
+
 	}
+
 	/**
-	 * Aplica las restricciones de captura de datos a lso componentes de la vista
+	 * Aplica las restricciones de captura de datos a lso componentes de la
+	 * vista
 	 */
 	private void aplicarConstraints() {
 		// Registro Jugador
 		txtCedula.setConstraint(Restriccion.CEDULA.getRestriccion());
-		txtPrimerNombre.setConstraint(Restriccion.TEXTO_SIMPLE.asignarRestriccionExtra("no empty"));
-		txtPrimerApellido.setConstraint(Restriccion.TEXTO_SIMPLE.asignarRestriccionExtra("no empty"));
-		txtSegundoNombre.setConstraint(Restriccion.TEXTO_SIMPLE.getRestriccion());
-		txtSegundoApellido.setConstraint(Restriccion.TEXTO_SIMPLE.getRestriccion());
+		txtPrimerNombre.setConstraint(Restriccion.TEXTO_SIMPLE
+				.asignarRestriccionExtra("no empty"));
+		txtPrimerApellido.setConstraint(Restriccion.TEXTO_SIMPLE
+				.asignarRestriccionExtra("no empty"));
+		txtSegundoNombre.setConstraint(Restriccion.TEXTO_SIMPLE
+				.getRestriccion());
+		txtSegundoApellido.setConstraint(Restriccion.TEXTO_SIMPLE
+				.getRestriccion());
+		dtboxFechaNac.setConstraint(Restriccion.FECHA_NACIMIENTO.getRestriccion());
 		txtTelefonoHabitacion.setConstraint(Restriccion.TELEFONO
 				.getRestriccion());
 		txtTelefonoCelular.setConstraint(Restriccion.TELEFONO.getRestriccion());

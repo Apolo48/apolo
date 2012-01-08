@@ -189,7 +189,7 @@
 																		<div>
 																			<datebox
 																				value="@{controller.jugadorBean.fechaNacimiento}"
-																				id="dtboxFechaNac" constraint="no future"
+																				id="dtboxFechaNac" 
 																				format="dd/MM/yyyy"
 																				style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 																			<label
@@ -396,6 +396,7 @@
 																			</combobox>
 																			<textbox
 																				id="txtTelefonoHabitacion"
+																				maxlength="7"
 																				value="@{controller.jugadorBean.telefonoHabitacion.numero}"
 																				 width="50%" />
 																		</div>
@@ -413,6 +414,7 @@
 																			</combobox>
 																			<textbox
 																				id="txtTelefonoCelular"
+																				maxlength="7"
 																				value="@{controller.jugadorBean.telefonoCelular.numero}"
 																				 width="50%" />
 																		</div>
@@ -1830,6 +1832,7 @@
 																</combobox>
 																<textbox
 																	id="txtTelefonoHabFamiliar" width="40%"
+																	maxlength="7"
 																	value="@{controller.familiarBean.telefonoHabitacion.numero}" />
 																<label
 																	value="(*)" style="color:red" />
@@ -1849,6 +1852,7 @@
 																</combobox>
 																<textbox
 																	id="txtTelefonoCelFamiliar" width="40%"
+																	maxlength="7"
 																	value="@{controller.familiarBean.telefonoCelular.numero}" />
 																<label
 																	value="(*)" style="color:red" />

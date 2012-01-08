@@ -74,7 +74,7 @@ public class SessionManager implements Filter
 
     //Para obtener una session
     public static Session getSession()
-    {   System.out.println("obteniendo sesion desde el sessionManager");
+    {   
     	sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
         return sessionFactory.getCurrentSession();
     }

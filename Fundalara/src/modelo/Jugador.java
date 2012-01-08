@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 02-ene-2012 20:17:38 by Hibernate Tools 3.4.0.CR1
+// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +29,7 @@ public class Jugador implements java.io.Serializable {
 	private DatoBasico datoBasicoByCodigoPais;
 	private DatoBasico datoBasicoByCodigoParroquiaNacimiento;
 	private Persona persona;
-	private int numero;
+	private Integer numero;
 	private String tipoDeSangre;
 	private Double peso;
 	private Double altura;
@@ -52,18 +52,13 @@ public class Jugador implements java.io.Serializable {
 	public Jugador() {
 	}
 
-	public Jugador(Persona persona, int numero, String tipoDeSangre,
-			String brazoLanzar, String posicionBateo) {
+	public Jugador(Persona persona) {
 		this.persona = persona;
-		this.numero = numero;
-		this.tipoDeSangre = tipoDeSangre;
-		this.brazoLanzar = brazoLanzar;
-		this.posicionBateo = posicionBateo;
 	}
 
 	public Jugador(DatoBasico datoBasicoByCodigoPais,
 			DatoBasico datoBasicoByCodigoParroquiaNacimiento, Persona persona,
-			int numero, String tipoDeSangre, Double peso, Double altura,
+			Integer numero, String tipoDeSangre, Double peso, Double altura,
 			String brazoLanzar, String posicionBateo,
 			RetiroTraslado retiroTraslado,
 			Set<TallaPorJugador> tallaPorJugadors,
@@ -136,16 +131,16 @@ public class Jugador implements java.io.Serializable {
 		this.persona = persona;
 	}
 
-	@Column(name = "numero", nullable = false)
-	public int getNumero() {
+	@Column(name = "numero")
+	public Integer getNumero() {
 		return this.numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
-	@Column(name = "tipo_de_sangre", nullable = false)
+	@Column(name = "tipo_de_sangre")
 	public String getTipoDeSangre() {
 		return this.tipoDeSangre;
 	}
@@ -172,7 +167,7 @@ public class Jugador implements java.io.Serializable {
 		this.altura = altura;
 	}
 
-	@Column(name = "brazo_lanzar", nullable = false)
+	@Column(name = "brazo_lanzar")
 	public String getBrazoLanzar() {
 		return this.brazoLanzar;
 	}
@@ -181,7 +176,7 @@ public class Jugador implements java.io.Serializable {
 		this.brazoLanzar = brazoLanzar;
 	}
 
-	@Column(name = "posicion_bateo", nullable = false)
+	@Column(name = "posicion_bateo")
 	public String getPosicionBateo() {
 		return this.posicionBateo;
 	}
