@@ -870,7 +870,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		if (checkPoints.get(Point.JUGADOR)) {
 			// Actualizamos
 			personaN.setPersona(persona);
-			jugador.setPersona(persona);
+			jugador.setPersonaNatural(personaN);
 			servicioJugador.actualizar(jugador, personaN);
 		} else {
 			// Guardamos
@@ -880,8 +880,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			persona.setDatoBasicoByCodigoTipoPersona(datoTipoPersona);
 			persona.setEstatus(ESTATUS_PENDIENTE);
 			personaN.setEstatus(ESTATUS_PENDIENTE);
+			jugador.setEstatus(ESTATUS_PENDIENTE);
 			personaN.setPersona(persona);
-			jugador.setPersona(persona);
+			jugador.setPersonaNatural(personaN);
 			servicioJugador.agregar(jugador, personaN);
 			checkPoints.put(Point.JUGADOR, true);
 		}
@@ -1007,7 +1008,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		jugador.setPosicionBateo(jugadorBean.getPosicionBateo().getNombre());
 		jugador.setBrazoLanzar(jugadorBean.getBrazoLanzar().getNombre());
 		jugador.setTipoDeSangre(jugadorBean.getTipoSangre().getTipoSangre());
-		jugador.setPersona(persona);
+		jugador.setPersonaNatural(personaN);
 
 		servicioJugador.agregar(jugador, personaN);
 

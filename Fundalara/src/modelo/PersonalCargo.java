@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -26,31 +26,27 @@ public class PersonalCargo implements java.io.Serializable {
 	private Date fechaFin;
 	private Date fechaInicio;
 	private char estatus;
-	private char estado;
 
 	public PersonalCargo() {
 	}
 
 	public PersonalCargo(int codigoPersonalCargo, DatoBasico datoBasico,
-			Personal personal, Date fechaInicio, char estatus, char estado) {
+			Personal personal, Date fechaInicio, char estatus) {
 		this.codigoPersonalCargo = codigoPersonalCargo;
 		this.datoBasico = datoBasico;
 		this.personal = personal;
 		this.fechaInicio = fechaInicio;
 		this.estatus = estatus;
-		this.estado = estado;
 	}
 
 	public PersonalCargo(int codigoPersonalCargo, DatoBasico datoBasico,
-			Personal personal, Date fechaFin, Date fechaInicio, char estatus,
-			char estado) {
+			Personal personal, Date fechaFin, Date fechaInicio, char estatus) {
 		this.codigoPersonalCargo = codigoPersonalCargo;
 		this.datoBasico = datoBasico;
 		this.personal = personal;
 		this.fechaFin = fechaFin;
 		this.fechaInicio = fechaInicio;
 		this.estatus = estatus;
-		this.estado = estado;
 	}
 
 	@Id
@@ -110,15 +106,6 @@ public class PersonalCargo implements java.io.Serializable {
 
 	public void setEstatus(char estatus) {
 		this.estatus = estatus;
-	}
-
-	@Column(name = "estado", nullable = false, length = 1)
-	public char getEstado() {
-		return this.estado;
-	}
-
-	public void setEstado(char estado) {
-		this.estado = estado;
 	}
 
 }

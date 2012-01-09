@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,33 +23,32 @@ public class RosterCompetencia implements java.io.Serializable {
 
 	private int codigoRosterCompetencia;
 	private Roster roster;
-	private DatoBasico datoBasicoByCodigoJugadorClave;
 	private Competencia competencia;
-	private DatoBasico datoBasicoByCodigoTipoJugador;
+	private char estatus;
 	private Set<LineUp> lineUps = new HashSet<LineUp>(0);
+	private Set<JugadorRefuerzo> jugadorRefuerzos = new HashSet<JugadorRefuerzo>(
+			0);
 
 	public RosterCompetencia() {
 	}
 
 	public RosterCompetencia(int codigoRosterCompetencia, Roster roster,
-			DatoBasico datoBasicoByCodigoJugadorClave, Competencia competencia,
-			DatoBasico datoBasicoByCodigoTipoJugador) {
+			Competencia competencia, char estatus) {
 		this.codigoRosterCompetencia = codigoRosterCompetencia;
 		this.roster = roster;
-		this.datoBasicoByCodigoJugadorClave = datoBasicoByCodigoJugadorClave;
 		this.competencia = competencia;
-		this.datoBasicoByCodigoTipoJugador = datoBasicoByCodigoTipoJugador;
+		this.estatus = estatus;
 	}
 
 	public RosterCompetencia(int codigoRosterCompetencia, Roster roster,
-			DatoBasico datoBasicoByCodigoJugadorClave, Competencia competencia,
-			DatoBasico datoBasicoByCodigoTipoJugador, Set<LineUp> lineUps) {
+			Competencia competencia, char estatus, Set<LineUp> lineUps,
+			Set<JugadorRefuerzo> jugadorRefuerzos) {
 		this.codigoRosterCompetencia = codigoRosterCompetencia;
 		this.roster = roster;
-		this.datoBasicoByCodigoJugadorClave = datoBasicoByCodigoJugadorClave;
 		this.competencia = competencia;
-		this.datoBasicoByCodigoTipoJugador = datoBasicoByCodigoTipoJugador;
+		this.estatus = estatus;
 		this.lineUps = lineUps;
+		this.jugadorRefuerzos = jugadorRefuerzos;
 	}
 
 	@Id
@@ -72,17 +72,6 @@ public class RosterCompetencia implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_jugador_clave", nullable = false)
-	public DatoBasico getDatoBasicoByCodigoJugadorClave() {
-		return this.datoBasicoByCodigoJugadorClave;
-	}
-
-	public void setDatoBasicoByCodigoJugadorClave(
-			DatoBasico datoBasicoByCodigoJugadorClave) {
-		this.datoBasicoByCodigoJugadorClave = datoBasicoByCodigoJugadorClave;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_competencia", nullable = false)
 	public Competencia getCompetencia() {
 		return this.competencia;
@@ -92,15 +81,13 @@ public class RosterCompetencia implements java.io.Serializable {
 		this.competencia = competencia;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_tipo_jugador", nullable = false)
-	public DatoBasico getDatoBasicoByCodigoTipoJugador() {
-		return this.datoBasicoByCodigoTipoJugador;
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
 	}
 
-	public void setDatoBasicoByCodigoTipoJugador(
-			DatoBasico datoBasicoByCodigoTipoJugador) {
-		this.datoBasicoByCodigoTipoJugador = datoBasicoByCodigoTipoJugador;
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rosterCompetencia")
@@ -110,6 +97,15 @@ public class RosterCompetencia implements java.io.Serializable {
 
 	public void setLineUps(Set<LineUp> lineUps) {
 		this.lineUps = lineUps;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "rosterCompetencias")
+	public Set<JugadorRefuerzo> getJugadorRefuerzos() {
+		return this.jugadorRefuerzos;
+	}
+
+	public void setJugadorRefuerzos(Set<JugadorRefuerzo> jugadorRefuerzos) {
+		this.jugadorRefuerzos = jugadorRefuerzos;
 	}
 
 }

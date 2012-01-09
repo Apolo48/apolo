@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -55,7 +55,7 @@ public class PersonalForaneo implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_tipo_personal_juego", nullable = false)
+	@JoinColumn(name = "codigo_tipo_personal_foraneo", nullable = false)
 	public DatoBasico getDatoBasico() {
 		return this.datoBasico;
 	}

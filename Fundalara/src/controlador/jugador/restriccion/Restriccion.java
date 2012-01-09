@@ -12,10 +12,10 @@ import java.util.Calendar;
  */
 public enum Restriccion {
 	EMAIL("/.+@.+\\.[a-z]+/","Ingrese un correo electrónico válido, Ej: correo@servidor.com"),
-	HORAS_SEMANAL_SOCIAL("min 1 max 30","Ingrese una cantidad de horas vádilas (01-30)"),
+	HORAS_SEMANAL_SOCIAL("min 1 max 30","Ingrese una cantidad de horas válidas (01-30)"),
 	CEDULA("no negative,no empty","Ingrese una cédula válida"),
 	TELEFONO("/[0-9]{7}/","Ingrese un número válido, Ej: 2660011"),
-	TEXTO_SIMPLE("/^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$/","Ingrese un texto vádilo"),
+	TEXTO_SIMPLE("/^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$/","Ingrese un texto válido"),
 	FECHA_NACIMIENTO("between "+ getFecha(17,'1') + " and "+ getFecha(3,'2'),"Ingrese una fecha válida");
 
 	private String constraint;

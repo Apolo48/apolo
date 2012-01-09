@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -39,8 +39,8 @@ public class EgresoCuentaPagar implements java.io.Serializable {
 
 	@EmbeddedId
 	@AttributeOverrides({
-			@AttributeOverride(name = "origen", column = @Column(name = "origen", nullable = false)),
-			@AttributeOverride(name = "numeroDocumento", column = @Column(name = "numero_documento", nullable = false)) })
+			@AttributeOverride(name = "numeroDocumento", column = @Column(name = "numero_documento", nullable = false)),
+			@AttributeOverride(name = "origen", column = @Column(name = "origen", nullable = false)) })
 	public EgresoCuentaPagarId getId() {
 		return this.id;
 	}

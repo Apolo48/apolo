@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,57 +25,68 @@ import org.hibernate.annotations.Parameter;
 @Table(name = "familiar", schema = "public")
 public class Familiar implements java.io.Serializable {
 
-	private String cedulaFamiliar;
-	private Persona persona;
+	private String cedulaRif;
 	private DatoBasico datoBasico;
+	private PersonaNatural personaNatural;
+	private char estatus;
 	private Set<FamiliarJugador> familiarJugadors = new HashSet<FamiliarJugador>(
 			0);
 
 	public Familiar() {
 	}
 
-	public Familiar(Persona persona, DatoBasico datoBasico) {
-		this.persona = persona;
-		this.datoBasico = datoBasico;
+	public Familiar(PersonaNatural personaNatural, char estatus) {
+		this.personaNatural = personaNatural;
+		this.estatus = estatus;
 	}
 
-	public Familiar(Persona persona, DatoBasico datoBasico,
-			Set<FamiliarJugador> familiarJugadors) {
-		this.persona = persona;
+	public Familiar(DatoBasico datoBasico, PersonaNatural personaNatural,
+			char estatus, Set<FamiliarJugador> familiarJugadors) {
 		this.datoBasico = datoBasico;
+		this.personaNatural = personaNatural;
+		this.estatus = estatus;
 		this.familiarJugadors = familiarJugadors;
 	}
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "persona"))
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "personaNatural"))
 	@Id
 	@GeneratedValue(generator = "generator")
-	@Column(name = "cedula_familiar", unique = true, nullable = false)
-	public String getCedulaFamiliar() {
-		return this.cedulaFamiliar;
+	@Column(name = "cedula_rif", unique = true, nullable = false)
+	public String getCedulaRif() {
+		return this.cedulaRif;
 	}
 
-	public void setCedulaFamiliar(String cedulaFamiliar) {
-		this.cedulaFamiliar = cedulaFamiliar;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
-	public Persona getPersona() {
-		return this.persona;
-	}
-
-	public void setPersona(Persona persona) {
-		this.persona = persona;
+	public void setCedulaRif(String cedulaRif) {
+		this.cedulaRif = cedulaRif;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_profesion", nullable = false)
+	@JoinColumn(name = "codigo_profesion")
 	public DatoBasico getDatoBasico() {
 		return this.datoBasico;
 	}
 
 	public void setDatoBasico(DatoBasico datoBasico) {
 		this.datoBasico = datoBasico;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	public PersonaNatural getPersonaNatural() {
+		return this.personaNatural;
+	}
+
+	public void setPersonaNatural(PersonaNatural personaNatural) {
+		this.personaNatural = personaNatural;
+	}
+
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "familiar")

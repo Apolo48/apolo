@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 30-dic-2011 0:38:42 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -8,12 +8,10 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,7 +21,6 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "roster", schema = "public")
-@SequenceGenerator(name = "roster_seq", sequenceName = "roster_codigo_roster_seq_1")
 public class Roster implements java.io.Serializable {
 
 	private int codigoRoster;
@@ -33,6 +30,8 @@ public class Roster implements java.io.Serializable {
 	private char estatus;
 	private Set<TestJugador> testJugadors = new HashSet<TestJugador>(0);
 	private Set<Ascenso> ascensos = new HashSet<Ascenso>(0);
+	private Set<AsistenciaJugador> asistenciaJugadors = new HashSet<AsistenciaJugador>(
+			0);
 	private Set<RosterCompetencia> rosterCompetencias = new HashSet<RosterCompetencia>(
 			0);
 
@@ -50,7 +49,8 @@ public class Roster implements java.io.Serializable {
 
 	public Roster(int codigoRoster, Jugador jugador, Equipo equipo,
 			Date fechaIngreso, char estatus, Set<TestJugador> testJugadors,
-			Set<Ascenso> ascensos, Set<RosterCompetencia> rosterCompetencias) {
+			Set<Ascenso> ascensos, Set<AsistenciaJugador> asistenciaJugadors,
+			Set<RosterCompetencia> rosterCompetencias) {
 		this.codigoRoster = codigoRoster;
 		this.jugador = jugador;
 		this.equipo = equipo;
@@ -58,12 +58,12 @@ public class Roster implements java.io.Serializable {
 		this.estatus = estatus;
 		this.testJugadors = testJugadors;
 		this.ascensos = ascensos;
+		this.asistenciaJugadors = asistenciaJugadors;
 		this.rosterCompetencias = rosterCompetencias;
 	}
 
 	@Id
 	@Column(name = "codigo_roster", unique = true, nullable = false)
-	@GeneratedValue(generator = "roster_seq")
 	public int getCodigoRoster() {
 		return this.codigoRoster;
 	}
@@ -127,6 +127,15 @@ public class Roster implements java.io.Serializable {
 
 	public void setAscensos(Set<Ascenso> ascensos) {
 		this.ascensos = ascensos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roster")
+	public Set<AsistenciaJugador> getAsistenciaJugadors() {
+		return this.asistenciaJugadors;
+	}
+
+	public void setAsistenciaJugadors(Set<AsistenciaJugador> asistenciaJugadors) {
+		this.asistenciaJugadors = asistenciaJugadors;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roster")

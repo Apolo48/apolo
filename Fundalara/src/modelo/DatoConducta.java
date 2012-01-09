@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -29,7 +29,7 @@ public class DatoConducta implements java.io.Serializable {
 	private Date fechaInicio;
 	private Date fechaFin;
 	private String observacion;
-	private String cantidad;
+	private int cantidad;
 	private Date fechaOcurrencia;
 	private char estatus;
 	private Set<DocumentoConducta> documentoConductas = new HashSet<DocumentoConducta>(
@@ -40,7 +40,7 @@ public class DatoConducta implements java.io.Serializable {
 	}
 
 	public DatoConducta(int codigoDatoConducta, DatoBasico datoBasico,
-			Jugador jugador, Date fechaInicio, String cantidad,
+			Jugador jugador, Date fechaInicio, int cantidad,
 			Date fechaOcurrencia, char estatus) {
 		this.codigoDatoConducta = codigoDatoConducta;
 		this.datoBasico = datoBasico;
@@ -53,7 +53,7 @@ public class DatoConducta implements java.io.Serializable {
 
 	public DatoConducta(int codigoDatoConducta, DatoBasico datoBasico,
 			Jugador jugador, Date fechaInicio, Date fechaFin,
-			String observacion, String cantidad, Date fechaOcurrencia,
+			String observacion, int cantidad, Date fechaOcurrencia,
 			char estatus, Set<DocumentoConducta> documentoConductas,
 			Set<MotivoSancion> motivoSancions) {
 		this.codigoDatoConducta = codigoDatoConducta;
@@ -129,11 +129,11 @@ public class DatoConducta implements java.io.Serializable {
 	}
 
 	@Column(name = "cantidad", nullable = false)
-	public String getCantidad() {
+	public int getCantidad() {
 		return this.cantidad;
 	}
 
-	public void setCantidad(String cantidad) {
+	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
 

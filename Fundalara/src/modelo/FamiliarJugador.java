@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -26,8 +26,8 @@ public class FamiliarJugador implements java.io.Serializable {
 
 	private int codigoFamiliarJugador;
 	private DatoBasico datoBasico;
-	private Jugador jugador;
 	private Familiar familiar;
+	private Jugador jugador;
 	private boolean representanteActual;
 	private Date fechaIngreso;
 	private char estatus;
@@ -40,26 +40,26 @@ public class FamiliarJugador implements java.io.Serializable {
 	}
 
 	public FamiliarJugador(int codigoFamiliarJugador, DatoBasico datoBasico,
-			Jugador jugador, Familiar familiar, boolean representanteActual,
+			Familiar familiar, Jugador jugador, boolean representanteActual,
 			Date fechaIngreso, char estatus) {
 		this.codigoFamiliarJugador = codigoFamiliarJugador;
 		this.datoBasico = datoBasico;
-		this.jugador = jugador;
 		this.familiar = familiar;
+		this.jugador = jugador;
 		this.representanteActual = representanteActual;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
 	}
 
 	public FamiliarJugador(int codigoFamiliarJugador, DatoBasico datoBasico,
-			Jugador jugador, Familiar familiar, boolean representanteActual,
+			Familiar familiar, Jugador jugador, boolean representanteActual,
 			Date fechaIngreso, char estatus,
 			Set<FamiliarComisionEquipo> familiarComisionEquipos,
 			Representante representante, Set<Hospedaje> hospedajes) {
 		this.codigoFamiliarJugador = codigoFamiliarJugador;
 		this.datoBasico = datoBasico;
-		this.jugador = jugador;
 		this.familiar = familiar;
+		this.jugador = jugador;
 		this.representanteActual = representanteActual;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
@@ -89,16 +89,6 @@ public class FamiliarJugador implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cedula_rif", nullable = false)
-	public Jugador getJugador() {
-		return this.jugador;
-	}
-
-	public void setJugador(Jugador jugador) {
-		this.jugador = jugador;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cedula_familiar", nullable = false)
 	public Familiar getFamiliar() {
 		return this.familiar;
@@ -106,6 +96,16 @@ public class FamiliarJugador implements java.io.Serializable {
 
 	public void setFamiliar(Familiar familiar) {
 		this.familiar = familiar;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cedula_rif", nullable = false)
+	public Jugador getJugador() {
+		return this.jugador;
+	}
+
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
 	}
 
 	@Column(name = "representante_actual", nullable = false)

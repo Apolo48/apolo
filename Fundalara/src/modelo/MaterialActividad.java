@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -21,7 +21,9 @@ import javax.persistence.TemporalType;
 public class MaterialActividad implements java.io.Serializable {
 
 	private int codigoMaterialActividad;
+	private SesionEjecutada sesionEjecutada;
 	private Material material;
+	private Juego juego;
 	private Actividad actividad;
 	private char estatus;
 	private int cantidadEntregada;
@@ -33,10 +35,25 @@ public class MaterialActividad implements java.io.Serializable {
 	}
 
 	public MaterialActividad(int codigoMaterialActividad, Material material,
+			char estatus, int cantidadEntregada, int cantidadDevuelta,
+			Date fechaDevolucion, String observacion) {
+		this.codigoMaterialActividad = codigoMaterialActividad;
+		this.material = material;
+		this.estatus = estatus;
+		this.cantidadEntregada = cantidadEntregada;
+		this.cantidadDevuelta = cantidadDevuelta;
+		this.fechaDevolucion = fechaDevolucion;
+		this.observacion = observacion;
+	}
+
+	public MaterialActividad(int codigoMaterialActividad,
+			SesionEjecutada sesionEjecutada, Material material, Juego juego,
 			Actividad actividad, char estatus, int cantidadEntregada,
 			int cantidadDevuelta, Date fechaDevolucion, String observacion) {
 		this.codigoMaterialActividad = codigoMaterialActividad;
+		this.sesionEjecutada = sesionEjecutada;
 		this.material = material;
+		this.juego = juego;
 		this.actividad = actividad;
 		this.estatus = estatus;
 		this.cantidadEntregada = cantidadEntregada;
@@ -56,6 +73,16 @@ public class MaterialActividad implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_sesion_ejecutada")
+	public SesionEjecutada getSesionEjecutada() {
+		return this.sesionEjecutada;
+	}
+
+	public void setSesionEjecutada(SesionEjecutada sesionEjecutada) {
+		this.sesionEjecutada = sesionEjecutada;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_material", nullable = false)
 	public Material getMaterial() {
 		return this.material;
@@ -66,7 +93,17 @@ public class MaterialActividad implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_actividad", nullable = false)
+	@JoinColumn(name = "codigo_juego")
+	public Juego getJuego() {
+		return this.juego;
+	}
+
+	public void setJuego(Juego juego) {
+		this.juego = juego;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_actividad")
 	public Actividad getActividad() {
 		return this.actividad;
 	}

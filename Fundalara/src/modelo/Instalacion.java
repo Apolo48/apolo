@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -27,7 +27,7 @@ public class Instalacion implements java.io.Serializable {
 	private Integer capacidad;
 	private char estatus;
 	private BigDecimal tamano;
-	private String area;
+	private String ubicacion;
 	private Set<Almacen> almacens = new HashSet<Almacen>(0);
 	private Set<PlanificacionActividad> planificacionActividads = new HashSet<PlanificacionActividad>(
 			0);
@@ -49,7 +49,7 @@ public class Instalacion implements java.io.Serializable {
 
 	public Instalacion(int codigoInstalacion, DatoBasico datoBasico,
 			String descripcion, Integer capacidad, char estatus,
-			BigDecimal tamano, String area, Set<Almacen> almacens,
+			BigDecimal tamano, String ubicacion, Set<Almacen> almacens,
 			Set<PlanificacionActividad> planificacionActividads,
 			Set<PlanRotacion> planRotacions,
 			Set<SesionEjecutada> sesionEjecutadas) {
@@ -59,7 +59,7 @@ public class Instalacion implements java.io.Serializable {
 		this.capacidad = capacidad;
 		this.estatus = estatus;
 		this.tamano = tamano;
-		this.area = area;
+		this.ubicacion = ubicacion;
 		this.almacens = almacens;
 		this.planificacionActividads = planificacionActividads;
 		this.planRotacions = planRotacions;
@@ -122,13 +122,13 @@ public class Instalacion implements java.io.Serializable {
 		this.tamano = tamano;
 	}
 
-	@Column(name = "area")
-	public String getArea() {
-		return this.area;
+	@Column(name = "ubicacion")
+	public String getUbicacion() {
+		return this.ubicacion;
 	}
 
-	public void setArea(String area) {
-		this.area = area;
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instalacion")

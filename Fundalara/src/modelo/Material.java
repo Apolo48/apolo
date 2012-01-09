@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,13 +34,11 @@ public class Material implements java.io.Serializable {
 	private char estatus;
 	private Set<MaterialActividad> materialActividads = new HashSet<MaterialActividad>(
 			0);
-	private Set<DonacionMaterial> donacionMaterials = new HashSet<DonacionMaterial>(
+	private Set<DocumentoAcreedorMaterial> documentoAcreedorMaterials = new HashSet<DocumentoAcreedorMaterial>(
 			0);
 	private Set<RecepcionMaterial> recepcionMaterials = new HashSet<RecepcionMaterial>(
 			0);
 	private Set<MaterialActividadPlanificada> materialActividadPlanificadas = new HashSet<MaterialActividadPlanificada>(
-			0);
-	private Set<DocumentoAcreedorMaterial> documentoAcreedorMaterials = new HashSet<DocumentoAcreedorMaterial>(
 			0);
 	private Set<CuentaPagarMaterial> cuentaPagarMaterials = new HashSet<CuentaPagarMaterial>(
 			0);
@@ -54,13 +52,11 @@ public class Material implements java.io.Serializable {
 
 	public Material(int codigoMaterial,
 			DatoBasico datoBasicoByCodigoTipoMaterial, Almacen almacen,
-			DatoBasico datoBasicoByCodigoUnidadMedida, String descripcion,
-			int cantidadExistencia, int cantidadDisponible,
+			String descripcion, int cantidadExistencia, int cantidadDisponible,
 			boolean reutilizable, char estatus) {
 		this.codigoMaterial = codigoMaterial;
 		this.datoBasicoByCodigoTipoMaterial = datoBasicoByCodigoTipoMaterial;
 		this.almacen = almacen;
-		this.datoBasicoByCodigoUnidadMedida = datoBasicoByCodigoUnidadMedida;
 		this.descripcion = descripcion;
 		this.cantidadExistencia = cantidadExistencia;
 		this.cantidadDisponible = cantidadDisponible;
@@ -75,10 +71,9 @@ public class Material implements java.io.Serializable {
 			int cantidadDisponible, boolean reutilizable, Integer stockMinimo,
 			Integer stockMaximo, char estatus,
 			Set<MaterialActividad> materialActividads,
-			Set<DonacionMaterial> donacionMaterials,
+			Set<DocumentoAcreedorMaterial> documentoAcreedorMaterials,
 			Set<RecepcionMaterial> recepcionMaterials,
 			Set<MaterialActividadPlanificada> materialActividadPlanificadas,
-			Set<DocumentoAcreedorMaterial> documentoAcreedorMaterials,
 			Set<CuentaPagarMaterial> cuentaPagarMaterials,
 			Set<DetalleRequisicion> detalleRequisicions,
 			Set<CuentaPagarMaterial> cuentaPagarMaterials_1) {
@@ -95,10 +90,9 @@ public class Material implements java.io.Serializable {
 		this.stockMaximo = stockMaximo;
 		this.estatus = estatus;
 		this.materialActividads = materialActividads;
-		this.donacionMaterials = donacionMaterials;
+		this.documentoAcreedorMaterials = documentoAcreedorMaterials;
 		this.recepcionMaterials = recepcionMaterials;
 		this.materialActividadPlanificadas = materialActividadPlanificadas;
-		this.documentoAcreedorMaterials = documentoAcreedorMaterials;
 		this.cuentaPagarMaterials = cuentaPagarMaterials;
 		this.detalleRequisicions = detalleRequisicions;
 		this.cuentaPagarMaterials_1 = cuentaPagarMaterials_1;
@@ -136,7 +130,7 @@ public class Material implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_unidad_medida", nullable = false)
+	@JoinColumn(name = "codigo_unidad_medida")
 	public DatoBasico getDatoBasicoByCodigoUnidadMedida() {
 		return this.datoBasicoByCodigoUnidadMedida;
 	}
@@ -228,12 +222,13 @@ public class Material implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "material")
-	public Set<DonacionMaterial> getDonacionMaterials() {
-		return this.donacionMaterials;
+	public Set<DocumentoAcreedorMaterial> getDocumentoAcreedorMaterials() {
+		return this.documentoAcreedorMaterials;
 	}
 
-	public void setDonacionMaterials(Set<DonacionMaterial> donacionMaterials) {
-		this.donacionMaterials = donacionMaterials;
+	public void setDocumentoAcreedorMaterials(
+			Set<DocumentoAcreedorMaterial> documentoAcreedorMaterials) {
+		this.documentoAcreedorMaterials = documentoAcreedorMaterials;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "material")
@@ -253,16 +248,6 @@ public class Material implements java.io.Serializable {
 	public void setMaterialActividadPlanificadas(
 			Set<MaterialActividadPlanificada> materialActividadPlanificadas) {
 		this.materialActividadPlanificadas = materialActividadPlanificadas;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "material")
-	public Set<DocumentoAcreedorMaterial> getDocumentoAcreedorMaterials() {
-		return this.documentoAcreedorMaterials;
-	}
-
-	public void setDocumentoAcreedorMaterials(
-			Set<DocumentoAcreedorMaterial> documentoAcreedorMaterials) {
-		this.documentoAcreedorMaterials = documentoAcreedorMaterials;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "material")

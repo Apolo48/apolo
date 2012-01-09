@@ -30,9 +30,9 @@
         <mapping class="modelo.FamiliarComisionEquipo" />
         <mapping class="modelo.SesionEjecutada" />
         <mapping class="modelo.DocumentoAcreedorMaterial" />
-        <mapping class="modelo.PlanEntrenamiento" />
         <mapping class="modelo.NotaEntrega" />
         <mapping class="modelo.Periodicidad" />
+        <mapping class="modelo.PlanEntrenamiento" />
         <mapping class="modelo.PersonalActividadPlanificada" />
         <mapping class="modelo.Familiar" />
         <mapping class="modelo.EquipoCompetencia" />
@@ -45,7 +45,6 @@
         <mapping class="modelo.Egreso" />
         <mapping class="modelo.Ascenso" />
         <mapping class="modelo.TipoCompetencia" />
-        <mapping class="modelo.PersonalJuego" />
         <mapping class="modelo.PlanificacionActividad" />
         <mapping class="modelo.PlanTemporada" />
         <mapping class="modelo.TareaActividadPlanificada" />
@@ -79,6 +78,7 @@
         <mapping class="modelo.Actividad" />
         <mapping class="modelo.Jugador" />
         <mapping class="modelo.DocumentoEntregado" />
+        <mapping class="modelo.JugadorRefuerzo" />
         <mapping class="modelo.RecaudoPorProceso" />
         <mapping class="modelo.PersonaJuridica" />
         <mapping class="modelo.Ingreso" />
@@ -88,7 +88,6 @@
         <mapping class="modelo.TallaPorIndumentaria" />
         <mapping class="modelo.FamiliarJugador" />
         <mapping class="modelo.Material" />
-        <mapping class="modelo.JugadorForaneo" />
         <mapping class="modelo.DocumentoPersonal" />
         <mapping class="modelo.AfeccionPersonal" />
         <mapping class="modelo.Indicador" />
@@ -107,6 +106,7 @@
         <mapping class="modelo.Juego" />
         <mapping class="modelo.PersonalTipoNomina" />
         <mapping class="modelo.Hospedaje" />
+        <mapping class="modelo.CondicionCompetencia" />
         <mapping class="modelo.Persona" />
         <mapping class="modelo.Instalacion" />
         <mapping class="modelo.Estadio" />
@@ -134,7 +134,6 @@
         <mapping class="modelo.DatoAcademicoPersonal" />
         <mapping class="modelo.IndicadorActividadEscala" />
         <mapping class="modelo.PersonalForaneo" />
-        <mapping class="modelo.DonacionMaterial" />
         <mapping class="modelo.DesempennoIndividual" />
         <mapping class="modelo.DocumentoMedico" />
         <mapping class="modelo.Sesion" />

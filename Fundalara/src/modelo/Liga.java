@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,8 +21,8 @@ import javax.persistence.Table;
 public class Liga implements java.io.Serializable {
 
 	private int codigoLiga;
-	private DatoBasico datoBasico;
 	private String nombre;
+	private String localidad;
 	private char estatus;
 	private Set<Competencia> competencias = new HashSet<Competencia>(0);
 	private Set<Categoria> categorias = new HashSet<Categoria>(0);
@@ -31,20 +30,18 @@ public class Liga implements java.io.Serializable {
 	public Liga() {
 	}
 
-	public Liga(int codigoLiga, DatoBasico datoBasico, String nombre,
-			char estatus) {
+	public Liga(int codigoLiga, String nombre, String localidad, char estatus) {
 		this.codigoLiga = codigoLiga;
-		this.datoBasico = datoBasico;
 		this.nombre = nombre;
+		this.localidad = localidad;
 		this.estatus = estatus;
 	}
 
-	public Liga(int codigoLiga, DatoBasico datoBasico, String nombre,
-			char estatus, Set<Competencia> competencias,
-			Set<Categoria> categorias) {
+	public Liga(int codigoLiga, String nombre, String localidad, char estatus,
+			Set<Competencia> competencias, Set<Categoria> categorias) {
 		this.codigoLiga = codigoLiga;
-		this.datoBasico = datoBasico;
 		this.nombre = nombre;
+		this.localidad = localidad;
 		this.estatus = estatus;
 		this.competencias = competencias;
 		this.categorias = categorias;
@@ -60,16 +57,6 @@ public class Liga implements java.io.Serializable {
 		this.codigoLiga = codigoLiga;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_parroquia", nullable = false)
-	public DatoBasico getDatoBasico() {
-		return this.datoBasico;
-	}
-
-	public void setDatoBasico(DatoBasico datoBasico) {
-		this.datoBasico = datoBasico;
-	}
-
 	@Column(name = "nombre", nullable = false)
 	public String getNombre() {
 		return this.nombre;
@@ -77,6 +64,15 @@ public class Liga implements java.io.Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	@Column(name = "localidad", nullable = false)
+	public String getLocalidad() {
+		return this.localidad;
+	}
+
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
 	}
 
 	@Column(name = "estatus", nullable = false, length = 1)

@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,28 +24,32 @@ public class EquipoCompetencia implements java.io.Serializable {
 	private Persona persona;
 	private Competencia competencia;
 	private Equipo equipo;
-	private Set<JugadorForaneo> jugadorForaneos = new HashSet<JugadorForaneo>(0);
+	private char estatus;
+	private Set<JugadorRefuerzo> jugadorRefuerzos = new HashSet<JugadorRefuerzo>(
+			0);
 	private Set<EquipoJuego> equipoJuegos = new HashSet<EquipoJuego>(0);
 
 	public EquipoCompetencia() {
 	}
 
 	public EquipoCompetencia(int codigoEquipoCompetencia, Persona persona,
-			Competencia competencia, Equipo equipo) {
+			Competencia competencia, Equipo equipo, char estatus) {
 		this.codigoEquipoCompetencia = codigoEquipoCompetencia;
 		this.persona = persona;
 		this.competencia = competencia;
 		this.equipo = equipo;
+		this.estatus = estatus;
 	}
 
 	public EquipoCompetencia(int codigoEquipoCompetencia, Persona persona,
-			Competencia competencia, Equipo equipo,
-			Set<JugadorForaneo> jugadorForaneos, Set<EquipoJuego> equipoJuegos) {
+			Competencia competencia, Equipo equipo, char estatus,
+			Set<JugadorRefuerzo> jugadorRefuerzos, Set<EquipoJuego> equipoJuegos) {
 		this.codigoEquipoCompetencia = codigoEquipoCompetencia;
 		this.persona = persona;
 		this.competencia = competencia;
 		this.equipo = equipo;
-		this.jugadorForaneos = jugadorForaneos;
+		this.estatus = estatus;
+		this.jugadorRefuerzos = jugadorRefuerzos;
 		this.equipoJuegos = equipoJuegos;
 	}
 
@@ -60,7 +64,7 @@ public class EquipoCompetencia implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "delegado", nullable = false)
+	@JoinColumn(name = "cedula_delegado", nullable = false)
 	public Persona getPersona() {
 		return this.persona;
 	}
@@ -89,13 +93,22 @@ public class EquipoCompetencia implements java.io.Serializable {
 		this.equipo = equipo;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipoCompetencia")
-	public Set<JugadorForaneo> getJugadorForaneos() {
-		return this.jugadorForaneos;
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
 	}
 
-	public void setJugadorForaneos(Set<JugadorForaneo> jugadorForaneos) {
-		this.jugadorForaneos = jugadorForaneos;
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipoCompetencia")
+	public Set<JugadorRefuerzo> getJugadorRefuerzos() {
+		return this.jugadorRefuerzos;
+	}
+
+	public void setJugadorRefuerzos(Set<JugadorRefuerzo> jugadorRefuerzos) {
+		this.jugadorRefuerzos = jugadorRefuerzos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipoCompetencia")

@@ -1,13 +1,16 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -21,16 +24,26 @@ public class ModalidadCompetencia implements java.io.Serializable {
 	private TipoCompetencia tipoCompetencia;
 	private String nombre;
 	private String descripcion;
+	private Set<Competencia> competencias = new HashSet<Competencia>(0);
 
 	public ModalidadCompetencia() {
 	}
 
 	public ModalidadCompetencia(int codigoModalidadCompetencia,
-			TipoCompetencia tipoCompetencia, String nombre, String descripcion) {
+			TipoCompetencia tipoCompetencia, String nombre) {
+		this.codigoModalidadCompetencia = codigoModalidadCompetencia;
+		this.tipoCompetencia = tipoCompetencia;
+		this.nombre = nombre;
+	}
+
+	public ModalidadCompetencia(int codigoModalidadCompetencia,
+			TipoCompetencia tipoCompetencia, String nombre, String descripcion,
+			Set<Competencia> competencias) {
 		this.codigoModalidadCompetencia = codigoModalidadCompetencia;
 		this.tipoCompetencia = tipoCompetencia;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.competencias = competencias;
 	}
 
 	@Id
@@ -62,13 +75,22 @@ public class ModalidadCompetencia implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	@Column(name = "descripcion", nullable = false)
+	@Column(name = "descripcion")
 	public String getDescripcion() {
 		return this.descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modalidadCompetencia")
+	public Set<Competencia> getCompetencias() {
+		return this.competencias;
+	}
+
+	public void setCompetencias(Set<Competencia> competencias) {
+		this.competencias = competencias;
 	}
 
 }

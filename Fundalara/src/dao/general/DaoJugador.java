@@ -25,12 +25,19 @@ public class DaoJugador extends GenericDao {
 	 * @param pn Objeto persona Natural a ser guardado
 	 */
 	public void guardar(Jugador c, PersonaNatural pn){
-		Session session = getSession();
+	/*	Session session = getSession();
 		Transaction tx =  session.beginTransaction();
 		session.save(c.getPersona());
 		session.save(pn);
 		session.save(c);
+		tx.commit();	*/
+		Session session = getSession();
+		Transaction tx =  session.beginTransaction();
+		session.save(c.getPersonaNatural().getPersona());
+		session.save(c.getPersonaNatural());
+		session.save(c);
 		tx.commit();	
+		
 	}
 	
 	
@@ -40,12 +47,20 @@ public class DaoJugador extends GenericDao {
 	 * @param pn Objeto persona Natural a ser actualizado
 	 */
 	public void actualizar(Jugador c, PersonaNatural pn){
-		Session session = getSession();
+		/*Session session = getSession();
 		Transaction tx =  session.beginTransaction();
 		session.saveOrUpdate(c.getPersona());
 		session.saveOrUpdate(pn);
 		session.saveOrUpdate(c);
+		tx.commit();	*/
+		Session session = getSession();
+		Transaction tx =  session.beginTransaction();
+		session.saveOrUpdate(c.getPersonaNatural().getPersona());
+		session.saveOrUpdate(c.getPersonaNatural());
+		session.saveOrUpdate(c);
 		tx.commit();	
+		
+		
 	}
 
 }

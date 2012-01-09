@@ -53,14 +53,14 @@
 	<bean id="servicioDocumentoAcreedorMaterial" class="servicio.implementacion.ServicioDocumentoAcreedorMaterial">
 		<property name="daoDocumentoAcreedorMaterial" ref="daoDocumentoAcreedorMaterial"></property>
 	</bean>
-	
+	<!-- 
 	<bean id="daoDonacionMaterial" class="dao.general.DaoDonacionMaterial">
 	</bean>
 	
 	<bean id="servicioDonacionMaterial" class="servicio.implementacion.ServicioDonacionMaterial">
 		<property name="daoDonacionMaterial" ref="daoDonacionMaterial"></property>
 	</bean>
-	
+	 -->
 	<bean id="daoEgreso" class="dao.general.DaoEgreso">
 	</bean>
 	
@@ -303,14 +303,14 @@
 	<bean id="servicioEquipoCompetencia" class="servicio.implementacion.ServicioEquipoCompetencia">
 		<property name="daoEquipoCompetencia" ref="daoEquipoCompetencia"></property>
 	</bean>
-	
+	<!-- 
 	<bean id="daoJugadorForaneo" class="dao.general.DaoJugadorForaneo">
 	</bean>
 	
 	<bean id="servicioJugadorForaneo" class="servicio.implementacion.ServicioJugadorForaneo">
 		<property name="daoJugadorForaneo" ref="daoJugadorForaneo"></property>
 	</bean>
-	
+	 -->
 	<bean id="daoEquipoJuego" class="dao.general.DaoEquipoJuego">
 	</bean>
 	
@@ -338,14 +338,14 @@
 	<bean id="servicioPersonalForaneoJuego" class="servicio.implementacion.ServicioPersonalForaneoJuego">
 		<property name="daoPersonalForaneoJuego" ref="daoPersonalForaneoJuego"></property>
 	</bean>
-	
+	<!-- 
 	<bean id="daoPersonalJuego" class="dao.general.DaoPersonalJuego">
 	</bean>
 	
 	<bean id="servicioPersonalJuego" class="servicio.implementacion.ServicioPersonalJuego">
 		<property name="daoPersonalJuego" ref="daoPersonalJuego"></property>
 	</bean>
-	
+	 -->
 	<bean id="daoPersonalForaneo" class="dao.general.DaoPersonalForaneo">
 	</bean>
 	

@@ -48,9 +48,9 @@ public class DaoTallaPorJugador extends GenericDao {
 						.uniqueResult();
 				if (indumentaria != null) {
 					tallaJugador = new TallaPorJugador();
-					tallaJugador.setId(new TallaPorJugadorId(jugador
-							.getCedulaRif(), indumentaria
-							.getCodigoTallaIndumentaria()));
+					tallaJugador.setId(new TallaPorJugadorId(indumentaria
+							.getCodigoTallaIndumentaria(),jugador
+							.getCedulaRif()));
 					tallaJugador.setJugador(jugador);
 					tallaJugador.setTallaPorIndumentaria(indumentaria);
 					tallaJugador.setEstatus('A');

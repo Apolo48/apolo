@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,23 +11,14 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class EgresoCuentaPagarId implements java.io.Serializable {
 
-	private String origen;
 	private String numeroDocumento;
+	private String origen;
 
 	public EgresoCuentaPagarId() {
 	}
 
-	public EgresoCuentaPagarId(String origen, String numeroDocumento) {
-		this.origen = origen;
+	public EgresoCuentaPagarId(String numeroDocumento, String origen) {
 		this.numeroDocumento = numeroDocumento;
-	}
-
-	@Column(name = "origen", nullable = false)
-	public String getOrigen() {
-		return this.origen;
-	}
-
-	public void setOrigen(String origen) {
 		this.origen = origen;
 	}
 
@@ -40,6 +31,15 @@ public class EgresoCuentaPagarId implements java.io.Serializable {
 		this.numeroDocumento = numeroDocumento;
 	}
 
+	@Column(name = "origen", nullable = false)
+	public String getOrigen() {
+		return this.origen;
+	}
+
+	public void setOrigen(String origen) {
+		this.origen = origen;
+	}
+
 	public boolean equals(Object other) {
 		if ((this == other))
 			return true;
@@ -49,25 +49,24 @@ public class EgresoCuentaPagarId implements java.io.Serializable {
 			return false;
 		EgresoCuentaPagarId castOther = (EgresoCuentaPagarId) other;
 
-		return ((this.getOrigen() == castOther.getOrigen()) || (this
-				.getOrigen() != null && castOther.getOrigen() != null && this
-				.getOrigen().equals(castOther.getOrigen())))
-				&& ((this.getNumeroDocumento() == castOther
-						.getNumeroDocumento()) || (this.getNumeroDocumento() != null
-						&& castOther.getNumeroDocumento() != null && this
-						.getNumeroDocumento().equals(
-								castOther.getNumeroDocumento())));
+		return ((this.getNumeroDocumento() == castOther.getNumeroDocumento()) || (this
+				.getNumeroDocumento() != null
+				&& castOther.getNumeroDocumento() != null && this
+				.getNumeroDocumento().equals(castOther.getNumeroDocumento())))
+				&& ((this.getOrigen() == castOther.getOrigen()) || (this
+						.getOrigen() != null && castOther.getOrigen() != null && this
+						.getOrigen().equals(castOther.getOrigen())));
 	}
 
 	public int hashCode() {
 		int result = 17;
 
-		result = 37 * result
-				+ (getOrigen() == null ? 0 : this.getOrigen().hashCode());
 		result = 37
 				* result
 				+ (getNumeroDocumento() == null ? 0 : this.getNumeroDocumento()
 						.hashCode());
+		result = 37 * result
+				+ (getOrigen() == null ? 0 : this.getOrigen().hashCode());
 		return result;
 	}
 

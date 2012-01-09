@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -25,32 +25,32 @@ public class Ascenso implements java.io.Serializable {
 
 	private int codigoAscenso;
 	private Roster roster;
+	private String tipoAscenso;
 	private Date fechaAscenso;
 	private char estatus;
-	private String tipoAscenso;
 	private Set<DocumentoAscenso> documentoAscensos = new HashSet<DocumentoAscenso>(
 			0);
 
 	public Ascenso() {
 	}
 
-	public Ascenso(int codigoAscenso, Roster roster, Date fechaAscenso,
-			char estatus, String tipoAscenso) {
+	public Ascenso(int codigoAscenso, Roster roster, String tipoAscenso,
+			Date fechaAscenso, char estatus) {
 		this.codigoAscenso = codigoAscenso;
 		this.roster = roster;
+		this.tipoAscenso = tipoAscenso;
 		this.fechaAscenso = fechaAscenso;
 		this.estatus = estatus;
-		this.tipoAscenso = tipoAscenso;
 	}
 
-	public Ascenso(int codigoAscenso, Roster roster, Date fechaAscenso,
-			char estatus, String tipoAscenso,
+	public Ascenso(int codigoAscenso, Roster roster, String tipoAscenso,
+			Date fechaAscenso, char estatus,
 			Set<DocumentoAscenso> documentoAscensos) {
 		this.codigoAscenso = codigoAscenso;
 		this.roster = roster;
+		this.tipoAscenso = tipoAscenso;
 		this.fechaAscenso = fechaAscenso;
 		this.estatus = estatus;
-		this.tipoAscenso = tipoAscenso;
 		this.documentoAscensos = documentoAscensos;
 	}
 
@@ -74,6 +74,15 @@ public class Ascenso implements java.io.Serializable {
 		this.roster = roster;
 	}
 
+	@Column(name = "tipo_ascenso", nullable = false)
+	public String getTipoAscenso() {
+		return this.tipoAscenso;
+	}
+
+	public void setTipoAscenso(String tipoAscenso) {
+		this.tipoAscenso = tipoAscenso;
+	}
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_ascenso", nullable = false, length = 13)
 	public Date getFechaAscenso() {
@@ -91,15 +100,6 @@ public class Ascenso implements java.io.Serializable {
 
 	public void setEstatus(char estatus) {
 		this.estatus = estatus;
-	}
-
-	@Column(name = "tipo_ascenso", nullable = false)
-	public String getTipoAscenso() {
-		return this.tipoAscenso;
-	}
-
-	public void setTipoAscenso(String tipoAscenso) {
-		this.tipoAscenso = tipoAscenso;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ascenso")

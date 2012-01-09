@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -28,14 +28,15 @@ public class Jugador implements java.io.Serializable {
 	private String cedulaRif;
 	private DatoBasico datoBasicoByCodigoPais;
 	private DatoBasico datoBasicoByCodigoParroquiaNacimiento;
-	private Persona persona;
+	private PersonaNatural personaNatural;
 	private Integer numero;
 	private String tipoDeSangre;
 	private Double peso;
 	private Double altura;
 	private String brazoLanzar;
 	private String posicionBateo;
-	private RetiroTraslado retiroTraslado;
+	private char estatus;
+	private Set<RetiroTraslado> retiroTraslados = new HashSet<RetiroTraslado>(0);
 	private Set<TallaPorJugador> tallaPorJugadors = new HashSet<TallaPorJugador>(
 			0);
 	private Set<FamiliarJugador> familiarJugadors = new HashSet<FamiliarJugador>(
@@ -52,15 +53,17 @@ public class Jugador implements java.io.Serializable {
 	public Jugador() {
 	}
 
-	public Jugador(Persona persona) {
-		this.persona = persona;
+	public Jugador(PersonaNatural personaNatural, char estatus) {
+		this.personaNatural = personaNatural;
+		this.estatus = estatus;
 	}
 
 	public Jugador(DatoBasico datoBasicoByCodigoPais,
-			DatoBasico datoBasicoByCodigoParroquiaNacimiento, Persona persona,
-			Integer numero, String tipoDeSangre, Double peso, Double altura,
-			String brazoLanzar, String posicionBateo,
-			RetiroTraslado retiroTraslado,
+			DatoBasico datoBasicoByCodigoParroquiaNacimiento,
+			PersonaNatural personaNatural, Integer numero, String tipoDeSangre,
+			Double peso, Double altura, String brazoLanzar,
+			String posicionBateo, char estatus,
+			Set<RetiroTraslado> retiroTraslados,
 			Set<TallaPorJugador> tallaPorJugadors,
 			Set<FamiliarJugador> familiarJugadors, Set<DatoMedico> datoMedicos,
 			Set<DatoConducta> datoConductas, Set<DatoAcademico> datoAcademicos,
@@ -69,14 +72,15 @@ public class Jugador implements java.io.Serializable {
 			Set<DatoDeportivo> datoDeportivos) {
 		this.datoBasicoByCodigoPais = datoBasicoByCodigoPais;
 		this.datoBasicoByCodigoParroquiaNacimiento = datoBasicoByCodigoParroquiaNacimiento;
-		this.persona = persona;
+		this.personaNatural = personaNatural;
 		this.numero = numero;
 		this.tipoDeSangre = tipoDeSangre;
 		this.peso = peso;
 		this.altura = altura;
 		this.brazoLanzar = brazoLanzar;
 		this.posicionBateo = posicionBateo;
-		this.retiroTraslado = retiroTraslado;
+		this.estatus = estatus;
+		this.retiroTraslados = retiroTraslados;
 		this.tallaPorJugadors = tallaPorJugadors;
 		this.familiarJugadors = familiarJugadors;
 		this.datoMedicos = datoMedicos;
@@ -88,7 +92,7 @@ public class Jugador implements java.io.Serializable {
 		this.datoDeportivos = datoDeportivos;
 	}
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "persona"))
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "personaNatural"))
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "cedula_rif", unique = true, nullable = false)
@@ -123,12 +127,12 @@ public class Jugador implements java.io.Serializable {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
-	public Persona getPersona() {
-		return this.persona;
+	public PersonaNatural getPersonaNatural() {
+		return this.personaNatural;
 	}
 
-	public void setPersona(Persona persona) {
-		this.persona = persona;
+	public void setPersonaNatural(PersonaNatural personaNatural) {
+		this.personaNatural = personaNatural;
 	}
 
 	@Column(name = "numero")
@@ -185,13 +189,22 @@ public class Jugador implements java.io.Serializable {
 		this.posicionBateo = posicionBateo;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "jugador")
-	public RetiroTraslado getRetiroTraslado() {
-		return this.retiroTraslado;
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
 	}
 
-	public void setRetiroTraslado(RetiroTraslado retiroTraslado) {
-		this.retiroTraslado = retiroTraslado;
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "jugador")
+	public Set<RetiroTraslado> getRetiroTraslados() {
+		return this.retiroTraslados;
+	}
+
+	public void setRetiroTraslados(Set<RetiroTraslado> retiroTraslados) {
+		this.retiroTraslados = retiroTraslados;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "jugador")

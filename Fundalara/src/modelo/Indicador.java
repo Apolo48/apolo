@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +22,8 @@ public class Indicador implements java.io.Serializable {
 
 	private int codigoIndicador;
 	private DatoBasico datoBasicoByCodigoModalidad;
-	private DatoBasico datoBasicoByCodigoTipo;
+	private DatoBasico datoBasicoByCodigoTipoIndicador;
+	private DatoBasico datoBasicoByCodigoMedicion;
 	private String nombre;
 	private String abreviatura;
 	private char estatus;
@@ -34,11 +35,13 @@ public class Indicador implements java.io.Serializable {
 
 	public Indicador(int codigoIndicador,
 			DatoBasico datoBasicoByCodigoModalidad,
-			DatoBasico datoBasicoByCodigoTipo, String nombre,
+			DatoBasico datoBasicoByCodigoTipoIndicador,
+			DatoBasico datoBasicoByCodigoMedicion, String nombre,
 			String abreviatura, char estatus) {
 		this.codigoIndicador = codigoIndicador;
 		this.datoBasicoByCodigoModalidad = datoBasicoByCodigoModalidad;
-		this.datoBasicoByCodigoTipo = datoBasicoByCodigoTipo;
+		this.datoBasicoByCodigoTipoIndicador = datoBasicoByCodigoTipoIndicador;
+		this.datoBasicoByCodigoMedicion = datoBasicoByCodigoMedicion;
 		this.nombre = nombre;
 		this.abreviatura = abreviatura;
 		this.estatus = estatus;
@@ -46,12 +49,14 @@ public class Indicador implements java.io.Serializable {
 
 	public Indicador(int codigoIndicador,
 			DatoBasico datoBasicoByCodigoModalidad,
-			DatoBasico datoBasicoByCodigoTipo, String nombre,
+			DatoBasico datoBasicoByCodigoTipoIndicador,
+			DatoBasico datoBasicoByCodigoMedicion, String nombre,
 			String abreviatura, char estatus,
 			Set<IndicadorCategoriaCompetencia> indicadorCategoriaCompetencias) {
 		this.codigoIndicador = codigoIndicador;
 		this.datoBasicoByCodigoModalidad = datoBasicoByCodigoModalidad;
-		this.datoBasicoByCodigoTipo = datoBasicoByCodigoTipo;
+		this.datoBasicoByCodigoTipoIndicador = datoBasicoByCodigoTipoIndicador;
+		this.datoBasicoByCodigoMedicion = datoBasicoByCodigoMedicion;
 		this.nombre = nombre;
 		this.abreviatura = abreviatura;
 		this.estatus = estatus;
@@ -80,13 +85,25 @@ public class Indicador implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_tipo", nullable = false)
-	public DatoBasico getDatoBasicoByCodigoTipo() {
-		return this.datoBasicoByCodigoTipo;
+	@JoinColumn(name = "codigo_tipo_indicador", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoTipoIndicador() {
+		return this.datoBasicoByCodigoTipoIndicador;
 	}
 
-	public void setDatoBasicoByCodigoTipo(DatoBasico datoBasicoByCodigoTipo) {
-		this.datoBasicoByCodigoTipo = datoBasicoByCodigoTipo;
+	public void setDatoBasicoByCodigoTipoIndicador(
+			DatoBasico datoBasicoByCodigoTipoIndicador) {
+		this.datoBasicoByCodigoTipoIndicador = datoBasicoByCodigoTipoIndicador;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_medicion", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoMedicion() {
+		return this.datoBasicoByCodigoMedicion;
+	}
+
+	public void setDatoBasicoByCodigoMedicion(
+			DatoBasico datoBasicoByCodigoMedicion) {
+		this.datoBasicoByCodigoMedicion = datoBasicoByCodigoMedicion;
 	}
 
 	@Column(name = "nombre", nullable = false)

@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 06-ene-2012 23:13:53 by Hibernate Tools 3.4.0.CR1
+// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -35,7 +35,6 @@ public class Persona implements java.io.Serializable {
 	private Date fechaEgreso;
 	private char estatus;
 	private PersonaJuridica personaJuridica;
-	private Jugador jugador;
 	private Set<EquipoCompetencia> equipoCompetencias = new HashSet<EquipoCompetencia>(
 			0);
 	private Set<DocumentoAcreedor> documentoAcreedorsForCedulaAtleta = new HashSet<DocumentoAcreedor>(
@@ -43,7 +42,6 @@ public class Persona implements java.io.Serializable {
 	private Set<CuentaPagar> cuentaPagars = new HashSet<CuentaPagar>(0);
 	private Set<DocumentoAcreedor> documentoAcreedorsForCedulaRif = new HashSet<DocumentoAcreedor>(
 			0);
-	private Familiar familiar;
 	private PersonaNatural personaNatural;
 
 	public Persona() {
@@ -62,11 +60,11 @@ public class Persona implements java.io.Serializable {
 			String telefonoHabitacion, Date fechaIngreso,
 			String correoElectronico, String twitter, String direccion,
 			Date fechaEgreso, char estatus, PersonaJuridica personaJuridica,
-			Jugador jugador, Set<EquipoCompetencia> equipoCompetencias,
+			Set<EquipoCompetencia> equipoCompetencias,
 			Set<DocumentoAcreedor> documentoAcreedorsForCedulaAtleta,
 			Set<CuentaPagar> cuentaPagars,
 			Set<DocumentoAcreedor> documentoAcreedorsForCedulaRif,
-			Familiar familiar, PersonaNatural personaNatural) {
+			PersonaNatural personaNatural) {
 		this.cedulaRif = cedulaRif;
 		this.datoBasicoByCodigoParroquia = datoBasicoByCodigoParroquia;
 		this.datoBasicoByCodigoTipoPersona = datoBasicoByCodigoTipoPersona;
@@ -78,12 +76,10 @@ public class Persona implements java.io.Serializable {
 		this.fechaEgreso = fechaEgreso;
 		this.estatus = estatus;
 		this.personaJuridica = personaJuridica;
-		this.jugador = jugador;
 		this.equipoCompetencias = equipoCompetencias;
 		this.documentoAcreedorsForCedulaAtleta = documentoAcreedorsForCedulaAtleta;
 		this.cuentaPagars = cuentaPagars;
 		this.documentoAcreedorsForCedulaRif = documentoAcreedorsForCedulaRif;
-		this.familiar = familiar;
 		this.personaNatural = personaNatural;
 	}
 
@@ -193,15 +189,6 @@ public class Persona implements java.io.Serializable {
 		this.personaJuridica = personaJuridica;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "persona")
-	public Jugador getJugador() {
-		return this.jugador;
-	}
-
-	public void setJugador(Jugador jugador) {
-		this.jugador = jugador;
-	}
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
 	public Set<EquipoCompetencia> getEquipoCompetencias() {
 		return this.equipoCompetencias;
@@ -238,15 +225,6 @@ public class Persona implements java.io.Serializable {
 	public void setDocumentoAcreedorsForCedulaRif(
 			Set<DocumentoAcreedor> documentoAcreedorsForCedulaRif) {
 		this.documentoAcreedorsForCedulaRif = documentoAcreedorsForCedulaRif;
-	}
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "persona")
-	public Familiar getFamiliar() {
-		return this.familiar;
-	}
-
-	public void setFamiliar(Familiar familiar) {
-		this.familiar = familiar;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "persona")
