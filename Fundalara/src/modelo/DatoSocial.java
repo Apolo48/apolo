@@ -1,14 +1,16 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 30-dic-2011 0:38:42 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,6 +20,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "dato_social", schema = "public")
+@SequenceGenerator(name = "datoSocial_seq", sequenceName = "dato_social_codigo_dato_social_seq_1")
 public class DatoSocial implements java.io.Serializable {
 
 	private int codigoDatoSocial;
@@ -25,8 +28,8 @@ public class DatoSocial implements java.io.Serializable {
 	private Institucion institucion;
 	private Jugador jugador;
 	private Integer horasDedicadas;
-	private Date fechaInicio;
 	private char estatus;
+	private Date fechaInicio;
 
 	public DatoSocial() {
 	}
@@ -42,18 +45,19 @@ public class DatoSocial implements java.io.Serializable {
 
 	public DatoSocial(int codigoDatoSocial, DatoBasico datoBasico,
 			Institucion institucion, Jugador jugador, Integer horasDedicadas,
-			Date fechaInicio, char estatus) {
+			char estatus, Date fechaInicio) {
 		this.codigoDatoSocial = codigoDatoSocial;
 		this.datoBasico = datoBasico;
 		this.institucion = institucion;
 		this.jugador = jugador;
 		this.horasDedicadas = horasDedicadas;
-		this.fechaInicio = fechaInicio;
 		this.estatus = estatus;
+		this.fechaInicio = fechaInicio;
 	}
 
 	@Id
 	@Column(name = "codigo_dato_social", unique = true, nullable = false)
+	@GeneratedValue(generator = "datoSocial_seq")
 	public int getCodigoDatoSocial() {
 		return this.codigoDatoSocial;
 	}
@@ -101,6 +105,15 @@ public class DatoSocial implements java.io.Serializable {
 		this.horasDedicadas = horasDedicadas;
 	}
 
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
+	}
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_inicio", length = 13)
 	public Date getFechaInicio() {
@@ -109,15 +122,6 @@ public class DatoSocial implements java.io.Serializable {
 
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
-	}
-
-	@Column(name = "estatus", nullable = false, length = 1)
-	public char getEstatus() {
-		return this.estatus;
-	}
-
-	public void setEstatus(char estatus) {
-		this.estatus = estatus;
 	}
 
 }
