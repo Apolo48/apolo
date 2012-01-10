@@ -1,5 +1,6 @@
 package dao.general;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import modelo.AfeccionJugador;
@@ -20,7 +21,7 @@ import dao.generico.GenericDao;
  * 
  * @author Robert A
  * @author German L
- * @version 0.1 02/01/2012
+ * @version 0.1  10/01/2012
  * 
  */
 public class DaoDatoSocial extends GenericDao {
@@ -52,11 +53,12 @@ public class DaoDatoSocial extends GenericDao {
 	 *            jugador asociado a los datos  sociales a actualizar
 	 */
 
-	public void actualizar(List<DatoSocial> datosS, Jugador jugador) {
+	public void actualizar( List<DatoSocial> datosSoc, Jugador jugador) {
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
 		int p = 0;
-		List<DatoSocial> datos = datosS;
+		 List<DatoSocial> datos= new ArrayList<DatoSocial>();
+		 datos.addAll(datosSoc);
 		Criteria c = sesion.createCriteria(DatoSocial.class)
 				.createCriteria("jugador")
 				.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));

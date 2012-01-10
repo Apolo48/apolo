@@ -1,5 +1,6 @@
 package dao.general;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -9,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 
 import modelo.AfeccionJugador;
 import modelo.DatoMedico;
+import modelo.DatoSocial;
 
 import dao.generico.GenericDao;
 
@@ -18,7 +20,7 @@ import dao.generico.GenericDao;
  * 
  * @author Robert A
  * @author German L
- * @version 0.1.2 07/01/2011
+ * @version 0.1.2 10/01/2011
  * 
  */
 public class DaoAfeccionJugador extends GenericDao {
@@ -43,17 +45,18 @@ public class DaoAfeccionJugador extends GenericDao {
 	 * @param afecciones lista de afecciones a actualizar 
 	 * @param datoMedico dato medico asociado a las  afeciones almacenadas a actualizar
 	 */
-	public void actualizar(List<AfeccionJugador> afecciones,
+	public void actualizar(List<AfeccionJugador> afeccionesJug,
 			DatoMedico datoMedico) {
 		int codigoDatoMedico = datoMedico.getCodigoDatoMedico();
 		int p = 0;
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
+		List<AfeccionJugador> afecciones= new ArrayList<AfeccionJugador>();
+		 afecciones.addAll(afeccionesJug);
 		Criteria c = sesion.createCriteria(AfeccionJugador.class)
 				.createCriteria("datoMedico")
 				.add(Restrictions.eq("codigoDatoMedico", codigoDatoMedico));
-		List<AfeccionJugador> afeccionesAlmacenadas = (List<AfeccionJugador>) c
-				.list();
+		List<AfeccionJugador> afeccionesAlmacenadas = (List<AfeccionJugador>) c.list();
 		for (AfeccionJugador afeccionAlmacenada : afeccionesAlmacenadas) {
 			p = buscarAfeccionPorCodigo(afecciones, afeccionAlmacenada
 					.getDatoBasico().getCodigoDatoBasico());
