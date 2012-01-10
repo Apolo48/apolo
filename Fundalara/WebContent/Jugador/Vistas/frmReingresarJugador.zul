@@ -1,6 +1,6 @@
 <?page title="Reingresar Jugador"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"   root="winReingresoJugador"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"  root="winReingresoJugador"?>
 <zk>
 <zscript><![CDATA[
 	//@IMPORT
@@ -56,6 +56,8 @@
 												value="@{controller.jugadorBean.secuencia}" />
 											<label value="(*)"
 												style="color:red" />
+											<button id="btnCatalogoJugador"
+												image="../../Recursos/Imagenes/consultar.ico" />
 										</div>
 									</row>
 									<row style="border:none;">

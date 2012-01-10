@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
@@ -89,6 +92,7 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 	private Button btnDesp;
 	private Button btnVistaPrevia;
 	private Button btnFoto;
+	private Button btnCatalogoJugador;
 	private Button btnCatalogoMedico;
 	private Button btnAgregarAfeccion;
 	private Button btnEliminarAfeccion;
@@ -135,6 +139,7 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 	private Listbox listDocPersonales;
 	private Listbox listDocMedicos;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
+	private Component formulario;
 
 	// Servicios
 	private ServicioDatoBasico servicioDatoBasico;
@@ -219,12 +224,12 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
+		formulario = comp;//se guarda la referencia al formulario actual
 		this.tipoInscripcion = (DatoBasico) requestScope.get("tipoInscripcion");
 		camposPerfil = new InputElement[] { cmbNacionalidad, txtCedula,
 				txtPrimerNombre, txtPrimerApellido, cmbGenero };
 		aplicarConstraints();
 		//inicializarCheckPoints();
-
 	}
 
 	// Getters y setters
@@ -680,6 +685,26 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 	}
 
 	// Eventos
+	public void onClick$btnCatalogoJugador() {
+		//se crea el catalogo y se llama
+		Component catalogo = Executions.createComponents("/Jugador/Vistas/frmBuscarJugador.zul", null, null);
+		
+		//asigna una referencia del formulario al catalogo.
+		catalogo.setVariable("formulario",formulario, false);
+		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+			@Override
+			//Este metodo se llama cuando se envia la señal desde el catalogo
+			public void onEvent(Event arg0) throws Exception {
+			//se obtiene el jugador
+			 jugador = (Jugador) formulario.getVariable("jugador",false);
+			 txtPrimerNombre.setValue(jugador.getPersonaNatural().getPrimerApellido());
+			//binder.loadAll();				
+						}
+			});	
+		
+		//new Util().crearVentana("Jugador/Vistas/frmBuscarJugador.zul", null, null);
+	}
+	
 	public void onClick$btnCatalogoMedico() {
 		/*
 		 * * Codigo TEMPORAL hasta tener un catalogo
