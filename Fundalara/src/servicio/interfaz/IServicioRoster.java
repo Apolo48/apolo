@@ -18,4 +18,6 @@ public interface IServicioRoster {
 	public List<Object> buscarCategoria(String ced);
 	
 	public List<Jugador> buscarJugadores(Equipo equipo, String filtro2, String filtro3, String filtro4, String filtro1);
+	
+	public abstract int obtenerUltimoId();
 }

@@ -60,4 +60,9 @@ public class ServicioRoster implements IServicioRoster {
 		return jugad;
 	}
 
+	
+	@Override
+	public int obtenerUltimoId() {
+		return daoRoster.obtenerUltimoId();
+	}
 }

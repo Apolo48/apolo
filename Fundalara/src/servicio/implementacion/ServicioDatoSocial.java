@@ -6,6 +6,7 @@ import servicio.interfaz.IServicioDatoSocial;
 
 import dao.general.DaoDatoSocial;
 import modelo.DatoSocial;
+import modelo.Jugador;
 
 /**
  * Clase para brindar los servicios para manejar los datos relacionados con los datos sociales de los jugadores
@@ -47,6 +48,10 @@ public class ServicioDatoSocial implements IServicioDatoSocial {
 	public void actualizar(DatoSocial c) {
 		daoDatoSocial.actualizar(c);
 
+	}
+	
+	public void actualizar(List<DatoSocial> datos, Jugador jugador){
+		daoDatoSocial.actualizar(datos, jugador);
 	}
 
 	@Override

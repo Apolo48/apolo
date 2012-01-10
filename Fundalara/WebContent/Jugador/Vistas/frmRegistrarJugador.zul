@@ -970,6 +970,7 @@
 																<combobox
 																	id="cmbEquipo" readonly="true" value="--Seleccione--"
 																	width="65%" selectedItem="@{controller.equipo}"
+																	constraint="no empty"
 																	model="@{winRegistroJugador$composer.equipos, load-after='cmbCategoria.onChange'}">
 																	<comboitem
 																		self="@{each='equipo'}" label="@{equipo.nombre}" />

@@ -130,6 +130,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Combobox cmbCurso;
 	private Combobox cmbAnnioEscolar;
 	private Combobox cmbInstitucionEducativa;
+	private Combobox cmbEquipo;
 	private Label lblSeparador;
 	private Listbox listAfeccionesActuales;
 	private Listbox listActividadesSociales;
@@ -189,6 +190,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private List<DatoBasico> afeccionesJugador = new ArrayList<DatoBasico>();
 	private DatoAcademico datoAcademico = new DatoAcademico();
 	private DatoSocial datoSocial = new DatoSocial();
+	private Roster roster = new Roster();
 	private List<DatoSocial> datoSociales = new ArrayList<DatoSocial>();
 	private Persona persona = new Persona();
 	private PersonaNatural personaN = new PersonaNatural();
@@ -209,7 +211,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 * Enumerado de los puntos/secciones del registro del jugador
 	 */
 	private enum Point {
-		JUGADOR, DATO_MEDICO, DATO_ACADEMICO, DATO_SOCIAL
+		JUGADOR, DATO_MEDICO, DATO_ACADEMICO, DATO_SOCIAL, ROSTER
 	};
 
 	/**
@@ -867,6 +869,10 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					cmbAnnioEscolar, cmbCurso }, false)) {
 				guardarDatoAcademico();
 			}
+			if (verificarCampos(new InputElement[] { cmbEquipo }, false)) {
+				guardarRoster();
+			}
+			guardarDatoSocial();
 			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
 					Mensaje.EXITO, Messagebox.EXCLAMATION);
 		}
@@ -985,6 +991,34 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			datoAcademico.setCodigoAcademico(servicioDatoAcademico
 					.obtenerUltimoId());
 			checkPoints.put(Point.DATO_ACADEMICO, true);
+		}
+	}
+
+	private void guardarRoster() {
+		roster.setEquipo(equipo);
+		if (checkPoints.get(Point.ROSTER)) {
+			servicioRoster.actualizar(roster);
+		} else {
+			roster.setJugador(jugador);
+			roster.setFechaIngreso(new Date());
+			roster.setEstatus('A');
+			servicioRoster.agregar(roster);
+			roster.setCodigoRoster(servicioRoster.obtenerUltimoId());
+			checkPoints.put(Point.ROSTER, true);
+		}
+	}
+
+	private void guardarDatoSocial() {
+		for (int i = 0; i < datoSociales.size(); i++) {
+			datoSociales.get(i).setJugador(jugador);
+		}
+		if (checkPoints.get(Point.DATO_SOCIAL)) {
+			servicioDatoSocial.actualizar(datoSociales, jugador);
+		} else {
+			if (!datoSociales.isEmpty()) {
+				servicioDatoSocial.agregar(datoSociales);
+				checkPoints.put(Point.DATO_SOCIAL, true);
+			}
 		}
 	}
 
@@ -1298,5 +1332,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		checkPoints.put(Point.DATO_MEDICO, false);
 		checkPoints.put(Point.DATO_ACADEMICO, false);
 		checkPoints.put(Point.DATO_SOCIAL, false);
+		checkPoints.put(Point.ROSTER, false);
 	}
 }
