@@ -30,7 +30,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class DaoRoster extends GenericDao {
 	public static String SECUENCIA ="roster_codigo_roster_seq1";
-	
+
 	public List<Object> buscarCategoria(String ced) {
 		Session session = getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
@@ -63,7 +63,7 @@ public class DaoRoster extends GenericDao {
 		if (filtro1 != "") {
 			c.add(Restrictions.eq("numero", Integer.valueOf(filtro1)));
 		}
-		c.createCriteria("persona").createCriteria("personaNatural")
+		c.createCriteria("personaNatural")
 				.add(Restrictions.like("primerNombre", filtro3 + "%"))
 				.add(Restrictions.like("primerApellido", filtro4 + "%"))
 				.add(Restrictions.eq("estatus", 'A'));
@@ -71,8 +71,6 @@ public class DaoRoster extends GenericDao {
 		return lista;
 	}
 	
-
-
 	/**
 	 * Busca el ultimo valor de la clave primaria de la tabla Roster
 	 * 
@@ -87,5 +85,20 @@ public class DaoRoster extends GenericDao {
 		tx.commit();
 
 		return id;
+	}
+	
+	/**
+	 * Busca el registro del roster al que pertenece un jugador
+	 * 
+	 * @param Nro de Cédula del jugador
+	 * @return Un objeto Roster sino null
+	 */
+	public Roster buscarRoster(String ced) {
+		Session session = this.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(Roster.class)
+				.add(Restrictions.eq("jugador.cedulaRif", ced))
+				.add(Restrictions.eq("estatus", 'A'));
+		return (Roster) c.uniqueResult();
 	}
 }

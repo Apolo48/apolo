@@ -16,9 +16,9 @@ public class TrasladarJugadorCtrl extends GenericForwardComposer {
 		String valor = cmbTipoTraslado.getSelectedItem().getValue().toString();
 		Util enlace = new Util();
 		if (valor.equals("1")) {
-			src = "Jugador/Vistas/retirarJugador.zul";
+			src = "Jugador/Vistas/frmRetirarJugador.zul";
 		} else {
-			src = "Jugador/Vistas/registrarPase.zul";
+			src = "Jugador/Vistas/frmRegistrarPase.zul";
 		}
 		enlace.insertarContenido(incCuerpo, src);
 	}

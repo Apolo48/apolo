@@ -49,7 +49,6 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 	Textbox filter1;
 	Textbox filter3;
 	Textbox filter4;
-	Button btnBuscar;
 	Listbox listEquipo;
 
 	Component catalogo;
@@ -57,6 +56,26 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 
 	Combobox cmbEquipo, cmbCategoria;
 
+	public void onChanging$filter2(){
+		binder.loadAll();
+		
+	}
+	
+	public void onChanging$filter1(){
+		binder.loadAll();
+		
+	}
+	
+	public void onChanging$filter3(){
+		binder.loadAll();
+		
+	}
+	
+	public void onChanging$filter4(){
+		binder.loadAll();
+		
+	}
+	
 	@Override
 	public void doAfterCompose(Component c) throws Exception {
 		super.doAfterCompose(c);
@@ -64,48 +83,41 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 		// se guarda la referencia al catalogo
 		catalogo = c;
 		cmbEquipo.setDisabled(true);
-		btnBuscar.setDisabled(true);
+		
 	}
 
 	public void onSelect$cmbCategoria() {
 		cmbEquipo.setDisabled(false);
 		cmbEquipo.getItems().clear();
 		cmbEquipo.setValue("--Seleccione--");
-		btnBuscar.setDisabled(true);
 	}
 
-	public void onSelect$cmbEquipo() {
-		btnBuscar.setDisabled(false);
+	
+	public void onClick$btnSeleccionar() throws InterruptedException{
+		//Se comprueba que se haya seleccionado un elemento de la lista
 
-	}
-
-	public void onSelect$listEquipo() throws InterruptedException {
-		// Se comprueba que se haya seleccionado un elemento de la lista
 		if (listEquipo.getSelectedIndex() != -1) {
-			// se obtiene la divisa seleccionada
-			//Jugador d = Jugadores.get(listEquipo.getSelectedIndex());
-			Jugador d = (Jugador)listEquipo.getSelectedItem().getValue();
-			// se obtiene la referencia del formulario
-			Component formulario = (Component) catalogo.getVariable(
-					"formulario", false);
-			// se le asigna el objeto divisa al formulario
-			formulario.setVariable("jugador", d, false);
-			// se le envia una señal al formulario indicado que el formulario
-			// se cerro y que los datos se han enviado
-			Events.sendEvent(new Event("onCatalogoCerrado", formulario));
-			// se cierra el catalogo
+			//se obtiene la divisa seleccionada
+			Jugador d = (Jugador) listEquipo.getSelectedItem().getValue();
+			//se obtiene la referencia del formulario
+			Component formulario = (Component) catalogo.getVariable("formulario",false);
+	        //se le asigna el objeto divisa al formulario
+			formulario.setVariable("jugador", d,false);
+			//se le envia una señal al formulario indicado que el formulario se cerro y que los datos se han enviado
+			Events.sendEvent(new Event("onCatalogoCerrado",formulario));          
+			//se cierra el catalogo
 			catalogo.detach();
-
+			
 		} else {
 			Messagebox.show("Seleccione un Jugador", "Mensaje", Messagebox.YES,
 					Messagebox.INFORMATION);
+
 		}
-	}
+		
+		}
 
-	public void onClick$btnBuscar() {
-		binder.loadAll();
-	}
-
+	
+	
 	public Equipo getEquipo() {
 		return equipo;
 	}

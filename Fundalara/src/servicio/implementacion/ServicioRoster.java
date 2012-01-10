@@ -65,4 +65,9 @@ public class ServicioRoster implements IServicioRoster {
 	public int obtenerUltimoId() {
 		return daoRoster.obtenerUltimoId();
 	}
+	
+	@Override
+	public Roster buscarRoster(String ced) {
+		return daoRoster.buscarRoster(ced);
+	}
 }

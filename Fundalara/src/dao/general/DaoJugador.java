@@ -1,10 +1,13 @@
 package dao.general;
 
 import modelo.Jugador;
+import modelo.Persona;
 import modelo.PersonaNatural;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import dao.generico.GenericDao;
 
@@ -31,7 +34,6 @@ public class DaoJugador extends GenericDao {
 		session.save(c.getPersonaNatural());
 		session.save(c);
 		tx.commit();	
-		
 	}
 	
 	
@@ -47,8 +49,30 @@ public class DaoJugador extends GenericDao {
 		session.saveOrUpdate(c.getPersonaNatural());
 		session.saveOrUpdate(c);
 		tx.commit();	
-		
-		
 	}
 
+	 /**
+	 * @param jugador
+	 * El jugador que desea retirarse
+	 */
+	public void retirar(Jugador jugador) {		
+			Session session = getSession();
+			Transaction tx =  session.beginTransaction();
+			
+			Criteria c = session.createCriteria(PersonaNatural.class)
+			.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));
+	
+			PersonaNatural personaN = (PersonaNatural) c.uniqueResult();
+			personaN.setEstatus('E');
+			session.update(personaN);
+			
+			Criteria c2 = session.createCriteria(Persona.class)
+			.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));
+	
+			Persona persona = (Persona) c2.uniqueResult();
+			persona.setEstatus('E');
+			session.update(persona);
+			
+			tx.commit();	
+		}
 }

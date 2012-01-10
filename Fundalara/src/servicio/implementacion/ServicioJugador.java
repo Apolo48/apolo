@@ -55,5 +55,9 @@ public class ServicioJugador implements IServicioJugador {
 	public List<Jugador> listar() {
 		return daoJugador.listar( Jugador.class);
 	}
+	
+	public void retirarJugador(Jugador jugador) {
+		daoJugador.retirar(jugador);
+	}
 
 }
