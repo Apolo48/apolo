@@ -127,6 +127,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Combobox cmbProfesion;
 	private Combobox cmbComisiones;
 	private Combobox cmbCategoria;
+	private Combobox cmbCurso;
+	private Combobox cmbAnnioEscolar;
+	private Combobox cmbInstitucionEducativa;
 	private Label lblSeparador;
 	private Listbox listAfeccionesActuales;
 	private Listbox listActividadesSociales;
@@ -206,7 +209,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 * Enumerado de los puntos/secciones del registro del jugador
 	 */
 	private enum Point {
-		JUGADOR, DATO_MEDICO, DATO_ACADEMICO
+		JUGADOR, DATO_MEDICO, DATO_ACADEMICO, DATO_SOCIAL
 	};
 
 	/**
@@ -855,10 +858,14 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnGuardar() {
-		if (verificarCampos(camposPerfil,true)) {
+		if (verificarCampos(camposPerfil, true)) {
 			guardarJugador();
-			if(medico.getNumeroColegio()!=null){
+			if (medico.getNumeroColegio() != null) {
 				guardarDatoMedico();
+			}
+			if (verificarCampos(new InputElement[] { cmbInstitucionEducativa,
+					cmbAnnioEscolar, cmbCurso }, false)) {
+				guardarDatoAcademico();
 			}
 			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
 					Mensaje.EXITO, Messagebox.EXCLAMATION);
@@ -928,11 +935,12 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	}
 
-	private List<AfeccionJugador> guardarDatosAfeccionesToModelo(){
+	private List<AfeccionJugador> guardarDatosAfeccionesToModelo() {
 		List<AfeccionJugador> afeccionJugador = new ArrayList<AfeccionJugador>();
 		for (DatoBasico dato : afeccionesJugador) {
 			AfeccionJugador aj = new AfeccionJugador();
-			aj.setId(new AfeccionJugadorId(dato.getCodigoDatoBasico(),datoMedico.getCodigoDatoMedico()));
+			aj.setId(new AfeccionJugadorId(dato.getCodigoDatoBasico(),
+					datoMedico.getCodigoDatoMedico()));
 			aj.setDatoBasico(dato);
 			aj.setDatoMedico(datoMedico);
 			aj.setEstatus('A');
@@ -940,24 +948,43 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 		return afeccionJugador;
 	}
+
 	private void guardarDatoMedico() {
-		// 4. Datos Medicos
 		List<AfeccionJugador> afeccionJugador = new ArrayList<AfeccionJugador>();
 		datoMedico.setMedico(medico);
 		if (checkPoints.get(Point.DATO_MEDICO)) {
 			servicioDatoMedico.actualizar(datoMedico);
 			afeccionJugador = guardarDatosAfeccionesToModelo();
-			servicioAfeccionJugador.actualizar(afeccionJugador,datoMedico);
+			servicioAfeccionJugador.actualizar(afeccionJugador, datoMedico);
 		} else {
 			datoMedico.setJugador(jugador);
 			datoMedico.setEstatus('A');
 			servicioDatoMedico.agregar(datoMedico);
-			datoMedico.setCodigoDatoMedico(servicioDatoMedico.obtenerUltimoId());
+			datoMedico
+					.setCodigoDatoMedico(servicioDatoMedico.obtenerUltimoId());
 			afeccionJugador = guardarDatosAfeccionesToModelo();
 			if (!afeccionJugador.isEmpty()) {
 				servicioAfeccionJugador.agregar(afeccionJugador);
 			}
 			checkPoints.put(Point.DATO_MEDICO, true);
+		}
+	}
+
+	private void guardarDatoAcademico() {
+		/*
+		 * El resto de los datos (Institucion,annio escolar y curso) estan
+		 * asociados a los componentes en el zul
+		 */
+		if (checkPoints.get(Point.DATO_ACADEMICO)) {
+			servicioDatoAcademico.actualizar(datoAcademico);
+		} else {
+			datoAcademico.setFechaIngreso(new Date());
+			datoAcademico.setJugador(jugador);
+			datoAcademico.setEstatus('A');
+			servicioDatoAcademico.agregar(datoAcademico);
+			datoAcademico.setCodigoAcademico(servicioDatoAcademico
+					.obtenerUltimoId());
+			checkPoints.put(Point.DATO_ACADEMICO, true);
 		}
 	}
 
@@ -1204,10 +1231,13 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 * 
 	 * @param camposValidar
 	 *            arreglo de campos a validar
-	 * @param mostrarMensaje valor booleano para indicar si se debe mostar el mensaje de error en caso de presentarse
+	 * @param mostrarMensaje
+	 *            valor booleano para indicar si se debe mostar el mensaje de
+	 *            error en caso de presentarse
 	 * @return true si los campos son validos, en caso contrario false
 	 */
-	private boolean verificarCampos(InputElement[] camposValidar, boolean mostrarMensaje) {
+	private boolean verificarCampos(InputElement[] camposValidar,
+			boolean mostrarMensaje) {
 		List<InputElement> campos = Arrays.asList(camposValidar);
 		boolean flag = true;
 		InputElement componente = null;
@@ -1266,5 +1296,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		checkPoints = new EnumMap<Point, Boolean>(Point.class);
 		checkPoints.put(Point.JUGADOR, false);
 		checkPoints.put(Point.DATO_MEDICO, false);
+		checkPoints.put(Point.DATO_ACADEMICO, false);
+		checkPoints.put(Point.DATO_SOCIAL, false);
 	}
 }

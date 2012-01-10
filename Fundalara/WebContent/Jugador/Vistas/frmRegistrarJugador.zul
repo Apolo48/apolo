@@ -23,7 +23,7 @@
 					<rows>
 						<row style="border:none;">
 							<grid style="border:none;"
-								oddRowSclass="none" id="gridPerfil">
+								oddRowSclass="none" >
 								<columns>
 									<column width="22%" />
 									<column width="28%" />
@@ -729,10 +729,11 @@
 																value="Institución" />
 															<combobox
 																id="cmbInstitucionEducativa" width="90%"
+																constraint="no empty"
 																model="@{winRegistroJugador$composer.institucionesEducativas}"
-														 		selectedItem="@{controller.datoAcademico.institucion}"
+																selectedItem="@{controller.datoAcademico.institucion}"
 																readonly="true" value="--Seleccione--">
-																<comboitem 
+																<comboitem
 																	self="@{each='institucionE'}"
 																	label="@{institucionE.nombre}" />
 															</combobox>
@@ -744,6 +745,7 @@
 															<combobox
 																id="cmbAnnioEscolar" readonly="true"
 																model="@{winRegistroJugador$composer.annoEsc}"
+																constraint="no empty"
 																selectedItem="@{controller.datoAcademico.datoBasicoByCodigoAnnoEscolar}"
 																value="--Seleccione--" width="80%">
 																<comboitem
@@ -755,6 +757,7 @@
 															<combobox
 																id="cmbCurso"
 																model="@{winRegistroJugador$composer.cursos}"
+																constraint="no empty"
 																selectedItem="@{controller.datoAcademico.datoBasicoByCodigoCurso}"
 																readonly="true" value="--Seleccione--">
 																<comboitem
