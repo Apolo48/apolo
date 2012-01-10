@@ -50,7 +50,6 @@ public class DaoAfeccionJugador extends GenericDao {
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
 		Criteria c = sesion.createCriteria(AfeccionJugador.class)
-				.add(Restrictions.eq("estatus", 'A'))
 				.createCriteria("datoMedico")
 				.add(Restrictions.eq("codigoDatoMedico", codigoDatoMedico));
 		List<AfeccionJugador> afeccionesAlmacenadas = (List<AfeccionJugador>) c
@@ -67,6 +66,10 @@ public class DaoAfeccionJugador extends GenericDao {
 				 * caso no hay valores que puedan ser act., asi que se omite este
 				 * paso
 				 */
+				if (afeccionAlmacenada.getEstatus()=='E'){
+					afeccionAlmacenada.setEstatus('A');
+					sesion.update(afeccionAlmacenada);
+				}
 				afecciones.remove(p);
 			}
 		}
