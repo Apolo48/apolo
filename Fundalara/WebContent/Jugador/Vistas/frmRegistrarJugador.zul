@@ -862,6 +862,7 @@
 																value="Fecha inicio" />
 															<datebox
 															value="@{controller.datoSocial.fechaInicio}"
+															constraint="no future"
 																id="dtboxFechaInicioActividad" format="dd/MM/yyyy"
 																style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 														</row>
@@ -918,9 +919,6 @@
 															<button
 																id="btnAgregarActividad"
 																image="../../Recursos/Imagenes/agregar.ico" />
-															<button
-																id="btnModificarActividad"
-																image="../../Recursos/Imagenes/editar.ico" />
 															<button
 																id="btnEliminarActividad"
 																image="../../Recursos/Imagenes/quitar.ico" />

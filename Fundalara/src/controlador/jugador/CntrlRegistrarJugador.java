@@ -1257,6 +1257,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		Categoria cat = servicioCategoria.buscarPorEdad(txtEdad.getValue());
 		categoria = cat;
 		binder.loadComponent(cmbCategoria);
+		
 	}
 
 	/**
