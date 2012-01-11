@@ -7,12 +7,12 @@ import servicio.interfaz.IServicioAscenso;
 import dao.general.DaoAscenso;
 
 import modelo.Ascenso;
+import modelo.Roster;
 
 public class ServicioAscenso implements IServicioAscenso {
-	
+
 	DaoAscenso daoAscenso;
-	
-	
+
 	public DaoAscenso getDaoAscenso() {
 		return daoAscenso;
 	}
@@ -42,6 +42,11 @@ public class ServicioAscenso implements IServicioAscenso {
 	@Override
 	public List<Ascenso> listar() {
 		return daoAscenso.listar(Ascenso.class);
+	}
+
+	@Override
+	public void actualizarAscenso(Roster r) {
+		daoAscenso.actualizar(r);
 	}
 
 }

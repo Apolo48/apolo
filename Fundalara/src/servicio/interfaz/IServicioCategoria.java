@@ -1,4 +1,5 @@
 package servicio.interfaz;
+
 import java.util.List;
 
 import modelo.Categoria;
@@ -21,4 +22,6 @@ public interface IServicioCategoria {
 	public abstract List<Categoria> listar();
 	
 	public abstract Categoria buscarPorEdad(int edad);
+	
+	public abstract List<Categoria> buscarCategorias(int edad);
 }

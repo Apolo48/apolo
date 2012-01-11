@@ -248,7 +248,7 @@
 											<treerow>
 												<treecell
 													label="Ascender de Categoría"
-													onClick='enlace("Jugador/Vistas/ascenderJugador.zul")' />
+													onClick='enlace("Jugador/Vistas/frmAscenderJugador.zul")' />
 											</treerow>
 										</treeitem>
 										<treeitem open="false">

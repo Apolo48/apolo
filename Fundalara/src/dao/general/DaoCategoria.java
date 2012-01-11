@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import modelo.Categoria;
+import java.util.List;
 import dao.generico.GenericDao;
 
 /**
@@ -35,4 +36,22 @@ public class DaoCategoria extends GenericDao {
 				.add(Restrictions.eq("estatus", 'A'));
 		return (Categoria) c.uniqueResult();
 	}
+	
+	/**
+	 * Busca las categorias superiores a la que le corresponde a un jugador
+	 * 
+	 * @param edad
+	 *            del jugador
+	 * @return Lista de categorias superiores sino null
+	 */
+	public List<Categoria> buscarCategorias(int edad) {
+		Session session = this.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(Categoria.class)
+				.add(Restrictions.gt("edadInferior", edad))
+				.add(Restrictions.gt("edadSuperior", edad))
+				.add(Restrictions.eq("estatus", 'A'));
+		return c.list();
+	}
+
 }

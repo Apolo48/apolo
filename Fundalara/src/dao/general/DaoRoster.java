@@ -101,4 +101,5 @@ public class DaoRoster extends GenericDao {
 				.add(Restrictions.eq("estatus", 'A'));
 		return (Roster) c.uniqueResult();
 	}
+	
 }

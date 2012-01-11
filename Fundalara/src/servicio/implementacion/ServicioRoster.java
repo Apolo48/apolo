@@ -12,6 +12,7 @@ import modelo.Jugador;
 import modelo.Roster;
 
 public class ServicioRoster implements IServicioRoster {
+	
 	DaoRoster daoRoster;
 	
 	public DaoRoster getDaoRoster() {
@@ -25,19 +26,16 @@ public class ServicioRoster implements IServicioRoster {
 	@Override
 	public void eliminar(Roster c) {
 		daoRoster.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(Roster c) {
 		daoRoster.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(Roster c) {
 		daoRoster.actualizar(c);
-
 	}
 
 	@Override
@@ -59,7 +57,6 @@ public class ServicioRoster implements IServicioRoster {
 		}		
 		return jugad;
 	}
-
 	
 	@Override
 	public int obtenerUltimoId() {

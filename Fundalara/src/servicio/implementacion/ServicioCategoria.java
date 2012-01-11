@@ -29,19 +29,16 @@ public class ServicioCategoria implements IServicioCategoria {
 	@Override
 	public void eliminar(Categoria c) {
 		daoCategoria.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(Categoria c) {
 		daoCategoria.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(Categoria c) {
 		daoCategoria.actualizar(c);
-
 	}
 
 	@Override
@@ -49,10 +46,14 @@ public class ServicioCategoria implements IServicioCategoria {
 		return daoCategoria.listar(Categoria.class);
 	}
 	
-@Override
+	@Override
 	public Categoria buscarPorEdad(int edad) {
-		
 		return daoCategoria.buscarPorEdad(edad);
+	}
+	
+	@Override
+	public List<Categoria> buscarCategorias(int edad){
+		return daoCategoria.buscarCategorias(edad);
 	}
 
 }

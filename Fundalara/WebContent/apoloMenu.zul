@@ -307,21 +307,8 @@
 										</treeitem>
 										<treeitem open="true">
 											<treerow>
-												<treecell label="Ascender de Categoría"/>
+												<treecell label="Ascender de Categoría" onClick='enlace("Jugador/Vistas/frmAscenderJugador.zul")'/>
 											</treerow>
-											<!--  <treechildren>
-												<treeitem>
-													<treerow>
-														<treecell label="Edad" onClick='enlace("Jugador/Vistas/ascensoCategoria.zul")'/>
-													</treerow>
-												</treeitem>
-												<treeitem>
-													<treerow>
-														<treecell label="Especial" onClick='enlace("Jugador/Vistas/ascensoEspecial.zul")'/>
-													</treerow>
-												</treeitem>
-											</treechildren>
-											 -->
 										</treeitem>
 										<treeitem open="false">
 											<treerow>
