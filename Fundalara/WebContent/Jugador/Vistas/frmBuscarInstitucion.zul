@@ -2,7 +2,7 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="win" ?> 
 <zk>
-	<window id="win" title="Buscador de Institución" border="normal"
+	<window id="win" title="Buscador de Institución" border="normal" mode="modal"
 		closable="true" width="290px" height="" apply="controlador.jugador.CntrlBuscarInstitucion">
 
 		<grid  style="border:none">

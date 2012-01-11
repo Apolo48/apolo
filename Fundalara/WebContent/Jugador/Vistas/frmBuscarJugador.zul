@@ -3,7 +3,7 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winBuscarjugador"?>
 
 <zk>
-	<window id="winBuscarjugador" title="Buscar Jugador" border="normal" width="500px"
+	<window id="winBuscarjugador" title="Buscar Jugador" border="normal" width="500px" mode="modal"
 		closable="true" apply="controlador.jugador.CntrlBuscarJugador">
 
 		<grid style="border:none">
@@ -19,7 +19,7 @@
 					<hbox>
 						<combobox value="--Seleccione--" width="90%" id="cmbEquipo" selectedItem="@{controller.equipo}"
 						 model="@{winBuscarjugador$composer.equipos, load-after='cmbCategoria.onChange'}">
-							<comboitem self="@{each='equipo'}" label="@{equipo.nombre}" value="@{equipo.codigoEquipo}"/>
+							<comboitem self="@{each='equipo'}" label="@{equipo.datoBasico.nombre}" value="@{equipo.codigoEquipo}"/>
 						</combobox>
 						
 					</hbox>

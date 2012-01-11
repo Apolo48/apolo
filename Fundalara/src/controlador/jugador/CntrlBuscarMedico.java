@@ -60,6 +60,7 @@ public class CntrlBuscarMedico extends GenericForwardComposer {
 		c.setVariable("controller", this, true);
 		//se guarda la referencia al catalogo
 		catalogo = c;
+		
 		medicos=servicioMedico.listar();
 		
 	}
@@ -72,6 +73,7 @@ public class CntrlBuscarMedico extends GenericForwardComposer {
 		Medico d = medicos.get(listmedico.getSelectedIndex());
 		//se obtiene la referencia del formulario
 		Component formulario = (Component) catalogo.getVariable("formulario",false);
+		
         //se le asigna el objeto divisa al formulario
 		formulario.setVariable("medico", d,false);
 		//se le envia una señal al formulario indicado que el formulario se cerro y que los datos se han enviado

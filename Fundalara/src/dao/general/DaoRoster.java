@@ -30,7 +30,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class DaoRoster extends GenericDao {
 	public static String SECUENCIA ="roster_codigo_roster_seq1";
-
+	
 	public List<Object> buscarCategoria(String ced) {
 		Session session = getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
@@ -50,7 +50,7 @@ public class DaoRoster extends GenericDao {
 		;
 		return arr;
 	}
-
+	
 	public List buscarJugadores(Equipo equipo, String filtro2, String filtro3,
 			String filtro4, String filtro1) {
 		Session session = getSession();

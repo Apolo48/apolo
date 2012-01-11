@@ -2,8 +2,9 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winConfigurarMedico"?>
 <zk>
-	<window id="winConfigurarMedico" title="Registro de Médico" border="normal" width="500px"
-		closable="true" apply="controlador.jugador.CntrlConfigurarMedico">
+	<window id="winConfigurarMedico" title="Registro de Médico"
+		border="normal" width="500px" closable="true"
+		apply="controlador.jugador.CntrlConfigurarMedico">
 		<space></space>
 		<grid style="border:none;" oddRowSclass="none">
 			<columns>
@@ -26,8 +27,8 @@
 								<row style="border:none;">
 									<label value="  Número Colegio" />
 									<div>
-										<textbox width="45%"
-											maxlength="5" value="@{controller.medico.numeroColegio}" />
+										<textbox id="txtNumcol" width="45%"
+											maxlength="5" value="@{controller.medico.numeroColegio}"/>
 										<button id="btnBuscar"
 											image="../../Recursos/Imagenes/consultar.ico" />
 									</div>
@@ -40,10 +41,10 @@
 								<row style="border:none;">
 									<label value="Especialidad" />
 									<div>
-										<combobox id="cmbEspecialidad" readonly="true"
-											value="--Seleccione--"
-											selectedItem="@{controller.medico.datoBasico}" width="90%"
-											model="@{winConfigurarMedico$composer.especialidades}">
+										<combobox id="cmbEspecialidad"
+											readonly="true" value="--Seleccione--"
+											 width="90%"
+											model="@{controller.especialidades}" >
 											<comboitem
 												self="@{each='especialidad'}"
 												label="@{especialidad.nombre}" />
@@ -71,8 +72,18 @@
 								<row style="border:none;">
 									<label value="Cédula" />
 									<div>
-										<textbox width="85%"
-											maxlength="40" value="@{controller.medico.cedulaMedico}" />
+										<combobox id="cmbNacionalidad"
+											readonly="true" value="-" width="9%" focus="true"
+											>
+											<comboitem label="V"
+												value="V" />
+											<comboitem label="E"
+												value="E" />
+											<comboitem label="R"
+												value="R" />
+										</combobox>
+										<textbox id="txtCedula"
+											width="60%" maxlength="8" />
 									</div>
 
 								</row>
@@ -80,30 +91,45 @@
 									<label value="  Nombres" />
 									<div>
 										<textbox width="85%"
-											maxlength="40" value="@{controller.medico.nombre}" />
+											maxlength="40" value="@{controller.medico.nombre}"/>
 									</div>
 									<label value="Apellidos" />
 									<div>
-										<textbox id="txtApellido" width="85%"
-											maxlength="40" value="@{controller.medico.apellido}" />
+										<textbox id="txtApellido"
+											width="85%" maxlength="40"
+											value="@{controller.medico.apellido}" />
 									</div>
 
 								</row>
 								<row style="border:none;">
 									<label value="Telefono Oficina" />
 									<div>
-										<textbox width="85%"
-											maxlength="40" value="@{controller.medico.telefonoOficina}" />
+										<combobox readonly="true"
+											id="cmbCodArea" value="--" width="25%"
+											model="@{controller.codigosArea}">
+											<comboitem
+												self="@{each='codAJug'}" label="@{codAJug.nombre}" />
+										</combobox>
+										<textbox
+											id="txtTelefonoHabitacion" maxlength="7"
+											width="85%" />
 									</div>
 									<label value="Telefono Celular" />
 									<div>
+										<combobox readonly="true"
+											id="cmbCodCelular" value="--" width="25%"
+											model="@{controller.codigosCelular}">
+											<comboitem
+												self="@{each='codCJug'}" label="@{codCJug.nombre}"
+												value="@{codCJug.codigoDatoBasico}" />
+										</combobox>
 										<textbox width="85%"
-											maxlength="40" value="@{controller.medico.telefonoCelular}" />
+											maxlength="7" id="txtTelefonoCelular" />
 									</div>
 								</row>
 							</rows>
 						</grid>
-					</groupbox>					
+					</groupbox>
 				</row>
 			</rows>
 		</grid>
@@ -113,15 +139,15 @@
 			<button id="btnGuardar" label="Guardar"
 				image="/Recursos/Imagenes/guardar.ico" orient="horizontal"
 				width="100px" />
-			<button id="btnModificar"
-				label="Actualizar" image="/Recursos/Imagenes/editar.ico"
-				orient="horizontal" width="100px" />
-			<button id="btnEliminar"
-				label="Eliminar" image="/Recursos/Imagenes/eliminar.ico"
-				orient="horizontal" width="100px" />
-			<button id="btnCancelar" 
-			    label="Cancelar" image="/Recursos/Imagenes/cancelar.ico"
-				orient="horizontal" width="100px" />
+			<button id="btnModificar" label="Actualizar"
+				image="/Recursos/Imagenes/editar.ico" orient="horizontal"
+				width="100px" />
+			<button id="btnEliminar" label="Eliminar"
+				image="/Recursos/Imagenes/eliminar.ico" orient="horizontal"
+				width="100px" />
+			<button id="btnCancelar" label="Cancelar"
+				image="/Recursos/Imagenes/cancelar.ico" orient="horizontal"
+				width="100px" />
 			<button id="btnSalir" label="Salir"
 				image="/Recursos/Imagenes/salir.png" orient="horizontal"
 				width="100px" />

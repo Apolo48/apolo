@@ -2,7 +2,7 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="win" ?> 
 <zk>
-	<window id="win" title="Buscar Médico" border="normal" width="620px"
+	<window id="win" title="Buscar Médico" border="normal" width="620px" mode="modal"
 		closable="true" apply="controlador.jugador.CntrlBuscarMedico">
 	<listbox id="listmedico"  mold="paging" pageSize="10"  model="@{controller.medicos}" 
 					    selectedItem="@{winBuscarjugador$composer.medico}" width="590px" >
