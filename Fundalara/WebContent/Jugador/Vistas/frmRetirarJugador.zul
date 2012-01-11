@@ -34,7 +34,7 @@
 									<label value="Cédula" />
 									<div>
 										<textbox id="txtNacionalidad" value="-" width="4%" readonly="true"/>
-										<textbox id="txtCedula" width="28%" maxlength="8" readonly="true"/>
+										<textbox id="txtCedula" width="28%" readonly="true"/>
 										<button id="btnCatalogoJugador"
 											focus="true" tooltiptext="Consultar Jugador"
 											image="../../Recursos/Imagenes/consultar.ico" />
@@ -75,7 +75,7 @@
 										<combobox id="cmbMotivo"
 											readonly="true" value="--Seleccione--" width="65%"
 											model="@{winRetirarJugador$composer.retiros}"
-											selectedItem="@{controller.retiroJugador.datoBasico}">
+											selectedItem="@{controller.retiroJugador.datoBasicoByCodigoMotivoRetiro}">
 											<comboitem
 												self="@{each='ret'}" label="@{ret.nombre}" />
 										</combobox>

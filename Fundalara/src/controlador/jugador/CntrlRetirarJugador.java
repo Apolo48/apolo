@@ -80,7 +80,7 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 	private Textbox txtGenero;
 	private Combobox cmbMotivo;
 	private Component formulario;
-	private Image imgJugador;
+	private Image imgJugador;	
 	
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
@@ -91,6 +91,7 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 	
 	private DatoBasico retiro;
 	List<DatoBasico> retirojugador = new ArrayList<DatoBasico>();
+	private DatoBasico tipoOperacion = new DatoBasico();
 	Roster roster;
 	Persona persona;
 
@@ -106,6 +107,7 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, true);
+		this.tipoOperacion = (DatoBasico) requestScope.get("tipoOperacion");
 		// se guarda la referencia al formulario actual
 		formulario = comp;
 
@@ -212,7 +214,8 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 	
 	public List<DatoBasico> getRetiros() {
 		//AHora esto depende del tipo de operacion, asi quu deben usar otro metodo
-		return servicioDatoBasico.buscar(TipoDatoBasico.RETIRO);
+		//return servicioDatoBasico.buscar(TipoDatoBasico.RETIRO);
+		return servicioDatoBasico.buscarDatosPorRelacion(tipoOperacion);
 	}
 	
 	public void onClick$btnCatalogoJugador() {
@@ -261,14 +264,14 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 		servicioRetiroTraslado.agregar(retiroJugador);			
 		servicioJugador.retirarJugador(jugador);		*/
 		
-		//Agregar en el modelo el sequenceGenerator roster 
+		//Agregar en el modelo el sequenceGenerator
 		retiroJugador.setFechaRetiro(new Date());
-		retiroJugador.setEstatus('E');		
+		retiroJugador.setEstatus('E');
+		retiroJugador.setDatoBasicoByCodigoTipoOperacion(tipoOperacion); //ojo
 		retiroJugador.setJugador(jugador);
 		// datoBasicoByCodigoTipoOperacion es el valor que se taren del combo
 		//retiroJugador.setDatoBasicoByCodigoTipoOperacion(datoBasicoByCodigoTipoOperacion);
 		servicioRetiroTraslado.agregar(retiroJugador);
-		
 		servicioJugador.retirarJugador(jugador);
 		
 		
@@ -276,7 +279,12 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 	
 	public void onClick$btnRetirar(){		
 		Integer valor = cmbMotivo.getSelectedIndex();
-		if (valor.equals(-1)) {
+		String valorCedula = txtCedula.getValue().toString();
+		
+		if (valorCedula.equals("")){
+			Mensaje.mostrarMensaje("Seleccione un jugador", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+		}		
+		else if (valor.equals(-1)) {
 			Mensaje.mostrarMensaje("Debe ingresar el Motivo", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 		} else {
 			retirar();

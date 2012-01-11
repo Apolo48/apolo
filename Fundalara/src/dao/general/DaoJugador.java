@@ -52,27 +52,27 @@ public class DaoJugador extends GenericDao {
 	}
 
 	 /**
-	 * @param jugador
-	 * El jugador que desea retirarse
-	 */
-	public void retirar(Jugador jugador) {		
-			Session session = getSession();
-			Transaction tx =  session.beginTransaction();
-			
-			Criteria c = session.createCriteria(PersonaNatural.class)
-			.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));
-	
-			PersonaNatural personaN = (PersonaNatural) c.uniqueResult();
-			personaN.setEstatus('E');
-			session.update(personaN);
-			
-			Criteria c2 = session.createCriteria(Persona.class)
-			.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));
-	
-			Persona persona = (Persona) c2.uniqueResult();
-			persona.setEstatus('E');
-			session.update(persona);
-			
-			tx.commit();	
-		}
+		 * @param jugador
+		 * El jugador que desea retirarse
+		 */
+		public void retirar(Jugador jugador) {		
+				Session session = getSession();
+				Transaction tx =  session.beginTransaction();
+				
+				Criteria c = session.createCriteria(PersonaNatural.class)
+				.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));
+		
+				PersonaNatural personaN = (PersonaNatural) c.uniqueResult();
+				personaN.setEstatus('E');
+				session.update(personaN);
+				
+				Criteria c2 = session.createCriteria(Persona.class)
+				.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));
+		
+				Persona persona = (Persona) c2.uniqueResult();
+				persona.setEstatus('E');
+				session.update(persona);
+				
+				tx.commit();	
+			}
 }
