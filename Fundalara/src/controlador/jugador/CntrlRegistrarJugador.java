@@ -116,6 +116,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Combobox cmbNacionalidad;
 	private Combobox cmbGenero;
 	private Combobox cmbEstadoNac;
+	private Combobox cmbPaisNac;
 	private Combobox cmbMunicipioNac;
 	private Combobox cmbParroquiaNac;
 	private Combobox cmbParroquiaResi;
@@ -698,6 +699,21 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		Date fecha = dtboxFechaNac.getValue();
 		txtEdad.setValue(Util.calcularDiferenciaAnnios(fecha));
 		sugerirCategoria();
+	}
+	
+	public void onChange$cmbPaisNac(){
+		boolean inhabilitar=false;
+		if(!cmbPaisNac.getSelectedItem().getLabel().equalsIgnoreCase("Venezuela")){
+			inhabilitar=true;
+		}
+		if (inhabilitar){
+			cmbParroquiaNac.setSelectedIndex(-1);
+			cmbMunicipioNac.setSelectedIndex(-1);
+			cmbEstadoNac.setSelectedIndex(-1);
+		}
+		cmbEstadoNac.setDisabled(inhabilitar);
+		cmbMunicipioNac.setDisabled(inhabilitar);
+		cmbParroquiaNac.setDisabled(inhabilitar);
 	}
 
 	public void onChange$cmbNacionalidad() {

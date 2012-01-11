@@ -227,7 +227,7 @@
 																		<div>
 																			<combobox
 																				id="cmbEstadoNac" value="--Seleccione--" width="70%"
-																				readonly="true"
+																				readonly="true" disabled="true"
 																				selectedItem="@{controller.estadoVenezuela}"
 																				model="@{winRegistroJugador$composer.estadosVenezuela}">
 																				<comboitem
@@ -245,7 +245,7 @@
 																			<combobox
 																				id="cmbMunicipioNac" readonly="true"
 																				selectedItem="@{controller.municipioNac}"
-																				value="--Seleccione--" width="70%"
+																				value="--Seleccione--" width="70%" disabled="true"
 																				model="@{winRegistroJugador$composer.municipiosEstados, load-after='cmbEstadoNac.onChange'}">
 																				<comboitem
 																					self="@{each='municipioN'}"
@@ -259,7 +259,7 @@
 																		<div>
 																			<combobox
 																				id="cmbParroquiaNac" readonly="true"
-																				selectedItem="@{controller.jugadorBean.parroquiaNac}"
+																				selectedItem="@{controller.jugadorBean.parroquiaNac}" disabled="true"
 																				value="--Seleccione--" width="70%"
 																				model="@{winRegistroJugador$composer.parroquiasMunicipio, load-after='cmbMunicipioNac.onChange'}">
 																				<comboitem
@@ -969,7 +969,7 @@
 																	id="cmbEquipo" readonly="true" value="--Seleccione--"
 																	width="65%" selectedItem="@{controller.equipo}"
 																	constraint="no empty"
-																	model="@{winRegistroJugador$composer.equipos, load-after='cmbCategoria.onChange'}">
+																	model="@{winRegistroJugador$composer.equipos, load-after='cmbCategoria.onChange,dtboxFechaNac.onChange'}">
 																	<comboitem
 																		self="@{each='equipo'}" label="@{equipo.nombre}" />
 																</combobox>
