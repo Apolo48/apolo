@@ -266,7 +266,7 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 		
 		//Agregar en el modelo el sequenceGenerator
 		retiroJugador.setFechaRetiro(new Date());
-		retiroJugador.setEstatus('E');
+		retiroJugador.setEstatus('A');
 		retiroJugador.setDatoBasicoByCodigoTipoOperacion(tipoOperacion); //ojo
 		retiroJugador.setJugador(jugador);
 		// datoBasicoByCodigoTipoOperacion es el valor que se taren del combo

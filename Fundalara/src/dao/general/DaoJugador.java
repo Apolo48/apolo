@@ -17,7 +17,8 @@ import dao.generico.GenericDao;
  * 
  * @author Robert A
  * @author German L
- * @version 0.1.7 23/12/2011
+ * @author Edgar L
+ * @version 0.1.9 10/01/2012
  * 
  */
 public class DaoJugador extends GenericDao {
@@ -72,6 +73,19 @@ public class DaoJugador extends GenericDao {
 				Persona persona = (Persona) c2.uniqueResult();
 				persona.setEstatus('E');
 				session.update(persona);
+
+	/*			
+				jugador.setEstatus('E');
+				session.update(jugador);
+	*/			
+				
+				Criteria c3 = session.createCriteria(Jugador.class)
+				.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));
+		
+				Jugador jugador2 = (Jugador) c3.uniqueResult();
+				jugador2.setEstatus('E');
+				session.update(jugador2);
+
 				
 				tx.commit();	
 			}
