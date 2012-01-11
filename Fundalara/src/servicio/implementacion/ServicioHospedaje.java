@@ -7,6 +7,7 @@ import servicio.interfaz.IServicioHospedaje;
 import dao.general.DaoHospedaje;
 
 import modelo.Hospedaje;
+import modelo.Representante;//NUEVO
 
 public class ServicioHospedaje implements IServicioHospedaje {
 
@@ -39,7 +40,12 @@ public class ServicioHospedaje implements IServicioHospedaje {
 
 	@Override
 	public List<Hospedaje> listar() {
-		return daoHospedaje.listar( Hospedaje.class);
+		return daoHospedaje.listar(Hospedaje.class);
+	}
+	
+	@Override
+	public Representante buscar (String id) {
+		return daoHospedaje.buscar(id);
 	}
 
 }
