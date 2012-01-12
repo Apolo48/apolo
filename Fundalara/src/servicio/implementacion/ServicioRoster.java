@@ -43,10 +43,7 @@ public class ServicioRoster implements IServicioRoster {
 		return daoRoster.listar( Roster.class);
 	}
 	
-	@Override
-	public List<Object> buscarCategoria(String ced) {
-	    return daoRoster.buscarCategoria(ced);
-	}
+	
 	
 	public List<Jugador> buscarJugadores(Equipo equipo, String filtro2, String filtro3, String filtro4, String filtro1){
 		List<Jugador> jugad = new ArrayList<Jugador>();
