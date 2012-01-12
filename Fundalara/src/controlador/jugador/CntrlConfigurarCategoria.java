@@ -88,7 +88,7 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);  //Hacemos visible el modelo para el databinder
 		listaCategoria=servicioCategoria.listar();
-		//aplicarConstraints(); DESACTIVADO POR FALTA DE CONSTRAINT
+		aplicarConstraints();
 	}
 	
 	public  List<Categoria> getCategorias(){
