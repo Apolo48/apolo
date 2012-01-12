@@ -215,7 +215,7 @@
 													<treerow>
 														<treecell
 															label="Médicos"
-															onClick='enlace("Jugador/Vistas/configurarMedico.zul")' />
+															onClick='enlace("Jugador/Vistas/frmConfigurarMedico.zul")' />
 													</treerow>
 												</treeitem>
 											</treechildren>
