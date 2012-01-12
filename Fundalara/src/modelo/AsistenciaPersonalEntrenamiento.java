@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -22,7 +22,6 @@ public class AsistenciaPersonalEntrenamiento implements java.io.Serializable {
 	private AsistenciaPersonalEntrenamientoId id;
 	private SesionEjecutada sesionEjecutada;
 	private PersonalEquipo personalEquipo;
-	private Usuario usuario;
 	private boolean asistencia;
 	private String observacion;
 	private char estatus;
@@ -33,12 +32,10 @@ public class AsistenciaPersonalEntrenamiento implements java.io.Serializable {
 	public AsistenciaPersonalEntrenamiento(
 			AsistenciaPersonalEntrenamientoId id,
 			SesionEjecutada sesionEjecutada, PersonalEquipo personalEquipo,
-			Usuario usuario, boolean asistencia, String observacion,
-			char estatus) {
+			boolean asistencia, String observacion, char estatus) {
 		this.id = id;
 		this.sesionEjecutada = sesionEjecutada;
 		this.personalEquipo = personalEquipo;
-		this.usuario = usuario;
 		this.asistencia = asistencia;
 		this.observacion = observacion;
 		this.estatus = estatus;
@@ -74,16 +71,6 @@ public class AsistenciaPersonalEntrenamiento implements java.io.Serializable {
 
 	public void setPersonalEquipo(PersonalEquipo personalEquipo) {
 		this.personalEquipo = personalEquipo;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cedula_rif", nullable = false)
-	public Usuario getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	@Column(name = "asistencia", nullable = false)

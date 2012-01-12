@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,25 +24,28 @@ public class ModalidadCompetencia implements java.io.Serializable {
 	private TipoCompetencia tipoCompetencia;
 	private String nombre;
 	private String descripcion;
+	private char estatus;
 	private Set<Competencia> competencias = new HashSet<Competencia>(0);
 
 	public ModalidadCompetencia() {
 	}
 
 	public ModalidadCompetencia(int codigoModalidadCompetencia,
-			TipoCompetencia tipoCompetencia, String nombre) {
+			TipoCompetencia tipoCompetencia, String nombre, char estatus) {
 		this.codigoModalidadCompetencia = codigoModalidadCompetencia;
 		this.tipoCompetencia = tipoCompetencia;
 		this.nombre = nombre;
+		this.estatus = estatus;
 	}
 
 	public ModalidadCompetencia(int codigoModalidadCompetencia,
 			TipoCompetencia tipoCompetencia, String nombre, String descripcion,
-			Set<Competencia> competencias) {
+			char estatus, Set<Competencia> competencias) {
 		this.codigoModalidadCompetencia = codigoModalidadCompetencia;
 		this.tipoCompetencia = tipoCompetencia;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.estatus = estatus;
 		this.competencias = competencias;
 	}
 
@@ -82,6 +85,15 @@ public class ModalidadCompetencia implements java.io.Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "modalidadCompetencia")

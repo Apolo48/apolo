@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,6 +31,7 @@ public class Familiar implements java.io.Serializable {
 	private char estatus;
 	private Set<FamiliarJugador> familiarJugadors = new HashSet<FamiliarJugador>(
 			0);
+	private RepresentantePlan representantePlan;
 
 	public Familiar() {
 	}
@@ -41,11 +42,13 @@ public class Familiar implements java.io.Serializable {
 	}
 
 	public Familiar(DatoBasico datoBasico, PersonaNatural personaNatural,
-			char estatus, Set<FamiliarJugador> familiarJugadors) {
+			char estatus, Set<FamiliarJugador> familiarJugadors,
+			RepresentantePlan representantePlan) {
 		this.datoBasico = datoBasico;
 		this.personaNatural = personaNatural;
 		this.estatus = estatus;
 		this.familiarJugadors = familiarJugadors;
+		this.representantePlan = representantePlan;
 	}
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "personaNatural"))
@@ -96,6 +99,15 @@ public class Familiar implements java.io.Serializable {
 
 	public void setFamiliarJugadors(Set<FamiliarJugador> familiarJugadors) {
 		this.familiarJugadors = familiarJugadors;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "familiar")
+	public RepresentantePlan getRepresentantePlan() {
+		return this.representantePlan;
+	}
+
+	public void setRepresentantePlan(RepresentantePlan representantePlan) {
+		this.representantePlan = representantePlan;
 	}
 
 }

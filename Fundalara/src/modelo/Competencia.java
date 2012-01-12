@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -67,8 +67,7 @@ public class Competencia implements java.io.Serializable {
 			DatoBasico datoBasicoByCodigoOrganizacion,
 			DatoBasico datoBasicoByCodigoEstado, LapsoDeportivo lapsoDeportivo,
 			String nombre, Date fechaInicio, Date fechaFin, int cantidadFase,
-			int cantidadJugador, float montoInscripcion, String desempate,
-			String extrainning, byte[] documento, char estatus) {
+			int cantidadJugador, float montoInscripcion, char estatus) {
 		this.codigoCompetencia = codigoCompetencia;
 		this.datoBasicoByCodigoEstadoCompetencia = datoBasicoByCodigoEstadoCompetencia;
 		this.modalidadCompetencia = modalidadCompetencia;
@@ -81,9 +80,6 @@ public class Competencia implements java.io.Serializable {
 		this.cantidadFase = cantidadFase;
 		this.cantidadJugador = cantidadJugador;
 		this.montoInscripcion = montoInscripcion;
-		this.desempate = desempate;
-		this.extrainning = extrainning;
-		this.documento = documento;
 		this.estatus = estatus;
 	}
 
@@ -261,7 +257,7 @@ public class Competencia implements java.io.Serializable {
 		this.condicionesGenerales = condicionesGenerales;
 	}
 
-	@Column(name = "desempate", nullable = false)
+	@Column(name = "desempate")
 	public String getDesempate() {
 		return this.desempate;
 	}
@@ -270,7 +266,7 @@ public class Competencia implements java.io.Serializable {
 		this.desempate = desempate;
 	}
 
-	@Column(name = "extrainning", nullable = false)
+	@Column(name = "extrainning")
 	public String getExtrainning() {
 		return this.extrainning;
 	}
@@ -279,7 +275,7 @@ public class Competencia implements java.io.Serializable {
 		this.extrainning = extrainning;
 	}
 
-	@Column(name = "documento", nullable = false)
+	@Column(name = "documento")
 	public byte[] getDocumento() {
 		return this.documento;
 	}

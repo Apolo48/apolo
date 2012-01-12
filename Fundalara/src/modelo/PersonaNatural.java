@@ -1,8 +1,10 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -38,6 +41,8 @@ public class PersonaNatural implements java.io.Serializable {
 	private char estatus;
 	private Familiar familiar;
 	private Personal personal;
+	private Set<EquipoCompetencia> equipoCompetencias = new HashSet<EquipoCompetencia>(
+			0);
 	private Jugador jugador;
 
 	public PersonaNatural() {
@@ -55,7 +60,8 @@ public class PersonaNatural implements java.io.Serializable {
 			String celular, String primerNombre, String segundoNombre,
 			String primerApellido, String segundoApellido,
 			Date fechaNacimiento, byte[] foto, char estatus, Familiar familiar,
-			Personal personal, Jugador jugador) {
+			Personal personal, Set<EquipoCompetencia> equipoCompetencias,
+			Jugador jugador) {
 		this.datoBasico = datoBasico;
 		this.persona = persona;
 		this.celular = celular;
@@ -68,6 +74,7 @@ public class PersonaNatural implements java.io.Serializable {
 		this.estatus = estatus;
 		this.familiar = familiar;
 		this.personal = personal;
+		this.equipoCompetencias = equipoCompetencias;
 		this.jugador = jugador;
 	}
 
@@ -192,6 +199,15 @@ public class PersonaNatural implements java.io.Serializable {
 
 	public void setPersonal(Personal personal) {
 		this.personal = personal;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personaNatural")
+	public Set<EquipoCompetencia> getEquipoCompetencias() {
+		return this.equipoCompetencias;
+	}
+
+	public void setEquipoCompetencias(Set<EquipoCompetencia> equipoCompetencias) {
+		this.equipoCompetencias = equipoCompetencias;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "personaNatural")

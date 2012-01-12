@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +26,7 @@ public class Indicador implements java.io.Serializable {
 	private DatoBasico datoBasicoByCodigoMedicion;
 	private String nombre;
 	private String abreviatura;
+	private String formula;
 	private char estatus;
 	private Set<IndicadorCategoriaCompetencia> indicadorCategoriaCompetencias = new HashSet<IndicadorCategoriaCompetencia>(
 			0);
@@ -51,7 +52,7 @@ public class Indicador implements java.io.Serializable {
 			DatoBasico datoBasicoByCodigoModalidad,
 			DatoBasico datoBasicoByCodigoTipoIndicador,
 			DatoBasico datoBasicoByCodigoMedicion, String nombre,
-			String abreviatura, char estatus,
+			String abreviatura, String formula, char estatus,
 			Set<IndicadorCategoriaCompetencia> indicadorCategoriaCompetencias) {
 		this.codigoIndicador = codigoIndicador;
 		this.datoBasicoByCodigoModalidad = datoBasicoByCodigoModalidad;
@@ -59,6 +60,7 @@ public class Indicador implements java.io.Serializable {
 		this.datoBasicoByCodigoMedicion = datoBasicoByCodigoMedicion;
 		this.nombre = nombre;
 		this.abreviatura = abreviatura;
+		this.formula = formula;
 		this.estatus = estatus;
 		this.indicadorCategoriaCompetencias = indicadorCategoriaCompetencias;
 	}
@@ -122,6 +124,15 @@ public class Indicador implements java.io.Serializable {
 
 	public void setAbreviatura(String abreviatura) {
 		this.abreviatura = abreviatura;
+	}
+
+	@Column(name = "formula")
+	public String getFormula() {
+		return this.formula;
+	}
+
+	public void setFormula(String formula) {
+		this.formula = formula;
 	}
 
 	@Column(name = "estatus", nullable = false, length = 1)

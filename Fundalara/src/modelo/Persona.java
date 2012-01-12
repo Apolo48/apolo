@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -35,8 +35,6 @@ public class Persona implements java.io.Serializable {
 	private Date fechaEgreso;
 	private char estatus;
 	private PersonaJuridica personaJuridica;
-	private Set<EquipoCompetencia> equipoCompetencias = new HashSet<EquipoCompetencia>(
-			0);
 	private Set<DocumentoAcreedor> documentoAcreedorsForCedulaAtleta = new HashSet<DocumentoAcreedor>(
 			0);
 	private Set<CuentaPagar> cuentaPagars = new HashSet<CuentaPagar>(0);
@@ -60,7 +58,6 @@ public class Persona implements java.io.Serializable {
 			String telefonoHabitacion, Date fechaIngreso,
 			String correoElectronico, String twitter, String direccion,
 			Date fechaEgreso, char estatus, PersonaJuridica personaJuridica,
-			Set<EquipoCompetencia> equipoCompetencias,
 			Set<DocumentoAcreedor> documentoAcreedorsForCedulaAtleta,
 			Set<CuentaPagar> cuentaPagars,
 			Set<DocumentoAcreedor> documentoAcreedorsForCedulaRif,
@@ -76,7 +73,6 @@ public class Persona implements java.io.Serializable {
 		this.fechaEgreso = fechaEgreso;
 		this.estatus = estatus;
 		this.personaJuridica = personaJuridica;
-		this.equipoCompetencias = equipoCompetencias;
 		this.documentoAcreedorsForCedulaAtleta = documentoAcreedorsForCedulaAtleta;
 		this.cuentaPagars = cuentaPagars;
 		this.documentoAcreedorsForCedulaRif = documentoAcreedorsForCedulaRif;
@@ -187,15 +183,6 @@ public class Persona implements java.io.Serializable {
 
 	public void setPersonaJuridica(PersonaJuridica personaJuridica) {
 		this.personaJuridica = personaJuridica;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "persona")
-	public Set<EquipoCompetencia> getEquipoCompetencias() {
-		return this.equipoCompetencias;
-	}
-
-	public void setEquipoCompetencias(Set<EquipoCompetencia> equipoCompetencias) {
-		this.equipoCompetencias = equipoCompetencias;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personaByCedulaAtleta")

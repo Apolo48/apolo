@@ -1,11 +1,13 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -17,7 +19,7 @@ import javax.persistence.Table;
 @Table(name = "egreso_forma_pago", schema = "public")
 public class EgresoFormaPago implements java.io.Serializable {
 
-	private int codigoEgresoFormaPago;
+	private EgresoFormaPagoId id;
 	private Egreso egreso;
 	private DatoBasico datoBasicoByCodigoFormaPago;
 	private DatoBasico datoBasicoByCodigoBanco;
@@ -29,18 +31,20 @@ public class EgresoFormaPago implements java.io.Serializable {
 	public EgresoFormaPago() {
 	}
 
-	public EgresoFormaPago(int codigoEgresoFormaPago, double monto, char estatus) {
-		this.codigoEgresoFormaPago = codigoEgresoFormaPago;
+	public EgresoFormaPago(EgresoFormaPagoId id, Egreso egreso, double monto,
+			char estatus) {
+		this.id = id;
+		this.egreso = egreso;
 		this.monto = monto;
 		this.estatus = estatus;
 	}
 
-	public EgresoFormaPago(int codigoEgresoFormaPago, Egreso egreso,
+	public EgresoFormaPago(EgresoFormaPagoId id, Egreso egreso,
 			DatoBasico datoBasicoByCodigoFormaPago,
 			DatoBasico datoBasicoByCodigoBanco,
 			DatoBasico datoBasicoByCodigoTarjeta, double monto, char estatus,
 			String numeroDocuemntoPago) {
-		this.codigoEgresoFormaPago = codigoEgresoFormaPago;
+		this.id = id;
 		this.egreso = egreso;
 		this.datoBasicoByCodigoFormaPago = datoBasicoByCodigoFormaPago;
 		this.datoBasicoByCodigoBanco = datoBasicoByCodigoBanco;
@@ -50,18 +54,20 @@ public class EgresoFormaPago implements java.io.Serializable {
 		this.numeroDocuemntoPago = numeroDocuemntoPago;
 	}
 
-	@Id
-	@Column(name = "codigo_egreso_forma_pago", unique = true, nullable = false)
-	public int getCodigoEgresoFormaPago() {
-		return this.codigoEgresoFormaPago;
+	@EmbeddedId
+	@AttributeOverrides({
+			@AttributeOverride(name = "codigoEgresoFormaPago", column = @Column(name = "codigo_egreso_forma_pago", nullable = false)),
+			@AttributeOverride(name = "codigoEgreso", column = @Column(name = "codigo_egreso", nullable = false)) })
+	public EgresoFormaPagoId getId() {
+		return this.id;
 	}
 
-	public void setCodigoEgresoFormaPago(int codigoEgresoFormaPago) {
-		this.codigoEgresoFormaPago = codigoEgresoFormaPago;
+	public void setId(EgresoFormaPagoId id) {
+		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "numero_documento")
+	@JoinColumn(name = "codigo_egreso", nullable = false, insertable = false, updatable = false)
 	public Egreso getEgreso() {
 		return this.egreso;
 	}

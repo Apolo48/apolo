@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,11 +29,9 @@ public class PersonalForaneo implements java.io.Serializable {
 	public PersonalForaneo() {
 	}
 
-	public PersonalForaneo(int codigoPersonalForaneo, DatoBasico datoBasico,
-			String nombre) {
+	public PersonalForaneo(int codigoPersonalForaneo, DatoBasico datoBasico) {
 		this.codigoPersonalForaneo = codigoPersonalForaneo;
 		this.datoBasico = datoBasico;
-		this.nombre = nombre;
 	}
 
 	public PersonalForaneo(int codigoPersonalForaneo, DatoBasico datoBasico,
@@ -64,7 +62,7 @@ public class PersonalForaneo implements java.io.Serializable {
 		this.datoBasico = datoBasico;
 	}
 
-	@Column(name = "nombre", nullable = false)
+	@Column(name = "nombre")
 	public String getNombre() {
 		return this.nombre;
 	}

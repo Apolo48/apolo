@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,10 +33,8 @@ public class PersonaJuridica implements java.io.Serializable {
 	public PersonaJuridica() {
 	}
 
-	public PersonaJuridica(Persona persona, String fax, String razonSocial,
-			char estatus) {
+	public PersonaJuridica(Persona persona, String razonSocial, char estatus) {
 		this.persona = persona;
-		this.fax = fax;
 		this.razonSocial = razonSocial;
 		this.estatus = estatus;
 	}
@@ -72,7 +70,7 @@ public class PersonaJuridica implements java.io.Serializable {
 		this.persona = persona;
 	}
 
-	@Column(name = "fax", nullable = false)
+	@Column(name = "fax")
 	public String getFax() {
 		return this.fax;
 	}

@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -33,11 +33,10 @@ public class Almacen implements java.io.Serializable {
 	}
 
 	public Almacen(int codigoAlmacen, Instalacion instalacion, String nombre,
-			String descripcion, BigDecimal capacidad, char estatus) {
+			BigDecimal capacidad, char estatus) {
 		this.codigoAlmacen = codigoAlmacen;
 		this.instalacion = instalacion;
 		this.nombre = nombre;
-		this.descripcion = descripcion;
 		this.capacidad = capacidad;
 		this.estatus = estatus;
 	}
@@ -83,7 +82,7 @@ public class Almacen implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	@Column(name = "descripcion", nullable = false)
+	@Column(name = "descripcion")
 	public String getDescripcion() {
 		return this.descripcion;
 	}

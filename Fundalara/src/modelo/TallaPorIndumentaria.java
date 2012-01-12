@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,11 +21,13 @@ import javax.persistence.Table;
 public class TallaPorIndumentaria implements java.io.Serializable {
 
 	private int codigoTallaIndumentaria;
-	private DatoBasico datoBasico;
+	private DatoBasico datoBasicoByCodigoTalla;
+	private DatoBasico datoBasicoByCodigoTipoUniforme;
 	private float precio;
 	private char estatus;
 	private Set<DocumentoIndumentaria> documentoIndumentarias = new HashSet<DocumentoIndumentaria>(
 			0);
+	private Set<JugadorPlan> jugadorPlans = new HashSet<JugadorPlan>(0);
 	private Set<TallaPorJugador> tallaPorJugadors = new HashSet<TallaPorJugador>(
 			0);
 
@@ -33,22 +35,28 @@ public class TallaPorIndumentaria implements java.io.Serializable {
 	}
 
 	public TallaPorIndumentaria(int codigoTallaIndumentaria,
-			DatoBasico datoBasico, float precio, char estatus) {
+			DatoBasico datoBasicoByCodigoTalla,
+			DatoBasico datoBasicoByCodigoTipoUniforme, float precio,
+			char estatus) {
 		this.codigoTallaIndumentaria = codigoTallaIndumentaria;
-		this.datoBasico = datoBasico;
+		this.datoBasicoByCodigoTalla = datoBasicoByCodigoTalla;
+		this.datoBasicoByCodigoTipoUniforme = datoBasicoByCodigoTipoUniforme;
 		this.precio = precio;
 		this.estatus = estatus;
 	}
 
 	public TallaPorIndumentaria(int codigoTallaIndumentaria,
-			DatoBasico datoBasico, float precio, char estatus,
-			Set<DocumentoIndumentaria> documentoIndumentarias,
-			Set<TallaPorJugador> tallaPorJugadors) {
+			DatoBasico datoBasicoByCodigoTalla,
+			DatoBasico datoBasicoByCodigoTipoUniforme, float precio,
+			char estatus, Set<DocumentoIndumentaria> documentoIndumentarias,
+			Set<JugadorPlan> jugadorPlans, Set<TallaPorJugador> tallaPorJugadors) {
 		this.codigoTallaIndumentaria = codigoTallaIndumentaria;
-		this.datoBasico = datoBasico;
+		this.datoBasicoByCodigoTalla = datoBasicoByCodigoTalla;
+		this.datoBasicoByCodigoTipoUniforme = datoBasicoByCodigoTipoUniforme;
 		this.precio = precio;
 		this.estatus = estatus;
 		this.documentoIndumentarias = documentoIndumentarias;
+		this.jugadorPlans = jugadorPlans;
 		this.tallaPorJugadors = tallaPorJugadors;
 	}
 
@@ -64,12 +72,23 @@ public class TallaPorIndumentaria implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_talla", nullable = false)
-	public DatoBasico getDatoBasico() {
-		return this.datoBasico;
+	public DatoBasico getDatoBasicoByCodigoTalla() {
+		return this.datoBasicoByCodigoTalla;
 	}
 
-	public void setDatoBasico(DatoBasico datoBasico) {
-		this.datoBasico = datoBasico;
+	public void setDatoBasicoByCodigoTalla(DatoBasico datoBasicoByCodigoTalla) {
+		this.datoBasicoByCodigoTalla = datoBasicoByCodigoTalla;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_tipo_uniforme", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoTipoUniforme() {
+		return this.datoBasicoByCodigoTipoUniforme;
+	}
+
+	public void setDatoBasicoByCodigoTipoUniforme(
+			DatoBasico datoBasicoByCodigoTipoUniforme) {
+		this.datoBasicoByCodigoTipoUniforme = datoBasicoByCodigoTipoUniforme;
 	}
 
 	@Column(name = "precio", nullable = false, precision = 8, scale = 8)
@@ -98,6 +117,15 @@ public class TallaPorIndumentaria implements java.io.Serializable {
 	public void setDocumentoIndumentarias(
 			Set<DocumentoIndumentaria> documentoIndumentarias) {
 		this.documentoIndumentarias = documentoIndumentarias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tallaPorIndumentaria")
+	public Set<JugadorPlan> getJugadorPlans() {
+		return this.jugadorPlans;
+	}
+
+	public void setJugadorPlans(Set<JugadorPlan> jugadorPlans) {
+		this.jugadorPlans = jugadorPlans;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tallaPorIndumentaria")

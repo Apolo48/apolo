@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 30-dic-2011 0:38:42 by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -28,8 +28,8 @@ public class DatoSocial implements java.io.Serializable {
 	private Institucion institucion;
 	private Jugador jugador;
 	private Integer horasDedicadas;
-	private char estatus;
 	private Date fechaInicio;
+	private char estatus;
 
 	public DatoSocial() {
 	}
@@ -45,14 +45,14 @@ public class DatoSocial implements java.io.Serializable {
 
 	public DatoSocial(int codigoDatoSocial, DatoBasico datoBasico,
 			Institucion institucion, Jugador jugador, Integer horasDedicadas,
-			char estatus, Date fechaInicio) {
+			Date fechaInicio, char estatus) {
 		this.codigoDatoSocial = codigoDatoSocial;
 		this.datoBasico = datoBasico;
 		this.institucion = institucion;
 		this.jugador = jugador;
 		this.horasDedicadas = horasDedicadas;
-		this.estatus = estatus;
 		this.fechaInicio = fechaInicio;
+		this.estatus = estatus;
 	}
 
 	@Id
@@ -105,15 +105,6 @@ public class DatoSocial implements java.io.Serializable {
 		this.horasDedicadas = horasDedicadas;
 	}
 
-	@Column(name = "estatus", nullable = false, length = 1)
-	public char getEstatus() {
-		return this.estatus;
-	}
-
-	public void setEstatus(char estatus) {
-		this.estatus = estatus;
-	}
-
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_inicio", length = 13)
 	public Date getFechaInicio() {
@@ -122,6 +113,15 @@ public class DatoSocial implements java.io.Serializable {
 
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
+	}
+
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
 	}
 
 }

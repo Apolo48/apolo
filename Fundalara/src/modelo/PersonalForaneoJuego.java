@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -20,9 +20,9 @@ import javax.persistence.Table;
 public class PersonalForaneoJuego implements java.io.Serializable {
 
 	private PersonalForaneoJuegoId id;
+	private DatoBasico datoBasico;
 	private Juego juego;
 	private PersonalForaneo personalForaneo;
-	private DatoBasico datoBasico;
 
 	public PersonalForaneoJuego() {
 	}
@@ -34,12 +34,12 @@ public class PersonalForaneoJuego implements java.io.Serializable {
 		this.personalForaneo = personalForaneo;
 	}
 
-	public PersonalForaneoJuego(PersonalForaneoJuegoId id, Juego juego,
-			PersonalForaneo personalForaneo, DatoBasico datoBasico) {
+	public PersonalForaneoJuego(PersonalForaneoJuegoId id,
+			DatoBasico datoBasico, Juego juego, PersonalForaneo personalForaneo) {
 		this.id = id;
+		this.datoBasico = datoBasico;
 		this.juego = juego;
 		this.personalForaneo = personalForaneo;
-		this.datoBasico = datoBasico;
 	}
 
 	@EmbeddedId
@@ -52,6 +52,16 @@ public class PersonalForaneoJuego implements java.io.Serializable {
 
 	public void setId(PersonalForaneoJuegoId id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_tipo")
+	public DatoBasico getDatoBasico() {
+		return this.datoBasico;
+	}
+
+	public void setDatoBasico(DatoBasico datoBasico) {
+		this.datoBasico = datoBasico;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -72,16 +82,6 @@ public class PersonalForaneoJuego implements java.io.Serializable {
 
 	public void setPersonalForaneo(PersonalForaneo personalForaneo) {
 		this.personalForaneo = personalForaneo;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_posicion")
-	public DatoBasico getDatoBasico() {
-		return this.datoBasico;
-	}
-
-	public void setDatoBasico(DatoBasico datoBasico) {
-		this.datoBasico = datoBasico;
 	}
 
 }

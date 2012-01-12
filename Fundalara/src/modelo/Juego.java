@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -31,12 +31,11 @@ public class Juego implements java.io.Serializable {
 	private Date fecha;
 	private String observaciones;
 	private int cantidadInning;
-	private Date duracion;
+	private Date horaFin;
 	private Set<ActividadCalendario> actividadCalendarios = new HashSet<ActividadCalendario>(
 			0);
 	private Set<MaterialActividad> materialActividads = new HashSet<MaterialActividad>(
 			0);
-	private Set<PersonalEquipo> personalEquipos = new HashSet<PersonalEquipo>(0);
 	private Set<EquipoJuego> equipoJuegos = new HashSet<EquipoJuego>(0);
 	private Set<MaterialActividadPlanificada> materialActividadPlanificadas = new HashSet<MaterialActividadPlanificada>(
 			0);
@@ -49,7 +48,7 @@ public class Juego implements java.io.Serializable {
 
 	public Juego(int codigoJuego, Estadio estadio, Competencia competencia,
 			DatoBasico datoBasico, Date horaInicio, Date fecha,
-			int cantidadInning, Date duracion) {
+			int cantidadInning, Date horaFin) {
 		this.codigoJuego = codigoJuego;
 		this.estadio = estadio;
 		this.competencia = competencia;
@@ -57,15 +56,15 @@ public class Juego implements java.io.Serializable {
 		this.horaInicio = horaInicio;
 		this.fecha = fecha;
 		this.cantidadInning = cantidadInning;
-		this.duracion = duracion;
+		this.horaFin = horaFin;
 	}
 
 	public Juego(int codigoJuego, Estadio estadio, Competencia competencia,
 			DatoBasico datoBasico, Date horaInicio, Date fecha,
-			String observaciones, int cantidadInning, Date duracion,
+			String observaciones, int cantidadInning, Date horaFin,
 			Set<ActividadCalendario> actividadCalendarios,
 			Set<MaterialActividad> materialActividads,
-			Set<PersonalEquipo> personalEquipos, Set<EquipoJuego> equipoJuegos,
+			Set<EquipoJuego> equipoJuegos,
 			Set<MaterialActividadPlanificada> materialActividadPlanificadas,
 			Set<LineUp> lineUps, Set<PersonalForaneoJuego> personalForaneoJuegos) {
 		this.codigoJuego = codigoJuego;
@@ -76,10 +75,9 @@ public class Juego implements java.io.Serializable {
 		this.fecha = fecha;
 		this.observaciones = observaciones;
 		this.cantidadInning = cantidadInning;
-		this.duracion = duracion;
+		this.horaFin = horaFin;
 		this.actividadCalendarios = actividadCalendarios;
 		this.materialActividads = materialActividads;
-		this.personalEquipos = personalEquipos;
 		this.equipoJuegos = equipoJuegos;
 		this.materialActividadPlanificadas = materialActividadPlanificadas;
 		this.lineUps = lineUps;
@@ -165,13 +163,13 @@ public class Juego implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIME)
-	@Column(name = "duracion", nullable = false, length = 15)
-	public Date getDuracion() {
-		return this.duracion;
+	@Column(name = "hora_fin", nullable = false, length = 15)
+	public Date getHoraFin() {
+		return this.horaFin;
 	}
 
-	public void setDuracion(Date duracion) {
-		this.duracion = duracion;
+	public void setHoraFin(Date horaFin) {
+		this.horaFin = horaFin;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "juego")
@@ -191,15 +189,6 @@ public class Juego implements java.io.Serializable {
 
 	public void setMaterialActividads(Set<MaterialActividad> materialActividads) {
 		this.materialActividads = materialActividads;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "juego")
-	public Set<PersonalEquipo> getPersonalEquipos() {
-		return this.personalEquipos;
-	}
-
-	public void setPersonalEquipos(Set<PersonalEquipo> personalEquipos) {
-		this.personalEquipos = personalEquipos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "juego")

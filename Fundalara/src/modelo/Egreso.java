@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 @Table(name = "egreso", schema = "public")
 public class Egreso implements java.io.Serializable {
 
+	private int codigoEgreso;
 	private String numeroDocumento;
 	private Date fechaPago;
 	private char estatus;
@@ -32,15 +33,16 @@ public class Egreso implements java.io.Serializable {
 	public Egreso() {
 	}
 
-	public Egreso(String numeroDocumento, Date fechaPago, char estatus) {
-		this.numeroDocumento = numeroDocumento;
+	public Egreso(int codigoEgreso, Date fechaPago, char estatus) {
+		this.codigoEgreso = codigoEgreso;
 		this.fechaPago = fechaPago;
 		this.estatus = estatus;
 	}
 
-	public Egreso(String numeroDocumento, Date fechaPago, char estatus,
-			Set<EgresoCuentaPagar> egresoCuentaPagars,
+	public Egreso(int codigoEgreso, String numeroDocumento, Date fechaPago,
+			char estatus, Set<EgresoCuentaPagar> egresoCuentaPagars,
 			Set<EgresoFormaPago> egresoFormaPagos) {
+		this.codigoEgreso = codigoEgreso;
 		this.numeroDocumento = numeroDocumento;
 		this.fechaPago = fechaPago;
 		this.estatus = estatus;
@@ -49,7 +51,16 @@ public class Egreso implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "numero_documento", unique = true, nullable = false)
+	@Column(name = "codigo_egreso", unique = true, nullable = false)
+	public int getCodigoEgreso() {
+		return this.codigoEgreso;
+	}
+
+	public void setCodigoEgreso(int codigoEgreso) {
+		this.codigoEgreso = codigoEgreso;
+	}
+
+	@Column(name = "numero_documento")
 	public String getNumeroDocumento() {
 		return this.numeroDocumento;
 	}

@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 09/01/2012 10:19:56 AM by Hibernate Tools 3.4.0.CR1
+// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +25,8 @@ public class Sesion implements java.io.Serializable {
 	private DatoBasico datoBasico;
 	private Equipo equipo;
 	private char estatus;
+	private Set<SesionEjecutada> sesionEjecutadas = new HashSet<SesionEjecutada>(
+			0);
 	private Set<ActividadPlanificada> actividadPlanificadas = new HashSet<ActividadPlanificada>(
 			0);
 	private Set<MaterialActividadPlanificada> materialActividadPlanificadas = new HashSet<MaterialActividadPlanificada>(
@@ -47,6 +49,7 @@ public class Sesion implements java.io.Serializable {
 
 	public Sesion(int codigoSesion, PlanEntrenamiento planEntrenamiento,
 			DatoBasico datoBasico, Equipo equipo, char estatus,
+			Set<SesionEjecutada> sesionEjecutadas,
 			Set<ActividadPlanificada> actividadPlanificadas,
 			Set<MaterialActividadPlanificada> materialActividadPlanificadas,
 			Set<PlanRotacion> planRotacions,
@@ -56,6 +59,7 @@ public class Sesion implements java.io.Serializable {
 		this.datoBasico = datoBasico;
 		this.equipo = equipo;
 		this.estatus = estatus;
+		this.sesionEjecutadas = sesionEjecutadas;
 		this.actividadPlanificadas = actividadPlanificadas;
 		this.materialActividadPlanificadas = materialActividadPlanificadas;
 		this.planRotacions = planRotacions;
@@ -109,6 +113,15 @@ public class Sesion implements java.io.Serializable {
 
 	public void setEstatus(char estatus) {
 		this.estatus = estatus;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sesion")
+	public Set<SesionEjecutada> getSesionEjecutadas() {
+		return this.sesionEjecutadas;
+	}
+
+	public void setSesionEjecutadas(Set<SesionEjecutada> sesionEjecutadas) {
+		this.sesionEjecutadas = sesionEjecutadas;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sesion")
