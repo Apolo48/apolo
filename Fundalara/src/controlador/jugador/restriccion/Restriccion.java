@@ -18,8 +18,8 @@ public enum Restriccion {
 			CEDULA("no negative,no empty", "Ingrese una cédula válida"), 
 			TELEFONO("/[0-9]{7}/", "Ingrese un número válido, Ej: 2660011"), 
 			TEXTO_SIMPLE("/^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$/", "Ingrese un texto válido"), 
-			FECHA_NACIMIENTO("between " + Util.getFecha(Edad.EDAD_MAXIMA, '1') + " and "
-					+ Util.getFecha(Edad.EDAD_MINIMA, '2'),	"Ingrese una fecha válida"),
+			FECHA_NACIMIENTO("between " + Util.getFecha(Edad.EDAD_MAXIMA, Util.LIMITE_INFERIOR) + " and "
+					+ Util.getFecha(Edad.EDAD_MINIMA, Util.LIMITE_SUPERIOR),"Ingrese una fecha válida"),
 			CANTIDAD_EQUIPO("min 1 max 6",""),
 			EDAD_INFERIOR("min 3 max 16",""),
 			EDAD_SUPERIOR("min 5 max 17",""),

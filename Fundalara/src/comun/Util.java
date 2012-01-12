@@ -21,7 +21,8 @@ import org.zkoss.zul.Window;
  * @version 1.0 11/01/2012
  */
 public class Util {
-
+	public static char LIMITE_INFERIOR ='I';
+	public static char LIMITE_SUPERIOR ='S';
 	/**
 	 * Determina la diferencia en annios entre la fecha actual y una inicial
 	 * 
@@ -72,7 +73,7 @@ public class Util {
 		Calendar hoy = Calendar.getInstance();
 		int anno = hoy.get(Calendar.YEAR) - valor;
 		Calendar fecha = Calendar.getInstance();
-		if (opc == '1') {
+		if (opc == 'I') {
 			fecha.set(anno, Calendar.JANUARY, 1);
 		} else {
 			fecha.set(anno, Calendar.DECEMBER, 31);
