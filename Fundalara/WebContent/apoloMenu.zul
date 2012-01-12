@@ -335,7 +335,7 @@
 									<treechildren>
 										<treeitem open="false">
 											<treerow>
-												<treecell label="Actualizar" onClick='enlace("Jugador/Vistas/actualizarFamiliar.zul")'/>
+												<treecell label="Actualizar" onClick='enlace("Jugador/Vistas/frmActualizarFamiliar.zul")'/>
 											</treerow>
 									 </treeitem>
 									</treechildren>

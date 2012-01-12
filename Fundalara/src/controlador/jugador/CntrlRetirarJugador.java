@@ -203,10 +203,6 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 		this.rutasJug = rutasJug;
 	}
 
-/*	public void onCreate$win(ForwardEvent event) {
-		binder = (AnnotateDataBinder) event.getTarget().getVariable("binder",
-				false);
-	}*/
 
 
 		
