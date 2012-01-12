@@ -137,7 +137,7 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 
 		for (int i = 0; i < equipos.size(); i++) {
 			if (cmbTipo.getSelectedItem().getLabel()
-					.equals(equipos.get(i).getDatoBasico().getNombre())) {
+					.equals(equipos.get(i).getDatoBasicoByCodigoClasificacion().getNombre())) {
 
 				if (cmbCategoria.getSelectedItem().getLabel()
 						.equals(equipos.get(i).getCategoria().getNombre())) {
@@ -150,7 +150,7 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 		}
 		equipo.setDivisa(divisa);
 		equipo.setEstatus('A');
-		equipo.setDatoBasico(clasificacion);
+		equipo.setDatoBasicoByCodigoClasificacion(clasificacion);
 		equipo.setCategoria(categoria);
 		equipo.setNombre(txtNombre.getValue());
 		equipo.setCodigoEquipo(servicioEquipo.listar().size() + 1);
