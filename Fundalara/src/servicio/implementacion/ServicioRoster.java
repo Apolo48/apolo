@@ -43,8 +43,6 @@ public class ServicioRoster implements IServicioRoster {
 		return daoRoster.listar( Roster.class);
 	}
 	
-	
-	
 	public List<Jugador> buscarJugadores(Equipo equipo, String filtro2, String filtro3, String filtro4, String filtro1){
 		List<Jugador> jugad = new ArrayList<Jugador>();
 		List<Roster> rosters = new ArrayList<Roster>();

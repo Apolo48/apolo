@@ -24,19 +24,16 @@ public class ServicioEquipo implements IServicioEquipo {
 	public void eliminar(Equipo c) {
 		c.setEstatus('E');
 		daoEquipo.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(Equipo c) {
 		daoEquipo.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(Equipo c) {
 		daoEquipo.actualizar(c);
-
 	}
 
 	@Override
@@ -45,11 +42,12 @@ public class ServicioEquipo implements IServicioEquipo {
 				//daoEquipo.listar(Equipo.class);
 	}
 	
-	
-	
 	public List<Equipo> buscarPorCategoria(Categoria categoria){
 		return daoEquipo.buscarEquiposPorCategoria(categoria);
-		
+	}
+	
+	public boolean buscarPorCodigo (Equipo equipo) {
+		return daoEquipo.buscarPorCodigo(equipo);
 	}
 
 }

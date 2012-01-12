@@ -134,10 +134,10 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 	public void onClick$btnAgregar() {
 		// Divisa y Clasificacion fijas
 		// equipo.setDivisa(servicioDivisa.listar().get(0));
-
+      
 		for (int i = 0; i < equipos.size(); i++) {
 			if (cmbTipo.getSelectedItem().getLabel()
-					.equals(equipos.get(i).getDatoBasicoByCodigoClasificacion().getNombre())) {
+					.equals(equipos.get(i).getDatoBasicoByCodigoClasificacion().getNombre())) {//MODIFICADO
 
 				if (cmbCategoria.getSelectedItem().getLabel()
 						.equals(equipos.get(i).getCategoria().getNombre())) {
@@ -150,7 +150,7 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 		}
 		equipo.setDivisa(divisa);
 		equipo.setEstatus('A');
-		equipo.setDatoBasicoByCodigoClasificacion(clasificacion);
+		equipo.setDatoBasicoByCodigoClasificacion(clasificacion);//MODIFICADO
 		equipo.setCategoria(categoria);
 		equipo.setNombre(txtNombre.getValue());
 		equipo.setCodigoEquipo(servicioEquipo.listar().size() + 1);
@@ -196,6 +196,10 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 		if (listEquipo.getSelectedIndex() >= 0) {
 			Equipo equipoSeleccionado = (Equipo) listEquipo.getSelectedItem()
 					.getValue();
+			  if (servicioEquipo.buscarPorCodigo(equipo)==false)
+					//System.out.println(servicioCategoria.buscarPorCodigo(categoria));
+						alert ("No se puede borrar mientras existan equipos en esta categoria");
+			  else
 			if (equipoSeleccionado != null) {
 				equipos.remove(equipoSeleccionado);
 				servicioEquipo.eliminar(equipoSeleccionado);

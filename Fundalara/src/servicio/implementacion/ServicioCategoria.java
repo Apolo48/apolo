@@ -56,4 +56,11 @@ public class ServicioCategoria implements IServicioCategoria {
 		return daoCategoria.buscarCategorias(edad);
 	}
 
+	@Override
+	public boolean buscarPorCodigo(Categoria categoria) {
+		return daoCategoria.buscarPorCodigo(categoria);
+	}
+	
+	
+
 }

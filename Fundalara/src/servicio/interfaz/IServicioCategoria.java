@@ -24,4 +24,6 @@ public interface IServicioCategoria {
 	public abstract Categoria buscarPorEdad(int edad);
 	
 	public abstract List<Categoria> buscarCategorias(int edad);
+	
+	public boolean buscarPorCodigo (Categoria categoria);
 }

@@ -24,19 +24,16 @@ public class ServicioMedico implements IServicioMedico {
 	@Override
 	public void eliminar(Medico c) {
 		daoMedico.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(Medico c) {
 		daoMedico.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(Medico c) {
 		daoMedico.actualizar(c);
-
 	}
 
 	@Override
@@ -53,4 +50,5 @@ public class ServicioMedico implements IServicioMedico {
 	public boolean buscarelimi(Medico medico){
 		return daoMedico.verificareli(medico);
 	}
+	
 }

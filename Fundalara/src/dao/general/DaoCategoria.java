@@ -1,12 +1,19 @@
 package dao.general;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import comun.TipoDatoBasico;
+
 import modelo.Categoria;
-import java.util.List;
+import modelo.TipoDato;
 import dao.generico.GenericDao;
+import dao.generico.SessionManager;
 
 /**
  * Clase de acceso y manejo de los datos relacionados a las categorias de los
@@ -52,6 +59,36 @@ public class DaoCategoria extends GenericDao {
 				.add(Restrictions.gt("edadSuperior", edad))
 				.add(Restrictions.eq("estatus", 'A'));
 		return c.list();
+	}
+	
+	/**
+	 * Agregados para ConfigurarCategoria
+	 */
+	public List listar(Class o) {
+		Session session = getSession();
+		Transaction tx =  session.beginTransaction();
+		List lista = session.createCriteria(o).add(Restrictions.eq("estatus", 'A')).list();
+		return lista;
+	}
+	
+	public boolean buscarPorCodigo(Categoria categoria) {
+		//Categoria categoria;
+		boolean sw;
+		Session session = SessionManager.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Query query = session.createSQLQuery(
+				"select * from equipo,categoria where categoria.estatus='A' and equipo.estatus='A'and equipo.codigo_categoria=categoria.codigo_categoria and equipo.codigo_categoria='"
+						+ categoria.getCodigoCategoria() + "'").addEntity(Categoria.class);
+		
+		List<Object> lista = query.list();
+	
+		if (lista.size()!=0) {
+			sw=false;
+		} else {
+			sw=true;
+		}
+		tx.commit();
+		return sw;
 	}
 
 }
