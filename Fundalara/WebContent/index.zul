@@ -241,7 +241,7 @@
 											<treerow>
 												<treecell
 													label="Actualizar"
-													onClick='enlace("Jugador/Vistas/actualizarJugador.zul")' />
+													onClick='enlace("Jugador/Vistas/frmActualizarJugador.zul")' />
 											</treerow>
 										</treeitem>
 										<treeitem open="false">

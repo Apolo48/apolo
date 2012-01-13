@@ -42,7 +42,8 @@ public enum TipoDatoBasico {
 	BRAZO_LANZAR(96),
 	POSICION_BATEO(97),
 	GENERO(98),
-	COMISION(102);
+	COMISION(102),
+	ACTUALIZACION_MEDICA(128);
 
 	private int codigo;
 
