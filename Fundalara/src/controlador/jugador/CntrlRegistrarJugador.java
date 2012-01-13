@@ -82,7 +82,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private static final char ESTATUS_INSCRITO = 'A';
 	private static final long serialVersionUID = 1L;
 	// Componentes visuales
-	private Window winRegistrarJugador;
+	private Window winRegistroJugador;
 	private Datebox dtboxFechaNac;
 	private Datebox dtboxFechaInicioActividad;
 	private Button btnGuardar;
@@ -741,7 +741,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 	
 	public void onClick$btnSalir() {
-		//winRegistrarJugador.detach();
+		//FALTA VALIDACION DE SALIDA
+		winRegistroJugador.detach();
 	}
 
 	public void onClick$btnFoto() {
