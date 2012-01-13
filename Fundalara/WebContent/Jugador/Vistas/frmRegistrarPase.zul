@@ -42,13 +42,11 @@
 								<column	width="32%" />
 							</columns>
 							<rows>
-								<row style="border:none;">
+								<row style="border:none;" spans="1,3">
 									<label value="Cédula" />
 									<div>
-										<textbox id="txtNacionalidad"
-											readonly="true" width="15%" maxlength="8"/>
 										<textbox id="txtCedula"
-											readonly="true" width="45%" maxlength="8"/>
+											readonly="true" width="25%"/>
 										<button id="btnCatalogoJugador"
 											focus="true" tooltiptext="Consultar Jugador"
 											image="../../Recursos/Imagenes/consultar.ico" />

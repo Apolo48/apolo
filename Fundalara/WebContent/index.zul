@@ -251,18 +251,11 @@
 													onClick='enlace("Jugador/Vistas/frmAscenderJugador.zul")' />
 											</treerow>
 										</treeitem>
-										<treeitem open="false">
-											<treerow>
-												<treecell
-													label="Cambiar de Equipo"
-													onClick='enlace("Jugador/Vistas/cambiarEquipo.zul")' />
-											</treerow>
-										</treeitem>
 										<treeitem>
 											<treerow>
 												<treecell
 													label="Retirar/Trasladar(Pase)"
-													onClick='enlace("Jugador/Vistas/trasladarJugador.zul")' />
+													onClick='enlace("Jugador/Vistas/frmTrasladarJugador.zul")' />
 											</treerow>
 										</treeitem>
 										<treeitem open="false">

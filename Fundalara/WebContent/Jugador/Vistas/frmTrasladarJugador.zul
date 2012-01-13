@@ -3,7 +3,7 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
 	<window id="winTrasladarJugador" title="Trasladar" border="normal" width="677px"
-		closable="true" apply="controlador.jugador.TrasladarJugadorCtrl">
+		closable="true" apply="controlador.jugador.CntrlTrasladarJugador">
 
 		<grid style="border:none;" oddRowSclass="none">
 			<columns>

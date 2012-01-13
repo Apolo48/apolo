@@ -76,7 +76,6 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 	private Button btnRetirar;
 	private Button btnCancelar;
 	private Button btnSalir;
-	private Textbox txtNacionalidad;
 	private Textbox txtGenero;
 	private Combobox cmbMotivo;
 	private Component formulario;
@@ -114,14 +113,6 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 	}
 
 	// Set y Get
-	public Textbox getCmbNacionalidad() {
-		return txtNacionalidad;
-	}
-
-	public void setCmbNacionalidad(Textbox txtNacionalidad) {
-		this.txtNacionalidad = txtNacionalidad;
-	}
-
 	public Jugador getJugador() {
 		return jugador;
 	}
@@ -225,9 +216,7 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				jugador = (Jugador) formulario.getVariable("jugador",false);
-				String cedula = jugador.getCedulaRif();
-				txtNacionalidad.setValue(cedula.substring(0, 1));
-				txtCedula.setValue(cedula.substring(2));				
+				txtCedula.setValue(jugador.getCedulaRif());				
 				txtPrimerNombre.setValue(jugador.getPersonaNatural().getPrimerNombre());
 				txtSegundoNombre.setValue(jugador.getPersonaNatural().getSegundoNombre());
 				txtPrimerApellido.setValue(jugador.getPersonaNatural().getPrimerApellido());
@@ -253,20 +242,10 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 	
 	
 	public void retirar(){
-		/*retiroJugador.setCedulaRif(jugadorBean.getCedula());
-		retiroJugador.setFechaRetiro(new Date());
-		retiroJugador.setEstatus('E');		
-		retiroJugador.setJugador(jugador);
-		servicioRetiroTraslado.agregar(retiroJugador);			
-		servicioJugador.retirarJugador(jugador);		*/
-		
-		//Agregar en el modelo el sequenceGenerator
 		retiroJugador.setFechaRetiro(new Date());
 		retiroJugador.setEstatus('A');
 		retiroJugador.setDatoBasicoByCodigoTipoOperacion(tipoOperacion); //ojo
 		retiroJugador.setJugador(jugador);
-		// datoBasicoByCodigoTipoOperacion es el valor que se taren del combo
-		//retiroJugador.setDatoBasicoByCodigoTipoOperacion(datoBasicoByCodigoTipoOperacion);
 		servicioRetiroTraslado.agregar(retiroJugador);
 		servicioJugador.retirarJugador(jugador);
 		
@@ -291,7 +270,6 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 	
 	public void limpiar() {
 		retiroJugador = new RetiroTraslado();
-		txtNacionalidad.setValue("-");
 		txtCedula.setValue(null);
 		txtPrimerNombre.setValue(null);
 		txtSegundoNombre.setValue(null);

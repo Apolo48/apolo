@@ -7,7 +7,7 @@
 	import controlador.jugador.converter.*;
 ]]></zscript>
 
-	<window title="Retirar Jugador" border="normal" width="670px"
+	<window title="" border="normal" width="670px"
 		id="winRetirarJugador"
 		apply="controlador.jugador.CntrlRetirarJugador">
 
@@ -33,7 +33,6 @@
 								<row spans="1,3" style="border:none">
 									<label value="Cédula" />
 									<div>
-										<textbox id="txtNacionalidad" value="-" width="4%" readonly="true"/>
 										<textbox id="txtCedula" width="28%" readonly="true"/>
 										<button id="btnCatalogoJugador"
 											focus="true" tooltiptext="Consultar Jugador"

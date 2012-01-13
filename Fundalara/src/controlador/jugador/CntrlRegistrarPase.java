@@ -82,7 +82,6 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 	private Component formulario;
 	private ServicioRoster servicioRoster;
 	//Datos del jugador
-	private Textbox txtNacionalidad;
 	private Textbox txtCedula;
 	private Button btnCatalogoJugador;
 	private Textbox txtPrimerNombre;
@@ -120,9 +119,7 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
 
 	
-	//Set y Get
-	
-
+	//Set y Get	
 	public Jugador getJugador() {
 		return jugador;
 	}
@@ -193,9 +190,7 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				jugador = (Jugador) formulario.getVariable("jugador",false);
-				String cedula = jugador.getCedulaRif();
-				txtNacionalidad.setValue(cedula.substring(0, 1));
-				txtCedula.setValue(cedula.substring(2));				
+				txtCedula.setValue(jugador.getCedulaRif());				
 				txtPrimerNombre.setValue(jugador.getPersonaNatural().getPrimerNombre());
 				txtPrimerApellido.setValue(jugador.getPersonaNatural().getPrimerApellido());
 								
@@ -226,41 +221,16 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 
 
 	public void retirarPase(){
-/*		retiroJugador.setCedulaRif(jugadorBean.getCedula());
-		retiroJugador.setFechaRetiro(new Date());
-		retiroJugador.setEstatus('E');		
-		retiroJugador.setJugador(jugador);
-		servicioRetiroTraslado.agregar(retiroJugador);			
-		servicioJugador.retirarJugador(jugador); ojo
-*/				
-		
-		//Agregar en el modelo el sequenceGenerator
 		retiroJugador.setFechaRetiro(new Date());
 		retiroJugador.setEstatus('A');
 		retiroJugador.setDatoBasicoByCodigoTipoOperacion(tipoOperacion);
 		retiroJugador.setJugador(jugador);
-		// datoBasicoByCodigoTipoOperacion es el valor que se taren del combo
-		//retiroJugador.setDatoBasicoByCodigoTipoOperacion(datoBasicoByCodigoTipoOperacion);
 		servicioRetiroTraslado.agregar(retiroJugador);
-		servicioJugador.retirarJugador(jugador);
-			
+		servicioJugador.retirarJugador(jugador);			
 	}
 	
 	
-	
-	/*
-	public void retirar(){
-		retiroJugador.setCedulaRif(jugadorBean.getCedula());
-		retiroJugador.setFechaRetiro(new Date());
-		retiroJugador.setEstatus('E');		
-		retiroJugador.setJugador(jugador);
-		servicioRetiroTraslado.agregar(retiroJugador);			
-		servicioJugador.retirarJugador(jugador);		
-	}*/
-	
 	public void limpiar() {
-	//	retiroJugador = new RetiroTraslado();
-		txtNacionalidad.setValue("-");
 		txtCedula.setValue(null);
 		txtPrimerNombre.setValue(null);
      	txtPrimerApellido.setValue(null);
@@ -276,8 +246,7 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 		windregistrarPase.detach();
 	}
 		
-	public void onClick$btnCancelar() {
-		
+	public void onClick$btnCancelar() {		
 		jugador = new Jugador();
 		binder.loadAll();
 		limpiar();

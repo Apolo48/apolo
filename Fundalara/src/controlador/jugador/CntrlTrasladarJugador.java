@@ -18,7 +18,7 @@ import comun.Ruta;
 import comun.TipoDatoBasico;
 import comun.Util;
 
-public class TrasladarJugadorCtrl extends GenericForwardComposer {
+public class CntrlTrasladarJugador extends GenericForwardComposer {
 	private Combobox cmbTipoTraslado;
 	private Include incCuerpo;
 
