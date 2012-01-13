@@ -22,6 +22,7 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 import org.zkoss.zul.api.Tab;
 import org.zkoss.zul.impl.InputElement;
 
@@ -81,6 +82,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private static final char ESTATUS_INSCRITO = 'A';
 	private static final long serialVersionUID = 1L;
 	// Componentes visuales
+	private Window winRegistrarJugador;
 	private Datebox dtboxFechaNac;
 	private Datebox dtboxFechaInicioActividad;
 	private Button btnGuardar;
@@ -736,6 +738,10 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public void onClick$btnAntes() {
 		moveStep(false);
+	}
+	
+	public void onClick$btnSalir() {
+		//winRegistrarJugador.detach();
 	}
 
 	public void onClick$btnFoto() {

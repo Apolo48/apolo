@@ -49,14 +49,14 @@
 													<treerow>
 														<treecell
 															label="Categorías"
-															onClick='enlace("Jugador/Vistas/configurarCategoria.zul")' />
+															onClick='enlace("Jugador/Vistas/frmConfigurarCategoria.zul")' />
 													</treerow>
 												</treeitem>
 												<treeitem>
 													<treerow>
 														<treecell
 															label="Equipos"
-															onClick='enlace("Jugador/Vistas/configurarEquipo.zul")' />
+															onClick='enlace("Jugador/Vistas/frmConfigurarEquipo.zul")' />
 													</treerow>
 												</treeitem>
 												<treeitem>
@@ -203,7 +203,7 @@
 													<treerow>
 														<treecell
 															label="Instituciones"
-															onClick='enlace("Jugador/Vistas/configurarInstitucion.zul")' />
+															onClick='enlace("Jugador/Vistas/frmConfigurarInstitucion.zul")' />
 													</treerow>
 												</treeitem>
 												<treeitem>

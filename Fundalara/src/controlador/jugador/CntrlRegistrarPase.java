@@ -77,7 +77,7 @@ import modelo.RetiroTraslado;
 
 public class CntrlRegistrarPase extends GenericForwardComposer {
 
-	private Window windregistrarPase;
+	private Window winRegistrarPase;
 	private String txtnNumeroPase;
 	private Component formulario;
 	private ServicioRoster servicioRoster;
@@ -241,9 +241,8 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 	    cmbMotivo.setSelectedIndex(-1);
 	}
 	
-	
 	public void onClick$btnSalir(){
-		windregistrarPase.detach();
+		winRegistrarPase.detach();
 	}
 		
 	public void onClick$btnCancelar() {		

@@ -96,7 +96,7 @@
 									valign="middle" style="border:none;">
 									<groupbox mold="3d"
 										style="border:none">
-										<image id="imgJugador"
+										<image id="imgJugador" src="../../Recursos/Imagenes/noFoto.jpg" 
 											height="80px" width="80px" />
 									</groupbox>
 								</row>

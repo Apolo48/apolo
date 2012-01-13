@@ -53,7 +53,6 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 
 	private Window winRegistrarHospedaje;
 
-
 	//Datos de la Competencia
 	private Combobox cmbCompetencia;
 	private Datebox dtboxFechaIni;
@@ -242,7 +241,6 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	}
 	
 	public void onClick$btnSalir() {
-	
 		winRegistrarHospedaje.detach();
 	}
 

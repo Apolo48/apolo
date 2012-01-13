@@ -38,7 +38,7 @@ root="winActualizarFamiliar" ?>
 										</combobox>
 
 									<textbox id="txtCedula" constraint="no empty" readonly="true"/>
-									<button id="btnBuscar" label="Buscar" image="../../Recursos/Imagenes/consultar.ico">
+									<button id="btnBuscar" image="../../Recursos/Imagenes/consultar.ico">
 									</button>
 								</div>
 							</row>
@@ -152,7 +152,7 @@ root="winActualizarFamiliar" ?>
 	
 	<panel title="Familiar">
 		<panelchildren>
-			<tabbox orient="vertical" height="350px">
+			<tabbox orient="horizontal" height="350px">
 				<tabs width="90px">
 					<tab label="Básicos" />
 					<tab label="Ubicación" />

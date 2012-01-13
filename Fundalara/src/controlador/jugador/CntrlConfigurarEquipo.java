@@ -150,6 +150,8 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 		}
 		equipo.setDivisa(divisa);
 		equipo.setEstatus('A');
+		//SOLUCION TEMPORAL FALTA ACTUALIZAR VISTA DEBE SER DINAMICO
+		equipo.setDatoBasicoByCodigoTipoLapso(servicioDatoBasico.buscarTipo(TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR"));
 		equipo.setDatoBasicoByCodigoClasificacion(clasificacion);//MODIFICADO
 		equipo.setCategoria(categoria);
 		equipo.setNombre(txtNombre.getValue());

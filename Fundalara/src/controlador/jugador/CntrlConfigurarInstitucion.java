@@ -127,8 +127,8 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 	public void onClick$btnGuardar() {
 		institucion
 				.setCodigoInstitucion(servicioInstitucion.listar().size() + 1);
-		institucion.setNombre(txtNombre.getValue());
-		institucion.setDireccion(txtDireccion.getValue());
+		institucion.setNombre(txtNombre.getValue().toUpperCase());
+		institucion.setDireccion(txtDireccion.getValue().toUpperCase());
 		institucion.setDatoBasicoByCodigoParroquia(parroquia);
 		institucion.setEstatus('A');
 		institucion.setDatoBasicoByCodigoTipoInstitucion(tipoinstitucion);

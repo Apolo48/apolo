@@ -35,6 +35,7 @@ import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 import org.zkoss.zul.api.Tab;
 
 import servicio.implementacion.ServicioDatoBasico;
@@ -63,6 +64,7 @@ import modelo.RetiroTraslado;
 
 public class CntrlRetirarJugador extends GenericForwardComposer {
 
+	private Window winRetirarJugador;
 	private Textbox txtFechaIngreso;
 	private Textbox txtCedula;
 	private Textbox txtPrimerNombre;
@@ -247,9 +249,7 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 		retiroJugador.setDatoBasicoByCodigoTipoOperacion(tipoOperacion); //ojo
 		retiroJugador.setJugador(jugador);
 		servicioRetiroTraslado.agregar(retiroJugador);
-		servicioJugador.retirarJugador(jugador);
-		
-		
+		servicioJugador.retirarJugador(jugador);		
 	}
 	
 	public void onClick$btnRetirar(){		
@@ -288,4 +288,8 @@ public class CntrlRetirarJugador extends GenericForwardComposer {
 		limpiar();
 	}
 
+	public void onClick$btnSalir(){
+		winRetirarJugador.detach();
+	}	
+	
 }
