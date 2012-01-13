@@ -58,5 +58,10 @@ public class ServicioDocumentoPersonal implements IServicioDocumentoPersonal {
 		daoDocumentoPersonal.guardar(documentos, jugador);
 		
 	}
+	
+	public void actualizar(List<DocumentoEntregado> documentos) {
+		daoDocumentoPersonal.actualizar(documentos);
+		
+	}
 
 }

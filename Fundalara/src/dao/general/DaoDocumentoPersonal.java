@@ -40,11 +40,24 @@ public class DaoDocumentoPersonal extends GenericDao {
 			Query query = session
 					.createSQLQuery("SELECT last_value FROM "+DaoDocumentoEntregado.SECUENCIA);
 			int id = Integer.valueOf(query.uniqueResult().toString());
+			documentoEntregado.setCodigoDocumentoEntregado(id);
 			DocumentoPersonalId docId = new DocumentoPersonalId(id, jugador.getCedulaRif());
 			DocumentoPersonal docPersonal = new DocumentoPersonal(docId, documentoEntregado, jugador,'A');
 			session.save(docPersonal);
 		}
 		tx.commit();
 	}
+	
+	
+	public void actualizar(List<DocumentoEntregado> documentos) {
+		Session session = this.getSession();
+		Transaction tx = session.beginTransaction();
+		for (DocumentoEntregado documentoEntregado : documentos) {
+			session.update(documentoEntregado);
+		}
+		tx.commit();
+	}
+	
+	
 
 }

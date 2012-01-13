@@ -9,7 +9,7 @@
 
 	<div align="left">
 		<window border="none" width="670px" height="1000px"
-			id="winRegistroJugador"
+			id="winRegistrarJugador"
 			apply="controlador.jugador.CntrlRegistrarJugador">
 
 			<groupbox id="grboxPerfilJugador"
@@ -97,7 +97,7 @@
 											constraint="no empty"
 												selectedItem="@{controller.jugadorBean.genero}"
 												readonly="true" value="--Seleccione--" width="25%"
-													model="@{winRegistroJugador$composer.generos}">
+													model="@{winRegistrarJugador$composer.generos}">
 															<comboitem
 														self="@{each='genero'}" label="@{genero.nombre}" />
 																			</combobox>
@@ -215,7 +215,7 @@
 																				value="--Seleccione--" id="cmbPaisNac"
 																				readonly="true" width="70%"
 																				selectedItem="@{controller.jugadorBean.paisNac}"
-																				model="@{winRegistroJugador$composer.paises}">
+																				model="@{winRegistrarJugador$composer.paises}">
 																				<comboitem
 																					self="@{each='pais'}" label="@{pais.nombre}" />
 																			</combobox>
@@ -229,7 +229,7 @@
 																				id="cmbEstadoNac" value="--Seleccione--" width="70%"
 																				readonly="true" disabled="true"
 																				selectedItem="@{controller.estadoVenezuela}"
-																				model="@{winRegistroJugador$composer.estadosVenezuela}">
+																				model="@{winRegistrarJugador$composer.estadosVenezuela}">
 																				<comboitem
 																					self="@{each='estadoV'}" label="@{estadoV.nombre}" />
 																			</combobox>
@@ -246,7 +246,7 @@
 																				id="cmbMunicipioNac" readonly="true"
 																				selectedItem="@{controller.municipioNac}"
 																				value="--Seleccione--" width="70%" disabled="true"
-																				model="@{winRegistroJugador$composer.municipiosEstados, load-after='cmbEstadoNac.onChange'}">
+																				model="@{winRegistrarJugador$composer.municipiosEstados, load-after='cmbEstadoNac.onChange'}">
 																				<comboitem
 																					self="@{each='municipioN'}"
 																					label="@{municipioN.nombre}" />
@@ -261,7 +261,7 @@
 																				id="cmbParroquiaNac" readonly="true"
 																				selectedItem="@{controller.jugadorBean.parroquiaNac}" disabled="true"
 																				value="--Seleccione--" width="70%"
-																				model="@{winRegistroJugador$composer.parroquiasMunicipio, load-after='cmbMunicipioNac.onChange'}">
+																				model="@{winRegistrarJugador$composer.parroquiasMunicipio, load-after='cmbMunicipioNac.onChange'}">
 																				<comboitem
 																					self="@{each='parroquiaN'}"
 																					label="@{parroquiaN.nombre}" />
@@ -302,7 +302,7 @@
 																				readonly="true" id="cmbEstadoResi"
 																				value="--Seleccione--" width="70%"
 																				selectedItem="@{controller.estadoVenezuelaResi}"
-																				model="@{winRegistroJugador$composer.estadosVenezuela}">
+																				model="@{winRegistrarJugador$composer.estadosVenezuela}">
 																				<comboitem
 																					self="@{each='estado'}" label="@{estado.nombre}"
 																					value="@{estado.codigoEstado}" />
@@ -317,7 +317,7 @@
 																				id="cmbMunicipioResi" readonly="true"
 																				selectedItem="@{controller.municipioResi}"
 																				value="--Seleccione--" width="70%"
-																				model="@{winRegistroJugador$composer.municipiosEstadosResi, load-after='cmbEstadoResi.onChange'}">
+																				model="@{winRegistrarJugador$composer.municipiosEstadosResi, load-after='cmbEstadoResi.onChange'}">
 																				<comboitem
 																					self="@{each='municipio'}"
 																					label="@{municipio.nombre}" />
@@ -335,7 +335,7 @@
 																				id="cmbParroquiaResi" readonly="true"
 																				value="--Seleccione--" width="27%"
 																				selectedItem="@{controller.jugadorBean.parroquiaResi}"
-																				model="@{winRegistroJugador$composer.parroquiasMunicipioResi, load-after='cmbMunicipioResi.onChange'}">
+																				model="@{winRegistrarJugador$composer.parroquiasMunicipioResi, load-after='cmbMunicipioResi.onChange'}">
 																				<comboitem
 																					self="@{each='parroquia'}"
 																					label="@{parroquia.nombre}" />
@@ -390,7 +390,7 @@
 																				readonly="true" id="cmbCodArea"
 																				value="--Seleccione--" width="30%"
 																				selectedItem="@{controller.jugadorBean.telefonoHabitacion.codigo}"
-																				model="@{winRegistroJugador$composer.codigosArea}">
+																				model="@{winRegistrarJugador$composer.codigosArea}">
 																				<comboitem
 																					self="@{each='codAJug'}" label="@{codAJug.nombre}" />
 																			</combobox>
@@ -407,7 +407,7 @@
 																				readonly="true" id="cmbCodCelular"
 																				value="--Seleccione--" width="30%"
 																				selectedItem="@{controller.jugadorBean.telefonoCelular.codigo}"
-																				model="@{winRegistroJugador$composer.codigosCelular}">
+																				model="@{winRegistrarJugador$composer.codigosCelular}">
 																				<comboitem
 																					self="@{each='codCJug'}" label="@{codCJug.nombre}"
 																					value="@{codCJug.codigoDatoBasico}" />
@@ -448,7 +448,7 @@
 													label="Documentos" />
 												<listbox
 													id="listDocPersonales" mold="paging" pageSize="2"
-													model="@{winRegistroJugador$composer.recaudosPersonales}"
+													model="@{winRegistrarJugador$composer.recaudosPersonales}"
 													selectedItem="@{controller.docEntPersonal}">
 													<listhead>
 														<listheader
@@ -479,7 +479,7 @@
 															label="@{docPer.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
 														<listcell
 															label="Subir"
-															onClick="winRegistroJugador$composer.subirDocumento(self,self.getParent().getParent())">
+															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
 														</listcell>
 													</listitem>
 												</listbox>
@@ -506,7 +506,7 @@
 																id="cmbGrupoSanguineo" width="20%" readonly="true"
 																value="--"
 																selectedItem="@{controller.jugadorBean.tipoSangre.grupoSanguineo}"
-																model="@{winRegistroJugador$composer.gruposSanguineos}">
+																model="@{winRegistrarJugador$composer.gruposSanguineos}">
 																<comboitem
 																	self="@{each='grupoSang'}" label="@{grupoSang.nombre}" />
 															</combobox>
@@ -518,7 +518,7 @@
 														<div>
 															<combobox
 																id="cmbFactorRH" width="5%" readonly="true" value="--"
-																model="@{winRegistroJugador$composer.factoresRH}"
+																model="@{winRegistrarJugador$composer.factoresRH}"
 																selectedItem="@{controller.jugadorBean.tipoSangre.factorRH}">
 																<comboitem
 																	self="@{each='factorRH'}" label="@{factorRH.nombre}" />
@@ -600,7 +600,7 @@
 																				readonly="true" value="--Seleccione--" width="60%"
 																				id="cmbAfecciones"
 																					selectedItem="@{controller.afeccion}"
-																				model="@{winRegistroJugador$composer.afecciones}">
+																				model="@{winRegistrarJugador$composer.afecciones}">
 																				<comboitem
 																					self="@{each='afecc'}"
 																					label="@{afecc.nombre}"
@@ -667,7 +667,7 @@
 													label="Documentos" />
 												<listbox
 													id="listDocMedicos" mold="paging" pageSize="2"
-													model="@{winRegistroJugador$composer.recaudosMedicos}"
+													model="@{winRegistrarJugador$composer.recaudosMedicos}"
 													selectedItem="@{controller.docEntMed}">
 													<listhead>
 														<listheader
@@ -698,7 +698,7 @@
 															label="@{docMed.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
 														<listcell
 															label="Subir"
-															onClick="winRegistroJugador$composer.subirDocumento(self,self.getParent().getParent())">
+															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
 														</listcell>
 													</listitem>
 												</listbox>
@@ -730,7 +730,7 @@
 															<combobox
 																id="cmbInstitucionEducativa" width="90%"
 																constraint="no empty"
-																model="@{winRegistroJugador$composer.institucionesEducativas}"
+																model="@{winRegistrarJugador$composer.institucionesEducativas}"
 																selectedItem="@{controller.datoAcademico.institucion}"
 																readonly="true" value="--Seleccione--">
 																<comboitem
@@ -744,7 +744,7 @@
 																value="Año escolar" />
 															<combobox
 																id="cmbAnnioEscolar" readonly="true"
-																model="@{winRegistroJugador$composer.annoEsc}"
+																model="@{winRegistrarJugador$composer.annoEsc}"
 																constraint="no empty"
 																selectedItem="@{controller.datoAcademico.datoBasicoByCodigoAnnoEscolar}"
 																value="--Seleccione--" width="80%">
@@ -756,7 +756,7 @@
 																value="Curso" />
 															<combobox
 																id="cmbCurso"
-																model="@{winRegistroJugador$composer.cursos}"
+																model="@{winRegistrarJugador$composer.cursos}"
 																constraint="no empty"
 																selectedItem="@{controller.datoAcademico.datoBasicoByCodigoCurso}"
 																readonly="true" value="--Seleccione--">
@@ -773,7 +773,7 @@
 													label="Documentos" />
 												<listbox
 													id="listDocAcademicos" mold="paging" pageSize="2"
-													model="@{winRegistroJugador$composer.recaudosAcademicos}"
+													model="@{winRegistrarJugador$composer.recaudosAcademicos}"
 													selectedItem="@{controller.docEntAcad}">
 													<listhead>
 														<listheader
@@ -804,7 +804,7 @@
 															label="@{docAcad.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
 														<listcell
 															label="Subir"
-															onClick="winRegistroJugador$composer.subirDocumento(self,self.getParent().getParent())">
+															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
 														</listcell>
 													</listitem>
 												</listbox>
@@ -835,7 +835,7 @@
 																value="Institución" />
 															<combobox
 																id="cmbInstitucionRecreativa" width="90%"
-																model="@{winRegistroJugador$composer.institucionesRecreativas}"
+																model="@{winRegistrarJugador$composer.institucionesRecreativas}"
 																selectedItem="@{controller.datoSocial.institucion}"
 																readonly="true" value="--Seleccione--">
 																<comboitem
@@ -850,7 +850,7 @@
 																value="Actividad" />
 															<combobox
 																id="cmbActividad" readonly="true" value="--Seleccione--"
-																model="@{winRegistroJugador$composer.actividadSoc}"
+																model="@{winRegistrarJugador$composer.actividadSoc}"
 																	selectedItem="@{controller.datoSocial.datoBasico}"
 																width="80%">
 																<comboitem
@@ -954,7 +954,7 @@
 																<combobox
 																	id="cmbCategoria" value="--Seleccione--" width="65%"
 																	readonly="true" selectedItem="@{controller.categoria}"
-																	model="@{winRegistroJugador$composer.categorias}">
+																	model="@{winRegistrarJugador$composer.categorias}">
 																	<comboitem
 																		self="@{each='categoria'}" label="@{categoria.nombre}"
 																		value="@{categoria.codigoCategoria}" />
@@ -969,7 +969,7 @@
 																	id="cmbEquipo" readonly="true" value="--Seleccione--"
 																	width="65%" selectedItem="@{controller.equipo}"
 																	constraint="no empty"
-																	model="@{winRegistroJugador$composer.equipos, load-after='cmbCategoria.onChange,dtboxFechaNac.onChange'}">
+																	model="@{winRegistrarJugador$composer.equipos, load-after='cmbCategoria.onChange,dtboxFechaNac.onChange'}">
 																	<comboitem
 																		self="@{each='equipo'}" label="@{equipo.nombre}" />
 																</combobox>
@@ -1449,7 +1449,7 @@
 																id="cmbBrazoLanzar" readonly="true"
 																value="--Seleccione--" width="65%"
 																selectedItem="@{controller.jugadorBean.brazoLanzar}"
-																model="@{winRegistroJugador$composer.valoresBrazoLanzamiento}">
+																model="@{winRegistrarJugador$composer.valoresBrazoLanzamiento}">
 																<comboitem
 																	self="@{each='lanzamiento'}"
 																	label="@{lanzamiento.nombre}" />
@@ -1460,7 +1460,7 @@
 																id="cmbPosicionBateo" readonly="true"
 																value="--Seleccione--" width="65%"
 																selectedItem="@{controller.jugadorBean.posicionBateo}"
-																model="@{winRegistroJugador$composer.valoresPosicionBateo}">
+																model="@{winRegistrarJugador$composer.valoresPosicionBateo}">
 																<comboitem
 																	self="@{each='bateo'}" label="@{bateo.nombre}" />
 															</combobox>
@@ -1493,7 +1493,7 @@
 																<combobox
 																	id="cmbTallaCamisa" readonly="true"
 																	value="--Seleccione--" width="65%"
-																	model="@{winRegistroJugador$composer.tallasCamisa}"
+																	model="@{winRegistrarJugador$composer.tallasCamisa}"
 																	selectedItem="@{controller.jugadorBean.tallaCamisa}">
 																	<comboitem
 																		self="@{each='tallaCamisa'}"
@@ -1508,7 +1508,7 @@
 																<combobox
 																	id="cmbTallaPantalon" readonly="true"
 																	value="--Seleccione--" width="65%"
-																	model="@{winRegistroJugador$composer.tallasPantalon}"
+																	model="@{winRegistrarJugador$composer.tallasPantalon}"
 																	selectedItem="@{controller.jugadorBean.tallaPantalon}">
 																	<comboitem
 																		self="@{each='tallaPantalon'}"
@@ -1526,7 +1526,7 @@
 																<combobox
 																	id="cmbTallaCalzado" readonly="true"
 																	value="--Seleccione--" width="26%"
-																	model="@{winRegistroJugador$composer.tallasCalzado}"
+																	model="@{winRegistrarJugador$composer.tallasCalzado}"
 																	selectedItem="@{controller.jugadorBean.tallaCalzado}">
 																	<comboitem
 																		self="@{each='tallaCalzado'}"
@@ -1658,7 +1658,7 @@
 																		<div>
 																			<combobox
 																				id="cmbParentesco"
-																				model="@{winRegistroJugador$composer.parentescos}"
+																				model="@{winRegistrarJugador$composer.parentescos}"
 																				readonly="true" value="--Seleccione--" width="65%"
 																				selectedItem="@{controller.familiarBean.parentesco}">
 																				<comboitem
@@ -1674,7 +1674,7 @@
 																		<div>
 																			<combobox
 																				id="cmbProfesion"
-																				model="@{winRegistroJugador$composer.profesiones}"
+																				model="@{winRegistrarJugador$composer.profesiones}"
 																				readonly="true" value="--Seleccione--" width="65%"
 																				selectedItem="@{controller.familiarBean.profesion}">
 																				<comboitem
@@ -1742,7 +1742,7 @@
 																	id="cmbEstadoFamiliar" readonly="true"
 																	value="--Seleccione--" width="65%"
 																	selectedItem="@{controller.estadoVenezuelaFamiliar}"
-																	model="@{winRegistroJugador$composer.estadosVenezuela}">
+																	model="@{winRegistrarJugador$composer.estadosVenezuela}">
 																	<comboitem
 																		self="@{each='estadoFamiliar'}"
 																		label="@{estadoFamiliar.nombre}" />
@@ -1757,7 +1757,7 @@
 																	id="cmbMunicipioFamiliar" readonly="true"
 																	selectedItem="@{controller.municipioFamiliar}"
 																	value="--Seleccione--" width="65%"
-																	model="@{winRegistroJugador$composer.municipiosEstadosFam, load-after='cmbEstadoFamiliar.onChange'}">
+																	model="@{winRegistrarJugador$composer.municipiosEstadosFam, load-after='cmbEstadoFamiliar.onChange'}">
 																	<comboitem
 																		self="@{each='municipioFam'}"
 																		label="@{municipioFam.nombre}" />
@@ -1774,7 +1774,7 @@
 																<combobox
 																	id="cmbParroquiaFamiliar" readonly="true"
 																	value="--Seleccione--" width="65%"
-																	model="@{winRegistroJugador$composer.parroquiasMunicipioFam, load-after='cmbMunicipioFamiliar.onChange'}"
+																	model="@{winRegistrarJugador$composer.parroquiasMunicipioFam, load-after='cmbMunicipioFamiliar.onChange'}"
 																	selectedItem="@{controller.familiarBean.parroquiaResi}">
 																	<comboitem
 																		self="@{each='parroquiaFam'}"
@@ -1825,7 +1825,7 @@
 																<combobox
 																	readonly="true" id="cmbCodAreaFamiliar" value="--"
 																	width="25%"
-																	model="@{winRegistroJugador$composer.codigosArea}"
+																	model="@{winRegistrarJugador$composer.codigosArea}"
 																	selectedItem="@{controller.familiarBean.telefonoHabitacion.codigo}">
 																	<comboitem
 																		self="@{each='codAFamiliar'}"
@@ -1845,7 +1845,7 @@
 																<combobox
 																	readonly="true" id="cmbCodCelularFamiliar" value="--"
 																	width="25%"
-																	model="@{winRegistroJugador$composer.codigosCelular}"
+																	model="@{winRegistrarJugador$composer.codigosCelular}"
 																	selectedItem="@{controller.familiarBean.telefonoCelular.codigo}">
 																	<comboitem
 																		self="@{each='codCFamiliar'}"
@@ -1901,7 +1901,7 @@
 																value="Comisión" />
 															<combobox
 																id="cmbComisiones"
-																model="@{winRegistroJugador$composer.comisiones}"
+																model="@{winRegistrarJugador$composer.comisiones}"
 																selectedItem="@{controller.comision}" readonly="true"
 																value="--Seleccione--">
 																<comboitem

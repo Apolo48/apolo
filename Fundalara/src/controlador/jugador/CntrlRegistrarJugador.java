@@ -82,7 +82,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private static final char ESTATUS_INSCRITO = 'A';
 	private static final long serialVersionUID = 1L;
 	// Componentes visuales
-	private Window winRegistroJugador;
+	private Window winRegistrarJugador;
 	private Datebox dtboxFechaNac;
 	private Datebox dtboxFechaInicioActividad;
 	private Button btnGuardar;
@@ -214,7 +214,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 * Enumerado de los puntos/secciones del registro del jugador
 	 */
 	private enum Point {
-		JUGADOR, DATO_MEDICO, DATO_ACADEMICO, DATO_SOCIAL, ROSTER
+		JUGADOR, DATO_MEDICO, DATO_ACADEMICO, DATO_SOCIAL, ROSTER, DOCUMENTO_PERSONAL, DOCUMENTO_ACADEMICO, DOCUMENTO_MEDICO
 	};
 
 	/**
@@ -702,13 +702,14 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtEdad.setValue(Util.calcularDiferenciaAnnios(fecha));
 		sugerirCategoria();
 	}
-	
-	public void onChange$cmbPaisNac(){
-		boolean inhabilitar=false;
-		if(!cmbPaisNac.getSelectedItem().getLabel().equalsIgnoreCase("Venezuela")){
-			inhabilitar=true;
+
+	public void onChange$cmbPaisNac() {
+		boolean inhabilitar = false;
+		if (!cmbPaisNac.getSelectedItem().getLabel()
+				.equalsIgnoreCase("Venezuela")) {
+			inhabilitar = true;
 		}
-		if (inhabilitar){
+		if (inhabilitar) {
 			cmbParroquiaNac.setSelectedIndex(-1);
 			cmbMunicipioNac.setSelectedIndex(-1);
 			cmbEstadoNac.setSelectedIndex(-1);
@@ -739,10 +740,10 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void onClick$btnAntes() {
 		moveStep(false);
 	}
-	
+
 	public void onClick$btnSalir() {
-		//FALTA VALIDACION DE SALIDA
-		winRegistroJugador.detach();
+		// FALTA VALIDACION DE SALIDA
+		winRegistrarJugador.detach();
 	}
 
 	public void onClick$btnFoto() {
@@ -896,9 +897,22 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				guardarRoster();
 			}
 			guardarDatoSocial();
+			guardarDocumentoPersonal();
 			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
 					Mensaje.EXITO, Messagebox.EXCLAMATION);
+
 		}
+	}
+
+	private  void guardarDocumentoPersonal() {
+		if (checkPoints.get(Point.DOCUMENTO_PERSONAL)){
+			servicioDocumentoPersonal.actualizar(documentosPersonales);
+		}else{
+			completarDocumentos(documentosPersonales);
+			servicioDocumentoPersonal.guardar(documentosPersonales, jugador);			
+			checkPoints.put(Point.DOCUMENTO_PERSONAL,true);
+		}
+		
 	}
 
 	public void guardarJugador() {
@@ -1151,6 +1165,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		completarDocumentos(documentosPersonales);
 		servicioDocumentoPersonal.guardar(documentosPersonales, jugador);
 
+
 		// 7.2 Academicos
 		completarDocumentos(documentosAcademicos);
 		servicioDocumentoAcademico.guardar(documentosAcademicos, datoAcademico);
@@ -1280,7 +1295,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		Categoria cat = servicioCategoria.buscarPorEdad(txtEdad.getValue());
 		categoria = cat;
 		binder.loadComponent(cmbCategoria);
-		
+
 	}
 
 	/**
@@ -1357,5 +1372,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		checkPoints.put(Point.DATO_ACADEMICO, false);
 		checkPoints.put(Point.DATO_SOCIAL, false);
 		checkPoints.put(Point.ROSTER, false);
+		checkPoints.put(Point.DOCUMENTO_PERSONAL, false);
+		checkPoints.put(Point.DOCUMENTO_ACADEMICO, false);
+		checkPoints.put(Point.DOCUMENTO_MEDICO, false);
 	}
 }

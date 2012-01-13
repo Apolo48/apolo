@@ -73,11 +73,7 @@ public class DaoJugador extends GenericDao {
 				Persona persona = (Persona) c2.uniqueResult();
 				persona.setEstatus('E');
 				session.update(persona);
-
-	/*			
-				jugador.setEstatus('E');
-				session.update(jugador);
-	*/			
+		
 				
 				Criteria c3 = session.createCriteria(Jugador.class)
 				.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));
