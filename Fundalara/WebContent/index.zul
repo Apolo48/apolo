@@ -261,13 +261,6 @@
 										<treeitem>
 											<treerow>
 												<treecell
-													label="Retirar"
-													onClick='enlace("Jugador/Vistas/retirarJugador.zul")' />
-											</treerow>
-										</treeitem>
-										<treeitem>
-											<treerow>
-												<treecell
 													label="Retirar/Trasladar(Pase)"
 													onClick='enlace("Jugador/Vistas/trasladarJugador.zul")' />
 											</treerow>
