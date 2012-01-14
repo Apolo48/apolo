@@ -1098,118 +1098,13 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnInscribir() {
-
-		DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.TIPO_PERSONA, "Jugador");
-
-		// Guardando los valores del bean en jugador
-
-		// 1. Persona
-		Persona persona = new Persona();
-		persona.setCedulaRif(jugadorBean.getCedulaCompleta());// 1
-		persona.setCorreoElectronico(jugadorBean.getCorreoElectronico());
-		persona.setDatoBasicoByCodigoParroquia(jugadorBean.getParroquiaResi());
-		persona.setTelefonoHabitacion(jugadorBean.getTelefonoHabitacion()
-				.getTelefonoCompleto());
-		persona.setFechaIngreso(new Date()); // 1-G
-		persona.setDatoBasicoByCodigoTipoPersona(datoTipoPersona);// 1-G
-		persona.setTwitter(jugadorBean.getTwitter());
-		persona.setDireccion(jugadorBean.getDireccion());
-		persona.setEstatus('A');// A-Sins, P , cuando se gaurda
-
-		// 2. Persona Natural
-		PersonaNatural personaN = new PersonaNatural();
-		personaN.setCedulaRif(jugadorBean.getCedulaCompleta());// 1
-		personaN.setCelular(jugadorBean.getTelefonoCelular()
-				.getTelefonoCompleto());
-		personaN.setPrimerApellido(jugadorBean.getPrimerApellido());
-		personaN.setPrimerNombre(jugadorBean.getPrimerNombre());
-		personaN.setSegundoApellido(jugadorBean.getSegundoApellido());
-		personaN.setSegundoNombre(jugadorBean.getSegundoNombre());
-		personaN.setDatoBasico(jugadorBean.getGenero());
-		personaN.setFoto(jugadorBean.getFoto());
-		personaN.setFechaNacimiento(jugadorBean.getFechaNacimiento());
-		personaN.setPersona(persona);
-		personaN.setEstatus('A');// A-Cunado se ins, P- cuando se gaurda
-
-		// 3.Jugador
-		Jugador jugador = new Jugador();
-		jugador.setCedulaRif(jugadorBean.getCedulaCompleta());
-		jugador.setDatoBasicoByCodigoPais(jugadorBean.getPaisNac());
-		jugador.setDatoBasicoByCodigoParroquiaNacimiento(jugadorBean
-				.getParroquiaNac());
-		jugador.setNumero(jugadorBean.getNumero());
-		jugador.setPeso(jugadorBean.getPeso());
-		jugador.setAltura(jugadorBean.getAltura());
-		jugador.setPosicionBateo(jugadorBean.getPosicionBateo().getNombre());
-		jugador.setBrazoLanzar(jugadorBean.getBrazoLanzar().getNombre());
-		jugador.setTipoDeSangre(jugadorBean.getTipoSangre().getTipoSangre());
-		jugador.setPersonaNatural(personaN);
-
-		servicioJugador.agregar(jugador, personaN);
-
-		// 4. Datos Medicos
-		datoMedico.setMedico(medico);
-		datoMedico.setJugador(jugador);
-		datoMedico.setEstatus('A');
-		servicioDatoMedico.agregar(datoMedico);
-
-		datoMedico.setCodigoDatoMedico(servicioDatoMedico.obtenerUltimoId());
-		List<AfeccionJugador> afeccionJugador = new ArrayList<AfeccionJugador>();
-		for (DatoBasico dato : afeccionesJugador) {
-			AfeccionJugador aj = new AfeccionJugador();
-			AfeccionJugadorId id = new AfeccionJugadorId();
-			id.setCodigoAfeccion(dato.getCodigoDatoBasico());
-			id.setCodigoDatoMedico(datoMedico.getCodigoDatoMedico());
-			aj.setId(id);
-			aj.setDatoBasico(dato);
-			aj.setDatoMedico(datoMedico);
-			aj.setEstatus('A');
-			afeccionJugador.add(aj);
-		}
-		if (!afeccionJugador.isEmpty()) {
-			servicioAfeccionJugador.agregar(afeccionJugador);
-		}
-
-		// Datos academicos
-		// El resto de los datos (Institucion,annio escolar y curso) estan
-		// asociados a los componentes en el zul
-		datoAcademico.setFechaIngreso(new Date());
-		datoAcademico.setJugador(jugador);
-		datoAcademico.setEstatus('A');
-		servicioDatoAcademico.agregar(datoAcademico);
-		datoAcademico.setCodigoAcademico(servicioDatoAcademico
-				.obtenerUltimoId());
-
-		// 5. Datos Sociales
-
-		if (!datoSociales.isEmpty()) {
-			for (int i = 0; i < datoSociales.size(); i++) {
-				datoSociales.get(i).setJugador(jugador);
-			}
-			servicioDatoSocial.agregar(datoSociales);
-		}
-
-		// 6. Datos Deportivos
-		// 6.1 Asignacion
-		Roster roster = new Roster(0, jugador, equipo, new Date(), 'A');
-		servicioRoster.agregar(roster);
+		/*
+		Debe pasar a un metodo diferente y adaptarse al nuevo modelo
 		// 6.2 Tallas
 		servicioTallaPorJugador.agregar(jugador, jugadorBean.getTallaCalzado(),
 				jugadorBean.getTallaCamisa(), jugadorBean.getTallaPantalon());
 
-		// 7. Documentos
-		// 7.1 Personales
-		completarDocumentos(documentosPersonales);
-		servicioDocumentoPersonal.guardar(documentosPersonales, jugador);
-
-		// 7.2 Academicos
-		completarDocumentos(documentosAcademicos);
-		servicioDocumentoAcademico.guardar(documentosAcademicos, datoAcademico);
-
-		// 7.3 Medicos
-		completarDocumentos(documentosMedicos);
-		servicioDocumentoMedico.guardar(documentosMedicos, datoMedico);
+		*/
 
 		// 8. Familiares
 

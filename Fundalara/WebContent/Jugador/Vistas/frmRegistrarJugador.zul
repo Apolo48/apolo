@@ -473,7 +473,7 @@
 															label="@{docPer.recaudoPorProceso.cantidad}" />
 														<listcell>
 															<spinner
-																width="60%" value="@{docPer.cantidad}" />
+																width="60%" value="@{docPer.cantidad}" constraint="min 1 max 10"/>
 														</listcell>
 														<listcell
 															label="@{docPer.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
@@ -692,7 +692,7 @@
 															label="@{docMed.recaudoPorProceso.cantidad}" />
 														<listcell>
 															<spinner
-																width="60%" value="@{docMed.cantidad}" />
+																width="60%" value="@{docMed.cantidad}" constraint="min 1 max 10" />
 														</listcell>
 														<listcell
 															label="@{docMed.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
@@ -798,7 +798,7 @@
 															label="@{docAcad.recaudoPorProceso.cantidad}" />
 														<listcell>
 															<spinner
-																width="60%" value="@{docAcad.cantidad}" />
+																width="60%" value="@{docAcad.cantidad}" constraint="min 1 max 10"/>
 														</listcell>
 														<listcell
 															label="@{docAcad.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
