@@ -1003,8 +1003,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			datoMedico.setJugador(jugador);
 			datoMedico.setEstatus('A');
 			servicioDatoMedico.agregar(datoMedico);
-			datoMedico
-					.setCodigoDatoMedico(servicioDatoMedico.obtenerUltimoId());
 			afeccionJugador = guardarDatosAfeccionesToModelo();
 			if (!afeccionJugador.isEmpty()) {
 				servicioAfeccionJugador.agregar(afeccionJugador);
@@ -1025,8 +1023,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			datoAcademico.setJugador(jugador);
 			datoAcademico.setEstatus('A');
 			servicioDatoAcademico.agregar(datoAcademico);
-			datoAcademico.setCodigoAcademico(servicioDatoAcademico
-					.obtenerUltimoId());
 			checkPoints.put(Point.DATO_ACADEMICO, true);
 		}
 	}
@@ -1040,7 +1036,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			roster.setFechaIngreso(new Date());
 			roster.setEstatus('A');
 			servicioRoster.agregar(roster);
-			roster.setCodigoRoster(servicioRoster.obtenerUltimoId());
 			checkPoints.put(Point.ROSTER, true);
 		}
 	}

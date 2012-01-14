@@ -1,9 +1,9 @@
 package dao.general;
 
-import modelo.DatoAcademico;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+
 
 import dao.generico.GenericDao;
 
@@ -35,12 +35,4 @@ public class DaoDatoAcademico extends GenericDao {
 
 		return id;
 	}
-	
-	
-	
-	public void guardar(DatoAcademico datoAcaemico){
-		
-		/*Falta implementar, */
-	}	
-
 }

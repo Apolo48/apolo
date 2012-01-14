@@ -22,7 +22,7 @@ public class GenericDao {
     public void guardar(Object o) {		
 		Session session = getSession();
 		Transaction tx =  session.beginTransaction();
-		session.save(o);
+		session.saveOrUpdate(o);
 		tx.commit();		
 	}
 
