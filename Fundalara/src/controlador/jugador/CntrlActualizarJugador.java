@@ -803,11 +803,11 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		String src = "";
 		String valor = cmbTipoActualizacion.getSelectedItem().getLabel();
 		Util enlace = new Util();
-		if (valor.equalsIgnoreCase("DATOS MÉDICOS")) {
+		if (valor.equalsIgnoreCase("INFORME MEDICO")) {
 			src = "frmActualizarDatosMedicos.zul";
-		} else if (valor.equalsIgnoreCase("AFECCIÓN")) {
+		} else if (valor.equalsIgnoreCase("AFECCION")) {
 			src = "frmActualizarAfeccion.zul";
-		} else if (valor.equalsIgnoreCase("LESIÓN")) {
+		} else if (valor.equalsIgnoreCase("LESION")) {
 			src = "frmActualizarLesion.zul";
 		}
 		src = rutasJug + src;
