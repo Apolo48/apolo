@@ -46,6 +46,7 @@ import servicio.implementacion.ServicioInstitucion;
 import servicio.implementacion.ServicioRoster;
 import servicio.implementacion.ServicioTallaPorJugador;
 
+import comun.EstatusRegistro;
 import comun.FileLoader;
 import comun.Ruta;
 import comun.Util;
@@ -76,13 +77,11 @@ import modelo.Roster;
  * 
  * @author Robert A
  * @author German L
- * @version 0.3 08/01/2012
+ * @version 0.3.1 14/01/2012
  * 
  * */
 public class CntrlRegistrarJugador extends GenericForwardComposer {
 
-	private static final char ESTATUS_PENDIENTE = 'P';
-	private static final char ESTATUS_INSCRITO = 'A';
 	private static final long serialVersionUID = 1L;
 	// Componentes visuales
 	private Window winRegistrarJugador;
@@ -204,6 +203,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Persona persona = new Persona();
 	private PersonaNatural personaN = new PersonaNatural();
 	private Jugador jugador = new Jugador();
+	private DatoBasico tipoIndumentaria = new DatoBasico();
 
 	// Binder
 	private AnnotateDataBinder binder;
@@ -221,7 +221,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 * Enumerado de los puntos/secciones del registro del jugador
 	 */
 	private enum Point {
-		JUGADOR, DATO_MEDICO, DATO_ACADEMICO, DATO_SOCIAL, ROSTER, DOCUMENTO_PERSONAL, DOCUMENTO_ACADEMICO, DOCUMENTO_MEDICO
+		JUGADOR, DATO_MEDICO, DATO_ACADEMICO, DATO_SOCIAL, ROSTER, DOCUMENTO_PERSONAL, DOCUMENTO_ACADEMICO, DOCUMENTO_MEDICO, TALLA
 	};
 
 	/**
@@ -240,7 +240,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				txtPrimerNombre, txtPrimerApellido, cmbGenero };
 		aplicarConstraints();
 		inicializarCheckPoints();
-
+		tipoIndumentaria = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.TIPO_UNIFORME, "Entrenamiento");
 	}
 
 	// Getters y setters
@@ -658,30 +659,39 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public List<DatoBasico> getTallasCalzado() {
 		List<DatoBasico> lista = null;
-		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.INDUMENTARIA, "Calzado");
-		if (datoIndumentaria != null) {
-			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
+		if (tipoIndumentaria != null) {
+			DatoBasico datoIndumentaria = servicioDatoBasico
+					.buscarDatosPorRelacion(tipoIndumentaria, "Calzado");
+			if (datoIndumentaria != null) {
+				lista = servicioDatoBasico
+						.buscarDatosPorRelacion(datoIndumentaria);
+			}
 		}
 		return lista;
 	}
 
 	public List<DatoBasico> getTallasCamisa() {
 		List<DatoBasico> lista = null;
-		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.INDUMENTARIA, "Camisa");
-		if (datoIndumentaria != null) {
-			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
+		if (tipoIndumentaria != null) {
+			DatoBasico datoIndumentaria = servicioDatoBasico
+					.buscarDatosPorRelacion(tipoIndumentaria, "Camisa");
+			if (datoIndumentaria != null) {
+				lista = servicioDatoBasico
+						.buscarDatosPorRelacion(datoIndumentaria);
+			}
 		}
 		return lista;
 	}
 
 	public List<DatoBasico> getTallasPantalon() {
 		List<DatoBasico> lista = null;
-		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.INDUMENTARIA, "Pantalon");
-		if (datoIndumentaria != null) {
-			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
+		if (tipoIndumentaria != null) {
+			DatoBasico datoIndumentaria = servicioDatoBasico
+					.buscarDatosPorRelacion(tipoIndumentaria, "Pantalon");
+			if (datoIndumentaria != null) {
+				lista = servicioDatoBasico
+						.buscarDatosPorRelacion(datoIndumentaria);
+			}
 		}
 		return lista;
 	}
@@ -697,15 +707,16 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	// Eventos
 	public void onClick$btnCatalogoMedico() {
-		Component catalogo = Executions.createComponents(
-				rutasJug +"frmBuscarMedico.zul", null, null);
+		Component catalogo = Executions.createComponents(rutasJug
+				+ "frmBuscarMedico.zul", null, null);
 		catalogo.setVariable("formulario", formulario, false);
 		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				medico = (Medico) formulario.getVariable("medico", false);
 				binder.loadComponent(txtNroColegio);
-				txtMedico.setValue(medico.getNombre()+" "+medico.getApellido());
+				txtMedico.setValue(medico.getNombre() + " "
+						+ medico.getApellido());
 			}
 		});
 	}
@@ -830,7 +841,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 								return;
 							}
 						}
-						datoSocial.setEstatus('A');
+						datoSocial.setEstatus(EstatusRegistro.ACTIVO);
 						datoSociales.add(datoSocial);
 						limpiarActividad();
 					} else {
@@ -910,6 +921,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				guardarRoster();
 			}
 			guardarDatoSocial();
+			guardarTallas();
 			guardarDocumentoPersonal();
 			guardarDocumentoAcademico();
 			guardarDocumentoMedico();
@@ -971,9 +983,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					TipoDatoBasico.TIPO_PERSONA, "Jugador");
 			persona.setFechaIngreso(new Date());
 			persona.setDatoBasicoByCodigoTipoPersona(datoTipoPersona);
-			persona.setEstatus(ESTATUS_PENDIENTE);
-			personaN.setEstatus(ESTATUS_PENDIENTE);
-			jugador.setEstatus(ESTATUS_PENDIENTE);
+			persona.setEstatus(EstatusRegistro.TEMPORAL);
+			personaN.setEstatus(EstatusRegistro.TEMPORAL);
+			jugador.setEstatus(EstatusRegistro.TEMPORAL);
 			personaN.setPersona(persona);
 			jugador.setPersonaNatural(personaN);
 			servicioJugador.agregar(jugador, personaN);
@@ -1029,7 +1041,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					datoMedico.getCodigoDatoMedico()));
 			aj.setDatoBasico(dato);
 			aj.setDatoMedico(datoMedico);
-			aj.setEstatus('A');
+			aj.setEstatus(EstatusRegistro.ACTIVO);
 			afeccionJugador.add(aj);
 		}
 		return afeccionJugador;
@@ -1044,7 +1056,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			servicioAfeccionJugador.actualizar(afeccionJugador, datoMedico);
 		} else {
 			datoMedico.setJugador(jugador);
-			datoMedico.setEstatus('A');
+			datoMedico.setEstatus(EstatusRegistro.ACTIVO);
 			servicioDatoMedico.agregar(datoMedico);
 			afeccionJugador = guardarDatosAfeccionesToModelo();
 			if (!afeccionJugador.isEmpty()) {
@@ -1064,7 +1076,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		} else {
 			datoAcademico.setFechaIngreso(new Date());
 			datoAcademico.setJugador(jugador);
-			datoAcademico.setEstatus('A');
+			datoAcademico.setEstatus(EstatusRegistro.ACTIVO);
 			servicioDatoAcademico.agregar(datoAcademico);
 			checkPoints.put(Point.DATO_ACADEMICO, true);
 		}
@@ -1077,7 +1089,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		} else {
 			roster.setJugador(jugador);
 			roster.setFechaIngreso(new Date());
-			roster.setEstatus('A');
+			roster.setEstatus(EstatusRegistro.ACTIVO);
 			servicioRoster.agregar(roster);
 			checkPoints.put(Point.ROSTER, true);
 		}
@@ -1097,14 +1109,22 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
-	public void onClick$btnInscribir() {
-		/*
-		Debe pasar a un metodo diferente y adaptarse al nuevo modelo
-		// 6.2 Tallas
-		servicioTallaPorJugador.agregar(jugador, jugadorBean.getTallaCalzado(),
-				jugadorBean.getTallaCamisa(), jugadorBean.getTallaPantalon());
+	private void guardarTallas() {
+		if (checkPoints.get(Point.TALLA)) {
+			servicioTallaPorJugador.actualizar(jugador, tipoIndumentaria,
+					jugadorBean.getTallaCalzado(),
+					jugadorBean.getTallaCamisa(),
+					jugadorBean.getTallaPantalon());
+		} else {
+			servicioTallaPorJugador.agregar(jugador, tipoIndumentaria,
+					jugadorBean.getTallaCalzado(),
+					jugadorBean.getTallaCamisa(),
+					jugadorBean.getTallaPantalon());
+			checkPoints.put(Point.TALLA, true);
+		}
+	}
 
-		*/
+	public void onClick$btnInscribir() {
 
 		// 8. Familiares
 
@@ -1118,7 +1138,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private void completarDocumentos(List<DocumentoEntregado> lista) {
 		for (DocumentoEntregado documentoEntregado : lista) {
 			documentoEntregado.setFecha(new Date());
-			documentoEntregado.setEstatus('A');
+			documentoEntregado.setEstatus(EstatusRegistro.ACTIVO);
 		}
 	}
 
@@ -1268,7 +1288,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	/**
-	 * Aplica las restricciones de captura de datos a lso componentes de la
+	 * Aplica las restricciones de captura de datos a los componentes de la
 	 * vista
 	 */
 	private void aplicarConstraints() {
@@ -1307,5 +1327,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		checkPoints.put(Point.DOCUMENTO_PERSONAL, false);
 		checkPoints.put(Point.DOCUMENTO_ACADEMICO, false);
 		checkPoints.put(Point.DOCUMENTO_MEDICO, false);
+		checkPoints.put(Point.TALLA, false);
 	}
 }

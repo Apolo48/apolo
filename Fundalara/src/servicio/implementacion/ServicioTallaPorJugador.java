@@ -55,8 +55,14 @@ public class ServicioTallaPorJugador implements IServicioTallaPorJugador {
 	}
 
 	@Override
-	public void agregar(Jugador jugador, DatoBasico... tallas) {
-		daoTallaPorJugador.guardar(jugador, tallas);
+	public void agregar(Jugador jugador, DatoBasico tipoIndumentaria,DatoBasico... tallas) {
+		daoTallaPorJugador.guardar(jugador, tipoIndumentaria,tallas);
+
+	}
+	
+
+	public void actualizar(Jugador jugador, DatoBasico tipoIndumentaria,DatoBasico... tallas) {
+		daoTallaPorJugador.actualizar(jugador, tipoIndumentaria,tallas);
 
 	}
 

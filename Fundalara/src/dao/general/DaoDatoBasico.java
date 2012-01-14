@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import modelo.DatoBasico;
 import modelo.RecaudoPorProceso;
@@ -46,41 +47,44 @@ public class DaoDatoBasico extends GenericDao {
 	
 	/**
 	 * Busca los registros de un tipo de dato en particular
-	 * @param tipoDato tipo de dato a buscar
+	 * 
+	 * @param tipoDato
+	 *            tipo de dato a buscar
 	 * @return lista de los datos asociados al tipo de dato suministrado
 	 * 
 	 */
-	public List<DatoBasico> buscar(TipoDatoBasico tipoDato){
+	public List<DatoBasico> buscar(TipoDatoBasico tipoDato) {
 		Session session = getSession();
-        org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"' AND estatus='A'").addEntity(DatoBasico.class);
-		List<DatoBasico> lista = query.list(); 
-		tx.commit();  
-		
-		return  lista;
-      /*  
-		Criteria c = session
-				.createCriteria(DatoBasico.class)
-				.add(Restrictions.eq("tipoDato.codigoTipoDato", tipoDato.getCodigo()))
-				.add(Restrictions.eq("estatus",'A'));
-				return  c.list();
-		*/
+		Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(DatoBasico.class);
+		c.add(Restrictions.eq("tipoDato.codigoTipoDato", tipoDato.getCodigo()));
+		c.add(Restrictions.eq("estatus", "A"));
+		List<DatoBasico> lista = c.list();
+		tx.commit();
+		return lista;
 	}
-	
+
 	/**
 	 * Busca los datos que tiene como padre el datoBasico suministrado
-	 * @param datoBasico dato del cual se desea buscar sus hijos (relacion de dependencia hacia el)
+	 * 
+	 * @param datoBasico
+	 *            dato del cual se desea buscar sus hijos (relacion de
+	 *            dependencia hacia el)
 	 * @return lista de datos hijos
 	 */
-	public List<DatoBasico> buscarPorRelacion(DatoBasico datoBasico){
+	public List<DatoBasico> buscarPorRelacion(DatoBasico datoBasico) {
 		Session session = getSession();
-		org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE parent_codigo_dato_basico='"+ datoBasico.getCodigoDatoBasico()+"' AND estatus='A'").addEntity(DatoBasico.class);
-		List<DatoBasico> lista = query.list(); 
-		tx.commit();  
-		return  lista;
+		Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(DatoBasico.class);
+		c.add(Restrictions.eq("datoBasico.codigoDatoBasico",
+				datoBasico.getCodigoDatoBasico()));
+		c.add(Restrictions.eq("estatus", "A"));
+		List<DatoBasico> lista = c.list();
+		tx.commit();
+		return lista;
 	}
 	
+
 	/**
 	 * Busca el dato segun su nombre dentro del tipo indicado
 	 * @param tipoDato tipo de dato a buscar
@@ -88,11 +92,25 @@ public class DaoDatoBasico extends GenericDao {
 	 * @return dato basico de un tipo especifico o null en caso de no encontralo
 	 */
 	public DatoBasico buscarTipo(TipoDatoBasico tipoDato, String nombre){
-		Session session = SessionManager.getSession();
+		Session session = getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
 		Query query = session.createSQLQuery("SELECT * FROM dato_basico WHERE codigo_tipo_dato='"+ tipoDato.getCodigo()+"' AND upper(nombre)='"+ nombre.toUpperCase() +"' AND estatus='A'").addEntity(DatoBasico.class);
 		DatoBasico lista = (DatoBasico)query.uniqueResult(); 
 		tx.commit();
 		return  lista;
+	}
+	
+	
+	public DatoBasico buscarPorRelacion(DatoBasico datoBasico, String nombre){
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(DatoBasico.class);
+		c.add(Restrictions.eq("nombre", nombre.toUpperCase()));
+		c.add(Restrictions.eq("datoBasico.codigoDatoBasico",
+				datoBasico.getCodigoDatoBasico()));
+		c.add(Restrictions.eq("estatus", "A"));
+		DatoBasico dato = (DatoBasico) c.uniqueResult();
+		tx.commit();
+		return dato;
 	}
 }

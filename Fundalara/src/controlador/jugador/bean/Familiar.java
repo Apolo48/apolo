@@ -5,8 +5,6 @@ import java.util.List;
 
 import modelo.DatoBasico;
 
-
-
 /**
  * Clase bean para representar al Familiar
  * @author Robert A
