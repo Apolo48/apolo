@@ -56,6 +56,10 @@ public class ServicioDocumentoAcademico implements IServicioDocumentoAcademico {
 	public void guardar(List<DocumentoEntregado> documentos,
 		DatoAcademico datoAcademico) {
 		daoDocumentoAcademico.guardar(documentos, datoAcademico);
-	
 	}
+	
+	public void actualizar(List<DocumentoEntregado> documentos) {
+			daoDocumentoAcademico.actualizar(documentos);
+		
+		}
 }

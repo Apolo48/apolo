@@ -898,21 +898,51 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			}
 			guardarDatoSocial();
 			guardarDocumentoPersonal();
+			guardarDocumentoAcademico();
+			guardarDocumentoMedico();
 			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
 					Mensaje.EXITO, Messagebox.EXCLAMATION);
 
 		}
 	}
 
-	private  void guardarDocumentoPersonal() {
-		if (checkPoints.get(Point.DOCUMENTO_PERSONAL)){
+	private void guardarDocumentoPersonal() {
+
+		if (checkPoints.get(Point.DOCUMENTO_PERSONAL)) {
 			servicioDocumentoPersonal.actualizar(documentosPersonales);
-		}else{
-			completarDocumentos(documentosPersonales);
-			servicioDocumentoPersonal.guardar(documentosPersonales, jugador);			
-			checkPoints.put(Point.DOCUMENTO_PERSONAL,true);
+		} else {
+			if (checkPoints.get(Point.JUGADOR)) {
+				completarDocumentos(documentosPersonales);
+				servicioDocumentoPersonal
+						.guardar(documentosPersonales, jugador);
+				checkPoints.put(Point.DOCUMENTO_PERSONAL, true);
+			}
 		}
-		
+	}
+
+	private void guardarDocumentoMedico() {
+		if (checkPoints.get(Point.DOCUMENTO_MEDICO)) {
+			servicioDocumentoMedico.actualizar(documentosMedicos);
+		} else {
+			if (checkPoints.get(Point.DATO_MEDICO)) {
+				completarDocumentos(documentosMedicos);
+				servicioDocumentoMedico.guardar(documentosMedicos, datoMedico);
+				checkPoints.put(Point.DOCUMENTO_MEDICO, true);
+			}
+		}
+	}
+
+	private void guardarDocumentoAcademico() {
+		if (checkPoints.get(Point.DOCUMENTO_ACADEMICO)) {
+			servicioDocumentoAcademico.actualizar(documentosAcademicos);
+		} else {
+			if (checkPoints.get(Point.DATO_ACADEMICO)) {
+				completarDocumentos(documentosAcademicos);
+				servicioDocumentoAcademico.guardar(documentosAcademicos,
+						datoAcademico);
+				checkPoints.put(Point.DOCUMENTO_ACADEMICO, true);
+			}
+		}
 	}
 
 	public void guardarJugador() {
@@ -1159,7 +1189,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		// 7.1 Personales
 		completarDocumentos(documentosPersonales);
 		servicioDocumentoPersonal.guardar(documentosPersonales, jugador);
-
 
 		// 7.2 Academicos
 		completarDocumentos(documentosAcademicos);

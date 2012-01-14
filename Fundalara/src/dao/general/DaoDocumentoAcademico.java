@@ -47,9 +47,24 @@ public class DaoDocumentoAcademico extends GenericDao {
 			Query query = session
 					.createSQLQuery("SELECT last_value FROM "+DaoDocumentoEntregado.SECUENCIA);
 			int id = Integer.valueOf(query.uniqueResult().toString());
+			documentoEntregado.setCodigoDocumentoEntregado(id);
 			DocumentoAcademicoId docId = new DocumentoAcademicoId(id, datoAcademico.getCodigoAcademico());
 			DocumentoAcademico docAcad = new DocumentoAcademico(docId, documentoEntregado, datoAcademico, 'A');
 			session.save(docAcad);
+		}
+		tx.commit();
+	}
+	
+	
+	/**
+	 * Actualiza los documentos  entregados
+	 * @param documentos lista de documentos entregados a actulizar
+	 */
+	public void actualizar(List<DocumentoEntregado> documentos) {
+		Session session = this.getSession();
+		Transaction tx = session.beginTransaction();
+		for (DocumentoEntregado documentoEntregado : documentos) {
+			session.update(documentoEntregado);
 		}
 		tx.commit();
 	}

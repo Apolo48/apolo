@@ -57,7 +57,12 @@ public class ServicioDocumentoMedico implements IServicioDocumentoMedico {
 	public void guardar(List<DocumentoEntregado> documentos,
 			DatoMedico datoMedico) {
 		daoDocumentoMedico.guardar(documentos, datoMedico);
-		
 	}
+	
+	public void actualizar(List<DocumentoEntregado> documentos) {
+		daoDocumentoMedico.actualizar(documentos);
+
+	}
+
 
 }

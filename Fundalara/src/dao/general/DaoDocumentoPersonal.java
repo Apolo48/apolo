@@ -28,8 +28,9 @@ import dao.generico.GenericDao;
 public class DaoDocumentoPersonal extends GenericDao {
 
 	/**
-	 * @param documentos
-	 * @param jugador
+	 * Guarda los documentos persnales de un jugador
+	 * @param documentos a registrar
+	 * @param jugador - jugador asociado a los documentos
 	 */
 	public void guardar(List<DocumentoEntregado> documentos,
 			Jugador jugador) {
@@ -48,7 +49,10 @@ public class DaoDocumentoPersonal extends GenericDao {
 		tx.commit();
 	}
 	
-	
+	/**
+	 * Actualiza los documentos  entregados
+	 * @param documentos lista de documentos entregados a actulizar
+	 */
 	public void actualizar(List<DocumentoEntregado> documentos) {
 		Session session = this.getSession();
 		Transaction tx = session.beginTransaction();

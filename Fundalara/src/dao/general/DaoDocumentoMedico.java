@@ -43,9 +43,23 @@ public class DaoDocumentoMedico extends GenericDao {
 			Query query = session
 					.createSQLQuery("SELECT last_value FROM "+DaoDocumentoEntregado.SECUENCIA);
 			int id = Integer.valueOf(query.uniqueResult().toString());
+			documentoEntregado.setCodigoDocumentoEntregado(id);
 			DocumentoMedicoId docId = new DocumentoMedicoId(id, datoMedico.getCodigoDatoMedico());
 			DocumentoMedico docMed = new DocumentoMedico(docId, datoMedico,documentoEntregado, 'A');
 			session.save(docMed);
+		}
+		tx.commit();
+	}
+	
+	/**
+	 * Actualiza los documentos  entregados
+	 * @param documentos lista de documentos entregados a actulizar
+	 */
+	public void actualizar(List<DocumentoEntregado> documentos) {
+		Session session = this.getSession();
+		Transaction tx = session.beginTransaction();
+		for (DocumentoEntregado documentoEntregado : documentos) {
+			session.update(documentoEntregado);
 		}
 		tx.commit();
 	}
