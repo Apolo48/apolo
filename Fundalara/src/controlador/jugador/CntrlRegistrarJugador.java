@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
@@ -112,6 +115,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Textbox txtTelefonoCelular;
 	private Textbox txtTelefonoHabFamiliar;
 	private Textbox txtTelefonoCelFamiliar;
+	private Textbox txtMedico;
+	private Textbox txtNroColegio;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
@@ -141,6 +146,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Listbox listDocAcademicos;
 	private Listbox listDocPersonales;
 	private Listbox listDocMedicos;
+	private Component formulario;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
 	// Servicios
@@ -198,6 +204,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Persona persona = new Persona();
 	private PersonaNatural personaN = new PersonaNatural();
 	private Jugador jugador = new Jugador();
+
 	// Binder
 	private AnnotateDataBinder binder;
 	/**
@@ -227,6 +234,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
+		formulario = comp;
 		this.tipoInscripcion = (DatoBasico) requestScope.get("tipoInscripcion");
 		camposPerfil = new InputElement[] { cmbNacionalidad, txtCedula,
 				txtPrimerNombre, txtPrimerApellido, cmbGenero };
@@ -689,12 +697,17 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	// Eventos
 	public void onClick$btnCatalogoMedico() {
-		/*
-		 * * Codigo TEMPORAL hasta tener un catalogo
-		 */
-		medico = servicioMedico.listar().get(0);
-
-		// new Util().crearVentana(rutasJug + "buscarMedico.zul", null, null);
+		Component catalogo = Executions.createComponents(
+				rutasJug +"frmBuscarMedico.zul", null, null);
+		catalogo.setVariable("formulario", formulario, false);
+		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				medico = (Medico) formulario.getVariable("medico", false);
+				binder.loadComponent(txtNroColegio);
+				txtMedico.setValue(medico.getNombre()+" "+medico.getApellido());
+			}
+		});
 	}
 
 	public void onChange$dtboxFechaNac() {

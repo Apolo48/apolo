@@ -551,7 +551,7 @@
 																value="Médico" />
 															<div>
 																<textbox
-																	value="@{controller.medico.nombre}" width="70%"
+																 width="70%"
 																	readonly="true" id="txtMedico" />
 																<button
 																	id="btnCatalogoMedico"
