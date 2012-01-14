@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 11-ene-2012 21:47:34 by Hibernate Tools 3.4.0.CR1
+// Generated 13-ene-2012 22:07:27 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +26,8 @@ public class Equipo implements java.io.Serializable {
 	private DatoBasico datoBasicoByCodigoClasificacion;
 	private DatoBasico datoBasicoByCodigoTipoLapso;
 	private String nombre;
+	private int minimoJugador;
+	private int maximoJugador;
 	private char estatus;
 	private Set<PersonalEquipo> personalEquipos = new HashSet<PersonalEquipo>(0);
 	private Set<Roster> rosters = new HashSet<Roster>(0);
@@ -42,20 +44,24 @@ public class Equipo implements java.io.Serializable {
 	}
 
 	public Equipo(int codigoEquipo, Categoria categoria, Divisa divisa,
-			DatoBasico datoBasicoByCodigoTipoLapso, String nombre, char estatus) {
+			DatoBasico datoBasicoByCodigoTipoLapso, String nombre,
+			int minimoJugador, int maximoJugador, char estatus) {
 		this.codigoEquipo = codigoEquipo;
 		this.categoria = categoria;
 		this.divisa = divisa;
 		this.datoBasicoByCodigoTipoLapso = datoBasicoByCodigoTipoLapso;
 		this.nombre = nombre;
+		this.minimoJugador = minimoJugador;
+		this.maximoJugador = maximoJugador;
 		this.estatus = estatus;
 	}
 
 	public Equipo(int codigoEquipo, Categoria categoria, Divisa divisa,
 			DatoBasico datoBasicoByCodigoClasificacion,
 			DatoBasico datoBasicoByCodigoTipoLapso, String nombre,
-			char estatus, Set<PersonalEquipo> personalEquipos,
-			Set<Roster> rosters, Set<RosterPlan> rosterPlans,
+			int minimoJugador, int maximoJugador, char estatus,
+			Set<PersonalEquipo> personalEquipos, Set<Roster> rosters,
+			Set<RosterPlan> rosterPlans,
 			Set<EquipoCompetencia> equipoCompetencias,
 			Set<TestEvaluativo> testEvaluativos,
 			Set<SesionEjecutada> sesionEjecutadas, Set<Sesion> sesions,
@@ -66,6 +72,8 @@ public class Equipo implements java.io.Serializable {
 		this.datoBasicoByCodigoClasificacion = datoBasicoByCodigoClasificacion;
 		this.datoBasicoByCodigoTipoLapso = datoBasicoByCodigoTipoLapso;
 		this.nombre = nombre;
+		this.minimoJugador = minimoJugador;
+		this.maximoJugador = maximoJugador;
 		this.estatus = estatus;
 		this.personalEquipos = personalEquipos;
 		this.rosters = rosters;
@@ -136,6 +144,24 @@ public class Equipo implements java.io.Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	@Column(name = "minimo_jugador", nullable = false)
+	public int getMinimoJugador() {
+		return this.minimoJugador;
+	}
+
+	public void setMinimoJugador(int minimoJugador) {
+		this.minimoJugador = minimoJugador;
+	}
+
+	@Column(name = "maximo_jugador", nullable = false)
+	public int getMaximoJugador() {
+		return this.maximoJugador;
+	}
+
+	public void setMaximoJugador(int maximoJugador) {
+		this.maximoJugador = maximoJugador;
 	}
 
 	@Column(name = "estatus", nullable = false, length = 1)
