@@ -169,6 +169,12 @@ public class DaoTallaPorJugador extends GenericDao {
 		tx.commit();
 	}
 
+	/**
+	 * Busca la talla relacionada que se encuentra registrada de manera activa.
+	 * @param tallasRegistradas lista de tallas registradas previamente
+	 * @param tallasRelacionadas lista de tallas realciondas a la talla a registrar/actualizar 
+	 * @return  talla relacionada (activa) a la talla nueva, en caso de no haber null
+	 */
 	private TallaPorJugador buscarTallaActualizar(
 			List<TallaPorJugador> tallasRegistradas,
 			List<TallaPorIndumentaria> tallasRelacionadas) {
