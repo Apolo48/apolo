@@ -24,5 +24,7 @@ public interface IServicioTallaPorJugador {
 	public abstract List<TallaPorJugador> listar();
 	
 	public abstract void agregar(Jugador jugador, DatoBasico tipoIndumentaria, DatoBasico... tallas );
+	
+	public abstract List<DatoBasico> buscarTallasPorTipo(Jugador jugador, DatoBasico tipoIndumentaria);
 }
 

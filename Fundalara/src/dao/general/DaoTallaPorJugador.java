@@ -1,8 +1,10 @@
 package dao.general;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -65,10 +67,15 @@ public class DaoTallaPorJugador extends GenericDao {
 	}
 
 	/**
-	 * Actualiza las tallas de un jugador manteniendo una sola tala, por tipo de indumentaria
-	 * @param jugador datos del jugador que al que se le actualizan las tallas
-	 * @param tipoIndumentaria tipo de uso de indumentaria
-	 * @param tallas arreglo de tallas nuevas 
+	 * Actualiza las tallas de un jugador manteniendo una sola tala, por tipo de
+	 * indumentaria
+	 * 
+	 * @param jugador
+	 *            datos del jugador que al que se le actualizan las tallas
+	 * @param tipoIndumentaria
+	 *            tipo de uso de indumentaria
+	 * @param tallas
+	 *            arreglo de tallas nuevas
 	 */
 	public void actualizar(Jugador jugador, DatoBasico tipoIndumentaria,
 			DatoBasico... tallas) {
@@ -89,6 +96,7 @@ public class DaoTallaPorJugador extends GenericDao {
 				if (indumentariaNueva != null) {
 					Criteria c2 = session.createCriteria(TallaPorJugador.class);
 					c2.add(Restrictions.eq("jugador", jugador));
+					c2.createCriteria("tallaPorIndumentaria").add(Restrictions.eq("datoBasicoByCodigoTipoUniforme", tipoIndumentaria));
 					List<TallaPorJugador> tallasRegistradas = c2.list();
 
 					TallaPorJugador tallaEncontrada = null;
@@ -171,9 +179,13 @@ public class DaoTallaPorJugador extends GenericDao {
 
 	/**
 	 * Busca la talla relacionada que se encuentra registrada de manera activa.
-	 * @param tallasRegistradas lista de tallas registradas previamente
-	 * @param tallasRelacionadas lista de tallas realciondas a la talla a registrar/actualizar 
-	 * @return  talla relacionada (activa) a la talla nueva, en caso de no haber null
+	 * 
+	 * @param tallasRegistradas
+	 *            lista de tallas registradas previamente
+	 * @param tallasRelacionadas
+	 *            lista de tallas realciondas a la talla a registrar/actualizar
+	 * @return talla relacionada (activa) a la talla nueva, en caso de no haber
+	 *         null
 	 */
 	private TallaPorJugador buscarTallaActualizar(
 			List<TallaPorJugador> tallasRegistradas,
@@ -191,6 +203,27 @@ public class DaoTallaPorJugador extends GenericDao {
 			}
 		}
 		return talla;
+	}
+
+	public List<DatoBasico> buscarTallasPorTipo(Jugador jugador,
+			DatoBasico tipoIndumentaria) {
+		List<DatoBasico> lista = new ArrayList<DatoBasico>();
+		Session session = this.getSession();
+		Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(TallaPorJugador.class);
+		c.add(Restrictions.eq("jugador", jugador));
+		c.add(Restrictions.eq("estatus", 'A'));
+		List<TallaPorJugador> tallasRegistradas = c.list();
+		for (TallaPorJugador tallaPorJugador : tallasRegistradas) {
+			DatoBasico db = tallaPorJugador.getTallaPorIndumentaria().getDatoBasicoByCodigoTalla();
+			DatoBasico aux =new DatoBasico(db.getCodigoDatoBasico(),db.getTipoDato(),db.getNombre(),db.getEstatus());
+			db=db.getDatoBasico();
+			aux.setDatoBasico(new  DatoBasico(db.getCodigoDatoBasico(),db.getTipoDato(),db.getNombre(),db.getEstatus()));
+			lista.add(aux);
+		}
+		tx.commit();
+		return lista;
+
 	}
 
 }

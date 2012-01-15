@@ -922,6 +922,21 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			}
 			guardarDatoSocial();
 			guardarTallas();
+
+			/* CODIGO DE PRUEBA - EQUIPO 3 */
+			List<DatoBasico> lisatTallasEntrenamiento = servicioTallaPorJugador
+					.buscarTallasPorTipo(jugador, tipoIndumentaria);
+			System.out.println("Imprimiendo tallas ");
+			for (DatoBasico datoBasico : lisatTallasEntrenamiento) {
+				System.out.println("El Jugador "
+						+ jugador.getPersonaNatural().getPrimerNombre()
+						+ " en la indumentaria "
+						+ datoBasico.getDatoBasico().getNombre() + " es talla "
+						+ datoBasico.getNombre());
+			}
+
+			/* CODIGO DE PRUEBA */
+
 			guardarDocumentoPersonal();
 			guardarDocumentoAcademico();
 			guardarDocumentoMedico();

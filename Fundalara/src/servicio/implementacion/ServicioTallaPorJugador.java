@@ -65,5 +65,12 @@ public class ServicioTallaPorJugador implements IServicioTallaPorJugador {
 		daoTallaPorJugador.actualizar(jugador, tipoIndumentaria,tallas);
 
 	}
+	
+@Override
+	public List<DatoBasico> buscarTallasPorTipo(Jugador jugador,
+			DatoBasico tipoIndumentaria) {
+		return daoTallaPorJugador. buscarTallasPorTipo( jugador,
+				 tipoIndumentaria) ;
+	}
 
 }
