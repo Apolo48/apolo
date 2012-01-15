@@ -8,7 +8,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import comun.TipoDatoBasico;
+
 import modelo.Categoria;
+import modelo.DatoBasico;
 import modelo.Equipo;
 
 import dao.generico.GenericDao;
@@ -31,12 +34,16 @@ public class DaoEquipo extends GenericDao {
 	public List<Equipo> buscarEquiposPorCategoria(Categoria categoria){
 		Session session = getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
+		DaoDatoBasico daoDatobasico = new DaoDatoBasico();
+		DatoBasico tipoLapso= daoDatobasico.buscarTipo(TipoDatoBasico.TIPO_LAPSO_DEPORTIVO,"TEMPORADA REGULAR");
 		Criteria c = session
 				.createCriteria(Equipo.class)
 				.add(Restrictions.eq("categoria", categoria))
+				.add(Restrictions.eq("datoBasicoByCodigoTipoLapso",tipoLapso))
 				.add(Restrictions.eq("estatus", 'A'));
 		List<Equipo> lista =  c.list();
 		return lista;
+		
 	}
 	
 	/**
