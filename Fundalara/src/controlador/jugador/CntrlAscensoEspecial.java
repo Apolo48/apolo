@@ -92,7 +92,7 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	// Lista
 	private List<Categoria> listaCategoria = null;
 	private List<DocumentoEntregado> documentosAscenso = new ArrayList<DocumentoEntregado>();
-
+	
 	// id de la interfaz
 	private Textbox txtCedula;
 	private Textbox txtNombre;
@@ -100,15 +100,12 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	private Textbox txtCategoria;
 	private Textbox txtEquipo;
 	private Intbox txtNumero;
-	private Intbox txtCedulaSecuencia;
 	private Datebox dtboxFechaNac;
 	private Image imgJugador;
-	private Combobox cmbNacionalidad;
 	private Combobox cmbCategoria;
 	private Combobox cmbEquipo;
 	private Window winAscensoEspecial;
 	private Bandbox bboxNumero;
-	private Label lblSeparador;
 	private Listbox listDoc;
 	private Spinner spCantidad;
 	private Button btnCatalogoJugador;
@@ -248,14 +245,24 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 				// TODO Auto-generated method stub
 				btnCatalogoJugador.setDisabled(true);
 				jugador = (Jugador) formulario.getVariable("jugador", false);
-				sw = true;
-				agregarCampos();
 				roster = servicioRoster.buscarRoster(jugador.getCedulaRif());
-				Date fechaN = jugador.getPersonaNatural().getFechaNacimiento();
-				edad = Util.calcularDiferenciaAnnios(fechaN);
-				binder.loadAll();
+				if (servicioAscenso.buscarAscenso(roster) == null) {
+					sw = true;
+					agregarCampos();
+					Date fechaN = jugador.getPersonaNatural()
+							.getFechaNacimiento();
+					edad = Util.calcularDiferenciaAnnios(fechaN);
+					binder.loadAll();
+				} else {
+					alert("El jugador ya fue ascendido en esta temporada");
+					btnCatalogoJugador.setDisabled(false);
+				}
 			}
 		});
+	}
+	
+	public void onSelect$cmbCategoria() {
+		cmbEquipo.setDisabled(false);
 	}
 
 	public void onClick$btnCancelar() {
@@ -296,31 +303,10 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 		String segApellido = jugador.getPersonaNatural().getSegundoApellido();
 		apellidos = jugador.getPersonaNatural().getPrimerApellido()
 				+ (segApellido == null ? "" : " " + segApellido);
-		String cedulaCom = jugador.getCedulaRif();
-		cmbNacionalidad.setValue(cedulaCom.substring(0, 1));
-		String cedula = cedulaCom.substring(2);
-		mostrarSecuencia(cedula);
-
-		cmbCategoria.setDisabled(false);
-		cmbEquipo.setDisabled(false);
+		
+		cmbCategoria.setDisabled(false);		
 	}
-
-	// Extrae la secuencia de la cedula, si la nacionalidad es R
-	public void mostrarSecuencia(String ced) {
-		if (cmbNacionalidad.getSelectedItem().getValue().equals("R")) {
-			int pos = ced.indexOf("-");
-			txtCedulaSecuencia.setVisible(true);
-			lblSeparador.setVisible(true);
-			txtCedula.setValue(ced.substring(0, pos));
-			txtCedulaSecuencia
-					.setValue(Integer.valueOf(ced.substring(pos + 1)));
-		} else {
-			txtCedula.setValue(ced);
-			txtCedulaSecuencia.setVisible(false);
-			lblSeparador.setVisible(false);
-		}
-	}
-
+	
 	private void actualizarArchivo(String codigo,
 			List<DocumentoEntregado> lista, byte[] archivo) {
 		int cod = Integer.valueOf(codigo);
@@ -361,17 +347,12 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 				doc.setFecha(new Date());
 				doc.setEstatus('A');
 				servicioDocumentoEntregado.agregar(doc);
-
 				// Agrega el registro en documentos ascenso
-				DocumentoAscenso docAscenso = new DocumentoAscenso();
-				DocumentoAscensoId docId = new DocumentoAscensoId();
-				docId.setCodigoDocumentoEntregado(doc
-						.getCodigoDocumentoEntregado());
-				docId.setCodigoAscenso(ascenso.getCodigoAscenso());
-				docAscenso.setId(docId);
-				docAscenso.setDocumentoEntregado(doc);
-				docAscenso.setAscenso(ascenso);
-				docAscenso.setEstatus('A');
+				DocumentoAscensoId docId = new DocumentoAscensoId(
+						doc.getCodigoDocumentoEntregado(),
+						ascenso.getCodigoAscenso());
+				DocumentoAscenso docAscenso = new DocumentoAscenso(docId, doc,
+						ascenso, 'A');
 				servicioDocumentoAscenso.agregar(docAscenso);
 			}
 		}
@@ -390,9 +371,6 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 		cmbEquipo.setValue(null);
 		cmbCategoria.setDisabled(true);
 		cmbEquipo.setDisabled(true);
-		cmbNacionalidad.setFocus(true);
-		lblSeparador.setVisible(false);
-		txtCedulaSecuencia.setVisible(false);
 		btnCatalogoJugador.setDisabled(false);
 		limpiarList();
 	}
@@ -408,8 +386,7 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 
 	public boolean camposVacios() {
 		boolean vacio = false;
-		if (cmbNacionalidad.getSelectedIndex() == -1
-				|| txtCedula.getValue().equals("")
+		if (txtCedula.getValue().equals("")
 				|| cmbCategoria.getSelectedIndex() == -1
 				|| cmbEquipo.getSelectedIndex() == -1
 				|| bboxNumero.getValue().equals("")) {

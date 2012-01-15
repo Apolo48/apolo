@@ -1,11 +1,8 @@
 package dao.general;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import dao.generico.GenericDao;
-import dao.generico.SessionManager;
 
 import modelo.Equipo;
 import modelo.Roster;
@@ -13,7 +10,6 @@ import modelo.Roster;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
@@ -81,5 +77,17 @@ public class DaoRoster extends GenericDao {
 				.add(Restrictions.eq("estatus", 'A'));
 		return (Roster) c.uniqueResult();
 	}
+	
+	
+	 /**
+	  * Guarda los datos de roster
+	 * @param o objero roster
+	 */
+	public void guardar(Roster o) {		
+			Session session = getSession();
+			Transaction tx =  session.beginTransaction();
+			session.save(o);
+			tx.commit();		
+		}
 	
 }

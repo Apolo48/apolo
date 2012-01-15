@@ -26,24 +26,11 @@ root="winAscensoEspecial"?>
 								<row spans="1,3" style="border:none">
 									<label value="Cédula" />
 									<div>
-										<combobox id="cmbNacionalidad"
-											width="4%" readonly="true" disabled="true">
-											<comboitem label="V"
-												value="V" />
-											<comboitem label="E"
-												value="E" />
-											<comboitem label="R"
-												value="R" />
-										</combobox>
 										<textbox id="txtCedula"
-											constraint="no negative" width="25%" maxlength="8"
-											readonly="true" />
-										<label value="-"
-											id="lblSeparador" visible="false" />
-										<intbox id="txtCedulaSecuencia" width="5%" readonly="true"
-											visible="false" maxlength="2"/>
-										<button id="btnCatalogoJugador" focus="true"
-											tooltiptext="Consultar Jugador"
+											constraint="no negative" width="25%" maxlength="15"
+											readonly="true" value="@{jugador.personaNatural.cedulaRif}" />
+										<button id="btnCatalogoJugador"
+											focus="true" tooltiptext="Consultar Jugador"
 											image="../../Recursos/Imagenes/consultar.ico" />
 									</div>
 								</row>
@@ -459,7 +446,7 @@ root="winAscensoEspecial"?>
 							label="@{docAsc.recaudoPorProceso.codigoRecaudoPorProceso}" />
 						<listcell
 							label="@{docAsc.recaudoPorProceso.datoBasicoByCodigoDocumento.nombre}" />
-						<listcell 
+						<listcell
 							label="@{docAsc.recaudoPorProceso.cantidad}" />
 						<listcell>
 							<spinner id="spCantidad" width="45%"
@@ -476,24 +463,66 @@ root="winAscensoEspecial"?>
 
 		<panel title="Especificaciones Técnicas">
 			<panelchildren>
-				<listbox id="listResultado">
-					<listhead>
-						<listheader label="" sort="auto" />
-						<listheader label="" sort="auto" />
-					</listhead>
-					<listitem>
-						<listcell label="" />
-						<listcell label="" />
-					</listitem>
-					<listitem>
-						<listcell label="" />
-						<listcell label="" />
-					</listitem>
-				</listbox>
-
+				<groupbox style="border-color:orange"
+					closable="false">
+					<caption label="Ofensiva" />
+					<listbox id="listOfensiva">
+						<listhead>
+							<listheader label="" sort="auto" />
+							<listheader label="" sort="auto" />
+						</listhead>
+						<listitem>
+							<listcell label="" />
+							<listcell label="" />
+						</listitem>
+						<listitem>
+							<listcell label="" />
+							<listcell label="" />
+						</listitem>
+					</listbox>
+				</groupbox>
+				
+				<groupbox style="border-color:orange"
+					closable="false">
+					<caption label="Defensiva" />
+					<listbox id="listDefensiva">
+						<listhead>
+							<listheader label="" sort="auto" />
+							<listheader label="" sort="auto" />
+						</listhead>
+						<listitem>
+							<listcell label="" />
+							<listcell label="" />
+						</listitem>
+						<listitem>
+							<listcell label="" />
+							<listcell label="" />
+						</listitem>
+					</listbox>
+				</groupbox>
+				
+				<groupbox style="border-color:orange"
+					closable="false">
+					<caption label="Pitcheo" />
+					<listbox id="listPitcheo">
+						<listhead>
+							<listheader label="" sort="auto" />
+							<listheader label="" sort="auto" />
+						</listhead>
+						<listitem>
+							<listcell label="" />
+							<listcell label="" />
+						</listitem>
+						<listitem>
+							<listcell label="" />
+							<listcell label="" />
+						</listitem>
+					</listbox>
+				</groupbox>
+				
 				<!-- 				<groupbox style="border-color:orange" -->
 				<!-- 					closable="false"> -->
-				<!-- 					<caption label="Ofensiva" /> -->
+				<!-- 					<caption label="Rendimiento Ofensivo" /> -->
 				<!-- 					<grid> -->
 				<!-- 						<columns> -->
 				<!-- 							<column label="Al día de hoy" width="40%" -->

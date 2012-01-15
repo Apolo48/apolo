@@ -46,7 +46,7 @@
 												<comboitem label="R"
 													value="R" />
 											</combobox>
-											<intbox id="txtCedula"
+											<intbox id="txtCedula" 
 												value="@{controller.jugadorBean.cedula}" 
 												maxlength="8"  width="20%" />
 											<label value="-"
@@ -1596,6 +1596,7 @@
 																			<combobox
 																				id="cmbNacionalidadFamiliar" readonly="true"
 																				value="-" width="10%"
+																				constraint="no empty"
 																				selectedItem="@{controller.familiarBean.nacionalidad}">
 																				<comboitem
 																					label="V" />
@@ -1604,7 +1605,7 @@
 																			</combobox>
 																			<intbox
 																				id="txtCedulaFamiliar" constraint="no negative"
-																				width="50%"
+																				width="50%" maxlength="8"
 																				value="@{controller.familiarBean.cedula}" />
 																			<label
 																				value="(*)" style="color:red" />
@@ -1658,6 +1659,7 @@
 																		<div>
 																			<combobox
 																				id="cmbParentesco"
+																				constraint="no empty"
 																				model="@{winRegistrarJugador$composer.parentescos}"
 																				readonly="true" value="--Seleccione--" width="65%"
 																				selectedItem="@{controller.familiarBean.parentesco}">

@@ -17,4 +17,6 @@ public interface IServicioAscenso {
 	
 	public abstract void actualizarAscenso(Roster r);
 	
+	public abstract Ascenso buscarAscenso(Roster r);
+	
 }

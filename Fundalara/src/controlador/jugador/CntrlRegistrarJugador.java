@@ -116,6 +116,11 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Textbox txtTelefonoCelFamiliar;
 	private Textbox txtMedico;
 	private Textbox txtNroColegio;
+	private Textbox txtCedulaFamiliar;
+	private Textbox txtPrimerNombreFamiliar;
+	private Textbox txtSegundoNombreFamiliar;
+	private Textbox txtPrimerApellidoFamiliar;
+	private Textbox txtSegundoApellidoFamiliar;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
@@ -923,7 +928,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			guardarDatoSocial();
 			guardarTallas();
 
-			/* CODIGO DE PRUEBA - EQUIPO 3 */
+			/* CODIGO DE PRUEBA - EQUIPO 3 
 			List<DatoBasico> lisatTallasEntrenamiento = servicioTallaPorJugador
 					.buscarTallasPorTipo(jugador, tipoIndumentaria);
 			System.out.println("Imprimiendo tallas ");
@@ -935,7 +940,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 						+ datoBasico.getNombre());
 			}
 
-			/* CODIGO DE PRUEBA */
+			 CODIGO DE PRUEBA */
 
 			guardarDocumentoPersonal();
 			guardarDocumentoAcademico();
