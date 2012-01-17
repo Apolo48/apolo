@@ -42,33 +42,7 @@
 				</groupbox>
 			</panelchildren>
 		</panel>
-		
-		<panel title="">
-			<panelchildren>
-				<groupbox style="border-color:orange" closable="false">
-					<caption style="font-weight:bold" label="Jugadores por Equipo" />
-					<grid style="border:none;" oddRowSclass="none">
-						<columns>
-							<column width="12%" />
-							<column width="23%" />
-							<column width="12%" />
-							<column />
-						</columns>
-						<rows>
-							<row style="border:none">
-								<label value="Mínimo" />
-								<spinner id="spMinJugadores" width="50%" maxlength="2" constraint="no negative"
-									value="@{controller.categoria.minimoJugador}" />
-								<label value="Máximo" />
-								<spinner id="spMaxJugadores" width="20%" maxlength="2" constraint="no negative"
-									value="@{controller.categoria.maximoJugador}"  />
-							</row>
-						</rows>
-					</grid>
-				</groupbox>
-			</panelchildren>
-		</panel>
-		
+
 		<space> </space>
 		
 <grid
@@ -84,20 +58,18 @@
 		<listbox id="listCategoria" mold="paging" pageSize="7"  model="@{winConfigurarCategoria$composer.categorias}" 
 					    selectedItem="@{winConfigurarCategoria$composer.categoria}">
 						<listhead>
-							<listheader label="Nombre Categoria" width="19%" />
-							<listheader label="Edad Inferior" width="13%" />
-							<listheader label="Edad Superior" width="14%" />
-							<listheader label="Cantidad Equipos" width="17%"  />
-							<listheader label="Mínimo Jugadores" width="18%"  />
-							<listheader label="Máximo Jugadores" width="19%"  />
+							<listheader label="Nombre Categoria" width="35%" />
+							<listheader label="Edad Inferior" width="22%" />
+							<listheader label="Edad Superior" width="22%" />
+							<listheader label="Cantidad Equipos" width="22%"  />
+							
 						</listhead>
 						<listitem   self="@{each='categoria'}" value="@{categoria}">
 							<listcell label="@{categoria.nombre}" />
 							<listcell label="@{categoria.edadInferior}" />
 							<listcell label="@{categoria.edadSuperior}" />
 							<listcell label="@{categoria.cantidadEquipo}" />
-							<listcell label="@{categoria.minimoJugador}" />
-							<listcell label="@{categoria.maximoJugador}" />
+							
 						</listitem>
 					
 					</listbox>

@@ -34,8 +34,7 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
  private Spinner spCantidadEquipo;
  private Spinner spEdadInferior;
  private Spinner spEdadSuperior;
- private Spinner spMinJugadores;
- private Spinner spMaxJugadores;
+ 
  ServicioCategoria servicioCategoria;
  ServicioEquipo servicioEquipo;
  private Equipo equipo = new Equipo();
@@ -49,15 +48,18 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
  private Listcell item2;
  Button btnAgregar, btnQuitar, btnModificar,btnCancelar,btnSalir;
 
+ 
+ 
     public void onCreate$winConfigurarCategoria(ForwardEvent event) {
 	    // get the databinder for later extra load and save
 	    // note: binder is not ready in doAfterCompose, so do it here
     	inicializar();
-	}
+	  }
  
     public Categoria getCategoria() {
 		return categoria;
 	}
+
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
@@ -81,6 +83,8 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 		btnModificar.setDisabled(false);
 		btnQuitar.setDisabled(false);
 		btnAgregar.setDisabled(true);
+		 
+		 
 	}
 	
 	@Override
@@ -89,11 +93,18 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 		comp.setVariable("controller", this, false);  //Hacemos visible el modelo para el databinder
 		listaCategoria=servicioCategoria.listar();
 		aplicarConstraints();
+		
+
 	}
 	
 	public  List<Categoria> getCategorias(){
+		
 		 return servicioCategoria.listar();
+		
 	}
+	
+	
+	
  
 	public void onClick$btnAgregar(){
 		if (txtNombre.getText() == "") {
@@ -105,82 +116,87 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 		} else if (spEdadSuperior.getValue() == 0) {
 			alert("Seleccione una edad superior");
 			spEdadSuperior.focus();
-		} else if (spMinJugadores.getValue() == 0) {
-			alert("Seleccione un minimo de jugadores");
-			spMinJugadores.focus();
-		} else if (spMaxJugadores.getValue() == 0) {
-					alert("Seleccione un maximo de jugadores");
-					spMaxJugadores.focus();
 		} else if (spCantidadEquipo.getValue() == 0) {
 							alert("Seleccione la cantidad de equipos");
-							spMinJugadores.focus();
+							spCantidadEquipo.focus();
 		} else {	
-		    if(validar()){
-			   for (int i = 0; i < listaCategoria.size(); i++) {
-				 if(txtNombre.getValue().equals(listaCategoria.get(i).getNombre())){
-						alert("Ya existe la categoria");
-						 return;
-				 }
-			   }			
-			   categoria.setEstatus('A');
-			   categoria.setCodigoCategoria(servicioCategoria.listar().size()+1);
-			   servicioCategoria.agregar(categoria);
-			   
-			   try {
-					Messagebox.show("Categoria agregada", "Exito", Messagebox.OK, Messagebox.INFORMATION);
-			   } catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-			   }
-			   limpiar(); 
-		    }
+	    if(validar()){
+		   for (int i = 0; i < listaCategoria.size(); i++) {
+			 if(txtNombre.getValue().equals(listaCategoria.get(i).getNombre())){
+					alert("Ya existe la categoria");
+					 return;
+			}
+	 }			
+			categoria.setEstatus('A');
+		    categoria.setCodigoCategoria(servicioCategoria.listar().size()+1);
+		    servicioCategoria.agregar(categoria);
+		   
+			 try {
+				Messagebox.show("Categoria agregada", "Exito", Messagebox.OK, Messagebox.INFORMATION);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 limpiar(); 
+			 }
 		}
+		
 	}
 
    public void onClick$btnQuitar(){
+	
 		if (categoria!= null){
+			   
 				if (listCategoria.getSelectedIndex() >= 0) {
+					
 					Categoria categoriaTemp = (Categoria) listCategoria.getSelectedItem().getValue();
 					  if (servicioCategoria.buscarPorCodigo(categoria)==false)
 					//System.out.println(servicioCategoria.buscarPorCodigo(categoria));
 						alert ("No se puede borrar mientras existan equipos en esta categoria");
 					  else {
+					
 						categoria.setEstatus('E');
 			            listaCategoria.remove(categoriaTemp);
 						servicioCategoria.eliminar(categoriaTemp);
 				        limpiar();    
 					    }
+					
 					} 
+				
 				else {
 					alert("Seleccione un dato para eliminar.");
 				 } 
+			
 		}
+		
   }
   
 	private void aplicarConstraints() {
 		// Registro Jugador
+		
 		txtNombre.setConstraint(Restriccion.TEXTO_SIMPLE
 				.asignarRestriccionExtra("no empty"));
+	
 		spCantidadEquipo.setConstraint(Restriccion.CANTIDAD_EQUIPO
 				.getRestriccion());
 		spEdadInferior.setConstraint(Restriccion.EDAD_INFERIOR
 				.getRestriccion());
 		spEdadSuperior.setConstraint(Restriccion.EDAD_SUPERIOR
 				.getRestriccion());
-		spMinJugadores.setConstraint(Restriccion.MIN_JUGADORES
-				.getRestriccion());
-		spMaxJugadores.setConstraint(Restriccion.MAX_JUGADORES
-				.getRestriccion());
+		
+		
+		
 	}
 	
 	public void onClick$btnModificar() throws InterruptedException{
+		
+				
 		if (categoria!= null){
+			 
 			categoria.setNombre(txtNombre.getValue());
 			categoria.setEdadInferior(spEdadInferior.getValue());
 			categoria.setEdadSuperior(spEdadSuperior.getValue());
 			categoria.setCantidadEquipo(spCantidadEquipo.getValue());
-			categoria.setMaximoJugador(spMaxJugadores.getValue());
-			categoria.setMinimoJugador(spMinJugadores.getValue());
 			categoria.setEstatus('A');
 			
 			servicioCategoria.actualizar(categoria);
@@ -192,10 +208,13 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 					e.printStackTrace();
 				}
 				 limpiar();
+			
 		}
 		else{
 			alert("Seleccione un dato");
 		}
+		
+		
 	}
 	
 	public void limpiar(){
@@ -204,6 +223,8 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 		inicializar();
 	}
 	
+	
+	
 	public void onClick$btnCancelar(){
 		limpiar();
 	}
@@ -211,17 +232,18 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 	public void inicializar() {
 		spEdadInferior.setValue(3);
 		spEdadSuperior.setValue(5);
-		spMinJugadores.setValue(12);
-		spMaxJugadores.setValue(20);
 		btnAgregar.setDisabled(false);
 		btnQuitar.setDisabled(true);
 		btnModificar.setDisabled(true);
 	    btnSalir.setDisabled(false);
 		btnCancelar.setDisabled(false);
+		
 	}
 	
 	public boolean validar() {
-		 if (spCantidadEquipo.getValue()==0 && spEdadInferior.getValue()==0 && spEdadSuperior.getValue()==0 && spMinJugadores.getValue()==0 && spMaxJugadores.getValue()==0){
+		
+		
+		 if (spCantidadEquipo.getValue()==0 && spEdadInferior.getValue()==0 && spEdadSuperior.getValue()==0 ){
 			 alert("Ningun dato numerico puede ser cero (0)");
 			 spEdadInferior.setFocus(true);
 			 return false;
@@ -231,6 +253,7 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 						 spEdadInferior.setFocus(true);
 						 return false;
 				         }
+			
 					 else {
 						 int dif =  spEdadSuperior.getValue() - spEdadInferior.getValue() ;
 						
@@ -238,8 +261,12 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 							 alert("Rango de edad no permitido en esta categoria");
 							 spEdadInferior.setFocus(true);
 							 return false;
+								
 						 }
+				
 					 }
+			
 	       return true; 
 		}
 }
+
