@@ -13,6 +13,8 @@ import dao.generico.GenericDao;
 public class DaoMedico extends GenericDao {
 	
 	public Medico buscar (String id){
+		Session session = this.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
 		Criteria c = getSession().createCriteria(Medico.class);
 		c.add(Restrictions.eq("numeroColegio", id));
 		List list = c.list();
