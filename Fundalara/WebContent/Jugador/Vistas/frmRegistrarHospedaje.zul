@@ -155,9 +155,9 @@
 		</grid>-->
 	
 	<div align="right">
-		<button id="btnGuardar" label="Guardar"
+		<!--<button id="btnGuardar" label="Guardar"
 			image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"
-			width="100px" />
+			width="100px" />-->
 
 		<button id="btnCancelar" label="Cancelar"
 			image="../../Recursos/Imagenes/cancelar.ico" orient="horizontal"

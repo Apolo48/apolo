@@ -223,14 +223,14 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 
 	
 	public void onClick$btnAgregar() {
-	
+		guardar();
 	}
 	
 	public void onClick$btnQuitar() {
 	
 	}
 	
-	public void onClick$btnGuardar() {
+	public void guardar() {
 		if ((cmbCompetencia.getSelectedIndex() >= 0) && (txtCedulaRep.getValue() != "")){ 
 			hospedaje.setEstatus('A');
 			hospedaje.setCompetencia(competencia);
