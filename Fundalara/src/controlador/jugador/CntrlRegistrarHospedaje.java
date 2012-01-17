@@ -187,7 +187,7 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 		//binder.loadAll(); // actualiza para mostrar los cambios
 		binder.loadComponent(dtboxFechaIni);
 		binder.loadComponent(dtboxFechaFin);
-		//binder.loadComponent(txtEstado);ERRROR EN ESTADO
+		//binder.loadComponent(txtEstado);//ERRROR EN ESTADO
 	}
 			
 	public void onClick$btnCatalogoRep() {
