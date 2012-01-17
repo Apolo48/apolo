@@ -10,6 +10,7 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Textbox;
 
 import comun.TipoDatoBasico;
@@ -57,6 +58,8 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 	private Combobox cmbTipo;
 	private Combobox cmbCategoria;
 	private Combobox cmbDivisa;
+	private Spinner spMinJugadores;
+	private Spinner spMaxJugadores;
 
 	private AnnotateDataBinder binder;
 
@@ -137,7 +140,7 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
       
 		for (int i = 0; i < equipos.size(); i++) {
 			if (cmbTipo.getSelectedItem().getLabel()
-					.equals(equipos.get(i).getDatoBasicoByCodigoClasificacion().getNombre())) {//MODIFICADO
+					.equals(equipos.get(i).getDatoBasicoByCodigoClasificacion().getNombre())) {
 
 				if (cmbCategoria.getSelectedItem().getLabel()
 						.equals(equipos.get(i).getCategoria().getNombre())) {
@@ -150,11 +153,13 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 		}
 		equipo.setDivisa(divisa);
 		equipo.setEstatus('A');
-		//SOLUCION TEMPORAL FALTA ACTUALIZAR VISTA DEBE SER DINAMICO
+		//AUN NO SE HA IMPLEMENTADO EN VISTA CORREGIR
 		equipo.setDatoBasicoByCodigoTipoLapso(servicioDatoBasico.buscarTipo(TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR"));
-		equipo.setDatoBasicoByCodigoClasificacion(clasificacion);//MODIFICADO
+		equipo.setDatoBasicoByCodigoClasificacion(clasificacion);
 		equipo.setCategoria(categoria);
 		equipo.setNombre(txtNombre.getValue());
+		equipo.setMaximoJugador(spMaxJugadores.getValue());
+		equipo.setMinimoJugador(spMinJugadores.getValue());
 		equipo.setCodigoEquipo(servicioEquipo.listar().size() + 1);
 		servicioEquipo.agregar(equipo);
 		try {

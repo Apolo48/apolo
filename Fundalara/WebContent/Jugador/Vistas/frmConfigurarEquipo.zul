@@ -4,8 +4,13 @@
 
 <zk>
 	<window id="winConfigurarEquipo" title="Equipo" border="normal"
-		width="52%" closable="true"
+		width="696px" closable="true"
 		apply="controlador.jugador.CntrlConfigurarEquipo">
+		
+		<panel title="">
+			<panelchildren>
+				<groupbox style="border-color:orange" closable="false">
+					<caption style="font-weight:bold" label="Datos de Equipo" />
 		<grid style="border:none;" oddRowSclass="none">
 			<columns>
 				<column width="16%" />
@@ -32,7 +37,7 @@
 							label="@{categoria.nombre}" />
 					</combobox>
 					<label value="Tipo" />
-					<combobox id="cmbTipo" value="--" width="20%"
+					<combobox id="cmbTipo" value="--" width="20%" focus="true"
 						selectedItem="@{controller.clasificacion}"
 						model="@{winConfigurarEquipo$composer.tipos, load-after='cmbCategoria.onChange'}">
 						<comboitem self="@{each='tiposv'}"
@@ -41,26 +46,51 @@
 				</row>
 				<row spans="1,3" style="border:none;">
 					<label value="Nombre" />
-					<textbox id="txtNombre" width="72%" />
-					<!--  <textbox id="txtNombre" width="72%"  value="@{controller.equipo.nombre}"/> -->
+				<!--	<textbox id="txtNombre" width="72%" />  -->
+					  <textbox id="txtNombre" width="72%" focus="true" value="@{controller.equipo.nombre}"/>
 				</row>
 			</rows>
 		</grid>
+		
+		
+					<grid style="border:none;" oddRowSclass="none">
+						<columns>
+							<column width="23%" />
+							<column width="23%" />
+							<column width="23%" />
+							<column />
+						</columns>
+						<rows>
+							<row style="border:none">
+								<label value="Mínimo de Jugadores" />
+								<spinner id="spMinJugadores" width="50%" maxlength="2" constraint="no negative"
+									value="@{controller.equipo.minimoJugador}" />
+								<label value="Máximo de Jugadores" />
+								<spinner id="spMaxJugadores" width="20%" maxlength="2" constraint="no negative"
+									value="@{controller.equipo.maximoJugador}"  />
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+			</panelchildren>
+		</panel>
 		<grid style="border:none;">
 			<columns>
-				<column width="90%" />
-				<column width="10%" />
+				<column width="98%" />
+				<column />
 			</columns>
-			<rows>
+			<rows>  
 				<row style="border:none;">
 					<listbox id="listEquipo" mold="paging" pageSize="5"
 						model="@{controller.equipos}"
 						selectedItem="@{winConfigurarEquipo$composer.equipo}">
 						<listhead>
-							<listheader label="Nombre" />
-							<listheader label="Categoría" />
-							<listheader label="Tipo" width="15%" />
-							<listheader label="Divisa" width="15%" />
+							<listheader label="Nombre" width="20%"/>
+							<listheader label="Categoría" width="25%"/>
+							<listheader label="Tipo" width="5%" />
+							<listheader label="Divisa" width="12%" />
+							<listheader label="Minimo Jugadores" width="19%" />
+							<listheader label="Maximo Jugadores" width="19%" />
 						</listhead>
 						<listitem self="@{each='equipo'}"
 							value="@{equipo}">
@@ -70,6 +100,8 @@
 							<listcell
 								label="@{equipo.datoBasico.nombre}" />
 							<listcell label="@{equipo.divisa.nombre}" />
+							<listcell label="@{equipo.minimoJugador}" />
+							<listcell label="@{equipo.maximoJugador}" />
 						</listitem>
 
 					</listbox>
