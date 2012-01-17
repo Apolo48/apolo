@@ -235,7 +235,8 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 			hospedaje.setEstatus('A');
 			hospedaje.setCompetencia(competencia);
 			hospedaje.setFamiliarJugador(familiarJugador);
-			servicioHospedaje.agregar(hospedaje, competencia, familiarJugador);
+			//servicioHospedaje.agregar(hospedaje, competencia, familiarJugador);
+			servicioHospedaje.agregar(hospedaje);
 			Mensaje.mostrarMensaje("Representante asociado a Hospedaje",
 					Mensaje.EXITO, Messagebox.INFORMATION);
 			limpiar();

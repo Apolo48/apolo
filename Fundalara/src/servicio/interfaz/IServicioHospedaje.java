@@ -11,7 +11,8 @@ public interface IServicioHospedaje {
 
 	public abstract void eliminar(Hospedaje c);
 
-	public abstract void agregar(Hospedaje c, Competencia cm, FamiliarJugador fj);
+	//public abstract void agregar(Hospedaje c, Competencia cm, FamiliarJugador fj);
+	public abstract void agregar(Hospedaje c);
 
 	public abstract void actualizar(Hospedaje c);
 

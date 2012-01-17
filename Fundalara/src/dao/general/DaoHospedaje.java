@@ -31,7 +31,8 @@ public class DaoHospedaje extends GenericDao {
 	 * @param c
 	 *            Objeto Hospedaje a ser guardado
 	 */
-	public void guardar(Hospedaje c, Competencia cm, FamiliarJugador fj) {
+	//public void guardar(Hospedaje c, Competencia cm, FamiliarJugador fj) {
+	public void guardar(Hospedaje c) {
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
 		//session.save(c.getCompetencia().getCodigoCompetencia());

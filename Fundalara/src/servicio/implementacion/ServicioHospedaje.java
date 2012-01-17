@@ -29,8 +29,10 @@ public class ServicioHospedaje implements IServicioHospedaje {
 	}
 
 	@Override
-	public void agregar(Hospedaje c, Competencia cm, FamiliarJugador fj) {
-		daoHospedaje.guardar(c, cm, fj);
+	public void agregar(Hospedaje c) {
+	//public void agregar(Hospedaje c, Competencia cm, FamiliarJugador fj) {
+		//daoHospedaje.guardar(c, cm, fj);
+		daoHospedaje.guardar(c);
 
 	}
 
