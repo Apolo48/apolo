@@ -36,8 +36,8 @@ public class ServicioJugador implements IServicioJugador {
 	}
 
 	@Override
-	public void agregar(Jugador c, PersonaNatural pn) {
-		daoJugador.guardar(c,pn);
+	public void agregar(Jugador c) {
+		daoJugador.guardar(c);
 	}
 
 	@Override
@@ -46,10 +46,7 @@ public class ServicioJugador implements IServicioJugador {
 		
 	}
 	
-	public void actualizar(Jugador c, PersonaNatural pn) {
-		daoJugador.actualizar(c,pn);
 
-	}
 
 	@Override
 	public List<Jugador> listar() {

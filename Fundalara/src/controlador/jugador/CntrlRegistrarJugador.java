@@ -981,7 +981,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			// Actualizamos
 			personaN.setPersona(persona);
 			jugador.setPersonaNatural(personaN);
-			servicioJugador.actualizar(jugador, personaN);
+			servicioJugador.actualizar(jugador);
 		} else {
 			// Guardamos
 			DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
@@ -993,7 +993,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			jugador.setEstatus(EstatusRegistro.TEMPORAL);
 			personaN.setPersona(persona);
 			jugador.setPersonaNatural(personaN);
-			servicioJugador.agregar(jugador, personaN);
+			servicioJugador.agregar(jugador);
 			checkPoints.put(Point.JUGADOR, true);
 		}
 	}
