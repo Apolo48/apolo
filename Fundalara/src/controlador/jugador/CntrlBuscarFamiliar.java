@@ -52,21 +52,17 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 	private AnnotateDataBinder binder;
 
 
-	public void onChanging$filter2(){
+	public void onBlur$filter2(){
 		binder.loadAll();
-		
 	}
 	
-	public void onChanging$filter1(){
+	public void onBlur$filter1(){
 		binder.loadAll();
-		
 	}
 	
-	public void onChanging$filter3(){
+	public void onBlur$filter3(){
 		binder.loadAll();
-		
 	}
-
 	
 	@Override
 	public void doAfterCompose(Component c) throws Exception {
@@ -107,8 +103,16 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 	public List<Familiar> getFamiliares() {
 		familiares=servicioFamiliar.listar();
 		return servicioFamiliar.listar();
+		//familiares=servicioFamiliar.filtrar(filter1.getValue().toString(), filter2.getValue().toString(), filter3.getValue().toString());
+		//return servicioFamiliar.filtrar(filter1.getValue().toString(), filter2.getValue().toString(), filter3.getValue().toString());
 	}
 
-	
+	public Familiar getFamiliar() {
+		return familiar;
+	}
+
+	public void setFamiliar(Familiar familiar) {
+		this.familiar = familiar;
+	}
 
 }

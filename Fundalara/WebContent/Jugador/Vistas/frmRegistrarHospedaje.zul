@@ -114,9 +114,6 @@
 						<button id="btnAgregar"
 							image="../../Recursos/Imagenes/agregar.ico" />
 						<separator height="5px" />
-						<button id="btnEditar"
-							image="../../Recursos/Imagenes/editar.ico" />
-						<separator height="5px" />
 						<button id="btnQuitar"
 							image="../../Recursos/Imagenes/quitar.ico" />
 					</div>
