@@ -7,6 +7,7 @@ import modelo.TipoDato;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import comun.TipoDatoBasico;
@@ -51,5 +52,15 @@ public class DaoTipoDato extends GenericDao {
 		}
 		tx.commit();
 		return tipo;
+	}
+	
+	
+
+	public List <TipoDato> buscarTrue(Boolean bool) {
+		Session session = getSession();
+		Transaction tx =  session.beginTransaction();
+		Criteria c = getSession().createCriteria(TipoDato.class);
+		c.add(Restrictions.eq("tipo", bool));
+		return  c.list();
 	}
 }

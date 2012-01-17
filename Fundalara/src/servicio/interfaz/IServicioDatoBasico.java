@@ -28,5 +28,6 @@ public interface IServicioDatoBasico {
 	public abstract DatoBasico buscarTipo( TipoDatoBasico tipoDato, String nombre);
 	
 	public abstract DatoBasico buscarDatosPorRelacion (DatoBasico datoBasico, String nombre);
+	
 
 }

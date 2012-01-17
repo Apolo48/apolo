@@ -13,4 +13,6 @@ public interface IServicioTipoDato {
 	public abstract List<TipoDato> listar();
 	
 	public abstract TipoDato buscarTipo(String td);
+
+	public List<TipoDato> buscarTrue(Boolean bool) ;
 }

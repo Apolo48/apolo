@@ -51,5 +51,10 @@ public class ServicioTipoDato implements IServicioTipoDato {
 	}
 	
 	
+	@Override
+	public List<TipoDato> buscarTrue(Boolean bool) {
+		return daoTipoDato.buscarTrue(bool);
+	}
+	
 
 }

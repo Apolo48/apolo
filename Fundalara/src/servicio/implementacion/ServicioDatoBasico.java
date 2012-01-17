@@ -76,4 +76,6 @@ public class ServicioDatoBasico implements IServicioDatoBasico {
 			String nombre) {
 		return daoDatoBasico.buscarPorRelacion(datoBasico, nombre);
 	}
+	
+	
 }
