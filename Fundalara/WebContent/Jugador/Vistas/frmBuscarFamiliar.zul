@@ -12,9 +12,9 @@
 				<auxheader label="Listado Familiares" colspan="4" align="center"/>
 			</auxhead>
 			<listhead>
-				<listheader sort="auto" align="center" label="Cédula" width="24%"/>
-				<listheader sort="auto" label="Nombre" width="38%"/>
-				<listheader sort="auto" label="Apellido" width="38%"/>
+				<listheader align="center" label="Cédula" width="24%"/>
+				<listheader label="Nombre" width="38%"/>
+				<listheader label="Apellido" width="38%"/>
 			</listhead>
 			<auxhead>
 				<auxheader colspan="1">
@@ -41,11 +41,8 @@
 		<button id="btnSeleccionar" label="Seleccionar"
 					image="/Recursos/Imagenes/glowing_cursor.png">
 				</button>
-			<button label="Salir"
+			<button id="btnSalir" label="Salir"
 				image="/Recursos/Imagenes/salir.png">
-				<attribute name="onClick"><![CDATA[
-								win.detach();
-							]]></attribute>
 			</button>
 		</div>
 	</window>

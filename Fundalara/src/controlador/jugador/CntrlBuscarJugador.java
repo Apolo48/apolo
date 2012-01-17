@@ -56,24 +56,20 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 
 	Combobox cmbEquipo, cmbCategoria;
 
-	public void onChanging$filter2(){
+	public void onBlur$filter2(){
 		binder.loadAll();
-		
 	}
 	
-	public void onChanging$filter1(){
+	public void onBlur$filter1(){
 		binder.loadAll();
-		
 	}
 	
-	public void onChanging$filter3(){
+	public void onBlur$filter3(){
 		binder.loadAll();
-		
 	}
 	
-	public void onChanging$filter4(){
+	public void onBlur$filter4(){
 		binder.loadAll();
-		
 	}
 	
 	@Override
@@ -83,7 +79,6 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 		// se guarda la referencia al catalogo
 		catalogo = c;
 		cmbEquipo.setDisabled(true);
-		
 	}
 
 	public void onSelect$cmbCategoria() {
@@ -111,12 +106,8 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 		} else {
 			Messagebox.show("Seleccione un Jugador", "Mensaje", Messagebox.YES,
 					Messagebox.INFORMATION);
-
 		}
-		
-		}
-
-	
+	}
 	
 	public Equipo getEquipo() {
 		return equipo;
@@ -152,12 +143,10 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 
 	public List<Categoria> getCategorias() {
 		return servicioCategoria.listar();
-
 	}
 
 	public List<Equipo> getEquipos() {
 		return servicioEquipo.buscarPorCategoria(categoria);
-
 	}
 
 	public List<Jugador> getJugadores() {
