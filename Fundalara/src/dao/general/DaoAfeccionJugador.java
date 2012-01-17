@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import modelo.AfeccionJugador;
 import modelo.DatoMedico;
 import modelo.DatoSocial;
+import modelo.Jugador;
 
 import dao.generico.GenericDao;
 
@@ -106,6 +107,16 @@ public class DaoAfeccionJugador extends GenericDao {
 			i++;
 		}
 		return posicion;
+	}
+	
+	
+	public List<AfeccionJugador> buscarPorJugador(Jugador jugador) {
+		Session sesion = getSession();
+		Transaction tx = sesion.beginTransaction();
+		Criteria c = sesion.createCriteria(AfeccionJugador.class)
+		.createCriteria("datoMedico")
+		.add(Restrictions.eq("jugador", jugador));
+		return c.list();
 	}
 
 }

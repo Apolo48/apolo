@@ -1,16 +1,19 @@
 package dao.general;
 
+import java.util.Date;
 import java.util.List;
 
 import dao.generico.GenericDao;
 
 import modelo.Equipo;
+import modelo.Jugador;
 import modelo.Roster;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -89,5 +92,18 @@ public class DaoRoster extends GenericDao {
 			session.save(o);
 			tx.commit();		
 		}
+	
+	
+	public List<Roster> buscarEquipo(Jugador jugador, Date fecha) {
+		Session session = this.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(Roster.class).addOrder(
+				Order.desc("fechaIngreso"));
+		c.add(Restrictions.eq("jugador", jugador));
+		if (c.list().size() == 0)
+			return null;
+		else
+			return c.list();
+	}
 	
 }

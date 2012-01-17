@@ -26,11 +26,13 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.api.Tab;
 
+import servicio.implementacion.ServicioAfeccionJugador;
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioDatoAcademico;
 import servicio.implementacion.ServicioDatoMedico;
 import servicio.implementacion.ServicioDatoSocial;
+import servicio.implementacion.ServicioDatoConducta;
 import servicio.implementacion.ServicioEquipo;
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioPersona;
@@ -38,6 +40,7 @@ import servicio.implementacion.ServicioRecaudoPorProceso;
 import servicio.implementacion.ServicioInstitucion;
 import servicio.implementacion.ServicioLapsoDeportivo;
 import servicio.implementacion.ServicioRoster;
+import servicio.implementacion.ServicioMotivoSancion;
 
 import comun.FileLoader;
 import comun.Ruta;
@@ -48,7 +51,6 @@ import comun.Mensaje;
 import controlador.jugador.bean.ActividadSocial;
 import controlador.jugador.bean.NuevoCurso;
 import controlador.jugador.bean.Afeccion;
-//import controlador.jugador.bean.Persona;
 
 import modelo.AfeccionJugador;
 import modelo.Categoria;
@@ -57,12 +59,14 @@ import modelo.AfeccionJugadorId;
 import modelo.DatoAcademico;
 import modelo.DatoMedico;
 import modelo.DatoSocial;
+import modelo.DatoConducta;
 import modelo.DocumentoEntregado;
 import modelo.Equipo;
 import modelo.Institucion;
 import modelo.LapsoDeportivo;
 import modelo.Jugador;
 import modelo.Medico;
+import modelo.MotivoSancion;
 import modelo.Persona;
 import modelo.PersonaNatural;
 import modelo.RecaudoPorProceso;
@@ -79,7 +83,7 @@ import modelo.Roster;
  * @author Aimee M.
  * @author Glendy O.
  * @author Greisy R.
- * @version 0.1.0 09/01/2012
+ * @version 0.1.5 16/01/2012
  * 
  * */
 public class CntrlConsultarExpedienteJugador extends GenericForwardComposer {
@@ -115,6 +119,10 @@ public class CntrlConsultarExpedienteJugador extends GenericForwardComposer {
 	private Listbox listMotivos;
 	private Listbox listDocAcademicos;
 	private Listbox listAfecciones;
+	private Listbox listLesiones;
+	private Listbox listAcademico;
+	private Listbox listSocial;
+	private Listbox listConducta;
 	private Component formulario;
 	private Include incCuerpo;
 
@@ -130,12 +138,16 @@ public class CntrlConsultarExpedienteJugador extends GenericForwardComposer {
 	private ServicioRoster servicioRoster;
 	private ServicioJugador servicioJugador;
 	private ServicioPersona servicioPersona;
+	private ServicioAfeccionJugador servicioAfeccionJugador;
+	private ServicioDatoAcademico servicioDatoAcademico;
+	private ServicioDatoSocial servicioDatoSocial;
+	private ServicioDatoConducta servicioDatoConducta;
+	private ServicioMotivoSancion servicioMotivoSancion;
 
 	// Modelos
 	private Jugador jugador = new Jugador();
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
 	private Persona persona = new Persona();
-	private DatoMedico afeccJug = new DatoMedico();
 
 	private Equipo equipo = new Equipo();
 	private Categoria categoria = new Categoria();
@@ -144,26 +156,30 @@ public class CntrlConsultarExpedienteJugador extends GenericForwardComposer {
 	private DatoBasico municipioNac = new DatoBasico();
 	private DatoBasico municipioResi = new DatoBasico();
 	private DatoMedico datoMedico = new DatoMedico();
+	private DatoAcademico datoAcademico = new DatoAcademico(); 
+	private DatoSocial datoSocial = new DatoSocial();
+	private DatoMedico datoBasico = new DatoMedico();
+	private DatoConducta datoConducta = new DatoConducta();
+	private MotivoSancion motivoSancion = new MotivoSancion();
 	private DatoBasico institucionEducativa = new DatoBasico();
 	private DatoBasico institucionRecreativa = new DatoBasico();
 	private Afeccion afeccion = new Afeccion();
 	private DatoBasico comision = new DatoBasico();
-	private DatoBasico actualizacionMedica = new DatoBasico();
 	private DatoBasico logro;
 	private DatoBasico sancion;
 	private DatoBasico suspension;
 	private Medico medico = new Medico();
-	List<Afeccion> afeccionesJugador = new ArrayList<Afeccion>();
-	private NuevoCurso nuevosCursos = new NuevoCurso();
+	private AfeccionJugador afeccionJugador = new AfeccionJugador();	
+	private NuevoCurso nuevosCursos = new NuevoCurso();	
+	private DatoBasico lesion = new DatoBasico();
 	List<NuevoCurso> nuevoCurso = new ArrayList<NuevoCurso>();
-	private DatoAcademico datoAcademico = new DatoAcademico();
-	private DatoSocial datoSocial = new DatoSocial();
-	private List<DatoSocial> datoSociales = new ArrayList<DatoSocial>();
-	List<DatoMedico> AfeccionesJug = new ArrayList<DatoMedico>();
-	
-
-	// private List<DatoAcademico> datoAcademicos = new
-	// ArrayList<DatoAcademico>();
+	List<Afeccion> afeccionesJugador = new ArrayList<Afeccion>();
+	List<AfeccionJugador> listaAfecciones = new ArrayList<AfeccionJugador>();
+	//List<AfeccionJugador> listaLesiones = new ArrayList<AfeccionJugador>();
+	List<DatoAcademico> listaAcademica = new ArrayList<DatoAcademico>();
+	List<DatoSocial> listaSocial = new ArrayList<DatoSocial>();
+	//List<DatoConducta> listaConducta = new ArrayList<DatoConducta>();
+	List<MotivoSancion> listaConducta = new ArrayList<MotivoSancion>();
 	Roster roster;
 	RetiroTraslado retJugador;
 	PersonaNatural personaN = new PersonaNatural();
@@ -179,6 +195,117 @@ public class CntrlConsultarExpedienteJugador extends GenericForwardComposer {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
 		formulario = comp;
+	}
+
+	// Metodos para carga de combos/listbox
+	public Include getIncCuerpo() {
+		return incCuerpo;
+	}
+
+	public void setIncCuerpo(Include incCuerpo) {
+		this.incCuerpo = incCuerpo;
+	}
+
+	public void onClick$btnCatalogoJugador() {
+		// se crea el catalogo y se llama
+		Component catalogo = Executions.createComponents(
+				"/Jugador/Vistas/frmBuscarJugador.zul", null, null);
+		// asigna una referencia del formulario al catalogo.
+		catalogo.setVariable("formulario", formulario, false);
+
+		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// Perfil del Jugador
+				jugador = (Jugador) formulario.getVariable("jugador", false);
+				txtCedula.setValue(jugador.getCedulaRif());
+				txtPrimerNombre.setValue(jugador.getPersonaNatural()
+						.getPrimerNombre());
+				txtSegundoNombre.setValue(jugador.getPersonaNatural()
+						.getSegundoNombre());
+				txtPrimerApellido.setValue(jugador.getPersonaNatural()
+						.getPrimerApellido());
+				txtSegundoApellido.setValue(jugador.getPersonaNatural()
+						.getSegundoApellido());
+				txtGenero.setValue(jugador.getPersonaNatural().getDatoBasico()
+						.getNombre());
+				
+				// Datos Personales
+				java.util.Date date = new java.util.Date();
+				date = jugador.getPersonaNatural().getFechaNacimiento();
+				java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+						"dd/MM/yyyy");
+				String fecha = sdf.format(date);
+				txtFechaNac.setValue(fecha);
+				txtEdad.setValue(Util.calcularDiferenciaAnnios(date));
+				txtPaisNac.setValue(jugador.getDatoBasicoByCodigoPais()
+						.getNombre());
+	
+				txtParroquiaResi.setContext(String
+						.valueOf(jugador.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia()
+								.getCodigoDatoBasico()));
+				txtParroquiaResi.setValue(jugador.getPersonaNatural().getPersona()
+						.getDatoBasicoByCodigoParroquia().getNombre());
+				txtMunicipioResi.setValue(jugador.getPersonaNatural().getPersona()
+						.getDatoBasicoByCodigoParroquia().getDatoBasico()
+						.getNombre());
+				txtEstadoResi.setValue(jugador.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia()
+						.getDatoBasico().getDatoBasico().getNombre());
+				
+				//Datos Médicos				
+				listaAfecciones = servicioAfeccionJugador.buscarPorJugador(jugador);
+				//listaLesiones = servicioAfeccionJugador.buscarPorJugador(jugador);
+				listaAcademica = servicioDatoAcademico.buscarPorJugador(jugador);
+				listaSocial = servicioDatoSocial.buscarPorJugador(jugador);
+				listaConducta = servicioMotivoSancion.buscarPorJugador(jugador);
+								
+				binder.loadAll();
+
+			}
+		});
+	}
+	
+	//Getters y Setters
+
+	public AfeccionJugador getAfeccionJugador() {
+		return afeccionJugador;
+	}
+
+	public void setAfeccionJugador(AfeccionJugador afeccionJugador) {
+		this.afeccionJugador = afeccionJugador;
+	}
+
+	public DatoMedico getDatoBasico() {
+		return datoBasico;
+	}
+
+	public void setDatoBasico(DatoMedico datoBasico) {
+		this.datoBasico = datoBasico;
+	}
+
+	public Afeccion getAfeccion() {
+		return afeccion;
+	}
+
+	public void setAfeccion(Afeccion afeccion) {
+		this.afeccion = afeccion;
+	}
+
+	public Medico getMedico() {
+		return medico;
+	}
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
+	}
+
+	public List<AfeccionJugador> getListaAfecciones() {
+		return listaAfecciones;
+	}
+
+	public void setListaAfecciones(List<AfeccionJugador> listaAfecciones) {
+		this.listaAfecciones = listaAfecciones;
 	}
 
 	public Jugador getJugador() {
@@ -293,10 +420,6 @@ public class CntrlConsultarExpedienteJugador extends GenericForwardComposer {
 		this.suspension = suspension;
 	}
 
-	public DatoBasico getActualizacionMedica() {
-		return actualizacionMedica;
-	}
-
 	public Component getFormulario() {
 		return formulario;
 	}
@@ -329,10 +452,6 @@ public class CntrlConsultarExpedienteJugador extends GenericForwardComposer {
 		this.personaN = personaN;
 	}
 
-	public void setActualizacionMedica(DatoBasico actualizacionMedica) {
-		this.actualizacionMedica = actualizacionMedica;
-	}
-
 	public DatoSocial getDatoSocial() {
 		return datoSocial;
 	}
@@ -340,113 +459,66 @@ public class CntrlConsultarExpedienteJugador extends GenericForwardComposer {
 	public void setDatoSocial(DatoSocial datoSocial) {
 		this.datoSocial = datoSocial;
 	}
-
-	public List<DatoSocial> getDatoSociales() {
-		return datoSociales;
+	
+/*	public List<AfeccionJugador> getListaLesiones() {
+		return listaLesiones;
 	}
 
-	public void setDatoSociales(List<DatoSocial> datoSociales) {
-		this.datoSociales = datoSociales;
+
+	public void setListaLesiones(List<AfeccionJugador> listaLesiones) {
+		this.listaLesiones = listaLesiones;
+	}*/
+	
+	public DatoBasico getLesion() {
+		return lesion;
+	}
+
+	public void setLesion(DatoBasico lesion) {
+		this.lesion = lesion;
 	}
 	
-	public List<DatoMedico> getAfeccionesJug() {
-		return AfeccionesJug;
-	}
-
-	public void setAfeccionesJug(List<DatoMedico> afeccionesJug) {
-		AfeccionesJug = afeccionesJug;
+	public List<DatoAcademico> getListaAcademica() {
+		return listaAcademica;
 	}
 	
-	public DatoMedico getAfeccJug() {
-		return afeccJug;
+	public List<DatoSocial> getListaSocial() {
+		return listaSocial;
 	}
 
-	public void setAfeccJug(DatoMedico afeccJug) {
-		this.afeccJug = afeccJug;
+
+	public void setListaSocial(List<DatoSocial> listaSocial) {
+		this.listaSocial = listaSocial;
 	}
 
-	/*
-	 * public DatoAcademico getDatoAcademico() { return datoAcademico; }
-	 * 
-	 * public void setDatoAcademico(DatoAcademico datoAcademico) {
-	 * this.datoAcademico = datoAcademico; }
-	 * 
-	 * public List<DatoAcademico> getDatoAcademicos() { return datoAcademicos; }
-	 * 
-	 * public void setDatoAcademicos(List<DatoAcademico> datoAcademicos) {
-	 * this.datoAcademicos = datoAcademicos; }
-	 */
-
-	// Metodos para carga de combos/listbox
-	public Include getIncCuerpo() {
-		return incCuerpo;
+	public void setListaAcademica(List<DatoAcademico> listaAcademica) {
+		this.listaAcademica = listaAcademica;
 	}
 
-	public void setIncCuerpo(Include incCuerpo) {
-		this.incCuerpo = incCuerpo;
+	public void setDatoAcademico(DatoAcademico datoAcademico) {
+		this.datoAcademico = datoAcademico;
 	}
 
-	public controlador.jugador.bean.Jugador getJugadorBean() {
-		return jugadorBean;
+	public DatoAcademico getDatoAcademico() {
+		return datoAcademico;
+	}
+		
+	public DatoConducta getDatoConducta() {
+		return datoConducta;
 	}
 
-	public void setJugadorBean(controlador.jugador.bean.Jugador jugadorBean) {
-		this.jugadorBean = jugadorBean;
+
+	public void setDatoConducta(DatoConducta datoConducta) {
+		this.datoConducta = datoConducta;
 	}
 
-	public void onClick$btnCatalogoJugador() {
-		// se crea el catalogo y se llama
-		Component catalogo = Executions.createComponents(
-				"/Jugador/Vistas/frmBuscarJugador.zul", null, null);
-		// asigna una referencia del formulario al catalogo.
-		catalogo.setVariable("formulario", formulario, false);
 
-		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+	public List<MotivoSancion> getListaConducta() {
+		return listaConducta;
+	}
 
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				//Jugador
-				jugador = (Jugador) formulario.getVariable("jugador", false);
-				//String cedula = jugador.getCedulaRif();
-				//txtNacionalidad.setValue(cedula.substring(0, 1));
-				txtCedula.setValue(jugador.getCedulaRif());
-				txtPrimerNombre.setValue(jugador.getPersonaNatural()
-						.getPrimerNombre());
-				txtSegundoNombre.setValue(jugador.getPersonaNatural()
-						.getSegundoNombre());
-				txtPrimerApellido.setValue(jugador.getPersonaNatural()
-						.getPrimerApellido());
-				txtSegundoApellido.setValue(jugador.getPersonaNatural()
-						.getSegundoApellido());
-				txtGenero.setValue(jugador.getPersonaNatural().getDatoBasico()
-						.getNombre());
-				java.util.Date date = new java.util.Date();
-				date = jugador.getPersonaNatural().getFechaNacimiento();
-				java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
-						"dd/MM/yyyy");
-				String fecha = sdf.format(date);
-				txtFechaNac.setValue(fecha);
-				txtEdad.setValue(Util.calcularDiferenciaAnnios(date));
-				txtPaisNac.setValue(jugador.getDatoBasicoByCodigoPais()
-						.getNombre());
-				
-				//Persona
-				//persona = servicioPersona.buscarPorCedulaRif(cedula);
-				txtParroquiaResi.setContext(String
-						.valueOf(jugador.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia()
-								.getCodigoDatoBasico()));
-				txtParroquiaResi.setValue(jugador.getPersonaNatural().getPersona()
-						.getDatoBasicoByCodigoParroquia().getNombre());
-				txtMunicipioResi.setValue(jugador.getPersonaNatural().getPersona()
-						.getDatoBasicoByCodigoParroquia().getDatoBasico()
-						.getNombre());
-				txtEstadoResi.setValue(jugador.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia()
-						.getDatoBasico().getDatoBasico().getNombre());
-				
-				binder.loadAll();
 
-			}
-		});
+	public void setListaConducta(List<MotivoSancion> listaConducta) {
+		this.listaConducta = listaConducta;
 	}
 
 	// Eventos
@@ -462,18 +534,9 @@ public class CntrlConsultarExpedienteJugador extends GenericForwardComposer {
 		new FileLoader().cargarImagenEnBean(imgJugador);
 	}
 
-	/*
-	 * public void onChange$cmbTipoActualizacion() { String src = ""; String
-	 * valor = cmbTipoActualizacion.getSelectedItem().getLabel(); Util enlace =
-	 * new Util(); if (valor.equalsIgnoreCase("DATOS MÉDICOS")) { src =
-	 * "frmActualizarDatosMedicos.zul"; } else if
-	 * (valor.equalsIgnoreCase("AFECCIÓN")) { src = "frmActualizarAfeccion.zul";
-	 * } else if (valor.equalsIgnoreCase("LESIÓN")) { src =
-	 * "frmActualizarLesion.zul"; } src = rutasJug + src; incCuerpo
-	 * .setDynamicProperty("actualizacionMedica", actualizacionMedica);
-	 * enlace.insertarContenido(incCuerpo, src); }
-	 */
 
+
+	
 	// Metodos propios del ctrl
 
 }

@@ -660,16 +660,17 @@
 													<combobox
 														id="cmbMotivo"
 														model="@{winActualizarJugador$composer.sanciones}"
+														selectedItem="@{controller.sancion}"
 														readonly="true" value="--Seleccione--">
 														<comboitem
-															self="@{each='sancion'}" label="@{sancion.nombre}" />
+															self="@{each='sanc'}" label="@{sanc.nombre}" 
+															value="@{sanc.codigoDatoBasico}" />
 													</combobox>
 													<label value="(*)"
 														style="color:red" />
 												</div>
 											</row>
-											<row spans="1,3"
-												style="border:none">
+											<row spans="1,3" style="border:none">
 												<label />
 												<grid
 													style="border:none" width="90%">
@@ -678,15 +679,22 @@
 															width="95%" />
 													</columns>
 													<rows>
-														<row
-															style="border:none;">
+														<row style="border:none;">
 															<listbox
-																id="listMotivos" mold="paging" width="50%"
-																pageSize="2">
+																id="listMotivos" mold="paging" width="50%" pageSize="2"
+																model="@{controller.motivosJugador}">
 																<listhead>
 																	<listheader
 																		label="Motivo" width="35%" align="center" />
 																</listhead>
+																
+																<listitem
+																	self="@{each='sancion'}"
+																	value="@{sancion}">
+																	<listcell
+																		label="@{sancion.nombre}" />
+																</listitem>
+																																
 															</listbox>
 
 															<vbox>
@@ -933,8 +941,7 @@
 							</tabpanel><!-- Fin tabJugDeportivos -->
 
 							<tabpanel><!-- Inicio tabLogrosDeportivos -->
-								<groupbox style="border-color:orange"
-									closable="false">
+								<groupbox style="border-color:orange" closable="false">
 									<caption
 										label="Datos de Logros Deportivos" />
 									<grid style="border:none;"
@@ -946,18 +953,46 @@
 											<column width="32%" />
 										</columns>
 										<rows>
-											<row style="border:none;"
-												spans="1,3">
+											<row style="border:none;" spans="1,3">
 												<label value="Logro" />
 												<combobox
 													id="cmbLogroDeportivo" readonly="true"
 													value="--Seleccione--" width="65%"
-													model="@{winActualizarJugador$composer.logros}">
+													model="@{winActualizarJugador$composer.logros}"
+													selectedItem="@{controller.logro}">
 													<comboitem
-														self="@{each='logro'}" label="@{logro.nombre}" />
+														self="@{each='log'}" label="@{log.nombre}" 
+														value="@{log.codigoDatoBasico}"/>
 												</combobox>
 											</row>
-
+											<row style="border:none;">
+												<label value="Competencia" />
+												<combobox
+													id="cmbCompetencia" readonly="true"
+													value="--Seleccione--" width="65%"
+													>
+													<!-- 
+													<comboitem
+														self="" label="" />
+													 -->
+												</combobox>
+												<label value="Temporada" />
+												<combobox
+													id="cmbTemporada" readonly="true"
+													value="--Seleccione--" width="65%">
+												</combobox>
+												<!-- 
+												<combobox
+													id="cmbTemporada" readonly="true"
+													value="-Seleccione-" width="65%"
+													model="@{winActualizarJugador$composer.temporadas}"
+													selectedItem="@{controller.temporada}">
+													<comboitem
+														self="@{each='temp'}" label="@{temp.nombre}" 
+														value="@{temp.codigoDatoBasico}"/>
+												</combobox>
+												 -->																								
+											</row>
 											<row style="border:none;"
 												spans="1,3">
 												<label
@@ -969,56 +1004,36 @@
 										</rows>
 									</grid>
 								</groupbox>
-								<groupbox closable="false"
-									style="border-color:orange">
-									<grid style="border:none;"
-										oddRowSclass="none">
+								<groupbox closable="false" style="border-color:orange">
+																							
+									<grid style="border:none" width="90%">
+										<columns>
+											<column	width="95%" />
+										</columns>
 										<rows>
-											<row spans="3"
-												style="border:none;">
-												<grid
-													id="gridDetalleLogros">
-													<columns>
-														<column
-															label="Logro" width="70%" />
-														<column
-															label="Temporada" width="20%" />
-													</columns>
-													<rows>
-														<row
-															style="border:none;">
-															<label
-																value="U.E. Ezequiel Bujanda" />
-															<label
-																value="6to Grado" />
+											<row style="border:none;">
+												<listbox
+													id="listLogros" mold="paging" width="100%" pageSize="5">
+													<listhead>
+														<listheader	label="Logro" width="50%" align="center" />
+														<listheader	label="Observaciones" width="50%" align="center" />
+													</listhead>
+												</listbox>
 
-														</row>
-														<row
-															style="border:none;">
-															<label
-																value="L.B. Jacinto Lara" />
-															<label
-																value="7mo Grado" />
-
-														</row>
-													</rows>
-												</grid>
-												<div>
+												<vbox>
 													<button
 														id="btnAgregarLogro"
 														image="../../Recursos/Imagenes/agregar.ico" />
-													<separator
-														height="5px" />
 													<button
 														id="btnQuitarLogro"
-														image="../../Recursos/Imagenes/quitar.ico"
-														tooltiptext="Deshacer" />
-												</div>
+														image="../../Recursos/Imagenes/quitar.ico" />
+												</vbox>
 											</row>
 										</rows>
-									</grid>
+									</grid>								
+																
 								</groupbox>
-							</tabpanel><!-- Fin tabLogros -->
+							</tabpanel><!-- Fin tabLogrosDeportivos -->
 						</tabpanels>
 					</tabbox><!-- Fin tbboxDetalleBasico -->
 				</panelchildren>

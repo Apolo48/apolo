@@ -33,7 +33,7 @@
 									<row style="border:none;"
 										spans="1,3">
 										<label value="Cédula" />
-										<div>										
+										<div>
 											<textbox id="txtCedula"
 												width="28%" readonly="true" />
 											<button
@@ -324,164 +324,204 @@
 
 							<tabpanel id="HistorialMedico"><!-- Inicio tabJugMedico -->
 								<div width="100%">
-									<listbox id="listAfecciones" model="@{controller.afeccionesJug}"
-										mold="paging" pageSize="5">
+									<separator></separator>
+									<groupbox
+										style="border-color:orange">
+										<caption
+											label="Afecciones que ha presentado el Jugador" />
+										<listbox id="listAfecciones"
+											model="@{controller.listaAfecciones}" mold="paging"
+											pageSize="5">
+											<listhead>
+												<listheader width="10%"
+													label="Afección" align="center" />
+												<listheader width="20%"
+													label="Médico Tratante" align="center" />
+												<listheader width="10%"
+													label="Informe" align="center" />
+												<listheader width="20%"
+													label="Reincorporación" align="center" />
+												<listheader width="15%"
+													label="Equipo" align="center" />
+												<listheader width="20%"
+													label="Observación" align="center" />
+											</listhead>
+											<listitem
+												self="@{each='afeccionJugador'}"
+												value="@{afeccionJugador}">
+												<listcell
+													label="@{afeccionJugador.datoBasico.nombre}" />
+												<listcell
+													label="@{afeccionJugador.datoMedico.medico, converter='NameConcatenacion'}" />
+												<listcell
+													label="@{afeccionJugador.datoMedico.fechaInforme, converter='DateConverter'}" />
+												<listcell
+													label="@{afeccionJugador.datoMedico.fechaReincorporacion, converter='DateConverter'}" />
+												<listcell
+													label="@{afeccionJugador.datoMedico, converter='EquipoConverter'}" />
+												<listcell
+													label="@{afeccionJugador.datoMedico.observacion}" />
+											</listitem>
+										</listbox>
+									</groupbox>
+
+									<!-- 	<separator></separator>
+										<groupbox
+										style="border-color:orange">
+										<listbox id="listLesiones"
+										model="@{controller.listaLesiones}" mold="paging"
+										pageSize="5">
 										<auxhead
-											sclass="category-center">
-											<auxheader width="100%"
-												label="Afecciones que ha presentado el Jugador" colspan="5"
-												align="center">
-											</auxheader>
+										sclass="category-center">
+										<auxheader width="100%"
+										label="Lesiones que ha presentado el Jugador" colspan="6"
+										align="center">
+										</auxheader>
 										</auxhead>
 										<listhead>
-											<listheader width="15%"
-												label="Afección" align="center"/>
-											<listheader width="20%"
-												label="Médico Tratante" align="center"/>
-											<listheader width="20%"
-												label="Fecha del Informe" align="center" />
-											<listheader width="25%"
-												label="Fecha Reincorporación" align="center"/>
-											<listheader width="20%"
-												label="Observación" align="center" />
+										<listheader width="10%"
+										label="Lesión" align="center" />
+										<listheader width="20%"
+										label="Médico Tratante" align="center" />
+										<listheader width="10%"
+										label="Informe" align="center" />
+										<listheader width="20%"
+										label="Reincorporación" align="center" />
+										<listheader width="15%"
+										label="Equipo" align="center" />
+										<listheader width="20%"
+										label="Observación" align="center" />
 										</listhead>
 										<listitem
-											self="@{each='afeccJug'}" value="@{afeccJug}">
-											<listcell label="@{afeccJug.cedulaRif}" />
-											<listcell label="Hola1" />
-											<listcell label="hola2" />
-											<listcell label="Hola3" />
-											<listcell label="Hola4" />
+										self="@{each='afeccionJugador'}"
+										value="@{afeccionJugador}">
+										<listcell
+										label="@{afeccionJugador.datoBasico.nombre}" />
+										<listcell
+										label="@{afeccionJugador.datoMedico.medico, converter='NameConcatenacion'}" />
+										<listcell
+										label="@{afeccionJugador.datoMedico.fechaInforme, converter='DateConverter'}" />
+										<listcell
+										label="@{afeccionJugador.datoMedico.fechaReincorporacion, converter='DateConverter'}" />
+										<listcell
+										label="@{afeccionJugador.datoMedico, converter='EquipoConverter'}" />
+										<listcell
+										label="@{afeccionJugador.datoMedico.observacion}" />
 										</listitem>
-									</listbox>
+										</listbox>
+										</groupbox>  -->
 
-									
 								</div>
 
 							</tabpanel>
 
 							<tabpanel id="Académico">
 								<space />
-								<!-- <groupbox closable="false"
-									style="border-color:orange">
-									<grid style="border:none;"
-									oddRowSclass="none">
-									<rows>
-									<row spans="3"
-									style="border:none;">
-									<grid
-									style="border:none">
-									<columns>
-									<column
-									width="95%" />
-									<column />
-									</columns>
-									<rows>
-									<row
-									style="border:none">
-									<listbox
-									id="listNuevosCursos" mold="paging" pageSize="2"
-									model="@{controller.nuevoCurso}">
-									<listhead>
-									<listheader
-									label="Institución" width="50%" />
-									<listheader
-									label="Año Escolar" width="30%" />
-									<listheader
-									label="Curso" width="20%" />
-									
-									</listhead>
-									<listitem
-									self="@{each='nuevosCursos'}"
-									value="@{nuevosCursos}">
-									<listcell
-									label="@{nuevosCursos.NombreInstitucion}" />
-									<listcell
-									label="@{nuevosCursos.anno_Escolar}" />
-									<listcell
-									label="@{nuevosCursos.Curso}" />
-									</listitem>
+								<groupbox style="border-color:orange">
+									<caption
+										label="Resumen Académico del Jugador" />
+									<listbox id="listAcademico"
+										model="@{controller.listaAcademica}" mold="paging"
+										pageSize="5">
+
+										<listhead>
+											<listheader width="50%"
+												label="Institución" align="center" />
+											<listheader width="25%"
+												label="Año Escolar" align="center" />
+											<listheader width="25%"
+												label="Curso" align="center" />
+										</listhead>
+										<listitem
+											self="@{each='datoAcademico'}" value="@{datoAcademico}">
+											<listcell
+												label="@{datoAcademico.institucion.nombre}" />
+											<listcell
+												label="@{datoAcademico.datoBasicoByCodigoAnnoEscolar.nombre}" />
+											<listcell
+												label="@{datoAcademico.datoBasicoByCodigoCurso.nombre}" />
+										</listitem>
 									</listbox>
-									</row>
-									</rows>
-									</grid>
-									</row>
-									</rows>
-									</grid>
-									</groupbox>-->
+								</groupbox>
 								<space />
 							</tabpanel>
 
 							<tabpanel id="Social">
-								<space />
-								<!--  <listbox id="listActividadesSociales"
-									mold="paging" pageSize="2"
-									model="@{controller.datoSociales}">
-									<listhead>
-									<listheader label="Actividad"
-									width="20%" />
-									<listheader label="Institución"
-									width="55%" />
-									<listheader label="Fecha"
-									width="15%" />
-									</listhead>
-									<listitem
-									self="@{each='actividadSocial'}" value="@{actividadSocial}">
-									<listcell
-									label="@{actividadSocial.datoBasico.nombre}" />
-									<listcell
-									label="@{actividadSocial.institucion.nombre}" />
-									<listcell
-									label="@{actividadSocial.fechaInicio, converter='DateConverter'}" />
-									</listitem>
+								<space />						
+								<groupbox style="border-color:orange">
+									<caption
+										label="Resumen Social del Jugador" />
+									<listbox id="listSocial"
+										model="@{controller.listaSocial}" mold="paging"
+										pageSize="5">
+
+										<listhead>
+											<listheader width="50%"
+												label="Institución" align="center" />
+											<listheader width="25%"
+												label="Actividad" align="center" />
+											<listheader width="25%"
+												label="Inicio" align="center" />
+										</listhead>
+										<listitem
+											self="@{each='datoSocial'}" value="@{datoSocial}">
+											<listcell
+												label="@{datoSocial.institucion.nombre}" />
+											<listcell
+												label="@{datoSocial.datoBasico.nombre}" />
+											<listcell
+												label="@{datoSocial.fechaInicio, converter='DateConverter'}" />
+										</listitem>
 									</listbox>
-									
-									<space /> -->
+								</groupbox>
+								<space />
 							</tabpanel>
 
 							<tabpanel id="HistorialConducta">
 								<space />
-								<grid id="grid9" mold="paging"
-									pageSize="2">
-									<columns menupopup="auto">
-										<column label="Motivo Sanción"
-											width="15%" />
-										<column label="Fecha Inicio"
-											width="14%" />
-										<column
-											label="Fecha Culminación" width="20%" />
-										<column label="Período"
-											width="10%" />
-										<column label="¿Apeló?"
-											width="10%" />
-										<column label="Observación"
-											width="10%" />
-									</columns>
-
-									<rows>
-										<row>
-											<label
-												value="Jugador ilegal" />
-											<label value="04/02/2008" />
-											<label value="04/03/2008" />
-											<label value="30 días" />
-											<label value="Sí" />
-											<label
-												value="El jugador no tenia permitido jugar el partido" />
-										</row>
-										<row>
-											<label
-												value="Agresión al árbitro" />
-											<label value="10/11/2009" />
-											<label value="10/18/2009" />
-											<label value="1 Juego" />
-											<label value="No" />
-											<label
-												value="El jugador tuvo un comportamiento indebido" />
-										</row>
-
-									</rows>
-								</grid>
+										<groupbox style="border-color:orange">
+									<caption
+										label="Resumen Conducta del Jugador" />
+									<listbox id="listConducta"
+										model="@{controller.listaConducta}" mold="paging"
+										pageSize="5">
+										<listhead>
+											<listheader width="10%"
+												label="Sanción" align="center" />
+											<listheader width="15%"
+												label="Suspención" align="center" />
+												<listheader width="10%"
+												label="Cantidad" align="center" />
+											<listheader width="15%"
+												label="Incio" align="center" />
+											<listheader width="15%"
+												label="Fin" align="center" />
+											<listheader width="15%"
+												label="Ocurrencia" align="center" />
+											<listheader width="20%"
+												label="Observación" align="center" />
+										</listhead>
+										<listitem
+											self="@{each='motivoSancion'}" value="@{motivoSancion}">
+											<listcell
+												label="@{motivoSancion.datoBasico.nombre}" />
+											<listcell
+												label="@{motivoSancion.datoConducta.datoBasico.nombre}" />
+												<listcell
+												label="@{motivoSancion.datoConducta.cantidad}" />
+											<listcell
+												label="@{motivoSancion.datoConducta.fechaInicio, converter='DateConverter'}" />
+											<listcell
+												label="@{motivoSancion.datoConducta.fechaFin, converter='DateConverter'}" />
+											<listcell
+												label="@{motivoSancion.datoConducta.fechaOcurrencia, converter='DateConverter'}" />
+											<listcell
+												label="@{motivoSancion.datoConducta.observacion}" />
+										</listitem>
+									</listbox>
+								</groupbox>
+								
+								
 								<space />
 							</tabpanel>
 

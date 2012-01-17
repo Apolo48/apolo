@@ -58,5 +58,9 @@ public class ServicioDatoSocial implements IServicioDatoSocial {
 	public List<DatoSocial> listar() {
 		return daoDatoSocial.listar(DatoSocial.class);
 	}
+	
+	public List<DatoSocial> buscarPorJugador(Jugador jugador){
+		return daoDatoSocial.buscarPorJugador(jugador);
+	}
 
 }
