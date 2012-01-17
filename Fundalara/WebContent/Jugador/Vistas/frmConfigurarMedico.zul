@@ -27,14 +27,14 @@
 								<row style="border:none;">
 									<label value="  Número Colegio" />
 									<div>
-										<textbox id="txtNumcol" width="45%"
+										<textbox id="txtNumcol" width="45%" 
 											maxlength="5" value="@{controller.medico.numeroColegio}"/>
 										<button id="btnBuscar"
 											image="../../Recursos/Imagenes/consultar.ico" />
 									</div>
 									<label value="Matrícula" />
 									<div>
-										<textbox width="45%"
+										<textbox width="45%" id="txtMatricula" 
 											maxlength="5" value="@{controller.medico.matricula}" />
 									</div>
 								</row>
@@ -79,10 +79,8 @@
 												value="V" />
 											<comboitem label="E"
 												value="E" />
-											<comboitem label="R"
-												value="R" />
 										</combobox>
-										<textbox id="txtCedula"
+										<textbox id="txtCedula" 
 											width="60%" maxlength="8" />
 									</div>
 
@@ -90,7 +88,7 @@
 								<row style="border:none;">
 									<label value="  Nombres" />
 									<div>
-										<textbox width="85%"
+										<textbox width="85%" 
 											maxlength="40" value="@{controller.medico.nombre}"/>
 									</div>
 									<label value="Apellidos" />
