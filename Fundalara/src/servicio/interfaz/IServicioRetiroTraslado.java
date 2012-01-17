@@ -11,6 +11,10 @@ public interface IServicioRetiroTraslado {
 	public abstract void agregar(RetiroTraslado c);
 
 	public abstract void actualizar(RetiroTraslado c);
+	
+	public abstract int contarfilas(RetiroTraslado r);
+	
+	public abstract int contarfilas2(RetiroTraslado r);
 
 	public abstract List<RetiroTraslado> listar();
 }

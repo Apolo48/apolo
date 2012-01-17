@@ -171,6 +171,9 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 		comp.setVariable("controller", this, false); // Hacemos visible el modelo para el databinder
 		this.tipoOperacion = (DatoBasico) requestScope.get("tipoOperacion");
 		formulario = comp;
+		
+		System.out.println("*****Probado el contar filas ****");
+		System.out.println(servicioRetiroTraslado.contarfilas2(new RetiroTraslado()));
 	}
 	
 	public List<DatoBasico> getPases() {
@@ -201,6 +204,7 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 		});
 	}
 	
+		
 	public void onClick$btnExportar(){
 		Integer valor = cmbMotivo.getSelectedIndex();		
 		String valorDivisa = txtDivisaNueva.getValue().toString();
