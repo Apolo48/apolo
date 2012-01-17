@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 import modelo.Competencia;
 import modelo.Familiar;
 import modelo.FamiliarJugador;
 import modelo.Hospedaje;
-
 
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
@@ -44,7 +42,6 @@ import comun.Util;
 public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 
 	private Window winRegistrarHospedaje;
-
 
 	//Datos de la Competencia
 	private Combobox cmbCompetencia;
@@ -82,7 +79,6 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	private ServicioCompetencia servicioCompetencia;
 	private ServicioHospedaje servicioHospedaje;
 	//private ServicioFamiliar servicioFamiliar;
-
 	
 	//Modelo
 	private Competencia competencia = new Competencia();
@@ -90,8 +86,6 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	private List<Competencia> listCompetencias = new ArrayList<Competencia>();
 	private Hospedaje hospedaje = new Hospedaje();
 	private FamiliarJugador familiarJugador = new FamiliarJugador();
-
- 
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -99,8 +93,8 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 		comp.setVariable("controller", this, false); // Hacemos visible el modelo para el databinder
 		formulario = comp;//se guarda la referencia al formulario actual
 	}
+	
 	//Getters & Setters
-		
 	public Combobox getCmbCompetencia() {
 		return cmbCompetencia;
 	}
@@ -173,29 +167,26 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 		this.competencia = competencia;
 	}
 	
-	
 	//Método para el llenado de combo
 	public List<Competencia> getCompetencias() {
 		return servicioCompetencia.listar();
 	}
 	
 	//Eventos
-	
 	/*Compara si la informacion seleccionada en el combo es igual a la lista de competencia, para traer de 
 	la BD los datos requeridos para mostrar en la vista*/
 	
 	public void onChange$cmbCompetencia(){	
 		competencia = (Competencia) cmbCompetencia.getSelectedItem().getValue();
-		if (cmbCompetencia.getSelectedIndex() >=0) {
+		if (cmbCompetencia.getSelectedIndex() >=0) {//PARA Q SIRVE ESTA CONDICION
 			for (int i = 0; i < listCompetencias.size(); i++) {
 				if(listCompetencias.get(i).getNombre().equals(cmbCompetencia.getSelectedItem().getLabel())) {
-				}
+				}//AKI NO REALIZA NINGUN CAMBIO
 			}
 		}
 		binder.loadAll(); // actualiza para mostrar los cambios
 	}
 			
-		
 	public void onClick$btnCatalogoRep() {
 		// se crea el catalogo y se llama
 		Component catalogo = Executions.createComponents(
@@ -234,7 +225,20 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	}
 	
 	public void onClick$btnGuardar() {
-		
+		if ((cmbCompetencia.getSelectedIndex() >= 0) && (txtCedulaRep.getValue() != "")){ 
+			hospedaje.setEstatus('A');
+			hospedaje.setCompetencia(competencia);
+			hospedaje.setFamiliarJugador(familiarJugador);
+			servicioHospedaje.agregar(hospedaje, competencia, familiarJugador);
+			Mensaje.mostrarMensaje("Representante asociado a Hospedaje",
+					Mensaje.EXITO, Messagebox.INFORMATION);
+			limpiar();
+			binder.loadAll();
+		}
+	}
+	
+	/* CODIGO ORIGINAL ERROR  EN CONDICION
+	 public void onClick$btnGuardar() {
 			if (cmbCompetencia.getSelectedIndex() > 2 && txtCedulaRep.getValue() != null) 
 				hospedaje.setEstatus('A');
 				hospedaje.setCompetencia(competencia);
@@ -246,39 +250,37 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 				binder.loadAll();
 				
 			}
+*/
 	
 	public void onClick$btnCancelar() {
-	
 		limpiar();
 	}
 	
 	public void onClick$btnSalir() {
-	
 		winRegistrarHospedaje.detach();
 	}
 
 	//Métodos propios del Controlador
 	
 	// Borra los datos introducidos en la interfaz
-		public void limpiar() {
-			cmbCompetencia.setValue(null);
-			dtboxFechaIni.setValue(null);
-			dtboxFechaFin.setValue(null);
-			txtEstado.setValue(null);
-			txtCedulaRep.setValue(null);
-			txtNombreRep.setValue(null);
-			txtApellidoRep.setValue(null);
-			txtDireccionRep.setValue(null);
-			btnCatalogoRep.setDisabled(false);
-		}
-		
-		// Cambia el estatus del hospedaje
-				public void cambiarEstatusHospedaje() {
-					hospedaje.setEstatus('E');
-					servicioHospedaje.actualizar(hospedaje);
-					//hospedaje = new modelo.Hospedaje();
-					//binder.loadAll();
-				}
+	public void limpiar() {
+		cmbCompetencia.setValue(null);
+		dtboxFechaIni.setValue(null);
+		dtboxFechaFin.setValue(null);
+		txtEstado.setValue(null);
+		txtCedulaRep.setValue(null);
+		txtNombreRep.setValue(null);
+		txtApellidoRep.setValue(null);
+		txtDireccionRep.setValue(null);
+		btnCatalogoRep.setDisabled(false);
+	}
+	
+	// Cambia el estatus del hospedaje
+	public void cambiarEstatusHospedaje() {
+		hospedaje.setEstatus('E');
+		servicioHospedaje.actualizar(hospedaje);
+		//hospedaje = new modelo.Hospedaje();
+		//binder.loadAll();
+	}
+	
 }
-
-

@@ -1,6 +1,7 @@
 <?page title="Registro Hospedaje"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+
 <window id="winRegistrarHospedaje" title="Registro de Hospedaje"
 	apply="controlador.jugador.CntrlRegistrarHospedaje" border="normal"
 	width="620px" closable="true">
@@ -19,8 +20,7 @@
 						<div>
 						<combobox id="cmbCompetencia" focus="true"
 							value="--Seleccione--" width="75%" readonly="true"
-							model="@{winRegistrarHospedaje$composer.competencias}"
-							>
+							model="@{winRegistrarHospedaje$composer.competencias}">
 							<comboitem self="@{each='comp'}"
 								label="@{comp.nombre}"
 								value="@{comp}" />
@@ -168,6 +168,5 @@
 			image="../../Recursos/Imagenes/salir.png" orient="horizontal"
 			width="100px">
 		</button>
-
 	</div>
 </window>
