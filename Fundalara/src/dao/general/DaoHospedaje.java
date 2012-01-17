@@ -34,8 +34,8 @@ public class DaoHospedaje extends GenericDao {
 	public void guardar(Hospedaje c, Competencia cm, FamiliarJugador fj) {
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
-		session.save(c.getCompetencia().getCodigoCompetencia());
-		session.save(c.getFamiliarJugador().getCodigoFamiliarJugador());
+		//session.save(c.getCompetencia().getCodigoCompetencia());
+		//session.save(c.getFamiliarJugador().getCodigoFamiliarJugador());
 		session.save(c);
 		tx.commit();
 	}
