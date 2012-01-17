@@ -178,13 +178,16 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	
 	public void onChange$cmbCompetencia(){	
 		competencia = (Competencia) cmbCompetencia.getSelectedItem().getValue();
-		if (cmbCompetencia.getSelectedIndex() >=0) {//PARA Q SIRVE ESTA CONDICION
+		/*if (cmbCompetencia.getSelectedIndex() >=0) {//PARA Q SIRVE ESTA CONDICION
 			for (int i = 0; i < listCompetencias.size(); i++) {
 				if(listCompetencias.get(i).getNombre().equals(cmbCompetencia.getSelectedItem().getLabel())) {
 				}//AKI NO REALIZA NINGUN CAMBIO
 			}
-		}
-		binder.loadAll(); // actualiza para mostrar los cambios
+		}*/
+		//binder.loadAll(); // actualiza para mostrar los cambios
+		binder.loadComponent(dtboxFechaIni);
+		binder.loadComponent(dtboxFechaFin);
+		//binder.loadComponent(txtEstado);ERRROR EN ESTADO
 	}
 			
 	public void onClick$btnCatalogoRep() {
@@ -210,7 +213,10 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 									+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getNombre()+". "
 									+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getNombre()+". "
 									+ familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getDatoBasico().getNombre());
-				binder.loadAll();
+				//binder.loadAll(); COMENTADO X ERROR DE ESTADO
+				binder.loadComponent(txtCedulaRep);
+				binder.loadComponent(txtNombreRep);
+				binder.loadComponent(txtApellidoRep);
 			}
 		});
 	}
