@@ -5,7 +5,9 @@ import java.util.List;
 import servicio.interfaz.IServicioFamiliarComisionEquipo;
 
 import dao.general.DaoFamiliarComisionEquipo;
+import modelo.DatoBasico;
 import modelo.FamiliarComisionEquipo;
+import modelo.FamiliarJugador;
 
 public class ServicioFamiliarComisionEquipo implements
 		IServicioFamiliarComisionEquipo {
@@ -44,5 +46,9 @@ public class ServicioFamiliarComisionEquipo implements
 		return daoFamiliarComisionEquipo.listar( FamiliarComisionEquipo.class);
 		
 	}
-
+	
+	public List<DatoBasico> buscarFamiliarComisionEquipo(FamiliarJugador familiarJugador){
+		return daoFamiliarComisionEquipo.buscarFamiliarComisionEquipo(familiarJugador);
+	}
+	
 }

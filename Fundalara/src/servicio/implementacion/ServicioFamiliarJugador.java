@@ -10,7 +10,7 @@ import modelo.Jugador;
 
 public class ServicioFamiliarJugador implements IServicioFamiliarJugador {
 
-	DaoFamiliarJugador daoFamiliarJugador;
+DaoFamiliarJugador daoFamiliarJugador;
 	
 	public DaoFamiliarJugador getDaoFamiliarJugador() {
 		return daoFamiliarJugador;
