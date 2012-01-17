@@ -927,21 +927,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			}
 			guardarDatoSocial();
 			guardarTallas();
-
-			/* CODIGO DE PRUEBA - EQUIPO 3 
-			List<DatoBasico> lisatTallasEntrenamiento = servicioTallaPorJugador
-					.buscarTallasPorTipo(jugador, tipoIndumentaria);
-			System.out.println("Imprimiendo tallas ");
-			for (DatoBasico datoBasico : lisatTallasEntrenamiento) {
-				System.out.println("El Jugador "
-						+ jugador.getPersonaNatural().getPrimerNombre()
-						+ " en la indumentaria "
-						+ datoBasico.getDatoBasico().getNombre() + " es talla "
-						+ datoBasico.getNombre());
-			}
-
-			 CODIGO DE PRUEBA */
-
 			guardarDocumentoPersonal();
 			guardarDocumentoAcademico();
 			guardarDocumentoMedico();
@@ -1221,7 +1206,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 * Valida que se haya completado la primera fase de la inscripcion
 	 */
 	private void isFirstStepComplete() {
-		if (txtPrimerNombre.isValid())
+		if (verificarCampos(camposPerfil, false))
 			moveStep(true);
 		else {
 			Mensaje.mostrarMensaje(
@@ -1231,14 +1216,14 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	private void inhabilitarPerfil(boolean flag) {
-		cmbNacionalidad.setReadonly(flag);
+		cmbNacionalidad.setDisabled(flag);
 		txtCedula.setReadonly(flag);
 		txtCedulaSecuencia.setReadonly(flag);
 		txtPrimerApellido.setReadonly(flag);
 		txtPrimerNombre.setReadonly(flag);
 		txtSegundoApellido.setReadonly(flag);
 		txtSegundoNombre.setReadonly(flag);
-		cmbGenero.setReadonly(flag);
+		cmbGenero.setDisabled(flag);
 		// btnFoto.setDisabled(flag);
 	}
 

@@ -2,11 +2,6 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
-	<zscript><![CDATA[
-	//@IMPORT
-	import controlador.jugador.converter.*;
-]]></zscript>
-
 	<div align="left">
 		<window border="none" width="670px" height="1000px"
 			id="winRegistrarJugador"
@@ -912,7 +907,7 @@
 																<listcell
 																	label="@{actividadSocial.horasDedicadas}" />
 																<listcell
-																	label="@{actividadSocial.fechaInicio, converter='DateConverter'}" />
+																	label="@{actividadSocial.fechaInicio, converter='controlador.jugador.converter.DateConverter'}" />
 															</listitem>
 														</listbox>
 														<vbox>

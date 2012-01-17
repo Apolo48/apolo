@@ -29,9 +29,10 @@ public class EstatusRegistro {
 	public static final char TEMPORAL = 'T';
 
 	/**
-	 * Indica que un registro se encuentra en modo historico
+	 * Indica que un registro (aplicable para jugador) se encuentra
+	 * temporalmente inactivo por lesión
 	 */
-	public static final char INACTIVO = 'I';
+	public static final char LESIONADO = 'L';
 
 	/**
 	 * Indica que el registro(aplicabale a jugadores) se encuentra temporalmente
