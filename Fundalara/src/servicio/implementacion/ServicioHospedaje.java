@@ -6,8 +6,10 @@ import servicio.interfaz.IServicioHospedaje;
 
 import dao.general.DaoHospedaje;
 
+import modelo.Competencia;
+import modelo.FamiliarJugador;
 import modelo.Hospedaje;
-import modelo.Representante;//NUEVO
+
 
 public class ServicioHospedaje implements IServicioHospedaje {
 
@@ -27,8 +29,8 @@ public class ServicioHospedaje implements IServicioHospedaje {
 	}
 
 	@Override
-	public void agregar(Hospedaje c) {
-		daoHospedaje.guardar(c);
+	public void agregar(Hospedaje c, Competencia cm, FamiliarJugador fj) {
+		daoHospedaje.guardar(c, cm, fj);
 
 	}
 
@@ -43,9 +45,5 @@ public class ServicioHospedaje implements IServicioHospedaje {
 		return daoHospedaje.listar(Hospedaje.class);
 	}
 	
-	@Override
-	public Representante buscar (String id) {
-		return daoHospedaje.buscar(id);
-	}
 
 }

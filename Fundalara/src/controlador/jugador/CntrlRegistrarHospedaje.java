@@ -1,41 +1,34 @@
 package controlador.jugador;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 
-import modelo.Categoria;
 import modelo.Competencia;
 import modelo.Familiar;
+import modelo.FamiliarJugador;
 import modelo.Hospedaje;
-import modelo.Representante;
-import modelo.TipoCompetencia;
 
 
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Image;
-import org.zkoss.zul.Include;
-import org.zkoss.zul.Intbox;
-import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioCompetencia;
-import servicio.implementacion.ServicioHospedaje;
 import servicio.implementacion.ServicioFamiliar;
-import servicio.implementacion.ServicioRepresentante;
-
-
-
-import comun.FileLoader;
+import servicio.implementacion.ServicioHospedaje;
+import comun.Mensaje;
 import comun.Ruta;
 import comun.Util;
 
@@ -43,9 +36,8 @@ import comun.Util;
  * Clase controladora de los eventos de la vista de igual nombre y manejo de los
  * servicios de datos para el registro de hospedaje
  * 
- * @author Edgar L
  * @author Erika O
- * @version 0.2 16/12/2011
+ * @version 0.3 12/01/2012
  * 
  * */
 
@@ -53,53 +45,61 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 
 	private Window winRegistrarHospedaje;
 
+
 	//Datos de la Competencia
 	private Combobox cmbCompetencia;
 	private Datebox dtboxFechaIni;
 	private Datebox dtboxFechaFin;
-	private Textbox txtLugar;
+	private Textbox txtEstado;
 	private String rutasJug= Ruta.JUGADOR.getRutaVista();
 	
 	//Datos del Representate
-	private Combobox cmbCedulaRep;
-	private Intbox txtCedulaRep;
+	//private Combobox cmbCedulaRep;
+	private Textbox txtCedulaRep;
 	private Textbox txtNombreRep;
 	private Textbox txtApellidoRep;
 	private Textbox txtDireccionRep;
 
 	//Botones
-	private Button btnCatalogoRepresentante;
+	private Button btnCatalogoRep;
 	private Button btnAgregar;
 	private Button btnQuitar;
 	private Button btnGuardar;
 	private Button btnCancelar;
 	private Button btnSalir;
-
+	
+	//Variables
+	//boolean sw = true;
+	char estatus;
+	
+	//Catalogo
+	private Component formulario;
+	
 	//Binder
 	private AnnotateDataBinder binder;
 	
 	//Servicios
-	
 	private ServicioCompetencia servicioCompetencia;
-	private ServicioRepresentante servicioRepresentante;
+	private ServicioHospedaje servicioHospedaje;
+	//private ServicioFamiliar servicioFamiliar;
 
-
+	
 	//Modelo
-	private Categoria categoria = new Categoria();
 	private Competencia competencia = new Competencia();
 	private Familiar familiar = new Familiar();
 	private List<Competencia> listCompetencias = new ArrayList<Competencia>();
-	private Representante representante = new Representante ();
+	private Hospedaje hospedaje = new Hospedaje();
+	private FamiliarJugador familiarJugador = new FamiliarJugador();
+
  
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-		comp.setVariable("controller", this, false); // Hacemos visible el
-														// modelo para el
-														// databinder
+		comp.setVariable("controller", this, false); // Hacemos visible el modelo para el databinder
+		formulario = comp;//se guarda la referencia al formulario actual
 	}
-	//Set y Get
+	//Getters & Setters
 		
 	public Combobox getCmbCompetencia() {
 		return cmbCompetencia;
@@ -125,27 +125,19 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 		this.dtboxFechaFin = dtboxFechaFin;
 	}
 	
-	public Textbox getTxtLugar() {
-		return txtLugar;
+	public Textbox getTxtEstado() {
+		return txtEstado;
 	}
 	
-	public void setTxtLugar(Textbox txtLugar) {
-		this.txtLugar = txtLugar;
+	public void setTxtLugar(Textbox txtEstado) {
+		this.txtEstado = txtEstado;
 	}
 	
-	public Combobox getCmbCedulaRep() {
-		return cmbCedulaRep;
-	}
-	
-	public void setCmbCedulaRep(Combobox cmbCedulaRep) {
-		this.cmbCedulaRep = cmbCedulaRep;
-	}
-	
-	public Intbox getTxtCedulaRep() {
+	public Textbox getTxtCedulaRep() {
 		return txtCedulaRep;
 	}
 	
-	public void setTxtCedulaRep(Intbox txtCedulaRep) {
+	public void setTxtCedulaRep(Textbox txtCedulaRep) {
 		this.txtCedulaRep = txtCedulaRep;
 	}
 	
@@ -182,25 +174,21 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	}
 	
 	
-	//Metodos
-	
-	public void onCreate$win(ForwardEvent event){
-		 binder = (AnnotateDataBinder) event.getTarget().getVariable("binder", false);  
-	}
-	
+	//Método para el llenado de combo
 	public List<Competencia> getCompetencias() {
 		return servicioCompetencia.listar();
 	}
 	
-	public void onChange$cmbCompetencia(){
-		
+	//Eventos
+	
+	/*Compara si la informacion seleccionada en el combo es igual a la lista de competencia, para traer de 
+	la BD los datos requeridos para mostrar en la vista*/
+	
+	public void onChange$cmbCompetencia(){	
 		competencia = (Competencia) cmbCompetencia.getSelectedItem().getValue();
 		if (cmbCompetencia.getSelectedIndex() >=0) {
 			for (int i = 0; i < listCompetencias.size(); i++) {
 				if(listCompetencias.get(i).getNombre().equals(cmbCompetencia.getSelectedItem().getLabel())) {
-					competencia.getFechaInicio();
-					competencia.getFechaFin();
-					competencia.getDatoBasicoByCodigoEstado();
 				}
 			}
 		}
@@ -208,12 +196,34 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	}
 			
 		
-	
-	public void onClick$btnCatalogoRepresentante() {
-		representante = servicioRepresentante.listar().get(0);
-			
+	public void onClick$btnCatalogoRep() {
+		// se crea el catalogo y se llama
+		Component catalogo = Executions.createComponents(
+				"/Jugador/Vistas/frmBuscarFamiliar.zul", null, null);
+
+		// asigna una referencia del formulario al catalogo.
+		catalogo.setVariable("formulario", formulario, false);
+		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+
+			@Override
+			// Este metodo se llama cuando se envia la señal desde el catalogo
+			public void onEvent(Event arg0) throws Exception {
+				// se obtiene el familiar
+				familiar = (Familiar) formulario.getVariable("familiar", false);
+				//VERSION VIERNES 13-01
+				//txtDireccionRep.setValue(familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getDatoBasico().getNombre()+" "+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getNombre()+" "+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getNombre()+" "+familiar.getPersonaNatural().getPersona().getDireccion());
+				//VERSION LUNES 16-01
+				//txtDireccionRep.setValue(familiar.getPersonaNatural().getPersona().getDireccion()+"."+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getNombre());
+				//VERSION DE PRUEBA LUNES 16-01
+				txtDireccionRep.setValue(familiar.getPersonaNatural().getPersona().getDireccion() + ". " 
+									+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getNombre()+". "
+									+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getNombre()+". "
+									+ familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getDatoBasico().getNombre());
+				binder.loadAll();
+			}
+		});
 	}
-	
+
 	
 	public void onClick$btnAgregar() {
 	
@@ -223,25 +233,52 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	
 	}
 	
-	/*public void onClick$btnGuardar() {
-			  hospedaje.setEstatus('A');
-			  Date fecha = new Date();
-			  java.text.SimpleDateFormat formato = new java.text.SimpleDateFormat("dd/MM/yyyy");
-			  String cadenaFecha = formato.format(fecha);
-			  
-			  hospedaje.setFechaIngreso(fecha);
-			  ServicioHospedaje.agregar(hospedaje);
-			  hospedaje = new modelo.Hospedaje();
-			  binder.loadAll();
-		  }*/
-	
+	public void onClick$btnGuardar() {
+		
+			if (cmbCompetencia.getSelectedIndex() > 2 && txtCedulaRep.getValue() != null) 
+				hospedaje.setEstatus('A');
+				hospedaje.setCompetencia(competencia);
+				hospedaje.setFamiliarJugador(familiarJugador);
+				servicioHospedaje.agregar(hospedaje, competencia, familiarJugador);
+				Mensaje.mostrarMensaje("Representante asociado a Hospedaje",
+						Mensaje.EXITO, Messagebox.INFORMATION);
+				limpiar();
+				binder.loadAll();
+				
+			}
 	
 	public void onClick$btnCancelar() {
 	
+		limpiar();
 	}
 	
 	public void onClick$btnSalir() {
+	
 		winRegistrarHospedaje.detach();
 	}
 
+	//Métodos propios del Controlador
+	
+	// Borra los datos introducidos en la interfaz
+		public void limpiar() {
+			cmbCompetencia.setValue(null);
+			dtboxFechaIni.setValue(null);
+			dtboxFechaFin.setValue(null);
+			txtEstado.setValue(null);
+			txtCedulaRep.setValue(null);
+			txtNombreRep.setValue(null);
+			txtApellidoRep.setValue(null);
+			txtDireccionRep.setValue(null);
+			btnCatalogoRep.setDisabled(false);
+		}
+		
+		// Cambia el estatus del hospedaje
+				public void cambiarEstatusHospedaje() {
+					hospedaje.setEstatus('E');
+					servicioHospedaje.actualizar(hospedaje);
+					//hospedaje = new modelo.Hospedaje();
+					//binder.loadAll();
+				}
 }
+
+
