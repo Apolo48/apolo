@@ -1,5 +1,6 @@
 package controlador.jugador;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,6 +41,7 @@ import servicio.implementacion.ServicioRecaudoPorProceso;
 import servicio.implementacion.ServicioInstitucion;
 import servicio.implementacion.ServicioLapsoDeportivo;
 import servicio.implementacion.ServicioRoster;
+import servicio.implementacion.ServicioTallaPorJugador;
 
 import comun.FileLoader;
 import comun.Ruta;
@@ -87,10 +89,62 @@ import modelo.Roster;
  * */
 public class CntrlActualizarJugador extends GenericForwardComposer {
 	private static final DatoBasico Actualizar = null;
+	
 	// Componentes visuales
 	private Window winActualizarJugador;
-	private Textbox txtFechaNac;
+	
 	private Datebox dtboxFechaInicioActividad;
+	
+	private Intbox txtEdad;
+	private Intbox txtHorasSemanales;	
+	private Intbox txtTelefonoHabitacion;
+	private Intbox txtTelefonoCelular;	
+	
+	private Textbox txtFechaNac;	
+	private Textbox txtCedulaSecuencia;
+	private Textbox txtCedula;
+	private Textbox txtPrimerNombre;
+	private Textbox txtPrimerApellido;
+	private Textbox txtSegundoNombre;
+	private Textbox txtSegundoApellido;
+	private Textbox txtCorreo;
+	private Textbox txtTwitter;
+	private Textbox txtFacebook;
+	private Textbox txtNacionalidad;
+	private Textbox txtGenero;
+	private Textbox txtDireccion;
+	
+	private Decimalbox txtPeso;
+	private Decimalbox txtAltura;
+	
+	private Combobox cmbNacionalidadFamiliar;
+	private Combobox cmbEstadoNac;
+	private Combobox cmbMunicipioNac;
+	private Combobox cmbParroquiaNac;
+	private Combobox cmbParroquiaResi;
+	private Combobox cmbMunicipioResi;
+	private Combobox cmbEstadoResi;	
+	private Combobox cmbAfecciones;
+	private Combobox cmbInstitucionEducativa;
+	private Combobox cmbCurso;
+	private Combobox cmbAnnioEscolar;
+	private Combobox cmbInstitucionRecreativa;
+	private Combobox cmbActividad;
+	private Combobox cmbMotivo;
+	private Combobox cmbLogroDeportivo;
+	private Combobox cmbLapsoDeportivo;
+	private Combobox cmbTipoActualizacion;
+	private Combobox cmbPaisNac;
+	private Combobox cmbCodArea;
+	private Combobox cmbCodCelular;
+	private Combobox cmbBrazoLanzar;
+	private Combobox cmbPosicionBateo;
+	private Combobox cmbTallaCamisa;
+	private Combobox cmbTallaPantalon;
+	private Combobox cmbTallaCalzado;
+	private Combobox cmbCompetencia;
+	private Combobox cmbTemporada;
+	
 	private Button btnGuardar;
 	private Button btnFoto;
 	private Button btnCatalogoMedico;
@@ -101,61 +155,22 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private Button btnEliminarActividad;
 	private Button btnAgregarInstitucion;
 	private Button btnQuitarInstitucion;
+	private Button btnSubirDocumentoInf;
+	private Button btnSubirDocumentoMem;
 	private Button btnSalir;
-	private Intbox txtEdad;
-	private Textbox txtCedulaSecuencia;
-	private Textbox txtCedula;
-	private Intbox txtHorasSemanales;
-	private Textbox txtPrimerNombre;
-	private Textbox txtPrimerApellido;
-	private Textbox txtSegundoNombre;
-	private Textbox txtSegundoApellido;
-	private Intbox txtTelefonoHabitacion;
-	private Intbox txtTelefonoCelular;
-	private Textbox txtCorreo;
-	private Textbox txtTwitter;
-	private Textbox txtFacebook;
-	private Decimalbox txtPeso;
-	private Decimalbox txtAltura;
-	private Image imgJugador;
-	private Combobox cmbNacionalidadFamiliar;
-	private Textbox txtNacionalidad;
-	private Textbox txtGenero;
-	private Combobox cmbEstadoNac;
-	private Combobox cmbMunicipioNac;
-	private Combobox cmbParroquiaNac;
-	private Combobox cmbParroquiaResi;
-	private Combobox cmbMunicipioResi;
-	private Combobox cmbEstadoResi;
-	private Textbox txtDireccion;
-	private Combobox cmbAfecciones;
-	private Combobox cmbInstitucionEducativa;
-	private Combobox cmbCurso;
-	private Combobox cmbAnnioEscolar;
-	private Combobox cmbInstitucionRecreativa;
-	private Combobox cmbActividad;
-	private Combobox cmbMotivo;
-	private Combobox cmbLapsoDeportivo;
-	private Combobox cmbTemporada;
-	private Combobox cmbTipoActualizacion;
-	private Combobox cmbPaisNac;
-	private Combobox cmbCodArea;
-	private Combobox cmbCodCelular;
-	private Combobox cmbBrazoLanzar;
-	private Combobox cmbPosicionBateo;
-	private Combobox cmbTallaCamisa;
-	private Combobox cmbTallaPantalon;
-	private Combobox cmbTallaCalzado;
-	private Label lblSeparador;
+	
 	private Listbox listAfeccionesActuales;
 	private Listbox listActividadesSociales;
 	private Listbox listNuevosCursos;
 	private Listbox listMotivos;
 	private Listbox listDocAcademicos;
+	private Listbox listLogros;
+	
+	private Label lblSeparador;	
 	private Component formulario;
 	private Include incCuerpo;
-	
-	
+	private Image imgJugador;
+		
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
 	// Servicios
@@ -168,6 +183,7 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private ServicioRoster servicioRoster;
 	private ServicioJugador servicioJugador;
 	private ServicioPersona servicioPersona;
+	private ServicioTallaPorJugador servicioTallaPorJugador;
 
 	// Modelos
 	private Jugador jugador = new Jugador();
@@ -197,20 +213,33 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private DocumentoEntregado docEntMed = new DocumentoEntregado();
 	private DatoBasico comision = new DatoBasico();
 	private DatoBasico actualizacionMedica = new DatoBasico();
-	private DatoBasico logro;
-	private DatoBasico sancion;
+	private DatoBasico logro = new DatoBasico();
+	private DatoBasico temporada = new DatoBasico();
+	private DatoBasico sancion = new DatoBasico();
 	private DatoBasico suspension;
+	private DatoBasico tipoIndumentaria = new DatoBasico();
+	
 	private Medico medico = new Medico();
 	List<Afeccion> afeccionesJugador = new ArrayList<Afeccion>();
 	private NuevoCurso nuevosCursos = new NuevoCurso();
-	private SancionJugador sancionJugador = new SancionJugador();
-	List<NuevoCurso> nuevoCurso = new ArrayList<NuevoCurso>();
-	List<SancionJugador> nuevo_motivo = new ArrayList<SancionJugador>();
+	List<NuevoCurso> nuevoCurso = new ArrayList<NuevoCurso>();	
+	
+	//private SancionJugador sancionJugador = new SancionJugador();
+	//List<SancionJugador> sancionJugadores = new ArrayList<SancionJugador>();
+
+	private DatoBasico motivoJugador = new DatoBasico();
+	//private List<DatoBasico> motivoJugadores = new ArrayList<DatoBasico>();
+	private List<DatoBasico> motivosJugador = new ArrayList<DatoBasico>();
+	
+	
 	private DatoAcademico datoAcademico = new DatoAcademico();
+	
 	private DatoSocial datoSocial = new DatoSocial();
 	private List<DatoSocial> datoSociales = new ArrayList<DatoSocial>();
-	// private List<DatoAcademico> datoAcademicos = new
-	// ArrayList<DatoAcademico>();
+
+	private DatoBasico logroJugador = new DatoBasico();
+	private List<DatoBasico> logrosJugador = new ArrayList<DatoBasico>();
+	
 	Roster roster;
 	Persona persona;
 	private Persona Pers = new Persona();
@@ -228,14 +257,44 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
-		formulario = comp;
+		formulario = comp;		
+		tipoIndumentaria = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.TIPO_UNIFORME, "Entrenamiento");		
 	}
 
 	// Getters y setters	
-	
+			
 	public Jugador getJugador() {
 		return jugador;
 	}
+
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
+	}	
+	
+	public List<DatoBasico> getMotivosJugador() {
+		return motivosJugador;
+	}
+
+	public void setMotivosJugador(List<DatoBasico> motivosJugador) {
+		this.motivosJugador = motivosJugador;
+	}
+
+	public DatoBasico getMotivoJugador() {
+		return motivoJugador;
+	}
+
+	public void setMotivoJugador(DatoBasico motivoJugador) {
+		this.motivoJugador = motivoJugador;
+	}
+
+/*	public List<DatoBasico> getMotivoJugadores() {
+		return motivoJugadores;
+	}
+
+	public void setMotivoJugadores(List<DatoBasico> motivoJugadores) {
+		this.motivoJugadores = motivoJugadores;
+	}*/
 
 	public Decimalbox getTxtPeso() {
 		return txtPeso;
@@ -251,6 +310,22 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 
 	public void setTxtAltura(Decimalbox txtAltura) {
 		this.txtAltura = txtAltura;
+	}	
+	
+	public Combobox getCmbCompetencia() {
+		return cmbCompetencia;
+	}
+
+	public void setCmbCompetencia(Combobox cmbCompetencia) {
+		this.cmbCompetencia = cmbCompetencia;
+	}
+
+	public Combobox getCmbTemporada() {
+		return cmbTemporada;
+	}
+
+	public void setCmbTemporada(Combobox cmbTemporada) {
+		this.cmbTemporada = cmbTemporada;
 	}
 
 	public Combobox getCmbBrazoLanzar() {
@@ -293,9 +368,6 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		this.cmbTallaCalzado = cmbTallaCalzado;
 	}
 
-	public void setJugador(Jugador jugador) {
-		this.jugador = jugador;
-	}
 
 	public DatoBasico getEstadoVenezuela() {
 		return estadoVenezuela;
@@ -401,13 +473,13 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		this.afeccionesJugador = afeccionesJugador;
 	}
 
-	public SancionJugador getsancionJugador() {
+/*	public SancionJugador getSancionJugador() {
 		return sancionJugador;
 	}
 
-	public void setsancionJugador(SancionJugador sancionJugador) {
+	public void setSancionJugador(SancionJugador sancionJugador) {
 		this.sancionJugador = sancionJugador;
-	}
+	}*/
 
 	public void setNuevoCurso(List<NuevoCurso> nuevoCurso) {
 		this.nuevoCurso = nuevoCurso;
@@ -417,13 +489,13 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		return nuevoCurso;
 	}
 
-	public void setNuevo_Motivos(List<SancionJugador> nuevo_motivo) {
-		this.nuevo_motivo = nuevo_motivo;
+/*	public void setSancionJugadores(List<SancionJugador> sancionJugadores) {
+		this.sancionJugadores = sancionJugadores;
 	}
 
-	public List<SancionJugador> getNuevo_Motivos() {
-		return nuevo_motivo;
-	}
+	public List<SancionJugador> getSancionJugadores() {
+		return sancionJugadores;
+	}*/
 
 	public DatoBasico getLogro() {
 		return logro;
@@ -516,7 +588,8 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	 * public void setDatoAcademicos(List<DatoAcademico> datoAcademicos) {
 	 * this.datoAcademicos = datoAcademicos; }
 	 */
-
+	
+	
 	// Metodos para carga de combos/listbox
 	public List<Categoria> getCategorias() {
 		return servicioCategoria.listar();
@@ -593,7 +666,7 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	public List<DatoBasico> getActualizacion() {
 		return servicioDatoBasico.buscar(TipoDatoBasico.ACTUALIZACION_MEDICA);
 	}
-
+	
 	public Include getIncCuerpo() {
 		return incCuerpo;
 	}
@@ -667,6 +740,16 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		return lista;
 	}
 
+/*	public List<LapsoDeportivo> getTemporadas() {
+		List<LapsoDeportivo> lista = null;
+		DatoBasico datoLapsoDeportivo = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR");
+		if (datoLapsoDeportivo != null) {
+			lista = servicioLapsoDeportivo.buscarLapsoDeportivoTipo(datoLapsoDeportivo);
+		}
+		return lista;
+	}*/	
+	
 	public void onClick$btnCatalogoJugador() {
 		// se crea el catalogo y se llama
 		Component catalogo = Executions.createComponents(
@@ -731,17 +814,26 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 				txtTwitter.setValue(jugador.getPersonaNatural().getPersona().getTwitter());
 	
 				
-				//DEPORTIVOS
-				
-				//txtPeso.setValue(jugador.getPeso());
-				//txtAltura.setValue(jugador.getAltura());
+				//DEPORTIVOS				
+				txtPeso.setValue(BigDecimal.valueOf(jugador.getPeso()));
+				txtAltura.setValue(BigDecimal.valueOf(jugador.getAltura()));
 				cmbBrazoLanzar.setValue(jugador.getBrazoLanzar());
 				cmbPosicionBateo.setValue(jugador.getPosicionBateo());
-				//cmbTallaCamisa
-				//cmbTallaPantalon
-				//cmbTallaCalzado
-				
-				
+
+				List<DatoBasico> listTallasEntrenamiento = servicioTallaPorJugador
+						.buscarTallasPorTipo(jugador, tipoIndumentaria);
+				for (DatoBasico datoBasico : listTallasEntrenamiento) {
+					
+					if (datoBasico.getDatoBasico().getNombre().equals("CAMISA")){
+						cmbTallaCamisa.setValue(datoBasico.getNombre());
+					}
+					else if (datoBasico.getDatoBasico().getNombre().equals("PANTALON")){
+						cmbTallaPantalon.setValue(datoBasico.getNombre());
+					}
+					else{
+						cmbTallaCalzado.setValue(datoBasico.getNombre());
+					}				
+				}				
 				
 				//binder.loadAll();
 
@@ -921,12 +1013,75 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnAgregarMotivo() {
-		Listitem nuevoItem = new Listitem();
-		nuevoItem.appendChild(new Listcell(this.cmbMotivo.getSelectedItem()
-				.getLabel()));
-		listMotivos.appendChild(nuevoItem);
-	}
+		if (cmbMotivo.getSelectedIndex() >= 0) {
+			if (!motivosJugador.contains(sancion)) {
+				motivosJugador.add(sancion);
+				limpiarMotivo();
+			} else {
+				Mensaje.mostrarMensaje("Motivo Duplicado.",
+						Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+			}
+		} else {
+			Mensaje.mostrarMensaje("Seleccione un Motivo.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+			cmbMotivo.setFocus(true);
+		}
 
+	}	
+		
+	public void onClick$btnQuitarMotivo() {
+		if (listMotivos.getSelectedIndex() >= 0) {
+			DatoBasico motivoSel = (DatoBasico) listMotivos
+				.getSelectedItem().getValue();
+			motivosJugador.remove(motivoSel);
+			limpiarMotivo();
+		} else {
+			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+		}
+	}
+		
+/*	public void onClick$btnAgregarLogro() {
+		Listitem nuevoItem = new Listitem();
+		nuevoItem.appendChild(new Listcell(this.cmbLogroDeportivo.getSelectedItem()
+				.getLabel()));
+		listLogros.appendChild(nuevoItem);
+	}*/	
+
+/*	public void onClick$btnAgregarLogro() {
+		if (cmbLogroDeportivo.getSelectedIndex() >= 0) {
+			if (!logrosJugador.contains(logro)) {
+				logrosJugador.add(logro);
+				limpiarLogro();
+			} else {
+				Mensaje.mostrarMensaje("Logro Duplicado.",
+						Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+			}
+		} else {
+			Mensaje.mostrarMensaje("Seleccione un Logro.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+			cmbLogroDeportivo.setFocus(true);
+		}
+
+	}*/
+	
+/*	public void onClick$btnAgregarLogro() {
+		if (cmbLogroDeportivo.getSelectedIndex() >= 0) {
+			if (cmbCompetencia.getSelectedIndex() >= 0) {
+				//oo
+			} else {
+				Mensaje.mostrarMensaje("Seleccione una Competencia.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+					cmbCompetencia.setFocus(true);
+			}
+		} else {
+			Mensaje.mostrarMensaje("Seleccione un Logro.",
+				Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+				cmbLogroDeportivo.setFocus(true);
+		}
+	}	
+*/	
+	
 	// Metodos propios del ctrl
 	public void limpiarCurso() {
 		nuevosCursos = new NuevoCurso();
@@ -946,11 +1101,26 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	}
 
 	public void limpiarMotivo() {
-		sancionJugador = new SancionJugador();
+		//sancionJugador = new SancionJugador();
 		cmbMotivo.setSelectedIndex(-1);
 		binder.loadComponent(listMotivos);
 	}
 
+	public void limpiarLogro() {
+		//
+		cmbLogroDeportivo.setSelectedIndex(-1);
+		binder.loadComponent(listLogros);
+	}	
+	
+/*	public void onClick$btnSubirDocumentoInf() {
+		Object media = Fileupload.get();
+	}	
+
+	public void onClick$btnSubirDocumentoMem() {
+		Object media = Fileupload.get();
+	}
+*/	
+	
 	public void onClick$btnSalir() {
 		winActualizarJugador.detach();
 	}	

@@ -11,22 +11,7 @@
 	<window id="winRegistrarPase" title="" border="normal" width="670px"
 		closable="true" apply="controlador.jugador.CntrlRegistrarPase">	
 		<space />	
-		<div>
-			<grid oddRowSclass="none" style="border:none;" >
-				<columns>
-					<column width="18%" />
-					<column width="32%" />
-					<column width="18%" />
-					<column width="32%" />
-				</columns>
-				<rows>
-					<row style="border:none;">
-						<label value="Número Pase"/>
-						<textbox width="50%" readonly="true"/>
-					</row>						
-				</rows>
-			</grid>
-		</div>
+		
 		
 		<div>		
 			<grid oddRowSclass="none" style="border:none;">

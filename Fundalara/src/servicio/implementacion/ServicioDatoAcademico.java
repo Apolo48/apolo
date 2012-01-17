@@ -6,6 +6,7 @@ import servicio.interfaz.IServicioDatoAcademico;
 
 import dao.general.DaoDatoAcademico;
 import modelo.DatoAcademico;
+import modelo.Jugador;
 
 /**
  * Clase para brindar los servicios para manejar los datos relacionados con los datos academicos de los jugadores
@@ -53,5 +54,10 @@ public class ServicioDatoAcademico implements IServicioDatoAcademico {
 	@Override
 	public int obtenerUltimoId() {
 		return daoDatoAcademico.obtenerUltimoId();
+	}
+	
+
+	public List<DatoAcademico> buscarPorJugador(Jugador jugador){
+		return daoDatoAcademico.buscarPorJugador(jugador);
 	}
 }

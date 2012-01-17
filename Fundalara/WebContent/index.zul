@@ -328,21 +328,21 @@
 													label="Indicadores de Desempeño"
 													onClick='enlace("/Competencias/Vistas/FrmIndicadores.zul")' />
 											</treerow>
-										</treeitem>										
+										</treeitem>
 										<treeitem open="false">
 											<treerow>
 												<treecell
 													label="Calendario"
 													onClick='enlace("/Competencias/Vistas/FrmCalendario.zul")' />
 											</treerow>
-										</treeitem>										
+										</treeitem>
 										<treeitem open="false">
 											<treerow>
 												<treecell
 													label="Hospedaje de Jugadores"
 													onClick='enlace("Jugador/Vistas/frmRegistrarHospedaje.zul")' />
 											</treerow>
-										</treeitem>										
+										</treeitem>
 										<treeitem open="false">
 											<treerow>
 												<treecell
@@ -477,7 +477,7 @@
 											<treerow>
 												<treecell
 													label="Logistica" />
-											</treerow>					
+											</treerow>
 										</treeitem>
 									</treechildren>
 								</treeitem>
@@ -547,7 +547,7 @@
 											<treerow>
 												<treecell
 													label="Logistica" />
-											</treerow>											
+											</treerow>
 										</treeitem>
 									</treechildren>
 
@@ -596,7 +596,7 @@
 											<treerow>
 												<treecell
 													label="Logistica" />
-											</treerow>											
+											</treerow>
 										</treeitem>
 									</treechildren>
 								</treeitem>
@@ -614,9 +614,18 @@
 								</treeitem>
 								<treeitem open="false">
 									<treerow>
-										<treecell
-											label="Especiales" />
+										<treecell label="Especiales" />
 									</treerow>
+									<treechildren>
+										<treeitem>
+											<treerow>
+												<treecell
+													label="Expediente"
+													onClick='enlace("Jugador/Vistas/frmConsultarExpedienteJugador.zul")' />
+											</treerow>
+										</treeitem>
+									</treechildren>
+
 								</treeitem>
 								<treeitem open="false">
 									<treerow>
@@ -819,7 +828,7 @@
 													onClick='enlace("Administracion/Vistas/FrmActualizarConcepto.zul")' />
 											</treerow>
 										</treeitem>
-										<treeitem >
+										<treeitem>
 											<treerow>
 												<treecell
 													label="Seguridad" />
@@ -851,7 +860,7 @@
 												</treeitem>
 											</treechildren>
 										</treeitem>
-										
+
 									</treechildren>
 								</treeitem>
 								<treeitem open="false">

@@ -7,6 +7,7 @@ import servicio.interfaz.IServicioDatoConducta;
 import dao.general.DaoDatoConducta;
 
 import modelo.DatoConducta;
+import modelo.Jugador;
 
 public class ServicioDatoConducta implements IServicioDatoConducta {
 	
@@ -41,5 +42,10 @@ public class ServicioDatoConducta implements IServicioDatoConducta {
 	public List<DatoConducta> listar() {
 		return daoDatoConducta.listar( DatoConducta.class);
 	}
+	
+	public List<DatoConducta> buscarPorJugador(Jugador jugador){
+		return daoDatoConducta.buscarPorJugador(jugador);
+	}
+
 
 }

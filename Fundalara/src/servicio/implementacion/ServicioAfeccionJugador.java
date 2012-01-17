@@ -7,6 +7,7 @@ import servicio.interfaz.IServicioAfeccionJugador;
 import dao.general.DaoAfeccionJugador;
 import modelo.AfeccionJugador;
 import modelo.DatoMedico;
+import modelo.Jugador;
 
 /**
  * Clase para brindar los servicios para manejar los datos relacionados con las afecciones de los jugadores
@@ -60,4 +61,7 @@ public class ServicioAfeccionJugador implements IServicioAfeccionJugador {
 
 	}
 
+	public List<AfeccionJugador> buscarPorJugador(Jugador jugador){
+		return daoAfeccionJugador.buscarPorJugador(jugador);
+	}
 }

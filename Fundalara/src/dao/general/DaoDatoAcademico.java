@@ -1,8 +1,16 @@
 package dao.general;
 
 
+import java.util.List;
+
+import modelo.DatoAcademico;
+import modelo.Jugador;
+
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 
 import dao.generico.GenericDao;
@@ -27,12 +35,21 @@ public class DaoDatoAcademico extends GenericDao {
 	public int obtenerUltimoId() {
 
 		Session session = getSession();
-		org.hibernate.Transaction tx = session.beginTransaction();
+		Transaction tx = session.beginTransaction();
 		Query query = session
 				.createSQLQuery("SELECT last_value FROM "+SECUENCIA);
 		int id = Integer.valueOf(query.uniqueResult().toString());
 		tx.commit();
 
 		return id;
+	}
+	
+	
+	public List<DatoAcademico> buscarPorJugador(Jugador jugador) {
+		Session sesion = getSession();
+		Transaction tx = sesion.beginTransaction();
+		Criteria c = sesion.createCriteria(DatoAcademico.class)	
+		.add(Restrictions.eq("jugador", jugador));
+		return c.list();
 	}
 }
