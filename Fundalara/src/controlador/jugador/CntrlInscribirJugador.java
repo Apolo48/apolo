@@ -60,7 +60,8 @@ public class CntrlInscribirJugador extends GenericForwardComposer {
 
 	//Metodos para la carga del combo
 	public List<DatoBasico> getInscripciones() {
-		return servicioDatoBasico.buscar(TipoDatoBasico.INSCRIPCION);
+		DatoBasico inscripcion = servicioDatoBasico.buscarTipo(TipoDatoBasico.PROCESO,"Inscripcion");
+		return servicioDatoBasico.buscarDatosPorRelacion(inscripcion);
 	}
 	
 	//Eventos
