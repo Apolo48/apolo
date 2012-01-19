@@ -48,14 +48,14 @@ public class GenericDao {
 	}
 	
 	public Session getSession(){
-	if (session == null){
-			return session = SessionManager.getSession();
-	}else{
-		  if(!session.isConnected()){
-		      session = SessionManager.getSession();
-		  }
-	      return session;	
+		if (session == null){
+				return session = SessionManager.getSession();
+		}else{
+			  if(!session.isOpen())
+			      session = SessionManager.getSession();		    
+		      return session;	
+			}
 		}
-	}
+
 }
 

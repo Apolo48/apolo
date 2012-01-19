@@ -28,7 +28,7 @@ public class DaoJugador extends GenericDao {
 	 * @param c Objeto Jugador a ser guardado 
 	 * @param pn Objeto persona Natural a ser guardado
 	 */
-	public void guardar(Jugador c, PersonaNatural pn){
+	public void guardar(Jugador c){
 		Session session = getSession();
 		Transaction tx =  session.beginTransaction();
 		session.save(c.getPersonaNatural().getPersona());
@@ -43,7 +43,7 @@ public class DaoJugador extends GenericDao {
 	 * @param c Objeto Jugador a ser actualizado 
 	 * @param pn Objeto persona Natural a ser actualizado
 	 */
-	public void actualizar(Jugador c, PersonaNatural pn){
+	public void actualizar(Jugador c){
 		Session session = getSession();
 		Transaction tx =  session.beginTransaction();
 		session.saveOrUpdate(c.getPersonaNatural().getPersona());

@@ -10,8 +10,11 @@ import org.hibernate.SessionFactory;
 
 
 /**
- *
+ * Implementacion del patron OpenSessionInView
  * @author JavAdicto
+ * @author Eduardo Ochoa
+ * @version 1.2 
+ * @email elos3000@gmail.com
  */
 public class SessionManager implements Filter
 {
@@ -37,7 +40,7 @@ public class SessionManager implements Filter
    //inicializar valores o solicitar recursos, pero eso ya lo hice arriba.
     public void init(FilterConfig filterConfig) throws ServletException
     {        
-        System.out.println("algo");
+  
     }
 
     //Este metodo se debe declarar por que viene especificado en la interfaz y es donde se deberia asignar una session
@@ -51,13 +54,15 @@ public class SessionManager implements Filter
 					chain.doFilter(request, response);
 					 try
 				        {      	
+						 sessionFactory.getCurrentSession().disconnect();
+						 System.out.println("Sesion cerrada");
 						   sessionFactory.getCurrentSession().close();
 				        }
 				        catch (HibernateException ex)
 				        {
 				            throw new RuntimeException(ex);
 				        } 
-				      
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -87,8 +92,10 @@ public class SessionManager implements Filter
     {
     	 try
 	        {      	
+    		   sessionFactory.getCurrentSession().disconnect();
 			   sessionFactory.close();
-			   System.out.println("session cerrada");
+			//   sessionFactory.getCurrentSession().disconnect();
+               System.out.println("session cerrada 2");
 	        }
 	        catch (HibernateException ex)
 	        {

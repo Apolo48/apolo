@@ -3,6 +3,7 @@ package dao.general;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.FetchMode;
 import org.hibernate.Query;
@@ -81,6 +82,7 @@ public class DaoDatoBasico extends GenericDao {
 		c.add(Restrictions.eq("datoBasico.codigoDatoBasico",
 				datoBasico.getCodigoDatoBasico()));
 		c.add(Restrictions.eq("estatus", "A"));
+		c.addOrder(Order.asc("nombre"));
 		List<DatoBasico> lista = c.list();
 		tx.commit();
 		return lista;
