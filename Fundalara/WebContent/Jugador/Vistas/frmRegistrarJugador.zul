@@ -2029,7 +2029,7 @@
 					width="100px" />
 
 				<button id="btnInscribir" label="Inscribir"
-					image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"
+					image="../../Recursos/Imagenes/inscribir.gif" orient="horizontal"
 					width="100px" visible="false" />
 
 				<button id="btnCancelar" label="Cancelar"
