@@ -3,7 +3,7 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
 	<div align="left">
-		<window border="none" width="670px" height="1000px"
+		<window border="none" width="670px" height="945px"
 			id="winRegistrarJugador"
 			apply="controlador.jugador.CntrlRegistrarJugador">
 
@@ -141,7 +141,7 @@
 							<panelchildren>
 								<!-- Inicio tbboxDetalleBasico -->
 								<tabbox id="tbboxDetalleBasico"
-									height="680px">
+									height="620px">
 									<tabs id="tabs" width="90px">
 										<tab id="tabJugPersonales"
 											label="Personales" />
@@ -1544,7 +1544,7 @@
 					<tabpanel>
 						<panel title="Familiares">
 							<panelchildren>
-								<tabbox height="380px">
+								<tabbox height="520px">
 									<tabs width="90px">
 										<tab id="tabFamBasicos"
 											label="Básicos" />
