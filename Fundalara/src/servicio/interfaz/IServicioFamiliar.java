@@ -12,4 +12,6 @@ public interface IServicioFamiliar {
 	public abstract void actualizar(Familiar c);	
 	
 	public abstract List<Familiar> listar();
+	
+	public abstract List<Familiar> filtrar(String filtro1,String filtro2,String filtro3);
 }

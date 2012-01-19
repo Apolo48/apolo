@@ -41,5 +41,9 @@ public class ServicioFamiliar implements IServicioFamiliar {
 	public List<Familiar> listar() {
 		return daoFamiliar.listar( Familiar.class);
 	}
+	
+	public List<Familiar> filtrar(String filtro1,String filtro2,String filtro3){
+		return daoFamiliar.cargarlista(filtro1, filtro2, filtro3);
+	}
 
 }
