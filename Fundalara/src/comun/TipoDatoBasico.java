@@ -45,8 +45,7 @@ public enum TipoDatoBasico {
 	COMISION(102),
 	TIPO_AFECCION(128),
 	ACTUALIZACION_MEDICA(129),
-	NUMERO_PASE(130);
-;
+	CONFIGURACION_PASE(132);
 
 	private int codigo;
 

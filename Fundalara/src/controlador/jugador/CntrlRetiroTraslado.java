@@ -324,7 +324,7 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 	
 	public void onChange$cmbTipoTraslado() {
 		if (cmbTipoTraslado.getSelectedItem().getLabel().equals("PASE")) {
-			DatoBasico aux = servicioDatoBasico.buscarTipo(TipoDatoBasico.NUMERO_PASE, "NUMERO PASE");
+			DatoBasico aux = servicioDatoBasico.buscarTipo(TipoDatoBasico.CONFIGURACION_PASE, "NUMERO PASE");
 			int valormax = Integer.parseInt(aux.getDescripcion());
 			if ((servicioRetiroTraslado.contarfilas(retiroJugador)) < valormax){
 				tipoT.setVisible(true);
