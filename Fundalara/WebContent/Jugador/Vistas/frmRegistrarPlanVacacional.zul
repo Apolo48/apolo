@@ -2,76 +2,58 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
-	<window id="wndPlan" title="" width="670px"
+
+	<window id="winRegistrarPlanVacacional" width="670px"
 		apply="controlador.jugador.CntrlRegistrarPlanVacacional">
 
-		<panel title="Plan Vacacional">
-			<panelchildren>
-				<grid style="border:none;" oddRowSclass="none">
-					<columns>
-						<column width="21%" />
-						<column width="28%" />
-						<column width="17%" />
-						<column width="34%" />
-					</columns>
-					<rows>
-						<row style="border:none;">
-							<label value="Turno" />
-							<div>
-								<combobox id="cmbTurno"
-									value="--Seleccione--" focus="true" width="76%">
-									<comboitem label="Mañana" />
-									<comboitem label="Tarde" />
-									<comboitem label="Noche" />
-								</combobox>
-								<label value="(*)" style="color:red" />
-							</div>
-							<label value="Horario" />
-							<div>
-								<combobox id="cmbHorario"
-									value="--Seleccione--" width="62%">
-									<comboitem label="8:00am-10:30am" />
-									<comboitem label="10:30am-1:30pm" />
-									<comboitem label="1:30pm-4:00pm" />
-									<comboitem label="4:00pm-6:30pm" />
-									<comboitem label="6:30pm-9:00pm" />
-								</combobox>
-								<label value="(*)" style="color:red" />
-							</div>
-						</row>
-					</rows>
-				</grid>
-			</panelchildren>
-		</panel>
 		<panel title="Jugador">
 			<panelchildren>
 				<grid id="gridJugador" style="border:none;"
 					oddRowSclass="none">
 					<columns>
-						<column width="21%" />
+						<column width="20%" />
 						<column width="28%" />
-						<column width="17%" />
-						<column width="34%" />
+						<column width="16%" />
+						<column width="36%" />
 					</columns>
 					<rows>
-						<row spans="1,3" style="border:none;">
-							<label value="Tipo Alumno" />
+						<row style="border:none;">
+							<label value="Tipo Jugador" />
 							<div>
-								<combobox id="cmbTipoAlumno"
-									value="--Seleccione--" width="26%">
-									<comboitem label="Regular"
-										value="R" />
-									<comboitem label="No Regular"
-										value="NR" />
+								<combobox value="-Seleccione-" id="cmbTipoJugador" readonly="true" focus="true" width="70%">
 								</combobox>
+								<!-- <combobox value="-Seleccione-"
+									id="cmbTipoJugador" readonly="true" focus="true" width="70%"
+									selectedItem="@{controller.tipoIncripcion}"
+									model="@{winRegistarPlanVacacional$composer.inscripciones}">
+									<comboitem self="@{each='inscrip'}"
+										label="@{inscrip.nombre}" />
+								</combobox> -->
 								<label value="(*)" style="color:red" />
-								<space />
-								<button id="btnBuscar"
-									tooltiptext="Haga click para buscar un jugador"
+							</div>
+							<label value="Cédula" />
+							<div>
+								<combobox id="cmbNacionalidad"
+									readonly="true" value="-" width="6%" focus="true"
+									constraint="no empty">
+									<comboitem label="V" value="V" />
+									<comboitem label="E" value="E" />
+									<comboitem label="R" value="R" />
+								</combobox>
+								<intbox id="txtCedula" maxlength="8" width="40%" />
+								<label value="-" id="lblSeparador"
+									visible="false" />
+								<intbox id="txtCedulaSecuencia"
+									constraint="no negative" width="5%" readonly="true"
+									visible="false" />
+								<label value="(*)" style="color:red" />
+								<button id="btnCatalogoJugador"
+									focus="true" tooltiptext="Consultar Jugador"
 									image="../../Recursos/Imagenes/consultar.ico"
-									orient="horizontal" visible="false" />
+									visible="false"/>
 							</div>
 						</row>
+
 						<row style="border:none;">
 							<label value="Nombre" />
 							<div>
@@ -105,31 +87,14 @@
 
 						</row>
 						<row style="border:none;">
-							<label value="Categoría" />
-							<div>
-								<combobox id="cmbCategoria"
-									value="--Seleccione--" width="75%">
-									<comboitem
-										label="Preparatorio Nivel 1" />
-									<comboitem
-										label="Preparatorio Nivel 2" />
-									<comboitem label="Pre-Infantil" />
-									<comboitem label="Infantil" />
-									<comboitem label="Pre-Junior" />
-									<comboitem label="Junior" />
-									<comboitem label="Juvenil" />
-								</combobox>
-								<label value="(*)" style="color:red" />
-							</div>
+
 							<label value="Talla Camisa" />
 							<div>
-								<combobox id="cmbTalla"
-									value="--Seleccione--" width="62%">
-									<comboitem label="SS" />
-									<comboitem label="S" />
-									<comboitem label="M" />
-									<comboitem label="L" />
-									<comboitem label="XL" />
+								<combobox id="cmbTalla" readonly="true"
+									value="--Seleccione--" width="65%"
+									model="@{winRegistrarPlanVacacional$composer.tallasCamisa}">
+									<comboitem
+										self="@{each='tallaCamisa'}" label="@{tallaCamisa.nombre}" />
 								</combobox>
 								<label value="(*)" style="color:red" />
 							</div>
@@ -152,12 +117,12 @@
 						<row spans="1,3" style="border:none;">
 							<label value="Cédula" />
 							<div>
-								<combobox id="cmbNacionalidad" value="-"
-									width="5%">
+								<combobox id="cmbNacionalidadF"
+									value="-" width="5%">
 									<comboitem label="V" />
 									<comboitem label="E" />
 								</combobox>
-								<intbox id="txtCedula"
+								<intbox id="txtCedulaF"
 									constraint="no negative" width="20%" />
 								<label value="(*)" style="color:red" />
 
@@ -210,6 +175,71 @@
 				</grid>
 			</panelchildren>
 		</panel>
+		<panel title="Plan Vacacional">
+			<panelchildren>
+				<grid style="border:none;" oddRowSclass="none">
+					<columns>
+						<column width="21%" />
+						<column width="28%" />
+						<column width="17%" />
+						<column width="34%" />
+					</columns>
+					<rows>
+						<row style="border:none;">
+							<label value="Categoría" />
+							<div>
+								<combobox id="cmbCategoria"
+									value="--Seleccione--" width="75%">
+								</combobox>
+								<!-- <combobox id="cmbCategoria"
+									value="-Seleccione-" selectedItem="@{controller.categoria}"
+									width="90%" model="@{winRegistrarPlanVacacional$composer.categorias}">
+									<comboitem
+										self="@{each='categoria'}" label="@{categoria.nombre}"
+										value="@{categoria.codigoCategoria}" />
+								</combobox> -->
+								<label value="(*)" style="color:red" />
+							</div>
+							<label value="Equipo" />
+							<div>
+								<combobox value="-Seleccione-" width="80%" id="cmbEquipo">
+								</combobox>
+								<!-- <combobox value="-Seleccione-" width="80%" id="cmbEquipo" selectedItem="@{controller.equipo}"
+						 model="@{winRegistrarPlanVacacional$composer.equipos, load-after='cmbCategoria.onChange'}">
+							<comboitem self="@{each='equipo'}" label="@{equipo.datoBasico.nombre}" value="@{equipo.codigoEquipo}"/>
+						</combobox> -->
+								<label value="(*)" style="color:red" />
+							</div>
+						</row>
+						<row style="border:none;">
+							<label value="Turno" />
+							<div>
+								<combobox id="cmbTurno"
+									value="--Seleccione--" focus="true" width="76%">
+									<comboitem label="Mañana" />
+									<comboitem label="Tarde" />
+									<comboitem label="Noche" />
+								</combobox>
+								<label value="(*)" style="color:red" />
+							</div>
+							<label value="Horario" />
+							<div>
+								<combobox id="cmbHorario"
+									value="--Seleccione--" width="62%">
+									<comboitem label="8:00am-10:30am" />
+									<comboitem label="10:30am-1:30pm" />
+									<comboitem label="1:30pm-4:00pm" />
+									<comboitem label="4:00pm-6:30pm" />
+									<comboitem label="6:30pm-9:00pm" />
+								</combobox>
+								<label value="(*)" style="color:red" />
+							</div>
+						</row>
+					</rows>
+				</grid>
+			</panelchildren>
+		</panel>
+
 		<space />
 		<div>
 			<label value="(*) Campo Obligatorio" style="color:red" />
@@ -231,6 +261,6 @@
 				image="../../Recursos/Imagenes/salir.png" orient="horizontal"
 				width="100px" />
 		</div>
-		
+
 	</window>
 </zk>
