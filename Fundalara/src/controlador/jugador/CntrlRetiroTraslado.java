@@ -24,8 +24,10 @@ import modelo.Institucion;
 import modelo.Jugador;
 import modelo.RetiroTraslado;
 import modelo.Roster;
+import modelo.DatoBasico;
 //import modelo.Parroquia;
 
+import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -35,6 +37,8 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;
+import org.zkoss.zul.Groupbox;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Include;
@@ -75,27 +79,32 @@ import modelo.PersonaNatural;
 import modelo.Roster;
 import modelo.RetiroTraslado;
 
-public class CntrlRegistrarPase extends GenericForwardComposer {
+public class CntrlRetiroTraslado extends GenericForwardComposer {
 
-	private Window winRegistrarPase;
-	private String txtnNumeroPase;
+	private Window winRetiroTraslado;
 	private Component formulario;
 	private ServicioRoster servicioRoster;
+	private Combobox cmbTipoTraslado;
+	private Groupbox tipoT;
+	private Image imgJugador;
+	
 	//Datos del jugador
 	private Textbox txtCedula;
 	private Button btnCatalogoJugador;
 	private Textbox txtPrimerNombre;
+	private Textbox txtSegundoNombre;
 	private Textbox txtPrimerApellido;
+	private Textbox txtSegundoApellido;
 	private Textbox txtCategoria;
-	private Textbox txtEquipo;
+	private Textbox txtFechaIngreso;
+	private Textbox txtGenero;
 			
 	//Datos de donde quiere jugar
 	private Textbox txtDivisaNueva;	
 	private Textbox txtLigaNueva;
-	private Combobox cmbEstado;
 	private Combobox cmbMotivo;
 
-	private Button btnExportar;
+	private Button btnRetirar;
 	private Button btnCancelar;
 	private Button btnSalir;	
 	
@@ -111,6 +120,7 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 	private DatoBasico retiro;
 	List<DatoBasico> retirojugador = new ArrayList<DatoBasico>();
 	private DatoBasico tipoOperacion = new DatoBasico();
+	private DatoBasico tipoTrasl = new DatoBasico();
 	Roster roster;
 	Persona persona;
 
@@ -147,6 +157,14 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 	public void setTipoOperacion(DatoBasico tipoOperacion) {
 		this.tipoOperacion = tipoOperacion;
 	}
+		
+	public DatoBasico getTipoTrasl() {
+		return tipoTrasl;
+	}
+
+	public void setTipoTrasl(DatoBasico tipoTrasl) {
+		this.tipoTrasl = tipoTrasl;
+	}
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
@@ -159,6 +177,8 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 	public void setRoster(Roster roster) {
 		this.roster = roster;
 	}
+	
+	
 
 	//Servicios, Procesos y Metodos	
 	public void onCreate$win(ForwardEvent event){
@@ -169,11 +189,7 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false); // Hacemos visible el modelo para el databinder
-		this.tipoOperacion = (DatoBasico) requestScope.get("tipoOperacion");
-		formulario = comp;
-		
-		System.out.println("*****Probado el contar filas ****");
-		System.out.println(servicioRetiroTraslado.contarfilas2(new RetiroTraslado()));
+		formulario = comp;		
 	}
 	
 	public List<DatoBasico> getPases() {
@@ -181,6 +197,15 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 		//return servicioDatoBasico.buscar(TipoDatoBasico.RETIRO);
 		return servicioDatoBasico.buscarDatosPorRelacion(tipoOperacion);
 	}
+	
+	//Metodos para la carga del combo
+		public List<DatoBasico> getOperaciones() {
+			return servicioDatoBasico.buscar(TipoDatoBasico.TIPO_OPERACION);
+		}
+		
+		public List<DatoBasico> getMotivosTraslados() {
+			return servicioDatoBasico.buscarDatosPorRelacion(tipoOperacion);
+		}
 		
 	public void onClick$btnCatalogoJugador() {
 		// se crea el catalogo y se llama
@@ -195,8 +220,25 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 				jugador = (Jugador) formulario.getVariable("jugador",false);
 				txtCedula.setValue(jugador.getCedulaRif());				
 				txtPrimerNombre.setValue(jugador.getPersonaNatural().getPrimerNombre());
+				txtSegundoNombre.setValue(jugador.getPersonaNatural().getSegundoNombre());
 				txtPrimerApellido.setValue(jugador.getPersonaNatural().getPrimerApellido());
-								
+				txtSegundoApellido.setValue(jugador.getPersonaNatural().getSegundoApellido());
+				
+				java.util.Date date = new java.util.Date();
+				date = jugador.getPersonaNatural().getPersona().getFechaIngreso();
+				java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+				String fecha = sdf.format(date);
+				txtFechaIngreso.setValue(fecha);
+				txtGenero.setValue(jugador.getPersonaNatural().getDatoBasico().getNombre());
+				byte[] foto = jugador.getPersonaNatural().getFoto();
+				if (foto !=null){
+					try {
+						AImage aImage = new AImage("foto.jpg", foto);
+						imgJugador.setContent(aImage);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 				roster= servicioRoster.buscarRoster(jugador.getCedulaRif());
 				binder.loadAll();
 
@@ -205,22 +247,40 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 	}
 	
 		
-	public void onClick$btnExportar(){
-		Integer valor = cmbMotivo.getSelectedIndex();		
-		String valorDivisa = txtDivisaNueva.getValue().toString();
-		String valorLiga = txtLigaNueva.getValue().toString();
-		String valorCedula = txtCedula.getValue().toString();
-		
-		if (valorCedula.equals("")){
+	public void onClick$btnRetirar(){
+		if (txtCedula.getValue().toString() != ""){
+			if (cmbTipoTraslado.getSelectedIndex() >= 0) {
+				if (cmbMotivo.getSelectedIndex() >= 0) {
+					if (cmbTipoTraslado.getSelectedItem().getLabel().equals("PASE")) {
+						if (txtDivisaNueva.getValue().toString().equals("")){
+							Mensaje.mostrarMensaje("Seleccione la Nueva Divisa", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+							txtDivisaNueva.setFocus(true);
+							return;
+						}
+						if (txtLigaNueva.getValue().toString().equals("")){
+							Mensaje.mostrarMensaje("Seleccione la Nueva Liga", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+							txtLigaNueva.setFocus(true);
+							return;
+						}						
+					}
+					retirarPase();
+					limpiar();
+					Mensaje.mostrarMensaje("¡Retiro realizado exitosamente!", Mensaje.EXITO, Messagebox.INFORMATION);	
+				}
+				else {
+					Mensaje.mostrarMensaje("Seleccione un Motivo", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+					cmbMotivo.setFocus(true);
+				}
+			}
+			else {
+				Mensaje.mostrarMensaje("Seleccione un Tipo de Traslado", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+				cmbTipoTraslado.setFocus(true);
+			}
+		}
+		else {
 			Mensaje.mostrarMensaje("Seleccione un jugador", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 		}
-		else if (valorDivisa.equals("") || valorLiga.equals("") || valor.equals(-1)) {
-			Mensaje.mostrarMensaje("Faltan datos obligatorios", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
-		} else {
-			retirarPase();
-			limpiar();
-			Mensaje.mostrarMensaje("¡Pase realizado exitosamente!", Mensaje.EXITO, Messagebox.INFORMATION);			
-		}		
+			
 	}
 
 
@@ -228,6 +288,7 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 		retiroJugador.setFechaRetiro(new Date());
 		retiroJugador.setEstatus('A');
 		retiroJugador.setDatoBasicoByCodigoTipoOperacion(tipoOperacion);
+        retiroJugador.setDatoBasicoByCodigoMotivoRetiro(tipoTrasl);
 		retiroJugador.setJugador(jugador);
 		servicioRetiroTraslado.agregar(retiroJugador);
 		servicioJugador.retirarJugador(jugador);			
@@ -235,18 +296,24 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 	
 	
 	public void limpiar() {
+		retiroJugador = new RetiroTraslado();
 		txtCedula.setValue(null);
 		txtPrimerNombre.setValue(null);
+		txtSegundoNombre.setValue(null);
      	txtPrimerApellido.setValue(null);
+     	txtSegundoApellido.setValue(null);
+     	txtFechaIngreso.setValue(null);
 	    txtCategoria.setValue(null);
-	    txtEquipo.setValue(null);
+	    txtGenero.setValue(null);
+	    cmbTipoTraslado.setSelectedIndex(-1);
+	    cmbMotivo.setSelectedIndex(-1);
 	    txtDivisaNueva.setValue(null);
 	    txtLigaNueva.setValue(null);
-	    cmbMotivo.setSelectedIndex(-1);
+	    tipoT.setVisible(false);	    
 	}
 	
 	public void onClick$btnSalir(){
-		winRegistrarPase.detach();
+		winRetiroTraslado.detach();
 	}
 		
 	public void onClick$btnCancelar() {		
@@ -254,6 +321,22 @@ public class CntrlRegistrarPase extends GenericForwardComposer {
 		binder.loadAll();
 		limpiar();
 	}	
+	
+	public void onChange$cmbTipoTraslado() {
+		if (cmbTipoTraslado.getSelectedItem().getLabel().equals("PASE")) {
+			DatoBasico aux = servicioDatoBasico.buscarTipo(TipoDatoBasico.NUMERO_PASE, "NUMERO PASE");
+			int valormax = Integer.parseInt(aux.getDescripcion());
+			if ((servicioRetiroTraslado.contarfilas(retiroJugador)) < valormax){
+				tipoT.setVisible(true);
+			}
+			else {
+				Mensaje.mostrarMensaje("Ha excedido el nro de Pases", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+				cmbTipoTraslado.setSelectedIndex(-1);
+				cmbTipoTraslado.setFocus(true);
+			}
+		}
+	}
+				
 }
 
 

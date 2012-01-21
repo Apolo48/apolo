@@ -45,9 +45,5 @@ public class ServicioRetiroTraslado implements IServicioRetiroTraslado {
 	public int contarfilas (RetiroTraslado r){
 		return daoRetiroTraslado.contarfilas(r);
 	}
-	
-	public int contarfilas2 (RetiroTraslado r){
-		return daoRetiroTraslado.contarfilas2(r);
-	}
-	
+		
 }

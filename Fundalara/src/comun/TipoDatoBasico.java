@@ -44,7 +44,9 @@ public enum TipoDatoBasico {
 	GENERO(98),
 	COMISION(102),
 	TIPO_AFECCION(128),
-	ACTUALIZACION_MEDICA(129);
+	ACTUALIZACION_MEDICA(129),
+	NUMERO_PASE(130);
+;
 
 	private int codigo;
 
