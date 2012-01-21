@@ -335,6 +335,9 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 				cmbTipoTraslado.setFocus(true);
 			}
 		}
+		else {
+            tipoT.setVisible(false);
+    }
 	}
 				
 }
