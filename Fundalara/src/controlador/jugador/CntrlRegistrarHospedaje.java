@@ -184,10 +184,9 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 				}//AKI NO REALIZA NINGUN CAMBIO
 			}
 		}*/
-		//binder.loadAll(); // actualiza para mostrar los cambios
 		binder.loadComponent(dtboxFechaIni);
 		binder.loadComponent(dtboxFechaFin);
-		//binder.loadComponent(txtEstado);//ERRROR EN ESTADO
+		binder.loadComponent(txtEstado);//ERRROR EN ESTADO. VERIFICAR AUN GENERA ERROR A VECES
 	}
 			
 	public void onClick$btnCatalogoRep() {
@@ -204,19 +203,14 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 			public void onEvent(Event arg0) throws Exception {
 				// se obtiene el familiar
 				familiar = (Familiar) formulario.getVariable("familiar", false);
-				//VERSION VIERNES 13-01
-				//txtDireccionRep.setValue(familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getDatoBasico().getNombre()+" "+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getNombre()+" "+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getNombre()+" "+familiar.getPersonaNatural().getPersona().getDireccion());
-				//VERSION LUNES 16-01
-				//txtDireccionRep.setValue(familiar.getPersonaNatural().getPersona().getDireccion()+"."+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getNombre());
-				//VERSION DE PRUEBA LUNES 16-01
 				txtDireccionRep.setValue(familiar.getPersonaNatural().getPersona().getDireccion() + ". " 
 									+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getNombre()+". "
-									+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getNombre()+". "
+									+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getNombre()+" - ESTADO "
 									+ familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getDatoBasico().getNombre());
-				//binder.loadAll(); COMENTADO X ERROR DE ESTADO
 				binder.loadComponent(txtCedulaRep);
 				binder.loadComponent(txtNombreRep);
 				binder.loadComponent(txtApellidoRep);
+				binder.loadComponent(txtDireccionRep);
 			}
 		});
 	}
@@ -240,7 +234,6 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 			Mensaje.mostrarMensaje("Representante asociado a Hospedaje",
 					Mensaje.EXITO, Messagebox.INFORMATION);
 			limpiar();
-			binder.loadAll();
 		}
 	}
 	
@@ -259,11 +252,15 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 			}
 */
 	
-	public void onClick$btnCancelar() {
+	public void onClick$btnCancelar() { //DEBE MEJORARSE CON UN CONDICIONAL XQ IGUAL BORRAR AL HACER CLICK EN OK
+		Mensaje.mostrarMensaje("Borrará TODOS los datos, está seguro?",
+				Mensaje.INFORMACION, Messagebox.INFORMATION);
 		limpiar();
 	}
 	
-	public void onClick$btnSalir() {
+	public void onClick$btnSalir() { //DEBE MEJORARSE CON UN CONDICIONAL XQ IGUAL BORRAR AL HACER CLICK EN OK
+		Mensaje.mostrarMensaje("Saldrá de la ventana, está seguro?",
+				Mensaje.INFORMACION, Messagebox.INFORMATION);
 		winRegistrarHospedaje.detach();
 	}
 
@@ -271,15 +268,18 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	
 	// Borra los datos introducidos en la interfaz
 	public void limpiar() {
-		cmbCompetencia.setValue(null);
-		dtboxFechaIni.setValue(null);
-		dtboxFechaFin.setValue(null);
-		txtEstado.setValue(null);
 		txtCedulaRep.setValue(null);
 		txtNombreRep.setValue(null);
 		txtApellidoRep.setValue(null);
 		txtDireccionRep.setValue(null);
 		btnCatalogoRep.setDisabled(false);
+		cmbCompetencia.setValue(null);
+		dtboxFechaIni.setValue(null);
+		dtboxFechaFin.setValue(null);
+		txtEstado.setValue(null);
+		competencia = new Competencia();
+		familiar = new Familiar();
+		//binder.loadAll(); // REVISAR USO
 	}
 	
 	// Cambia el estatus del hospedaje
