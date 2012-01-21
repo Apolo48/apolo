@@ -42,6 +42,9 @@ import servicio.implementacion.ServicioInstitucion;
 import servicio.implementacion.ServicioLapsoDeportivo;
 import servicio.implementacion.ServicioRoster;
 import servicio.implementacion.ServicioTallaPorJugador;
+import servicio.implementacion.ServicioCompetencia;
+//import servicio.implementacion.ServicioDatoConducta;
+import servicio.implementacion.ServicioMotivoSancion;
 
 import comun.FileLoader;
 import comun.Ruta;
@@ -57,17 +60,21 @@ import controlador.jugador.bean.Afeccion;
 
 import modelo.AfeccionJugador;
 import modelo.Categoria;
+import modelo.Competencia;
 import modelo.DatoBasico;
 import modelo.AfeccionJugadorId;
 import modelo.DatoAcademico;
 import modelo.DatoMedico;
 import modelo.DatoSocial;
+import modelo.DatoConducta;
 import modelo.DocumentoEntregado;
 import modelo.Equipo;
+import modelo.Familiar;
 import modelo.Institucion;
 import modelo.LapsoDeportivo;
 import modelo.Jugador;
 import modelo.Medico;
+import modelo.MotivoSancion;
 import modelo.Persona;
 import modelo.PersonaNatural;
 import modelo.RecaudoPorProceso;
@@ -94,12 +101,14 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private Window winActualizarJugador;
 	
 	private Datebox dtboxFechaInicioActividad;
-	
+	private Datebox dtboxFechaInicioSancion;
+
 	private Intbox txtEdad;
 	private Intbox txtHorasSemanales;	
 	private Intbox txtTelefonoHabitacion;
-	private Intbox txtTelefonoCelular;	
-	
+	private Intbox txtTelefonoCelular;
+	private Intbox txtCantidad;
+
 	private Textbox txtFechaNac;	
 	private Textbox txtCedulaSecuencia;
 	private Textbox txtCedula;
@@ -113,7 +122,8 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private Textbox txtNacionalidad;
 	private Textbox txtGenero;
 	private Textbox txtDireccion;
-	
+	private Textbox txtObservacion;
+
 	private Decimalbox txtPeso;
 	private Decimalbox txtAltura;
 	
@@ -144,6 +154,7 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private Combobox cmbTallaCalzado;
 	private Combobox cmbCompetencia;
 	private Combobox cmbTemporada;
+	private Combobox cmbTipoSancion;
 	
 	private Button btnGuardar;
 	private Button btnFoto;
@@ -152,25 +163,27 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private Button btnAgregarAfeccion;
 	private Button btnEliminarAfeccion;
 	private Button btnAgregarActividad;
-	private Button btnEliminarActividad;
+	private Button btnQuitarActividad;
 	private Button btnAgregarInstitucion;
 	private Button btnQuitarInstitucion;
+	private Button btnAgregarSancion;
+	private Button btnQuitarSancion;
 	private Button btnSubirDocumentoInf;
 	private Button btnSubirDocumentoMem;
 	private Button btnSalir;
 	
 	private Listbox listAfeccionesActuales;
+	private Listbox listAcademico;
 	private Listbox listActividadesSociales;
-	private Listbox listNuevosCursos;
-	private Listbox listMotivos;
+	private Listbox listConducta;
 	private Listbox listDocAcademicos;
 	private Listbox listLogros;
+	
 	
 	private Label lblSeparador;	
 	private Component formulario;
 	private Include incCuerpo;
-	private Image imgJugador;
-		
+	private Image imgJugador;		
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
 	// Servicios
@@ -184,6 +197,11 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private ServicioJugador servicioJugador;
 	private ServicioPersona servicioPersona;
 	private ServicioTallaPorJugador servicioTallaPorJugador;
+	private ServicioCompetencia servicioCompetencia;
+	private ServicioDatoAcademico servicioDatoAcademico;
+	private ServicioDatoSocial servicioDatoSocial;
+	//private ServicioDatoConducta servicioDatoConducta;
+	private ServicioMotivoSancion servicioMotivoSancion;
 
 	// Modelos
 	private Jugador jugador = new Jugador();
@@ -218,27 +236,31 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private DatoBasico sancion = new DatoBasico();
 	private DatoBasico suspension;
 	private DatoBasico tipoIndumentaria = new DatoBasico();
+	private MotivoSancion motivoSancion = new MotivoSancion();
 	
 	private Medico medico = new Medico();
-	List<Afeccion> afeccionesJugador = new ArrayList<Afeccion>();
-	private NuevoCurso nuevosCursos = new NuevoCurso();
-	List<NuevoCurso> nuevoCurso = new ArrayList<NuevoCurso>();	
-	
-	//private SancionJugador sancionJugador = new SancionJugador();
-	//List<SancionJugador> sancionJugadores = new ArrayList<SancionJugador>();
+	private List<Afeccion> afeccionesJugador = new ArrayList<Afeccion>();
 
 	private DatoBasico motivoJugador = new DatoBasico();
-	//private List<DatoBasico> motivoJugadores = new ArrayList<DatoBasico>();
 	private List<DatoBasico> motivosJugador = new ArrayList<DatoBasico>();
-	
-	
-	private DatoAcademico datoAcademico = new DatoAcademico();
-	
+		
 	private DatoSocial datoSocial = new DatoSocial();
 	private List<DatoSocial> datoSociales = new ArrayList<DatoSocial>();
 
 	private DatoBasico logroJugador = new DatoBasico();
 	private List<DatoBasico> logrosJugador = new ArrayList<DatoBasico>();
+	
+	private Competencia competencia = new Competencia();
+	private List<Competencia> listCompetencias = new ArrayList<Competencia>();	
+	
+	private DatoAcademico datoAcademico = new DatoAcademico();
+	private List<DatoAcademico> listaAcademica = new ArrayList<DatoAcademico>();
+	
+	//private DatoConducta datoConducta = new DatoConducta();
+	//private List<DatoConducta> listaConducta = new ArrayList<DatoConducta>();
+	
+	private MotivoSancion datoConducta = new MotivoSancion();
+	private List<MotivoSancion> listaConducta = new ArrayList<MotivoSancion>();	
 	
 	Roster roster;
 	Persona persona;
@@ -263,7 +285,79 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	}
 
 	// Getters y setters	
-			
+
+	public Textbox getTxtObservacion() {
+		return txtObservacion;
+	}
+
+	public void setTxtObservacion(Textbox txtObservacion) {
+		this.txtObservacion = txtObservacion;
+	}
+	
+	public Datebox getDtboxFechaInicioSancion() {
+		return dtboxFechaInicioSancion;
+	}
+
+	public void setDtboxFechaInicioSancion(Datebox dtboxFechaInicioSancion) {
+		this.dtboxFechaInicioSancion = dtboxFechaInicioSancion;
+	}	
+	
+	public Intbox getTxtCantidad() {
+		return txtCantidad;
+	}
+
+	public void setTxtCantidad(Intbox txtCantidad) {
+		this.txtCantidad = txtCantidad;
+	}	
+	
+	public Combobox getCmbMotivo() {
+		return cmbMotivo;
+	}
+
+	public void setCmbMotivo(Combobox cmbMotivo) {
+		this.cmbMotivo = cmbMotivo;
+	}
+
+	public Combobox getCmbTipoSancion() {
+		return cmbTipoSancion;
+	}
+
+	public void setCmbTipoSancion(Combobox cmbTipoSancion) {
+		this.cmbTipoSancion = cmbTipoSancion;
+	}	
+	
+	public MotivoSancion getMotivoSancion() {
+		return motivoSancion;
+	}
+
+	public void setMotivoSancion(MotivoSancion motivoSancion) {
+		this.motivoSancion = motivoSancion;
+	}
+
+	public List<MotivoSancion> getListaConducta() {
+		return listaConducta;
+	}
+
+	public void setListaConducta(List<MotivoSancion> listaConducta) {
+		this.listaConducta = listaConducta;
+	}	
+
+	public List<DatoAcademico> getListaAcademica() {
+		return listaAcademica;
+	}
+
+	public void setListaAcademica(List<DatoAcademico> listaAcademica) {
+		this.listaAcademica = listaAcademica;
+	}
+	
+	public DatoAcademico getDatoAcademico() {
+		return datoAcademico;
+	}
+
+	public void setDatoAcademico(DatoAcademico datoAcademico) {
+		this.datoAcademico = datoAcademico;
+	}	
+	
 	public Jugador getJugador() {
 		return jugador;
 	}
@@ -287,14 +381,6 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	public void setMotivoJugador(DatoBasico motivoJugador) {
 		this.motivoJugador = motivoJugador;
 	}
-
-/*	public List<DatoBasico> getMotivoJugadores() {
-		return motivoJugadores;
-	}
-
-	public void setMotivoJugadores(List<DatoBasico> motivoJugadores) {
-		this.motivoJugadores = motivoJugadores;
-	}*/
 
 	public Decimalbox getTxtPeso() {
 		return txtPeso;
@@ -367,7 +453,6 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	public void setCmbTallaCalzado(Combobox cmbTallaCalzado) {
 		this.cmbTallaCalzado = cmbTallaCalzado;
 	}
-
 
 	public DatoBasico getEstadoVenezuela() {
 		return estadoVenezuela;
@@ -473,30 +558,6 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		this.afeccionesJugador = afeccionesJugador;
 	}
 
-/*	public SancionJugador getSancionJugador() {
-		return sancionJugador;
-	}
-
-	public void setSancionJugador(SancionJugador sancionJugador) {
-		this.sancionJugador = sancionJugador;
-	}*/
-
-	public void setNuevoCurso(List<NuevoCurso> nuevoCurso) {
-		this.nuevoCurso = nuevoCurso;
-	}
-
-	public List<NuevoCurso> getNuevoCurso() {
-		return nuevoCurso;
-	}
-
-/*	public void setSancionJugadores(List<SancionJugador> sancionJugadores) {
-		this.sancionJugadores = sancionJugadores;
-	}
-
-	public List<SancionJugador> getSancionJugadores() {
-		return sancionJugadores;
-	}*/
-
 	public DatoBasico getLogro() {
 		return logro;
 	}
@@ -577,18 +638,14 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		this.datoSociales = datoSociales;
 	}
 
-	/*
-	 * public DatoAcademico getDatoAcademico() { return datoAcademico; }
-	 * 
-	 * public void setDatoAcademico(DatoAcademico datoAcademico) {
-	 * this.datoAcademico = datoAcademico; }
-	 * 
-	 * public List<DatoAcademico> getDatoAcademicos() { return datoAcademicos; }
-	 * 
-	 * public void setDatoAcademicos(List<DatoAcademico> datoAcademicos) {
-	 * this.datoAcademicos = datoAcademicos; }
-	 */
+	public Competencia getCompetencia() {
+		return competencia;
+	}
 	
+	public void setCompetencia(Competencia competencia) {
+		this.competencia = competencia;
+	}	
+
 	
 	// Metodos para carga de combos/listbox
 	public List<Categoria> getCategorias() {
@@ -675,6 +732,10 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		this.incCuerpo = incCuerpo;
 	}
 
+	public List<Competencia> getCompetencias() {
+		return servicioCompetencia.listar();
+	}	
+	
 	public List<DocumentoEntregado> getRecaudosPersonales() {
 		List<RecaudoPorProceso> lista = servicioRecaudoPorProceso
 				.buscarPorProceso(Actualizar, TipoDatoBasico.TIPO_DOCUMENTO,
@@ -726,7 +787,6 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		if (datoInstitucion != null) {
 			lista = servicioInstitucion.buscarInstitucionTipo(datoInstitucion);
 		}
-
 		return lista;
 	}
 
@@ -740,16 +800,49 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		return lista;
 	}
 
-/*	public List<LapsoDeportivo> getTemporadas() {
+	//OJO aun no funciona
+	public List<LapsoDeportivo> getTemporadas() {
 		List<LapsoDeportivo> lista = null;
 		DatoBasico datoLapsoDeportivo = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR");
+				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "Temporada Regular");
 		if (datoLapsoDeportivo != null) {
 			lista = servicioLapsoDeportivo.buscarLapsoDeportivoTipo(datoLapsoDeportivo);
 		}
 		return lista;
-	}*/	
+	}	
+
+	public List<DatoBasico> getTallasCalzado() {
+		List<DatoBasico> lista = null;
+		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.INDUMENTARIA, "Calzado");
+		if (datoIndumentaria != null) {
+			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
+		}
+		return lista;
+	}
+
+	public List<DatoBasico> getTallasCamisa() {
+		List<DatoBasico> lista = null;
+		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.INDUMENTARIA, "Camisa");
+		if (datoIndumentaria != null) {
+			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
+		}
+		return lista;
+	}
+
+	public List<DatoBasico> getTallasPantalon() {
+		List<DatoBasico> lista = null;
+		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.INDUMENTARIA, "Pantalon");
+		if (datoIndumentaria != null) {
+			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
+		}
+		return lista;
+	}
+
 	
+	// Eventos	
 	public void onClick$btnCatalogoJugador() {
 		// se crea el catalogo y se llama
 		Component catalogo = Executions.createComponents(
@@ -764,6 +857,7 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 			 */
 			@Override
 			public void onEvent(Event arg0) throws Exception {
+				//DATOS DEL JUGADOR
 				jugador = (Jugador) formulario.getVariable("jugador", false);
 				txtCedula.setValue(jugador.getCedulaRif());
 				txtPrimerNombre.setValue(jugador.getPersonaNatural().getPrimerNombre());
@@ -835,56 +929,31 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 					}				
 				}				
 				
+				
+				//ACADEMICOS
+				listaAcademica = servicioDatoAcademico.buscarPorJugador(jugador);
+				binder.loadComponent(listAcademico);
+				
+				//SOCIALES
+				datoSociales = servicioDatoSocial.buscarPorJugador(jugador);
+				binder.loadComponent(listActividadesSociales);
+				
+				//CONDUCTA
+				listaConducta = servicioMotivoSancion.buscarPorJugador(jugador);
+				binder.loadComponent(listConducta);				
+				
 				//binder.loadAll();
-
 			}
 		});
 	}
 
-	public List<DatoBasico> getTallasCalzado() {
-		List<DatoBasico> lista = null;
-		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.INDUMENTARIA, "Calzado");
-		if (datoIndumentaria != null) {
-			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
-		}
-		return lista;
-	}
 
-	public List<DatoBasico> getTallasCamisa() {
-		List<DatoBasico> lista = null;
-		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.INDUMENTARIA, "Camisa");
-		if (datoIndumentaria != null) {
-			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
-		}
-		return lista;
-	}
-
-	public List<DatoBasico> getTallasPantalon() {
-		List<DatoBasico> lista = null;
-		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.INDUMENTARIA, "Pantalon");
-		if (datoIndumentaria != null) {
-			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
-		}
-		return lista;
-	}
-
-	// Eventos
 	public void onClick$btnCatalogoMedico() {
 		new Util().crearVentana(rutasJug + "buscarMedico.zul", null, null);
 	}
 
-	public void onChange$dtboxFechaNac() {
-		//Date fecha = dtboxFechaNac.getValue();
-		//txtEdad.setValue(Util.calcularDiferenciaAnnios(fecha));
-	}
-
 	public void onClick$btnGuardar() {
-
-		
-		
+		//SE ACTUALIZARA EN BD
 	}
 
 	public void onClick$btnFoto() {
@@ -907,51 +976,63 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		enlace.insertarContenido(incCuerpo, src);
 	}
 
+	//Pestana Academicos
 	public void onClick$btnAgregarInstitucion() {
-		if ((cmbInstitucionEducativa.getSelectedIndex() >= 0)
-				&& (cmbCurso.getSelectedIndex() >= 0)
-				&& (cmbAnnioEscolar.getSelectedIndex() >= 0)) {
-			for (int i = 0; i < nuevoCurso.size(); i++) {
-				if ((cmbInstitucionEducativa.getSelectedItem().getLabel()
-						.equals(nuevoCurso.get(i).getNombreInstitucion()))
-						&& ((cmbAnnioEscolar.getSelectedItem().getLabel()
-								.equals(nuevoCurso.get(i).getAnnoEscolar())))
-						&& ((cmbCurso.getSelectedItem().getLabel()
-								.equals(nuevoCurso.get(i).getCurso())))) {
-					Mensaje.mostrarMensaje("Año Escolar Duplicado.",
-							Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
-					return;
+		if (cmbInstitucionEducativa.getSelectedIndex() >= 0) {
+			if (cmbAnnioEscolar.getSelectedIndex() >= 0) {
+				if (cmbCurso.getSelectedIndex() >= 0) {
+					for (int i = 0; i < listaAcademica.size(); i++) {
+						if ((cmbInstitucionEducativa.getSelectedItem()
+								.getLabel().equals(listaAcademica.get(i)
+								.getInstitucion().getNombre()))
+								&& ((cmbAnnioEscolar.getSelectedItem()
+										.getLabel()
+										.equals(listaAcademica.get(i)
+												.getDatoBasicoByCodigoAnnoEscolar()
+												.getNombre())))) {
+													Mensaje.mostrarMensaje(
+													"Actividad Académica Duplicada.",
+													Mensaje.ERROR_DATOS,
+													Messagebox.EXCLAMATION);
+													return;
+												}
+					}
+					datoAcademico.setEstatus('A');
+					listaAcademica.add(datoAcademico);
+					limpiarAcademico();
 				}
+				else {
+					Mensaje.mostrarMensaje("Seleccione un Curso.",
+							Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+					cmbCurso.setFocus(true);			
+				}	
 			}
-
-			nuevosCursos.setNombreInstitucion(cmbInstitucionEducativa
-					.getSelectedItem().getLabel());
-			nuevosCursos.setCodigoInstitucion(cmbInstitucionEducativa
-					.getSelectedItem().getValue().toString());
-			nuevosCursos.setAnnoEscolar(cmbAnnioEscolar.getSelectedItem()
-					.getLabel());
-			nuevosCursos.setCodigoAnno_Escolar(cmbAnnioEscolar
-					.getSelectedItem().getValue().toString());
-			nuevosCursos.setCurso(cmbCurso.getSelectedItem().getLabel());
-			nuevosCursos.setCodigoCurso(cmbCurso.getSelectedItem().getValue()
-					.toString());
-			nuevoCurso.add(nuevosCursos);
-			limpiarCurso();
+			else {
+				Mensaje.mostrarMensaje("Seleccione un año escolar.",
+						Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+				cmbAnnioEscolar.setFocus(true);			
+			}						
 		}
-	}
+		else {
+			Mensaje.mostrarMensaje("Seleccione una institución.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+			cmbInstitucionEducativa.setFocus(true);			
+		}			
+	}	
 
 	public void onClick$btnQuitarInstitucion() {
-		if (listNuevosCursos.getSelectedIndex() >= 0) {
-			NuevoCurso cursoSel = (NuevoCurso) listNuevosCursos
-					.getSelectedItem().getValue();
-			nuevoCurso.remove(cursoSel);
-			limpiarCurso();
-		} else {
-			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
-					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-		}
+	if (listAcademico.getSelectedIndex() >= 0) {
+		DatoAcademico academicoSel = (DatoAcademico) listAcademico
+				.getSelectedItem().getValue();
+		listaAcademica.remove(academicoSel);
+		limpiarAcademico();
+	} else {
+		Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
+				Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+		}		
 	}
-
+	
+	//Pestana Sociales	
 	public void onClick$btnAgregarActividad() {
 		if (cmbInstitucionRecreativa.getSelectedIndex() >= 0) {
 			if (cmbActividad.getSelectedIndex() >= 0) {
@@ -1000,7 +1081,7 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		}
 	}
 
-	public void onClick$btnEliminarActividad() {
+	public void onClick$btnQuitarActividad() {
 		if (listActividadesSociales.getSelectedIndex() >= 0) {
 			DatoSocial actividadSel = (DatoSocial) listActividadesSociales
 					.getSelectedItem().getValue();
@@ -1012,29 +1093,51 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		}
 	}
 
-	public void onClick$btnAgregarMotivo() {
+	//Pestana Conducta
+	public void onClick$btnAgregarSancion() {
 		if (cmbMotivo.getSelectedIndex() >= 0) {
-			if (!motivosJugador.contains(sancion)) {
-				motivosJugador.add(sancion);
-				limpiarMotivo();
+			if (cmbTipoSancion.getSelectedIndex() >= 0) {
+				if (txtCantidad.getValue() != null ? txtCantidad.getValue() > 0 : false){
+					if (dtboxFechaInicioSancion.getText() != "") {
+						if (txtObservacion.getText() != "") {
+							datoConducta.setEstatus('A');
+							listaConducta.add(datoConducta);
+							limpiarConducta();
+						}
+						else {
+							Mensaje.mostrarMensaje("Indique la observación.",
+									Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+							txtObservacion.setFocus(true);
+						}						
+					} else {
+						Mensaje.mostrarMensaje("Seleccione una fecha.",
+								Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+						dtboxFechaInicioSancion.setFocus(true);
+					}
+				} else {
+					Mensaje.mostrarMensaje(
+							"Ingrese la cantidad a sancionar.",
+							Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+					txtCantidad.setFocus(true);
+				}
 			} else {
-				Mensaje.mostrarMensaje("Motivo Duplicado.",
-						Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+				Mensaje.mostrarMensaje("Seleccione un tipo de Sanción.",
+						Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+				cmbTipoSancion.setFocus(true);
 			}
 		} else {
 			Mensaje.mostrarMensaje("Seleccione un Motivo.",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbMotivo.setFocus(true);
-		}
-
+		}		
 	}	
 		
-	public void onClick$btnQuitarMotivo() {
-		if (listMotivos.getSelectedIndex() >= 0) {
-			DatoBasico motivoSel = (DatoBasico) listMotivos
+	public void onClick$btnQuitarSancion() {
+		if (listConducta.getSelectedIndex() >= 0) {
+			MotivoSancion conductaSel = (MotivoSancion) listConducta
 				.getSelectedItem().getValue();
-			motivosJugador.remove(motivoSel);
-			limpiarMotivo();
+			listaConducta.remove(conductaSel);
+			limpiarConducta();
 		} else {
 			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
@@ -1083,12 +1186,12 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 */	
 	
 	// Metodos propios del ctrl
-	public void limpiarCurso() {
-		nuevosCursos = new NuevoCurso();
+	public void limpiarAcademico() {
+		datoAcademico = new DatoAcademico();
 		cmbInstitucionEducativa.setSelectedIndex(-1);
 		cmbCurso.setSelectedIndex(-1);
 		cmbAnnioEscolar.setSelectedIndex(-1);
-		binder.loadComponent(listNuevosCursos);
+		binder.loadComponent(listAcademico);
 	}
 
 	public void limpiarActividad() {
@@ -1100,10 +1203,14 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		binder.loadComponent(listActividadesSociales);
 	}
 
-	public void limpiarMotivo() {
-		//sancionJugador = new SancionJugador();
+	public void limpiarConducta() {
+		datoConducta = new MotivoSancion();
 		cmbMotivo.setSelectedIndex(-1);
-		binder.loadComponent(listMotivos);
+		cmbTipoSancion.setSelectedIndex(-1);
+		txtCantidad.setValue(null);
+		dtboxFechaInicioSancion.setValue(null);
+		txtObservacion.setValue(null);
+		binder.loadComponent(listConducta);
 	}
 
 	public void limpiarLogro() {

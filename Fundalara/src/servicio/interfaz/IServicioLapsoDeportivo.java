@@ -20,4 +20,8 @@ public interface IServicioLapsoDeportivo {
 //	public abstract void buscarDosCampos();
 
 	public abstract LapsoDeportivo buscarDosCampos(DatoBasico d); 
+	
+	public abstract LapsoDeportivo buscar (String id);
+	
+	public abstract List<LapsoDeportivo> buscarLapsoDeportivoTipo(DatoBasico datoBasico);	
 }

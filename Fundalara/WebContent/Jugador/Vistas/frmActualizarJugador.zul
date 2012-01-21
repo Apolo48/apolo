@@ -99,7 +99,7 @@
 							<tab id="tabJugSociales" label="Sociales" />
 							<tab id="tabConducta" label="Conducta" />
 							<tab id="tabJugDeportivos" label="Deportivos" />
-							<tab id="tabLogros" label="Logros Deportivos" />
+							<tab id="tabLogros" label="Logros" />
 						</tabs>
 						<tabpanels>
 							<tabpanel><!-- Inicio tabJugPersonales -->
@@ -307,39 +307,43 @@
 										</row>
 									</rows>
 								</grid>
-								<groupbox style="border-color:orange"
-									closable="false">
-									<caption label="Documentos" />
-									<grid id="gridDocPersonales"
-										mold="paging" pageSize="2">
-										<columns>
-											<column width="30%"
-												label="Nombre" />
-											<column width="15%"
-												label="Solicitado" />
-											<column width="15%"
-												label=" Entregado" />
-											<column width="20%"
-												label="¿Obligatorio?" />
-											<column width="20%"
-												label="Documento" align="center" />
-										</columns>
-										<rows>
-											<row style="border:none;">
-												<label
-													value="Partida de Nacimiento" />
-												<label value="1" />
-												<spinner width="60%"
-													value="0" />
-												<label value="Sí" />
-												<button label="Subir">
-													<attribute name="onClick"><![CDATA[
-	Object media = Fileupload.get();
-]]></attribute>
-												</button>
-											</row>
-										</rows>
-									</grid>
+								
+								<groupbox
+									style="border-color:orange" closable="false">
+									<caption
+										label="Documentos" />
+									<listbox
+										id="listDocPersonales" mold="paging" pageSize="2"
+										model="@{winActualizarJugador$composer.recaudosPersonales}"
+										selectedItem="@{controller.docEntPersonal}">										
+										<listhead>
+											<listheader	width="30%" label="Nombre" />
+											<listheader	width="15%" label="Solicitado" />
+											<listheader	width="15%" label=" Entregado" />
+											<listheader	width="20%" label="Importancia" />
+											<listheader	width="20%" label="Documento" />
+										</listhead>
+										<listitem
+											self="@{each='docPer'}" value="docPer">
+											<listcell
+												visible="false"
+												label="@{docPer.recaudoPorProceso.codigoRecaudoPorProceso}" />
+											<listcell
+												label="@{docPer.recaudoPorProceso.datoBasicoByCodigoDocumento.nombre}" />
+											<listcell
+												label="@{docPer.recaudoPorProceso.cantidad}" />
+											<listcell>
+												<spinner
+													width="60%" value="@{docPer.cantidad}" />
+											</listcell>
+											<listcell
+												label="@{docPer.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
+											<listcell
+												label="Subir"
+												onClick="winActualizarJugador$composer.subirDocumento(self,self.getParent().getParent())">
+											</listcell>
+										</listitem>										
+									</listbox>
 								</groupbox>
 							</tabpanel><!-- Fin tabJugPersonales -->
 
@@ -402,6 +406,7 @@
 												<combobox
 													id="cmbInstitucionEducativa" width="90%"
 													model="@{winActualizarJugador$composer.institucionesEducativas}"
+													selectedItem="@{controller.datoAcademico.institucion}"
 													readonly="true" value="--Seleccione--">
 													<comboitem
 														self="@{each='institucionEducativa'}"
@@ -415,6 +420,7 @@
 												<combobox
 													id="cmbAnnioEscolar" readonly="true"
 													model="@{winActualizarJugador$composer.annoEsc}"
+													selectedItem="@{controller.datoAcademico.datoBasicoByCodigoAnnoEscolar}"
 													value="--Seleccione--" width="80%">
 													<comboitem
 														self="@{each='anno_escolar'}"
@@ -424,9 +430,11 @@
 												<label value="Curso" />
 												<combobox id="cmbCurso"
 													model="@{winActualizarJugador$composer.cursos}"
+													selectedItem="@{controller.datoAcademico.datoBasicoByCodigoCurso}"
 													readonly="true" value="--Seleccione--">
 													<comboitem
-														self="@{each='curso'}" label="@{curso.nombre}"
+														self="@{each='curso'}"
+														label="@{curso.nombre}"
 														value="@{curso.codigoDatoBasico}" />
 												</combobox>
 											</row>
@@ -448,28 +456,27 @@
 													<rows>
 														<row
 															style="border:none">
-															<listbox
-																id="listNuevosCursos" mold="paging" pageSize="2"
-																model="@{controller.nuevoCurso}">
+															 
+															<listbox id="listAcademico"
+																model="@{controller.listaAcademica}" mold="paging"
+																pageSize="5">
+						
 																<listhead>
-																	<listheader
-																		label="Institución" width="50%" />
-																	<listheader
-																		label="Año Escolar" width="30%" />
-																	<listheader
-																		label="Curso" width="20%" />
+																	<listheader width="50%"	label="Institución" />
+																	<listheader width="25%"	label="Año Escolar" />
+																	<listheader width="25%"	label="Curso" />
 																</listhead>
 																<listitem
-																	self="@{each='nuevosCursos'}"
-																	value="@{nuevosCursos}">
+																	self="@{each='datoAcademico'}" value="@{datoAcademico}">
 																	<listcell
-																		label="@{nuevosCursos.NombreInstitucion}" />
+																		label="@{datoAcademico.institucion.nombre}" />
 																	<listcell
-																		label="@{nuevosCursos.Anno_Escolar}" />
+																		label="@{datoAcademico.datoBasicoByCodigoAnnoEscolar.nombre}" />
 																	<listcell
-																		label="@{nuevosCursos.Curso}" />
+																		label="@{datoAcademico.datoBasicoByCodigoCurso.nombre}" />
 																</listitem>
 															</listbox>
+																												
 															<vbox>
 																<button
 																	id="btnAgregarInstitucion"
@@ -525,23 +532,18 @@
 							</tabpanel><!-- Fin tabJugAcademicos -->
 
 							<tabpanel><!-- Inicio tabJugSociales -->
-								<groupbox style="border-color:orange"
-									closable="false">
-									<caption
-										label="Datos de Actividades Extra-académicas" />
-									<grid style="border:none;"
-										oddRowSclass="none">
+								<groupbox style="border-color:orange" closable="false">
+									<caption label="Datos de Actividades Extra-académicas" />
+									<grid style="border:none;" oddRowSclass="none">
 										<columns>
 											<column width="18%" />
 											<column width="32%" />
-											<column width="10%" />
+											<column width="18%" />
 											<column width="32%" />
 										</columns>
 										<rows>
-											<row style="border:none;"
-												spans="1,3">
-												<label
-													value="Institución" />
+											<row style="border:none;" spans="1,3">
+												<label value="Institución" />
 												<combobox
 													id="cmbInstitucionRecreativa" width="90%"
 													model="@{winActualizarJugador$composer.institucionesRecreativas}"
@@ -581,8 +583,7 @@
 														id="txtHorasSemanales" constraint="no negative,no zero"
 														value="@{controller.datoSocial.horasDedicadas}" />
 													<space />
-													<label
-														value="Semanales" />
+													<label value="Semanales" />
 												</div>
 											</row>
 										</rows>
@@ -626,10 +627,7 @@
 													id="btnAgregarActividad"
 													image="../../Recursos/Imagenes/agregar.ico" />
 												<button
-													id="btnModificarActividad"
-													image="../../Recursos/Imagenes/editar.ico" />
-												<button
-													id="btnEliminarActividad"
+													id="btnQuitarActividad"
 													image="../../Recursos/Imagenes/quitar.ico" />
 											</vbox>
 										</row>
@@ -639,23 +637,17 @@
 
 							<tabpanel id="conducta"><!-- Inicio tabConducta -->
 								<groupbox style="border-color:orange">
-									<caption
-										label="Datos de la Sanción" />
-									<grid style="border:none;"
-										oddRowSclass="none">
+									<caption label="Datos de la Sanción" />
+									<grid style="border:none;" oddRowSclass="none">
 										<columns>
-											<column width="15%" />
-											<column />
-											<column width="9%" />
-											<column />
+											<column width="18%" />
+											<column width="32%" />
+											<column width="18%" />
+											<column width="32%" />
 										</columns>
 										<rows>
 											<row style="border:none;">
-												<div>
-													<space width="2%" />
-													<label
-														value="Motivo" maxlength="30" width="100%" />
-												</div>
+												<label value="Motivo" />
 												<div>
 													<combobox
 														id="cmbMotivo"
@@ -670,108 +662,66 @@
 														style="color:red" />
 												</div>
 											</row>
-											<row spans="1,3" style="border:none">
-												<label />
-												<grid
-													style="border:none" width="90%">
-													<columns>
-														<column
-															width="95%" />
-													</columns>
-													<rows>
-														<row style="border:none;">
-															<listbox
-																id="listMotivos" mold="paging" width="50%" pageSize="2"
-																model="@{controller.motivosJugador}">
-																<listhead>
-																	<listheader
-																		label="Motivo" width="35%" align="center" />
-																</listhead>
-																
-																<listitem
-																	self="@{each='sancion'}"
-																	value="@{sancion}">
-																	<listcell
-																		label="@{sancion.nombre}" />
-																</listitem>
-																																
-															</listbox>
-
-															<vbox>
-																<button
-																	id="btnAgregarMotivo"
-																	image="../../Recursos/Imagenes/agregar.ico" />
-																<button
-																	id="btnEditarMotivo"
-																	image="../../Recursos/Imagenes/editar.ico" />
-																<button
-																	id="btnQuitarMotivo"
-																	image="../../Recursos/Imagenes/quitar.ico" />
-															</vbox>
-														</row>
-													</rows>
-												</grid>
-											</row>
-
+											
 											<row style="border:none;">
-												<div>
-													<space width="2%" />
-													<label
-														value="Tipo Sanción" />
-												</div>
+												<label value="Tipo Sanción" />
 												<div>
 													<combobox
 														id="cmbTipoSancion"
 														model="@{winActualizarJugador$composer.suspensiones}"
+														selectedItem="@{controller.suspension}"
 														readonly="true" value="--Seleccione--">
 														<comboitem
-															self="@{each='suspension'}" label="@{suspension.nombre}" />
+															self="@{each='suspension'}" label="@{suspension.nombre}"
+															/>
 													</combobox>
 													<label value="(*)"
 														style="color:red" />
 												</div>
 												<label value="Cantidad" />
 												<div>
-													<spinner
-														width="25%" />
-													<label
-														id="lbCantidad" visible="false" />
-													<label value="(*)"
-														style="color:red" />
+													<intbox id="txtCantidad" width="25%" constraint="no negative, no zero"
+													/>
+													<label value="(*)" style="color:red" />
 												</div>
 											</row>
-											<row spans="1,3"
-												style="border:none;">
-												<div>
-													<space width="2%" />
-													<label
-														value="Fecha Inicio" />
-												</div>
+											
+											<row style="border:none;">
+												<label value="Fecha Inicio" />
 												<div>
 													<datebox
-														id="dtboxFechaInicioSancion" constraint="no future"
-														format="dd/MM/yyyy"
+														id="dtboxFechaInicioSancion" format="dd/MM/yyyy"
+														
 														style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 													<label value="(*)"
 														style="color:red" />
 												</div>
 											</row>
+																						
 											<row spans="1,3"
 												style="border:none;">
 												<div>
 													<space width="2%" />
-													<label
-														value="Documentos" />
+													<label	value="Observación" />
+												</div>
+												<textbox
+													id="txtObservacion" multiline="true" height="40px"
+													
+													width="96.5%" />
+											</row>
+											
+											<row spans="1,3"
+												style="border:none;">
+												<div>
+													<space width="2%" />
+													<label value="Documentos" />
 												</div>
 												<grid
 													id="gridDocumentos" width="97%">
 													<columns>
-														<column
-															label="Nombre" width="70%" />
-														<column
-															label=" Entregado" align="center" width="15%" />
-														<column
-															label="Documento" align="center" width="15%" />
+														<column	label="Nombre" width="70%" />
+														<column	label=" Entregado" align="center" width="15%" />
+														<column	label="Documento" align="center" width="15%" />
 													</columns>
 													<rows>
 														<row>
@@ -799,21 +749,53 @@
 													</rows>
 												</grid>
 											</row>
-											<row spans="1,3"
-												style="border:none;">
-												<div>
-													<space width="2%" />
-													<label
-														value="Observación" />
-												</div>
-												<textbox
-													id="txtObservacion" multiline="true" height="40px"
-													width="96.5%" />
-											</row>
+											
 										</rows>
 									</grid>
 								</groupbox>
-
+								
+								<grid style="border:none">
+									<columns>
+										<column width="95%" />
+										<column />
+									</columns>
+									<rows>
+										<row style="border:none">
+											<listbox id="listConducta" mold="paging"
+												model="@{controller.listaConducta}"
+												pageSize="5">
+												<listhead>
+													<listheader width="30%"	label="Motivo" />
+													<listheader width="14%"	label="Tipo" />
+													<listheader width="6%"	label="Cant." />
+													<listheader width="15%"	label="Inicio" />
+													<listheader width="35%"	label="Observación" />
+												</listhead>
+												<listitem
+													self="@{each='motivoSancion'}" value="@{motivoSancion}">
+													<listcell
+														label="@{motivoSancion.datoBasico.nombre}" />
+													<listcell
+														label="@{motivoSancion.datoConducta.datoBasico.nombre}" />
+													<listcell
+														label="@{motivoSancion.datoConducta.cantidad}" />
+													<listcell
+														label="@{motivoSancion.datoConducta.fechaInicio, converter='DateConverter'}" />
+													<listcell
+														label="@{motivoSancion.datoConducta.observacion}" />
+												</listitem>
+											</listbox>
+											<vbox>
+												<button
+													id="btnAgregarSancion"
+													image="../../Recursos/Imagenes/agregar.ico" />
+												<button
+													id="btnQuitarSancion"
+													image="../../Recursos/Imagenes/quitar.ico" />
+											</vbox>
+										</row>
+									</rows>
+								</grid>																
 							</tabpanel>
 
 							<tabpanel><!-- Inicio tabJugDeportivos -->
@@ -970,18 +952,18 @@
 												<combobox
 													id="cmbCompetencia" readonly="true"
 													value="--Seleccione--" width="65%"
-													>
-													<!-- 
-													<comboitem
-														self="" label="" />
-													 -->
+													model="@{winActualizarJugador$composer.competencias}">
+													
+													<comboitem self="@{each='comp'}"
+														label="@{comp.nombre}"
+														value="@{comp}" />
 												</combobox>
-												<label value="Temporada" />
+												<label value="Temporada" /> 
 												<combobox
 													id="cmbTemporada" readonly="true"
-													value="--Seleccione--" width="65%">
+													value="-Seleccione-" width="65%">
 												</combobox>
-												<!-- 
+												<!--  
 												<combobox
 													id="cmbTemporada" readonly="true"
 													value="-Seleccione-" width="65%"
@@ -991,7 +973,7 @@
 														self="@{each='temp'}" label="@{temp.nombre}" 
 														value="@{temp.codigoDatoBasico}"/>
 												</combobox>
-												 -->																								
+												-->																								
 											</row>
 											<row style="border:none;"
 												spans="1,3">
@@ -1006,7 +988,7 @@
 								</groupbox>
 								<groupbox closable="false" style="border-color:orange">
 																							
-									<grid style="border:none" width="90%">
+									<grid style="border:none" width="100%">
 										<columns>
 											<column	width="95%" />
 										</columns>
@@ -1016,7 +998,8 @@
 													id="listLogros" mold="paging" width="100%" pageSize="5">
 													<listhead>
 														<listheader	label="Logro" width="50%" align="center" />
-														<listheader	label="Observaciones" width="50%" align="center" />
+														<listheader	label="Competencia" width="25%" align="center" />
+														<listheader	label="Temporada" width="25%" align="center" />
 													</listhead>
 												</listbox>
 
