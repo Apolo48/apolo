@@ -135,8 +135,8 @@ public class CntrlAscensoEdad extends GenericForwardComposer {
 	}
 
 	public List<Jugador> getJugadores() {
-		listaJug= servicioRoster.buscarJugadores(equipo, "", "", "", "");
-       return listaJug;
+		listaJug=servicioRoster.listarJugadores(equipo);
+	    return listaJug;
 	}
 
 	// Eventos	

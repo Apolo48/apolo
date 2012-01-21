@@ -20,4 +20,6 @@ public interface IServicioRoster {
 	public abstract int obtenerUltimoId();
 	
 	public abstract Roster buscarRoster(String ced);
+	
+	public List<Jugador> listarJugadores(Equipo equipo);
 }

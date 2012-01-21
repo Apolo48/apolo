@@ -13,6 +13,7 @@ import modelo.DocumentoAscensoId;
 import modelo.DocumentoEntregado;
 import modelo.Jugador;
 import modelo.Equipo;
+import modelo.LapsoDeportivo;
 import modelo.RecaudoPorProceso;
 import modelo.Roster;
 
@@ -37,6 +38,7 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.api.Bandbox;
 
+import comun.EstatusRegistro;
 import comun.FileLoader;
 import comun.Mensaje;
 import comun.Ruta;
@@ -50,6 +52,7 @@ import servicio.implementacion.ServicioDocumentoAscenso;
 import servicio.implementacion.ServicioDocumentoEntregado;
 import servicio.implementacion.ServicioEquipo;
 import servicio.implementacion.ServicioJugador;
+import servicio.implementacion.ServicioLapsoDeportivo;
 import servicio.implementacion.ServicioRecaudoPorProceso;
 import servicio.implementacion.ServicioRoster;
 
@@ -75,6 +78,7 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	private ServicioRecaudoPorProceso servicioRecaudoPorProceso;
 	private ServicioDocumentoAscenso servicioDocumentoAscenso;
 	private ServicioDocumentoEntregado servicioDocumentoEntregado;
+	private ServicioLapsoDeportivo servicioLapsoDeportivo;
 
 	// Modelos
 	private Jugador jugador = new Jugador();
@@ -92,6 +96,7 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	// Lista
 	private List<Categoria> listaCategoria = null;
 	private List<DocumentoEntregado> documentosAscenso = new ArrayList<DocumentoEntregado>();
+	private List<DocumentoEntregado> recaudosAscenso = new ArrayList<DocumentoEntregado>();
 	
 	// id de la interfaz
 	private Textbox txtCedula;
@@ -109,6 +114,7 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	private Listbox listDoc;
 	private Spinner spCantidad;
 	private Button btnCatalogoJugador;
+	private Button btnGuardar;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
 	private Map<String, Object> requestScope;
@@ -221,10 +227,11 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	}
 
 	public List<DocumentoEntregado> getRecaudosAscenso() {
+		documentosAscenso = new ArrayList<DocumentoEntregado>();
 		if (sw == true) {
 			List<RecaudoPorProceso> lista = servicioRecaudoPorProceso
 					.buscarPorProceso(this.tipoAscenso,
-							TipoDatoBasico.TIPO_DOCUMENTO, "Ascenso");
+							TipoDatoBasico.TIPO_DOCUMENTO, "ESPECIAL");
 			for (RecaudoPorProceso recaudoPorProceso : lista) {
 				DocumentoEntregado docE = new DocumentoEntregado();
 				docE.setRecaudoPorProceso(recaudoPorProceso);
@@ -245,22 +252,40 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 				// TODO Auto-generated method stub
 				btnCatalogoJugador.setDisabled(true);
 				jugador = (Jugador) formulario.getVariable("jugador", false);
+
+				DatoBasico temporada = new DatoBasico();
+				temporada = servicioDatoBasico.buscarTipo(
+						TipoDatoBasico.TIPO_LAPSO_DEPORTIVO,
+						"TEMPORADA REGULAR");
+				LapsoDeportivo lapsoDeportivo = new LapsoDeportivo();
+				lapsoDeportivo = servicioLapsoDeportivo
+						.buscarDosCampos(temporada);
 				roster = servicioRoster.buscarRoster(jugador.getCedulaRif());
-				if (servicioAscenso.buscarAscenso(roster) == null) {
-					sw = true;
-					agregarCampos();
-					Date fechaN = jugador.getPersonaNatural()
-							.getFechaNacimiento();
-					edad = Util.calcularDiferenciaAnnios(fechaN);
-					binder.loadAll();
-				} else {
-					alert("El jugador ya fue ascendido en esta temporada");
-					btnCatalogoJugador.setDisabled(false);
+					if (lapsoDeportivo == null)
+					System.out.println("Lapso no encontrado");
+				else {
+					Date fechaI = lapsoDeportivo.getFechaInicio();
+					Date fechaF = lapsoDeportivo.getFechaFin();
+					if (roster.getFechaIngreso().before(fechaF)
+							&& roster.getFechaIngreso().after(fechaI)) {
+						alert("El jugador ya fue ascendido en esta temporada");
+						btnCatalogoJugador.setDisabled(false);
+					} else {
+						sw = true;
+						cmbCategoria.setFocus(true);
+						btnGuardar.setDisabled(false);
+						agregarCampos();
+						Date fechaN = jugador.getPersonaNatural()
+								.getFechaNacimiento();
+						edad = Util.calcularDiferenciaAnnios(fechaN);
+						binder.loadAll();
+
+					}
 				}
 			}
 		});
 	}
-	
+
 	public void onSelect$cmbCategoria() {
 		cmbEquipo.setDisabled(false);
 	}
@@ -276,20 +301,15 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	public void onClick$btnGuardar() {
 		if (camposVacios() != true) {
 			// Cambia de estatus el registro anterior del ascenso
-			servicioAscenso.actualizarAscenso(roster);
-			
-			cambiarEstatusRoster();
-			nuevoRoster();
-			agregarAscenso();
-			// actualizarNroJugador();
-			documentoEnt(documentosAscenso);
+		     servicioAscenso.actualizarAscenso(roster);
+			 cambiarEstatusRoster();
+			 nuevoRoster();
+			 agregarAscenso();
+			 //actualizarNroJugador();
+			 documentoEnt(documentosAscenso);
 			Mensaje.mostrarMensaje("Jugador cambiado de categoría",
 					Mensaje.EXITO, Messagebox.INFORMATION);
 			limpiar();
-		} else {
-			Mensaje.mostrarMensaje(
-					"Existen campos obligatorios, por favor verifique",
-					Mensaje.ERROR, Messagebox.EXCLAMATION);
 		}
 	}
 
@@ -303,10 +323,10 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 		String segApellido = jugador.getPersonaNatural().getSegundoApellido();
 		apellidos = jugador.getPersonaNatural().getPrimerApellido()
 				+ (segApellido == null ? "" : " " + segApellido);
-		
-		cmbCategoria.setDisabled(false);		
+
+		cmbCategoria.setDisabled(false);
 	}
-	
+
 	private void actualizarArchivo(String codigo,
 			List<DocumentoEntregado> lista, byte[] archivo) {
 		int cod = Integer.valueOf(codigo);
@@ -345,14 +365,14 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 		for (DocumentoEntregado doc : listaDoc) {
 			if (doc.getDocumento() != null) {
 				doc.setFecha(new Date());
-				doc.setEstatus('A');
+				doc.setEstatus(EstatusRegistro.ACTIVO);
 				servicioDocumentoEntregado.agregar(doc);
 				// Agrega el registro en documentos ascenso
 				DocumentoAscensoId docId = new DocumentoAscensoId(
 						doc.getCodigoDocumentoEntregado(),
 						ascenso.getCodigoAscenso());
 				DocumentoAscenso docAscenso = new DocumentoAscenso(docId, doc,
-						ascenso, 'A');
+						ascenso, EstatusRegistro.ACTIVO);
 				servicioDocumentoAscenso.agregar(docAscenso);
 			}
 		}
@@ -360,6 +380,13 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 
 	// Borra los datos introducidos en la interfaz
 	public void limpiar() {
+		jugador = new Jugador();
+		roster = new Roster();
+		equipo = new Equipo();
+		categoria = new Categoria();
+		recaudoAscenso = new RecaudoPorProceso();
+		docEntAscenso = new DocumentoEntregado();
+		binder.loadAll();
 		txtCedula.setValue(null);
 		txtNombre.setValue(null);
 		txtApellido.setValue(null);
@@ -367,11 +394,11 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 		txtEquipo.setValue(null);
 		txtNumero.setValue(null);
 		dtboxFechaNac.setValue(null);
-		cmbCategoria.setValue(null);
-		cmbEquipo.setValue(null);
 		cmbCategoria.setDisabled(true);
 		cmbEquipo.setDisabled(true);
 		btnCatalogoJugador.setDisabled(false);
+		btnCatalogoJugador.setFocus(true);
+		btnGuardar.setDisabled(true);
 		limpiarList();
 	}
 
@@ -386,11 +413,29 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 
 	public boolean camposVacios() {
 		boolean vacio = false;
-		if (txtCedula.getValue().equals("")
-				|| cmbCategoria.getSelectedIndex() == -1
-				|| cmbEquipo.getSelectedIndex() == -1
-				|| bboxNumero.getValue().equals("")) {
+		if (cmbCategoria.getSelectedIndex() == -1) {
+			Mensaje.mostrarMensaje("Seleccione una categoria", Mensaje.ERROR,
+					Messagebox.EXCLAMATION);
+			cmbCategoria.setFocus(true);
 			vacio = true;
+		} else {
+			if (cmbEquipo.getSelectedIndex() == -1) {
+				Mensaje.mostrarMensaje("Seleccione un equipo", Mensaje.ERROR,
+						Messagebox.EXCLAMATION);
+				cmbEquipo.setFocus(true);
+				vacio = true;
+//			} else {
+//				System.out.println(spCantidad.getValue());
+//				if (spCantidad.getValue() != null ) {
+//					if(spCantidad.getValue()<0){
+//						System.out.println(spCantidad.getValue());
+//						Mensaje.mostrarMensaje("Cantidad no válida", Mensaje.ERROR,
+//								Messagebox.EXCLAMATION);
+//						spCantidad.setFocus(true);
+//						vacio = true;
+//						}
+//				}
+			}
 		}
 		return vacio;
 	}
@@ -402,23 +447,25 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 		servicioJugador.actualizar(jugador);
 	}
 
+	// Cambia de estatus el registro anterior del roster
+	public void cambiarEstatusRoster() {
+		roster.setEstatus(EstatusRegistro.ELIMINADO);
+		servicioRoster.actualizar(roster);
+	}
+	
 	// Agrega un nuevo registro del roster
 	public void nuevoRoster() {
-		roster.setEstatus('A');
+		roster.setEstatus(EstatusRegistro.ACTIVO);
 		roster.setEquipo(equipo);
 		roster.setFechaIngreso(new Date());
 		servicioRoster.agregar(roster);
 	}
 
-	// Cambia de estatus el registro anterior del roster
-	public void cambiarEstatusRoster() {
-		roster.setEstatus('E');
-		servicioRoster.actualizar(roster);
-	}
+
 
 	// Agrega el registro en la tabla ascenso correspondiente al roster
 	public void agregarAscenso() {
-		ascenso.setEstatus('A');
+		ascenso.setEstatus(EstatusRegistro.ACTIVO);
 		ascenso.setRoster(roster);
 		ascenso.setTipoAscenso(tipoAscenso.getNombre());
 		ascenso.setFechaAscenso(new Date());

@@ -4,6 +4,7 @@ import java.util.List;
 
 import modelo.DatoBasico;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -56,6 +57,17 @@ public class GenericDao {
 		      return session;	
 			}
 		}
+	
+	
+	public Object buscarDosCampos(Class o, String c1, Object v1, String c2, Object v2) {
+		Session session = getSession();
+		Transaction tx =  session.beginTransaction();
+		Criteria cri = session.createCriteria(o);
+		cri.add(Restrictions.eq(c1, v1));
+		cri.add(Restrictions.eq(c2, v2));
+		Object resultado = cri.list().get(0);
+	    return resultado;
+	}
 
 }
 

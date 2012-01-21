@@ -106,4 +106,20 @@ public class DaoRoster extends GenericDao {
 			return c.list();
 	}
 	
+	/**
+	 * Busca los jugadores que estan en un equipo
+	 * 
+	 * @param Objeto Equipo 
+	 * @return Lista de jugadores en ese equipo sino null
+	 */
+	public List listarJugadores(Equipo equipo) {
+		Session session = getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(Roster.class)
+				.add(Restrictions.eq("equipo", equipo))
+				.add(Restrictions.eq("estatus", 'A'));
+		List<Roster> lista = c.list();
+		return lista;
+	}
+	
 }
