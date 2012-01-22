@@ -1,7 +1,12 @@
 <?page title="VistasRegistrarJugador"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winVistaPreviaJugador"?>
+
 <zk>
 	<window border="normal" title="Vista Previa del Registro"
-		closable="true" width="640px" id="winVistaPreviaJugador">
+		closable="true" width="640px" id="winVistaPreviaJugador" mode="modal"
+		 apply="controlador.jugador.CntrlVistaPreviaJugador"
+		>
 
 		<groupbox style="border-color:orange" closable="false">
 			<caption label="Jugador" />
@@ -24,13 +29,13 @@
 								<row spans="1,3" style="border:none;">
 									<label value="Cédula" />
 									<div>
-										<label value="V-20161893" style="font-weight: bold;"/>
+										<label id="lblCedula" value="@{controller.jugador.cedulaCompleta}" style="font-weight: bold;"/>
 									</div>
 								</row>
 								<row style="border:none;">
 									<label value="Primer Nombre" />
 									<div>
-										<label value="Luis" style="font-weight: bold;"/>
+										<label value="@{controller.jugador.primerNombre}" style="font-weight: bold;"/>
 									</div>
 									<label value="Segundo Nombre" />
 									<div>
@@ -142,7 +147,7 @@
 				<rows>
 					<row style="border:none;">
 						<label value="Teléfono Habitación" />
-						<label value="0251-7191804" style="font-weight: bold;"/>
+						<label id="lblTelefonoHabitacion"  value="@{controller.jugador.telefonoHabitacion.telefonoCompleto}" style="font-weight: bold;"/>
 						<label value="Teléfono Celular" />
 						<label value="0414-9573985" style="font-weight: bold;"/>
 					</row>

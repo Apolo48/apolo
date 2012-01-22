@@ -774,8 +774,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnVistaPrevia() {
-		new Util().crearVentana(rutasJug + "frmVistaRegistroJugador.zul", null,
-				null);
+		Component vista = Executions.createComponents(rutasJug
+				+ "frmVistaRegistroJugador.zul", null, null);
+		vista.setVariable("jugadorBean", jugadorBean, false);	
 	}
 
 	public void onClick$btnDesp() {
