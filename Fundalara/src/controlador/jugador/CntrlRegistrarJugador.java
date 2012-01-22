@@ -1,5 +1,8 @@
 package controlador.jugador;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -54,6 +57,7 @@ import comun.Util;
 import comun.Mensaje;
 import comun.TipoDatoBasico;
 import controlador.jugador.bean.Telefono;
+import controlador.jugador.restriccion.Edad;
 import controlador.jugador.restriccion.Restriccion;
 import modelo.AfeccionJugador;
 import modelo.AfeccionJugadorId;
@@ -164,7 +168,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Listbox listFamiliares;
 	private Component formulario;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
-	
+
 	// Servicios
 	private ServicioDatoBasico servicioDatoBasico;
 	private ServicioCategoria servicioCategoria;
@@ -241,8 +245,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 * Enumerado de los puntos/secciones del registro del jugador
 	 */
 	private enum Point {
-		JUGADOR, DATO_MEDICO, DATO_ACADEMICO, DATO_SOCIAL, ROSTER, DOCUMENTO_PERSONAL, DOCUMENTO_ACADEMICO,
-		DOCUMENTO_MEDICO, TALLA, FAMILIAR
+		JUGADOR, DATO_MEDICO, DATO_ACADEMICO, DATO_SOCIAL, ROSTER, DOCUMENTO_PERSONAL, DOCUMENTO_ACADEMICO, DOCUMENTO_MEDICO, TALLA, FAMILIAR
 	};
 
 	/**
@@ -263,8 +266,18 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		inicializarCheckPoints();
 		tipoIndumentaria = servicioDatoBasico.buscarTipo(
 				TipoDatoBasico.TIPO_UNIFORME, "Entrenamiento");
+		
 	}
 
+	public void  onCreate$winRegistrarJugador(){
+		DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+		try {
+			Date fechaInicial = (Date) formatter.parse(Util.getFecha(Edad.EDAD_MINIMA, Util.LIMITE_INFERIOR));		
+			dtboxFechaNac.setValue(fechaInicial);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	// Getters y setters
 
 	public DatoBasico getEstadoVenezuela() {
@@ -776,7 +789,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void onClick$btnVistaPrevia() {
 		Component vista = Executions.createComponents(rutasJug
 				+ "frmVistaRegistroJugador.zul", null, null);
-		vista.setVariable("jugadorBean", jugadorBean, false);	
+		vista.setVariable("jugadorBean", jugadorBean, false);
 	}
 
 	public void onClick$btnDesp() {
@@ -1310,55 +1323,57 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	}
 
-	private void guardarFamiliares(){
+	private void guardarFamiliares() {
 		DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
 				TipoDatoBasico.TIPO_PERSONA, "Familiar");
 		List<Familiar> familiaresModelo = new ArrayList<Familiar>();
 		for (controlador.jugador.bean.Familiar familiar : familiares) {
-			familiaresModelo.add(guardarFamiliarBeanToModelo(familiar, datoTipoPersona));
+			familiaresModelo.add(guardarFamiliarBeanToModelo(familiar,
+					datoTipoPersona));
 		}
 		servicioFamiliar.agregar(familiaresModelo, jugador);
 	}
-	
-	
-	private Familiar guardarFamiliarBeanToModelo(controlador.jugador.bean.Familiar  familiarBean, DatoBasico tipoPersona){
+
+	private Familiar guardarFamiliarBeanToModelo(
+			controlador.jugador.bean.Familiar familiarBean,
+			DatoBasico tipoPersona) {
 		personaFamiliar = new Persona();
 		personaNFamiliar = new PersonaNatural();
 		familiar = new Familiar();
-		
-		personaFamiliar.setCedulaRif(familiarBean.getCedulaCompleta());		
-		personaFamiliar.setCorreoElectronico(familiarBean.getCorreoElectronico());
-		personaFamiliar.setDatoBasicoByCodigoParroquia(familiarBean.getParroquiaResi());
-		personaFamiliar.setTelefonoHabitacion(familiarBean.getTelefonoHabitacion()
-				.getTelefonoCompleto());
+
+		personaFamiliar.setCedulaRif(familiarBean.getCedulaCompleta());
+		personaFamiliar.setCorreoElectronico(familiarBean
+				.getCorreoElectronico());
+		personaFamiliar.setDatoBasicoByCodigoParroquia(familiarBean
+				.getParroquiaResi());
+		personaFamiliar.setTelefonoHabitacion(familiarBean
+				.getTelefonoHabitacion().getTelefonoCompleto());
 		personaFamiliar.setTwitter(familiarBean.getTwitter());
 		personaFamiliar.setDireccion(familiarBean.getDireccion());
 		personaFamiliar.setDatoBasicoByCodigoTipoPersona(tipoPersona);
 		personaFamiliar.setFechaIngreso(new Date());
 		personaFamiliar.setEstatus(EstatusRegistro.TEMPORAL);
 
-
 		personaNFamiliar.setCedulaRif(familiarBean.getCedulaCompleta());
-		personaNFamiliar.setCelular(jugadorBean.getTelefonoCelular()
+		personaNFamiliar.setCelular(familiarBean.getTelefonoCelular()
 				.getTelefonoCompleto());
-		personaNFamiliar.setPrimerApellido(jugadorBean.getPrimerApellido());
-		personaNFamiliar.setPrimerNombre(jugadorBean.getPrimerNombre());
-		personaNFamiliar.setSegundoApellido(jugadorBean.getSegundoApellido());
-		personaNFamiliar.setSegundoNombre(jugadorBean.getSegundoNombre());
-		personaNFamiliar.setFoto(jugadorBean.getFoto());
+		personaNFamiliar.setPrimerApellido(familiarBean.getPrimerApellido());
+		personaNFamiliar.setPrimerNombre(familiarBean.getPrimerNombre());
+		personaNFamiliar.setSegundoApellido(familiarBean.getSegundoApellido());
+		personaNFamiliar.setSegundoNombre(familiarBean.getSegundoNombre());
+		personaNFamiliar.setFoto(familiarBean.getFoto());
 		personaNFamiliar.setEstatus(EstatusRegistro.TEMPORAL);
 		personaNFamiliar.setPersona(personaFamiliar);
 
-		
-		
 		familiar.setCedulaRif(familiarBean.getCedulaCompleta());
 		familiar.setDatoBasico(familiarBean.getProfesion());
 		familiar.setEstatus(EstatusRegistro.TEMPORAL);
 		familiar.setPersonaNatural(personaNFamiliar);
-		
+
 		return familiar;
-		
+
 	}
+
 	private void guardarFamiliarVistaToBean() {
 		familiarBean.setNacionalidad(cmbNacionalidad.getSelectedItem()
 				.getValue().toString());
@@ -1386,11 +1401,10 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 						: (DatoBasico) cmbCodAreaFamiliar.getSelectedItem()
 								.getValue()), txtTelefonoHabFamiliar
 						.getRawText()));
-		familiarBean.setTelefonoCelular(new Telefono(
-				(cmbCodCelularFamiliar.getSelectedItem() == null ? null
-						: (DatoBasico) cmbCodCelularFamiliar.getSelectedItem()
-								.getValue()), txtTelefonoCelFamiliar
-						.getRawText()));
+		familiarBean.setTelefonoCelular(new Telefono((cmbCodCelularFamiliar
+				.getSelectedItem() == null ? null
+				: (DatoBasico) cmbCodCelularFamiliar.getSelectedItem()
+						.getValue()), txtTelefonoCelFamiliar.getRawText()));
 		familiarBean.setCorreoElectronico(txtCorreoFamiliar.getRawText());
 		familiarBean.setTwitter(txtTwitterFamiliar.getRawText());
 
@@ -1458,7 +1472,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		return flag;
 
 	}
-	
+
 	/**
 	 * Aplica las restricciones de captura de datos a los componentes de la
 	 * vista

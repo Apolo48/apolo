@@ -32,9 +32,9 @@
 										<div>
 											<combobox
 												id="cmbNacionalidad" readonly="true" value="-" width="4%"
-												focus="true" constraint="no empty"
+												focus="true" constraint="no empty" 
 												selectedItem="@{controller.jugadorBean.nacionalidad}">
-												<comboitem label="V"
+												<comboitem label="V" 
 													value="V" />
 												<comboitem label="E"
 													value="E" />
@@ -89,7 +89,7 @@
 										<label value="Género" />
 										<div>
 											<combobox id="cmbGenero"
-											constraint="no empty"
+											constraint="no empty" 
 												selectedItem="@{controller.jugadorBean.genero}"
 												readonly="true" value="--Seleccione--" width="25%"
 													model="@{winRegistrarJugador$composer.generos}">
@@ -183,7 +183,7 @@
 																			value="Fecha " />
 																		<div>
 																			<datebox
-																				value="@{controller.jugadorBean.fechaNacimiento}"
+																				value="@{controller.jugadorBean.fechaNacimiento}" 
 																				id="dtboxFechaNac" 
 																				format="dd/MM/yyyy"
 																				style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
@@ -473,7 +473,7 @@
 														<listcell
 															label="@{docPer.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
 														<listcell
-															label="Subir" image="../../Recursos/Imagenes/subir.png"
+															label="Subir" 
 															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
 														</listcell>
 													</listitem>
