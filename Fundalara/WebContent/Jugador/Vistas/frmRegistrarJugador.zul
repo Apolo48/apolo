@@ -473,7 +473,7 @@
 														<listcell
 															label="@{docPer.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
 														<listcell
-															label="Subir"
+															label="Subir" image="../../Recursos/Imagenes/subir.png"
 															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
 														</listcell>
 													</listitem>
@@ -1592,7 +1592,7 @@
 																				id="cmbNacionalidadFamiliar" readonly="true"
 																				value="-" width="10%"
 																				constraint="no empty"
-																				selectedItem="@{controller.familiarBean.nacionalidad}">
+																		>
 																				<comboitem
 																					label="V" />
 																				<comboitem
@@ -1601,7 +1601,7 @@
 																			<intbox
 																				id="txtCedulaFamiliar" constraint="no negative"
 																				width="50%" maxlength="8"
-																				value="@{controller.familiarBean.cedula}" />
+																				 />
 																			<label
 																				value="(*)" style="color:red" />
 																		</div>
@@ -1616,7 +1616,7 @@
 																		<div>
 																			<textbox
 																				width="80%" id="txtPrimerNombreFamiliar"
-																				value="@{controller.familiarBean.primerNombre}">
+																			>
 																			</textbox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1625,7 +1625,7 @@
 																			value="Segundo Nombre" />
 																		<textbox
 																			width="80%" id="txtSegundoNombreFamiliar"
-																			value="@{controller.familiarBean.segundoNombre}">
+																>
 																		</textbox>
 																	</row>
 																	<row
@@ -1635,7 +1635,7 @@
 																		<div>
 																			<textbox
 																				width="80%" id="txtPrimerApellidoFamiliar"
-																				value="@{controller.familiarBean.primerApellido}">
+																			>
 																			</textbox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1644,7 +1644,7 @@
 																			value="Segundo Apellido" />
 																		<textbox
 																			width="80%" id="txtSegundoApellidoFamiliar"
-																			value="@{controller.familiarBean.segundoApellido}">
+																		>
 																		</textbox>
 																	</row>
 																	<row
@@ -1657,11 +1657,11 @@
 																				constraint="no empty"
 																				model="@{winRegistrarJugador$composer.parentescos}"
 																				readonly="true" value="--Seleccione--" width="65%"
-																				selectedItem="@{controller.familiarBean.parentesco}">
+																	>
 																				<comboitem
 																					self="@{each='parentesco'}"
 																					label="@{parentesco.nombre}"
-																					value="@{parentesco.codigoDatoBasico}" />
+																					value="@{parentesco}" />
 																			</combobox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1673,11 +1673,11 @@
 																				id="cmbProfesion"
 																				model="@{winRegistrarJugador$composer.profesiones}"
 																				readonly="true" value="--Seleccione--" width="65%"
-																				selectedItem="@{controller.familiarBean.profesion}">
+																			>
 																				<comboitem
 																					self="@{each='profesion'}"
 																					label="@{profesion.nombre}"
-																					value="@{profesion.codigoDatoBasico}" />
+																					value="@{profesion}" />
 																			</combobox>
 																		</div>
 																	</row>
@@ -1772,10 +1772,11 @@
 																	id="cmbParroquiaFamiliar" readonly="true"
 																	value="--Seleccione--" width="65%"
 																	model="@{winRegistrarJugador$composer.parroquiasMunicipioFam, load-after='cmbMunicipioFamiliar.onChange'}"
-																	selectedItem="@{controller.familiarBean.parroquiaResi}">
+																	>
 																	<comboitem
 																		self="@{each='parroquiaFam'}"
-																		label="@{parroquiaFam.nombre}" />
+																		label="@{parroquiaFam.nombre}"
+																			value="@{parroquiaFam}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
@@ -1789,7 +1790,7 @@
 																<textbox
 																	maxlength="180" height="40px" width="90%"
 																	multiline="true" id="txtDireccionHabFamiliar"
-																	value="@{controller.familiarBean.direccion}" />
+																	 />
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -1823,16 +1824,16 @@
 																	readonly="true" id="cmbCodAreaFamiliar" value="--"
 																	width="25%"
 																	model="@{winRegistrarJugador$composer.codigosArea}"
-																	selectedItem="@{controller.familiarBean.telefonoHabitacion.codigo}">
+																	>
 																	<comboitem
 																		self="@{each='codAFamiliar'}"
 																		label="@{codAFamiliar.nombre}"
-																		value="@{codAFamiliar.codigoDatoBasico}" />
+																		value="@{codAFamiliar}" />
 																</combobox>
 																<textbox
 																	id="txtTelefonoHabFamiliar" width="40%"
 																	maxlength="7"
-																	value="@{controller.familiarBean.telefonoHabitacion.numero}" />
+																	 />
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -1843,16 +1844,16 @@
 																	readonly="true" id="cmbCodCelularFamiliar" value="--"
 																	width="25%"
 																	model="@{winRegistrarJugador$composer.codigosCelular}"
-																	selectedItem="@{controller.familiarBean.telefonoCelular.codigo}">
+																	>
 																	<comboitem
 																		self="@{each='codCFamiliar'}"
 																		label="@{codCFamiliar.nombre}"
-																		value="@{codCFamiliar.codigoDatoBasico}" />
+																		value="@{codCFamiliar}" />
 																</combobox>
 																<textbox
 																	id="txtTelefonoCelFamiliar" width="40%"
 																	maxlength="7"
-																	value="@{controller.familiarBean.telefonoCelular.numero}" />
+																	/>
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -1863,14 +1864,14 @@
 																value="Correo Electrónico" />
 															<textbox
 																width="88%" id="txtCorreoFamiliar"
-																value="@{controller.familiarBean.correoElectronico}" />
+																 />
 															<label
 																value="Twitter" />
 															<hbox>
 																<label
 																	value="@" />
 																<textbox
-																	value="@{controller.familiarBean.twitter}" width="80%"
+																	width="80%"
 																	id="txtTwitterFamiliar" />
 															</hbox>
 														</row>													</rows>

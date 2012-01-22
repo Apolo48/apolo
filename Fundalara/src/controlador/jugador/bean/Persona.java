@@ -173,4 +173,14 @@ public class Persona {
 		this.estatus = estatus;
 	}
 
+	
+	public String getNombres(){
+		return getPrimerNombre().toUpperCase() + " " 
+				+ (getSegundoNombre() == null ? "" :  getSegundoNombre().toUpperCase());
+	}
+
+	public String getApellidos(){
+		return getPrimerApellido().toUpperCase() + " " 
+				+ (getSegundoApellido() == null ? "" :  getSegundoApellido().toUpperCase());
+	}
 }

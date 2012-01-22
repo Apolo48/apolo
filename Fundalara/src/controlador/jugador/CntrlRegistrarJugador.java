@@ -39,6 +39,7 @@ import servicio.implementacion.ServicioDocumentoAcademico;
 import servicio.implementacion.ServicioDocumentoMedico;
 import servicio.implementacion.ServicioDocumentoPersonal;
 import servicio.implementacion.ServicioEquipo;
+import servicio.implementacion.ServicioFamiliar;
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioMedico;
 import servicio.implementacion.ServicioRecaudoPorProceso;
@@ -52,6 +53,7 @@ import comun.Ruta;
 import comun.Util;
 import comun.Mensaje;
 import comun.TipoDatoBasico;
+import controlador.jugador.bean.Telefono;
 import controlador.jugador.restriccion.Restriccion;
 import modelo.AfeccionJugador;
 import modelo.AfeccionJugadorId;
@@ -104,6 +106,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Intbox txtEdad;
 	private Intbox txtCedulaSecuencia;
 	private Intbox txtCedula;
+	private Intbox txtCedulaFamiliar;
 	private Spinner spHorasSemanales;
 	private Textbox txtPrimerNombre;
 	private Textbox txtPrimerApellido;
@@ -116,11 +119,13 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Textbox txtTelefonoCelFamiliar;
 	private Textbox txtMedico;
 	private Textbox txtNroColegio;
-	private Textbox txtCedulaFamiliar;
 	private Textbox txtPrimerNombreFamiliar;
 	private Textbox txtSegundoNombreFamiliar;
 	private Textbox txtPrimerApellidoFamiliar;
 	private Textbox txtSegundoApellidoFamiliar;
+	private Textbox txtDireccionHabFamiliar;
+	private Textbox txtCorreoFamiliar;
+	private Textbox txtTwitterFamiliar;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
@@ -143,6 +148,12 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Combobox cmbAnnioEscolar;
 	private Combobox cmbInstitucionEducativa;
 	private Combobox cmbEquipo;
+	private Combobox cmbParentesco;
+	private Combobox cmbEstadoFamiliar;
+	private Combobox cmbMunicipioFamiliar;
+	private Combobox cmbParroquiaFamiliar;
+	private Combobox cmbCodAreaFamiliar;
+	private Combobox cmbCodCelularFamiliar;
 	private Label lblSeparador;
 	private Listbox listAfeccionesActuales;
 	private Listbox listActividadesSociales;
@@ -150,9 +161,10 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Listbox listDocAcademicos;
 	private Listbox listDocPersonales;
 	private Listbox listDocMedicos;
+	private Listbox listFamiliares;
 	private Component formulario;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
-
+	
 	// Servicios
 	private ServicioDatoBasico servicioDatoBasico;
 	private ServicioCategoria servicioCategoria;
@@ -170,6 +182,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioDocumentoAcademico servicioDocumentoAcademico;
 	private ServicioDocumentoMedico servicioDocumentoMedico;
 	private ServicioDocumentoPersonal servicioDocumentoPersonal;
+	private ServicioFamiliar servicioFamiliar;
 
 	// Modelos
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
@@ -209,6 +222,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private PersonaNatural personaN = new PersonaNatural();
 	private Jugador jugador = new Jugador();
 	private DatoBasico tipoIndumentaria = new DatoBasico();
+	private Persona personaFamiliar = new Persona();
+	private PersonaNatural personaNFamiliar = new PersonaNatural();
 
 	// Binder
 	private AnnotateDataBinder binder;
@@ -226,7 +241,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 * Enumerado de los puntos/secciones del registro del jugador
 	 */
 	private enum Point {
-		JUGADOR, DATO_MEDICO, DATO_ACADEMICO, DATO_SOCIAL, ROSTER, DOCUMENTO_PERSONAL, DOCUMENTO_ACADEMICO, DOCUMENTO_MEDICO, TALLA
+		JUGADOR, DATO_MEDICO, DATO_ACADEMICO, DATO_SOCIAL, ROSTER, DOCUMENTO_PERSONAL, DOCUMENTO_ACADEMICO,
+		DOCUMENTO_MEDICO, TALLA, FAMILIAR
 	};
 
 	/**
@@ -930,6 +946,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			guardarDocumentoPersonal();
 			guardarDocumentoAcademico();
 			guardarDocumentoMedico();
+			guardarFamiliares();
 			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
 					Mensaje.EXITO, Messagebox.EXCLAMATION);
 
@@ -1292,6 +1309,155 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	}
 
+	private void guardarFamiliares(){
+		DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.TIPO_PERSONA, "Familiar");
+		List<Familiar> familiaresModelo = new ArrayList<Familiar>();
+		for (controlador.jugador.bean.Familiar familiar : familiares) {
+			familiaresModelo.add(guardarFamiliarBeanToModelo(familiar, datoTipoPersona));
+		}
+		servicioFamiliar.agregar(familiaresModelo, jugador);
+	}
+	
+	
+	private Familiar guardarFamiliarBeanToModelo(controlador.jugador.bean.Familiar  familiarBean, DatoBasico tipoPersona){
+		personaFamiliar = new Persona();
+		personaNFamiliar = new PersonaNatural();
+		familiar = new Familiar();
+		
+		personaFamiliar.setCedulaRif(familiarBean.getCedulaCompleta());		
+		personaFamiliar.setCorreoElectronico(familiarBean.getCorreoElectronico());
+		personaFamiliar.setDatoBasicoByCodigoParroquia(familiarBean.getParroquiaResi());
+		personaFamiliar.setTelefonoHabitacion(familiarBean.getTelefonoHabitacion()
+				.getTelefonoCompleto());
+		personaFamiliar.setTwitter(familiarBean.getTwitter());
+		personaFamiliar.setDireccion(familiarBean.getDireccion());
+		personaFamiliar.setDatoBasicoByCodigoTipoPersona(tipoPersona);
+		personaFamiliar.setFechaIngreso(new Date());
+		personaFamiliar.setEstatus(EstatusRegistro.TEMPORAL);
+
+
+		personaNFamiliar.setCedulaRif(familiarBean.getCedulaCompleta());
+		personaNFamiliar.setCelular(jugadorBean.getTelefonoCelular()
+				.getTelefonoCompleto());
+		personaNFamiliar.setPrimerApellido(jugadorBean.getPrimerApellido());
+		personaNFamiliar.setPrimerNombre(jugadorBean.getPrimerNombre());
+		personaNFamiliar.setSegundoApellido(jugadorBean.getSegundoApellido());
+		personaNFamiliar.setSegundoNombre(jugadorBean.getSegundoNombre());
+		personaNFamiliar.setFoto(jugadorBean.getFoto());
+		personaNFamiliar.setEstatus(EstatusRegistro.TEMPORAL);
+		personaNFamiliar.setPersona(personaFamiliar);
+
+		
+		
+		familiar.setCedulaRif(familiarBean.getCedulaCompleta());
+		familiar.setDatoBasico(familiarBean.getProfesion());
+		familiar.setEstatus(EstatusRegistro.TEMPORAL);
+		familiar.setPersonaNatural(personaNFamiliar);
+		
+		return familiar;
+		
+	}
+	private void guardarFamiliarVistaToBean() {
+		familiarBean.setNacionalidad(cmbNacionalidad.getSelectedItem()
+				.getValue().toString());
+		familiarBean.setCedula(txtCedulaFamiliar.getValue().toString());
+		familiarBean.setPrimerNombre(txtPrimerNombreFamiliar.getValue());
+		familiarBean.setSegundoNombre(txtSegundoNombreFamiliar.getRawText());
+		familiarBean.setPrimerApellido(txtPrimerApellidoFamiliar.getValue());
+		familiarBean
+				.setSegundoApellido(txtSegundoApellidoFamiliar.getRawText());
+		familiarBean
+				.setParentesco((cmbParentesco.getSelectedItem() == null ? null
+						: (DatoBasico) cmbParentesco.getSelectedItem()
+								.getValue()));
+		familiarBean
+				.setProfesion((cmbProfesion.getSelectedItem() == null ? null
+						: (DatoBasico) cmbProfesion.getSelectedItem()
+								.getValue()));
+		familiarBean
+				.setParroquiaResi((cmbParroquiaFamiliar.getSelectedItem() == null ? null
+						: (DatoBasico) cmbParroquiaFamiliar.getSelectedItem()
+								.getValue()));
+		familiarBean.setDireccion(txtDireccionHabFamiliar.getRawText());
+		familiarBean.setTelefonoHabitacion(new Telefono(
+				(cmbCodAreaFamiliar.getSelectedItem() == null ? null
+						: (DatoBasico) cmbCodAreaFamiliar.getSelectedItem()
+								.getValue()), txtTelefonoHabFamiliar
+						.getRawText()));
+		familiarBean.setTelefonoCelular(new Telefono(
+				(cmbCodCelularFamiliar.getSelectedItem() == null ? null
+						: (DatoBasico) cmbCodCelularFamiliar.getSelectedItem()
+								.getValue()), txtTelefonoCelFamiliar
+						.getRawText()));
+		familiarBean.setCorreoElectronico(txtCorreoFamiliar.getRawText());
+		familiarBean.setTwitter(txtTwitterFamiliar.getRawText());
+
+	}
+
+	public void onClick$btnAgregarFamiliar() {
+		if (verificarCampos(new InputElement[] { cmbNacionalidadFamiliar,
+				txtCedulaFamiliar, txtPrimerNombreFamiliar,
+				txtPrimerApellidoFamiliar }, false)) {
+			if (cmbParentesco.getSelectedIndex() != -1) {
+				guardarFamiliarVistaToBean();
+				if (!buscarFamiliarEnLista(familiares, familiarBean)) {
+					familiares.add(familiarBean);
+					binder.loadComponent(listFamiliares);
+					limpiarFamiliar();
+				} else {
+					Mensaje.mostrarMensaje(
+							"El familiar: " + familiarBean.getNombres() + " "
+									+ familiarBean.getApellidos()
+									+ "  ya está asociado al jugador.",
+							Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+				}
+			} else {
+				cmbParentesco.setFocus(true);
+			}
+		}
+	}
+
+	private void limpiarFamiliar() {
+		familiarBean = new controlador.jugador.bean.Familiar();
+		cmbNacionalidadFamiliar.setValue("--");
+		txtCedulaFamiliar.setRawValue("");
+		txtPrimerNombreFamiliar.setRawValue("");
+		txtSegundoNombreFamiliar.setRawValue("");
+		txtPrimerApellidoFamiliar.setRawValue("");
+		txtSegundoApellidoFamiliar.setRawValue("");
+		cmbParentesco.setValue("--Seleccione--");
+		cmbProfesion.setValue("--Seleccione--");
+		// imgFamiliar.setContent(null);
+		cmbEstadoFamiliar.setValue("--Seleccione--");
+		cmbMunicipioFamiliar.setValue("--Seleccione--");
+		cmbParroquiaFamiliar.setValue("--Seleccione--");
+		txtDireccionHabFamiliar.setRawValue("");
+		cmbCodAreaFamiliar.setValue("--");
+		txtTelefonoHabFamiliar.setRawValue("");
+		cmbCodCelularFamiliar.setValue("--");
+		txtTelefonoCelular.setRawValue("");
+		txtCorreoFamiliar.setRawValue("");
+		txtTwitterFamiliar.setRawValue("");
+		binder.loadComponent(listComisiones);
+
+	}
+
+	private boolean buscarFamiliarEnLista(
+			List<controlador.jugador.bean.Familiar> familiares,
+			controlador.jugador.bean.Familiar familiarBuscado) {
+		boolean flag = false;
+		for (controlador.jugador.bean.Familiar familiar : familiares) {
+			if (familiar.getCedulaCompleta().equals(
+					familiarBuscado.getCedulaCompleta())) {
+				flag = true;
+				break;
+			}
+		}
+		return flag;
+
+	}
+	
 	/**
 	 * Aplica las restricciones de captura de datos a los componentes de la
 	 * vista
@@ -1316,6 +1482,15 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		spHorasSemanales.setConstraint(Restriccion.HORAS_SEMANAL_SOCIAL
 				.getRestriccion());
 		// Registro Familiar
+		txtCedulaFamiliar.setConstraint(Restriccion.CEDULA.getRestriccion());
+		txtPrimerNombreFamiliar.setConstraint(Restriccion.TEXTO_SIMPLE
+				.asignarRestriccionExtra("no empty"));
+		txtPrimerApellidoFamiliar.setConstraint(Restriccion.TEXTO_SIMPLE
+				.asignarRestriccionExtra("no empty"));
+		txtSegundoNombreFamiliar.setConstraint(Restriccion.TEXTO_SIMPLE
+				.getRestriccion());
+		txtSegundoApellidoFamiliar.setConstraint(Restriccion.TEXTO_SIMPLE
+				.getRestriccion());
 		txtTelefonoHabFamiliar.setConstraint(Restriccion.TELEFONO
 				.getRestriccion());
 		txtTelefonoCelFamiliar.setConstraint(Restriccion.TELEFONO
@@ -1333,5 +1508,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		checkPoints.put(Point.DOCUMENTO_ACADEMICO, false);
 		checkPoints.put(Point.DOCUMENTO_MEDICO, false);
 		checkPoints.put(Point.TALLA, false);
+		checkPoints.put(Point.FAMILIAR, false);
 	}
 }

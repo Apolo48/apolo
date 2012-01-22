@@ -6,6 +6,7 @@ import servicio.interfaz.IServicioFamiliar;
 
 import dao.general.DaoFamiliar;
 import modelo.Familiar;
+import modelo.Jugador;
 
 public class ServicioFamiliar implements IServicioFamiliar {
 
@@ -41,9 +42,9 @@ public class ServicioFamiliar implements IServicioFamiliar {
 	public List<Familiar> listar() {
 		return daoFamiliar.listar( Familiar.class);
 	}
-	
-	public List<Familiar> filtrar(String filtro1,String filtro2,String filtro3){
-		return daoFamiliar.cargarlista(filtro1, filtro2, filtro3);
-	}
 
+	public void agregar(List<Familiar> familiares, Jugador jugador) {
+		daoFamiliar.guardar(familiares, jugador);
+
+	}
 }
