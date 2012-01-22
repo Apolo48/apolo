@@ -5,8 +5,7 @@
 <zk>
 	<window border="normal" title="Vista Previa del Registro"
 		closable="true" width="640px" id="winVistaPreviaJugador" mode="modal"
-		 apply="controlador.jugador.CntrlVistaPreviaJugador"
-		>
+		 apply="controlador.jugador.CntrlVistaPreviaJugador"	>
 
 		<groupbox style="border-color:orange" closable="false">
 			<caption label="Jugador" />
@@ -29,32 +28,32 @@
 								<row spans="1,3" style="border:none;">
 									<label value="Cédula" />
 									<div>
-										<label id="lblCedula" value="@{controller.jugador.cedulaCompleta}" style="font-weight: bold;"/>
+										<label id="lblCedula" style="font-weight: bold;"/>
 									</div>
 								</row>
 								<row style="border:none;">
 									<label value="Primer Nombre" />
 									<div>
-										<label value="@{controller.jugador.primerNombre}" style="font-weight: bold;"/>
+										<label id="lblPrimerNombre" value="@{controller.jugador.primerNombre}" style="font-weight: bold;"/>
 									</div>
 									<label value="Segundo Nombre" />
 									<div>
-										<label value="Alberto" style="font-weight: bold;"/>
+										<label id="lblSegundoNombre" value="Alberto" style="font-weight: bold;"/>
 									</div>
 								</row>
 								<row style="border:none;">
 									<label value="Primer Apellido" width="95%" />
 									<div>
-										<label value="Dávila" style="font-weight: bold;"/>
+										<label  id="lblPrimerApellido" style="font-weight: bold;"/>
 									</div>
 									<label value="Segundo Apellido" width="95%" />
 									<div>
-										<label value="Peña" style="font-weight: bold;"/>
+										<label id="lblSegundoApellido" style="font-weight: bold;"/>
 									</div>
 								</row>
 								<row spans="1,3" style="border:none;">
 									<label value="Género" />
-									<label value="Masculino" style="font-weight: bold;"/>
+									<label id="lblGenero" style="font-weight: bold;"/>
 								</row>
 							</rows>
 						</grid>
@@ -65,7 +64,7 @@
 									valign="middle" style="border:none;">
 									<groupbox mold="3d">
 										<image id="imgJugador"
-											src="/Recursos/Imagenes/jug.png" height="80px" width="80px" />
+											src="/Recursos/Imagenes/noFoto.jpg" height="80px" width="80px" />
 									</groupbox>
 								</row>
 							</rows>
@@ -89,19 +88,19 @@
 				<rows>
 					<row style="border:none;">
 						<label value="Fecha"/>
-						<label value="23/07/1999" style="font-weight: bold;"/>
+						<label  id="lblFechaNac" style="font-weight: bold;"/>
 						<label value="Edad"/>
-						<label value="12 años" style="font-weight: bold;"/>
+						<label id="lblEdad" style="font-weight: bold;"/>
 						<label value="País" />
-						<label value="Venezuela" style="font-weight: bold;"/>
+						<label id="lblPais" style="font-weight: bold;"/>
 					</row>
 					<row style="border:none">
 						<label value="Estado" />
-						<label value="Lara" style="font-weight: bold;"/>
+						<label id="lblEstado" style="font-weight: bold;"/>
 						<label value="Municipio" />
-						<label value="Iribarren" style="font-weight: bold;"/>
+						<label id="lblMunicipio" style="font-weight: bold;"/>
 						<label value="Parroquia" />
-						<label value="Concepción" style="font-weight: bold;"/>
+						<label id="lblParroquia" style="font-weight: bold;"/>
 					</row>
 				</rows>
 			</grid>
@@ -121,15 +120,15 @@
 				<rows>
 					<row style="border:none;">
 						<label value="Estado" />
-						<label value="Lara" style="font-weight: bold;"/>
-						<label value="Municipo" />
-						<label value="Iribarren" style="font-weight: bold;"/>
+						<label id="lblEstadoResi" style="font-weight: bold;"/>
+						<label value="Municipio" />
+						<label id="lblMunicipioResi" style="font-weight: bold;"/>
 						<label value="Parroquia" />
-						<label value="Concepción" style="font-weight: bold;"/>
+						<label id="lblParroquiaResi" style="font-weight: bold;"/>
 					</row>
 					<row spans="1,4" style="border:none;">
 						<label value="Dirección" />
-						<label value="Carrera 28 con calle 41"  style="font-weight: bold;"/>
+						<label id="lblDireccion"  style="font-weight: bold;"/>
 					</row>
 				</rows>
 			</grid>
@@ -147,15 +146,15 @@
 				<rows>
 					<row style="border:none;">
 						<label value="Teléfono Habitación" />
-						<label id="lblTelefonoHabitacion"  value="@{controller.jugador.telefonoHabitacion.telefonoCompleto}" style="font-weight: bold;"/>
+						<label id="lblTelefonoHabitacion"   style="font-weight: bold;"/>
 						<label value="Teléfono Celular" />
-						<label value="0414-9573985" style="font-weight: bold;"/>
+						<label id="lblTelefonoCelular"  style="font-weight: bold;"/>
 					</row>
 					<row style="border:none;">
 						<label value="Correo Electrónico" />
-						<label value="ldavilapena@gmail.com" style="font-weight: bold;"/>
+						<label id="lblCorreo" style="font-weight: bold;"/>
 						<label value="Twitter" />
-						<label value="@ldavila2010" style="font-weight: bold;"/>
+						<label id="lblTwitter" style="font-weight: bold;"/>
 					</row>
 				</rows>
 			</grid>

@@ -21,8 +21,9 @@ import org.zkoss.zul.Window;
  * @version 1.0 11/01/2012
  */
 public class Util {
-	public static char LIMITE_INFERIOR ='I';
-	public static char LIMITE_SUPERIOR ='S';
+	public static char LIMITE_INFERIOR = 'I';
+	public static char LIMITE_SUPERIOR = 'S';
+
 	/**
 	 * Determina la diferencia en annios entre la fecha actual y una inicial
 	 * 
@@ -80,6 +81,21 @@ public class Util {
 		}
 		SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd");
 		return formato.format(fecha.getTime());
+	}
+
+	/**
+	 * Convierte la fecha en el formato solicitado
+	 * @param fecha fecha a convertir
+	 * @param formatoFecha formato deseado 
+	 * @return fecha en el formato solicitado
+	 */
+	public static  String convertirFecha(Date fecha, String formatoFecha) {
+		SimpleDateFormat formato = new SimpleDateFormat(formatoFecha);
+		String fechaString = null;
+		if (fecha != null) {
+			fechaString = formato.format(fecha);
+		}
+		return fechaString;
 	}
 
 }
