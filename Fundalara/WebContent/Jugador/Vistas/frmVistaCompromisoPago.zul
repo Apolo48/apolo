@@ -4,7 +4,7 @@
 		closable="true">
 		<panel title="Representante" >
 			<panelchildren>
-				<grid>
+				<grid  style="border:none;" oddRowSclass="none">
 					<columns>
 						<column width="14%" />
 						<column width="%20" />
@@ -14,13 +14,13 @@
 						<column width="%20" />
 					</columns>
 					<rows>
-						<row>
+						<row  style="border:none;">
 							<label value="Cédula" />
-							<textbox readonly="true" value="V-8.346.895"></textbox>
+							<textbox readonly="true" value="V-10.425.126"></textbox>
 							<label value="Nombre" />
-							<textbox readonly="true" value="Sofia"></textbox>
+							<textbox readonly="true" value="ANTONIO"></textbox>
 							<label value="Apellido" />
-							<textbox readonly="true" value="Pérez"></textbox>
+							<textbox readonly="true" value="RODRIGUEZ"></textbox>
 						</row>
 					</rows>
 				</grid>
@@ -29,7 +29,7 @@
 		
 		<panel title="Jugador">
 			<panelchildren>
-				<grid>
+				<grid  style="border:none;" oddRowSclass="none">
 					<columns>
 							<column width="14%" />
 						<column width="%20" />
@@ -39,19 +39,19 @@
 						<column width="%20" />
 					</columns>
 					<rows>
-						<row>
+						<row  style="border:none;">
 							<label value="Cédula" />
-							<textbox readonly="true" value="V-17.626.665"></textbox>
+							<textbox readonly="true" value="V-24.235.620"></textbox>
 							<label value="Nombre" />
-							<textbox readonly="true" value="Juán"></textbox>
+							<textbox readonly="true" value="JOSE"></textbox>
 							<label value="Apellido" />
-							<textbox readonly="true" value="Hernández"></textbox>
+							<textbox readonly="true" value="RODRIGUEZ"></textbox>
 						</row>
-						<row>
+						<row  style="border:none;">
 							<label value="Categoría" />
-								<textbox readonly="true" value="Juvenil"></textbox>
+								<textbox readonly="true" value="PREJUNIOR"></textbox>
 							<label value="Equipo" />
-							<textbox readonly="true" value="A"></textbox>
+							<textbox readonly="true" value="PREJUNIOR A"></textbox>
 						</row>
 					</rows>
 				</grid>
@@ -60,7 +60,7 @@
 
 		<panel title="Detalle Compromiso">
 			<panelchildren>
-			<grid>
+			<grid  style="border:none;" oddRowSclass="none">
 			<columns>
 			 	<column width="14%" />
 						<column width="%20" />
@@ -70,19 +70,18 @@
 						<column width="%20" />
 				</columns>
 			  <rows>
-			    <row spans="1,2,1,2">
+			    <row spans="1,2,1,2"  style="border:none;">
 				    <label value="Fecha Inicio " />
-				   	<textbox readonly="true" value="06/06/2011"></textbox>
+				   	<textbox readonly="true" value="03/02/2012"></textbox>
 					<label value="Fecha Limite" />
-					<textbox readonly="true" value="06/08/2011"></textbox>
+					<textbox readonly="true" value="03/02/2012"></textbox>
 				</row>
 			 </rows>			   
 		  </grid>  	
 				
 			<grid id="grid">
 				  <columns>
-						<column width="6%" label="Nro." />
-						<column width="40%" label="Concepto" />
+						<column width="46%" label="Concepto" />
 						<column width="12%" label="Cantidad" />
 						<column width="18%" align="right">
 							<div>
@@ -97,21 +96,18 @@
 					</columns>
 					<rows>
 						<row>
-							<label value="1" />
 							<label value="Inscripción" />
 							<label value="1" />
 							<label value="100,00" />
 							<label value="100,00" />
 						</row>
 						<row>
-							<label value="2" />
 							<label value="Mensualidad" />
 							<label value="3" />
 							<label value="200,00" />
 							<label value="600,00" />
 						</row>
-						<row>
-							<label value="3" />
+						<row>				
 							<label value="Uniforme" />
 							<label value="1" />
 							<label value="150,00" />
@@ -134,7 +130,6 @@
 			</panelchildren>
 		</panel>
 		
-		<checkbox label="Imprimir compromiso de pago."></checkbox>
 		<div align="right">
 			<button label="Aceptar" image="Recursos/Imagenes/aceptar.ico"
 				orient="horizontal" width="15%" />
