@@ -272,7 +272,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void  onCreate$winRegistrarJugador(){
 		DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 		try {
-			Date fechaInicial = (Date) formatter.parse(Util.getFecha(Edad.EDAD_MINIMA, Util.LIMITE_INFERIOR));		
+			Date fechaInicial = (Date) formatter.parse(Util.getFecha(Edad.EDAD_MINIMA, Util.LIMITE_SUPERIOR));		
 			dtboxFechaNac.setValue(fechaInicial);
 		} catch (ParseException e) {
 			e.printStackTrace();
