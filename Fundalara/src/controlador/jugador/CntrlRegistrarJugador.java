@@ -105,6 +105,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Button btnAgregarActividad;
 	private Button btnEliminarActividad;
 	private Button btnSubirDocumentoAcad;
+	private Button btnCancelar;
 	private Tab tabRegJugador;
 	private Tab tabRegFamiliar;
 	private Intbox txtEdad;
@@ -1161,12 +1162,11 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnInscribir() {
-
-		// 8. Familiares
-
-		// new Util().crearVentana(rutasJug + "frmVistaCompromisoPago.zul",
-		// null,null);
-
+		Mensaje.mostrarMensaje("Se ha inscrito el jugador: "+jugadorBean.getNombres() +" "+jugadorBean.getApellidos(),
+				Mensaje.EXITO, Messagebox.INFORMATION);
+		 new Util().crearVentana(rutasJug + "frmVistaCompromisoPago.zul",
+		 null,null);
+		 onClick$btnCancelar();
 	}
 
 	// Metodos propios del ctrl
@@ -1320,7 +1320,11 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnCancelar() {
-
+		jugadorBean= new controlador.jugador.bean.Jugador();
+		limpiarFamiliar();
+		familiares = new  ArrayList<controlador.jugador.bean.Familiar>();
+		//binder.loadAll();
+		
 	}
 
 	private void guardarFamiliares() {

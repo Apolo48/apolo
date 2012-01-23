@@ -395,7 +395,7 @@
 			</tabpanels>
 		</tabbox>
 		<div align="right">
-			<button label="Salir" image="Recursos/Imagenes/salir.png"
+			<button id="btnSalir" label="Salir" image="Recursos/Imagenes/salir.png"
 				orient="horizontal" width="100px" />
 		</div>
 	</window>

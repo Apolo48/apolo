@@ -1,7 +1,6 @@
 package controlador.jugador;
 
 import java.io.IOException;
-import java.util.Date;
 
 import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
@@ -9,6 +8,7 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Window;
 
 import comun.Util;
 
@@ -22,7 +22,7 @@ import comun.Util;
  * 
  * */
 public class CntrlVistaPreviaJugador extends GenericForwardComposer {
-
+	private Window winVistaPreviaJugador;   
 	private controlador.jugador.bean.Jugador jugador;
 	private AnnotateDataBinder binder;
 	private Component vista;
@@ -100,6 +100,10 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 
 	public void setJugador(controlador.jugador.bean.Jugador jugadorBean) {
 		this.jugador = jugadorBean;
+	}
+	
+	public void onClick$btnSalir(){
+		winVistaPreviaJugador.detach();
 	}
 
 }
