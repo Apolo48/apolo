@@ -133,8 +133,7 @@
 		<div align="right">
 			<button id="btnAceptar" label="Aceptar" image="Recursos/Imagenes/aceptar.ico"
 				orient="horizontal" width="15%" />
-			<button id="btnCancelar" label="Cancelar" image="Recursos/Imagenes/cancelar.ico"
-				orient="horizontal" width="15%" />
+		
 		</div>
 	</window>
 </zk>

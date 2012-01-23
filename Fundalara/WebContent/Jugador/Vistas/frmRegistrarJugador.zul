@@ -1770,7 +1770,7 @@
 															<div>
 																<combobox
 																	id="cmbParroquiaFamiliar" readonly="true"
-																	value="--Seleccione--" width="65%"
+															 width="65%"
 																	model="@{winRegistrarJugador$composer.parroquiasMunicipioFam, load-after='cmbMunicipioFamiliar.onChange'}"
 																	>
 																	<comboitem

@@ -12,7 +12,7 @@ import comun.Util;
  */
 
 public enum Restriccion {
-	EMAIL("/.+@.+\\.[a-z]+/",
+	EMAIL("/.+@.+\\.[a-zA-Z]+/",
 			"Ingrese un correo electrónico válido, Ej: correo@servidor.com"), 
 			HORAS_SEMANAL_SOCIAL("min 1 max 30", "Ingrese una cantidad de horas válidas (01-30)"), 
 			CEDULA("no negative,no empty", "Ingrese una cédula válida"), 

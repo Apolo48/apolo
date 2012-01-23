@@ -10,7 +10,7 @@ import org.zkoss.zul.Messagebox;
  * @version 0.1 27/12/2011
  */
 public class Mensaje {
-	public static final String TITULO ="Fundalara";
+	public static final String TITULO ="Olimpo";
 	public static final String INFORMACION ="Información";
 	public static final String EXITO ="Operación exitosa";
 	public static final String ERROR ="Operación no exitosa";

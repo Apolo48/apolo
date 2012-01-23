@@ -1320,9 +1320,21 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnCancelar() {
+		onClick$btnAntes();
 		jugadorBean= new controlador.jugador.bean.Jugador();
 		limpiarFamiliar();
 		familiares = new  ArrayList<controlador.jugador.bean.Familiar>();
+		
+		//Limpiando el perfil del jugador
+		cmbNacionalidad.setValue("--");
+		txtCedula.setRawValue("");
+		txtPrimerNombre.setRawValue("");
+		txtSegundoNombre.setRawValue("");
+		txtPrimerApellido.setRawValue("");
+		txtSegundoApellido.setRawValue("");
+		cmbGenero.setRawValue("");
+		imgJugador.setContent(new Image().getContent());
+		
 		//binder.loadAll();
 		
 	}
@@ -1447,7 +1459,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtSegundoApellidoFamiliar.setRawValue("");
 		cmbParentesco.setValue("--Seleccione--");
 		cmbProfesion.setValue("--Seleccione--");
-		// imgFamiliar.setContent(null);
+		imgFamiliar.setContent(new Image().getContent());
 		cmbEstadoFamiliar.setValue("--Seleccione--");
 		cmbMunicipioFamiliar.setValue("--Seleccione--");
 		cmbParroquiaFamiliar.setValue("--Seleccione--");
