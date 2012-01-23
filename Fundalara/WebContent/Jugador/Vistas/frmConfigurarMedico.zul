@@ -3,7 +3,7 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winConfigurarMedico"?>
 <zk>
 	<window id="winConfigurarMedico" title="Registro de Médico"
-		border="normal" width="500px" closable="true"
+		border="normal" width="645px" closable="true"
 		apply="controlador.jugador.CntrlConfigurarMedico">
 		<space></space>
 		<grid style="border:none;" oddRowSclass="none">
@@ -28,14 +28,12 @@
 									<label value="  Número Colegio" />
 									<div>
 										<textbox id="txtNumcol" width="45%" 
-											maxlength="5" value="@{controller.medico.numeroColegio}"/>
-										<button id="btnBuscar"
-											image="../../Recursos/Imagenes/consultar.ico" />
+											maxlength="6" value="@{controller.medico.numeroColegio}"/>
 									</div>
 									<label value="Matrícula" />
 									<div>
 										<textbox width="45%" id="txtMatricula" 
-											maxlength="5" value="@{controller.medico.matricula}" />
+											maxlength="6" value="@{controller.medico.matricula}" />
 									</div>
 								</row>
 								<row style="border:none;">
@@ -88,13 +86,13 @@
 								<row style="border:none;">
 									<label value="  Nombres" />
 									<div>
-										<textbox width="85%" 
+										<textbox width="88%" 
 											maxlength="40" value="@{controller.medico.nombre}"/>
 									</div>
 									<label value="Apellidos" />
 									<div>
 										<textbox id="txtApellido"
-											width="85%" maxlength="40"
+											width="88%" maxlength="40"
 											value="@{controller.medico.apellido}" />
 									</div>
 
@@ -103,25 +101,25 @@
 									<label value="Telefono Oficina" />
 									<div>
 										<combobox readonly="true"
-											id="cmbCodArea" value="--" width="25%"
+											id="cmbCodArea" value="--" width="20%"
 											model="@{controller.codigosArea}">
 											<comboitem
 												self="@{each='codAJug'}" label="@{codAJug.nombre}" />
 										</combobox>
 										<textbox
 											id="txtTelefonoHabitacion" maxlength="7"
-											width="85%" />
+											width="55%" />
 									</div>
 									<label value="Telefono Celular" />
 									<div>
 										<combobox readonly="true"
-											id="cmbCodCelular" value="--" width="25%"
+											id="cmbCodCelular" value="--" width="20%"
 											model="@{controller.codigosCelular}">
 											<comboitem
 												self="@{each='codCJug'}" label="@{codCJug.nombre}"
 												value="@{codCJug.codigoDatoBasico}" />
 										</combobox>
-										<textbox width="85%"
+										<textbox width="55%"
 											maxlength="7" id="txtTelefonoCelular" />
 									</div>
 								</row>
@@ -131,18 +129,71 @@
 				</row>
 			</rows>
 		</grid>
+		
+		<grid style="border:none;">
+			<columns>
+				<column width="90%" />
+				<column width="10%" />
+			</columns>
+			<rows>
+				<row style="border:none;">
+		<listbox id="listmedico"  mold="paging" pageSize="5"  model="@{controller.medicos}" 
+					    selectedItem="@{winBuscarjugador$composer.medico}" width="590px" >
+			<auxhead sclass="category-center">
+			 <auxheader label="Listado Médicos" colspan="5" align="center"/>
+			</auxhead>
+			<listhead>
+			    <listheader width="15%" align="center">Matrícula</listheader>
+				<listheader width="18%" align="center">Número Colegio</listheader>
+				<listheader width="29%" >Nombre</listheader>
+				<listheader width="29%" >Apellido</listheader>
+				<listheader width="15%" tooltiptext="A=Habilitado E=Deshabilitado" >Estado</listheader>
+			</listhead>
+			<auxhead>
+				<auxheader colspan="1">
+					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
+					<textbox id="filter1" width="75%" />
+				</auxheader>
+				<auxheader colspan="1">
+					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
+					<textbox id="filter2" width="70%" />
+				</auxheader>
+				<auxheader colspan="1">
+					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
+					<textbox id="filter3" width="70%" />
+				</auxheader>
+				<auxheader colspan="1">
+					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
+					<textbox id="filter4" width="70%" />
+				</auxheader>
+				<auxheader colspan="1">
+				</auxheader>
+			</auxhead>
+			<listitem self="@{each='medico'}" value="@{medico}">
+				 <listcell label="@{medico.matricula}" />
+				<listcell label="@{medico.numeroColegio}" />
+				<listcell label="@{medico.nombre}"/>
+				<listcell label="@{medico.apellido}" /> 
+				<listcell label="@{medico.estatus}" tooltiptext="A=Habilitado E=Deshabilitado" />
+			</listitem>
+		</listbox>
+		<div>
+						<button id="btnGuardar"
+							image="../../Recursos/Imagenes/agregar.ico" />
+						<separator height="5px" />
+						<button id="btnModificar"
+							image="../../Recursos/Imagenes/editar.ico" />
+						<separator height="5px" />
+						<button id="btnEliminar"
+							image="../../Recursos/Imagenes/quitar.ico" />
+					</div>
+				</row>
+
+			</rows>
+		</grid>
 
 		<space></space>
 		<div align="right">
-			<button id="btnGuardar" label="Guardar"
-				image="/Recursos/Imagenes/guardar.ico" orient="horizontal"
-				width="100px" />
-			<button id="btnModificar" label="Actualizar"
-				image="/Recursos/Imagenes/editar.ico" orient="horizontal"
-				width="100px" />
-			<button id="btnEliminar" label="Eliminar"
-				image="/Recursos/Imagenes/eliminar.ico" orient="horizontal"
-				width="100px" />
 			<button id="btnCancelar" label="Cancelar"
 				image="/Recursos/Imagenes/cancelar.ico" orient="horizontal"
 				width="100px" />

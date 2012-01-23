@@ -15,7 +15,12 @@ import modelo.Roster;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
-import org.zkoss.zul.*;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
+
 
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioEquipo;
@@ -39,15 +44,17 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 
 
 	private Familiar familiar = new Familiar();
-	List<Familiar> familiares=new ArrayList<Familiar>();
+	List<Familiar> familiares;
 	
     Button btnSeleccionar;
 
+    Window winBuscarfamiliar;
 	Textbox filter2;
 	Textbox filter1;
 	Textbox filter3;
 	Listbox listFamiliar;
 
+	public int estatus;
 	Component catalogo;
 	private AnnotateDataBinder binder;
 
@@ -58,10 +65,40 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 	
 	public void onBlur$filter1(){
 		binder.loadAll();
+		
 	}
 	
 	public void onBlur$filter3(){
 		binder.loadAll();
+		
+	}
+
+	public void onCreate$winBuscarfamiliar(){
+		estatus = (Integer) catalogo.getVariable("estatus",false);
+		if(estatus==1){
+			familiares=servicioFamiliar.filtrar(1,filter1.getValue().toString(), filter2.getValue().toString(), filter3.getValue().toString());
+		}
+		else{
+			familiares=servicioFamiliar.filtrar(2,filter1.getValue().toString(), filter2.getValue().toString(), filter3.getValue().toString());
+		}
+		
+		//familiares=servicioFamiliar.filtrar(estatus,filter1.getValue().toString(), filter2.getValue().toString(), filter3.getValue().toString());
+		determinarTitulo(estatus);
+	    binder.loadAll();
+	}
+	
+	public void determinarTitulo(int estatus) {
+		Window w = (Window) catalogo;
+		switch (estatus) {
+		    
+		case 1:
+			w.setTitle("Cat·logo Representantes");
+			break;
+		case 2:
+			w.setTitle("Cat·logo Familiares");
+			break;
+		   
+		}
 	}
 	
 	@Override
@@ -74,20 +111,18 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 		
 	}
 
+	public void onClick$btnSalir(){
+		winBuscarfamiliar.detach();
+	}
 	
 	public void onClick$btnSeleccionar() throws InterruptedException{
 		//Se comprueba que se haya seleccionado un elemento de la lista
 
 		if (listFamiliar.getSelectedIndex() != -1) {
-			//se obtiene la divisa seleccionada
-			Familiar d = (Familiar) listFamiliar.getSelectedItem().getValue();
-			//se obtiene la referencia del formulario
+			Familiar d = familiares.get(listFamiliar.getSelectedIndex());
 			Component formulario = (Component) catalogo.getVariable("formulario",false);
-	        //se le asigna el objeto divisa al formulario
 			formulario.setVariable("familiar", d,false);
-			//se le envia una se√±al al formulario indicado que el formulario se cerro y que los datos se han enviado
 			Events.sendEvent(new Event("onCatalogoCerrado",formulario));          
-			//se cierra el catalogo
 			catalogo.detach();
 			
 		} else {
@@ -98,15 +133,6 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 		
 		}
 
-	
-	
-	public List<Familiar> getFamiliares() {
-		familiares=servicioFamiliar.listar();
-		return servicioFamiliar.listar();
-		//familiares=servicioFamiliar.filtrar(filter1.getValue().toString(), filter2.getValue().toString(), filter3.getValue().toString());
-		//return servicioFamiliar.filtrar(filter1.getValue().toString(), filter2.getValue().toString(), filter3.getValue().toString());
-	}
-
 	public Familiar getFamiliar() {
 		return familiar;
 	}
@@ -114,5 +140,14 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 	public void setFamiliar(Familiar familiar) {
 		this.familiar = familiar;
 	}
+
+	public List<Familiar> getFamiliares() {
+		return familiares;
+	}
+
+	public void setFamiliares(List<Familiar> familiares) {
+		this.familiares = familiares;
+	}
+	
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import modelo.Medico;
@@ -40,5 +41,20 @@ public class DaoMedico extends GenericDao {
 		else {
 			return true;
 		}
+	}
+	
+	
+	public List<Medico> cargarLista(String filtro1,String filtro2,String filtro3,String filtro4){
+		Session session = getSession();
+		Transaction tx =  session.beginTransaction();
+		
+		Criteria c = session.createCriteria(Medico.class)
+				.add(Restrictions.like("numeroColegio", filtro1+"%"))
+				.add(Restrictions.like("matricula", filtro2+"%"))
+				.add(Restrictions.like("nombre", filtro3+"%"))
+				.add(Restrictions.like("apellido", filtro4+"%"));
+		List<Medico> lista= c.list();
+		
+		return lista;
 	}
 }

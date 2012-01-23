@@ -47,4 +47,10 @@ public class ServicioFamiliar implements IServicioFamiliar {
 		daoFamiliar.guardar(familiares, jugador);
 
 	}
+	
+	public List<Familiar> filtrar(int num,String filtro1,String filtro2,String filtro3){
+		return daoFamiliar.cargarLista(num,filtro1, filtro2, filtro3);
+		}
+	
+	
 }

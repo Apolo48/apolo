@@ -6,8 +6,7 @@
 		
 	
 		
-	<listbox id="listFamiliar"  mold="paging" pageSize="5"  model="@{controller.familiares}" 
-					selectedItem="@{winBuscarfamiliar$composer.familiar}"   >
+	<listbox id="listFamiliar"  mold="paging" pageSize="5"  model="@{controller.familiares}">
 			<auxhead sclass="category-center">
 				<auxheader label="Listado Familiares" colspan="4" align="center"/>
 			</auxhead>

@@ -11,6 +11,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.Executions;
 
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -19,6 +20,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Constraint;
 import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
@@ -55,15 +57,46 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	Button btnCancelar;
 	Button btnSalir;
 	Button btnBuscar;
+
+	
+	Textbox filter2;
+	Textbox filter1;
+	Textbox filter3;
+	Textbox filter4;
+	Listbox listmedico;
+	
 	Textbox txtApellido,txtTelefonoCelular,txtTelefonoHabitacion,txtNumcol, txtCedula,txtMatricula;
 	Component formulario;
 	private Combobox cmbEspecialidad,cmbNacionalidad,cmbCodCelular,cmbCodArea;
 	
+	List<Medico> medicos = new ArrayList<Medico>();
 	List<DatoBasico> codigosArea;
 	List<DatoBasico> codigosCelular;
 	List<DatoBasico> especialidades = new ArrayList<DatoBasico>() ;
 
+
 	private AnnotateDataBinder binder;
+
+	
+	public void onBlur$filter2(){
+		binder.loadAll();
+		
+	}
+	
+	public void onBlur$filter1(){
+		binder.loadAll();
+		
+	}
+	
+	public void onBlur$filter3(){
+		binder.loadAll();
+		
+	}
+	
+	public void onBlur$filter4(){
+		binder.loadAll();
+		
+	}
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -72,18 +105,24 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		// se guarda la referencia al formulario actual
 		formulario = comp;
 		txtNumcol.setFocus(true);
-		btnModificar.setVisible(false);
-		btnEliminar.setVisible(false);
+		btnModificar.setDisabled(true);
+		btnEliminar.setDisabled(true);
+		medicos=servicioMedico.listar();
+		
+		
+		
+
 	}
 
 	public void onClick$btnGuardar() {
 		
 		if(txtApellido.getValue()!= "" && txtTelefonoCelular.getValue().toString().length()==7 
 				&& txtTelefonoHabitacion.getValue().toString().length()==7 
-				&& txtNumcol.getValue()!="" && txtNumcol.getValue().toString().length()==5
+				&& txtNumcol.getValue()!="" && txtNumcol.getValue().toString().length()==6
 				&& txtCedula.getValue()!="" && cmbEspecialidad.getSelectedIndex()!=-1
 				&& cmbNacionalidad.getSelectedIndex()!=-1 && cmbCodCelular.getSelectedIndex()!=-1
-				&& cmbCodArea.getSelectedIndex()!=-1){		
+				&& cmbCodArea.getSelectedIndex()!=-1 && txtMatricula.getValue()!="" 
+				&& txtMatricula.getValue().length()==6) {		
 		especialidades=servicioDatoBasico.buscar(TipoDatoBasico.ESPECIALIDAD);
 		medico.setCedulaMedico(cmbNacionalidad.getValue()+"-"+txtCedula.getValue().toString());
 		medico.setTelefonoCelular(codigosCelular.get(cmbCodCelular.getSelectedIndex()).getNombre()+txtTelefonoCelular.getValue());
@@ -110,10 +149,11 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	public void onClick$btnModificar() {
 		if(txtApellido.getValue()!= "" && txtTelefonoCelular.getValue().toString().length()==7 
 				&& txtTelefonoHabitacion.getValue().toString().length()==7 
-				&& txtNumcol.getValue()!="" && txtNumcol.getValue().toString().length()==5
+				&& txtNumcol.getValue()!="" && txtNumcol.getValue().toString().length()==6
 				&& txtCedula.getValue()!="" && cmbEspecialidad.getSelectedIndex()!=-1
 				&& cmbNacionalidad.getSelectedIndex()!=-1 && cmbCodCelular.getSelectedIndex()!=-1
-				&& cmbCodArea.getSelectedIndex()!=-1){
+				&& cmbCodArea.getSelectedIndex()!=-1  && txtMatricula.getValue()!="" 
+				&& txtMatricula.getValue().length()==6){
 		especialidades=servicioDatoBasico.buscar(TipoDatoBasico.ESPECIALIDAD);
 			
 		medico.setCedulaMedico(cmbNacionalidad.getValue()+"-"+txtCedula.getValue().toString());
@@ -139,6 +179,9 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 			      }
 			    }
 			   });
+		
+		
+		
 	}
 	
 	public void doYes(){
@@ -151,35 +194,6 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		limpiar();
 	}
 
-	public void onClick$btnBuscar() {
-		// se crea el catalogo y se llama
-		Component catalogo = Executions.createComponents(
-				"/Jugador/Vistas/FrmBuscarMedico.zul", null, null);
-		// asigna una referencia del formulario al catalogo.
-		catalogo.setVariable("formulario", formulario, false);
-		
-		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
-			@Override
-			// Este metodo se llama cuando se envia la señal desde el catalogo
-			public void onEvent(Event arg0) throws Exception {
-				// se obtiene el jugador
-				medico = (Medico) formulario.getVariable("medico", false);
-				cmbEspecialidad.setSelectedIndex(buscaresp(medico));
-				cmbCodArea.setSelectedIndex(buscarcarea(medico));
-				cmbCodCelular.setSelectedIndex(buscarcelu(medico));
-				txtTelefonoCelular.setValue(medico.getTelefonoCelular().substring(5)); //Modificado el valor de 4 a 5
-				txtTelefonoHabitacion.setValue(medico.getTelefonoOficina().substring(5)); //Modificado el valor de 4 a 5
-				cmbNacionalidad.setSelectedIndex(buscarnac(medico));
-				txtCedula.setValue(medico.getCedulaMedico().substring(2));
-				txtNumcol.setReadonly(true);
-				btnGuardar.setVisible(false);
-				btnModificar.setVisible(true);
-				btnEliminar.setVisible(true);
-				binder.loadAll();
-				
-			}
-		});
-	}
 
 	public Medico getMedico() {
 		return medico;
@@ -219,9 +233,9 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		txtCedula.setValue("");
 		medico = new Medico();
 		txtNumcol.setReadonly(false);
-		btnGuardar.setVisible(true);
-		btnModificar.setVisible(false);
-		btnEliminar.setVisible(false);
+		btnGuardar.setDisabled(false);
+		btnModificar.setDisabled(true);
+		btnEliminar.setDisabled(true);
 		binder.loadAll();
 		txtNumcol.setFocus(true);
 		
@@ -278,6 +292,32 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 			}
 		}
 		return -1;
+	}
+	
+	public  List<Medico> getMedicos() {
+		return servicioMedico.filtrar(filter1.getValue().toString(),filter2.getValue().toString()
+				,filter3.getValue().toString(),filter4.getValue().toString());
+		
+	}
+	
+	
+		
+	public void onSelect$listmedico(){
+		//System.out.println(listmedico.getSelectedIndex());
+		medico = (Medico) medicos.get(listmedico.getSelectedIndex());
+		cmbEspecialidad.setSelectedIndex(buscaresp(medico));
+		cmbCodArea.setSelectedIndex(buscarcarea(medico));
+		cmbCodCelular.setSelectedIndex(buscarcelu(medico));
+		txtTelefonoCelular.setValue(medico.getTelefonoCelular().substring(4));
+		txtTelefonoHabitacion.setValue(medico.getTelefonoOficina().substring(4));
+		cmbNacionalidad.setSelectedIndex(buscarnac(medico));
+		txtCedula.setValue(medico.getCedulaMedico().substring(2));
+		txtNumcol.setReadonly(true);
+		btnGuardar.setDisabled(true);
+		btnModificar.setDisabled(false);
+		btnEliminar.setDisabled(false);
+		binder.loadAll();
+		
 	}
 	
 }

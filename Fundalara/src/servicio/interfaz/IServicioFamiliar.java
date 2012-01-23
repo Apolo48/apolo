@@ -13,5 +13,5 @@ public interface IServicioFamiliar {
 	
 	public abstract List<Familiar> listar();
 	
-	public abstract List<Familiar> filtrar(String filtro1,String filtro2,String filtro3);
+	public abstract List<Familiar> filtrar(int num,String filtro1,String filtro2,String filtro3);
 }

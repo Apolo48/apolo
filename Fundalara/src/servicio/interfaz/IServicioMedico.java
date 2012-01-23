@@ -15,4 +15,6 @@ public interface IServicioMedico {
 	public abstract List<Medico> listar();
 	
 	public abstract boolean buscarelimi(Medico medico);
+	
+	public abstract List<Medico> filtrar(String filtro1,String filtro2,String filtro3,String filtro4);
 }

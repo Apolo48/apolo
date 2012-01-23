@@ -1,5 +1,6 @@
 package dao.general;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import modelo.Familiar;
@@ -10,6 +11,7 @@ import modelo.PersonaNatural;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -27,18 +29,42 @@ import dao.generico.GenericDao;
 
 public class DaoFamiliar extends GenericDao {
 
-	public List<Familiar> cargarlista(String filtro1, String filtro2,
-			String filtro3) {
+	public List<Familiar> cargarLista(int estatus,String filtro1,String filtro2,String filtro3){
+		List<Familiar> lista = new ArrayList<Familiar>();
+		if(estatus==1){
+			Session session = getSession();
+			Transaction tx =  session.beginTransaction();
+			
+			Criteria c = session.createCriteria(Familiar.class)
+					.add(Restrictions.like("cedulaRif", filtro1+"%"))
+					.createCriteria("personaNatural")
+					.add(Restrictions.like("primerNombre", filtro2+"%"))
+					.add(Restrictions.like("primerApellido", filtro3+"%"))
+			        .addOrder(Order.asc("cedulaRif"));
+			List<Familiar> lista1= c.list();
+			Criteria c1 = session.createCriteria(FamiliarJugador.class)
+					.add(Restrictions.eq("representanteActual", true))
+					.addOrder(Order.asc("familiar.cedulaRif"));
+			List<FamiliarJugador> lista2= c1.list();
+			for (int i = 0; i < lista1.size(); i++) {
+				for (int j = 0; j < lista2.size(); j++) {
+					if(lista1.get(i).getCedulaRif().equals(lista2.get(j).getFamiliar().getCedulaRif())){
+						lista.add(lista2.get(j).getFamiliar());
+					}
+				}
+			}
+		}
+		else{
 		Session session = getSession();
-		Transaction tx = session.beginTransaction();
-
+		Transaction tx =  session.beginTransaction();
+		
 		Criteria c = session.createCriteria(Familiar.class)
-				.add(Restrictions.like("cedulaRif", filtro1 + "%"))
+				.add(Restrictions.like("cedulaRif", filtro1+"%"))
 				.createCriteria("personaNatural")
-				.add(Restrictions.like("primerNombre", filtro2 + "%"))
-				.add(Restrictions.like("primerApellido", filtro3 + "%"));
-		List<Familiar> lista = c.list();
-
+				.add(Restrictions.like("primerNombre", filtro2+"%"))
+				.add(Restrictions.like("primerApellido", filtro3+"%"));
+		lista= c.list();
+		}
 		return lista;
 	}
 
