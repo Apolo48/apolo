@@ -1,12 +1,28 @@
+/**
+ * Clase controladora de los eventos de la vista de igual nombre y manejo de los
+ * servicios de datos para la actualizacion de los datos correspondientes a los familiares de un
+ * jugador.
+ * 
+ * @author Ramir H.
+ * @author Andrea O.
+ * @version 0.2.5 20/01/2012
+ * 
+ * */
+
+
 package controlador.jugador;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.EnumMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import modelo.Ascenso;
 import modelo.Categoria;
+import modelo.ComisionEquipo;
 import modelo.DatoBasico;
 import modelo.DocumentoAscenso;
 import modelo.DocumentoAscensoId;
@@ -44,16 +60,21 @@ import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.api.Bandbox;
+import org.zkoss.zul.impl.InputElement;
 import org.zkoss.zul.Listcell;
 
 import comun.FileLoader;
 import comun.Mensaje;
 import comun.Ruta;
 import comun.TipoDatoBasico;
+import java.util.EnumMap;
 import comun.Util;
+
+import controlador.jugador.restriccion.Restriccion;
 
 import servicio.implementacion.ServicioAscenso;
 import servicio.implementacion.ServicioCategoria;
+import servicio.implementacion.ServicioComisionEquipo;
 import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioDocumentoAscenso;
 import servicio.implementacion.ServicioDocumentoEntregado;
@@ -76,6 +97,7 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	private ServicioJugador servicioJugador;
 	private ServicioCategoria servicioCategoria;
 	private ServicioEquipo servicioEquipo;
+	private ServicioComisionEquipo servicioComisionEquipo;
 	private ServicioAscenso servicioAscenso;
 	private ServicioDatoBasico servicioDatoBasico;
 	private ServicioRecaudoPorProceso servicioRecaudoPorProceso;
@@ -99,10 +121,12 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	private Equipo equipo = new Equipo();
 	private Categoria categoria = new Categoria();
 	private Ascenso ascenso= new Ascenso();
+	private ComisionEquipo comisionEquipo = new ComisionEquipo();
 	private DatoBasico tipoAscenso = new DatoBasico();
 	private DatoBasico parentesco = new DatoBasico();
 	private DatoBasico profesion = new DatoBasico();
 	private DatoBasico comision = new DatoBasico();
+	private DatoBasico comisionNuevas = new DatoBasico();
 	private FamiliarComisionEquipo familiarComisionEquipo = new FamiliarComisionEquipo();
 	
 	private RecaudoPorProceso recaudoAscenso = new RecaudoPorProceso();
@@ -113,6 +137,9 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	
 	Listbox listComisiones;
 	List<DatoBasico> comisionesFamiliar = new ArrayList<DatoBasico>();
+	
+	Listbox listComisionesNuevas;
+	List<DatoBasico> comisionesFamiliarNuevas = new ArrayList<DatoBasico>();
 			
 	
 	
@@ -138,7 +165,7 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	private Textbox txtCategoria;
 	private Textbox txtEquipo;
     private Intbox txtNumero;
-	private Datebox dtboxFechaNac;
+	private Textbox txtFechaNac;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Window winActualizarFamiliar;
@@ -176,10 +203,11 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	private DatoBasico estado = new DatoBasico();
 	private DatoBasico municipio = new DatoBasico();
 	private DatoBasico parroquia = new DatoBasico();
+	//private DatoBasico parroquia1 = new DatoBasico();
 	private DatoBasico codigoArea = new DatoBasico();
 	private DatoBasico codigoCel = new DatoBasico();
 	private DatoBasico datoBasico = new DatoBasico();
-	
+	private InputElement[] camposPerfil1, camposPerfil2;
 	
 	
 	 @Override
@@ -187,6 +215,8 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 			super.doAfterCompose(comp);
 			comp.setVariable("controller", this, false);  //Hacemos visible el modelo para el databinder
 			formulario=comp;
+			
+			inicializarCheckPoints();
 		//	btnEditar.setDisabled(true);
 		//	btnAgregar.setDisabled(true);
 		//	btnQuitar.setDisabled(true);
@@ -242,13 +272,9 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 		apellidos = jugador.getPersonaNatural()
 				.getPrimerApellido()
 				+ (segApellido == null ? "" : " " + segApellido);
-		String cedula = jugador.getCedulaRif();
-		cmbNacionalidad.setValue(cedula.substring(0, 1));
-		txtCedula.setValue(cedula.substring(2));
-		
-		btnEditar.setDisabled(false);
-		btnAgregar.setDisabled(false);
-		btnQuitar.setDisabled(false);
+	
+		txtCedula.setValue(jugador.getCedulaRif());
+
 		
 		listaFamiliarJugador = servicioFamiliarJugador.buscarFamiliarJugador(jugador);
 		
@@ -265,7 +291,14 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	}
 	
 	private void limpiarCamposFamiliar(){
-		binder.loadAll();
+		cmbCodArea.setValue("--");
+		cmbCodCelular.setValue("--");
+		cmbEstadoResi.setValue("--Seleccione--");
+		cmbMunicipioResi.setValue("--Seleccione--");
+		cmbParentesco.setValue("--Seleccione--");
+		cmbParroquiaResi.setValue("--Seleccione--");
+		cmbProfesion.setValue("--Seleccione--");
+		cmbComisiones.setValue("--Seleccione--");		
 		txtCedulaFamiliar.setValue("");
 		txtPrimerNombre.setValue("");
 		txtSegundoNombre.setValue("");
@@ -276,7 +309,22 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 		txtTelefonoHabitacion.setValue("");
 		txtCorreo.setValue("");
 		txtTwitter.setValue("");
-		limpiarComision();
+		
+	/*	
+		familiar = new Familiar();
+		persona = new Persona();
+		personaNatural = new PersonaNatural();
+
+		comisionEquipo = new ComisionEquipo();
+		familiarComisionEquipo = new FamiliarComisionEquipo();
+		familiarJugador = new FamiliarJugador();
+		*/
+		comisionesFamiliar.clear();
+		binder.loadComponent(listComisiones);
+		
+		comisionesFamiliarNuevas.clear();
+		binder.loadComponent(listComisionesNuevas);
+		//limpiarComision();
 
 		
 	}
@@ -289,65 +337,101 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 		sw = true;
 		binder.loadAll();	
 		*/
+		limpiarCamposFamiliar();
 		panelFamiliar.setVisible(true);
+		txtPrimerNombre.setFocus(true);
+		camposPerfil1 = new InputElement[] {txtPrimerNombre, txtPrimerApellido, cmbParroquiaResi };
+	
+		//aplicarConstraints();
+		//inicializarCheckPoints();
 		if (listaFamiliar.getSelectedIndex() >= 0) {
 			FamiliarJugador familiarSeleccionado = (FamiliarJugador) listaFamiliar.getSelectedItem()
 					.getValue();
 			familiar = familiarSeleccionado.getFamiliar();
-			String ced = familiar.getCedulaRif();
-			cmbNacionalidadFamiliar.setValue(ced.substring(0,1));
-			txtCedulaFamiliar.setValue(ced.substring(2));
-			//familiarJugador =  familiarSeleccionado;
-			//System.out.println(familiarSeleccionado.getFamiliar().getCedulaRif());
 			
-			// lista de dato basico
-			comisionesFamiliar = servicioFamiliarComisionEquipo.buscarFamiliarComisionEquipo(familiarSeleccionado);
-			//System.out.println(familiarComisionEquipo.getComisionEquipo().getDatoBasico().getNombre());
-	       
-			if (comisionesFamiliar.size()>0){
-				  binder.loadComponent(listComisiones);
+			
+			if(familiar != null){
+				txtCedulaFamiliar.setValue(familiar.getCedulaRif());
+				//familiarJugador =  familiarSeleccionado;
+				//System.out.println(familiarSeleccionado.getFamiliar().getCedulaRif());
+				
+				// lista de dato basico
+				comisionesFamiliar = servicioFamiliarComisionEquipo.buscarFamiliarComisionEquipo(familiarSeleccionado);
+				//System.out.println(familiarComisionEquipo.getComisionEquipo().getDatoBasico().getNombre());
+		       
+				if (comisionesFamiliar.size()>0){
+					  binder.loadComponent(listComisiones);
+				}
+				
+				//binder.loadAll();
+				txtPrimerNombre.setValue(familiar.getPersonaNatural().getPrimerNombre());
+				txtSegundoNombre.setValue(familiar.getPersonaNatural().getSegundoNombre());
+				txtPrimerApellido.setValue(familiar.getPersonaNatural().getPrimerApellido());
+				txtSegundoApellido.setValue(familiar.getPersonaNatural().getSegundoApellido());
+				cmbParentesco.setValue(familiarJugador.getDatoBasico().getNombre());
+				cmbProfesion.setValue(familiar.getDatoBasico().getNombre());
+				
+				
+				persona = familiar.getPersonaNatural().getPersona();
+				
+				if(persona!=null){
+				
+				cmbParroquiaResi.setValue(persona.getDatoBasicoByCodigoParroquia().getNombre());
+				cmbMunicipioResi.setValue(persona.getDatoBasicoByCodigoParroquia().getDatoBasico().getNombre());
+				cmbEstadoResi.setValue(persona.getDatoBasicoByCodigoParroquia().getDatoBasico().getDatoBasico().getNombre());
+				txtDireccionHabitacion.setValue(persona.getDireccion());
+				
+				
+				String telf  = persona.getTelefonoHabitacion();
+					if(telf!=null){
+						cmbCodArea.setValue(telf.substring(0,4));
+						txtTelefonoHabitacion.setValue(telf.substring(5));
+					}
+				
+				String celu = persona.getPersonaNatural().getCelular();
+					if(celu!=null){
+						cmbCodCelular.setValue(celu.substring(0,4));
+						txtTelefonoCelular.setValue(celu.substring(5));
+					}
+				
+				txtCorreo.setValue(persona.getCorreoElectronico());
+				txtTwitter.setValue(persona.getTwitter());
+				
+				//System.out.println(persona.getCedulaRif());
+
+				}
 			}
-
 			
-			//binder.loadAll();
-			txtPrimerNombre.setValue(familiar.getPersonaNatural().getPrimerNombre());
-			txtSegundoNombre.setValue(familiar.getPersonaNatural().getSegundoNombre());
-			txtPrimerApellido.setValue(familiar.getPersonaNatural().getPrimerApellido());
-			txtSegundoApellido.setValue(familiar.getPersonaNatural().getSegundoApellido());
-			cmbParentesco.setValue(familiarJugador.getDatoBasico().getNombre());
-			cmbProfesion.setValue(familiar.getDatoBasico().getNombre());
-			
-			persona = familiar.getPersonaNatural().getPersona();
-			
-			cmbParroquiaResi.setValue(persona.getDatoBasicoByCodigoParroquia().getNombre());
-			cmbMunicipioResi.setValue(persona.getDatoBasicoByCodigoParroquia().getDatoBasico().getNombre());
-			cmbEstadoResi.setValue(persona.getDatoBasicoByCodigoParroquia().getDatoBasico().getDatoBasico().getNombre());
-			txtDireccionHabitacion.setValue(persona.getDireccion());
-			
-			String telf  = persona.getTelefonoHabitacion();
-			cmbCodArea.setValue(telf.substring(0,4));
-			txtTelefonoHabitacion.setValue(telf.substring(5));
-			String celu = persona.getPersonaNatural().getCelular();
-			cmbCodCelular.setValue(celu.substring(0,4));
-			txtTelefonoCelular.setValue(celu.substring(5));
-			txtCorreo.setValue(persona.getCorreoElectronico());
-			txtTwitter.setValue(persona.getTwitter());
-			
-			//System.out.println(persona.getCedulaRif());
-
 		} else {
 			alert("Seleccione un dato");
 		}
+
 	}
 	
+
+	
 	public void onClick$btnCancelar() {
+		limpiarCamposFamiliar();
+		panelFamiliar.setVisible(false);
+		
+		listaFamiliarJugador.clear();
+		binder.loadComponent(listaFamiliar);
+		
+		txtCedula.setValue("");
+		txtNombre.setValue("");
+		txtApellido.setValue("");
+		txtCategoria.setValue("");
+		txtNumero.setValue(null);
+		txtEquipo.setValue("");
+		txtFechaNac.setValue(null);
+		
 
 	}
 	
 	public void onClick$btnAgregar() {
 		limpiarCamposFamiliar();
 		panelFamiliar.setVisible(true);
-		cmbNacionalidadFamiliar.setDisabled(false);
+		//cmbNacionalidadFamiliar.setDisabled(false);
 		txtCedulaFamiliar.setReadonly(false);
 		
 	}
@@ -500,58 +584,45 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	// Eventos
 
 	public void onClick$btnAgregarComision() {
-		if (cmbComisiones.getSelectedIndex() >= 0) {
-			for (int a=0; a<comisionesFamiliar.size();a++){
-				System.out.println(comisionesFamiliar.get(a).getNombre());
+		if(cmbComisiones.getSelectedIndex()>= 0){
+			int aux=0;
+			for (int i = 0; i < comisionesFamiliar.size(); i++) {
+				if(comisionesFamiliar.get(i).getCodigoDatoBasico() == comision.getCodigoDatoBasico()){
+					aux = 1;
+				}
+				
+	
 			}
 			
-			int aux =0;
-			int n =comisionesFamiliar.size();
 			
-			System.out.println(n);
-			int i;
-			for (i = 0; i < n; i++) {
-				System.out.println(i);
-				System.out.println(comisionesFamiliar.get(i).getCodigoDatoBasico());
-				System.out.println(comision.getCodigoDatoBasico());
-				if (comisionesFamiliar.get(i).getCodigoDatoBasico()==comision.getCodigoDatoBasico()){
-					
-					aux = 0;
-				}
-				else
-				{
-					//comisionesFamiliar.add(comision);
-					//comisionesFamiliar.set(n, comision.getDatoBasico());
-					aux =1;
-					limpiarComision();
-				}
+			if((!comisionesFamiliarNuevas.contains(comision))&&(aux==0)) {
+				
+				comisionesFamiliarNuevas.add(comision);
+				limpiarComision();
 			}
-			System.out.println(i);
-		/*	for (int i=0;i<comisionesFamiliar.size();i++){
-				System.out.println(i);
-				if (comisionesFamiliar.get(i).getDatoBasico()!=comision){
-					comisionesFamiliar.add(comision);
-					aux =1;
-					limpiarComision();
-				}
-			}*/
-			if (aux==0){
-				 
-						Mensaje.mostrarMensaje("Comision Duplicada.",
-								Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+			else{
+				Mensaje.mostrarMensaje("Comisión Duplicada.",Mensaje.ERROR_DATOS,Messagebox.EXCLAMATION);
 				
 			}
-		} else {
-			Mensaje.mostrarMensaje("Seleccione una Comision.",
-					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+		}
+		else {
+			Mensaje.mostrarMensaje("Seleccione una Comisión.",Mensaje.INFORMACION ,Messagebox.EXCLAMATION);
 			cmbComisiones.setFocus(true);
 		}
 		
-		for (int a=0; a<comisionesFamiliar.size();a++){
-			System.out.println(comisionesFamiliar.get(a).getNombre());
-		}
 }
 	
+	public void onClick$btnEliminarComision(){
+		if (listComisionesNuevas.getSelectedIndex() >= 0) {
+			DatoBasico comisionSel = (DatoBasico) listComisionesNuevas.getSelectedItem()
+					.getValue();
+			comisionesFamiliarNuevas.remove(comisionSel);
+			binder.loadComponent(listComisionesNuevas);
+		} else {
+			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+		}		
+	}
 	
 	private void limpiarComision() {
 		//comision = new DatoBasico();
@@ -559,7 +630,7 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 		
 	//	List<FamiliarComisionEquipo> comisionesFamiliar = new ArrayList<FamiliarComisionEquipo>();
 		//Listbox listComisiones = null;
-		binder.loadComponent(listComisiones);
+		binder.loadComponent(listComisionesNuevas);
 	}
 
 	public FamiliarComisionEquipo getFamiliarComisionEquipo() {
@@ -650,6 +721,170 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 
 	public List<DatoBasico> getParroquiasMunicipioResi() {
 		return servicioDatoBasico.buscarDatosPorRelacion(municipio);
+	}
+
+	public DatoBasico getComisionNuevas() {
+		return comisionNuevas;
+	}
+
+	public void setComisionNuevas(DatoBasico comisionNuevas) {
+		this.comisionNuevas = comisionNuevas;
+	}
+
+	public List<DatoBasico> getComisionesFamiliarNuevas() {
+		return comisionesFamiliarNuevas;
+	}
+
+	public void setComisionesFamiliarNuevas(
+			List<DatoBasico> comisionesFamiliarNuevas) {
+		this.comisionesFamiliarNuevas = comisionesFamiliarNuevas;
+	}
+	
+	
+	private void aplicarConstraints() {
+		// Registro Jugador
+		//txtCedula.setConstraint(Restriccion.CEDULA.getRestriccion());
+		txtPrimerNombre.setConstraint(Restriccion.TEXTO_SIMPLE
+				.asignarRestriccionExtra("no empty"));
+		txtPrimerApellido.setConstraint(Restriccion.TEXTO_SIMPLE.asignarRestriccionExtra("no empty"));
+		txtSegundoNombre.setConstraint(Restriccion.TEXTO_SIMPLE
+				.getRestriccion());
+		txtSegundoApellido.setConstraint(Restriccion.TEXTO_SIMPLE
+				.getRestriccion());
+		
+		txtTelefonoHabitacion.setConstraint(Restriccion.TELEFONO
+				.getRestriccion());
+		txtTelefonoCelular.setConstraint(Restriccion.TELEFONO.getRestriccion());
+		txtCorreo.setConstraint(Restriccion.EMAIL.getRestriccion());
+		
+		txtDireccionHabitacion.setConstraint(Restriccion.TEXTO_SIMPLE.getRestriccion());
+		txtTwitter.setConstraint(Restriccion.TEXTO_SIMPLE.getRestriccion());
+		
+	
+	}
+	
+	
+	private boolean verificarCampos(InputElement[] camposValidar,
+			boolean mostrarMensaje) {
+		List<InputElement> campos = Arrays.asList(camposValidar);
+		boolean flag = true;
+		InputElement componente = null;
+		Iterator<InputElement> iterador = campos.iterator();
+
+		while (iterador.hasNext() && flag) {
+			InputElement e = iterador.next();
+			if (!e.isValid()) {
+				flag = false;
+				componente = e;
+			}
+		}
+		if (!flag && mostrarMensaje) {
+			Mensaje.mostrarMensaje("Ingrese un valor válido.",
+					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+			componente.setFocus(true);
+		}
+		return flag;
+	}
+	
+	public void onClick$btnGuardar() {
+		if (verificarCampos(camposPerfil1, true)) {
+			guardarFamiliar();
+	/*		if (medico.getNumeroColegio() != null) {
+				guardarDatoMedico();
+			}
+			if (verificarCampos(new InputElement[] { cmbInstitucionEducativa,
+					cmbAnnioEscolar, cmbCurso }, false)) {
+				guardarDatoAcademico();
+			}
+			if (verificarCampos(new InputElement[] { cmbEquipo }, false)) {
+				guardarRoster();
+			}
+			guardarDatoSocial();
+			guardarTallas();
+			guardarDocumentoPersonal();
+			guardarDocumentoAcademico();
+			guardarDocumentoMedico();    */
+			Mensaje.mostrarMensaje("Los datos del Familiar han sido guardados.",
+					Mensaje.EXITO, Messagebox.EXCLAMATION);
+
+		}
+		limpiarCamposFamiliar();
+		panelFamiliar.setVisible(false);
+
+	}
+	
+	private void guardarFamiliar(){
+
+		persona.setCorreoElectronico(txtCorreo.getValue());
+		
+	//	parroquia1 = (DatoBasico) cmbParroquiaResi.getSelectedItem().getValue();
+		//persona.setDatoBasicoByCodigoParroquia((DatoBasico) cmbParroquiaResi.getSelectedItem().getValue());
+	//	persona.setTelefonoHabitacion(txtTelefonoHabitacion.getValue());
+		persona.setTwitter(txtTwitter.getValue());
+		persona.setDireccion(txtDireccionHabitacion.getValue());
+		
+	//	System.out.println(cmbParentesco.getSelectedItem().getValue());
+	//	System.out.println(cmbParroquiaResi.getSelectedItem().getValue());
+		//personaNatural.setCelular(txtTelefonoCelular.getValue());
+		personaNatural.setPrimerNombre(txtPrimerNombre.getValue());
+		personaNatural.setPrimerApellido(txtPrimerApellido.getValue());
+		personaNatural.setSegundoApellido(txtSegundoApellido.getValue());
+		personaNatural.setSegundoNombre(txtSegundoNombre.getValue());
+	//	personaNatural.setFoto(imgFamiliar);
+		
+		//familiarJugador.setDatoBasico((DatoBasico) cmbParentesco.getSelectedItem().getValue());
+		
+		if (comisionesFamiliarNuevas.size() >0){
+			
+			System.out.println("ENTROOO");
+			
+		for (int i = 0; i < comisionesFamiliarNuevas.size(); i++) {
+			comisionEquipo.setCodigoComisionEquipo(comisionesFamiliarNuevas.get(i).getCodigoDatoBasico());
+			comisionEquipo.setEquipo(roster.getEquipo());
+			comisionEquipo.setMaximoComision(10);
+			comisionEquipo.setCantidadComision(1);
+			comisionEquipo.setEstatus1('A');
+			servicioComisionEquipo.agregar(comisionEquipo);
+			
+		}
+		}
+		
+		if (checkPoints.get(Point.FAMILIAR)) {
+			// Actualizamos
+			personaNatural.setPersona(persona);
+			familiar.setPersonaNatural(personaNatural);
+			familiarJugador.setFamiliar(familiar);
+			servicioFamiliarJugador.actualizar(familiarJugador);
+			servicioJugador.actualizar(jugador);
+			//servicioFamiliar.actualizar(familiar);
+		}
+	}
+	
+	private enum Point {
+		FAMILIAR, COMISION_EQUIPO, PERSONA, PERSONA_NATURAL, FAMILIAR_JUGADOR, JUGADOR
+	};
+	
+	/**
+	 * Indica que secciones/puntos el usuario ya ha almacenado en relacion al
+	 * jugador
+	 */
+	private EnumMap<Point, Boolean> checkPoints;
+	
+	private void inicializarCheckPoints() {
+		checkPoints = new EnumMap<Point, Boolean>(Point.class);
+		checkPoints.put(Point.FAMILIAR, false);
+		checkPoints.put(Point.COMISION_EQUIPO, false);
+		checkPoints.put(Point.PERSONA, false);
+		checkPoints.put(Point.PERSONA_NATURAL,false);
+		checkPoints.put(Point.FAMILIAR_JUGADOR,false);
+		checkPoints.put(Point.JUGADOR,false);
+		
+/*		checkPoints.put(Point.DATO_SOCIAL, false);
+		checkPoints.put(Point.ROSTER, false);
+		checkPoints.put(Point.DOCUMENTO_PERSONAL, false);
+		checkPoints.put(Point.DOCUMENTO_ACADEMICO, false);
+		checkPoints.put(Point.DOCUMENTO_MEDICO, false);
+		checkPoints.put(Point.TALLA, false);     */
 	}
 
 

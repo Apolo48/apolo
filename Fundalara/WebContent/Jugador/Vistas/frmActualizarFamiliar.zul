@@ -28,21 +28,10 @@ root="winActualizarFamiliar" ?>
 								<row spans="1,3" style="border:none">
 									<label value="Cédula" />
 									<div>
-										<combobox id="cmbNacionalidad"
-											value="--" width="4%" disabled="true" 
-											style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;">
-											<comboitem label="V"
-												value="V" />
-											<comboitem label="E"
-												value="E" />
-											<comboitem label="R"
-												value="R" />
-										</combobox>
-
 										<textbox id="txtCedula"
-											constraint="no empty" readonly="true" />
+											maxlength="50" width="37.8%" constraint="no empty"
+											readonly="true" />
 										<button id="btnBuscar"
-
 											image="../../Recursos/Imagenes/consultar.ico">
 										</button>
 									</div>
@@ -64,13 +53,9 @@ root="winActualizarFamiliar" ?>
 								<row style="border:none">
 									<label value="Fecha Nacimiento"
 										width="95%" />
-									<datebox id="dtboxFechaNac"
-										constraint="no future" format="dd/MM/yyyy" disabled="true"
-										style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;"
-										readonly="true" width="85%"
-										value="@{jugador.personaNatural.fechaNacimiento}" />
-
-
+									<textbox id="txtFechaNac"
+										readonly="true" width="95%"
+										value="@{jugador.personaNatural.fechaNacimiento, converter='controlador.jugador.converter.DateConverter'}" />
 									<label value="Categoría"
 										width="95%" />
 									<textbox id="txtCategoria"
@@ -116,7 +101,7 @@ root="winActualizarFamiliar" ?>
 		</div>
 
 
-		<grid style="border:none" mold="paging" pageSize="4" >
+		<grid style="border:none" mold="paging" pageSize="4">
 			<columns>
 				<column width="63%" />
 				<column width="30%" />
@@ -124,7 +109,7 @@ root="winActualizarFamiliar" ?>
 			<rows>
 				<row spans="2" style="border:none;">
 
-					<listbox id="listaFamiliar" mold="paging" 
+					<listbox id="listaFamiliar" mold="paging"
 						pageSize="5" model="@{controller.listaFamiliarJugador}"
 						selectedItem="@{winActualizarFamiliar$composer.FamiliarJugador}">
 						<listhead>
@@ -146,19 +131,21 @@ root="winActualizarFamiliar" ?>
 								label="@{familiarJugador.familiar.persona.personaNatural.primerApellido}" />
 							<listcell
 								label="@{familiarJugador.datoBasico.nombre}" />
-							<listcell
-								label="@{familiarJugador.representanteActual}" />
+							<listcell>
+								<checkbox
+									checked="@{familiarJugador.representanteActual}" />
+							</listcell>
 						</listitem>
 					</listbox>
 
 					<div>
-						<button id="btnAgregar"  disabled="true"
+						<button id="btnAgregar"
 							image="../../Recursos/Imagenes/agregar.ico" />
 						<separator height="5px" />
-						<button id="btnEditar" disabled="true"
+						<button id="btnEditar"
 							image="../../Recursos/Imagenes/editar.ico" />
 						<separator height="5px" />
-						<button id="btnQuitar" disabled="true"
+						<button id="btnQuitar"
 							image="../../Recursos/Imagenes/quitar.ico" />
 					</div>
 				</row>
@@ -201,20 +188,10 @@ root="winActualizarFamiliar" ?>
 														<label
 															value="Cédula" />
 														<div>
-															<combobox
-																id="cmbNacionalidadFamiliar" disabled="true" value="--"
-																style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;"
-																width="10%">
-																<comboitem
-																	label="V" value="V" />
-																<comboitem
-																	label="E" value="E" />
-															</combobox>
 															<textbox
 																id="txtCedulaFamiliar" constraint="no negative"
-																width="51%" readonly="true" />
-															<label
-																value="(*)" style="color:red" />
+																width="80%" readonly="true" />
+
 														</div>
 													</row>
 													<row
@@ -319,144 +296,154 @@ root="winActualizarFamiliar" ?>
 
 							</groupbox>
 						</tabpanel>
-					<tabpanel>
-						<groupbox style="border-color:orange"
-							closable="false">
-							<caption label="Datos de Residencia" />
-							<grid style="border:none;"
-								oddRowSclass="none">
-								<columns>
-									<column width="25%" />
-									<column width="25%" />
-									<column width="20%" />
-									<column width="30%" />
-								</columns>
-								<rows>
-									<row style="border:none;">
-										<label value="Estado" />
-										<div>
-									<combobox readonly="true" id="cmbEstadoResi"
-										value="--Seleccione--" width="65%" selectedItem="@{controller.estado}"
-										model="@{winActualizarFamiliar$composer.estadosVenezuela}">
-										<comboitem self="@{each='estado'}"
-										label="@{estado.nombre}" value="@{estado.codigoDatoBasico}" />
-									</combobox>
-											<label value="(*)"
-												style="color:red" />
-										</div>
-										<label value="Municipio" />
-										<div>
-										<combobox id="cmbMunicipioResi" readonly="true"
-											selectedItem="@{controller.municipio}" value="--Seleccione--"
-											width="65%"
-											model="@{winActualizarFamiliar$composer.municipiosEstadosResi, load-after='cmbEstadoResi.onChange'}">
-											<comboitem self="@{each='municipio'}"
-											label="@{municipio.nombre}" value="@{municipio.codigoDatoBasico}" />
-										</combobox>
-											<label value="(*)"
-												style="color:red" />
-										</div>
-
-									</row>
-									<row style="border:none;">
-										<label value="Parroquia" />
-										<div>
-										<combobox id="cmbParroquiaResi" readonly="true"
-											value="--Seleccione--" width="65%"
-											selectedItem="@{controller.parroquia}"
-											model="@{winActualizarFamiliar$composer.parroquiasMunicipioResi, load-after='cmbMunicipioResi.onChange'}">
-											<comboitem self="@{each='parroquia'}"
-											label="@{parroquia.nombre}" value="@{parroquia.codigoDatoBasico}" />
-										</combobox>
-											<label value="(*)"
-												style="color:red" />
-										</div>
-									</row>
-
-									<row style="border:none;"
-										spans="1,3">
-
-										<label
-											value="Dirección Habitación" />
-
-										<div>
-											<textbox maxlength="180"
-												height="40px" width="90%" multiline="true" id="txtDireccionHabitacion" />
-											<label value="(*)"
-												style="color:red" />
-										</div>
-
-									</row>
-								</rows>
-							</grid>
-						</groupbox>
-						<groupbox style="border-color:orange"
-							closable="false">
-							<caption label="Datos de Contacto" />
-							<grid style="border:none;"
-								oddRowSclass="none">
-								<columns>
-									<column width="24%" />
-									<column width="27%" />
-									<column width="20%" />
-									<column width="30%" />
-								</columns>
-								<rows>
-									<row style="border:none;">
-										<label
-											value="Teléfono Habitación" />
-										<div>
-											<combobox
-												readonly="true" id="cmbCodArea"
-												value="--Seleccione--" width="25%"
-												selectedItem="@{controller.codigoArea}"
-												model="@{winActualizarFamiliar$composer.codigosArea}">
-											<comboitem
-											self="@{each='codAJug'}" label="@{codAJug.nombre}" value="@{codAJug.codigoDatoBasico}" />
-											</combobox>
-
-											<textbox width="40%" id="txtTelefonoHabitacion" />
-											<label value="(*)"
-												style="color:red" />
-										</div>
-										<label value="Teléfono Celular" />
-
-										<div>
-											<combobox
-													readonly="true" id="cmbCodCelular"
-													value="--Seleccione--" width="25%"
-													selectedItem="@{controller.codigoCel}"
-													model="@{winActualizarFamiliar$composer.codigosCel}">
-													<comboitem
-													self="@{each='codCJug'}" label="@{codCJug.nombre}"
-													value="@{codCJug.codigoDatoBasico}" />
-											</combobox>
-
-											<textbox width="40%" id="txtTelefonoCelular" />
-											<label value="(*)"
-												style="color:red" />
-										</div>
-
-									</row>
-									<row style="border:none;">
-										<label
-											value="Correo Electrónico" />
-										<textbox value="" width="88%" id="txtCorreo" />
-										<label value="Twitter" />
-										<hbox>
-											<label value="@" />
-											<textbox
-												width="90%" id="txtTwitter" />
-										</hbox>
-									</row>
-								</rows>
-							</grid>
-						</groupbox>
-					</tabpanel>
 						<tabpanel>
 							<groupbox style="border-color:orange"
 								closable="false">
-								<caption label="Comisión (es)" />
+								<caption label="Datos de Residencia" />
+								<grid style="border:none;"
+									oddRowSclass="none">
+									<columns>
+										<column width="25%" />
+										<column width="25%" />
+										<column width="20%" />
+										<column width="30%" />
+									</columns>
+									<rows>
+										<row style="border:none;">
+											<label value="Estado" />
+											<div>
+												<combobox
+													readonly="true" id="cmbEstadoResi" value="--Seleccione--"
+													width="65%" selectedItem="@{controller.estado}"
+													model="@{winActualizarFamiliar$composer.estadosVenezuela}">
+													<comboitem
+														self="@{each='estado'}" label="@{estado.nombre}"
+														value="@{estado.codigoDatoBasico}" />
+												</combobox>
+												<label value="(*)"
+													style="color:red" />
+											</div>
+											<label value="Municipio" />
+											<div>
+												<combobox
+													id="cmbMunicipioResi" readonly="true"
+													selectedItem="@{controller.municipio}"
+													value="--Seleccione--" width="65%"
+													model="@{winActualizarFamiliar$composer.municipiosEstadosResi, load-after='cmbEstadoResi.onChange'}">
+													<comboitem
+														self="@{each='municipio'}" label="@{municipio.nombre}"
+														value="@{municipio.codigoDatoBasico}" />
+												</combobox>
+												<label value="(*)"
+													style="color:red" />
+											</div>
+
+										</row>
+										<row style="border:none;">
+											<label value="Parroquia" />
+											<div>
+												<combobox
+													id="cmbParroquiaResi" readonly="true"
+													value="--Seleccione--" width="65%"
+													selectedItem="@{controller.parroquia}"
+													model="@{winActualizarFamiliar$composer.parroquiasMunicipioResi, load-after='cmbMunicipioResi.onChange'}">
+													<comboitem
+														self="@{each='parroquia'}" label="@{parroquia.nombre}"
+														value="@{parroquia.codigoDatoBasico}" />
+												</combobox>
+												<label value="(*)"
+													style="color:red" />
+											</div>
+										</row>
+
+										<row style="border:none;"
+											spans="1,3">
+
+											<label
+												value="Dirección Habitación" />
+
+											<div>
+												<textbox maxlength="180"
+													height="40px" width="90%" multiline="true"
+													id="txtDireccionHabitacion" />
+												<label value="(*)"
+													style="color:red" />
+											</div>
+
+										</row>
+									</rows>
+								</grid>
+							</groupbox>
+							<groupbox style="border-color:orange"
+								closable="false">
+								<caption label="Datos de Contacto" />
+								<grid style="border:none;"
+									oddRowSclass="none">
+									<columns>
+										<column width="24%" />
+										<column width="27%" />
+										<column width="20%" />
+										<column width="30%" />
+									</columns>
+									<rows>
+										<row style="border:none;">
+											<label
+												value="Teléfono Habitación" />
+											<div>
+												<combobox
+													readonly="true" id="cmbCodArea" value="--Seleccione--"
+													width="25%" selectedItem="@{controller.codigoArea}"
+													model="@{winActualizarFamiliar$composer.codigosArea}">
+													<comboitem
+														self="@{each='codAJug'}" label="@{codAJug.nombre}"
+														value="@{codAJug.codigoDatoBasico}" />
+												</combobox>
+
+												<textbox width="40%"
+													id="txtTelefonoHabitacion" />
+												<label value="(*)"
+													style="color:red" />
+											</div>
+											<label
+												value="Teléfono Celular" />
+
+											<div>
+												<combobox
+													readonly="true" id="cmbCodCelular" value="--Seleccione--"
+													width="25%" selectedItem="@{controller.codigoCel}"
+													model="@{winActualizarFamiliar$composer.codigosCel}">
+													<comboitem
+														self="@{each='codCJug'}" label="@{codCJug.nombre}"
+														value="@{codCJug.codigoDatoBasico}" />
+												</combobox>
+
+												<textbox width="40%"
+													id="txtTelefonoCelular" />
+												<label value="(*)"
+													style="color:red" />
+											</div>
+
+										</row>
+										<row style="border:none;">
+											<label
+												value="Correo Electrónico" />
+											<textbox value=""
+												width="88%" id="txtCorreo" />
+											<label value="Twitter" />
+											<hbox>
+												<label value="@" />
+												<textbox width="90%"
+													id="txtTwitter" />
+											</hbox>
+										</row>
+									</rows>
+								</grid>
+							</groupbox>
+						</tabpanel>
+						<tabpanel>
+							<groupbox style="border-color:orange"
+								closable="false">
+								<caption label="Agregar Comisión(es)" />
 								<grid style="border:none;"
 									oddRowSclass="none">
 									<columns>
@@ -477,6 +464,53 @@ root="winActualizarFamiliar" ?>
 										</row>
 									</rows>
 								</grid>
+								<space height="10px" />
+								<grid style="border:none;">
+									<columns>
+										<column width="90%" />
+										<column width="10%" />
+									</columns>
+									<rows>
+										<row style="border:none;">
+											<listbox
+												id="listComisionesNuevas" mold="paging" pageSize="2"
+												model="@{controller.comisionesFamiliarNuevas}"
+												selectedItem="@{winActualizarFamiliar$composer.ComisionNuevas}">
+												<listhead>
+													<listheader
+														label="Comisiones" width="30%" />
+													<listheader
+														label="Descripción" width="70%" />
+												</listhead>
+
+												<listitem
+													self="@{each='ComisionNuevas'}"
+													value="@{ComisionNuevas}">
+													<listcell
+														label="@{ComisionNuevas.nombre}" />
+													<listcell
+														label="@{ComisionNuevas.descripcion}" />
+												</listitem>
+											</listbox>
+											<vbox>
+												<button
+													id="btnAgregarComision"
+													image="../../Recursos/Imagenes/agregar.ico" />
+												<button
+													id="btnEliminarComision"
+													image="../../Recursos/Imagenes/quitar.ico" />
+											</vbox>
+										</row>
+									</rows>
+								</grid>
+							</groupbox>
+
+
+
+							<groupbox style="border-color:orange"
+								closable="false">
+								<caption
+									label="Comisión(es) a la(s) que Pertenece" />
 								<space height="10px" />
 								<grid style="border:none;">
 									<columns>
@@ -506,10 +540,7 @@ root="winActualizarFamiliar" ?>
 											</listbox>
 											<vbox>
 												<button
-													id="btnAgregarComision"
-													image="../../Recursos/Imagenes/agregar.ico" />
-												<button
-													id="btnEliminarComision"
+													id="btnEliminarComisionVieja"
 													image="../../Recursos/Imagenes/quitar.ico" />
 											</vbox>
 										</row>
