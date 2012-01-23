@@ -73,11 +73,12 @@
 								</row>
 								<row style="border:none;">
 									<label value="Tipo de Traslado" />
-									<combobox id="cmbTipoTraslado" readonly="true" focus="true"
+									<combobox id="cmbTipoTraslado" readonly="true" focus="true"										
 										selectedItem="@{controller.tipoOperacion}"
 										model="@{winRetiroTraslado$composer.operaciones}">
 										<comboitem
-											self="@{each='operac'}" label="@{operac.nombre}" />
+											self="@{each='operac'}" label="@{operac.nombre}" 
+											value="@{operac.codigoDatoBasico}" />											
 									</combobox>
 								</row>
 								<row spans="1,3" style="border:none;">

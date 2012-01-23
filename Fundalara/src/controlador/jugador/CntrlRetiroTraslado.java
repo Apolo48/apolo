@@ -27,7 +27,6 @@ import modelo.Roster;
 import modelo.DatoBasico;
 //import modelo.Parroquia;
 
-import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -38,7 +37,6 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Groupbox;
-import org.zkoss.zul.Image;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Include;
@@ -86,7 +84,6 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 	private ServicioRoster servicioRoster;
 	private Combobox cmbTipoTraslado;
 	private Groupbox tipoT;
-	private Image imgJugador;
 	
 	//Datos del jugador
 	private Textbox txtCedula;
@@ -230,15 +227,7 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 				String fecha = sdf.format(date);
 				txtFechaIngreso.setValue(fecha);
 				txtGenero.setValue(jugador.getPersonaNatural().getDatoBasico().getNombre());
-				byte[] foto = jugador.getPersonaNatural().getFoto();
-				if (foto !=null){
-					try {
-						AImage aImage = new AImage("foto.jpg", foto);
-						imgJugador.setContent(aImage);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
+							
 				roster= servicioRoster.buscarRoster(jugador.getCedulaRif());
 				binder.loadAll();
 
@@ -325,8 +314,9 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 	public void onChange$cmbTipoTraslado() {
 		if (cmbTipoTraslado.getSelectedItem().getLabel().equals("PASE")) {
 			DatoBasico aux = servicioDatoBasico.buscarTipo(TipoDatoBasico.CONFIGURACION_PASE, "NUMERO PASE");
+			int operacion = Integer.parseInt(cmbTipoTraslado.getSelectedItem().getValue().toString());
 			int valormax = Integer.parseInt(aux.getDescripcion());
-			if ((servicioRetiroTraslado.contarfilas(retiroJugador)) < valormax){
+			if ((servicioRetiroTraslado.contarfilas(retiroJugador, operacion)) < valormax){
 				tipoT.setVisible(true);
 			}
 			else {
@@ -336,8 +326,8 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 			}
 		}
 		else {
-            tipoT.setVisible(false);
-    }
+			tipoT.setVisible(false);
+		}			
 	}
 				
 }
