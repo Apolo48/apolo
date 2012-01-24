@@ -59,10 +59,7 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	Button btnBuscar;
 
 	
-	Textbox filter2;
-	Textbox filter1;
-	Textbox filter3;
-	Textbox filter4;
+
 	Listbox listmedico;
 	
 	Textbox txtApellido,txtTelefonoCelular,txtTelefonoHabitacion,txtNumcol, txtCedula,txtMatricula;
@@ -78,25 +75,6 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	private AnnotateDataBinder binder;
 
 	
-	public void onBlur$filter2(){
-		binder.loadAll();
-		
-	}
-	
-	public void onBlur$filter1(){
-		binder.loadAll();
-		
-	}
-	
-	public void onBlur$filter3(){
-		binder.loadAll();
-		
-	}
-	
-	public void onBlur$filter4(){
-		binder.loadAll();
-		
-	}
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -144,6 +122,7 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		if(servicioMedico.buscar(txtNumcol.getValue().toString())!=null){
 			alert("El Numero de Colegio Ya Existe");
 		}
+		txtNumcol.setRawValue(null);
 	}
 
 	public void onClick$btnModificar() {
@@ -308,14 +287,19 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		cmbEspecialidad.setSelectedIndex(buscaresp(medico));
 		cmbCodArea.setSelectedIndex(buscarcarea(medico));
 		cmbCodCelular.setSelectedIndex(buscarcelu(medico));
-		txtTelefonoCelular.setValue(medico.getTelefonoCelular().substring(4));
-		txtTelefonoHabitacion.setValue(medico.getTelefonoOficina().substring(4));
+		txtTelefonoCelular.setValue(medico.getTelefonoCelular().substring(5));
+		txtTelefonoHabitacion.setValue(medico.getTelefonoOficina().substring(5));
 		cmbNacionalidad.setSelectedIndex(buscarnac(medico));
 		txtCedula.setValue(medico.getCedulaMedico().substring(2));
 		txtNumcol.setReadonly(true);
 		btnGuardar.setDisabled(true);
 		btnModificar.setDisabled(false);
+		if(medico.getEstatus()=='A'){
 		btnEliminar.setDisabled(false);
+		}
+		else{
+			btnEliminar.setDisabled(true);	
+		}
 		binder.loadAll();
 		
 	}

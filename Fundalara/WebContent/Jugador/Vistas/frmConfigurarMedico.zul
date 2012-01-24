@@ -146,10 +146,6 @@
 						model="@{controller.medicos}"
 						selectedItem="@{winBuscarjugador$composer.medico}"
 						width="590px">
-						<auxhead sclass="category-center">
-							<auxheader label="Listado Médicos"
-								colspan="5" align="center" />
-						</auxhead>
 						<listhead>
 							<listheader width="18%" align="center">
 								Número Colegio
