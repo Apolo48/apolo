@@ -21,32 +21,38 @@
 			<rows>
 				<row style="border:none;">
 					<label value="Divisa" />
-					<combobox id="cmbDivisa" value="--Seleccione--"
-						selectedItem="@{controller.divisa}" width="80%" focus="true"
-						model="@{winConfigurarEquipo$composer.divisas}">
+					<combobox id="cmbDivisa" readonly="true" value="--Seleccione--"
+						width="80%" 
+						model="@{controller.divisas}">
+						
 						<comboitem self="@{each='divisa'}"
 							label="@{divisa.nombre}" />
+					</combobox>
+					<label value="Tipo Lapso" />
+					<combobox id="cmbTipoLapso" value="--Seleccione--" width="50%"
+						
+						model="@{controller.tipolapso}">
+						<comboitem self="@{each='tipolapsos'}" focus="true" 
+							label="@{tipolapsos.nombre}" />
 					</combobox>
 				</row>
 				<row style="border:none;">
 					<label value="Categoría" />
-					<combobox id="cmbCategoria" value="--Seleccione--"
-						selectedItem="@{controller.categoria}" width="80%" focus="true"
-						model="@{winConfigurarEquipo$composer.categorias}">
+					<combobox id="cmbCategoria" value="--Seleccione--" width="80%"
+						model="@{controller.categorias}">
 						<comboitem self="@{each='categoria'}"
 							label="@{categoria.nombre}" />
 					</combobox>
 					<label value="Tipo" />
-					<combobox id="cmbTipo" value="--" width="20%" focus="true"
-						selectedItem="@{controller.clasificacion}"
-						model="@{winConfigurarEquipo$composer.tipos, load-after='cmbCategoria.onChange'}">
-						<comboitem self="@{each='tiposv'}"
-							label="@{tiposv.nombre}" />
+					<combobox id="cmbTipo" value="--" width="20%"
+						
+						model="@{controller.tipo}">
+						<comboitem self="@{each='tipos'}" focus="true" 
+							label="@{tipos.nombre}" />
 					</combobox>
 				</row>
 				<row spans="1,3" style="border:none;">
 					<label value="Nombre" />
-				<!--	<textbox id="txtNombre" width="72%" />  -->
 					  <textbox id="txtNombre" width="72%" focus="true" value="@{controller.equipo.nombre}"/>
 				</row>
 			</rows>
@@ -88,9 +94,10 @@
 							<listheader label="Nombre" width="20%"/>
 							<listheader label="Categoría" width="25%"/>
 							<listheader label="Tipo" width="5%" />
+							<listheader label="Tipo Lapso" width="15%" />
 							<listheader label="Divisa" width="12%" />
 							<listheader label="Minimo Jugadores" width="19%" />
-							<listheader label="Maximo Jugadores" width="19%" />
+							<listheader label="Maximo Jugadores" width="20%" />
 						</listhead>
 						<listitem self="@{each='equipo'}"
 							value="@{equipo}">
@@ -98,7 +105,14 @@
 							<listcell
 								label="@{equipo.categoria.nombre}" />
 							<listcell
+								label="@{equipo.datoBasico.tipo.nombre}" />
+							<listcell
+								label="@{equipo.datoBasico.tipolapso.nombre}" />
+									
+								<!--tipos.nombre 
+									<listcell
 								label="@{equipo.datoBasico.nombre}" />
+								  -->
 							<listcell label="@{equipo.divisa.nombre}" />
 							<listcell label="@{equipo.minimoJugador}" />
 							<listcell label="@{equipo.maximoJugador}" />
@@ -112,6 +126,7 @@
 						<button id="btnEditar"
 							image="../../Recursos/Imagenes/editar.ico" />
 						<separator height="5px" />
+						
 						<button id="btnQuitar"
 							image="../../Recursos/Imagenes/quitar.ico" />
 					</div>

@@ -6,28 +6,9 @@
 	<window id="winBuscarjugador" title="Buscar Jugador" border="normal" width="500px" mode="modal"
 		closable="true" apply="controlador.jugador.CntrlBuscarJugador">
 
-		<grid style="border:none">
-			<rows>
-				<row style="border:none">
-					<label value="Categoría" />
-					<combobox id="cmbCategoria" value="--Seleccione--" selectedItem="@{controller.categoria}"
-						width="90%" model="@{winBuscarjugador$composer.categorias}">
-						<comboitem self="@{each='categoria'}"
-								label="@{categoria.nombre}" value="@{categoria.codigoCategoria}" />
-					</combobox>
-					<label value="Equipo" />
-					<hbox>
-						<combobox value="--Seleccione--" width="90%" id="cmbEquipo" selectedItem="@{controller.equipo}"
-						 model="@{winBuscarjugador$composer.equipos, load-after='cmbCategoria.onChange'}">
-							<comboitem self="@{each='equipo'}" label="@{equipo.datoBasico.nombre}" value="@{equipo.codigoEquipo}"/>
-						</combobox>
-						
-					</hbox>
-				</row>
-			</rows>
-		</grid>
+
 		<separator></separator>
-		<listbox id="listEquipo"  mold="paging" pageSize="5"  model="@{controller.jugadores, load-after='cmbEquipo.onChange'}" 
+		<listbox id="listEquipo"  mold="paging" pageSize="5"  model="@{controller.jugadores}" 
 					    selectedItem="@{winBuscarjugador$composer.Jugador}">
 			<auxhead sclass="category-center">
 				<auxheader label="Listado Equipo" colspan="4"

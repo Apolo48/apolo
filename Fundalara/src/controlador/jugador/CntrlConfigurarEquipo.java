@@ -1,5 +1,6 @@
 package controlador.jugador;
 
+import java.awt.Button;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import modelo.Categoria;
 
 import modelo.Divisa;
 import modelo.Equipo;
+import modelo.Medico;
 
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioDatoBasico;
@@ -49,21 +51,55 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 	private Categoria categoria = new Categoria();
 	private Divisa divisa = new Divisa();
 
+	
+
+	List<Categoria> categorias =new ArrayList<Categoria>();;
 	Listbox listEquipo;
 	List<Equipo> equipos = new ArrayList<Equipo>();
 	List<DatoBasico> tip = new ArrayList<DatoBasico>();
 	List<DatoBasico> tip2 = new ArrayList<DatoBasico>();
-
+	List<DatoBasico> tipo = new ArrayList<DatoBasico>();
+	List<Divisa> divisas = new ArrayList<Divisa>();
+	
+	
 	private Textbox txtNombre;
 	private Combobox cmbTipo;
+	private Combobox cmbTipoLapso;
 	private Combobox cmbCategoria;
 	private Combobox cmbDivisa;
 	private Spinner spMinJugadores;
 	private Spinner spMaxJugadores;
+    private AnnotateDataBinder binder;
+    private Button btnSeleccionar,btnAgregar, btnQuitar, btnModificar,btnCancelar,btnSalir; 
+    
+    //tipolapso
+    
+    public DatoBasico getTipoLapso() {
+		return tipolapso;
+	}
 
-	private AnnotateDataBinder binder;
+	public void setTipoLapso(DatoBasico tipolapso) {
+		this.tipolapso = tipolapso;
+	}
+    
+    public DatoBasico getClasificacion() {
+		return clasificacion;
+	}
 
-	public Divisa getDivisa() {
+	public void setClasificacion(DatoBasico clasificacion) {
+		this.clasificacion = clasificacion;
+	}
+    
+    public List<DatoBasico> getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(List<DatoBasico> tipo) {
+		this.tipo = tipo;
+	}
+
+	
+   public Divisa getDivisa() {
 		return divisa;
 	}
 
@@ -71,12 +107,12 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 		this.divisa = divisa;
 	}
 
-	public DatoBasico getClasificacion() {
-		return clasificacion;
+	public Combobox getCmbTipoLapso() {
+		return cmbTipoLapso;
 	}
 
-	public void setClasificacion(DatoBasico clasificacion) {
-		this.clasificacion = clasificacion;
+	public void setCmbTipoLapso(Combobox cmbTipoLapso) {
+		this.cmbTipoLapso = cmbTipoLapso;
 	}
 
 	public Categoria getCategoria() {
@@ -99,12 +135,13 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false); // Hacemos visible el
-														// modelo para el
-														// databinder
-		equipos = servicioEquipo.listar();
+		equipos = servicioEquipo.listar();			// modelo para el
+													// databinder
+		
 	}
 
 	public List<Categoria> getCategorias() {
+		categorias=servicioCategoria.listar();
 		return servicioCategoria.listar();
 
 	}
@@ -120,24 +157,30 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 	}
 
 	public List<Divisa> getDivisas() {
+		divisas=servicioDivisa.listar();
 		return servicioDivisa.listar();
 
 	}
-
-	public List<DatoBasico> getTipos() {
+	
+	public void onChange$cmbCategoria() {
+		categorias=servicioCategoria.listar();
 		tip.clear();
 		tip2.clear();
 		tip = servicioDatoBasico.buscar(TipoDatoBasico.CLASIFICACION_EQUIPO);
-		for (int i = 0; i < categoria.getCantidadEquipo(); i++) {
+		for (int i = 0; i < categorias.get(cmbCategoria.getSelectedIndex()).getCantidadEquipo(); i++) {
 			tip2.add(tip.get(i));
 		}
-		return tip2;
+		tipo.clear();
+		tipo.addAll(tip2);
+		binder.loadComponent(cmbTipo);
+		
 	}
+	
 
 	public void onClick$btnAgregar() {
 		// Divisa y Clasificacion fijas
 		// equipo.setDivisa(servicioDivisa.listar().get(0));
-      
+           
 		for (int i = 0; i < equipos.size(); i++) {
 			if (cmbTipo.getSelectedItem().getLabel()
 					.equals(equipos.get(i).getDatoBasicoByCodigoClasificacion().getNombre())) {
@@ -151,11 +194,11 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 
 			}
 		}
+		System.out.println(divisa);
 		equipo.setDivisa(divisa);
 		equipo.setEstatus('A');
-		//AUN NO SE HA IMPLEMENTADO EN VISTA CORREGIR
-		equipo.setDatoBasicoByCodigoTipoLapso(servicioDatoBasico.buscarTipo(TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR"));
 		equipo.setDatoBasicoByCodigoClasificacion(clasificacion);
+		equipo.setDatoBasicoByCodigoTipoLapso(tipolapso);
 		equipo.setCategoria(categoria);
 		equipo.setNombre(txtNombre.getValue());
 		equipo.setMaximoJugador(spMaxJugadores.getValue());
@@ -175,29 +218,20 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 
 	}
 
-	public void onSelect$listEquipo() {
-		/*
-		 * int n = listEquipo.getSelectedIndex();
-		 * System.out.println(cmbCategoria.getItemCount());
-		 * cmbCategoria.setSelectedItem(cmbCategoria.getItemAtIndex(2));
-		 * equipos.get(n).getCodigoEquipo();
-		 * txtNombre.setValue(equipos.get(n).getNombre().toString());
-		 * cmbCategoria.setValue(equipos.get(n).getCategoria().getNombre());
-		 * cmbDivisa.setValue(equipos.get(n).getDivisa().getNombre());
-		 * cmbTipo.setValue(equipos.get(n).getDatoBasico().getNombre());
-		 */
-	}
 
-	/*
-	 * public void onClick$btnEditar() { if (listEquipo.getSelectedIndex() >= 0)
-	 * { Equipo equipoSeleccionado = (Equipo) listEquipo.getSelectedItem()
-	 * .getValue(); if (equipoSeleccionado != null) {
-	 * equipos.remove(equipoSeleccionado); equipo.setDivisa(divisa);
-	 * equipo.setEstatus('A'); equipo.setDatoBasico(clasificacion);
-	 * equipo.setCategoria(categoria); equipo.setNombre(txtNombre.getValue());
-	 * equipo.setCodigoEquipo(equipoSeleccionado.getCodigoEquipo());
-	 * servicioEquipo.actualizar(equipo); equipos.add(equipo); limpiar(); } } }
-	 */
+	public void onSelect$listEquipo() {
+		
+		
+		cmbCategoria.setSelectedIndex(buscarCat(equipo.getCategoria()));
+		cmbDivisa.setSelectedIndex(buscarDiv(equipo.getDivisa()));
+		buscarTipoSelecionado(equipo);
+		System.out.println(buscarTipo(equipo));
+		
+		
+	}
+	
+
+	
 
 	public void onClick$btnQuitar() {
 		if (listEquipo.getSelectedIndex() >= 0) {
@@ -228,5 +262,75 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 	public void onClick$btnCancelar() {
 		limpiar();
 	}
+	
+	
+	public int buscarCat(Categoria categoria){
+		for (int i = 0; i < categorias.size(); i++) {
+			if (categorias.get(i).getNombre().equals(categoria.getNombre())){
+				
+				return i;
+				
+			}
+			
+		}
+		
+		return -1;
+		
+	}
+	
+	public int buscarDiv(Divisa divisa){
+		for (int i = 0; i < divisas.size(); i++) {
+			if (divisas.get(i).getNombre().equals(divisa.getNombre())){
+				return i;
+				
+			}
+			
+		}
+		return -1;
+	    
+    }
+	
+	public int buscarTipo(Equipo equipo){
 
+		///
+		for (int i = 0; i < tipo.size(); i++) {
+			if (tipo.get(i).getNombre().equals(equipo.getDatoBasicoByCodigoClasificacion().getNombre())){
+				System.out.println(i);
+				return i;
+			}
+			
+		}
+		
+		       return -1; 
+    }
+	
+	public void buscarTipoSelecionado(Equipo equipo){
+		categorias=servicioCategoria.listar();
+		tip.clear();
+		tip2.clear();
+		tip = servicioDatoBasico.buscar(TipoDatoBasico.CLASIFICACION_EQUIPO);
+		for (int i = 0; i < equipo.getCategoria().getCantidadEquipo(); i++) {
+			tip2.add(tip.get(i));
+		}
+		tipo.clear();
+		tipo.addAll(tip2);
+		binder.loadComponent(cmbTipo);
+		
+    }
+	
+
+	public int buscarTipoLapso(DatoBasico datobasico){
+
+		///getDatoBasicoByCodigoClasificacion().getNombre()
+		for (int i = 0; i < tipo.size(); i++) {
+			if (tipo.get(i).getNombre().equals(equipo.getDatoBasicoByCodigoTipoLapso().getLapsoDeportivos())){
+				System.out.println(i);
+				return i;
+			}
+			
+		}
+		
+		       return -1; 
+    }
+	
 }
