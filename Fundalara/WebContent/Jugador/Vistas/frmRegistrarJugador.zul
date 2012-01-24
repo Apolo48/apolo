@@ -18,7 +18,7 @@
 					<rows>
 						<row style="border:none;">
 							<grid style="border:none;"
-								oddRowSclass="none" >
+								oddRowSclass="none">
 								<columns>
 									<column width="22%" />
 									<column width="28%" />
@@ -32,18 +32,18 @@
 										<div>
 											<combobox
 												id="cmbNacionalidad" readonly="true" value="-" width="4%"
-												focus="true" constraint="no empty" 
+												focus="true" constraint="no empty"
 												selectedItem="@{controller.jugadorBean.nacionalidad}">
-												<comboitem label="V" 
+												<comboitem label="V"
 													value="V" />
 												<comboitem label="E"
 													value="E" />
 												<comboitem label="R"
 													value="R" />
 											</combobox>
-											<intbox id="txtCedula" 
-												value="@{controller.jugadorBean.cedula}" 
-												maxlength="8"  width="20%" />
+											<intbox id="txtCedula"
+												value="@{controller.jugadorBean.cedula}" maxlength="8"
+												width="20%" />
 											<label value="-"
 												id="lblSeparador" visible="false" />
 											<intbox
@@ -58,13 +58,15 @@
 										<label value="Primer Nombre" />
 										<div>
 											<textbox
-												id="txtPrimerNombre" maxlength="40" width="80%"
+												style='text-transform:uppercase;' id="txtPrimerNombre"
+												maxlength="40" width="80%"
 												value="@{controller.jugadorBean.primerNombre}" />
 											<label value="(*)"
 												style="color:red" />
 										</div>
 										<label value="Segundo Nombre" />
-										<textbox maxlength="40"
+										<textbox
+											style='text-transform:uppercase;' maxlength="40"
 											id="txtSegundoNombre" width="80%"
 											value="@{controller.jugadorBean.segundoNombre}" />
 									</row>
@@ -72,15 +74,17 @@
 										<label value="Primer Apellido"
 											width="95%" />
 										<div>
-											<textbox maxlength="40"
-												width="80%" id="txtPrimerApellido"
+											<textbox
+												style='text-transform:uppercase;' maxlength="40" width="80%"
+												id="txtPrimerApellido"
 												value="@{controller.jugadorBean.primerApellido}" />
 											<label value="(*)"
 												style="color:red" />
 										</div>
 										<label value="Segundo Apellido"
 											width="95%" />
-										<textbox maxlength="40"
+										<textbox
+											style='text-transform:uppercase;' maxlength="40"
 											id="txtSegundoApellido" width="80%"
 											value="@{controller.jugadorBean.segundoApellido}" />
 									</row>
@@ -89,13 +93,13 @@
 										<label value="Género" />
 										<div>
 											<combobox id="cmbGenero"
-											constraint="no empty" 
+												constraint="no empty"
 												selectedItem="@{controller.jugadorBean.genero}"
 												readonly="true" value="--Seleccione--" width="25%"
-													model="@{winRegistrarJugador$composer.generos}">
-															<comboitem
-														self="@{each='genero'}" label="@{genero.nombre}" />
-																			</combobox>
+												model="@{winRegistrarJugador$composer.generos}">
+												<comboitem
+													self="@{each='genero'}" label="@{genero.nombre}" />
+											</combobox>
 											<label value="(*)"
 												style="color:red" />
 										</div>
@@ -183,9 +187,8 @@
 																			value="Fecha " />
 																		<div>
 																			<datebox
-																				value="@{controller.jugadorBean.fechaNacimiento}" 
-																				id="dtboxFechaNac" 
-																				format="dd/MM/yyyy"
+																				value="@{controller.jugadorBean.fechaNacimiento}"
+																				id="dtboxFechaNac" format="dd/MM/yyyy"
 																				style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 																			<label
 																				value="(*)" style="color:red" />
@@ -254,8 +257,8 @@
 																		<div>
 																			<combobox
 																				id="cmbParroquiaNac" readonly="true"
-																				selectedItem="@{controller.jugadorBean.parroquiaNac}" disabled="true"
-																				value="--Seleccione--" width="70%"
+																				selectedItem="@{controller.jugadorBean.parroquiaNac}"
+																				disabled="true" value="--Seleccione--" width="70%"
 																				model="@{winRegistrarJugador$composer.parroquiasMunicipio, load-after='cmbMunicipioNac.onChange'}">
 																				<comboitem
 																					self="@{each='parroquiaN'}"
@@ -345,8 +348,8 @@
 																			value="Dirección Habitación" />
 																		<div>
 																			<textbox
-																				maxlength="200" height="40px" width="90%"
-																				multiline="true"
+																				style='text-transform:uppercase;' maxlength="200"
+																				height="40px" width="90%" multiline="true"
 																				value="@{controller.jugadorBean.direccion}" />
 																			<label
 																				value="(*)" style="color:red" />
@@ -390,10 +393,10 @@
 																					self="@{each='codAJug'}" label="@{codAJug.nombre}" />
 																			</combobox>
 																			<textbox
-																				id="txtTelefonoHabitacion"
-																				maxlength="7"
+																				style='text-transform:uppercase;'
+																				id="txtTelefonoHabitacion" maxlength="7"
 																				value="@{controller.jugadorBean.telefonoHabitacion.numero}"
-																				 width="50%" />
+																				width="50%" />
 																		</div>
 																		<label
 																			value="Teléfono Celular" />
@@ -408,10 +411,10 @@
 																					value="@{codCJug.codigoDatoBasico}" />
 																			</combobox>
 																			<textbox
-																				id="txtTelefonoCelular"
-																				maxlength="7"
+																				style='text-transform:uppercase;'
+																				id="txtTelefonoCelular" maxlength="7"
 																				value="@{controller.jugadorBean.telefonoCelular.numero}"
-																				 width="50%" />
+																				width="50%" />
 																		</div>
 																	</row>
 																	<row
@@ -419,7 +422,8 @@
 																		<label
 																			value="Correo Electrónico" />
 																		<textbox
-																			id="txtCorreo" width="90%"
+																			style='text-transform:uppercase;' id="txtCorreo"
+																			width="90%"
 																			value="@{controller.jugadorBean.correoElectronico}" />
 																		<label
 																			value="Twitter" />
@@ -427,7 +431,8 @@
 																			<label
 																				value="@" />
 																			<textbox
-																				id="txtTwitter" width="80%"
+																				style='text-transform:uppercase;' id="txtTwitter"
+																				width="80%"
 																				value="@{controller.jugadorBean.twitter}" />
 																		</div>
 																	</row>
@@ -468,12 +473,13 @@
 															label="@{docPer.recaudoPorProceso.cantidad}" />
 														<listcell>
 															<spinner
-																width="60%" value="@{docPer.cantidad}" constraint="min 0 max 10"/>
+																width="60%" value="@{docPer.cantidad}"
+																constraint="min 0 max 10" />
 														</listcell>
 														<listcell
 															label="@{docPer.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
 														<listcell
-															label="Subir" 
+															label="Subir"
 															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
 														</listcell>
 													</listitem>
@@ -546,7 +552,7 @@
 																value="Médico" />
 															<div>
 																<textbox
-																 width="70%"
+																	style='text-transform:uppercase;' width="70%"
 																	readonly="true" id="txtMedico" />
 																<button
 																	id="btnCatalogoMedico"
@@ -556,6 +562,7 @@
 															<label
 																value="Número Colegio" />
 															<textbox
+																style='text-transform:uppercase;'
 																value="@{controller.medico.matricula}" width="60%"
 																id="txtNroColegio" readonly="true" />
 															<space />
@@ -594,11 +601,10 @@
 																			<combobox
 																				readonly="true" value="--Seleccione--" width="60%"
 																				id="cmbAfecciones"
-																					selectedItem="@{controller.afeccion}"
+																				selectedItem="@{controller.afeccion}"
 																				model="@{winRegistrarJugador$composer.afecciones}">
 																				<comboitem
-																					self="@{each='afecc'}"
-																					label="@{afecc.nombre}"
+																					self="@{each='afecc'}" label="@{afecc.nombre}"
 																					value="@{afecc.codigoDatoBasico}" />
 																			</combobox>
 																		</row>
@@ -649,8 +655,9 @@
 															<label
 																value="Observaciones" />
 															<textbox
-																maxlength="200" height="40px" width="95%"
-																multiline="true" id="txtObervaciones"
+																style='text-transform:uppercase;' maxlength="200"
+																height="40px" width="95%" multiline="true"
+																id="txtObervaciones"
 																value="@{controller.datoMedico.observacion}" />
 														</row>
 													</rows>
@@ -687,7 +694,8 @@
 															label="@{docMed.recaudoPorProceso.cantidad}" />
 														<listcell>
 															<spinner
-																width="60%" value="@{docMed.cantidad}" constraint="min 0 max 10" />
+																width="60%" value="@{docMed.cantidad}"
+																constraint="min 0 max 10" />
 														</listcell>
 														<listcell
 															label="@{docMed.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
@@ -793,7 +801,8 @@
 															label="@{docAcad.recaudoPorProceso.cantidad}" />
 														<listcell>
 															<spinner
-																width="60%" value="@{docAcad.cantidad}" constraint="min 0 max 10"/>
+																width="60%" value="@{docAcad.cantidad}"
+																constraint="min 0 max 10" />
 														</listcell>
 														<listcell
 															label="@{docAcad.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
@@ -846,7 +855,7 @@
 															<combobox
 																id="cmbActividad" readonly="true" value="--Seleccione--"
 																model="@{winRegistrarJugador$composer.actividadSoc}"
-																	selectedItem="@{controller.datoSocial.datoBasico}"
+																selectedItem="@{controller.datoSocial.datoBasico}"
 																width="80%">
 																<comboitem
 																	self="@{each='actividad_social'}"
@@ -856,9 +865,9 @@
 															<label
 																value="Fecha inicio" />
 															<datebox
-															value="@{controller.datoSocial.fechaInicio}"
-															constraint="no future"
-																id="dtboxFechaInicioActividad" format="dd/MM/yyyy"
+																value="@{controller.datoSocial.fechaInicio}"
+																constraint="no future" id="dtboxFechaInicioActividad"
+																format="dd/MM/yyyy"
 																style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 														</row>
 														<row
@@ -866,8 +875,9 @@
 															<label
 																value="Horas" />
 															<div>
-																<spinner 
-																	width="10%" id="spHorasSemanales" value="@{controller.datoSocial.horasDedicadas}" />
+																<spinner
+																	width="10%" id="spHorasSemanales"
+																	value="@{controller.datoSocial.horasDedicadas}" />
 																<space />
 																<label
 																	value="Semanales" />
@@ -1590,9 +1600,7 @@
 																		<div>
 																			<combobox
 																				id="cmbNacionalidadFamiliar" readonly="true"
-																				value="-" width="10%"
-																				constraint="no empty"
-																		>
+																				value="-" width="10%" constraint="no empty">
 																				<comboitem
 																					label="V" />
 																				<comboitem
@@ -1600,8 +1608,7 @@
 																			</combobox>
 																			<intbox
 																				id="txtCedulaFamiliar" constraint="no negative"
-																				width="50%" maxlength="8"
-																				 />
+																				width="50%" maxlength="8" />
 																			<label
 																				value="(*)" style="color:red" />
 																		</div>
@@ -1615,8 +1622,8 @@
 																			value="Primer Nombre" />
 																		<div>
 																			<textbox
-																				width="80%" id="txtPrimerNombreFamiliar"
-																			>
+																				style='text-transform:uppercase;' width="80%"
+																				id="txtPrimerNombreFamiliar">
 																			</textbox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1624,8 +1631,8 @@
 																		<label
 																			value="Segundo Nombre" />
 																		<textbox
-																			width="80%" id="txtSegundoNombreFamiliar"
-																>
+																			style='text-transform:uppercase;' width="80%"
+																			id="txtSegundoNombreFamiliar">
 																		</textbox>
 																	</row>
 																	<row
@@ -1634,8 +1641,8 @@
 																			value="Primer Apellido" />
 																		<div>
 																			<textbox
-																				width="80%" id="txtPrimerApellidoFamiliar"
-																			>
+																				style='text-transform:uppercase;' width="80%"
+																				id="txtPrimerApellidoFamiliar">
 																			</textbox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1643,8 +1650,8 @@
 																		<label
 																			value="Segundo Apellido" />
 																		<textbox
-																			width="80%" id="txtSegundoApellidoFamiliar"
-																		>
+																			style='text-transform:uppercase;' width="80%"
+																			id="txtSegundoApellidoFamiliar">
 																		</textbox>
 																	</row>
 																	<row
@@ -1653,15 +1660,13 @@
 																			value="Parentesco" />
 																		<div>
 																			<combobox
-																				id="cmbParentesco"
-																				constraint="no empty"
+																				id="cmbParentesco" constraint="no empty"
 																				model="@{winRegistrarJugador$composer.parentescos}"
-																				readonly="true" value="--Seleccione--" width="65%"
-																	>
+																				readonly="true" value="--Seleccione--"
+																				width="65%">
 																				<comboitem
 																					self="@{each='parentesco'}"
-																					label="@{parentesco.nombre}"
-																					value="@{parentesco}" />
+																					label="@{parentesco.nombre}" value="@{parentesco}" />
 																			</combobox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1672,12 +1677,11 @@
 																			<combobox
 																				id="cmbProfesion"
 																				model="@{winRegistrarJugador$composer.profesiones}"
-																				readonly="true" value="--Seleccione--" width="65%"
-																			>
+																				readonly="true" value="--Seleccione--"
+																				width="65%">
 																				<comboitem
 																					self="@{each='profesion'}"
-																					label="@{profesion.nombre}"
-																					value="@{profesion}" />
+																					label="@{profesion.nombre}" value="@{profesion}" />
 																			</combobox>
 																		</div>
 																	</row>
@@ -1693,7 +1697,7 @@
 																			style="border-color:orange" mold="3d">
 																			<image
 																				id="imgFamiliar"
-																			src="../../Recursos/Imagenes/noFoto.jpg"
+																				src="../../Recursos/Imagenes/noFoto.jpg"
 																				height="80px" width="80px" />
 																		</groupbox>
 																	</row>
@@ -1701,7 +1705,7 @@
 																		style="border:none;" height="20%" align="center">
 																		<button
 																			id="btnFotoFamiliar"
-																				image="../../Recursos/Imagenes/foto.png">
+																			image="../../Recursos/Imagenes/foto.png">
 																		</button>
 																	</row>
 																</rows>
@@ -1769,14 +1773,12 @@
 																value="Parroquia" />
 															<div>
 																<combobox
-																	id="cmbParroquiaFamiliar" readonly="true"
-															 width="65%"
-																	model="@{winRegistrarJugador$composer.parroquiasMunicipioFam, load-after='cmbMunicipioFamiliar.onChange'}"
-																	>
+																	id="cmbParroquiaFamiliar" readonly="true" width="65%"
+																	model="@{winRegistrarJugador$composer.parroquiasMunicipioFam, load-after='cmbMunicipioFamiliar.onChange'}">
 																	<comboitem
 																		self="@{each='parroquiaFam'}"
 																		label="@{parroquiaFam.nombre}"
-																			value="@{parroquiaFam}" />
+																		value="@{parroquiaFam}" />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
@@ -1788,9 +1790,9 @@
 																value="Dirección Habitación" />
 															<div>
 																<textbox
-																	maxlength="180" height="40px" width="90%"
-																	multiline="true" id="txtDireccionHabFamiliar"
-																	 />
+																	style='text-transform:uppercase;' maxlength="180"
+																	height="40px" width="90%" multiline="true"
+																	id="txtDireccionHabFamiliar" />
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -1823,17 +1825,15 @@
 																<combobox
 																	readonly="true" id="cmbCodAreaFamiliar" value="--"
 																	width="25%"
-																	model="@{winRegistrarJugador$composer.codigosArea}"
-																	>
+																	model="@{winRegistrarJugador$composer.codigosArea}">
 																	<comboitem
 																		self="@{each='codAFamiliar'}"
 																		label="@{codAFamiliar.nombre}"
 																		value="@{codAFamiliar}" />
 																</combobox>
 																<textbox
-																	id="txtTelefonoHabFamiliar" width="40%"
-																	maxlength="7"
-																	 />
+																	style='text-transform:uppercase;'
+																	id="txtTelefonoHabFamiliar" width="40%" maxlength="7" />
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -1843,17 +1843,15 @@
 																<combobox
 																	readonly="true" id="cmbCodCelularFamiliar" value="--"
 																	width="25%"
-																	model="@{winRegistrarJugador$composer.codigosCelular}"
-																	>
+																	model="@{winRegistrarJugador$composer.codigosCelular}">
 																	<comboitem
 																		self="@{each='codCFamiliar'}"
 																		label="@{codCFamiliar.nombre}"
 																		value="@{codCFamiliar}" />
 																</combobox>
 																<textbox
-																	id="txtTelefonoCelFamiliar" width="40%"
-																	maxlength="7"
-																	/>
+																	style='text-transform:uppercase;'
+																	id="txtTelefonoCelFamiliar" width="40%" maxlength="7" />
 																<label
 																	value="(*)" style="color:red" />
 															</div>
@@ -1863,18 +1861,19 @@
 															<label
 																value="Correo Electrónico" />
 															<textbox
-																width="88%" id="txtCorreoFamiliar"
-																 />
+																style='text-transform:uppercase;' width="88%"
+																id="txtCorreoFamiliar" />
 															<label
 																value="Twitter" />
 															<hbox>
 																<label
 																	value="@" />
 																<textbox
-																	width="80%"
+																	style='text-transform:uppercase;' width="80%"
 																	id="txtTwitterFamiliar" />
 															</hbox>
-														</row>													</rows>
+														</row>
+													</rows>
 												</grid>
 											</groupbox>
 										</tabpanel><!-- Fin tabFamUbicacion -->
