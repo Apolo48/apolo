@@ -25,22 +25,22 @@
 				<auxheader colspan="1">
 					<image src="Recursos/Imagenes/filtro.png"
 						width="15px" />
-					<textbox id="filter2" width="70%" />
+					<textbox id="filter2" width="70%"  style='text-transform:uppercase;' />
 				</auxheader>
 				<auxheader colspan="1">
 					<image src="Recursos/Imagenes/filtro.png"
 						width="15px" />
-					<textbox id="filter3" width="70%" />
+					<textbox id="filter3" width="70%"  style='text-transform:uppercase;' />
 				</auxheader>
 				<auxheader colspan="1">
 					<image src="Recursos/Imagenes/filtro.png"
 						width="15px" />
-					<textbox id="filter4" width="70%" />
+					<textbox id="filter4" width="70%"  style='text-transform:uppercase;' />
 				</auxheader>
 				<auxheader colspan="1">
 					<image src="Recursos/Imagenes/filtro.png"
 						width="15px" />
-					<textbox id="filter1" width="50%" />
+					<textbox id="filter1" width="50%" style='text-transform:uppercase;' />
 				</auxheader>
 			</auxhead>
 

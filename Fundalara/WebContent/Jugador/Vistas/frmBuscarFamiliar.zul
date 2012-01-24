@@ -18,15 +18,15 @@
 			<auxhead>
 				<auxheader colspan="1">
 					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
-					<textbox id="filter1" width="70%" />
+					<textbox id="filter1" width="70%" style='text-transform:uppercase;' />
 				</auxheader>
 				<auxheader colspan="1">
 					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
-					<textbox id="filter2" width="80%" />
+					<textbox id="filter2" width="80%" style='text-transform:uppercase;' />
 				</auxheader>
 				<auxheader colspan="1">
 					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
-					<textbox id="filter3" width="80%" />
+					<textbox id="filter3" width="80%" style='text-transform:uppercase;' />
 				</auxheader>
 			</auxhead>
 			<listitem self="@{each='familiar'}" value="@{familiar}">

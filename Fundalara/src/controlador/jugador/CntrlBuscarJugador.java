@@ -57,34 +57,39 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 
 	Component catalogo;
 	private AnnotateDataBinder binder;
+	  char estatus ;
 
-
+	  
+	  private void  filtrarLista(){
+		  Jugadores=servicioJugador.buscarJugadores(filter2.getValue()
+					.toString(), filter3.getValue().toString(), filter4.getValue()
+					.toString(), filter1.getValue().toString(), estatus);
+		binder.loadComponent(listEquipo);
+	  }
 	public void onBlur$filter2(){
-		binder.loadAll();
-		
+		filtrarLista();
 	}
 	
 	public void onBlur$filter1(){
-		binder.loadAll();
-		
+		filtrarLista();
 	}
 	
 	public void onBlur$filter3(){
-		binder.loadAll();
+		filtrarLista();
 		
 	}
 	
 	public void onBlur$filter4(){
-		binder.loadAll();
+		filtrarLista();
 		
 	}
 	
 	public void onCreate$winBuscarjugador(){
-	    char estatus = (Character) catalogo.getVariable("estatus",false);	
+	     estatus = (Character) catalogo.getVariable("estatus",false);	
 	    System.out.println(estatus);
 	    Jugadores=servicioJugador.buscarJugadores(filter2.getValue()
-				.toString(), filter3.getValue().toString(), filter4.getValue()
-				.toString(), filter1.getValue().toString(), estatus);
+				.toString().toUpperCase(), filter3.getValue().toString().toUpperCase(), filter4.getValue()
+				.toString().toUpperCase(), filter1.getValue().toString().toUpperCase(), estatus);
 	    determinarTitulo(estatus);
 	    binder.loadAll();
 	}

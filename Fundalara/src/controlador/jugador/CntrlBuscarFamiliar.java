@@ -76,10 +76,10 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 	public void onCreate$winBuscarfamiliar(){
 		estatus = (Integer) catalogo.getVariable("estatus",false);
 		if(estatus==1){
-			familiares=servicioFamiliar.filtrar(1,filter1.getValue().toString(), filter2.getValue().toString(), filter3.getValue().toString());
+			familiares=servicioFamiliar.filtrar(1,filter1.getValue().toString().toUpperCase(), filter2.getValue().toString().toUpperCase(), filter3.getValue().toString().toUpperCase());
 		}
 		else{
-			familiares=servicioFamiliar.filtrar(2,filter1.getValue().toString(), filter2.getValue().toString(), filter3.getValue().toString());
+			familiares=servicioFamiliar.filtrar(2,filter1.getValue().toString().toUpperCase(), filter2.getValue().toString().toUpperCase(), filter3.getValue().toString().toUpperCase());
 		}
 		
 		//familiares=servicioFamiliar.filtrar(estatus,filter1.getValue().toString(), filter2.getValue().toString(), filter3.getValue().toString());

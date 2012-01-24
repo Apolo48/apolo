@@ -124,10 +124,10 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 				&& cmbCodArea.getSelectedIndex()!=-1 && txtMatricula.getValue()!="" 
 				&& txtMatricula.getValue().length()==6) {		
 		especialidades=servicioDatoBasico.buscar(TipoDatoBasico.ESPECIALIDAD);
-		medico.setCedulaMedico(cmbNacionalidad.getValue()+"-"+txtCedula.getValue().toString());
-		medico.setTelefonoCelular(codigosCelular.get(cmbCodCelular.getSelectedIndex()).getNombre()+txtTelefonoCelular.getValue());
+		medico.setCedulaMedico(cmbNacionalidad.getValue().toUpperCase()+"-"+txtCedula.getValue().toString().toUpperCase());
+		medico.setTelefonoCelular(codigosCelular.get(cmbCodCelular.getSelectedIndex()).getNombre()+txtTelefonoCelular.getValue().toUpperCase());
 		medico.setDatoBasico(especialidades.get(cmbEspecialidad.getSelectedIndex()));
-		medico.setTelefonoOficina(codigosArea.get(cmbCodArea.getSelectedIndex()).getNombre()+txtTelefonoHabitacion.getValue());
+		medico.setTelefonoOficina(codigosArea.get(cmbCodArea.getSelectedIndex()).getNombre()+txtTelefonoHabitacion.getValue().toUpperCase());
 		medico.setEstatus('A');
 		Date fecha = new Date();
 		medico.setFechaIngreso(fecha);
@@ -295,8 +295,8 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	}
 	
 	public  List<Medico> getMedicos() {
-		return servicioMedico.filtrar(filter1.getValue().toString(),filter2.getValue().toString()
-				,filter3.getValue().toString(),filter4.getValue().toString());
+		return servicioMedico.filtrar("",""
+				,"","");
 		
 	}
 	

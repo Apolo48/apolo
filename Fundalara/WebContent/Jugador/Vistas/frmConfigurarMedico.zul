@@ -27,22 +27,25 @@
 								<row style="border:none;">
 									<label value="  Número Colegio" />
 									<div>
-										<textbox id="txtNumcol" width="45%" 
-											maxlength="6" value="@{controller.medico.numeroColegio}"/>
+										<textbox id="txtNumcol"
+											width="45%" maxlength="6"
+											value="@{controller.medico.numeroColegio}"
+											style='text-transform:uppercase;' />
 									</div>
 									<label value="Matrícula" />
 									<div>
-										<textbox width="45%" id="txtMatricula" 
-											maxlength="6" value="@{controller.medico.matricula}" />
+										<textbox width="45%"
+											id="txtMatricula" maxlength="6"
+											value="@{controller.medico.matricula}"
+											style='text-transform:uppercase;' />
 									</div>
 								</row>
 								<row style="border:none;">
 									<label value="Especialidad" />
 									<div>
 										<combobox id="cmbEspecialidad"
-											readonly="true" value="--Seleccione--"
-											 width="90%"
-											model="@{controller.especialidades}" >
+											readonly="true" value="--Seleccione--" width="90%"
+											model="@{controller.especialidades}">
 											<comboitem
 												self="@{each='especialidad'}"
 												label="@{especialidad.nombre}" />
@@ -71,29 +74,30 @@
 									<label value="Cédula" />
 									<div>
 										<combobox id="cmbNacionalidad"
-											readonly="true" value="-" width="9%" focus="true"
-											>
+											readonly="true" value="-" width="9%" focus="true">
 											<comboitem label="V"
 												value="V" />
 											<comboitem label="E"
 												value="E" />
 										</combobox>
-										<textbox id="txtCedula" 
-											width="60%" maxlength="8" />
+										<textbox id="txtCedula"
+											width="60%" maxlength="8" style='text-transform:uppercase;' />
 									</div>
 
 								</row>
 								<row style="border:none;">
 									<label value="  Nombres" />
 									<div>
-										<textbox width="88%" 
-											maxlength="40" value="@{controller.medico.nombre}"/>
+										<textbox width="88%"
+											maxlength="40" value="@{controller.medico.nombre}"
+											style='text-transform:uppercase;' />
 									</div>
 									<label value="Apellidos" />
 									<div>
 										<textbox id="txtApellido"
 											width="88%" maxlength="40"
-											value="@{controller.medico.apellido}" />
+											value="@{controller.medico.apellido}"
+											style='text-transform:uppercase;' />
 									</div>
 
 								</row>
@@ -107,8 +111,8 @@
 												self="@{each='codAJug'}" label="@{codAJug.nombre}" />
 										</combobox>
 										<textbox
-											id="txtTelefonoHabitacion" maxlength="7"
-											width="55%" />
+											id="txtTelefonoHabitacion" maxlength="7" width="55%"
+											style='text-transform:uppercase;' />
 									</div>
 									<label value="Telefono Celular" />
 									<div>
@@ -120,7 +124,8 @@
 												value="@{codCJug.codigoDatoBasico}" />
 										</combobox>
 										<textbox width="55%"
-											maxlength="7" id="txtTelefonoCelular" />
+											maxlength="7" id="txtTelefonoCelular"
+											style='text-transform:uppercase;' />
 									</div>
 								</row>
 							</rows>
@@ -129,7 +134,7 @@
 				</row>
 			</rows>
 		</grid>
-		
+
 		<grid style="border:none;">
 			<columns>
 				<column width="90%" />
@@ -137,47 +142,42 @@
 			</columns>
 			<rows>
 				<row style="border:none;">
-		<listbox id="listmedico"  mold="paging" pageSize="5"  model="@{controller.medicos}" 
-					    selectedItem="@{winBuscarjugador$composer.medico}" width="590px" >
-			<auxhead sclass="category-center">
-			 <auxheader label="Listado Médicos" colspan="5" align="center"/>
-			</auxhead>
-			<listhead>
-			    <listheader width="15%" align="center">Matrícula</listheader>
-				<listheader width="18%" align="center">Número Colegio</listheader>
-				<listheader width="29%" >Nombre</listheader>
-				<listheader width="29%" >Apellido</listheader>
-				<listheader width="15%" tooltiptext="A=Habilitado E=Deshabilitado" >Estado</listheader>
-			</listhead>
-			<auxhead>
-				<auxheader colspan="1">
-					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
-					<textbox id="filter1" width="75%" />
-				</auxheader>
-				<auxheader colspan="1">
-					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
-					<textbox id="filter2" width="70%" />
-				</auxheader>
-				<auxheader colspan="1">
-					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
-					<textbox id="filter3" width="70%" />
-				</auxheader>
-				<auxheader colspan="1">
-					<image src="/Recursos/Imagenes/filtro.png" width="15px" />
-					<textbox id="filter4" width="70%" />
-				</auxheader>
-				<auxheader colspan="1">
-				</auxheader>
-			</auxhead>
-			<listitem self="@{each='medico'}" value="@{medico}">
-				 <listcell label="@{medico.matricula}" />
-				<listcell label="@{medico.numeroColegio}" />
-				<listcell label="@{medico.nombre}"/>
-				<listcell label="@{medico.apellido}" /> 
-				<listcell label="@{medico.estatus}" tooltiptext="A=Habilitado E=Deshabilitado" />
-			</listitem>
-		</listbox>
-		<div>
+					<listbox id="listmedico" mold="paging" pageSize="5"
+						model="@{controller.medicos}"
+						selectedItem="@{winBuscarjugador$composer.medico}"
+						width="590px">
+						<auxhead sclass="category-center">
+							<auxheader label="Listado Médicos"
+								colspan="5" align="center" />
+						</auxhead>
+						<listhead>
+							<listheader width="18%" align="center">
+								Número Colegio
+							</listheader>
+							<listheader width="15%" align="center">
+								Matrícula
+							</listheader>
+							<listheader width="29%">Nombre</listheader>
+							<listheader width="29%">
+								Apellido
+							</listheader>
+							<listheader width="15%"
+								tooltiptext="A=Habilitado E=Deshabilitado">
+								Estado
+							</listheader>
+						</listhead>
+
+						<listitem self="@{each='medico'}"
+							value="@{medico}">
+							<listcell label="@{medico.numeroColegio}" />
+							<listcell label="@{medico.matricula}" />
+							<listcell label="@{medico.nombre}" />
+							<listcell label="@{medico.apellido}" />
+							<listcell label="@{medico.estatus}"
+								tooltiptext="A=Habilitado E=Deshabilitado" />
+						</listitem>
+					</listbox>
+					<div>
 						<button id="btnGuardar"
 							image="../../Recursos/Imagenes/agregar.ico" />
 						<separator height="5px" />
