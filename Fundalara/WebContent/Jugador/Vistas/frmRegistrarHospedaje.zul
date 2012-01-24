@@ -1,6 +1,6 @@
 <?page title="Registro Hospedaje"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winRegistrarHospedaje"?>
 
 <window id="winRegistrarHospedaje" title="Registro de Hospedaje"
 	apply="controlador.jugador.CntrlRegistrarHospedaje" border="normal"
@@ -100,15 +100,14 @@
 		<rows>
 			<row style="border:none;">
 				<listbox id="listHospedaje" mold="paging" pageSize="5"
-					  model="@{hospedajes}"
-					  selectedItem="@{winRegistrarHospedaje$composer.hospedaje}">
+					  model="@{controller.hospedajes}">
 
 					<listhead>
 						<listheader label="Representante" />
 						<listheader label="Competencia" />
 					</listhead>
 					<listitem   self="@{each='hospedaje'}" value="@{hospedaje}" >
-						<listcell label="@{hospedaje.familiarJugador.familiar.personaNattural.primerNombre}" />
+						<listcell label="@{hospedaje.familiarJugador.familiar.personaNatural.primerNombre}" />
 						<listcell label="@{hospedaje.competencia.nombre}" />
 					</listitem>
 				</listbox>

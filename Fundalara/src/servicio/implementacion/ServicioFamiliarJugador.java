@@ -5,6 +5,7 @@ import java.util.List;
 import servicio.interfaz.IServicioFamiliarJugador;
 
 import dao.general.DaoFamiliarJugador;
+import modelo.Familiar;
 import modelo.FamiliarJugador;
 import modelo.Jugador;
 
@@ -47,5 +48,11 @@ DaoFamiliarJugador daoFamiliarJugador;
 	public List<FamiliarJugador> buscarFamiliarJugador(Jugador jugador) {
 		return daoFamiliarJugador.buscarFamiliarJugador(jugador);
 	}
+	
+	@Override
+	public FamiliarJugador buscarFamiliar(Familiar familiar) {
+		return daoFamiliarJugador.buscar(familiar);
+	}
+	
 
 }

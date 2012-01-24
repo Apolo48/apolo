@@ -47,6 +47,7 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 	private ServicioDatoBasico servicioDatoBasico;
 
 	private DatoBasico clasificacion = new DatoBasico();
+	private DatoBasico tipoLapso = new DatoBasico();//VALIDAR
 	private Equipo equipo = new Equipo();
 	private Categoria categoria = new Categoria();
 	private Divisa divisa = new Divisa();
@@ -75,11 +76,11 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
     //tipolapso
     
     public DatoBasico getTipoLapso() {
-		return tipolapso;
+		return tipoLapso;
 	}
 
-	public void setTipoLapso(DatoBasico tipolapso) {
-		this.tipolapso = tipolapso;
+	public void setTipoLapso(DatoBasico tipoLapso) {
+		this.tipoLapso = tipoLapso;
 	}
     
     public DatoBasico getClasificacion() {
@@ -198,7 +199,8 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 		equipo.setDivisa(divisa);
 		equipo.setEstatus('A');
 		equipo.setDatoBasicoByCodigoClasificacion(clasificacion);
-		equipo.setDatoBasicoByCodigoTipoLapso(tipolapso);
+		//equipo.setDatoBasicoByCodigoTipoLapso(servicioDatoBasico.buscarTipo(TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR")); //EJEMPLO ANTERIOR
+		equipo.setDatoBasicoByCodigoTipoLapso(tipoLapso);
 		equipo.setCategoria(categoria);
 		equipo.setNombre(txtNombre.getValue());
 		equipo.setMaximoJugador(spMaxJugadores.getValue());

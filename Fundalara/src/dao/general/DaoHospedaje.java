@@ -2,6 +2,8 @@ package dao.general;
 
 //import java.util.List;
 
+import java.util.List;
+
 import modelo.Competencia;
 import modelo.FamiliarJugador;
 import modelo.Hospedaje;
@@ -63,6 +65,16 @@ public class DaoHospedaje extends GenericDao {
 		tx.commit();
 		}
 	}
-		
+	
+	public List<Hospedaje> listarrepre(FamiliarJugador familiarJugador){
+		Session session = this.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(Hospedaje.class)
+				.add(Restrictions.eq("familiarJugador", familiarJugador))
+				.add(Restrictions.eq("estatus", 'A'));
+		return c.list();
+	}
+	
+	
 }
 	

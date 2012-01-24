@@ -18,4 +18,6 @@ public interface IServicioHospedaje {
 
 	public abstract List<Hospedaje> listar();
 
+	public abstract List<Hospedaje> listarrepre(FamiliarJugador familiarJugador);
+
 }

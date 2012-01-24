@@ -47,5 +47,9 @@ public class ServicioHospedaje implements IServicioHospedaje {
 		return daoHospedaje.listar(Hospedaje.class);
 	}
 	
+	@Override
+	public List<Hospedaje> listarrepre(FamiliarJugador familiarJugador) {
+		return daoHospedaje.listarrepre(familiarJugador);
+	}
 
 }

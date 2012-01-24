@@ -20,11 +20,13 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import servicio.implementacion.ServicioCompetencia;
 import servicio.implementacion.ServicioFamiliar;
+import servicio.implementacion.ServicioFamiliarJugador;
 import servicio.implementacion.ServicioHospedaje;
 import comun.Mensaje;
 import comun.Ruta;
@@ -56,6 +58,7 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	private Textbox txtNombreRep;
 	private Textbox txtApellidoRep;
 	private Textbox txtDireccionRep;
+	private Listbox listHospedaje;
 
 	//Botones
 	private Button btnCatalogoRep;
@@ -68,6 +71,7 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	//Variables
 	//boolean sw = true;
 	char estatus;
+	boolean ok = true;
 	
 	//Catalogo
 	private Component formulario;
@@ -78,12 +82,14 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	//Servicios
 	private ServicioCompetencia servicioCompetencia;
 	private ServicioHospedaje servicioHospedaje;
-	//private ServicioFamiliar servicioFamiliar;
+	private ServicioFamiliar servicioFamiliar;
+	private ServicioFamiliarJugador servicioFamiliarJugador;
 	
 	//Modelo
 	private Competencia competencia = new Competencia();
 	private Familiar familiar = new Familiar();
 	private List<Competencia> listCompetencias = new ArrayList<Competencia>();
+	private List<Hospedaje> hospedajes = new ArrayList<Hospedaje>();
 	private Hospedaje hospedaje = new Hospedaje();
 	private FamiliarJugador familiarJugador = new FamiliarJugador();
 	
@@ -178,25 +184,18 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	
 	public void onChange$cmbCompetencia(){	
 		competencia = (Competencia) cmbCompetencia.getSelectedItem().getValue();
-		/*if (cmbCompetencia.getSelectedIndex() >=0) {//PARA Q SIRVE ESTA CONDICION
-			for (int i = 0; i < listCompetencias.size(); i++) {
-				if(listCompetencias.get(i).getNombre().equals(cmbCompetencia.getSelectedItem().getLabel())) {
-				}//AKI NO REALIZA NINGUN CAMBIO
-			}
-		}*/
 		binder.loadComponent(dtboxFechaIni);
 		binder.loadComponent(dtboxFechaFin);
 		binder.loadComponent(txtEstado);//ERRROR EN ESTADO. VERIFICAR AUN GENERA ERROR A VECES
 	}
 			
 	public void onClick$btnCatalogoRep() {
-		// se crea el catalogo y se llama
-		Component catalogo = Executions.createComponents(
-				"/Jugador/Vistas/frmBuscarFamiliar.zul", null, null);
-
-		// asigna una referencia del formulario al catalogo.
-		catalogo.setVariable("formulario", formulario, false);
-		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+		int esta=1;
+		Component catalogo = Executions.createComponents("/Jugador/Vistas/frmBuscarFamiliar.zul", null, null);
+		//asigna una referencia del formulario al catalogo.
+		catalogo.setVariable("formulario",formulario, false);
+		catalogo.setVariable("estatus", esta, false);
+		formulario.addEventListener("onCatalogoBuscarFamiliarCerrado", new EventListener() {
 
 			@Override
 			// Este metodo se llama cuando se envia la señal desde el catalogo
@@ -207,6 +206,8 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 									+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getNombre()+". "
 									+familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getNombre()+" - ESTADO "
 									+ familiar.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getDatoBasico().getNombre());
+				hospedajes=servicioHospedaje.listarrepre(servicioFamiliarJugador.buscarFamiliar(familiar));
+				binder.loadComponent(listHospedaje);
 				binder.loadComponent(txtCedulaRep);
 				binder.loadComponent(txtNombreRep);
 				binder.loadComponent(txtApellidoRep);
@@ -228,8 +229,7 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 		if ((cmbCompetencia.getSelectedIndex() >= 0) && (txtCedulaRep.getValue() != "")){ 
 			hospedaje.setEstatus('A');
 			hospedaje.setCompetencia(competencia);
-			hospedaje.setFamiliarJugador(familiarJugador);
-			//servicioHospedaje.agregar(hospedaje, competencia, familiarJugador);
+			hospedaje.setFamiliarJugador(servicioFamiliarJugador.buscarFamiliar(familiar));
 			servicioHospedaje.agregar(hospedaje);
 			Mensaje.mostrarMensaje("Representante asociado a Hospedaje",
 					Mensaje.EXITO, Messagebox.INFORMATION);
@@ -237,31 +237,24 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 		}
 	}
 	
-	/* CODIGO ORIGINAL ERROR  EN CONDICION
-	 public void onClick$btnGuardar() {
-			if (cmbCompetencia.getSelectedIndex() > 2 && txtCedulaRep.getValue() != null) 
-				hospedaje.setEstatus('A');
-				hospedaje.setCompetencia(competencia);
-				hospedaje.setFamiliarJugador(familiarJugador);
-				servicioHospedaje.agregar(hospedaje, competencia, familiarJugador);
-				Mensaje.mostrarMensaje("Representante asociado a Hospedaje",
-						Mensaje.EXITO, Messagebox.INFORMATION);
-				limpiar();
-				binder.loadAll();
-				
-			}
-*/
 	
 	public void onClick$btnCancelar() { //DEBE MEJORARSE CON UN CONDICIONAL XQ IGUAL BORRAR AL HACER CLICK EN OK
-		Mensaje.mostrarMensaje("Borrará TODOS los datos, está seguro?",
+	
+			Mensaje.mostrarMensaje("Borrará TODOS los datos, está seguro?",
 				Mensaje.INFORMACION, Messagebox.INFORMATION);
-		limpiar();
+			if (ok); {
+				limpiar();
+		}
 	}
 	
+	
 	public void onClick$btnSalir() { //DEBE MEJORARSE CON UN CONDICIONAL XQ IGUAL BORRAR AL HACER CLICK EN OK
+		
 		Mensaje.mostrarMensaje("Saldrá de la ventana, está seguro?",
 				Mensaje.INFORMACION, Messagebox.INFORMATION);
-		winRegistrarHospedaje.detach();
+		if (ok); {
+			winRegistrarHospedaje.detach();
+		}
 	}
 
 	//Métodos propios del Controlador
@@ -279,7 +272,6 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 		txtEstado.setValue(null);
 		competencia = new Competencia();
 		familiar = new Familiar();
-		//binder.loadAll(); // REVISAR USO
 	}
 	
 	// Cambia el estatus del hospedaje
@@ -288,6 +280,14 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 		servicioHospedaje.actualizar(hospedaje);
 		//hospedaje = new modelo.Hospedaje();
 		//binder.loadAll();
+	}
+
+	public List<Hospedaje> getHospedajes() {
+		return hospedajes;
+	}
+
+	public void setHospedajes(List<Hospedaje> hospedajes) {
+		this.hospedajes = hospedajes;
 	}
 	
 }

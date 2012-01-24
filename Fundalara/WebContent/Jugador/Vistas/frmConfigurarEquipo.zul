@@ -29,12 +29,16 @@
 							label="@{divisa.nombre}" />
 					</combobox>
 					<label value="Tipo Lapso" />
-					<combobox id="cmbTipoLapso" value="--Seleccione--" width="50%"
+					<!-- <combobox id="cmbTipoLapso" value="-Seleccione-" width="50%"
 						
 						model="@{controller.tipolapso}">
 						<comboitem self="@{each='tipolapsos'}" focus="true" 
 							label="@{tipolapsos.nombre}" />
+					</combobox> -->
+					
+					<combobox id="cmbTipoLapso" value="--Seleccione--" width="50%">
 					</combobox>
+							
 				</row>
 				<row style="border:none;">
 					<label value="Categoría" />
