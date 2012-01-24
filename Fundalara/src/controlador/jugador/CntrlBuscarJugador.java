@@ -16,8 +16,11 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.*;
 
+import comun.EstatusRegistro;
+
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioEquipo;
+import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioRoster;
 
 /**
@@ -35,6 +38,7 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 	ServicioCategoria servicioCategoria;
 	ServicioEquipo servicioEquipo;
 	ServicioRoster servicioRoster;
+	ServicioJugador servicioJugador;
 
 	private Equipo equipo = new Equipo();
 	private Categoria categoria = new Categoria();
@@ -75,30 +79,30 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 		
 	}
 	
-	public void onCreate$FrmCatalogoC(){
-	    int estatus = (Integer) catalogo.getVariable("estatus",false);	
-	   // competencias = servicioCompetencia.listarPorEstatus(estatus);
+	public void onCreate$winBuscarjugador(){
+	    char estatus = (Character) catalogo.getVariable("estatus",false);	
+	    System.out.println(estatus);
+	    Jugadores=servicioJugador.buscarJugadores(filter2.getValue()
+				.toString(), filter3.getValue().toString(), filter4.getValue()
+				.toString(), filter1.getValue().toString(), estatus);
 	    determinarTitulo(estatus);
 	    binder.loadAll();
 	}
 	
-	public void determinarTitulo(int estatus) {
+	public void determinarTitulo(char estatus) {
 		Window w = (Window) catalogo;
 		switch (estatus) {
 		    
-		case 6:
-			w.setTitle("Competencias Registradas");
+		case 'A':
+			w.setTitle("Catalogo Jugadores");
 			break;
-		case 7:
-			w.setTitle("Competencias Aperturadas");
+		case 'E':
+			w.setTitle("Catalogo Reingreso");
 			break;
-		case 8:
-			w.setTitle("Competencias Eliminadas");
+		case 'T':
+			w.setTitle("Catalogo Nuevo Ingreso");
 			break;
-		case 9:
-			w.setTitle("Competencias Clausuradas");
-			break;
-		   
+				   
 		}
 	}
 	
@@ -125,7 +129,7 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 	        //se le asigna el objeto divisa al formulario
 			formulario.setVariable("jugador", d,false);
 			//se le envia una señal al formulario indicado que el formulario se cerro y que los datos se han enviado
-			Events.sendEvent(new Event("onCatalogoCerrado",formulario));          
+			Events.sendEvent(new Event("onCatalogoBuscarJugadorCerrado",formulario));          
 			//se cierra el catalogo
 			catalogo.detach();
 			
@@ -172,9 +176,12 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 	}
 
 	public List<Jugador> getJugadores() {
-		return servicioRoster.buscarJugadores(filter2.getValue()
-				.toString(), filter3.getValue().toString(), filter4.getValue()
-				.toString(), filter1.getValue().toString());
+		return Jugadores;
 	}
+
+	public void setJugadores(List<Jugador> jugadores) {
+		Jugadores = jugadores;
+	}
+
 
 }

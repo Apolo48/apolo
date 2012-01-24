@@ -52,5 +52,4 @@ public class ServicioFamiliar implements IServicioFamiliar {
 		return daoFamiliar.cargarLista(num,filtro1, filtro2, filtro3);
 		}
 	
-	
 }

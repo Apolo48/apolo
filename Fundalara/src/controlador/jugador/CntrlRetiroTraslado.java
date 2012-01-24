@@ -59,6 +59,7 @@ import servicio.implementacion.ServicioRetiroTraslado;
 //import servicio.implementacion.ServicioMunicipio;
 
 
+import comun.EstatusRegistro;
 import comun.FileLoader;
 import comun.Mensaje;
 import comun.Ruta;
@@ -209,8 +210,8 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 		Component catalogo = Executions.createComponents("/Jugador/Vistas/frmBuscarJugador.zul", null, null);
 		// asigna una referencia del formulario al catalogo.
 		catalogo.setVariable("formulario", formulario, false);
-
-		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
+		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
 
 			@Override
 			public void onEvent(Event arg0) throws Exception {

@@ -1,8 +1,12 @@
 package dao.general;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import modelo.Jugador;
 import modelo.Persona;
 import modelo.PersonaNatural;
+import modelo.RetiroTraslado;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -73,7 +77,6 @@ public class DaoJugador extends GenericDao {
 				Persona persona = (Persona) c2.uniqueResult();
 				persona.setEstatus('E');
 				session.update(persona);
-		
 				
 				Criteria c3 = session.createCriteria(Jugador.class)
 				.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));
@@ -81,8 +84,52 @@ public class DaoJugador extends GenericDao {
 				Jugador jugador2 = (Jugador) c3.uniqueResult();
 				jugador2.setEstatus('E');
 				session.update(jugador2);
-
-				
 				tx.commit();	
 			}
+		
+		
+		public List buscarJugadores(String filtro2, String filtro3,
+				String filtro4, String filtro1, char estatus) {
+			Session session = getSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+			if(estatus=='E'){
+				Criteria c = session.createCriteria(Jugador.class)
+						.add(Restrictions.eq("estatus", estatus))
+						.add(Restrictions.like("cedulaRif", filtro2 + "%"));
+				if (filtro1 != "") {
+					c.add(Restrictions.eq("numero", Integer.valueOf(filtro1)));
+				}
+				c.createCriteria("personaNatural")
+						.add(Restrictions.like("primerNombre", filtro3 + "%"))
+						.add(Restrictions.like("primerApellido", filtro4 + "%"));
+				List<Jugador> lista2 = c.list();
+				Criteria c1 = session.createCriteria(RetiroTraslado.class)
+						.add(Restrictions.eq("estatus", 'A'));
+				List<RetiroTraslado> lista1 = c1.list();
+				List<Jugador> lista= new ArrayList<Jugador>();
+				for (int i = 0; i < lista2.size(); i++) {
+					for (int j = 0; j < lista1.size(); j++) {
+						if(lista2.get(i).getCedulaRif().equals(lista1.get(j).getJugador().getCedulaRif())){
+							lista.add(lista2.get(i)); 
+							
+						}
+					}
+				}
+				return lista;
+			}
+			else{
+			Criteria c = session.createCriteria(Jugador.class)
+					.add(Restrictions.eq("estatus", estatus))
+					.add(Restrictions.like("cedulaRif", filtro2 + "%"));
+			if (filtro1 != "") {
+				c.add(Restrictions.eq("numero", Integer.valueOf(filtro1)));
+			}
+			c.createCriteria("personaNatural")
+					.add(Restrictions.like("primerNombre", filtro3 + "%"))
+					.add(Restrictions.like("primerApellido", filtro4 + "%"));
+			List<Jugador> lista = c.list();
+			return lista;
+			}
+			
+		}
 }

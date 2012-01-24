@@ -63,6 +63,7 @@ import org.zkoss.zul.api.Bandbox;
 import org.zkoss.zul.impl.InputElement;
 import org.zkoss.zul.Listcell;
 
+import comun.EstatusRegistro;
 import comun.FileLoader;
 import comun.Mensaje;
 import comun.Ruta;
@@ -243,7 +244,9 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 //		Component catalogo = Executions.createComponents(
 //				"frmBuscarJugador.zul", null, null);
 		catalogo.setVariable("formulario", formulario, false);
-		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
+
+		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub

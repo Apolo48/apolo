@@ -46,6 +46,7 @@ import servicio.implementacion.ServicioCompetencia;
 //import servicio.implementacion.ServicioDatoConducta;
 import servicio.implementacion.ServicioMotivoSancion;
 
+import comun.EstatusRegistro;
 import comun.FileLoader;
 import comun.Ruta;
 import comun.Util;
@@ -849,8 +850,9 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 				"/Jugador/Vistas/frmBuscarJugador.zul", null, null);
 		// asigna una referencia del formulario al catalogo.
 		catalogo.setVariable("formulario", formulario, false);
+		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
 
-		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
 
 			/* (non-Javadoc)
 			 * @see org.zkoss.zk.ui.event.EventListener#onEvent(org.zkoss.zk.ui.event.Event)

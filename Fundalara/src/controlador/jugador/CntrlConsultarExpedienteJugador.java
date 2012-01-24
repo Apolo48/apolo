@@ -42,6 +42,7 @@ import servicio.implementacion.ServicioLapsoDeportivo;
 import servicio.implementacion.ServicioRoster;
 import servicio.implementacion.ServicioMotivoSancion;
 
+import comun.EstatusRegistro;
 import comun.FileLoader;
 import comun.Ruta;
 import comun.Util;
@@ -212,8 +213,9 @@ public class CntrlConsultarExpedienteJugador extends GenericForwardComposer {
 				"/Jugador/Vistas/frmBuscarJugador.zul", null, null);
 		// asigna una referencia del formulario al catalogo.
 		catalogo.setVariable("formulario", formulario, false);
+		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
 
-		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
 
 			@Override
 			public void onEvent(Event arg0) throws Exception {

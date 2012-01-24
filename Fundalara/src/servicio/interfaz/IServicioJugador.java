@@ -13,4 +13,6 @@ public abstract void eliminar(Jugador c);
 	public abstract void actualizar(Jugador c);	
 	
 	public abstract List<Jugador> listar();
+	
+	public abstract List<Jugador> buscarJugadores(String filtro2, String filtro3, String filtro4, String filtro1, char estatus);
 }

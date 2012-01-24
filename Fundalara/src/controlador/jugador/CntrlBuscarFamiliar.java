@@ -92,10 +92,10 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 		switch (estatus) {
 		    
 		case 1:
-			w.setTitle("Catálogo Representantes");
+			w.setTitle("Catalogo Representantes");
 			break;
 		case 2:
-			w.setTitle("Catálogo Familiares");
+			w.setTitle("Catalogo Familiares");
 			break;
 		   
 		}
@@ -122,7 +122,7 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 			Familiar d = familiares.get(listFamiliar.getSelectedIndex());
 			Component formulario = (Component) catalogo.getVariable("formulario",false);
 			formulario.setVariable("familiar", d,false);
-			Events.sendEvent(new Event("onCatalogoCerrado",formulario));          
+			Events.sendEvent(new Event("onCatalogoBuscarFamiliarCerrado",formulario));          
 			catalogo.detach();
 			
 		} else {
@@ -132,6 +132,10 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 		}
 		
 		}
+
+	
+	
+	
 
 	public Familiar getFamiliar() {
 		return familiar;

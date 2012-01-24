@@ -47,7 +47,6 @@ public class ServicioJugador implements IServicioJugador {
 	}
 	
 
-
 	@Override
 	public List<Jugador> listar() {
 		return daoJugador.listar( Jugador.class);
@@ -55,6 +54,10 @@ public class ServicioJugador implements IServicioJugador {
 	
 	public void retirarJugador(Jugador jugador) {
 		daoJugador.retirar(jugador);
+	}
+	
+	public List<Jugador> buscarJugadores(String filtro2, String filtro3, String filtro4, String filtro1, char estatus){
+		return daoJugador.buscarJugadores(filtro2, filtro3, filtro4, filtro1, estatus);
 	}
 
 }

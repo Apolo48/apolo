@@ -45,6 +45,7 @@ import servicio.implementacion.ServicioInstitucion;
 import servicio.implementacion.ServicioRoster;
 import servicio.implementacion.ServicioTallaPorJugador;
 
+import comun.EstatusRegistro;
 import comun.FileLoader;
 import comun.Ruta;
 import comun.Util;
@@ -691,7 +692,9 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		
 		//asigna una referencia del formulario al catalogo.
 		catalogo.setVariable("formulario",formulario, false);
-		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
+		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
+
+		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
 			@Override
 			//Este metodo se llama cuando se envia la señal desde el catalogo
 			public void onEvent(Event arg0) throws Exception {

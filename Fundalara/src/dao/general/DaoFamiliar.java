@@ -30,7 +30,7 @@ import dao.generico.GenericDao;
 public class DaoFamiliar extends GenericDao {
 
 	public List<Familiar> cargarLista(int estatus,String filtro1,String filtro2,String filtro3){
-		List<Familiar> lista = new ArrayList<Familiar>();
+		List<Familiar> lista = new ArrayList<Familiar>();;
 		if(estatus==1){
 			Session session = getSession();
 			Transaction tx =  session.beginTransaction();
