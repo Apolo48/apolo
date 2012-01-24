@@ -36,7 +36,7 @@
 								<row spans="1,3" style="border:none">
 									<label value="Cédula" />
 									<div>
-										<textbox id="txtCedula" width="28%" readonly="true"/>
+										<textbox id="txtCedula" width="28%" readonly="true" style='text-transform:uppercase;'/>
 										<button id="btnCatalogoJugador"
 											focus="true" tooltiptext="Consultar Jugador"
 											image="../../Recursos/Imagenes/consultar.ico" />
@@ -44,30 +44,30 @@
 								</row>
 								<row style="border:none">
 									<label value="Primer Nombre" />
-									<textbox id="txtPrimerNombre"
+									<textbox id="txtPrimerNombre" style='text-transform:uppercase;'
 										maxlength="40" width="95%" readonly="true" />
 									<label value="Segundo Nombre" />
-									<textbox id="txtSegundoNombre"
+									<textbox id="txtSegundoNombre" style='text-transform:uppercase;'
 										maxlength="40" width="95%" readonly="true" />
 								</row>
 								<row style="border:none">
 									<label value="Primer Apellido" />
-									<textbox id="txtPrimerApellido"
+									<textbox id="txtPrimerApellido" style='text-transform:uppercase;'
 										maxlength="40" width="95%" readonly="true" />
 									<label value="Segundo Apellido" />
-									<textbox id="txtSegundoApellido"
+									<textbox id="txtSegundoApellido" style='text-transform:uppercase;'
 										maxlength="40" width="95%" readonly="true" />
 								</row>
 								<row style="border:none">
 									<label value="Fecha Ingreso" />
-									<textbox id="txtFechaIngreso"
+									<textbox id="txtFechaIngreso" style='text-transform:uppercase;'
 										maxlength="25" width="95%" readonly="true"/>
 									<label value="Género" />
-									<textbox id="txtGenero" width="95%" readonly="true"/>																			
+									<textbox id="txtGenero" width="95%" readonly="true" style='text-transform:uppercase;'/>																			
 								</row>
 								<row style="border:none">
 									<label value="Categoría Actual" />
-									<textbox id="txtCategoria"
+									<textbox id="txtCategoria" style='text-transform:uppercase;'
 										maxlength="25" width="95%" readonly="true"
 										value="@{controller.roster.equipo.categoria.nombre}" />								
 								</row>
@@ -135,14 +135,14 @@
 								<row style="border:none;">									
 									<label value="Divisa" />
 									<div>
-									<textbox width="87%" id="txtDivisaNueva"/>
+									<textbox width="87%" id="txtDivisaNueva" style='text-transform:uppercase;'/>
 									<label value="(*)" style="color:red" />
 									</div>																			
 								</row>
 								<row style="border:none;">									
 									<label value="Liga" />
 									<div>
-									<textbox width="87%" id="txtLigaNueva"/>
+									<textbox width="87%" id="txtLigaNueva" style='text-transform:uppercase;'/>
 									<label value="(*)" style="color:red" />
 									</div>
 								</row>																
