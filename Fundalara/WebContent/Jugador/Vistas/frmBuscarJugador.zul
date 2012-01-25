@@ -10,11 +10,11 @@
 		<separator></separator>
 		<listbox id="listEquipo"  mold="paging" pageSize="5"  model="@{controller.jugadores}" 
 					    selectedItem="@{winBuscarjugador$composer.Jugador}">
-			<auxhead sclass="category-center">
-				<auxheader label="Listado Equipo" colspan="4"
+			<!-- <auxhead sclass="category-center">
+				<auxheader label="Listado Jugadores" colspan="4"
 					align="center">
 				</auxheader>
-			</auxhead>
+			</auxhead> -->
 			<listhead>
 				<listheader width="20%" label="Cédula" />
 				<listheader width="32%" label="Nombre" />

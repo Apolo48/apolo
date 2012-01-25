@@ -6,9 +6,9 @@
 		closable="true" apply="controlador.jugador.CntrlBuscarMedico">
 	<listbox id="listmedico"  mold="paging" pageSize="10"  model="@{controller.medicos}" 
 					    selectedItem="@{winBuscarjugador$composer.medico}" width="590px" >
-			<auxhead sclass="category-center">
+		   <!-- <auxhead sclass="category-center">
 			 <auxheader label="Listado Médicos" colspan="5" align="center"/>
-			</auxhead>
+			</auxhead> -->
 			<listhead>
 			    <listheader width="15%" align="center">Matrícula</listheader>
 				<listheader width="18%" align="center">Número Colegio</listheader>
