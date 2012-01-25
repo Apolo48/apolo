@@ -26,23 +26,7 @@ public class DaoMedico extends GenericDao {
 			return null;
 		}
 	}
-	
-	public boolean verificareli(Medico medico){
-		Session session = getSession();
-		org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = session
-				.createSQLQuery("select * from medico,dato_medico where dato_medico.numero_colegio=medico.numero_colegio and dato_medico.numero_colegio="
-								+ medico.getNumeroColegio()
-								+ "").addEntity(Medico.class);
-		List<Object> lista = query.list();
-		if (lista.size() > 0){
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	
+		
 	
 	public List<Medico> cargarLista(String filtro1,String filtro2,String filtro3,String filtro4){
 		Session session = getSession();
@@ -54,6 +38,9 @@ public class DaoMedico extends GenericDao {
 				.add(Restrictions.like("nombre", filtro3+"%"))
 				.add(Restrictions.like("apellido", filtro4+"%"));
 		List<Medico> lista= c.list();
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i).getNombre());
+		}
 		
 		return lista;
 	}

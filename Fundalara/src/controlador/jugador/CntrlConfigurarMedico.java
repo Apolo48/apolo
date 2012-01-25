@@ -1,5 +1,26 @@
 package controlador.jugador;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+
+import org.zkoss.util.media.AMedia;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,19 +34,25 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
+
+
 
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Constraint;
-import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Iframe;
+
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 import servicio.implementacion.ServicioMedico;
 import servicio.implementacion.ServicioDatoBasico;
+
+import comun.ConeccionBD;
 
 import comun.TipoDatoBasico;
 
@@ -57,8 +84,13 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	Button btnCancelar;
 	Button btnSalir;
 	Button btnBuscar;
+	Iframe ifReporte;
 
+	private Connection con;
+	private String jrxmlSrc;
+	private Map parameters = new HashMap();
 	
+
 
 	Listbox listmedico;
 	
@@ -121,11 +153,12 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	public void onBlur$txtNumcol(){
 		if(servicioMedico.buscar(txtNumcol.getValue().toString())!=null){
 			alert("El Numero de Colegio Ya Existe");
+			txtNumcol.setRawValue(null);
 		}
-		txtNumcol.setRawValue(null);
+		
 	}
 
-	public void onClick$btnModificar() {
+	public void onClick$btnModificar() throws InterruptedException {
 		if(txtApellido.getValue()!= "" && txtTelefonoCelular.getValue().toString().length()==7 
 				&& txtTelefonoHabitacion.getValue().toString().length()==7 
 				&& txtNumcol.getValue()!="" && txtNumcol.getValue().toString().length()==6
@@ -136,10 +169,19 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		especialidades=servicioDatoBasico.buscar(TipoDatoBasico.ESPECIALIDAD);
 			
 		medico.setCedulaMedico(cmbNacionalidad.getValue()+"-"+txtCedula.getValue().toString());
-		medico.setTelefonoCelular(cmbCodCelular.getValue()+txtTelefonoCelular.getValue());
+		medico.setTelefonoCelular(cmbCodCelular.getValue()+"-"+txtTelefonoCelular.getValue());
 		medico.setDatoBasico(especialidades.get(buscaresps(cmbEspecialidad.getValue())));
-		medico.setTelefonoOficina(cmbCodArea.getValue()+txtTelefonoHabitacion.getValue());
+		medico.setTelefonoOficina(cmbCodArea.getValue()+"-"+txtTelefonoHabitacion.getValue());
 		medico.setEstatus('A');
+		Messagebox.show("Esta seguro que Desea Desactivar el Medico?", "ELIMINAR", Messagebox.YES|Messagebox.NO, Messagebox.QUESTION,
+			     new EventListener() {
+			       public void onEvent(Event evt) {
+			         switch (((Integer)evt.getData()).intValue()) {
+			           case Messagebox.YES: actualizar(); break; 
+			           case Messagebox.NO: limpiar(); break; 
+			      }
+			    }
+			   });
 		servicioMedico.actualizar(medico);
 		limpiar();
 		}
@@ -147,6 +189,12 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 			alert("Complete los Datos Necesarios para Registro de el Medico");
 		}
 	}
+
+	public void actualizar(){
+		servicioMedico.actualizar(medico);
+		limpiar();
+	}
+
 
 	public void onClick$btnEliminar() throws InterruptedException {
 		Messagebox.show("Esta seguro que Desea Desactivar el Medico?", "ELIMINAR", Messagebox.YES|Messagebox.NO, Messagebox.QUESTION,
@@ -303,5 +351,27 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		binder.loadAll();
 		
 	}
+	
+	public void showReportfromJrxml() throws JRException, IOException{
+		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
+		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
+		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+		JRExporter exporter = new JRPdfExporter();
+		exporter.setParameters(parameters);
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT ,jaspPrint);
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,arrayOutputStream);
+		exporter.exportReport();
+		arrayOutputStream.close();
+		final AMedia amedia = new AMedia("ListadoDeMedicos.pdf","pdf","pdf/application", arrayOutputStream.toByteArray());
+		ifReporte.setContent(amedia);
+	}
+	// ---------------------------------------------------------------------------------------------------
+	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
+		con = ConeccionBD.getCon("postgres","postgres","123456");
+		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ReporteListadoMedico.jrxml");
+		//parameters.put("NombreRepre",txtNombres.);
+		showReportfromJrxml();
+	}
+
 	
 }

@@ -46,10 +46,6 @@ public class ServicioMedico implements IServicioMedico {
 		return daoMedico.buscar(id);
 	}
 	
-	@Override
-	public boolean buscarelimi(Medico medico){
-		return daoMedico.verificareli(medico);
-	}
 	
 	public List<Medico> filtrar(String filtro1,String filtro2,String filtro3,String filtro4){
 		return daoMedico.cargarLista(filtro1, filtro2, filtro3,filtro4);

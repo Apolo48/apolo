@@ -62,8 +62,8 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 	  
 	  private void  filtrarLista(){
 		  Jugadores=servicioJugador.buscarJugadores(filter2.getValue()
-					.toString(), filter3.getValue().toString(), filter4.getValue()
-					.toString(), filter1.getValue().toString(), estatus);
+					.toString().toUpperCase(), filter3.getValue().toString().toUpperCase(), filter4.getValue()
+					.toString().toUpperCase(), filter1.getValue().toString().toUpperCase(), estatus);
 		binder.loadComponent(listEquipo);
 	  }
 	public void onBlur$filter2(){

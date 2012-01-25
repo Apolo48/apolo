@@ -48,11 +48,39 @@ public class CntrlBuscarMedico extends GenericForwardComposer {
 	Textbox filter4;
 	Listbox listmedico;
 	
+	
+	
 	Component catalogo;
 	private AnnotateDataBinder binder ;
 	
 	Combobox cmbEquipo, cmbCategoria;
+	
+	 private void  filtrarLista(){
+		 medicos=servicioMedico.filtrar(filter1.getValue()
+					.toString(),filter2.getValue()
+					.toString(), filter3.getValue().toString().toUpperCase(), filter4.getValue()
+					.toString().toUpperCase());
+		binder.loadAll();
+	  }
 	 
+	public void onBlur$filter2(){
+		filtrarLista();
+	}
+	
+	public void onBlur$filter1(){
+		filtrarLista();
+	}
+	
+	public void onBlur$filter3(){
+		filtrarLista();
+		
+	}
+	
+	public void onBlur$filter4(){
+		filtrarLista();
+		
+	}
+	
 	@Override
 	public void doAfterCompose(Component c) throws Exception {
 		super.doAfterCompose(c);
@@ -61,7 +89,10 @@ public class CntrlBuscarMedico extends GenericForwardComposer {
 		//se guarda la referencia al catalogo
 		catalogo = c;
 		
-		medicos=servicioMedico.listar();
+		medicos=servicioMedico.filtrar(filter1.getValue()
+				.toString().toUpperCase(),filter2.getValue()
+				.toString().toUpperCase(), filter3.getValue().toString().toUpperCase(), filter4.getValue()
+				.toString().toUpperCase());
 		
 	}
 
@@ -91,11 +122,16 @@ public class CntrlBuscarMedico extends GenericForwardComposer {
 	public void onClick$btnSalir(){
 		win.detach();
 	}
-			
-	public  List<Medico> getMedicos() {
-		return servicioMedico.listar();
-		
+
+	public List<Medico> getMedicos() {
+		return medicos;
 	}
+
+	public void setMedicos(List<Medico> medicos) {
+		this.medicos = medicos;
+	}
+			
+	
 	
 		
 }

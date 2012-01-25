@@ -30,14 +30,14 @@
 										<textbox id="txtNumcol"
 											width="45%" maxlength="6"
 											value="@{controller.medico.numeroColegio}"
-											style='text-transform:uppercase;' />
+											style='text-transform:uppercase;' constraint="/[0-9]+/:Introduzca solo Numeros"/>
 									</div>
 									<label value="Matrícula" />
 									<div>
 										<textbox width="45%"
 											id="txtMatricula" maxlength="6"
 											value="@{controller.medico.matricula}"
-											style='text-transform:uppercase;' />
+											style='text-transform:uppercase;' constraint="/[0-9]+/:Introduzca solo Numeros" />
 									</div>
 								</row>
 								<row style="border:none;">
@@ -81,7 +81,7 @@
 												value="E" />
 										</combobox>
 										<textbox id="txtCedula"
-											width="60%" maxlength="8" style='text-transform:uppercase;' />
+											width="60%" maxlength="8" style='text-transform:uppercase;' constraint="/[0-9]+/:Introduzca solo Numeros"/>
 									</div>
 
 								</row>
@@ -90,14 +90,14 @@
 									<div>
 										<textbox width="88%"
 											maxlength="40" value="@{controller.medico.nombre}"
-											style='text-transform:uppercase;' />
+											style='text-transform:uppercase;' constraint="/[A-Z,a-z, ]+/:Introduzca solo Caracteres Alfanumericos" />
 									</div>
 									<label value="Apellidos" />
 									<div>
 										<textbox id="txtApellido"
 											width="88%" maxlength="40"
 											value="@{controller.medico.apellido}"
-											style='text-transform:uppercase;' />
+											style='text-transform:uppercase;' constraint="/[A-Z,a-z, ]+/:Introduzca solo Caracteres Alfanumericos"/>
 									</div>
 
 								</row>
@@ -112,7 +112,7 @@
 										</combobox>
 										<textbox
 											id="txtTelefonoHabitacion" maxlength="7" width="55%"
-											style='text-transform:uppercase;' />
+											style='text-transform:uppercase;' constraint="/[0-9]+/:Introduzca solo Numeros" />
 									</div>
 									<label value="Telefono Celular" />
 									<div>
@@ -125,7 +125,7 @@
 										</combobox>
 										<textbox width="55%"
 											maxlength="7" id="txtTelefonoCelular"
-											style='text-transform:uppercase;' />
+											style='text-transform:uppercase;' constraint="/[0-9]+/:Introduzca solo Numeros"/>
 									</div>
 								</row>
 							</rows>
@@ -187,9 +187,11 @@
 
 			</rows>
 		</grid>
-
+         <iframe id="ifReporte"></iframe>
 		<space></space>
 		<div align="right">
+		    <button image="/Recursos/Imagenes/imprimir.ico" width="100px"
+				id="btnImprimir" onClick="" tooltiptext="/Generar" label="Generar" />
 			<button id="btnCancelar" label="Cancelar"
 				image="/Recursos/Imagenes/cancelar.ico" orient="horizontal"
 				width="100px" />

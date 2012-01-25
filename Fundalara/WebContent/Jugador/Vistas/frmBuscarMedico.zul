@@ -5,7 +5,7 @@
 	<window id="win" title="Buscar Médico" border="normal" width="620px" mode="modal"
 		closable="true" apply="controlador.jugador.CntrlBuscarMedico">
 	<listbox id="listmedico"  mold="paging" pageSize="10"  model="@{controller.medicos}" 
-					    selectedItem="@{winBuscarjugador$composer.medico}" width="590px" >
+					     width="590px" >
 		   <!-- <auxhead sclass="category-center">
 			 <auxheader label="Listado Médicos" colspan="5" align="center"/>
 			</auxhead> -->
