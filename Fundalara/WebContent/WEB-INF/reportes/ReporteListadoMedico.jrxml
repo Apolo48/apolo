@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteListadoMedico" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="145"/>
+	<queryString>
+		<![CDATA[select * from medico]]>
+	</queryString>
+	<field name="numero_colegio" class="java.lang.String"/>
+	<field name="codigo_especialidad" class="java.lang.Integer"/>
+	<field name="matricula" class="java.lang.String"/>
+	<field name="cedula_medico" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
+	<field name="telefono_oficina" class="java.lang.String"/>
+	<field name="telefono_celular" class="java.lang.String"/>
+	<field name="fecha_ingreso" class="java.sql.Date"/>
+	<field name="estatus" class="java.lang.String"/>
+	<variable name="matricula_1" class="java.lang.Integer" resetType="Column" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{matricula}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="114" splitType="Stretch">
+			<image>
+				<reportElement x="1" y="1" width="554" height="113"/>
+				<imageExpression><![CDATA["Encabezado.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-1" y="31" width="554" height="30"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="12" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[numero_colegio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[matricula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[apellido]]></text>
+			</staticText>
+			<line>
+				<reportElement x="403" y="31" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement x="242" y="31" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement x="119" y="31" width="1" height="30"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-1" y="0" width="554" height="35"/>
+			</rectangle>
+			<textField>
+				<reportElement x="12" y="11" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{numero_colegio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="127" y="11" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="11" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="11" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="403" y="0" width="1" height="35"/>
+			</line>
+			<line>
+				<reportElement x="242" y="0" width="1" height="35"/>
+			</line>
+			<line>
+				<reportElement x="119" y="0" width="1" height="35"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="72" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="90" splitType="Stretch">
+			<image>
+				<reportElement x="-1" y="0" width="554" height="74"/>
+				<imageExpression><![CDATA["PieDePagina.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
