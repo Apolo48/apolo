@@ -43,6 +43,7 @@ import servicio.implementacion.ServicioDocumentoMedico;
 import servicio.implementacion.ServicioDocumentoPersonal;
 import servicio.implementacion.ServicioEquipo;
 import servicio.implementacion.ServicioFamiliar;
+import servicio.implementacion.ServicioFamiliarJugador;
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioMedico;
 import servicio.implementacion.ServicioRecaudoPorProceso;
@@ -69,6 +70,7 @@ import modelo.DatoSocial;
 import modelo.DocumentoEntregado;
 import modelo.Equipo;
 import modelo.Familiar;
+import modelo.FamiliarJugador;
 import modelo.Institucion;
 import modelo.Jugador;
 import modelo.Medico;
@@ -188,6 +190,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioDocumentoMedico servicioDocumentoMedico;
 	private ServicioDocumentoPersonal servicioDocumentoPersonal;
 	private ServicioFamiliar servicioFamiliar;
+	private ServicioFamiliarJugador servicioFamiliarJugador;
 
 	// Modelos
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
@@ -229,6 +232,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private DatoBasico tipoIndumentaria = new DatoBasico();
 	private Persona personaFamiliar = new Persona();
 	private PersonaNatural personaNFamiliar = new PersonaNatural();
+	private List<FamiliarJugador> familiaresJugadores = new ArrayList<FamiliarJugador>();
 
 	// Binder
 	private AnnotateDataBinder binder;
@@ -1340,14 +1344,26 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	private void guardarFamiliares() {
+		FamiliarJugador familiarJugador;
+		Familiar familiarAux ; 
 		DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
 				TipoDatoBasico.TIPO_PERSONA, "Familiar");
 		List<Familiar> familiaresModelo = new ArrayList<Familiar>();
 		for (controlador.jugador.bean.Familiar familiar : familiares) {
-			familiaresModelo.add(guardarFamiliarBeanToModelo(familiar,
-					datoTipoPersona));
+			familiarAux = guardarFamiliarBeanToModelo(familiar,
+					datoTipoPersona);
+			familiaresModelo.add(familiarAux);
+			familiarJugador = new FamiliarJugador();
+			familiarJugador.setDatoBasico(familiar.getParentesco());
+			familiarJugador.setFamiliar(familiarAux);
+			familiarJugador.setRepresentanteActual(familiar.isRepresentante());
+			familiarJugador.setJugador(jugador);
+			familiaresJugadores.add(familiarJugador);
 		}
-		servicioFamiliar.agregar(familiaresModelo, jugador);
+		servicioFamiliar.agregar(familiaresModelo);
+		servicioFamiliarJugador.agregar(familiaresJugadores);
+		familiaresJugadores = new ArrayList<FamiliarJugador>();
+		
 	}
 
 	private Familiar guardarFamiliarBeanToModelo(
@@ -1467,7 +1483,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		cmbCodAreaFamiliar.setValue("--");
 		txtTelefonoHabFamiliar.setRawValue("");
 		cmbCodCelularFamiliar.setValue("--");
-		txtTelefonoCelular.setRawValue("");
+		txtTelefonoCelFamiliar.setRawValue("");
 		txtCorreoFamiliar.setRawValue("");
 		txtTwitterFamiliar.setRawValue("");
 		binder.loadComponent(listComisiones);

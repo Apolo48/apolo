@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modelo.DatoBasico;
+import modelo.Equipo;
+import modelo.Familiar;
 import modelo.FamiliarComisionEquipo;
 import modelo.FamiliarJugador;
 
@@ -30,5 +32,11 @@ public class DaoFamiliarComisionEquipo extends GenericDao {
 		}
 		return listta;
 	}
+	
+	
+ public void guardar(Familiar familiar, Equipo equipo, List<DatoBasico> comisiones){
+	 
+	 
+ }	
 
 }
