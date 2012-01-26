@@ -110,6 +110,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Button btnCancelar;
 	private Tab tabRegJugador;
 	private Tab tabRegFamiliar;
+	private Tab tabJugPersonales;
 	private Intbox txtEdad;
 	private Intbox txtCedulaSecuencia;
 	private Intbox txtCedula;
@@ -133,6 +134,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Textbox txtDireccionHabFamiliar;
 	private Textbox txtCorreoFamiliar;
 	private Textbox txtTwitterFamiliar;
+	private Textbox txtDireccion;
+	private Textbox  txtTwitter;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
@@ -161,6 +164,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Combobox cmbParroquiaFamiliar;
 	private Combobox cmbCodAreaFamiliar;
 	private Combobox cmbCodCelularFamiliar;
+	private Combobox cmbEstadoResi;
+	private Combobox cmbCodArea;
+	private Combobox cmbCodCelular;
 	private Label lblSeparador;
 	private Listbox listAfeccionesActuales;
 	private Listbox listActividadesSociales;
@@ -172,6 +178,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Component formulario;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
+	
 	// Servicios
 	private ServicioDatoBasico servicioDatoBasico;
 	private ServicioCategoria servicioCategoria;
@@ -275,13 +282,13 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void  onCreate$winRegistrarJugador(){
-		DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+	/*	DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 		try {
 			Date fechaInicial = (Date) formatter.parse(Util.getFecha(Edad.EDAD_MINIMA, Util.LIMITE_SUPERIOR));		
 			dtboxFechaNac.setValue(fechaInicial);
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	// Getters y setters
 
@@ -1168,8 +1175,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void onClick$btnInscribir() {
 		Mensaje.mostrarMensaje("Se ha inscrito el jugador: "+jugadorBean.getNombres() +" "+jugadorBean.getApellidos(),
 				Mensaje.EXITO, Messagebox.INFORMATION);
-		 new Util().crearVentana(rutasJug + "frmVistaCompromisoPago.zul",
-		 null,null);
+		 //new Util().crearVentana(rutasJug + "frmVistaCompromisoPago.zul", null,null);
 		 onClick$btnCancelar();
 	}
 
@@ -1338,7 +1344,30 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtSegundoApellido.setRawValue("");
 		cmbGenero.setRawValue("");
 		imgJugador.setContent(new Image().getContent());
+		// Limpiando primera pestanna 
+		dtboxFechaNac.setRawValue(null);
+		txtEdad.setRawValue("");
+		binder.loadComponent(cmbPaisNac);
 		
+		cmbEstadoNac.setSelectedIndex(-1);
+		cmbMunicipioNac.setSelectedIndex(-1);
+		binder.loadComponent(cmbParroquiaNac);
+		
+		cmbEstadoResi.setSelectedIndex(-1);
+		cmbMunicipioResi.setSelectedIndex(-1);
+		
+		binder.loadComponent(cmbParroquiaResi);
+		txtDireccion.setRawValue("");
+		binder.loadComponent(cmbCodArea);
+		txtTelefonoHabitacion.setRawValue("");
+		binder.loadComponent(cmbCodCelular);
+		txtTelefonoCelular.setRawValue("");
+		txtCorreo.setRawValue("");
+		txtTwitter.setRawValue("");
+		
+		// Activamos la 1era pestana y dejamos el focus
+		tabJugPersonales.setSelected(true);
+		cmbNacionalidad.setFocus(true);
 		//binder.loadAll();
 		
 	}

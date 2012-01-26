@@ -348,6 +348,7 @@
 																			value="Dirección Habitación" />
 																		<div>
 																			<textbox
+																			id="txtDireccion"
 																				style='text-transform:uppercase;' maxlength="200"
 																				height="40px" width="90%" multiline="true"
 																				value="@{controller.jugadorBean.direccion}" />
