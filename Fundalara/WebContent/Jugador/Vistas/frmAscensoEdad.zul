@@ -60,15 +60,16 @@
 							<label value="Categoría" />
 						</div>
 						<combobox id="cmbCategoriaAsc" disabled="true" 
-							width="65%" >
-							<comboitem />
+							width="65%">
+							<comboitem label="JUNIOR" />
 							</combobox>
 						<div>
 							<space />
 							<label value="Equipo" />
 						</div>
 						<combobox id="cmbEquipoAsc" disabled="true">
-							<comboitem />
+							<comboitem label="JUNIOR A"/>
+							<comboitem label="JUNIOR B"/>
 						</combobox>
 
 					</row>
@@ -76,9 +77,8 @@
 			</grid>
 		</groupbox>
 		<space height="10px" />
-		<listbox id="listJugadores" fixedLayout="true" multiple="true"
-			checkmark="true" mold="paging" pageSize="5"
-			model="@{winAscensoEdad$composer.jugadores, load-after='cmbEquipo.onChange'}"
+		<listbox id="listJugadores" mold="paging" pageSize="5" multiple="true"
+			checkmark="true" model="@{winAscensoEdad$composer.jugadores, load-after='cmbEquipo.onChange'}"
 			selectedItem="@{winAscensoEdad$composer.jugador}">
 			<listhead>
 				<listheader width="20%" label="Cédula" />
@@ -93,12 +93,13 @@
 				<listcell
 					label="@{jugador.personaNatural.primerApellido}" />
 			    <listcell label="@{jugador.numero}" />
+			 <listcell/>
 			</listitem>
 		</listbox>
 
 
 		<div align="right">
-			<button id="btnGuardar" label="Guardar"
+			<button id="btnAscender" label="Ascender"
 				image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"
 				width="100px" />
 			<button id="btnCancelar" label="Cancelar"
