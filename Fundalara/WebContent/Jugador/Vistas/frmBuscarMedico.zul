@@ -1,8 +1,8 @@
 <?page title="Buscador de Medicos"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="win" ?> 
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winBuscarMedico" ?> 
 <zk>
-	<window id="win" title="Buscar Médico" border="normal" width="620px" mode="modal"
+	<window id="winBuscarMedico" title="Buscar Médico" border="normal" width="620px" mode="modal"
 		closable="true" apply="controlador.jugador.CntrlBuscarMedico">
 	<listbox id="listmedico"  mold="paging" pageSize="10"  model="@{controller.medicos}" 
 					     width="590px" >
@@ -36,12 +36,12 @@
 				<auxheader colspan="1">
 				</auxheader>
 			</auxhead>
-			<listitem self="@{each='medico'}" value="@{medico}">
-				 <listcell label="@{medico.matricula}" />
-				<listcell label="@{medico.numeroColegio}" />
-				<listcell label="@{medico.nombre}"/>
-				<listcell label="@{medico.apellido}" /> 
-				<listcell label="@{medico.estatus}" tooltiptext="A=Habilitado E=Deshabilitado" />
+			<listitem self="@{each='medicoSelec'}" value="@{medicoSelec}">
+				 <listcell label="@{medicoSelec.matricula}" />
+				<listcell label="@{medicoSelec.numeroColegio}" />
+				<listcell label="@{medicoSelec.nombre}"/>
+				<listcell label="@{medicoSelec.apellido}" /> 
+				<listcell label="@{medicoSelec.estatus}" tooltiptext="A=Habilitado E=Deshabilitado" />
 			</listitem>
 		</listbox>
 

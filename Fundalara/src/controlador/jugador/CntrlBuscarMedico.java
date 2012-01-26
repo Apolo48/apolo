@@ -37,7 +37,7 @@ public class CntrlBuscarMedico extends GenericForwardComposer {
 	ServicioMedico servicioMedico;
 	
 	private Medico medico = new Medico();
-	Window win;
+	Window winBuscarMedico;
 	
 	List<Medico> medicos = new ArrayList<Medico>();
 
@@ -60,7 +60,7 @@ public class CntrlBuscarMedico extends GenericForwardComposer {
 					.toString(),filter2.getValue()
 					.toString(), filter3.getValue().toString().toUpperCase(), filter4.getValue()
 					.toString().toUpperCase());
-		binder.loadAll();
+		 binder.loadComponent(listmedico);
 	  }
 	 
 	public void onBlur$filter2(){
@@ -120,7 +120,7 @@ public class CntrlBuscarMedico extends GenericForwardComposer {
 	}
 	
 	public void onClick$btnSalir(){
-		win.detach();
+		winBuscarMedico.detach();
 	}
 
 	public List<Medico> getMedicos() {
