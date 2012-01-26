@@ -624,6 +624,11 @@
 													onClick='enlace("Jugador/Vistas/frmConsultarExpedienteJugador.zul")' />
 											</treerow>
 										</treeitem>
+										<treeitem>
+											<treerow>
+												<treecell label="Anuario" onClick='enlace("Jugador/Vistas/frmConsultarAnuario.zul")' />
+											</treerow>
+										</treeitem>
 									</treechildren>
 
 								</treeitem>

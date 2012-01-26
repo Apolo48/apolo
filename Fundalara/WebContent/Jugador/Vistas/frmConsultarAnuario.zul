@@ -1,0 +1,72 @@
+<?page title="Anuario" contentType="text/html;charset=UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winAnuarioJugadores"?>
+<zk>
+	<zscript><![CDATA[
+	//@IMPORT
+	import controlador.jugador.converter.*;
+]]></zscript>
+	<window id="winAnuarioJugadores" title="Anuario" border="normal"
+		closable="true" apply="controlador.jugador.CntrlConsultarAnuario"
+		width="695px">
+		<panel title="Configuración">
+			<panelchildren>
+				<grid style="border:none;">
+					<columns style="border:none">
+						<column width="22%" />
+						<column width="28%" />
+						<column width="22%" />
+						<column width="28%" />
+					</columns>
+					<rows>
+						<row style="border:none">
+							<label value="Categoría" />
+							<combobox id="cmbCategoria"
+								value="--Seleccione--" selectedItem="@{controller.categoria}"								
+								model="@{winAnuarioJugadores$composer.categorias}">
+								<comboitem self="@{each='categoria'}"
+									label="@{categoria.nombre}"
+									value="@{categoria.codigoCategoria}" />
+							</combobox>
+							<label value="Equipo" />
+							<combobox id="cmbEquipo"
+								value="--Seleccione--" selectedItem="@{controller.equipo}"
+								model="@{winAnuarioJugadores$composer.equipos, load-after='cmbCategoria.onChange'}">
+								<comboitem self="@{each='equipo'}"
+									label="@{equipo.datoBasico.nombre}"
+									value="@{equipo.codigoEquipo}" />
+							</combobox>
+						</row>
+					</rows>
+				</grid>
+			</panelchildren>
+		</panel>
+		<separator></separator>
+		<!-- 
+		<listbox id="listAnuario" mold="paging" pageSize="5" model="@{controller.jugadores, load-after='cmbEquipo.onChange'}"
+		selectedItem="@{winAnuarioJugadores$composer.jugador}">
+		-->
+		
+		<div id="divLista">
+		<listbox id="listAnuario" mold="paging" pageSize="6">		
+			<listhead>
+				<listheader width="25%" align="center"/>
+				<listheader width="25%" align="center"/>
+				<listheader width="25%" align="center"/>
+				<listheader width="25%" align="center"/>				
+			</listhead>
+		</listbox>
+		</div>
+		
+		
+		<div align="right">
+			<button label="Imprimir"
+				image="../../Recursos/Imagenes/imprimir.ico" orient="horizontal"
+				width="100px" />
+			<button label="Salir"
+				image="../../Recursos/Imagenes/salir.png" orient="horizontal"
+				width="100px" />
+		</div>
+
+	</window>
+</zk>

@@ -13,6 +13,7 @@
 
 package controlador.jugador;
 
+
 import java.io.IOException;
 import java.io.File;
 import java.util.ArrayList;
@@ -27,8 +28,11 @@ import modelo.Roster;
 import modelo.DatoBasico;
 //import modelo.Parroquia;
 
+
+import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.ForwardEvent;
@@ -37,6 +41,7 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Groupbox;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Include;
@@ -96,6 +101,7 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 	private Textbox txtCategoria;
 	private Textbox txtFechaIngreso;
 	private Textbox txtGenero;
+	private Image imgJugador;
 			
 	//Datos de donde quiere jugar
 	private Textbox txtDivisaNueva;	
@@ -128,6 +134,15 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 
 	
 	//Set y Get	
+	
+	public Image getImgJugador() {
+		return imgJugador;
+	}
+
+	public void setImgJugador(Image imgJugador) {
+		this.imgJugador = imgJugador;
+	}	
+	
 	public Jugador getJugador() {
 		return jugador;
 	}
@@ -229,6 +244,16 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 				txtFechaIngreso.setValue(fecha);
 				txtGenero.setValue(jugador.getPersonaNatural().getDatoBasico().getNombre());
 							
+				byte[] foto = jugador.getPersonaNatural().getFoto();
+			        if (foto != null){
+			          try {
+			            AImage aImage = new AImage("foto.jpg", foto);
+			            imgJugador.setContent(aImage);
+			          } catch (IOException e) {
+			            e.printStackTrace();
+			          }	
+			        }				
+				
 				roster= servicioRoster.buscarRoster(jugador.getCedulaRif());
 				binder.loadAll();
 
@@ -254,7 +279,8 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 						}						
 					}
 					retirarPase();
-					limpiar();
+					onClick$btnCancelar();
+					//limpiar();
 					Mensaje.mostrarMensaje("¡Retiro realizado exitosamente!", Mensaje.EXITO, Messagebox.INFORMATION);	
 				}
 				else {
@@ -286,7 +312,6 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 	
 	
 	public void limpiar() {
-		retiroJugador = new RetiroTraslado();
 		txtCedula.setValue(null);
 		txtPrimerNombre.setValue(null);
 		txtSegundoNombre.setValue(null);
@@ -295,6 +320,16 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
      	txtFechaIngreso.setValue(null);
 	    txtCategoria.setValue(null);
 	    txtGenero.setValue(null);
+	    //imgJugador.setSrc("../../../WebContent/Recursos/Imagenes/noFoto.jpg");
+	    //System.out.println("ruta: " + Sessions.getCurrent().getWebApp().getRealPath("/WebContent/Recursos/Imagenes/noFoto.jpg"));
+	    //imgJugador.setSrc(Sessions.getCurrent().getWebApp().getRealPath("/WebContent/Recursos/Imagenes/noFoto.jpg"));
+	    
+	    //imgJugador.setSrc(Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/classes/noFoto.jpg"));
+	    Image imgJ = new Image();
+	    imgJ.setSrc("../../../WebContent/Recursos/Imagenes/noFoto.jpg");
+	    imgJugador.setContent(imgJ.getContent());
+	    
+	    
 	    cmbTipoTraslado.setSelectedIndex(-1);
 	    cmbMotivo.setSelectedIndex(-1);
 	    txtDivisaNueva.setValue(null);
@@ -308,8 +343,12 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 		
 	public void onClick$btnCancelar() {		
 		jugador = new Jugador();
+		retiroJugador = new RetiroTraslado();
+		tipoOperacion = new DatoBasico();
+		tipoTrasl = new DatoBasico();
 		binder.loadAll();
 		limpiar();
+								
 	}	
 	
 	public void onChange$cmbTipoTraslado() {
