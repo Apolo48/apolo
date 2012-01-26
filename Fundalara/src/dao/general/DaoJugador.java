@@ -30,7 +30,6 @@ public class DaoJugador extends GenericDao {
 	/**
 	 * Guarda los datos de un jugador en las correspondintes entidades que lo conforman
 	 * @param c Objeto Jugador a ser guardado 
-	 * @param pn Objeto persona Natural a ser guardado
 	 */
 	public void guardar(Jugador c){
 		Session session = getSession();
@@ -45,7 +44,6 @@ public class DaoJugador extends GenericDao {
 	/**
 	 * Actualiza los datos de un jugador en las correspondintes entidades que lo conforman
 	 * @param c Objeto Jugador a ser actualizado 
-	 * @param pn Objeto persona Natural a ser actualizado
 	 */
 	public void actualizar(Jugador c){
 		Session session = getSession();
