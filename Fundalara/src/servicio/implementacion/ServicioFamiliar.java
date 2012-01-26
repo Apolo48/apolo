@@ -43,8 +43,8 @@ public class ServicioFamiliar implements IServicioFamiliar {
 		return daoFamiliar.listar( Familiar.class);
 	}
 
-	public void agregar(List<Familiar> familiares, Jugador jugador) {
-		daoFamiliar.guardar(familiares, jugador);
+	public void agregar(List<Familiar> familiares) {
+		daoFamiliar.guardar(familiares);
 
 	}
 	

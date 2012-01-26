@@ -68,7 +68,7 @@ public class DaoFamiliar extends GenericDao {
 		return lista;
 	}
 
-	public void guardar(List<Familiar> familiares, Jugador jugador) {
+	public void guardar(List<Familiar> familiares) {
 		int cantidad = 0;
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
@@ -78,20 +78,18 @@ public class DaoFamiliar extends GenericDao {
 			c.setProjection(Projections.rowCount());
 			cantidad = (Integer) c.list().get(0);
 			if (cantidad != 0) {// Actualizar
-				session.update(familiar.getPersonaNatural().getPersona());
-				session.update(familiar.getPersonaNatural());
-				session.update(familiar);
+				session.merge(familiar.getPersonaNatural().getPersona());
+				session.merge(familiar.getPersonaNatural());
+				session.merge(familiar);
 			} else {// guardar
-				
-				
 				session.save(familiar.getPersonaNatural().getPersona());
 				session.save(familiar.getPersonaNatural());
 				session.save(familiar);
 			}
-			
-			//FamiliarJugador familiar
 		}
 		tx.commit();
 	}
+	
+	
 
 }
