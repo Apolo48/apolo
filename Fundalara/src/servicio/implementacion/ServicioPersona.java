@@ -40,5 +40,9 @@ public class ServicioPersona implements IServicioPersona {
 		// TODO Auto-generated method stub
 		return daoPersona.listar( Persona.class);
 	}
+	
+	public boolean  existePersona(String cedula) {
+		return daoPersona.existePersona(cedula);
+	}
 
 }

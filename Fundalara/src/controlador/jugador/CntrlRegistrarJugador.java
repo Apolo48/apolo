@@ -794,6 +794,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		boolean flag = false;
 		if (cmbNacionalidad.getSelectedItem().getValue().equals("R")) {
 			flag = true;
+			txtCedula.setRawValue("");
+			txtCedula.setReadonly(true);
 		}
 		lblSeparador.setVisible(flag);
 		txtCedulaSecuencia.setVisible(flag);
@@ -1432,7 +1434,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			familiaresJugadores.add(familiarJugador);
 		}
 		servicioFamiliar.agregar(familiaresModelo);
-		servicioFamiliarJugador.agregar(familiaresJugadores);
+		servicioFamiliarJugador.agregar(familiaresJugadores,jugador);
 		familiaresJugadores = new ArrayList<FamiliarJugador>();
 		
 	}

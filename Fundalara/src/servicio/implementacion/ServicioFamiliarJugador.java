@@ -54,8 +54,8 @@ DaoFamiliarJugador daoFamiliarJugador;
 		return daoFamiliarJugador.buscar(familiar);
 	}
 	
-	public void agregar(List<FamiliarJugador> familiaresJugadores){
-		daoFamiliarJugador.guardar(familiaresJugadores);
+	public void agregar(List<FamiliarJugador> familiaresJugadores, Jugador jugador){
+		daoFamiliarJugador.guardar(familiaresJugadores, jugador);
 	}
 	
 

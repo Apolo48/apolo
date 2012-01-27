@@ -50,16 +50,16 @@ public class DaoFamiliarJugador extends GenericDao {
 	}
 	
 	
-	public void guardar(List<FamiliarJugador> familiaresJugadores){
+	public void guardar(List<FamiliarJugador> familiaresJugadores, Jugador jugador){
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
 		int p = 0;
 		 List<FamiliarJugador> datos= new ArrayList<FamiliarJugador>();
 		 datos.addAll(familiaresJugadores);
-		 Jugador jugador=null;
-		 if (familiaresJugadores.size()>0){
-			 jugador= datos.get(0).getJugador();
-		 }
+		// Jugador jugador=null;
+		 //if (familiaresJugadores.size()>0){
+			// jugador= datos.get(0).getJugador();
+		 //}
 		 
 		Criteria c = sesion.createCriteria(FamiliarJugador.class)
 				.createCriteria("jugador")
