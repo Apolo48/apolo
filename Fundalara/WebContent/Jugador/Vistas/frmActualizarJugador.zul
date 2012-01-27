@@ -1,12 +1,8 @@
 <?page title="Actualizar Jugadorr"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winActualizarJugador" ?>
-<zk>
-	<zscript><![CDATA[
-	//@IMPORT
-	import controlador.jugador.converter.*;
-]]></zscript>
 
+<zk>
 	<div align="left">
 		<window border="normal" width="670px" height="1000px"
 			id="winActualizarJugador" closable="true"  title="Actualizar Jugador"
@@ -67,7 +63,7 @@
 										height="80%" align="center" valign="middle">
 										<groupbox
 											style="border-color:orange" mold="3d">
-											<!--  content="@{controller.jugador.persona.personaNatural.foto, converter='ImageConverter'}"  -->
+											<!--  content="@{controller.jugador.persona.personaNatural.foto, converter='controlador.jugador.converter.ImageConverter'}"  -->
 											<image id="imgJugador"
 												src="../../Recursos/Imagenes/noFoto.jpg" height="80px"
 												width="80px" />
@@ -86,7 +82,6 @@
 				</grid>
 			</groupbox>
 			<separator height="10px" />
-
 
 			<panel title="Detalle Jugador">
 				<panelchildren>
@@ -619,7 +614,7 @@
 													<listcell
 														label="@{actividadSocial.horasDedicadas}" />
 													<listcell
-														label="@{actividadSocial.fechaInicio, converter='DateConverter'}" />
+														label="@{actividadSocial.fechaInicio, converter='controlador.jugador.converter.DateConverter'}" />
 												</listitem>
 											</listbox>
 											<vbox>
@@ -780,7 +775,7 @@
 													<listcell
 														label="@{motivoSancion.datoConducta.cantidad}" />
 													<listcell
-														label="@{motivoSancion.datoConducta.fechaInicio, converter='DateConverter'}" />
+														label="@{motivoSancion.datoConducta.fechaInicio, converter='controlador.jugador.converter.DateConverter'}" />
 													<listcell
 														label="@{motivoSancion.datoConducta.observacion}" />
 												</listitem>

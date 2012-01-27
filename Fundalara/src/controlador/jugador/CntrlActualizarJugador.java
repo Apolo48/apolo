@@ -180,7 +180,6 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private Listbox listDocAcademicos;
 	private Listbox listLogros;
 	
-	
 	private Label lblSeparador;	
 	private Component formulario;
 	private Include incCuerpo;
@@ -280,13 +279,12 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
-		formulario = comp;		
+		formulario = comp;
 		tipoIndumentaria = servicioDatoBasico.buscarTipo(
 				TipoDatoBasico.TIPO_UNIFORME, "Entrenamiento");		
 	}
 
 	// Getters y setters	
-
 	public Textbox getTxtObservacion() {
 		return txtObservacion;
 	}
