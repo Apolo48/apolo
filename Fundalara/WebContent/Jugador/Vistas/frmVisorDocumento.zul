@@ -1,0 +1,9 @@
+<?page title="Visor de documento"?>
+<zk>
+	<window width="600px" height="800px" title="Visor de documentos"
+		closable="true" id="winVisorDocumento" border="normal" mode="modal"
+		apply="controlador.jugador.CntrlVisorDocumento" sizable="true">
+		<iframe id="iframeDocumento" width="600px" height="800px" align="top"
+		 />
+	</window>
+</zk>

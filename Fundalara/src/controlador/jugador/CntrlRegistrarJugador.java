@@ -553,7 +553,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	// Metodos para carga de combos/listbox
 
 	public List<Categoria> getCategorias() {
-		return servicioCategoria.listar();
+		int edad =(txtEdad.getValue()==null?0:txtEdad.getValue());
+		return servicioCategoria.buscarCategorias(edad);
 	}
 
 	public List<DatoBasico> getCursos() {
@@ -793,6 +794,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		boolean flag = false;
 		if (cmbNacionalidad.getSelectedItem().getValue().equals("R")) {
 			flag = true;
+			txtCedula.setRawValue("");
+			txtCedula.setReadonly(true);
 		}
 		lblSeparador.setVisible(flag);
 		txtCedulaSecuencia.setVisible(flag);
@@ -1226,6 +1229,47 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			cargarArchivo(codigo, lc, documentosMedicos);
 		}
 	}
+	
+	
+	/****/
+	
+	
+	public void mostrarDocumento(Listcell lc, Listbox listbox) {
+		Listcell primerElemento = (Listcell) lc.getParent().getFirstChild();
+		String codigo = primerElemento.getLabel();
+		byte[]  archivo=null;
+		if (listbox.equals(listDocAcademicos)) {
+			archivo=obtenerArchivo(codigo,  documentosAcademicos);
+		} else if (listbox.equals(listDocPersonales)) {
+			archivo=obtenerArchivo(codigo,  documentosPersonales);
+		} else if (listbox.equals(listDocMedicos)) {
+			archivo=obtenerArchivo(codigo,  documentosMedicos);
+		}
+		
+		Component catalogo = Executions.createComponents(rutasJug
+				+ "frmVisorDocumento.zul", null, null);
+		catalogo.setVariable("documento", archivo, false);
+		
+	}
+
+	
+	
+	private  byte[] obtenerArchivo(String codigo,
+			List<DocumentoEntregado> lista) {
+		int cod = Integer.valueOf(codigo);
+		 byte[]  archivo=null;
+		for (DocumentoEntregado de : lista) {
+			if (de.getRecaudoPorProceso().getCodigoRecaudoPorProceso() == cod) {
+				archivo= de.getDocumento();
+				break;
+			}
+		}
+		
+		return archivo;
+	}
+	
+	
+	/*****/
 
 	private void moveStep(boolean flag) {
 		tabRegJugador.setVisible(!flag);
@@ -1390,7 +1434,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			familiaresJugadores.add(familiarJugador);
 		}
 		servicioFamiliar.agregar(familiaresModelo);
-		servicioFamiliarJugador.agregar(familiaresJugadores);
+		servicioFamiliarJugador.agregar(familiaresJugadores,jugador);
 		familiaresJugadores = new ArrayList<FamiliarJugador>();
 		
 	}

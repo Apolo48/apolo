@@ -7,11 +7,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.python.antlr.PythonParser.return_stmt_return;
 
 import comun.TipoDatoBasico;
 
 import modelo.Categoria;
 import modelo.DatoBasico;
+import modelo.Divisa;
 import modelo.Equipo;
 
 import dao.generico.GenericDao;
@@ -27,24 +29,41 @@ import dao.generico.SessionManager;
 public class DaoEquipo extends GenericDao {
 	
 	/**
-	 * Busca los equipos que pertenecen a una categoria dada
-	 * @param categoria Categoria para filtrar los equipos 
+	 * Busca los equipos que pertenecen a una categoria dada, de un tipo en espeficio de una divisa en particular
+	 * @param categoria Categoria para filtrar los equipos
+	 * @param lapsoDeportivo lapso deportivo a las cual corresponden el equipo
+	 * @param nombreDivisa nomnre de la divisa a la que pertenecen los equipos
 	 * @return List<Equipo> Lista de equipos de una categoria
 	 */
-	public List<Equipo> buscarEquiposPorCategoria(Categoria categoria){
+	public List<Equipo> buscarEquiposPorCategoria(Categoria categoria, String lapsoDeportivo, String nombreDivisa){
 		Session session = getSession();
-		org.hibernate.Transaction tx = session.beginTransaction();
+		Transaction tx = session.beginTransaction();
 		DaoDatoBasico daoDatobasico = new DaoDatoBasico();
-		DatoBasico tipoLapso= daoDatobasico.buscarTipo(TipoDatoBasico.TIPO_LAPSO_DEPORTIVO,"TEMPORADA REGULAR");
+		DatoBasico tipoLapso= daoDatobasico.buscarTipo(TipoDatoBasico.TIPO_LAPSO_DEPORTIVO,lapsoDeportivo);
+		Criteria cDivisa = session.createCriteria(Divisa.class)
+				.add(Restrictions.eq("nombre", nombreDivisa.toUpperCase()))
+				.add(Restrictions.eq("estatus", 'A'));
+		Divisa divisa = (Divisa)cDivisa.uniqueResult();
 		Criteria c = session
 				.createCriteria(Equipo.class)
 				.add(Restrictions.eq("categoria", categoria))
 				.add(Restrictions.eq("datoBasicoByCodigoTipoLapso",tipoLapso))
+				.add(Restrictions.eq("divisa", divisa))
 				.add(Restrictions.eq("estatus", 'A'));
 		List<Equipo> lista =  c.list();
 		return lista;
-		
 	}
+	
+	public List<Equipo> buscarEquiposPorCategoria(Categoria categoria, String lapsoDeportivo){
+		return this.buscarEquiposPorCategoria(categoria, lapsoDeportivo, "FUNDALARA");
+	}
+	
+	
+	public List<Equipo> buscarEquiposPorCategoria(Categoria categoria){
+		return this.buscarEquiposPorCategoria(categoria, "TEMPORADA REGULAR");
+	}
+	
+	
 	
 	/**
 	 * Busca todos los equipos activos de todas las divisas

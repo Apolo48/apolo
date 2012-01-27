@@ -348,9 +348,9 @@
 																			value="Dirección Habitación" />
 																		<div>
 																			<textbox
-																			id="txtDireccion"
-																				style='text-transform:uppercase;' maxlength="200"
-																				height="40px" width="90%" multiline="true"
+																				id="txtDireccion" style='text-transform:uppercase;'
+																				maxlength="200" height="40px" width="90%"
+																				multiline="true"
 																				value="@{controller.jugadorBean.direccion}" />
 																			<label
 																				value="(*)" style="color:red" />
@@ -453,15 +453,17 @@
 													selectedItem="@{controller.docEntPersonal}">
 													<listhead>
 														<listheader
-															width="30%" label="Nombre" />
+															width="25%" label="Nombre" />
 														<listheader
-															width="15%" label="Solicitado" />
+															width="13%" label="Solicitado" />
 														<listheader
-															width="15%" label=" Entregado" />
+															width="13%" label="Entregado" />
 														<listheader
 															width="20%" label="Importancia" />
 														<listheader
 															width="20%" label="Documento" />
+															<listheader
+															width="11%" label="" />
 													</listhead>
 													<listitem
 														self="@{each='docPer'}" value="docPer">
@@ -482,6 +484,10 @@
 														<listcell
 															label="Subir"
 															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
+														</listcell>
+														<listcell
+															label="Ver"
+															onClick="winRegistrarJugador$composer.mostrarDocumento(self,self.getParent().getParent())">
 														</listcell>
 													</listitem>
 												</listbox>
@@ -960,7 +966,7 @@
 																<combobox
 																	id="cmbCategoria" value="--Seleccione--" width="65%"
 																	readonly="true" selectedItem="@{controller.categoria}"
-																	model="@{winRegistrarJugador$composer.categorias}">
+																	model="@{winRegistrarJugador$composer.categorias, load-after='dtboxFechaNac.onChange'}">
 																	<comboitem
 																		self="@{each='categoria'}" label="@{categoria.nombre}"
 																		value="@{categoria.codigoCategoria}" />
