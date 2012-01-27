@@ -621,7 +621,7 @@
 											<treerow>
 												<treecell
 													label="Expediente"
-													onClick='enlace("Jugador/Vistas/frmConsultarExpedienteJugador.zul")' />
+													onClick='enlace("Jugador/Reportes/frmExpedienteJugador.zul")' />
 											</treerow>
 										</treeitem>
 										<treeitem>
