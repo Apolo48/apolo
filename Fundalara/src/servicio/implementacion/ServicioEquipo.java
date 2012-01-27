@@ -39,7 +39,6 @@ public class ServicioEquipo implements IServicioEquipo {
 	@Override
 	public List<Equipo> listar() {
 		return daoEquipo.listarActivos(Equipo.class);
-				//daoEquipo.listar(Equipo.class);
 	}
 	
 	public List<Equipo> buscarPorCategoria(Categoria categoria){
@@ -50,4 +49,16 @@ public class ServicioEquipo implements IServicioEquipo {
 		return daoEquipo.buscarPorCodigo(equipo);
 	}
 
+	@Override
+	public List<Equipo> buscarPorCategoria(Categoria categoria,
+			String lapsoDeportivo) {
+		return daoEquipo.buscarEquiposPorCategoria(categoria, lapsoDeportivo);
+	}
+	
+	@Override
+	public List<Equipo> buscarPorCategoria(Categoria categoria,
+			String lapsoDeportivo, String nombreDivisa) {
+		return daoEquipo.buscarEquiposPorCategoria(categoria, lapsoDeportivo,nombreDivisa);
+	}
+	
 }

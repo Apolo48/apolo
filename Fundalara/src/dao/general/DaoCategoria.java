@@ -44,6 +44,15 @@ public class DaoCategoria extends GenericDao {
 		return (Categoria) c.uniqueResult();
 	}
 	
+	public List<Categoria> buscarCategoriasPorEdad(int edad) {
+		Session session = this.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(Categoria.class)
+				.add(Restrictions.le("edadInferior", edad))
+				.add(Restrictions.eq("estatus", 'A'));
+		return  c.list();
+	}
+	
 	/**
 	 * Busca las categorias superiores a la que le corresponde a un jugador
 	 * 
