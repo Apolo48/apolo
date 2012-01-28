@@ -453,7 +453,7 @@
 													selectedItem="@{controller.docEntPersonal}">
 													<listhead>
 														<listheader
-															width="25%" label="Nombre" />
+															width="29%" label="Nombre" />
 														<listheader
 															width="13%" label="Solicitado" />
 														<listheader
@@ -462,8 +462,8 @@
 															width="20%" label="Importancia" />
 														<listheader
 															width="20%" label="Documento" />
-															<listheader
-															width="11%" label="" />
+														<listheader
+															width="5%" label="" />
 													</listhead>
 													<listitem
 														self="@{each='docPer'}" value="docPer">
@@ -679,16 +679,18 @@
 													model="@{winRegistrarJugador$composer.recaudosMedicos}"
 													selectedItem="@{controller.docEntMed}">
 													<listhead>
+															<listheader
+															width="29%" label="Nombre" />
 														<listheader
-															width="30%" label="Nombre" />
+															width="13%" label="Solicitado" />
 														<listheader
-															width="15%" label="Solicitado" />
-														<listheader
-															width="15%" label=" Entregado" />
+															width="13%" label="Entregado" />
 														<listheader
 															width="20%" label="Importancia" />
 														<listheader
 															width="20%" label="Documento" />
+														<listheader
+															width="5%" label="" />
 													</listhead>
 													<listitem
 														self="@{each='docMed'}" value="docMed">
@@ -709,6 +711,10 @@
 														<listcell
 															label="Subir"
 															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
+														</listcell>
+														<listcell
+															label="Ver"
+															onClick="winRegistrarJugador$composer.mostrarDocumento(self,self.getParent().getParent())">
 														</listcell>
 													</listitem>
 												</listbox>
@@ -786,16 +792,18 @@
 													model="@{winRegistrarJugador$composer.recaudosAcademicos}"
 													selectedItem="@{controller.docEntAcad}">
 													<listhead>
+															<listheader
+															width="29%" label="Nombre" />
 														<listheader
-															width="30%" label="Nombre" />
+															width="13%" label="Solicitado" />
 														<listheader
-															width="15%" label="Solicitado" />
-														<listheader
-															width="15%" label=" Entregado" />
+															width="13%" label="Entregado" />
 														<listheader
 															width="20%" label="Importancia" />
 														<listheader
 															width="20%" label="Documento" />
+														<listheader
+															width="5%" label="" />
 													</listhead>
 													<listitem
 														self="@{each='docAcad'}" value="docAcad">
@@ -816,6 +824,10 @@
 														<listcell
 															label="Subir"
 															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
+														</listcell>
+														<listcell
+															label="Ver"
+															onClick="winRegistrarJugador$composer.mostrarDocumento(self,self.getParent().getParent())">
 														</listcell>
 													</listitem>
 												</listbox>

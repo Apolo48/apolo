@@ -1178,7 +1178,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void onClick$btnInscribir() {
 		Mensaje.mostrarMensaje("Se ha inscrito el jugador: "+jugadorBean.getNombres() +" "+jugadorBean.getApellidos(),
 				Mensaje.EXITO, Messagebox.INFORMATION);
-		 //new Util().crearVentana(rutasJug + "frmVistaCompromisoPago.zul", null,null);
 		 onClick$btnCancelar();
 	}
 
@@ -1231,9 +1230,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 	
 	
-	/****/
-	
-	
 	public void mostrarDocumento(Listcell lc, Listbox listbox) {
 		Listcell primerElemento = (Listcell) lc.getParent().getFirstChild();
 		String codigo = primerElemento.getLabel();
@@ -1253,7 +1249,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	
-	
 	private  byte[] obtenerArchivo(String codigo,
 			List<DocumentoEntregado> lista) {
 		int cod = Integer.valueOf(codigo);
@@ -1268,8 +1263,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		return archivo;
 	}
 	
-	
-	/*****/
 
 	private void moveStep(boolean flag) {
 		tabRegJugador.setVisible(!flag);
