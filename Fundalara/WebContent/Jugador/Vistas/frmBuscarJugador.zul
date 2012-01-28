@@ -3,18 +3,12 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winBuscarjugador"?>
 
 <zk>
-	<window id="winBuscarjugador" title="Buscar Jugador" border="normal" width="500px" mode="modal"
+	<window id="winBuscarjugador" title="Catálogo" border="normal" width="500px" mode="modal"
 		closable="true" apply="controlador.jugador.CntrlBuscarJugador">
 
-
 		<separator></separator>
-		<listbox id="listEquipo"  mold="paging" pageSize="5"  model="@{controller.jugadores}" 
+		<listbox id="listEquipo"  mold="paging" pageSize="10"  model="@{controller.jugadores}" 
 					    selectedItem="@{winBuscarjugador$composer.Jugador}">
-			<!-- <auxhead sclass="category-center">
-				<auxheader label="Listado Jugadores" colspan="4"
-					align="center">
-				</auxheader>
-			</auxhead> -->
 			<listhead>
 				<listheader width="20%" label="Cédula" />
 				<listheader width="32%" label="Nombre" />

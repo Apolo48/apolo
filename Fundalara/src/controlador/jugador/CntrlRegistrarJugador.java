@@ -107,6 +107,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Button btnAgregarActividad;
 	private Button btnEliminarActividad;
 	private Button btnSubirDocumentoAcad;
+	private Button btnCatalogoJugador;
 	private Button btnCancelar;
 	private Tab tabRegJugador;
 	private Tab tabRegFamiliar;
@@ -135,7 +136,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Textbox txtCorreoFamiliar;
 	private Textbox txtTwitterFamiliar;
 	private Textbox txtDireccion;
-	private Textbox  txtTwitter;
+	private Textbox txtTwitter;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
@@ -178,7 +179,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Component formulario;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
-	
 	// Servicios
 	private ServicioDatoBasico servicioDatoBasico;
 	private ServicioCategoria servicioCategoria;
@@ -240,6 +240,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Persona personaFamiliar = new Persona();
 	private PersonaNatural personaNFamiliar = new PersonaNatural();
 	private List<FamiliarJugador> familiaresJugadores = new ArrayList<FamiliarJugador>();
+	private Jugador jugadorTemp = new Jugador();
 
 	// Binder
 	private AnnotateDataBinder binder;
@@ -278,18 +279,18 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		inicializarCheckPoints();
 		tipoIndumentaria = servicioDatoBasico.buscarTipo(
 				TipoDatoBasico.TIPO_UNIFORME, "Entrenamiento");
-		
+
 	}
 
-	public void  onCreate$winRegistrarJugador(){
-	/*	DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-		try {
-			Date fechaInicial = (Date) formatter.parse(Util.getFecha(Edad.EDAD_MINIMA, Util.LIMITE_SUPERIOR));		
-			dtboxFechaNac.setValue(fechaInicial);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}*/
+	public void onCreate$winRegistrarJugador() {
+		/*
+		 * DateFormat formatter = new SimpleDateFormat("yyyyMMdd"); try { Date
+		 * fechaInicial = (Date) formatter.parse(Util.getFecha(Edad.EDAD_MINIMA,
+		 * Util.LIMITE_SUPERIOR)); dtboxFechaNac.setValue(fechaInicial); } catch
+		 * (ParseException e) { e.printStackTrace(); }
+		 */
 	}
+
 	// Getters y setters
 
 	public DatoBasico getEstadoVenezuela() {
@@ -553,7 +554,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	// Metodos para carga de combos/listbox
 
 	public List<Categoria> getCategorias() {
-		int edad =(txtEdad.getValue()==null?0:txtEdad.getValue());
+		int edad = (txtEdad.getValue() == null ? 0 : txtEdad.getValue());
 		return servicioCategoria.buscarCategorias(edad);
 	}
 
@@ -768,6 +769,43 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		});
 	}
 
+	public void onClick$btnCatalogoJugador() {
+		Component catalogo = Executions.createComponents(rutasJug
+				+ "frmBuscarJugador.zul", null, null);
+		catalogo.setVariable("formulario", formulario, false);
+		catalogo.setVariable("estatus", EstatusRegistro.TEMPORAL, false);
+		formulario.addEventListener("onCatalogoBuscarJugadorCerrado",
+				new EventListener() {
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						jugadorTemp = (Jugador) formulario.getVariable(
+								"jugador", false);
+						if (jugadorTemp != null) {
+							if (existenDatosGuardados()) {
+								Mensaje.mostrarConfirmacion(
+										"Existen datos precargados en el formulario. ¿Está seguro de sobreescribirlos?",
+										Mensaje.CONFIRMAR,
+										Messagebox.YES | Messagebox.NO,
+										new org.zkoss.zk.ui.event.EventListener() {
+											public void onEvent(Event evt)
+													throws InterruptedException {
+												if (evt.getName().equals(
+														"onYes")) {
+													// PASAR DEL MODEL TO BEAN
+													// Y ASEGURARSE QUE LOS
+													// DATPS ANTERIORES YA NO
+													// ESTEN EN LA VISTA Y SOLO
+													// QUEDEN LOS DEL JUGADOR
+													// BUSCADO
+												}
+											}
+										});
+							}
+						}
+					}
+				});
+	}
+
 	public void onChange$dtboxFechaNac() {
 		Date fecha = dtboxFechaNac.getValue();
 		txtEdad.setValue(Util.calcularDiferenciaAnnios(fecha));
@@ -960,6 +998,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void onClick$btnGuardar() {
 		if (verificarCampos(camposPerfil, true)) {
 			guardarJugador();
+			habilitarCatalogoJugador(true);
 			if (medico.getNumeroColegio() != null) {
 				guardarDatoMedico();
 			}
@@ -978,8 +1017,32 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			guardarFamiliares();
 			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
 					Mensaje.EXITO, Messagebox.EXCLAMATION);
-
 		}
+	}
+
+	public void onClick$btnInscribir() {
+		Mensaje.mostrarMensaje(
+				"Se ha inscrito el jugador: " + jugadorBean.getNombres() + " "
+						+ jugadorBean.getApellidos(), Mensaje.EXITO,
+				Messagebox.INFORMATION);
+		onClick$btnCancelar();
+	}
+
+	// Metodos propios del ctrl
+	private boolean existenDatosGuardados() {
+		boolean flag = false;
+		for (Boolean punto : checkPoints.values()) {
+			if (punto) {
+				flag = true;
+				break;
+			}
+		}
+		return flag;
+
+	}
+
+	private void habilitarCatalogoJugador(boolean sw) {
+		btnCatalogoJugador.setDisabled(sw);
 	}
 
 	private void guardarDocumentoPersonal() {
@@ -1175,14 +1238,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
-	public void onClick$btnInscribir() {
-		Mensaje.mostrarMensaje("Se ha inscrito el jugador: "+jugadorBean.getNombres() +" "+jugadorBean.getApellidos(),
-				Mensaje.EXITO, Messagebox.INFORMATION);
-		 onClick$btnCancelar();
-	}
-
-	// Metodos propios del ctrl
-
 	private void completarDocumentos(List<DocumentoEntregado> lista) {
 		for (DocumentoEntregado documentoEntregado : lista) {
 			documentoEntregado.setFecha(new Date());
@@ -1228,41 +1283,37 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			cargarArchivo(codigo, lc, documentosMedicos);
 		}
 	}
-	
-	
+
 	public void mostrarDocumento(Listcell lc, Listbox listbox) {
 		Listcell primerElemento = (Listcell) lc.getParent().getFirstChild();
 		String codigo = primerElemento.getLabel();
-		byte[]  archivo=null;
+		byte[] archivo = null;
 		if (listbox.equals(listDocAcademicos)) {
-			archivo=obtenerArchivo(codigo,  documentosAcademicos);
+			archivo = obtenerArchivo(codigo, documentosAcademicos);
 		} else if (listbox.equals(listDocPersonales)) {
-			archivo=obtenerArchivo(codigo,  documentosPersonales);
+			archivo = obtenerArchivo(codigo, documentosPersonales);
 		} else if (listbox.equals(listDocMedicos)) {
-			archivo=obtenerArchivo(codigo,  documentosMedicos);
+			archivo = obtenerArchivo(codigo, documentosMedicos);
 		}
-		
-		Component catalogo = Executions.createComponents(rutasJug
+
+		Component visor = Executions.createComponents(rutasJug
 				+ "frmVisorDocumento.zul", null, null);
-		catalogo.setVariable("documento", archivo, false);
-		
+		visor.setVariable("documento", archivo, false);
+
 	}
 
-	
-	private  byte[] obtenerArchivo(String codigo,
-			List<DocumentoEntregado> lista) {
+	private byte[] obtenerArchivo(String codigo, List<DocumentoEntregado> lista) {
 		int cod = Integer.valueOf(codigo);
-		 byte[]  archivo=null;
+		byte[] archivo = null;
 		for (DocumentoEntregado de : lista) {
 			if (de.getRecaudoPorProceso().getCodigoRecaudoPorProceso() == cod) {
-				archivo= de.getDocumento();
+				archivo = de.getDocumento();
 				break;
 			}
 		}
-		
+
 		return archivo;
 	}
-	
 
 	private void moveStep(boolean flag) {
 		tabRegJugador.setVisible(!flag);
@@ -1368,11 +1419,11 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public void onClick$btnCancelar() {
 		onClick$btnAntes();
-		jugadorBean= new controlador.jugador.bean.Jugador();
+		jugadorBean = new controlador.jugador.bean.Jugador();
 		limpiarFamiliar();
-		familiares = new  ArrayList<controlador.jugador.bean.Familiar>();
-		
-		//Limpiando el perfil del jugador
+		familiares = new ArrayList<controlador.jugador.bean.Familiar>();
+
+		// Limpiando el perfil del jugador
 		cmbNacionalidad.setValue("--");
 		txtCedula.setRawValue("");
 		txtPrimerNombre.setRawValue("");
@@ -1381,18 +1432,18 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtSegundoApellido.setRawValue("");
 		cmbGenero.setRawValue("");
 		imgJugador.setContent(new Image().getContent());
-		// Limpiando primera pestanna 
+		// Limpiando primera pestanna
 		dtboxFechaNac.setRawValue(null);
 		txtEdad.setRawValue("");
 		binder.loadComponent(cmbPaisNac);
-		
+
 		cmbEstadoNac.setSelectedIndex(-1);
 		cmbMunicipioNac.setSelectedIndex(-1);
 		binder.loadComponent(cmbParroquiaNac);
-		
+
 		cmbEstadoResi.setSelectedIndex(-1);
 		cmbMunicipioResi.setSelectedIndex(-1);
-		
+
 		binder.loadComponent(cmbParroquiaResi);
 		txtDireccion.setRawValue("");
 		binder.loadComponent(cmbCodArea);
@@ -1401,23 +1452,22 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtTelefonoCelular.setRawValue("");
 		txtCorreo.setRawValue("");
 		txtTwitter.setRawValue("");
-		
+
 		// Activamos la 1era pestana y dejamos el focus
 		tabJugPersonales.setSelected(true);
 		cmbNacionalidad.setFocus(true);
-		//binder.loadAll();
-		
+		// binder.loadAll();
+
 	}
 
 	private void guardarFamiliares() {
 		FamiliarJugador familiarJugador;
-		Familiar familiarAux ; 
+		Familiar familiarAux;
 		DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
 				TipoDatoBasico.TIPO_PERSONA, "Familiar");
 		List<Familiar> familiaresModelo = new ArrayList<Familiar>();
 		for (controlador.jugador.bean.Familiar familiar : familiares) {
-			familiarAux = guardarFamiliarBeanToModelo(familiar,
-					datoTipoPersona);
+			familiarAux = guardarFamiliarBeanToModelo(familiar, datoTipoPersona);
 			familiaresModelo.add(familiarAux);
 			familiarJugador = new FamiliarJugador();
 			familiarJugador.setDatoBasico(familiar.getParentesco());
@@ -1427,9 +1477,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			familiaresJugadores.add(familiarJugador);
 		}
 		servicioFamiliar.agregar(familiaresModelo);
-		servicioFamiliarJugador.agregar(familiaresJugadores,jugador);
+		servicioFamiliarJugador.agregar(familiaresJugadores, jugador);
 		familiaresJugadores = new ArrayList<FamiliarJugador>();
-		
+
 	}
 
 	private Familiar guardarFamiliarBeanToModelo(

@@ -1,6 +1,6 @@
 <?page title="Registrar Jugador"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"  root="winRegistrarJugador" ?>
 <zk>
 	<div align="left">
 		<window border="none" width="670px" height="945px"
@@ -52,6 +52,9 @@
 												value="@{controller.jugadorBean.secuencia}" />
 											<label value="(*)"
 												style="color:red" />
+											<button
+												id="btnCatalogoJugador"
+												image="../../Recursos/Imagenes/consultar.ico" />
 										</div>
 									</row>
 									<row style="border:none;">
@@ -679,7 +682,7 @@
 													model="@{winRegistrarJugador$composer.recaudosMedicos}"
 													selectedItem="@{controller.docEntMed}">
 													<listhead>
-															<listheader
+														<listheader
 															width="29%" label="Nombre" />
 														<listheader
 															width="13%" label="Solicitado" />
@@ -792,7 +795,7 @@
 													model="@{winRegistrarJugador$composer.recaudosAcademicos}"
 													selectedItem="@{controller.docEntAcad}">
 													<listhead>
-															<listheader
+														<listheader
 															width="29%" label="Nombre" />
 														<listheader
 															width="13%" label="Solicitado" />

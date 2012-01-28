@@ -57,97 +57,95 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 
 	Component catalogo;
 	private AnnotateDataBinder binder;
-	  char estatus ;
+	char estatus;
 
-	  
-	  private void  filtrarLista(){
-		  Jugadores=servicioJugador.buscarJugadores(filter2.getValue()
-					.toString().toUpperCase(), filter3.getValue().toString().toUpperCase(), filter4.getValue()
-					.toString().toUpperCase(), filter1.getValue().toString().toUpperCase(), estatus);
+	private void filtrarLista() {
+		Jugadores = servicioJugador.buscarJugadores(filter2.getValue()
+				.toString().toUpperCase(), filter3.getValue().toString()
+				.toUpperCase(), filter4.getValue().toString().toUpperCase(),
+				filter1.getValue().toString().toUpperCase(), estatus);
 		binder.loadComponent(listEquipo);
-	  }
-	public void onBlur$filter2(){
+	}
+
+	public void onBlur$filter2() {
 		filtrarLista();
 	}
-	
-	public void onBlur$filter1(){
+
+	public void onBlur$filter1() {
 		filtrarLista();
 	}
-	
-	public void onBlur$filter3(){
+
+	public void onBlur$filter3() {
 		filtrarLista();
-		
+
 	}
-	
-	public void onBlur$filter4(){
+
+	public void onBlur$filter4() {
 		filtrarLista();
-		
+
 	}
-	
-	public void onCreate$winBuscarjugador(){
-	     estatus = (Character) catalogo.getVariable("estatus",false);	
-	    System.out.println(estatus);
-	    Jugadores=servicioJugador.buscarJugadores(filter2.getValue()
-				.toString().toUpperCase(), filter3.getValue().toString().toUpperCase(), filter4.getValue()
-				.toString().toUpperCase(), filter1.getValue().toString().toUpperCase(), estatus);
-	    determinarTitulo(estatus);
-	    binder.loadAll();
+
+	public void onCreate$winBuscarjugador() {
+		estatus = (Character) catalogo.getVariable("estatus", false);
+		System.out.println(estatus);
+		Jugadores = servicioJugador.buscarJugadores(filter2.getValue()
+				.toString().toUpperCase(), filter3.getValue().toString()
+				.toUpperCase(), filter4.getValue().toString().toUpperCase(),
+				filter1.getValue().toString().toUpperCase(), estatus);
+		determinarTitulo(estatus);
+		binder.loadComponent(listEquipo);
 	}
-	
+
 	public void determinarTitulo(char estatus) {
 		Window w = (Window) catalogo;
 		switch (estatus) {
-		    
+
 		case 'A':
-			w.setTitle("Catalogo Jugadores");
+			w.setTitle("Cat·logo Jugadores");
 			break;
 		case 'E':
-			w.setTitle("Catalogo Reingreso");
+			w.setTitle("Cat·logo Reingreso");
 			break;
 		case 'T':
-			w.setTitle("Catalogo Nuevo Ingreso");
+			w.setTitle("Cat·logo Nuevo Ingreso");
 			break;
-				   
 		}
 	}
-	
+
 	@Override
 	public void doAfterCompose(Component c) throws Exception {
 		super.doAfterCompose(c);
 		c.setVariable("controller", this, true);
 		// se guarda la referencia al catalogo
 		catalogo = c;
-
-		
 	}
 
-
-	
-	public void onClick$btnSeleccionar() throws InterruptedException{
-		//Se comprueba que se haya seleccionado un elemento de la lista
+	public void onClick$btnSeleccionar() throws InterruptedException {
+		// Se comprueba que se haya seleccionado un elemento de la lista
 
 		if (listEquipo.getSelectedIndex() != -1) {
-			//se obtiene la divisa seleccionada
+			// se obtiene la divisa seleccionada
 			Jugador d = (Jugador) listEquipo.getSelectedItem().getValue();
-			//se obtiene la referencia del formulario
-			Component formulario = (Component) catalogo.getVariable("formulario",false);
-	        //se le asigna el objeto divisa al formulario
-			formulario.setVariable("jugador", d,false);
-			//se le envia una se√±al al formulario indicado que el formulario se cerro y que los datos se han enviado
-			Events.sendEvent(new Event("onCatalogoBuscarJugadorCerrado",formulario));          
-			//se cierra el catalogo
+			// se obtiene la referencia del formulario
+			Component formulario = (Component) catalogo.getVariable(
+					"formulario", false);
+			// se le asigna el objeto divisa al formulario
+			formulario.setVariable("jugador", d, false);
+			// se le envia una se√±al al formulario indicado que el formulario
+			// se cerro y que los datos se han enviado
+			Events.sendEvent(new Event("onCatalogoBuscarJugadorCerrado",
+					formulario));
+			// se cierra el catalogo
 			catalogo.detach();
-			
+
 		} else {
 			Messagebox.show("Seleccione un Jugador", "Mensaje", Messagebox.YES,
 					Messagebox.INFORMATION);
 
 		}
-		
-		}
 
-	
-	
+	}
+
 	public Equipo getEquipo() {
 		return equipo;
 	}
@@ -187,6 +185,5 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 	public void setJugadores(List<Jugador> jugadores) {
 		Jugadores = jugadores;
 	}
-
 
 }
