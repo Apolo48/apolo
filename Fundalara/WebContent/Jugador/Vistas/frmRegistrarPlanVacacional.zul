@@ -152,11 +152,11 @@
 								<combobox
 									id="cmbEstadoRepr" readonly="true"
 									value="--Seleccione--" width="65%"
-									selectedItem="@{controller.estadoVenezuelaFamiliar}"
-									model="@{winRegistrarJugador$composer.estadosVenezuela}">
+									selectedItem="@{controller.estadoVenezuela}"
+									model="@{winRegistrarPlanVacacional$composer.estadosVenezuela}">
 									<comboitem
-										self="@{each='estadoFamiliar'}"
-										label="@{estadoFamiliar.nombre}" />
+										self="@{each='estado'}"
+										label="@{estado.nombre}" />
 								</combobox>
 								<label
 									value="(*)" style="color:red" />
@@ -166,12 +166,12 @@
 							<div>
 								<combobox
 									id="cmbMunicipioRepr" readonly="true"
-									selectedItem="@{controller.municipioFamiliar}"
+									selectedItem="@{controller.municipio}"
 									value="--Seleccione--" width="65%"
-									model="@{winRegistrarJugador$composer.municipiosEstadosFam, load-after='cmbEstadoFamiliar.onChange'}">
+									model="@{winRegistrarPlanVacacional$composer.municipiosEstados, load-after='cmbEstadoRepr.onChange'}">
 									<comboitem
-										self="@{each='municipioFam'}"
-										label="@{municipioFam.nombre}" />
+										self="@{each='municipioRep'}"
+										label="@{municipioRep.nombre}" />
 								</combobox>
 								<label
 									value="(*)" style="color:red" />
@@ -184,11 +184,11 @@
 							<div>
 								<combobox
 									id="cmbParroquiaRepr" readonly="true" width="65%"
-									model="@{winRegistrarJugador$composer.parroquiasMunicipioFam, load-after='cmbMunicipioFamiliar.onChange'}">
+									model="@{winRegistrarPlanVacacional$composer.parroquiasMunicipio, load-after='cmbMunicipioRepr.onChange'}">
 									<comboitem
-										self="@{each='parroquiaFam'}"
-										label="@{parroquiaFam.nombre}"
-										value="@{parroquiaFam}" />
+										self="@{each='parroquia'}"
+										label="@{parroquia.nombre}"
+										value="@{parroquia}" />
 								</combobox>
 								<label
 									value="(*)" style="color:red" />
@@ -259,7 +259,7 @@
 								<combobox id="cmbCategoria"
 									value="-Seleccione-" selectedItem="@{controller.categoria}"
 									width="70%"
-									model="@{winRegistrarPlanVacacional$composer.categorias}">
+									model="@{winRegistrarPlanVacacional$composer.categorias, load-after='dtboxFechaNac.onChange'}">
 									<comboitem
 										self="@{each='categoria'}" label="@{categoria.nombre}"
 										value="@{categoria.codigoCategoria}" />
@@ -271,7 +271,7 @@
 								<combobox value="-Seleccione-"
 									width="80%" id="cmbEquipo" selectedItem="@{controller.equipo}"
 									constraint="no empty"
-									model="@{winRegistrarPlanVacacional$composer.equipos, load-after='cmbCategoria.onChange'}">
+									model="@{winRegistrarPlanVacacional$composer.equipos, load-after='cmbCategoria.onChange,dtboxFechaNac.onChange'}">
 									<comboitem self="@{each='equipo'}"
 										label="@{equipo.nombre}"
 										value="@{equipo.codigoEquipo}" />

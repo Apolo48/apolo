@@ -96,6 +96,9 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
 	private RepresentantePlan representantePlan= new RepresentantePlan();
 	
+	private DatoBasico estadoVenezuela = new DatoBasico();
+	private DatoBasico municipio = new DatoBasico();
+	
 	// Servicios
 	private ServicioJugador servicioJugador;
 	private ServicioDatoBasico servicioDatoBasico;
@@ -114,9 +117,155 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		formulario = comp;
 	}
 	
+	//Getters y setters
+	public JugadorPlan getJugadorPlan() {
+		return jugadorPlan;
+	}
+
+
+	public void setJugadorPlan(JugadorPlan jugadorPlan) {
+		this.jugadorPlan = jugadorPlan;
+	}
+
+
+	public RepresentantePlan getRepresentantePlan() {
+		return representantePlan;
+	}
+
+
+	public void setRepresentantePlan(RepresentantePlan representantePlan) {
+		this.representantePlan = representantePlan;
+	}
+
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 	
-/*Habilita o deshabilita los campos de la vista.*/
+	public Equipo getEquipo() {
+		return equipo;
+	}
+
+	public void setEquipo(Equipo equipo) {
+		this.equipo = equipo;
+	}
 	
+	public DatoBasico getEstadoVenezuela() {
+		return estadoVenezuela;
+	}
+
+
+	public void setEstadoVenezuela(DatoBasico estadoVenezuela) {
+		this.estadoVenezuela = estadoVenezuela;
+	}
+
+
+	public DatoBasico getMunicipio() {
+		return municipio;
+	}
+
+
+	public void setMunicipio(DatoBasico municipio) {
+		this.municipio = municipio;
+	}
+
+	
+	//Metodos para carga de combos/listbox
+	public List<DatoBasico> getEstadosVenezuela() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.ESTADO_VENEZUELA);
+	}
+
+	
+	public List<DatoBasico> getMunicipiosEstados() {
+		return servicioDatoBasico.buscarDatosPorRelacion(estadoVenezuela);
+	}
+
+	public List<DatoBasico> getParroquiasMunicipio() {
+		return servicioDatoBasico.buscarDatosPorRelacion(municipio);
+	}
+	
+	public List<DatoBasico> getTallasCamisa() {
+		List<DatoBasico> lista = null;
+		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.INDUMENTARIA, "Camisa");
+		if (datoIndumentaria != null) {
+			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
+		}
+		return lista;
+	}
+
+	public List<DatoBasico> getCodigosArea() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.CODIGO_AREA);
+	}
+	public List<DatoBasico> getCodigosCelular() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.CODIGO_CELULAR);
+	}
+	
+	public List<DatoBasico> getTipoJugadores() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.TIPO_JUGADOR);
+	}
+	
+	public List<Categoria> getCategorias() {
+		int edad =(txtEdad.getValue()==null?0:txtEdad.getValue());
+		return servicioCategoria.buscarCategorias(edad);
+	}
+	
+	public List<Equipo> getEquipos() {
+		return servicioEquipo.buscarPorCategoria(categoria);
+	}
+	
+	//Eventos
+	public void onChange$cmbTipoJugador() {
+		visibleButton(true);
+	}
+
+	public void onClick$btnGuardar() {
+		viewcompromiso();
+	}
+	
+	public void onClick$btnCancelar() {
+		/*plan= new PlanVacacional();
+		binder.loadAll();*/
+	}
+
+	public void onChange$dtboxFechaNac() {
+		Date fecha = dtboxFechaNac.getValue();
+		txtEdad.setValue(Util.calcularDiferenciaAnnios(fecha));
+	}
+	
+	public void onClick$btnSalir() {
+		winRegistrarPlanVacacional.detach();
+	}
+	
+	public void onClick$btnCatalogoJugador() {
+		// se crea el catalogo y se llama
+		Component catalogo = Executions.createComponents(
+				"/Jugador/Vistas/frmBuscarJugador.zul", null, null);
+		// asigna una referencia del formulario al catalogo.
+		catalogo.setVariable("formulario", formulario, false);
+		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
+
+		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
+			/* (non-Javadoc)
+			 * @see org.zkoss.zk.ui.event.EventListener#onEvent(org.zkoss.zk.ui.event.Event)
+			 */
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				jugador = (Jugador) formulario.getVariable("jugador", false);
+				//txtCedula.setValue(jugador.getCedulaRif());
+				txtNombre.setValue(jugador.getPersonaNatural().getPrimerNombre() + jugador.getPersonaNatural().getSegundoNombre());
+				//TODOS LOS DEMAS APLICA MISMO CASO LINEA ANTERIOR
+				//REVISAR DONDE ESTAN UBICADOS LOS DATOS EN TABLAS JUGADOR, PERSONA_NATURAL, PERSONA
+			}
+		});
+	}
+
+	//Metodos propios del ctrl
+	/*Habilita o deshabilita los campos de la vista.*/
 	private void disabledFields(boolean flag) {
 		txtNombre.setDisabled(flag);   
 		txtApellido.setDisabled(flag);
@@ -136,7 +285,6 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		txtCelular.setDisabled(flag);
 	}
 
-	
 	/**
 	 * Coloca visible o no el boton buscar y habilita o deshabilita los campos
 	 * segun la seleccion del combo Tipo Alumno.
@@ -157,11 +305,11 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		}
 	}
 	
-	
 	/**
 	 * Muestra la vista del compromiso de pago si se han 
 	 * introducido los campos, sino muestra un mensaje.
 	 */
+	//CREO SE ELIMINARA SE SUSTITUIRA X UN METODO QUE CREE EL COMPROMISO USANDO UN SERVICIO
 	private void viewcompromiso() {
 		if (txtNombre.getValue().equals("")) {
 			try {
@@ -197,115 +345,4 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		}
 	}
 
-	public void onChange$cmbTipoJugador() {
-		visibleButton(true);
-	}
-
-	public void onClick$btnGuardar() {
-		viewcompromiso();
-	}
-	
-	public void onClick$btnCancelar() {
-		/*plan= new PlanVacacional();
-		binder.loadAll();*/
-	}
-
-	public void onChange$dtboxFechaNac() {
-		Date fecha = dtboxFechaNac.getValue();
-		txtEdad.setValue(Util.calcularDiferenciaAnnios(fecha));
-	}
-	
-	public void onClick$btnSalir() {
-		winRegistrarPlanVacacional.detach();
-	}
-	
-	public List<DatoBasico> getTallasCamisa() {
-		List<DatoBasico> lista = null;
-		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.INDUMENTARIA, "Camisa");
-		if (datoIndumentaria != null) {
-			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
-		}
-		return lista;
-	}
-
-	public List<DatoBasico> getCodigosArea() {
-		return servicioDatoBasico.buscar(TipoDatoBasico.CODIGO_AREA);
-	}
-	public List<DatoBasico> getCodigosCelular() {
-		return servicioDatoBasico.buscar(TipoDatoBasico.CODIGO_CELULAR);
-	}
-	
-	public List<DatoBasico> getTipoJugadores() {
-		return servicioDatoBasico.buscar(TipoDatoBasico.TIPO_JUGADOR);
-	}
-	
-	public JugadorPlan getJugadorPlan() {
-		return jugadorPlan;
-	}
-
-
-	public void setJugadorPlan(JugadorPlan jugadorPlan) {
-		this.jugadorPlan = jugadorPlan;
-	}
-
-
-	public RepresentantePlan getRepresentantePlan() {
-		return representantePlan;
-	}
-
-
-	public void setRepresentantePlan(RepresentantePlan representantePlan) {
-		this.representantePlan = representantePlan;
-	}
-
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-	
-	public List<Categoria> getCategorias() {
-		return servicioCategoria.listar();
-	}
-	
-	public Equipo getEquipo() {
-		return equipo;
-	}
-
-	public void setEquipo(Equipo equipo) {
-		this.equipo = equipo;
-	}
-	
-	public List<Equipo> getEquipos() {
-		return servicioEquipo.buscarPorCategoria(categoria);
-	}
-	
-	// Eventos	
-	public void onClick$btnCatalogoJugador() {
-		// se crea el catalogo y se llama
-		Component catalogo = Executions.createComponents(
-				"/Jugador/Vistas/frmBuscarJugador.zul", null, null);
-		// asigna una referencia del formulario al catalogo.
-		catalogo.setVariable("formulario", formulario, false);
-		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
-
-		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
-			/* (non-Javadoc)
-			 * @see org.zkoss.zk.ui.event.EventListener#onEvent(org.zkoss.zk.ui.event.Event)
-			 */
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				jugador = (Jugador) formulario.getVariable("jugador", false);
-				//txtCedula.setValue(jugador.getCedulaRif());
-				txtNombre.setValue(jugador.getPersonaNatural().getPrimerNombre() + jugador.getPersonaNatural().getSegundoNombre());
-				//TODOS LOS DEMAS APLICA MISMO CASO LINEA ANTERIOR
-				//REVISAR DONDE ESTAN UBICADOS LOS DATOS EN TABLAS JUGADOR, PERSONA_NATURAL, PERSONA
-			}
-		});
-	}
-	
 }
