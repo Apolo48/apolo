@@ -3,7 +3,13 @@
 	<window width="600px" height="800px" title="Visor de documentos"
 		closable="true" id="winVisorDocumento" border="normal" mode="modal"
 		apply="controlador.jugador.CntrlVisorDocumento" sizable="true">
-		<iframe id="iframeDocumento" width="600px" height="800px" align="top"
+		<iframe id="iframeDocumento" width="600px" height="800px"
 		 />
+		 <image id="imgImagen" visible="false" width="200" height="300px"></image>
+		 	<div align="right">
+				<button id="btnSalir" label="Salir"
+					image="Recursos/Imagenes/salir.png" orient="horizontal"
+					width="100px" />
+			</div>
 	</window>
 </zk>
