@@ -46,6 +46,7 @@ import servicio.implementacion.ServicioFamiliar;
 import servicio.implementacion.ServicioFamiliarJugador;
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioMedico;
+import servicio.implementacion.ServicioPersona;
 import servicio.implementacion.ServicioRecaudoPorProceso;
 import servicio.implementacion.ServicioInstitucion;
 import servicio.implementacion.ServicioRoster;
@@ -198,6 +199,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioDocumentoPersonal servicioDocumentoPersonal;
 	private ServicioFamiliar servicioFamiliar;
 	private ServicioFamiliarJugador servicioFamiliarJugador;
+	private ServicioPersona servicioPersona;
 
 	// Modelos
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
@@ -832,8 +834,11 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		boolean flag = false;
 		if (cmbNacionalidad.getSelectedItem().getValue().equals("R")) {
 			flag = true;
-			txtCedula.setRawValue("");
+			txtCedula.setRawValue(null);
 			txtCedula.setReadonly(true);
+		}else{
+			txtCedula.setReadonly(false);
+			verificarCedulaJugador();
 		}
 		lblSeparador.setVisible(flag);
 		txtCedulaSecuencia.setVisible(flag);
@@ -892,7 +897,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbAfecciones.setFocus(true);
 		}
-
 	}
 
 	public void onClick$btnEliminarAfeccion() {
@@ -1672,5 +1676,27 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		checkPoints.put(Point.DOCUMENTO_MEDICO, false);
 		checkPoints.put(Point.TALLA, false);
 		checkPoints.put(Point.FAMILIAR, false);
+	}
+	
+	
+	public void onChange$txtCedula(){
+		verificarCedulaJugador();
+	}
+	
+	
+	private void verificarCedulaJugador(){
+		String cedulaCompleta="";
+		boolean noValida= true;
+		String nacionalidad = (cmbNacionalidad.getSelectedItem() == null ? "" :  cmbNacionalidad.getSelectedItem().getLabel()) ;
+		String cedula= (txtCedula.getValue() == null ? "" : "-" + txtCedula.getValue().toString()) ;
+		String secuencia= (txtCedulaSecuencia.getValue() == null ? "" : "-" + txtCedulaSecuencia.getValue().toString()) ;
+		if (nacionalidad!="" && cedula!=""){
+			cedulaCompleta= nacionalidad+cedula+""+secuencia;
+			noValida =servicioPersona.existePersona(cedulaCompleta);
+		}
+		if (noValida){
+			Mensaje.mostrarMensaje("La cédula ingresada ya está registrada o no es válida.", Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+			txtCedula.setFocus(true);
+		}
 	}
 }

@@ -130,7 +130,7 @@ public class Jugador extends Persona {
 	}
 
 	public String getCedulaCompleta() {
-		return getNacionalidad().toUpperCase() + "-" + getCedula()
+		return getNacionalidad()==null?"":getNacionalidad().toUpperCase() + "-" + getCedula()
 				+ (secuencia == null ? "" : "-" + secuencia);
 	}
 
