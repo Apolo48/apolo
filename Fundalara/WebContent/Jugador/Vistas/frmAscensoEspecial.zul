@@ -47,11 +47,9 @@ root="winAscensoEspecial"?>
 								<row style="border:none">
 									<label value="Fecha Nacimiento"
 										width="95%" />
-									<datebox id="dtboxFechaNac"
-										constraint="no future" format="dd/MM/yyyy" buttonVisible="false"
-										style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;"
-										readonly="true" width="85%" value="@{jugador.personaNatural.fechaNacimiento}" />
-									<label value="Categoría"
+									<textbox id="txtFechaNac" readonly="true"
+									 width="85%"/>	
+     								<label value="Categoría"
 										width="95%" />
 									<textbox id="txtCategoria"
 										maxlength="25" width="95%" readonly="true"
@@ -75,9 +73,8 @@ root="winAscensoEspecial"?>
 									align="center" valign="middle">
 									<groupbox mold="3d"
 										closable="false">
-										<image
-										  	src="../../Recursos/Imagenes/jug.png" height="80px"
-											width="80px" />
+										<image id="imgJugador" src="../../Recursos/Imagenes/noFoto.jpg" 
+											height="80px" width="95px" />
 									</groupbox>
 								</row>
 							</rows>

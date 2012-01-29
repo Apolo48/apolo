@@ -1,5 +1,6 @@
 package controlador.jugador;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import modelo.LapsoDeportivo;
 import modelo.RecaudoPorProceso;
 import modelo.Roster;
 
+import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -44,6 +46,7 @@ import comun.Mensaje;
 import comun.Ruta;
 import comun.TipoDatoBasico;
 import comun.Util;
+import controlador.jugador.converter.DateConverter;
 
 import servicio.implementacion.ServicioAscenso;
 import servicio.implementacion.ServicioCategoria;
@@ -89,7 +92,8 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	private DatoBasico tipoAscenso = new DatoBasico();
 	private RecaudoPorProceso recaudoAscenso = new RecaudoPorProceso();
 	private DocumentoEntregado docEntAscenso = new DocumentoEntregado();
-
+    private LapsoDeportivo lapso=new LapsoDeportivo();
+    
 	// binder
 	private AnnotateDataBinder binder;
 
@@ -105,7 +109,7 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	private Textbox txtCategoria;
 	private Textbox txtEquipo;
 	private Intbox txtNumero;
-	private Datebox dtboxFechaNac;
+	private Textbox txtFechaNac;
 	private Image imgJugador;
 	private Combobox cmbCategoria;
 	private Combobox cmbEquipo;
@@ -142,6 +146,14 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 
 	public void setRequestScope(Map<String, Object> requestScope) {
 		this.requestScope = requestScope;
+	}
+	
+	public Image getImgJugador() {
+		return imgJugador;
+	}
+
+	public void setImgJugador(Image imgJugador) {
+		this.imgJugador = imgJugador;
 	}
 
 	public Jugador getJugador() {
@@ -243,48 +255,35 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 
 	// Eventos
 	public void onClick$btnCatalogoJugador() {
-		Component catalogo = Executions.createComponents(rutasJug
-				+ "frmBuscarJugador.zul", null, null);
+		 Component catalogo = Executions.createComponents(rutasJug
+		 + "frmBuscarJugador.zul", null, null);
 		catalogo.setVariable("formulario", formulario, false);
 		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
-		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				// TODO Auto-generated method stub
-				btnCatalogoJugador.setDisabled(true);
-				jugador = (Jugador) formulario.getVariable("jugador", false);
-
-				DatoBasico temporada = new DatoBasico();
-				temporada = servicioDatoBasico.buscarTipo(
-						TipoDatoBasico.TIPO_LAPSO_DEPORTIVO,
-						"TEMPORADA REGULAR");
-				LapsoDeportivo lapsoDeportivo = new LapsoDeportivo();
-				lapsoDeportivo = servicioLapsoDeportivo
-						.buscarDosCampos(temporada);
-				roster = servicioRoster.buscarRoster(jugador.getCedulaRif());
-					if (lapsoDeportivo == null)
-					System.out.println("Lapso no encontrado");
-				else {
-					Date fechaI = lapsoDeportivo.getFechaInicio();
-					Date fechaF = lapsoDeportivo.getFechaFin();
-					if (roster.getFechaIngreso().before(fechaF)
-							&& roster.getFechaIngreso().after(fechaI)) {
-						alert("El jugador ya fue ascendido en esta temporada");
-						btnCatalogoJugador.setDisabled(false);
-					} else {
+		formulario.addEventListener("onCatalogoBuscarJugadorCerrado",
+				new EventListener() {
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						// TODO Auto-generated method stub
+						btnCatalogoJugador.setDisabled(true);
+						jugador = (Jugador) formulario.getVariable("jugador",
+								false);
+						roster = servicioRoster.buscarRoster(jugador
+								.getCedulaRif());
 						sw = true;
 						cmbCategoria.setFocus(true);
 						btnGuardar.setDisabled(false);
-						agregarCampos();
-						Date fechaN = jugador.getPersonaNatural()
+						Date fecha = jugador.getPersonaNatural()
 								.getFechaNacimiento();
-						edad = Util.calcularDiferenciaAnnios(fechaN);
+						java.text.SimpleDateFormat formato = new java.text.SimpleDateFormat(
+								"dd/MM/yyyy");
+						String fechaNac = formato.format(fecha);
+						txtFechaNac.setValue(fechaNac);
+						agregarCampos();
+						edad = Util.calcularDiferenciaAnnios(fecha);
 						binder.loadAll();
 
 					}
-				}
-			}
-		});
+				});
 	}
 
 	public void onSelect$cmbCategoria() {
@@ -306,7 +305,7 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 			 cambiarEstatusRoster();
 			 nuevoRoster();
 			 agregarAscenso();
-			 //actualizarNroJugador();
+			 actualizarNroJugador();
 			 documentoEnt(documentosAscenso);
 			Mensaje.mostrarMensaje("Jugador cambiado de categoría",
 					Mensaje.EXITO, Messagebox.INFORMATION);
@@ -324,6 +323,16 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 		String segApellido = jugador.getPersonaNatural().getSegundoApellido();
 		apellidos = jugador.getPersonaNatural().getPrimerApellido()
 				+ (segApellido == null ? "" : " " + segApellido);
+	 
+		byte[] foto = jugador.getPersonaNatural().getFoto();
+        if (foto != null){
+          try {
+            AImage aImage = new AImage("foto.jpg", foto);
+            imgJugador.setContent(aImage);
+          } catch (IOException e) {
+            e.printStackTrace();
+          }	
+        }	
 
 		cmbCategoria.setDisabled(false);
 	}
@@ -394,13 +403,17 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 		txtCategoria.setValue(null);
 		txtEquipo.setValue(null);
 		txtNumero.setValue(null);
-		dtboxFechaNac.setValue(null);
+		txtFechaNac.setValue(null);
 		cmbCategoria.setDisabled(true);
 		cmbEquipo.setDisabled(true);
 		btnCatalogoJugador.setDisabled(false);
 		btnCatalogoJugador.setFocus(true);
 		btnGuardar.setDisabled(true);
 		limpiarList();
+		Image imgJ = new Image();
+	    imgJ.setSrc("../../Recursos/Imagenes/noFoto.jpg");
+	    imgJugador.setContent(imgJ.getContent());
+	    
 	}
 
 	public void limpiarList() {
