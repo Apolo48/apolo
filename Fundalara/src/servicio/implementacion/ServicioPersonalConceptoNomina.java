@@ -40,7 +40,7 @@ public class ServicioPersonalConceptoNomina implements
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoPersonalConceptoNomina.listar(new PersonalConceptoNomina());
+		return daoPersonalConceptoNomina.listar( PersonalConceptoNomina.class);
 	}
 
 }

@@ -39,7 +39,7 @@ public class ServicioIngresoFormaPago implements IServicioIngresoFormaPago {
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoIngresoFormaPago.listar(new IngresoFormaPago());
+		return daoIngresoFormaPago.listar( IngresoFormaPago.class);
 	}
 
 }

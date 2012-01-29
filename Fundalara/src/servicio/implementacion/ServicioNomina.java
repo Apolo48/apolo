@@ -38,7 +38,7 @@ public class ServicioNomina implements IServicioNomina {
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoNomina.listar(new Nomina());
+		return daoNomina.listar( Nomina.class);
 	}
 
 }

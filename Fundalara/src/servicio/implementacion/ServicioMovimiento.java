@@ -39,7 +39,7 @@ public class ServicioMovimiento implements IServicioMovimiento {
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return  daoMovimiento.listar(new Movimiento());
+		return  daoMovimiento.listar( Movimiento.class);
 	}
 
 }

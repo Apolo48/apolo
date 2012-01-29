@@ -37,7 +37,7 @@ public class ServicioPersonalCargo implements IServicioPersonalCargo {
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoPersonalCargo.listar(new PersonalCargo());
+		return daoPersonalCargo.listar( PersonalCargo.class);
 	}
 
 }

@@ -58,7 +58,7 @@ public class DaoRecaudoPorProceso extends GenericDao {
 		Criteria c2 = c.createCriteria("datoBasicoByCodigoDocumento").add(
 				Restrictions.eq("datoBasico", tipoDoc));
 		List<RecaudoPorProceso> lista = c2.list();
-
+		
 		return lista;
 
 	}

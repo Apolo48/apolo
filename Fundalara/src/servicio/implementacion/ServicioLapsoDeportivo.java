@@ -5,7 +5,6 @@ import java.util.List;
 import dao.general.DaoLapsoDeportivo;
 
 import modelo.DatoBasico;
-import modelo.DesempeoJugador;
 import modelo.LapsoDeportivo;
 import servicio.interfaz.IServicioLapsoDeportivo;
 

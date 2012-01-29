@@ -39,7 +39,7 @@ public class ServicioProveedorBanco implements IServicioProveedorBanco {
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoProveedorBanco.listar(new ProveedorBanco());
+		return daoProveedorBanco.listar( ProveedorBanco.class);
 	}
 
 }

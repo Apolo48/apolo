@@ -200,12 +200,6 @@
 		<property name="daoDocumentoIndumentaria" ref="daoDocumentoIndumentaria"></property>
 	</bean>
 	
-	<bean id="daoTipoPagoRepresentante" class="dao.general.DaoTipoPagoRepresentante">
-	</bean>
-	
-	<bean id="servicioTipoPagoRepresentante" class="servicio.implementacion.ServicioTipoPagoRepresentante">
-		<property name="daoTipoPagoRepresentante" ref="daoTipoPagoRepresentante"></property>
-	</bean>
 	
 	<bean id="daoUsuario" class="dao.general.DaoUsuario">
 	</bean>
@@ -360,20 +354,8 @@
 		<property name="daoFaseCompetencia" ref="daoFaseCompetencia"></property>
 	</bean>
 	
-	<bean id="daoTipoCompetencia" class="dao.general.DaoTipoCompetencia">
-	</bean>
-	
-	<bean id="servicioTipoCompetencia" class="servicio.implementacion.ServicioTipoCompetencia">
-		<property name="daoTipoCompetencia" ref="daoTipoCompetencia"></property>
-	</bean>
-	
-	<bean id="daoModalidadCompetencia" class="dao.general.DaoModalidadCompetencia">
-	</bean>
-	
-	<bean id="servicioModalidadCompetencia" class="servicio.implementacion.ServicioModalidadCompetencia">
-		<property name="daoModalidadCompetencia" ref="daoModalidadCompetencia"></property>
-	</bean>
-	
+
+
 	<bean id="daoAfeccionJugador" class="dao.general.DaoAfeccionJugador">
 	</bean>
 	
@@ -395,12 +377,6 @@
 		<property name="daoCategoria" ref="daoCategoria"></property>
 	</bean>
 
-	<bean id="daoComisionEquipo" class="dao.general.DaoComisionEquipo">
-	</bean>
-	
-	<bean id="servicioComisionEquipo" class="servicio.implementacion.ServicioComisionEquipo">
-		<property name="daoComisionEquipo" ref="daoComisionEquipo"></property>
-	</bean>
 
 	<bean id="daoDatoAcademico" class="dao.general.DaoDatoAcademico">
 	</bean>
@@ -493,11 +469,7 @@
 		<property name="daoFamiliarJugador" ref="daoFamiliarJugador"></property>
 	</bean>
 
-	<bean id="daoFamiliarComisionEquipo" class="dao.general.DaoFamiliarComisionEquipo">
-	</bean>
-	<bean id="servicioFamiliarComisionEquipo" class="servicio.implementacion.ServicioFamiliarComisionEquipo">
-		<property name="daoFamiliarComisionEquipo" ref="daoFamiliarComisionEquipo"></property>
-	</bean>
+
 
 	<bean id="daoHospedaje" class="dao.general.DaoHospedaje">
 	</bean>
@@ -613,10 +585,7 @@
 		<property name="daoSesion" ref="daoSesion"></property>
 	</bean>
 
-	<bean id="daoPlanRotacion" class="dao.general.DaoPlanRotacion"></bean>
-	<bean id="servicioPlanRotacion" class="servicio.implementacion.ServicioPlanRotacion">
-		<property name="daoPlanRotacion" ref="daoPlanRotacion"></property>
-	</bean>
+
 
 	<bean id="daoIndicadorTest" class="dao.general.DaoIndicadorTest"></bean>
 	<bean id="servicioIndicadorTest" class="servicio.implementacion.ServicioIndicadorTest">
@@ -633,10 +602,7 @@
 		<property name="daoTestJugador" ref="daoTestJugador"></property>
 	</bean>
 
-	<bean id="daoDesempennoJugador" class="dao.general.DaoDesempennoJugador"></bean>
-	<bean id="ServicioDesempennoJugador" class="servicio.implementacion.ServicioDesempennoJugador">
-		<property name="daoDesempennoJugador" ref="daoDesempennoJugador"></property>
-	</bean>
+
 
 	<bean id="daoLapsoDeportivo" class="dao.general.DaoLapsoDeportivo"></bean>
 	<bean id="ServicioLapsoDeportivo" class="servicio.implementacion.ServicioLapsoDeportivo">
@@ -695,12 +661,7 @@
 		<property name="daoRepresentanteJugadorPlan" ref="daoRepresentanteJugadorPlan"></property>
 	</bean>
 	
-	
-		<bean id="daoRepresentantePlan" class="dao.general.DaoRepresentantePlan"></bean>
-	<bean id="servicioRepresentantePlan" class="servicio.implementacion.ServicioRepresentantePlan">
-		<property name="daoRepresentantePlan" ref="daoRepresentantePlan"></property>
-	</bean>
-	
+		
 		<bean id="daoRosterPlan" class="dao.general.DaoRosterPlan"></bean>
 	<bean id="servicioRosterPlan" class="servicio.implementacion.ServicioRosterPlan">
 		<property name="daoRosterPlan" ref="daoRosterPlan"></property>

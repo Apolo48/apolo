@@ -38,7 +38,7 @@ public class ServicioPersonalTipoNomina implements IServicioPersonalTipoNomina {
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoPersonalTipoNomina.listar(new PersonalTipoNomina());
+		return daoPersonalTipoNomina.listar( PersonalTipoNomina.class);
 	}
 
 }

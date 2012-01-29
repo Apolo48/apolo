@@ -38,7 +38,7 @@ public class ServicioPersonalContrato implements IServicioPersonalContrato {
 	@Override
 	public List listar() {
 		// TODO Auto-generated method stub
-		return daoPersonalContrato.listar(new PersonalContrato());
+		return daoPersonalContrato.listar( PersonalContrato.class);
 	}
 
 }
