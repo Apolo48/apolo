@@ -667,4 +667,9 @@
 		<property name="daoRosterPlan" ref="daoRosterPlan"></property>
 	</bean>
 	
+		<bean id="daoAnuario" class="dao.general.DaoAnuario"></bean>
+	<bean id="servicioAnuario" class="servicio.implementacion.ServicioAnuario">
+		<property name="daoAnuario" ref="daoAnuario"></property>
+	</bean>
+	
 </beans>
