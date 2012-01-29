@@ -1,11 +1,11 @@
 <?page title="Visor de documento"?>
 <zk>
-	<window width="600px" height="800px" title="Visor de documentos"
-		closable="true" id="winVisorDocumento" border="normal" mode="modal"
+	<window width="600px" height="720px" title="Visor de documentos"
+	id="winVisorDocumento" border="normal" mode="modal"
 		apply="controlador.jugador.CntrlVisorDocumento" sizable="true">
-		<iframe id="iframeDocumento" width="600px" height="800px"
+		<iframe id="iframeDocumento" width="600px" height="650px"
 		 />
-		 <image id="imgImagen" visible="false" width="200px" height="300px"></image>
+		
 		 	<div align="right">
 				<button id="btnSalir" label="Salir"
 					image="Recursos/Imagenes/salir.png" orient="horizontal"

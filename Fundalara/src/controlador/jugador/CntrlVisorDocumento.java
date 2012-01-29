@@ -48,7 +48,8 @@ public class CntrlVisorDocumento extends GenericForwardComposer {
 			}
 			 amedia = new AMedia("archivo." + formato[1], formato[1],
 					mime, mediais);
-			if (formato[0].equals("image")){
+			 iframeDocumento.setContent(amedia);	
+		/*	if (formato[0].equals("image")){
 				iframeDocumento.setVisible(false);
 				AImage imagen=null;
 				try {
@@ -62,7 +63,7 @@ public class CntrlVisorDocumento extends GenericForwardComposer {
 				winVisorDocumento.setWidth("200px");
 			}else{
 				iframeDocumento.setContent(amedia);	
-			}
+			}*/
 		}
 
 	}
