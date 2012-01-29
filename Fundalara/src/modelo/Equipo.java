@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-ene-2012 22:07:27 by Hibernate Tools 3.4.0.CR1
+// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,11 +26,16 @@ public class Equipo implements java.io.Serializable {
 	private DatoBasico datoBasicoByCodigoClasificacion;
 	private DatoBasico datoBasicoByCodigoTipoLapso;
 	private String nombre;
+	private char estatus;
 	private int minimoJugador;
 	private int maximoJugador;
-	private char estatus;
 	private Set<PersonalEquipo> personalEquipos = new HashSet<PersonalEquipo>(0);
+	private Set<RosterCompetencia> rosterCompetencias = new HashSet<RosterCompetencia>(
+			0);
 	private Set<Roster> rosters = new HashSet<Roster>(0);
+	private Set<HorarioPlanTemporada> horarioPlanTemporadas = new HashSet<HorarioPlanTemporada>(
+			0);
+	private Set<JugadorForaneo> jugadorForaneos = new HashSet<JugadorForaneo>(0);
 	private Set<RosterPlan> rosterPlans = new HashSet<RosterPlan>(0);
 	private Set<EquipoCompetencia> equipoCompetencias = new HashSet<EquipoCompetencia>(
 			0);
@@ -38,51 +43,53 @@ public class Equipo implements java.io.Serializable {
 	private Set<SesionEjecutada> sesionEjecutadas = new HashSet<SesionEjecutada>(
 			0);
 	private Set<Sesion> sesions = new HashSet<Sesion>(0);
-	private Set<ComisionEquipo> comisionEquipos = new HashSet<ComisionEquipo>(0);
 
 	public Equipo() {
 	}
 
 	public Equipo(int codigoEquipo, Categoria categoria, Divisa divisa,
 			DatoBasico datoBasicoByCodigoTipoLapso, String nombre,
-			int minimoJugador, int maximoJugador, char estatus) {
+			char estatus, int minimoJugador, int maximoJugador) {
 		this.codigoEquipo = codigoEquipo;
 		this.categoria = categoria;
 		this.divisa = divisa;
 		this.datoBasicoByCodigoTipoLapso = datoBasicoByCodigoTipoLapso;
 		this.nombre = nombre;
+		this.estatus = estatus;
 		this.minimoJugador = minimoJugador;
 		this.maximoJugador = maximoJugador;
-		this.estatus = estatus;
 	}
 
 	public Equipo(int codigoEquipo, Categoria categoria, Divisa divisa,
 			DatoBasico datoBasicoByCodigoClasificacion,
 			DatoBasico datoBasicoByCodigoTipoLapso, String nombre,
-			int minimoJugador, int maximoJugador, char estatus,
-			Set<PersonalEquipo> personalEquipos, Set<Roster> rosters,
-			Set<RosterPlan> rosterPlans,
+			char estatus, int minimoJugador, int maximoJugador,
+			Set<PersonalEquipo> personalEquipos,
+			Set<RosterCompetencia> rosterCompetencias, Set<Roster> rosters,
+			Set<HorarioPlanTemporada> horarioPlanTemporadas,
+			Set<JugadorForaneo> jugadorForaneos, Set<RosterPlan> rosterPlans,
 			Set<EquipoCompetencia> equipoCompetencias,
 			Set<TestEvaluativo> testEvaluativos,
-			Set<SesionEjecutada> sesionEjecutadas, Set<Sesion> sesions,
-			Set<ComisionEquipo> comisionEquipos) {
+			Set<SesionEjecutada> sesionEjecutadas, Set<Sesion> sesions) {
 		this.codigoEquipo = codigoEquipo;
 		this.categoria = categoria;
 		this.divisa = divisa;
 		this.datoBasicoByCodigoClasificacion = datoBasicoByCodigoClasificacion;
 		this.datoBasicoByCodigoTipoLapso = datoBasicoByCodigoTipoLapso;
 		this.nombre = nombre;
+		this.estatus = estatus;
 		this.minimoJugador = minimoJugador;
 		this.maximoJugador = maximoJugador;
-		this.estatus = estatus;
 		this.personalEquipos = personalEquipos;
+		this.rosterCompetencias = rosterCompetencias;
 		this.rosters = rosters;
+		this.horarioPlanTemporadas = horarioPlanTemporadas;
+		this.jugadorForaneos = jugadorForaneos;
 		this.rosterPlans = rosterPlans;
 		this.equipoCompetencias = equipoCompetencias;
 		this.testEvaluativos = testEvaluativos;
 		this.sesionEjecutadas = sesionEjecutadas;
 		this.sesions = sesions;
-		this.comisionEquipos = comisionEquipos;
 	}
 
 	@Id
@@ -146,6 +153,15 @@ public class Equipo implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
+	}
+
 	@Column(name = "minimo_jugador", nullable = false)
 	public int getMinimoJugador() {
 		return this.minimoJugador;
@@ -164,15 +180,6 @@ public class Equipo implements java.io.Serializable {
 		this.maximoJugador = maximoJugador;
 	}
 
-	@Column(name = "estatus", nullable = false, length = 1)
-	public char getEstatus() {
-		return this.estatus;
-	}
-
-	public void setEstatus(char estatus) {
-		this.estatus = estatus;
-	}
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipo")
 	public Set<PersonalEquipo> getPersonalEquipos() {
 		return this.personalEquipos;
@@ -183,12 +190,40 @@ public class Equipo implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipo")
+	public Set<RosterCompetencia> getRosterCompetencias() {
+		return this.rosterCompetencias;
+	}
+
+	public void setRosterCompetencias(Set<RosterCompetencia> rosterCompetencias) {
+		this.rosterCompetencias = rosterCompetencias;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipo")
 	public Set<Roster> getRosters() {
 		return this.rosters;
 	}
 
 	public void setRosters(Set<Roster> rosters) {
 		this.rosters = rosters;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipo")
+	public Set<HorarioPlanTemporada> getHorarioPlanTemporadas() {
+		return this.horarioPlanTemporadas;
+	}
+
+	public void setHorarioPlanTemporadas(
+			Set<HorarioPlanTemporada> horarioPlanTemporadas) {
+		this.horarioPlanTemporadas = horarioPlanTemporadas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipo")
+	public Set<JugadorForaneo> getJugadorForaneos() {
+		return this.jugadorForaneos;
+	}
+
+	public void setJugadorForaneos(Set<JugadorForaneo> jugadorForaneos) {
+		this.jugadorForaneos = jugadorForaneos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipo")
@@ -234,15 +269,6 @@ public class Equipo implements java.io.Serializable {
 
 	public void setSesions(Set<Sesion> sesions) {
 		this.sesions = sesions;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipo")
-	public Set<ComisionEquipo> getComisionEquipos() {
-		return this.comisionEquipos;
-	}
-
-	public void setComisionEquipos(Set<ComisionEquipo> comisionEquipos) {
-		this.comisionEquipos = comisionEquipos;
 	}
 
 }

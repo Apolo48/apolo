@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-ene-2012 22:07:27 by Hibernate Tools 3.4.0.CR1
+// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,32 +24,33 @@ public class PlanTemporada implements java.io.Serializable {
 	private Categoria categoria;
 	private LapsoDeportivo lapsoDeportivo;
 	private char estatus;
-	private Set<Horario> horarios = new HashSet<Horario>(0);
 	private Set<PersonalEquipo> personalEquipos = new HashSet<PersonalEquipo>(0);
+	private Set<HorarioPlanTemporada> horarioPlanTemporadas = new HashSet<HorarioPlanTemporada>(
+			0);
 	private Set<PlanEntrenamiento> planEntrenamientos = new HashSet<PlanEntrenamiento>(
 			0);
 
 	public PlanTemporada() {
 	}
 
-	public PlanTemporada(int codigoPlanTemporada, Categoria categoria,
+	public PlanTemporada(int codigoPlanTemporada,
 			LapsoDeportivo lapsoDeportivo, char estatus) {
 		this.codigoPlanTemporada = codigoPlanTemporada;
-		this.categoria = categoria;
 		this.lapsoDeportivo = lapsoDeportivo;
 		this.estatus = estatus;
 	}
 
 	public PlanTemporada(int codigoPlanTemporada, Categoria categoria,
-			LapsoDeportivo lapsoDeportivo, char estatus, Set<Horario> horarios,
+			LapsoDeportivo lapsoDeportivo, char estatus,
 			Set<PersonalEquipo> personalEquipos,
+			Set<HorarioPlanTemporada> horarioPlanTemporadas,
 			Set<PlanEntrenamiento> planEntrenamientos) {
 		this.codigoPlanTemporada = codigoPlanTemporada;
 		this.categoria = categoria;
 		this.lapsoDeportivo = lapsoDeportivo;
 		this.estatus = estatus;
-		this.horarios = horarios;
 		this.personalEquipos = personalEquipos;
+		this.horarioPlanTemporadas = horarioPlanTemporadas;
 		this.planEntrenamientos = planEntrenamientos;
 	}
 
@@ -64,7 +65,7 @@ public class PlanTemporada implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_categoria", nullable = false)
+	@JoinColumn(name = "codigo_categoria")
 	public Categoria getCategoria() {
 		return this.categoria;
 	}
@@ -93,21 +94,22 @@ public class PlanTemporada implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "planTemporada")
-	public Set<Horario> getHorarios() {
-		return this.horarios;
-	}
-
-	public void setHorarios(Set<Horario> horarios) {
-		this.horarios = horarios;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "planTemporada")
 	public Set<PersonalEquipo> getPersonalEquipos() {
 		return this.personalEquipos;
 	}
 
 	public void setPersonalEquipos(Set<PersonalEquipo> personalEquipos) {
 		this.personalEquipos = personalEquipos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "planTemporada")
+	public Set<HorarioPlanTemporada> getHorarioPlanTemporadas() {
+		return this.horarioPlanTemporadas;
+	}
+
+	public void setHorarioPlanTemporadas(
+			Set<HorarioPlanTemporada> horarioPlanTemporadas) {
+		this.horarioPlanTemporadas = horarioPlanTemporadas;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "planTemporada")

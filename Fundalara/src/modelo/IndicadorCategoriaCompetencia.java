@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-ene-2012 22:07:27 by Hibernate Tools 3.4.0.CR1
+// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Table(name = "indicador_categoria_competencia", schema = "public")
 public class IndicadorCategoriaCompetencia implements java.io.Serializable {
 
-	private int codigoIndicadorCompetencia;
+	private int codigoIndicadorCategoriaCompetencia;
 	private Categoria categoria;
 	private Competencia competencia;
 	private Indicador indicador;
@@ -32,19 +32,21 @@ public class IndicadorCategoriaCompetencia implements java.io.Serializable {
 	public IndicadorCategoriaCompetencia() {
 	}
 
-	public IndicadorCategoriaCompetencia(int codigoIndicadorCompetencia,
-			Categoria categoria, Competencia competencia, Indicador indicador) {
-		this.codigoIndicadorCompetencia = codigoIndicadorCompetencia;
+	public IndicadorCategoriaCompetencia(
+			int codigoIndicadorCategoriaCompetencia, Categoria categoria,
+			Competencia competencia, Indicador indicador) {
+		this.codigoIndicadorCategoriaCompetencia = codigoIndicadorCategoriaCompetencia;
 		this.categoria = categoria;
 		this.competencia = competencia;
 		this.indicador = indicador;
 	}
 
-	public IndicadorCategoriaCompetencia(int codigoIndicadorCompetencia,
-			Categoria categoria, Competencia competencia, Indicador indicador,
+	public IndicadorCategoriaCompetencia(
+			int codigoIndicadorCategoriaCompetencia, Categoria categoria,
+			Competencia competencia, Indicador indicador,
 			Set<DesempennoIndividual> desempennoIndividuals,
 			Set<DesempennoColectivo> desempennoColectivos) {
-		this.codigoIndicadorCompetencia = codigoIndicadorCompetencia;
+		this.codigoIndicadorCategoriaCompetencia = codigoIndicadorCategoriaCompetencia;
 		this.categoria = categoria;
 		this.competencia = competencia;
 		this.indicador = indicador;
@@ -53,13 +55,14 @@ public class IndicadorCategoriaCompetencia implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "codigo_indicador_competencia", unique = true, nullable = false)
-	public int getCodigoIndicadorCompetencia() {
-		return this.codigoIndicadorCompetencia;
+	@Column(name = "codigo_indicador_categoria_competencia", unique = true, nullable = false)
+	public int getCodigoIndicadorCategoriaCompetencia() {
+		return this.codigoIndicadorCategoriaCompetencia;
 	}
 
-	public void setCodigoIndicadorCompetencia(int codigoIndicadorCompetencia) {
-		this.codigoIndicadorCompetencia = codigoIndicadorCompetencia;
+	public void setCodigoIndicadorCategoriaCompetencia(
+			int codigoIndicadorCategoriaCompetencia) {
+		this.codigoIndicadorCategoriaCompetencia = codigoIndicadorCategoriaCompetencia;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

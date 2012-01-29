@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-ene-2012 22:07:27 by Hibernate Tools 3.4.0.CR1
+// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -34,7 +34,7 @@ public class FamiliarJugador implements java.io.Serializable {
 	private boolean representanteActual;
 	private Date fechaIngreso;
 	private char estatus;
-	private Set<FamiliarComisionEquipo> familiarComisionEquipos = new HashSet<FamiliarComisionEquipo>(
+	private Set<ComisionFamiliar> comisionFamiliars = new HashSet<ComisionFamiliar>(
 			0);
 	private Representante representante;
 	private Set<Hospedaje> hospedajes = new HashSet<Hospedaje>(0);
@@ -57,7 +57,7 @@ public class FamiliarJugador implements java.io.Serializable {
 	public FamiliarJugador(int codigoFamiliarJugador, DatoBasico datoBasico,
 			Familiar familiar, Jugador jugador, boolean representanteActual,
 			Date fechaIngreso, char estatus,
-			Set<FamiliarComisionEquipo> familiarComisionEquipos,
+			Set<ComisionFamiliar> comisionFamiliars,
 			Representante representante, Set<Hospedaje> hospedajes) {
 		this.codigoFamiliarJugador = codigoFamiliarJugador;
 		this.datoBasico = datoBasico;
@@ -66,7 +66,7 @@ public class FamiliarJugador implements java.io.Serializable {
 		this.representanteActual = representanteActual;
 		this.fechaIngreso = fechaIngreso;
 		this.estatus = estatus;
-		this.familiarComisionEquipos = familiarComisionEquipos;
+		this.comisionFamiliars = comisionFamiliars;
 		this.representante = representante;
 		this.hospedajes = hospedajes;
 	}
@@ -141,13 +141,12 @@ public class FamiliarJugador implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "familiarJugador")
-	public Set<FamiliarComisionEquipo> getFamiliarComisionEquipos() {
-		return this.familiarComisionEquipos;
+	public Set<ComisionFamiliar> getComisionFamiliars() {
+		return this.comisionFamiliars;
 	}
 
-	public void setFamiliarComisionEquipos(
-			Set<FamiliarComisionEquipo> familiarComisionEquipos) {
-		this.familiarComisionEquipos = familiarComisionEquipos;
+	public void setComisionFamiliars(Set<ComisionFamiliar> comisionFamiliars) {
+		this.comisionFamiliars = comisionFamiliars;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "familiarJugador")

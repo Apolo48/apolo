@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-ene-2012 22:07:27 by Hibernate Tools 3.4.0.CR1
+// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,40 +24,35 @@ public class AsistenciaJugador implements java.io.Serializable {
 	private Roster roster;
 	private RosterPlan rosterPlan;
 	private SesionEjecutada sesionEjecutada;
-	private DatoBasico datoBasico;
 	private boolean asistencia;
 	private String observacion;
 	private char estatus;
-	private Set<DesempeoJugador> desempeoJugadors = new HashSet<DesempeoJugador>(
+	private Set<DesempennoJugador> desempennoJugadors = new HashSet<DesempennoJugador>(
 			0);
 
 	public AsistenciaJugador() {
 	}
 
 	public AsistenciaJugador(int codigoAsistencia,
-			SesionEjecutada sesionEjecutada, DatoBasico datoBasico,
-			boolean asistencia, String observacion, char estatus) {
+			SesionEjecutada sesionEjecutada, boolean asistencia, char estatus) {
 		this.codigoAsistencia = codigoAsistencia;
 		this.sesionEjecutada = sesionEjecutada;
-		this.datoBasico = datoBasico;
 		this.asistencia = asistencia;
-		this.observacion = observacion;
 		this.estatus = estatus;
 	}
 
 	public AsistenciaJugador(int codigoAsistencia, Roster roster,
 			RosterPlan rosterPlan, SesionEjecutada sesionEjecutada,
-			DatoBasico datoBasico, boolean asistencia, String observacion,
-			char estatus, Set<DesempeoJugador> desempeoJugadors) {
+			boolean asistencia, String observacion, char estatus,
+			Set<DesempennoJugador> desempennoJugadors) {
 		this.codigoAsistencia = codigoAsistencia;
 		this.roster = roster;
 		this.rosterPlan = rosterPlan;
 		this.sesionEjecutada = sesionEjecutada;
-		this.datoBasico = datoBasico;
 		this.asistencia = asistencia;
 		this.observacion = observacion;
 		this.estatus = estatus;
-		this.desempeoJugadors = desempeoJugadors;
+		this.desempennoJugadors = desempennoJugadors;
 	}
 
 	@Id
@@ -100,16 +95,6 @@ public class AsistenciaJugador implements java.io.Serializable {
 		this.sesionEjecutada = sesionEjecutada;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "eventualidad", nullable = false)
-	public DatoBasico getDatoBasico() {
-		return this.datoBasico;
-	}
-
-	public void setDatoBasico(DatoBasico datoBasico) {
-		this.datoBasico = datoBasico;
-	}
-
 	@Column(name = "asistencia", nullable = false)
 	public boolean isAsistencia() {
 		return this.asistencia;
@@ -119,7 +104,7 @@ public class AsistenciaJugador implements java.io.Serializable {
 		this.asistencia = asistencia;
 	}
 
-	@Column(name = "observacion", nullable = false)
+	@Column(name = "observacion")
 	public String getObservacion() {
 		return this.observacion;
 	}
@@ -138,12 +123,12 @@ public class AsistenciaJugador implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "asistenciaJugador")
-	public Set<DesempeoJugador> getDesempeoJugadors() {
-		return this.desempeoJugadors;
+	public Set<DesempennoJugador> getDesempennoJugadors() {
+		return this.desempennoJugadors;
 	}
 
-	public void setDesempeoJugadors(Set<DesempeoJugador> desempeoJugadors) {
-		this.desempeoJugadors = desempeoJugadors;
+	public void setDesempennoJugadors(Set<DesempennoJugador> desempennoJugadors) {
+		this.desempennoJugadors = desempennoJugadors;
 	}
 
 }

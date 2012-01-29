@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 13-ene-2012 22:07:27 by Hibernate Tools 3.4.0.CR1
+// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +31,8 @@ public class Familiar implements java.io.Serializable {
 	private char estatus;
 	private Set<FamiliarJugador> familiarJugadors = new HashSet<FamiliarJugador>(
 			0);
-	private RepresentantePlan representantePlan;
+	private Set<RepresentanteJugadorPlan> representanteJugadorPlans = new HashSet<RepresentanteJugadorPlan>(
+			0);
 
 	public Familiar() {
 	}
@@ -43,12 +44,12 @@ public class Familiar implements java.io.Serializable {
 
 	public Familiar(DatoBasico datoBasico, PersonaNatural personaNatural,
 			char estatus, Set<FamiliarJugador> familiarJugadors,
-			RepresentantePlan representantePlan) {
+			Set<RepresentanteJugadorPlan> representanteJugadorPlans) {
 		this.datoBasico = datoBasico;
 		this.personaNatural = personaNatural;
 		this.estatus = estatus;
 		this.familiarJugadors = familiarJugadors;
-		this.representantePlan = representantePlan;
+		this.representanteJugadorPlans = representanteJugadorPlans;
 	}
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "personaNatural"))
@@ -101,13 +102,14 @@ public class Familiar implements java.io.Serializable {
 		this.familiarJugadors = familiarJugadors;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "familiar")
-	public RepresentantePlan getRepresentantePlan() {
-		return this.representantePlan;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "familiar")
+	public Set<RepresentanteJugadorPlan> getRepresentanteJugadorPlans() {
+		return this.representanteJugadorPlans;
 	}
 
-	public void setRepresentantePlan(RepresentantePlan representantePlan) {
-		this.representantePlan = representantePlan;
+	public void setRepresentanteJugadorPlans(
+			Set<RepresentanteJugadorPlan> representanteJugadorPlans) {
+		this.representanteJugadorPlans = representanteJugadorPlans;
 	}
 
 }

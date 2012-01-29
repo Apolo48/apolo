@@ -1,13 +1,12 @@
 package modelo;
 
-// Generated 13-ene-2012 22:07:27 by Hibernate Tools 3.4.0.CR1
+// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -19,22 +18,28 @@ import javax.persistence.Table;
 public class TareaActividad implements java.io.Serializable {
 
 	private int codigoTareaActividad;
-	private DatoBasico datoBasico;
+	private DatoBasico datoBasicoByCodigoDatoBasico;
+	private DatoBasico datoBasicoByCodigoTarea;
 	private Actividad actividad;
 	private PersonalActividad personalActividad;
 	private char estatus;
+	private boolean tareaEjecutada;
 
 	public TareaActividad() {
 	}
 
-	public TareaActividad(int codigoTareaActividad, DatoBasico datoBasico,
-			Actividad actividad, PersonalActividad personalActividad,
-			char estatus) {
+	public TareaActividad(int codigoTareaActividad,
+			DatoBasico datoBasicoByCodigoDatoBasico,
+			DatoBasico datoBasicoByCodigoTarea, Actividad actividad,
+			PersonalActividad personalActividad, char estatus,
+			boolean tareaEjecutada) {
 		this.codigoTareaActividad = codigoTareaActividad;
-		this.datoBasico = datoBasico;
+		this.datoBasicoByCodigoDatoBasico = datoBasicoByCodigoDatoBasico;
+		this.datoBasicoByCodigoTarea = datoBasicoByCodigoTarea;
 		this.actividad = actividad;
 		this.personalActividad = personalActividad;
 		this.estatus = estatus;
+		this.tareaEjecutada = tareaEjecutada;
 	}
 
 	@Id
@@ -48,13 +53,24 @@ public class TareaActividad implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_tarea", nullable = false)
-	public DatoBasico getDatoBasico() {
-		return this.datoBasico;
+	@JoinColumn(name = "codigo_dato_basico", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoDatoBasico() {
+		return this.datoBasicoByCodigoDatoBasico;
 	}
 
-	public void setDatoBasico(DatoBasico datoBasico) {
-		this.datoBasico = datoBasico;
+	public void setDatoBasicoByCodigoDatoBasico(
+			DatoBasico datoBasicoByCodigoDatoBasico) {
+		this.datoBasicoByCodigoDatoBasico = datoBasicoByCodigoDatoBasico;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_tarea", nullable = false)
+	public DatoBasico getDatoBasicoByCodigoTarea() {
+		return this.datoBasicoByCodigoTarea;
+	}
+
+	public void setDatoBasicoByCodigoTarea(DatoBasico datoBasicoByCodigoTarea) {
+		this.datoBasicoByCodigoTarea = datoBasicoByCodigoTarea;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -68,9 +84,7 @@ public class TareaActividad implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "cedula_rif", referencedColumnName = "cedula_rif", nullable = false, insertable = false, updatable = false),
-			@JoinColumn(name = "codigo_actividad", referencedColumnName = "codigo_actividad", nullable = false, insertable = false, updatable = false) })
+	@JoinColumn(name = "codigo_personal_actividad", nullable = false)
 	public PersonalActividad getPersonalActividad() {
 		return this.personalActividad;
 	}
@@ -86,6 +100,15 @@ public class TareaActividad implements java.io.Serializable {
 
 	public void setEstatus(char estatus) {
 		this.estatus = estatus;
+	}
+
+	@Column(name = "tarea_ejecutada", nullable = false)
+	public boolean isTareaEjecutada() {
+		return this.tareaEjecutada;
+	}
+
+	public void setTareaEjecutada(boolean tareaEjecutada) {
+		this.tareaEjecutada = tareaEjecutada;
 	}
 
 }
