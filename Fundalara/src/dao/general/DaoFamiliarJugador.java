@@ -54,13 +54,9 @@ public class DaoFamiliarJugador extends GenericDao {
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
 		int p = 0;
-		 List<FamiliarJugador> datos= new ArrayList<FamiliarJugador>();
-		 datos.addAll(familiaresJugadores);
-		// Jugador jugador=null;
-		 //if (familiaresJugadores.size()>0){
-			// jugador= datos.get(0).getJugador();
-		 //}
-		 
+		List<FamiliarJugador> datos= new ArrayList<FamiliarJugador>();
+		datos.addAll(familiaresJugadores);
+			 
 		Criteria c = sesion.createCriteria(FamiliarJugador.class)
 				.createCriteria("jugador")
 				.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));

@@ -36,6 +36,7 @@ import org.zkoss.zul.impl.InputElement;
 
 import servicio.implementacion.ServicioAfeccionJugador;
 import servicio.implementacion.ServicioCategoria;
+import servicio.implementacion.ServicioComisionFamiliar;
 import servicio.implementacion.ServicioDatoAcademico;
 import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioDatoMedico;
@@ -66,6 +67,7 @@ import controlador.jugador.restriccion.Restriccion;
 import modelo.AfeccionJugador;
 import modelo.AfeccionJugadorId;
 import modelo.Categoria;
+import modelo.ComisionFamiliar;
 import modelo.DatoAcademico;
 import modelo.DatoBasico;
 import modelo.DatoMedico;
@@ -217,6 +219,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioFamiliar servicioFamiliar;
 	private ServicioFamiliarJugador servicioFamiliarJugador;
 	private ServicioPersona servicioPersona;
+	private ServicioComisionFamiliar servicioComisionFamiliar;
 
 	// Modelos
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
@@ -853,7 +856,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			flag = true;
 			txtCedula.setRawValue(null);
 			txtCedula.setReadonly(true);
-		}else{
+		} else {
 			txtCedula.setReadonly(false);
 			verificarCedulaJugador();
 		}
@@ -1564,27 +1567,50 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		cmbNacionalidad.setFocus(true);
 	}
 
+	/** NUEVO */
+
 	private void guardarFamiliares() {
 		FamiliarJugador familiarJugador;
 		Familiar familiarAux;
+		ComisionFamiliar familiarComision;
 		DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
 				TipoDatoBasico.TIPO_PERSONA, "Familiar");
 		List<Familiar> familiaresModelo = new ArrayList<Familiar>();
+		List<ComisionFamiliar> familiaresComisiones = new ArrayList<ComisionFamiliar>();
 		for (controlador.jugador.bean.Familiar familiar : familiares) {
 			familiarAux = guardarFamiliarBeanToModelo(familiar, datoTipoPersona);
 			familiaresModelo.add(familiarAux);
+
 			familiarJugador = new FamiliarJugador();
 			familiarJugador.setDatoBasico(familiar.getParentesco());
 			familiarJugador.setFamiliar(familiarAux);
 			familiarJugador.setRepresentanteActual(familiar.isRepresentante());
 			familiarJugador.setJugador(jugador);
 			familiaresJugadores.add(familiarJugador);
+
+			if (familiar.getComisionesFamiliar().size() > 0) {
+				for (DatoBasico comision : familiar.getComisionesFamiliar()) {
+					familiarComision = new ComisionFamiliar();
+					familiarComision.setDatoBasico(comision);
+					familiarComision.setFamiliarJugador(familiarJugador);
+					familiaresComisiones.add(familiarComision);
+				}
+			} else {
+				familiarComision = new ComisionFamiliar();
+				familiarComision.setDatoBasico(null);
+				familiarComision.setFamiliarJugador(familiarJugador);
+				familiaresComisiones.add(familiarComision);
+			}
+
 		}
 		servicioFamiliar.agregar(familiaresModelo);
 		servicioFamiliarJugador.agregar(familiaresJugadores, jugador);
+		servicioComisionFamiliar.agregar(familiaresComisiones);
 		familiaresJugadores = new ArrayList<FamiliarJugador>();
 
 	}
+
+	
 
 	private Familiar guardarFamiliarBeanToModelo(
 			controlador.jugador.bean.Familiar familiarBean,
@@ -1795,25 +1821,28 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		checkPoints.put(Point.TALLA, false);
 		checkPoints.put(Point.FAMILIAR, false);
 	}
-	
-	
-	public void onChange$txtCedula(){
+
+	public void onChange$txtCedula() {
 		verificarCedulaJugador();
 	}
-	
-	
-	private void verificarCedulaJugador(){
-		String cedulaCompleta="";
-		boolean noValida= true;
-		String nacionalidad = (cmbNacionalidad.getSelectedItem() == null ? "" :  cmbNacionalidad.getSelectedItem().getLabel()) ;
-		String cedula= (txtCedula.getValue() == null ? "" : "-" + txtCedula.getValue().toString()) ;
-		String secuencia= (txtCedulaSecuencia.getValue() == null ? "" : "-" + txtCedulaSecuencia.getValue().toString()) ;
-		if (nacionalidad!="" && cedula!=""){
-			cedulaCompleta= nacionalidad+cedula+""+secuencia;
-			noValida =servicioPersona.existePersona(cedulaCompleta);
+
+	private void verificarCedulaJugador() {
+		String cedulaCompleta = "";
+		boolean noValida = true;
+		String nacionalidad = (cmbNacionalidad.getSelectedItem() == null ? ""
+				: cmbNacionalidad.getSelectedItem().getLabel());
+		String cedula = (txtCedula.getValue() == null ? "" : "-"
+				+ txtCedula.getValue().toString());
+		String secuencia = (txtCedulaSecuencia.getValue() == null ? "" : "-"
+				+ txtCedulaSecuencia.getValue().toString());
+		if (nacionalidad != "" && cedula != "") {
+			cedulaCompleta = nacionalidad + cedula + "" + secuencia;
+			noValida = servicioPersona.existePersona(cedulaCompleta);
 		}
-		if (noValida){
-			Mensaje.mostrarMensaje("La cédula ingresada ya está registrada o no es válida.", Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+		if (noValida) {
+			Mensaje.mostrarMensaje(
+					"La cédula ingresada ya está registrada o no es válida.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtCedula.setFocus(true);
 		}
 	}
