@@ -7,10 +7,12 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -18,6 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "comision_familiar", schema = "public")
+@SequenceGenerator(name = "comisionFamiliar_seq", sequenceName = "comision_familiar_codigo_comision_familiar_seq_1")
 public class ComisionFamiliar implements java.io.Serializable {
 
 	private int codigoComisionFamiliar;
@@ -50,6 +53,7 @@ public class ComisionFamiliar implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_comision_familiar", unique = true, nullable = false)
+	@GeneratedValue(generator = "comisionFamiliar_seq")
 	public int getCodigoComisionFamiliar() {
 		return this.codigoComisionFamiliar;
 	}
