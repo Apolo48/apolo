@@ -211,13 +211,10 @@
 									mold="paging" pageSize="2"
 									id="listAfeccionesActuales">
 									<listhead>
-										<listheader
-											label="Afección" />
+										<listheader label="Afecciones" />
 									</listhead>
-									<listitem
-										 value="">
-										<listcell
-											label="" />
+									<listitem value="">
+										<listcell label="" />
 									</listitem>
 								</listbox>
 
@@ -282,25 +279,16 @@
 							<listbox
 								id="listActividadesSociales" mold="paging" pageSize="2">
 								<listhead>
-									<listheader
-										label="Actividad" width="20%" />
-									<listheader
-										label="Institución" width="55%" />
-									<listheader
-										label="Horas" width="10%" />
-									<listheader
-										label="Fecha" width="15%" />
+									<listheader label="Actividad" width="20%" />
+									<listheader label="Institución" width="55%" />
+									<listheader label="Horas" width="10%" />
+									<listheader label="Fecha" width="15%" />
 								</listhead>
-								<listitem
-									value="@{}">
-									<listcell
-										label="@{}" />
-									<listcell
-										label="@{}" />
-									<listcell
-										label="@{}" />
-									<listcell
-										label="@{}" />
+								<listitem>
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
+									<listcell label="" />
 								</listitem>
 							</listbox>
 							
@@ -398,30 +386,19 @@
 					<listbox id="listFamiliares"
 						mold="paging" pageSize="2">
 						<listhead>
-							<listheader label="Cédula"
-								width="15%" />
-							<listheader label="Nombres"
-								width="25%" />
-							<listheader
-								label="Apellidos" width="25%" />
-							<listheader
-								label="Parentesco" width="17%" />
-							<listheader
-								label="Representante" width="18%" />
+							<listheader label="Cédula" width="15%" />
+							<listheader label="Nombres" width="25%" />
+							<listheader label="Apellidos" width="25%" />
+							<listheader label="Parentesco" width="17%" />
+							<listheader label="Representante" width="18%" />
 						</listhead>
-						<listitem
-							>
-							<listcell
-								label="@{}" />
-							<listcell
-								label="@{}" />
-							<listcell
-								label="@{}" />
-							<listcell
-								label="@{}" />
+						<listitem >
+							<listcell label="" />
+							<listcell label="" />
+							<listcell label="" />
+							<listcell label="" />
 							<listcell>
-								<checkbox
-									checked="" />
+								<checkbox/>
 							</listcell>
 						</listitem>
 					</listbox>

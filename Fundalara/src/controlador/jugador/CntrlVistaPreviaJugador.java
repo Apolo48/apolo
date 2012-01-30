@@ -17,6 +17,7 @@ import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
@@ -174,7 +175,21 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 		if (datoMedico.getFechaInforme() != null) {
 			lblFechaRev.setValue(datoMedico.getFechaInforme().toString());
 		}
-		//listAfeccionesActuales;
+		
+		listAfeccionesActuales.removeItemAt(0);
+		for (int i = 0; i < afeccionesJugador.size(); i++) {
+			Listitem listItem = new Listitem();
+			Listcell listCell = new Listcell();	        
+			Label aux = new Label();
+			
+			aux.setValue(afeccionesJugador.get(i).getNombre());
+			listCell.appendChild(aux);
+			listItem.appendChild(listCell);
+			
+			listAfeccionesActuales.appendChild(listItem);
+		}
+		
+		
 		lblObservacion.setValue(datoMedico.getObservacion());
 		
 		//Datos Academicos
@@ -211,7 +226,7 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 			listItem.appendChild(listCell2);
 			
 			String fecha = formato.format(datoSociales.get(i).getFechaInicio());
-			aux3.setValue(fecha);//FALTA CORREGIR FORMATO
+			aux3.setValue(fecha);
 			listCell3.appendChild(aux3);
 			listItem.appendChild(listCell3);
 			
@@ -245,8 +260,43 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 		}
 		
 		// Datos de Familiares
-		//listFamiliares;
+		listFamiliares.removeItemAt(0);
+		for (int i = 0; i < familiares.size(); i++) {
+			Listitem listItem = new Listitem();
+			Listcell listCell1 = new Listcell();	        
+			Listcell listCell2 = new Listcell();	        
+			Listcell listCell3 = new Listcell();	        
+			Listcell listCell4 = new Listcell();	        
+			Listcell listCell5 = new Listcell();	        
+			Label aux1 = new Label();
+			Label aux2 = new Label();
+			Label aux3 = new Label();
+			Label aux4 = new Label();
+			Checkbox aux5 = new Checkbox();
+			
+			aux1.setValue(familiares.get(i).getCedulaCompleta());
+			listCell1.appendChild(aux1);
+			listItem.appendChild(listCell1);
+			
+			aux2.setValue(familiares.get(i).getPrimerNombre() + " " + familiares.get(i).getSegundoNombre());
+			listCell2.appendChild(aux2);
+			listItem.appendChild(listCell2);
+			
+			aux3.setValue(familiares.get(i).getPrimerApellido() + " " + familiares.get(i).getSegundoApellido());
+			listCell3.appendChild(aux3);
+			listItem.appendChild(listCell3);
+			
+			aux4.setValue(familiares.get(i).getParentesco().getNombre());
+			listCell4.appendChild(aux4);		
+			listItem.appendChild(listCell4);
 
+			aux5.setChecked(familiares.get(i).isRepresentante());
+			aux5.setDisabled(true);
+			listCell5.appendChild(aux5);		
+			listItem.appendChild(listCell5);
+			
+			listFamiliares.appendChild(listItem);
+		}
 	}
 
 	public controlador.jugador.bean.Jugador getJugador() {
