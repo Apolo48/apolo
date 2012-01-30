@@ -10,7 +10,6 @@ import modelo.Jugador;
 import modelo.JugadorPlan;
 import modelo.Persona;
 import modelo.PersonaNatural;
-import modelo.RepresentantePlan;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -31,7 +30,6 @@ import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioEquipo;
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioJugadorPlan;
-import servicio.implementacion.ServicioRepresentantePlan;
 
 import comun.EstatusRegistro;
 import comun.TipoDatoBasico;
@@ -94,7 +92,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private PersonaNatural personaN = new PersonaNatural();
 	private Jugador jugador = new Jugador();
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
-	private RepresentantePlan representantePlan= new RepresentantePlan();
+	//private RepresentantePlan representantePlan= new RepresentantePlan();//Cambiar x Familiar 
 	
 	private DatoBasico estadoVenezuela = new DatoBasico();
 	private DatoBasico municipio = new DatoBasico();
@@ -106,7 +104,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private ServicioCategoria servicioCategoria;
 	private ServicioEquipo servicioEquipo;
 	private ServicioJugadorPlan servicioJugadorPlan;
-	private ServicioRepresentantePlan servicioRepresentantePlan;
+	//private ServicioRepresentantePlan servicioRepresentantePlan; // CAMBIAR x familiar
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -128,14 +126,14 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	}
 
 
-	public RepresentantePlan getRepresentantePlan() {
+/*	public RepresentantePlan getRepresentantePlan() {
 		return representantePlan;
 	}
 
 
 	public void setRepresentantePlan(RepresentantePlan representantePlan) {
 		this.representantePlan = representantePlan;
-	}
+	}*/
 
 
 	public Categoria getCategoria() {

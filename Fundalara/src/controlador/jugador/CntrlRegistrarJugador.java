@@ -17,9 +17,11 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
@@ -96,6 +98,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Window winRegistrarJugador;
 	private Datebox dtboxFechaNac;
 	private Datebox dtboxFechaInicioActividad;
+	private Datebox	dtboxFechaRev;
 	private Button btnGuardar;
 	private Button btnInscribir;
 	private Button btnAntes;
@@ -118,6 +121,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Intbox txtCedula;
 	private Intbox txtCedulaFamiliar;
 	private Spinner spHorasSemanales;
+	private Spinner spCantidad;
+	private Spinner spCantidadMed;
+	private Spinner spCantidadAcad;
 	private Textbox txtPrimerNombre;
 	private Textbox txtPrimerApellido;
 	private Textbox txtSegundoNombre;
@@ -138,6 +144,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Textbox txtTwitterFamiliar;
 	private Textbox txtDireccion;
 	private Textbox txtTwitter;
+	private Textbox txtObervaciones;
+	private Decimalbox txtPeso;
+	private Decimalbox txtAltura;
 	private Image imgJugador;
 	private Image imgFamiliar;
 	private Combobox cmbNacionalidadFamiliar;
@@ -169,6 +178,13 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Combobox cmbEstadoResi;
 	private Combobox cmbCodArea;
 	private Combobox cmbCodCelular;
+	private Combobox cmbGrupoSanguineo;
+	private Combobox cmbFactorRH;
+	private Combobox cmbBrazoLanzar;
+	private Combobox cmbPosicionBateo;
+	private Combobox cmbTallaCamisa;
+	private Combobox cmbTallaPantalon;
+	private Combobox cmbTallaCalzado;
 	private Label lblSeparador;
 	private Listbox listAfeccionesActuales;
 	private Listbox listActividadesSociales;
@@ -177,6 +193,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Listbox listDocPersonales;
 	private Listbox listDocMedicos;
 	private Listbox listFamiliares;
+	private Bandbox bboxNumero;
 	private Component formulario;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
@@ -1422,11 +1439,18 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnCancelar() {
+		//FALTA VALIDAR SALIDA
+		//USAR CHECKPOINTS
 		onClick$btnAntes();
 		jugadorBean = new controlador.jugador.bean.Jugador();
-		limpiarFamiliar();
+		limpiarJugador();
+		familiarBean = new controlador.jugador.bean.Familiar();
 		familiares = new ArrayList<controlador.jugador.bean.Familiar>();
-
+		limpiarFamiliar();
+		inicializarCheckPoints();
+	}
+	
+	public void limpiarJugador() {
 		// Limpiando el perfil del jugador
 		cmbNacionalidad.setValue("--");
 		txtCedula.setRawValue("");
@@ -1436,32 +1460,108 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtSegundoApellido.setRawValue("");
 		cmbGenero.setRawValue("");
 		imgJugador.setContent(new Image().getContent());
-		// Limpiando primera pestanna
+		imgJugador.setSrc("/Recursos/Imagenes/noFoto.jpg");
+		
+		// Limpiando pestanna Personales
 		dtboxFechaNac.setRawValue(null);
-		txtEdad.setRawValue("");
-		binder.loadComponent(cmbPaisNac);
+		txtEdad.setRawValue(null);
+		cmbPaisNac.setSelectedIndex(-1);
+		//binder.loadComponent(cmbPaisNac);
 
 		cmbEstadoNac.setSelectedIndex(-1);
 		cmbMunicipioNac.setSelectedIndex(-1);
 		binder.loadComponent(cmbParroquiaNac);
+		
+		cmbEstadoNac.setDisabled(true);
+		cmbMunicipioNac.setDisabled(true);
+		cmbParroquiaNac.setDisabled(true);
 
 		cmbEstadoResi.setSelectedIndex(-1);
 		cmbMunicipioResi.setSelectedIndex(-1);
-
 		binder.loadComponent(cmbParroquiaResi);
+		
 		txtDireccion.setRawValue("");
-		binder.loadComponent(cmbCodArea);
+		cmbCodArea.setSelectedIndex(-1);
+		//binder.loadComponent(cmbCodArea);
 		txtTelefonoHabitacion.setRawValue("");
-		binder.loadComponent(cmbCodCelular);
+		cmbCodCelular.setSelectedIndex(-1);
+		//binder.loadComponent(cmbCodCelular);
 		txtTelefonoCelular.setRawValue("");
 		txtCorreo.setRawValue("");
 		txtTwitter.setRawValue("");
+		documentosPersonales = new ArrayList<DocumentoEntregado>();
+		docEntPersonal = new DocumentoEntregado();
+		spCantidad.setRawValue(0);
+		binder.loadComponent(listDocPersonales);
+		
+		// Limpiando pestanna Medicos
+		cmbGrupoSanguineo.setValue("--");
+		cmbGrupoSanguineo.setSelectedIndex(-1);
+		//binder.loadComponent(cmbGrupoSanguineo);
+		cmbFactorRH.setValue("--");
+		cmbFactorRH.setSelectedIndex(-1);
+		//binder.loadComponent(cmbFactorRH);
+		txtMedico.setValue("");
+		txtNroColegio.setRawValue("");
+		dtboxFechaRev.setRawValue(null);
+		cmbAfecciones.setSelectedIndex(-1);
+		//binder.loadComponent(cmbAfecciones);
+		afeccionesJugador = new ArrayList<DatoBasico>(); //Limpiar listAfeccionesActuales;
+		binder.loadComponent(listAfeccionesActuales);
+		txtObervaciones.setRawValue("");
+		documentosMedicos = new ArrayList<DocumentoEntregado>();
+		docEntMed = new DocumentoEntregado();
+		spCantidadMed.setRawValue(0);
+		binder.loadComponent(listDocMedicos);
+		
+		// Limpiando pestanna Academicos
+		datoAcademico = new DatoAcademico();
+		cmbInstitucionEducativa.setSelectedIndex(-1);
+		//binder.loadComponent(cmbInstitucionEducativa);
+		cmbAnnioEscolar.setSelectedIndex(-1);
+		//binder.loadComponent(cmbAnnioEscolar);
+		cmbCurso.setSelectedIndex(-1);
+		//binder.loadComponent(cmbCurso);
+		documentosAcademicos = new ArrayList<DocumentoEntregado>();
+		docEntAcad = new DocumentoEntregado();
+		spCantidadAcad.setRawValue(0);
+		binder.loadComponent(listDocAcademicos);
+		
+		// Limpiando pestanna Sociales
+		datoSocial = new DatoSocial();
+		cmbInstitucionRecreativa.setSelectedIndex(-1);
+		//binder.loadComponent(cmbInstitucionRecreativa);
+		cmbActividad.setSelectedIndex(-1);
+		//binder.loadComponent(cmbActividad);
+		dtboxFechaInicioActividad.setRawValue(null);
+		spHorasSemanales.setRawValue(0);
+		datoSociales = new ArrayList<DatoSocial>();
+		binder.loadComponent(listActividadesSociales);
+
+		// Limpiando pestanna Deportivos
+		categoria = new Categoria();
+		cmbCategoria.setSelectedIndex(-1);
+		binder.loadComponent(cmbCategoria);
+		equipo = new Equipo();
+		cmbEquipo.setSelectedIndex(-1);
+		binder.loadComponent(cmbEquipo);
+		bboxNumero.setRawValue("0");
+		txtPeso.setRawValue(0);
+		txtAltura.setRawValue(0);
+		cmbBrazoLanzar.setSelectedIndex(-1);
+		//binder.loadComponent(cmbBrazoLanzar);
+		cmbPosicionBateo.setSelectedIndex(-1);
+		//binder.loadComponent(cmbPosicionBateo);
+		cmbTallaCamisa.setSelectedIndex(-1);
+		//binder.loadComponent(cmbTallaCamisa);
+		cmbTallaPantalon.setSelectedIndex(-1);
+		//binder.loadComponent(cmbTallaPantalon);
+		cmbTallaCalzado.setSelectedIndex(-1);
+		//binder.loadComponent(cmbTallaCalzado);
 
 		// Activamos la 1era pestana y dejamos el focus
 		tabJugPersonales.setSelected(true);
 		cmbNacionalidad.setFocus(true);
-		// binder.loadAll();
-
 	}
 
 	private void guardarFamiliares() {
@@ -1586,6 +1686,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	private void limpiarFamiliar() {
+		// Limpiando pestanna Perfil
 		familiarBean = new controlador.jugador.bean.Familiar();
 		cmbNacionalidadFamiliar.setValue("--");
 		txtCedulaFamiliar.setRawValue("");
@@ -1595,10 +1696,20 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtSegundoApellidoFamiliar.setRawValue("");
 		cmbParentesco.setValue("--Seleccione--");
 		cmbProfesion.setValue("--Seleccione--");
-		imgFamiliar.setContent(new Image().getContent());
+		//imgFamiliar.setContent(new Image().getContent());
+		imgFamiliar.setSrc("/Recursos/Imagenes/noFoto.jpg");
+
+		// Limpiando pestanna Ubicacion
+		cmbEstadoFamiliar.setSelectedIndex(-1);
 		cmbEstadoFamiliar.setValue("--Seleccione--");
+		//binder.loadComponent(cmbEstadoFamiliar);
+		cmbMunicipioFamiliar.setSelectedIndex(-1);
 		cmbMunicipioFamiliar.setValue("--Seleccione--");
+		//binder.loadComponent(cmbMunicipioFamiliar);
+		//cmbParroquiaFamiliar.setSelectedIndex(-1);
+		binder.loadComponent(cmbParroquiaFamiliar);
 		cmbParroquiaFamiliar.setValue("--Seleccione--");
+		
 		txtDireccionHabFamiliar.setRawValue("");
 		cmbCodAreaFamiliar.setValue("--");
 		txtTelefonoHabFamiliar.setRawValue("");
@@ -1606,8 +1717,15 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtTelefonoCelFamiliar.setRawValue("");
 		txtCorreoFamiliar.setRawValue("");
 		txtTwitterFamiliar.setRawValue("");
+		
+		// Limpiando pestanna Ubicacion
+		cmbComisiones.setSelectedIndex(-1);
+		//binder.loadComponent(cmbComisiones);
+		comision = new DatoBasico();
 		binder.loadComponent(listComisiones);
-
+		
+		// Limpiando Listbox Familiares
+		binder.loadComponent(listFamiliares);
 	}
 
 	private boolean buscarFamiliarEnLista(
