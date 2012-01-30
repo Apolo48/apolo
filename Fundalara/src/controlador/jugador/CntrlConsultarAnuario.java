@@ -1,30 +1,51 @@
 package controlador.jugador;
 
+//import java.awt.Image;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javassist.expr.NewArray;
+
+import javax.swing.ImageIcon;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.zkoss.image.AImage;
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.Events;
+import org.zkoss.util.media.AMedia;
 import modelo.Categoria;
 
 import modelo.Equipo;
 import modelo.Jugador;
 import modelo.Roster;
 import modelo.Competencia;
-import modelo.LapsoDeportivo;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.*;
+
+import comun.ConeccionBD;
+import controlador.jugador.bean.Anuario;
 
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioCompetencia;
 import servicio.implementacion.ServicioEquipo;
 import servicio.implementacion.ServicioRoster;
-import servicio.implementacion.ServicioLapsoDeportivo;
 
 /**
  * Clase controladora de los eventos de la vista de igual nombre, el presente
@@ -55,6 +76,9 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 	private static Roster rosters;
 	private static String valorRetornado = "";
 	private Competencia competencia = new Competencia();
+	
+	private Anuario anuario = new Anuario();
+	private List<Anuario> listaAnuario = new ArrayList<Anuario>();
 
 	List<Jugador> Jugadores = new ArrayList<Jugador>();
 	List<Equipo> Equipos;
@@ -70,6 +94,15 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 	//private Listcell img2, img3, img4, img5;
 	private Listcell celda;
 	private Image img1;
+	private java.awt.Image img2;
+	
+	private Connection con;
+	private String jrxmlSrc;
+	Map parameters = new HashMap();
+	Iframe ifReport;
+	
+	private Button btnImprimir;
+	private Button btnsalir;
 
 	@Override
 	public void doAfterCompose(Component c) throws Exception {
@@ -156,9 +189,11 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 /*		for (int i = 0; i < listAnuario.getItemCount() ; i++) {
 			listAnuario.removeItemAt(i);
 		}
-*/
-									
-		for (int i = 0; i < listaRoster.size() ; i++) {			
+*/									
+		for (int i = 0; i < listaRoster.size() ; i++) {
+			ImageIcon n = new ImageIcon();
+			AImage aImage = null;
+			anuario = new Anuario();
 			img1 = new Image();
 			img1.setHeight("80px");
 			img1.setWidth("80px");
@@ -172,8 +207,11 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 			byte[] foto = jug.getPersonaNatural().getFoto();			
 	        if (foto != null){
 	            try {
-	              AImage aImage = new AImage("foto.jpg", foto);
+	              //AImage aImage = new AImage("foto.jpg", foto);
+	              aImage = new AImage("foto.jpg", foto);
+	              n = new ImageIcon((byte[]) jug.getPersonaNatural().getFoto());
 	              img1.setContent(aImage);
+	              //img2 = n.getImage();
 	            } catch (IOException e) {
 	              e.printStackTrace();
 	            }	
@@ -183,16 +221,84 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 	        listCell.appendChild(img1);	        	        
 	        listItem.appendChild(listCell);	        
 			listAnuario.appendChild(listItem);
-						
+					
+			
 			Listcell listCell2 = new Listcell();
 			listCell2.setLabel(jug.getPersonaNatural().getPrimerNombre() + " " + jug.getPersonaNatural().getPrimerApellido());
+			
+			anuario.setNombreJugador(jug.getPersonaNatural().getPrimerNombre());
+			anuario.setApellidoJugador(jug.getPersonaNatural().getPrimerApellido());
+			anuario.setFotoJugador(n.getImage());
+			listaAnuario.add(anuario);
+			
 			listItem.appendChild(listCell2);
-			listAnuario.appendChild(listItem);
-						
+			listAnuario.appendChild(listItem);						
 			}
 		
 		divLista.appendChild(listAnuario);		
 	}
+
 	
+	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
+		con = ConeccionBD.getCon("postgres","postgres","123456");
+		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/Anuario2.jrxml");
+		//jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ExpedienteJugador.jrxml");
+		parameters.put("categoriaJug" , cmbCategoria.getSelectedItem().getLabel());
+		parameters.put("equipoJug" , cmbEquipo.getSelectedItem().getLabel());
+		//parameters.put("fotoJug" , listaRoster.get(0).getPersonaNatural().getFoto());
+
+		
+		ImageIcon n;
+		Jugador jug = listaRoster.get(0);
+/*		if (jug.getPersonaNatural().getFoto() != null) {
+			n = new ImageIcon((byte[]) jug.getPersonaNatural().getFoto());
+		} else {
+			n = new ImageIcon();
+		}
+		parameters.put("fotoJug" , (Object) n);
+*/		
+		
+/*		byte[] foto = jugador.getPersonaNatural().getFoto();
+        if (foto != null){
+          try {
+            AImage aImage = new AImage("foto.jpg", foto);
+          } catch (IOException e) {
+            e.printStackTrace();
+          }	
+        }	
+        parameters.put("fotoJug" , aImage);
+*/        
+        
+		parameters.put("nombreJug" , listaRoster.get(0).getPersonaNatural().getPrimerNombre() + " " +
+				listaRoster.get(0).getPersonaNatural().getPrimerApellido());
+		//parameters.put("cedulajug_1",listaRoster.get(0).getCedulaRif());
+		showReportfromJrxml();
+	}	
+	
+	public void showReportfromJrxml() throws JRException, IOException{
+		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
+		
+		//JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(listaRoster);
+		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(listaAnuario);
+		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, ds);
+		
+		//JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
+		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+		JRExporter exporter = new JRPdfExporter();
+		exporter.setParameters(parameters);
+		
+		//exporter.setDatasource(listaRoster);
+		
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT ,jaspPrint);
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,arrayOutputStream);
+		exporter.exportReport();
+		arrayOutputStream.close();
+		final AMedia amedia = new AMedia("Anuario.pdf","pdf","pdf/application", arrayOutputStream.toByteArray());
+		ifReport.setContent(amedia);
+	}	
+	
+	public void onClick$btnSalir(){
+		winAnuarioJugadores.detach();
+	}
 
 }
