@@ -1,6 +1,16 @@
 package controlador.jugador;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import modelo.Categoria;
+import modelo.DatoAcademico;
+import modelo.DatoBasico;
+import modelo.DatoMedico;
+import modelo.DatoSocial;
+import modelo.Equipo;
+import modelo.Medico;
 
 import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
@@ -12,6 +22,7 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
 
 import comun.Util;
+import controlador.jugador.bean.Familiar;
 
 /**
  * Clase controladora de los eventos de la vista de igual nombre y manejo de los
@@ -24,8 +35,6 @@ import comun.Util;
  * */
 public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 	private Window winVistaPreviaJugador;   
-	private controlador.jugador.bean.Jugador jugador;
-	private AnnotateDataBinder binder;
 	private Component vista;
 	private Label lblCedula;
 	private Label lblPrimerNombre;
@@ -70,6 +79,18 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 	private Label lblCalzado;
 	private Listbox listFamiliares;
 	
+	private AnnotateDataBinder binder;
+	
+	private controlador.jugador.bean.Jugador jugador;
+	private Medico medico;
+	private DatoMedico datoMedico = new DatoMedico();
+	private List<DatoBasico> afeccionesJugador = new ArrayList<DatoBasico>();
+	private DatoAcademico datoAcademico = new DatoAcademico();
+	private List<DatoSocial> datoSociales = new ArrayList<DatoSocial>();
+	private Categoria categoria = new Categoria();
+	private Equipo equipo = new Equipo();
+	private List<controlador.jugador.bean.Familiar> familiares = new ArrayList<controlador.jugador.bean.Familiar>();
+	
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
@@ -79,10 +100,22 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 	public void onCreate$winVistaPreviaJugador() {
 		jugador = (controlador.jugador.bean.Jugador) vista.getVariable(
 				"jugadorBean", false);
-		mostrarValores(jugador);
+		medico = (Medico) vista.getVariable("medico", false);
+		datoMedico = (DatoMedico) vista.getVariable("datoMedico", false);
+		afeccionesJugador = (List<DatoBasico>) vista.getVariable("afeccionesJugador", false);
+		datoAcademico = (DatoAcademico) vista.getVariable("datoAcademico", false);
+		datoSociales = (List<DatoSocial>) vista.getVariable("datoSociales", false);
+		categoria = (Categoria) vista.getVariable("categoria", false);
+		equipo = (Equipo) vista.getVariable("equipo", false);
+		familiares = (List<Familiar>) vista.getVariable("familiares", false);
+		
+		//mostrarValores(jugador);
+		mostrarValores();
 	}
 
-	private void mostrarValores(controlador.jugador.bean.Jugador jugador) {
+	//private void mostrarValores(controlador.jugador.bean.Jugador jugador) {
+	private void mostrarValores() {
+		// Datos Basicos
 		lblCedula.setValue(jugador.getCedulaCompleta());
 		lblPrimerNombre.setValue(jugador.getPrimerNombre());
 		lblSegundoNombre.setValue(jugador.getSegundoNombre());
@@ -97,15 +130,23 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 				e.printStackTrace();
 			}
 		}
-		lblFechaNac.setValue(Util.convertirFecha(jugador.getFechaNacimiento(),"dd/MM/yyyy"));	
-		lblEdad.setValue(String.valueOf(Util.calcularDiferenciaAnnios(jugador.getFechaNacimiento())));
-		lblPais.setValue(jugador.getPaisNac().getNombre());
-		// lblEstado , no lo tiene el bean
-		// lblMunicipio; no lo tiene el bean
-		lblParroquia.setValue(jugador.getParroquiaNac().getNombre());
-		// lblEstadoResi; no lo tiene el bean
-		// lblMunicipioResi; no lo tiene el bean
-		lblParroquiaResi.setValue(jugador.getParroquiaResi().getNombre());
+		if (jugador.getFechaNacimiento() != null) {
+			lblFechaNac.setValue(Util.convertirFecha(jugador.getFechaNacimiento(),"dd/MM/yyyy"));
+			lblEdad.setValue(String.valueOf(Util.calcularDiferenciaAnnios(jugador.getFechaNacimiento())));
+		}
+		if (jugador.getPaisNac() != null) {
+			lblPais.setValue(jugador.getPaisNac().getNombre());
+		}
+		if (jugador.getParroquiaNac() != null) {
+			lblEstado.setValue(jugador.getParroquiaNac().getDatoBasico().getDatoBasico().getNombre());
+			lblMunicipio.setValue(jugador.getParroquiaNac().getDatoBasico().getNombre());
+			lblParroquia.setValue(jugador.getParroquiaNac().getNombre());
+		}
+		if (jugador.getParroquiaResi() != null) {
+			lblEstadoResi.setValue(jugador.getParroquiaResi().getDatoBasico().getDatoBasico().getNombre());
+			lblMunicipioResi.setValue(jugador.getParroquiaResi().getDatoBasico().getNombre());
+			lblParroquiaResi.setValue(jugador.getParroquiaResi().getNombre());
+		}
 		lblDireccion.setValue(jugador.getDireccion());
 		lblTelefonoHabitacion.setValue(jugador.getTelefonoHabitacion()
 				.getTelefonoCompleto());
@@ -113,6 +154,65 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 				.getTelefonoCompleto());
 		lblCorreo.setValue(jugador.getCorreoElectronico());
 		lblTwitter.setValue(jugador.getTwitter());
+
+		// Cargar Datos Medicos
+		String tipoSangre = "";
+		if (jugador.getTipoSangre().getGrupoSanguineo().getNombre() != null){
+			tipoSangre += jugador.getTipoSangre().getGrupoSanguineo().getNombre();
+		}
+		if (jugador.getTipoSangre().getFactorRH().getNombre() != null){
+			tipoSangre += jugador.getTipoSangre().getFactorRH().getNombre();
+		}
+		lblGrupoSan.setValue(tipoSangre);
+		if (medico.getNombre() != null) {
+			lblMedico.setValue(medico.getNombre() + " " + medico.getApellido());
+		}
+		lblNumeroCol.setValue(medico.getNumeroColegio());
+		if (datoMedico.getFechaInforme() != null) {
+			lblFechaRev.setValue(datoMedico.getFechaInforme().toString());
+		}
+		//listAfeccionesActuales;
+		lblObservacion.setValue(datoMedico.getObservacion());
+		
+		//Datos Academicos
+		if (datoAcademico.getInstitucion() != null) {
+			lblInstitucion.setValue(datoAcademico.getInstitucion().getNombre());
+		}
+		if (datoAcademico.getDatoBasicoByCodigoAnnoEscolar() != null) {
+			lblAnnoEsc.setValue(datoAcademico.getDatoBasicoByCodigoAnnoEscolar().getNombre());
+		}
+		if (datoAcademico.getDatoBasicoByCodigoCurso() != null) {
+			lblCurso.setValue(datoAcademico.getDatoBasicoByCodigoCurso().getNombre());
+		}
+		
+		//Datos Sociales
+		//for (int i = 0; i < datoSociales.size(); i++) {
+		//listActividadesSociales;
+		
+		//Datos Deportivos
+		lblCategoria.setValue(categoria.getNombre());
+		lblEquipo.setValue(equipo.getNombre());
+		lblNumero.setValue(String.valueOf(jugador.getNumero()));
+		lblPeso.setValue(String.valueOf(jugador.getPeso()));
+		lblAltura.setValue(String.valueOf(jugador.getAltura()));
+		if (jugador.getBrazoLanzar() != null) {
+			lblBrazo.setValue(jugador.getBrazoLanzar().getNombre());
+		}
+		if (jugador.getPosicionBateo() != null) {
+			lblPosicion.setValue(jugador.getPosicionBateo().getNombre());
+		}
+		if (jugador.getTallaCamisa() != null) {
+			lblCamisa.setValue(jugador.getTallaCamisa().getNombre());;
+		}
+		if (jugador.getTallaPantalon() != null) {
+			lblPantalon.setValue(jugador.getTallaPantalon().getNombre());
+		}
+		if (jugador.getTallaCalzado() != null) {
+			lblCalzado.setValue(jugador.getTallaCalzado().getNombre());
+		}
+		
+		// Datos de Familiares
+		//listFamiliares;
 
 	}
 

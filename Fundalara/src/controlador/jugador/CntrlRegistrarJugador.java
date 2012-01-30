@@ -868,6 +868,15 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		Component vista = Executions.createComponents(rutasJug
 				+ "frmVistaRegistroJugador.zul", null, null);
 		vista.setVariable("jugadorBean", jugadorBean, false);
+		vista.setVariable("datoMedico", datoMedico, false);
+		vista.setVariable("medico", medico, false);
+		vista.setVariable("afeccionesJugador", afeccionesJugador, false);
+		vista.setVariable("datoAcademico", datoAcademico, false);
+		vista.setVariable("datoSociales", datoSociales, false);
+		vista.setVariable("categoria", categoria, false);
+		vista.setVariable("equipo", equipo, false);
+		vista.setVariable("familiares", familiares, false);
+		
 	}
 
 	public void onClick$btnDesp() {
@@ -1504,6 +1513,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		cmbFactorRH.setValue("--");
 		cmbFactorRH.setSelectedIndex(-1);
 		//binder.loadComponent(cmbFactorRH);
+		medico = new Medico();
 		txtMedico.setValue("");
 		txtNroColegio.setRawValue("");
 		dtboxFechaRev.setRawValue(null);
