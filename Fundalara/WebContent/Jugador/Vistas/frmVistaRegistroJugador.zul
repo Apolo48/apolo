@@ -34,11 +34,11 @@
 								<row style="border:none;">
 									<label value="Primer Nombre" />
 									<div>
-										<label id="lblPrimerNombre" value="@{controller.jugador.primerNombre}" style="font-weight: bold;"/>
+										<label id="lblPrimerNombre" style="font-weight: bold;"/>
 									</div>
 									<label value="Segundo Nombre" />
 									<div>
-										<label id="lblSegundoNombre" value="Alberto" style="font-weight: bold;"/>
+										<label id="lblSegundoNombre" style="font-weight: bold;"/>
 									</div>
 								</row>
 								<row style="border:none;">
@@ -178,7 +178,7 @@
 								<rows>
 									<row style="border:none;">
 										<label value="Grupo Sanguineo" />
-										<label value="O+" style="font-weight: bold;"/>
+										<label id="lblGrupoSan" style="font-weight: bold;"/>
 									</row>
 								</rows>
 							</grid>
@@ -195,24 +195,49 @@
 									</columns>
 									<rows>
 										<row style="border:none;">
-											<label value="Fecha" />
-											<label value="10/11/2011" style="font-weight: bold;"/>
-											<label value="Matrícula" />
-											<label value="MS566" style="font-weight: bold;"/>
-										</row>
-
-										<row style="border:none;">
 											<label value="Médico" />
-											<label value="Francisco Hernández" style="font-weight: bold;"/>
-											<label value="Afección(es)" />
-											<label value="Asma" style="font-weight: bold;"/>
+											<label id="lblMedico" style="font-weight: bold;"/>
+											<label value="Número Colegio" />
+											<label id="lblNumeroCol" style="font-weight: bold;"/>
 										</row>
 										<row style="border:none;">
-											<label value="Observaciones" />
-											<label value="Ninguna" style="font-weight: bold;"/>
+											<label value="Fecha" />
+											<label id="lblFechaRev" style="font-weight: bold;"/>
 										</row>
 									</rows>
 								</grid>
+
+								<listbox
+									mold="paging" pageSize="2"
+									id="listAfeccionesActuales">
+									<listhead>
+										<listheader
+											label="Afección" />
+									</listhead>
+									<listitem
+										 value="">
+										<listcell
+											label="" />
+									</listitem>
+								</listbox>
+
+
+								<grid style="border:none;"
+									oddRowSclass="none">
+									<columns>
+										<column width="25%" />
+										<column width="25%" />
+										<column width="25%" />
+										<column width="25%" />
+									</columns>
+									<rows>
+										<row style="border:none;">
+											<label value="Observaciones" />
+											<label id="lblObservacion" style="font-weight: bold;"/>
+										</row>
+									</rows>
+								</grid>								
+								
 							</groupbox>
 							<space height="10px" />
 						</panelchildren>
@@ -235,13 +260,13 @@
 										<row spans="1,4"
 											style="border:none;">
 											<label value="Institución" />
-											<label value="José María Domínguez" style="font-weight: bold;"/>
+											<label id="lblInstitucion" style="font-weight: bold;"/>
 										</row>
 										<row style="border:none;">
-											<label value="Curso" />
-											<label value="7mo Grado" style="font-weight: bold;"/>
 											<label value="Año Escolar" />
-											<label value="2010-2011" style="font-weight: bold;"/>
+											<label id="lblAnnoEsc" style="font-weight: bold;"/>
+											<label value="Curso" />
+											<label id="lblCurso" style="font-weight: bold;"/>
 										</row>
 									</rows>
 								</grid>
@@ -253,28 +278,32 @@
 					<panel title="Datos Sociales" collapsible="true" open="false">
 						<panelchildren>
 							<space height="10px" />
-							<grid style="border:none;">
-								<columns>
-									<column label="Actividad" width="20%" />
-									<column label="Institución" width="55%"/>
-									<column label="Horas/sem" width="13%" />
-									<column label="Fecha" width="15%" />
-								</columns>
-								<rows>
-									<row style="border:none;">
-										<label value="Música" style="font-weight: bold;"/>
-										<label value="Conservatorio Vicente Emilio Sojo" style="font-weight: bold;"/>
-										<label value="3" style="font-weight: bold;"/>
-										<label value="01/01/2007" style="font-weight: bold;"/>
-									</row>
-									<row style="border:none;">
-										<label value="Otro Deporte" style="font-weight: bold;"/>
-										<label value="Escuela de Fútbol Menor Polideportivo Máximo Viloria" style="font-weight: bold;"/>
-										<label value="2" style="font-weight: bold;"/>
-										<label value="01/01/2009" style="font-weight: bold;"/>
-									</row>
-								</rows>
-							</grid>
+			
+							<listbox
+								id="listActividadesSociales" mold="paging" pageSize="2">
+								<listhead>
+									<listheader
+										label="Actividad" width="20%" />
+									<listheader
+										label="Institución" width="55%" />
+									<listheader
+										label="Horas" width="10%" />
+									<listheader
+										label="Fecha" width="15%" />
+								</listhead>
+								<listitem
+									value="@{}">
+									<listcell
+										label="@{}" />
+									<listcell
+										label="@{}" />
+									<listcell
+										label="@{}" />
+									<listcell
+										label="@{}" />
+								</listitem>
+							</listbox>
+							
 							<space height="10px" />
 						</panelchildren>
 					</panel>
@@ -298,11 +327,11 @@
 										<row style="border:none;"
 											align="left">
 											<label value="Categoría" />
-											<label value="Pre-Junior" style="font-weight: bold;"/>
+											<label id="lblCategoria" style="font-weight: bold;"/>
 											<label value="Equipo" />
-											<label value="Pre-Junior A" style="font-weight: bold;"/>
+											<label id="lblEquipo" style="font-weight: bold;"/>
 											<label value="Número" />
-											<label value="02" style="font-weight: bold;"/>
+											<label id="lblNumero" style="font-weight: bold;"/>
 										</row>
 									</rows>
 								</grid>
@@ -320,15 +349,15 @@
 									<rows>
 										<row style="border:none;" align="left">
 											<label value="Peso" />
-											<label value="50 Kg" style="font-weight: bold;"/>
+											<label id="lblPeso" style="font-weight: bold;"/>
 											<label value="Altura" />
-											<label value=" 1,50 mts." style="font-weight: bold;" />
+											<label id="lblAltura" style="font-weight: bold;" />
 										</row>
 										<row style="border:none;">
 											<label value="Brazo Lanzar" />
-											<label value="Zurdo" style="font-weight: bold;"/>
+											<label id="lblBrazo" style="font-weight: bold;"/>
 											<label value="Posición Bateo" />
-											<label value="Zurdo" style="font-weight: bold;"/>
+											<label id="lblPosicion" style="font-weight: bold;"/>
 										</row>
 									</rows>
 								</grid>
@@ -351,11 +380,11 @@
 										<row style="border:none;"
 											align="left">
 											<label value="Camisa" />
-											<label value="12" style="font-weight: bold;"/>
+											<label id="lblCamisa" style="font-weight: bold;"/>
 											<label value="Pantalón" />
-											<label value="S-7" style="font-weight: bold;"/>
+											<label id="lblPantalon" style="font-weight: bold;"/>
 											<label value="Calzado" />
-											<label value="25" style="font-weight: bold;"/>
+											<label id="lblCalzado" style="font-weight: bold;"/>
 										</row>
 									</rows>
 								</grid>
@@ -366,31 +395,36 @@
 				</tabpanel>
 
 				<tabpanel>
-					<grid mold="paging" pageSize="2" style="border:none;" >
-						<columns>
-							<column label="Cédula" width="15%" />
-							<column label="Nombres" width="25%" />
-							<column label="Apellidos" width="25%" />
-							<column label="Parentesco" width="17%" />
-							<column label="Representante" width="18%" />
-						</columns>
-						<rows>
-							<row style="border:none;">
-								<label value="" />
-								<label value="" />
-								<label value="" />
-								<label value="" />
-								<checkbox />
-							</row>
-							<row style="border:none;">
-								<label value="" />
-								<label value="" />
-								<label value="" />
-								<label value="" />
-								<checkbox />
-							</row>
-						</rows>
-					</grid>
+					<listbox id="listFamiliares"
+						mold="paging" pageSize="2">
+						<listhead>
+							<listheader label="Cédula"
+								width="15%" />
+							<listheader label="Nombres"
+								width="25%" />
+							<listheader
+								label="Apellidos" width="25%" />
+							<listheader
+								label="Parentesco" width="17%" />
+							<listheader
+								label="Representante" width="18%" />
+						</listhead>
+						<listitem
+							>
+							<listcell
+								label="@{}" />
+							<listcell
+								label="@{}" />
+							<listcell
+								label="@{}" />
+							<listcell
+								label="@{}" />
+							<listcell>
+								<checkbox
+									checked="" />
+							</listcell>
+						</listitem>
+					</listbox>
 				</tabpanel>
 			</tabpanels>
 		</tabbox>

@@ -8,6 +8,7 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
 
 import comun.Util;
@@ -47,7 +48,28 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 	private Label lblTelefonoCelular;
 	private Label lblCorreo;
 	private Label lblTwitter;
-
+	private Label lblGrupoSan;
+	private Label lblMedico;
+	private Label lblNumeroCol;
+	private Label lblFechaRev;
+	private Listbox listAfeccionesActuales;
+	private Label lblObservacion;
+	private Label lblInstitucion;
+	private Label lblAnnoEsc;
+	private Label lblCurso;
+	private Listbox listActividadesSociales;
+	private Label lblCategoria;
+	private Label lblEquipo;
+	private Label lblNumero;
+	private Label lblPeso;
+	private Label lblAltura;
+	private Label lblBrazo;
+	private Label lblPosicion;
+	private Label lblCamisa;
+	private Label lblPantalon;
+	private Label lblCalzado;
+	private Listbox listFamiliares;
+	
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
