@@ -1,6 +1,7 @@
 package controlador.jugador;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Window;
 
 import comun.Util;
@@ -186,8 +189,38 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 		}
 		
 		//Datos Sociales
-		//for (int i = 0; i < datoSociales.size(); i++) {
-		//listActividadesSociales;
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		listActividadesSociales.removeItemAt(0);
+		for (int i = 0; i < datoSociales.size(); i++) {
+			Listitem listItem = new Listitem();
+			Listcell listCell1 = new Listcell();	        
+			Listcell listCell2 = new Listcell();	        
+			Listcell listCell3 = new Listcell();	        
+			Listcell listCell4 = new Listcell();	        
+			Label aux1 = new Label();
+			Label aux2 = new Label();
+			Label aux3 = new Label();
+			Label aux4 = new Label();
+			
+			aux1.setValue(datoSociales.get(i).getDatoBasico().getNombre());
+			listCell1.appendChild(aux1);
+			listItem.appendChild(listCell1);
+			
+			aux2.setValue(datoSociales.get(i).getInstitucion().getNombre());
+			listCell2.appendChild(aux2);
+			listItem.appendChild(listCell2);
+			
+			String fecha = formato.format(datoSociales.get(i).getFechaInicio());
+			aux3.setValue(fecha);//FALTA CORREGIR FORMATO
+			listCell3.appendChild(aux3);
+			listItem.appendChild(listCell3);
+			
+			aux4.setValue(datoSociales.get(i).getHorasDedicadas().toString());
+			listCell4.appendChild(aux4);		
+			listItem.appendChild(listCell4);
+			
+			listActividadesSociales.appendChild(listItem);
+		}
 		
 		//Datos Deportivos
 		lblCategoria.setValue(categoria.getNombre());
