@@ -121,7 +121,8 @@
 									<comboitem label="V" />
 									<comboitem label="E" />
 								</combobox>
-								<intbox id="txtCedulaF" value="@{controller.representantePlan.cedulaFamiliar}"
+								<!-- value="@{controller.representantePlan.cedulaFamiliar}" -->
+								<intbox id="txtCedulaF"
 									constraint="no negative" width="20%" />
 								<label value="(*)" style="color:red" />
 							</div>
@@ -129,14 +130,16 @@
 						<row style="border:none;">
 							<label value="Nombre" />
 							<div>
-								<textbox id="txtNombreRepr" value="@{controller.representantePlan.nombre}"
+								<!-- value="@{controller.representantePlan.nombre}" -->
+								<textbox id="txtNombreRepr"
 									width="84%">
 								</textbox>
 								<label value="(*)" style="color:red" />
 							</div>
 							<label value="Apellido" />
 							<div>
-								<textbox id="txtApellidoRepr"  value="@{controller.representantePlan.apellido}"
+								<!-- value="@{controller.representantePlan.apellido}" -->
+								<textbox id="txtApellidoRepr"
 									width="69%">
 								</textbox>
 								<label value="(*)" style="color:red" />
