@@ -325,9 +325,10 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 	    //imgJugador.setSrc(Sessions.getCurrent().getWebApp().getRealPath("/WebContent/Recursos/Imagenes/noFoto.jpg"));
 	    
 	    //imgJugador.setSrc(Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/classes/noFoto.jpg"));
-	    Image imgJ = new Image();
-	    imgJ.setSrc("../../../WebContent/Recursos/Imagenes/noFoto.jpg");
-	    imgJugador.setContent(imgJ.getContent());
+	    //Image imgJ = new Image();
+	    //imgJ.setSrc("../../../WebContent/Recursos/Imagenes/noFoto.jpg");
+	    //imgJugador.setContent(imgJ.getContent());
+	    imgJugador.setSrc("/Recursos/Imagenes/noFoto.jpg");
 	    
 	    
 	    cmbTipoTraslado.setSelectedIndex(-1);

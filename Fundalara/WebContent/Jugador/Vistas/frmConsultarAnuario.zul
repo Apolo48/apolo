@@ -6,43 +6,40 @@
 	//@IMPORT
 	import controlador.jugador.converter.*;
 ]]></zscript>
-	<window id="winAnuarioJugadores" title="Anuario" border="normal"
+	<window id="winAnuarioJugadores" title="Anuario de Jugadores" border="normal"
 		closable="true" apply="controlador.jugador.CntrlConsultarAnuario"
 		width="695px">
-		<panel title="Configuración">
-			<panelchildren>
-				<grid style="border:none;">
-					<columns style="border:none">
-						<column width="22%" />
-						<column width="28%" />
-						<column width="22%" />
-						<column width="28%" />
-					</columns>
-					<rows>
-						<row style="border:none">
-							<label value="Categoría" />
-							<combobox id="cmbCategoria"
-								value="--Seleccione--" selectedItem="@{controller.categoria}"								
-								model="@{winAnuarioJugadores$composer.categorias}">
-								<comboitem self="@{each='categoria'}"
-									label="@{categoria.nombre}"
-									value="@{categoria.codigoCategoria}" />
-							</combobox>
-							<label value="Equipo" />
-							<combobox id="cmbEquipo"
-								value="--Seleccione--" selectedItem="@{controller.equipo}"
-								model="@{winAnuarioJugadores$composer.equipos, load-after='cmbCategoria.onChange'}">
-								<comboitem self="@{each='equipo'}"
-									label="@{equipo.datoBasico.nombre}"
-									value="@{equipo.codigoEquipo}" />
-							</combobox>
-						</row>
-					</rows>
-				</grid>
-			</panelchildren>
-		</panel>
-		<separator></separator>
-		<!-- 
+		<grid style="border:none;">
+			<columns style="border:none">
+				<column width="12%" />
+				<column width="38%" />
+				<column width="12%" />
+				<column width="38%" />
+			</columns>
+			<rows>
+				<row style="border:none">
+					<label value="Categoría" />
+					<combobox id="cmbCategoria" readonly="true" width="80%"
+						value="--Seleccione--" selectedItem="@{controller.categoria}"								
+						model="@{winAnuarioJugadores$composer.categorias}">
+						<comboitem self="@{each='categoria'}"
+							label="@{categoria.nombre}"
+							value="@{categoria.codigoCategoria}" />
+					</combobox>
+					<label value="Equipo" />
+					<combobox id="cmbEquipo" readonly="true" width="80%"
+						value="--Seleccione--" selectedItem="@{controller.equipo}"
+						model="@{winAnuarioJugadores$composer.equipos, load-after='cmbCategoria.onChange'}">
+						<comboitem self="@{each='equipo'}"
+							label="@{equipo.datoBasico.nombre}"
+							value="@{equipo.codigoEquipo}" />
+					</combobox>
+				</row>
+			</rows>
+		</grid>
+		
+		<!--
+		<separator></separator> 
 		<listbox id="listAnuario" mold="paging" pageSize="5" model="@{controller.jugadores, load-after='cmbEquipo.onChange'}"
 		selectedItem="@{winAnuarioJugadores$composer.jugador}">
 		-->
@@ -58,12 +55,13 @@
 		</listbox>
 		</div>
 		
+		<iframe id="ifReport" visible="false" />
 		
 		<div align="right">
-			<button label="Imprimir"
+			<button id="btnImprimir" label="Imprimir"
 				image="../../Recursos/Imagenes/imprimir.ico" orient="horizontal"
 				width="100px" />
-			<button label="Salir"
+			<button id="btnSalir" label="Salir"
 				image="../../Recursos/Imagenes/salir.png" orient="horizontal"
 				width="100px" />
 		</div>

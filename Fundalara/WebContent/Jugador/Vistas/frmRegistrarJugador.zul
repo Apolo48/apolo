@@ -478,7 +478,7 @@
 														<listcell
 															label="@{docPer.recaudoPorProceso.cantidad}" />
 														<listcell>
-															<spinner
+															<spinner id="spCantidad"
 																width="60%" value="@{docPer.cantidad}"
 																constraint="min 0 max 10" />
 														</listcell>
@@ -705,7 +705,7 @@
 														<listcell
 															label="@{docMed.recaudoPorProceso.cantidad}" />
 														<listcell>
-															<spinner
+															<spinner id="spCantidadMed"
 																width="60%" value="@{docMed.cantidad}"
 																constraint="min 0 max 10" />
 														</listcell>
@@ -818,7 +818,7 @@
 														<listcell
 															label="@{docAcad.recaudoPorProceso.cantidad}" />
 														<listcell>
-															<spinner
+															<spinner id="spCantidadAcad"
 																width="60%" value="@{docAcad.cantidad}"
 																constraint="min 0 max 10" />
 														</listcell>
