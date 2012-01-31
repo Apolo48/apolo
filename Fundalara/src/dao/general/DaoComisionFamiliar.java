@@ -1,5 +1,6 @@
 package dao.general;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -33,7 +34,7 @@ public class DaoComisionFamiliar extends GenericDao {
 	 */
 	public void guardar(List<ComisionFamiliar> comisionesFamiliares) {
 
-		List<ComisionFamiliar> comisionesAlmacenadasPorFamiliar = null;
+		List<ComisionFamiliar> comisionesAlmacenadasPorFamiliar = new ArrayList<ComisionFamiliar>();
 		Familiar familiar = null;
 		Session session = this.getSession();
 		Transaction tx = session.beginTransaction();
