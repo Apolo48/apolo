@@ -59,5 +59,8 @@ public class ServicioJugador implements IServicioJugador {
 	public List<Jugador> buscarJugadores(String filtro2, String filtro3, String filtro4, String filtro1, char estatus){
 		return daoJugador.buscarJugadores(filtro2, filtro3, filtro4, filtro1, estatus);
 	}
+	
+	
+
 
 }

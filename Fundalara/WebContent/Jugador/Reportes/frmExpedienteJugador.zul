@@ -4,9 +4,8 @@
 
 <zk>
 
-	<window id="winExpediente" title="Historial del Jugador"
+	<window id="winExpediente" title="Expediente"
 		border="normal" closable="true" width="600px" apply="controlador.jugador.CntrlExpedienteJugador">
-		
 		
 		<panel width="100%">
 
@@ -89,7 +88,8 @@
 						</rows>
 					</grid>
 				</groupbox>
-			<iframe id="ifReport"></iframe>
+				
+				<iframe id="ifReport" visible="false"/>
 				
 				<div align="right">
 					<button id="btnImprimir" image="/Recursos/Imagenes/imprimir.ico"

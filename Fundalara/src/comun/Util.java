@@ -97,5 +97,10 @@ public class Util {
 		}
 		return fechaString;
 	}
+	
+	
+	public static String[] separarCadena(String cadena, String token){
+		return cadena.split(token);
+	}
 
 }

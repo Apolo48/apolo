@@ -37,6 +37,7 @@ import servicio.implementacion.ServicioDatoSocial;
 import servicio.implementacion.ServicioEquipo;
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioPersona;
+import servicio.implementacion.ServicioPersonaNatural;
 import servicio.implementacion.ServicioRecaudoPorProceso;
 import servicio.implementacion.ServicioInstitucion;
 import servicio.implementacion.ServicioLapsoDeportivo;
@@ -202,6 +203,8 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private ServicioDatoSocial servicioDatoSocial;
 	//private ServicioDatoConducta servicioDatoConducta;
 	private ServicioMotivoSancion servicioMotivoSancion;
+	
+
 
 	// Modelos
 	private Jugador jugador = new Jugador();
@@ -954,8 +957,9 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 
 	public void onClick$btnGuardar() {
 		//SE ACTUALIZARA EN BD
+		
 	}
-
+	
 	public void onClick$btnFoto() {
 		new FileLoader().cargarImagenEnBean(imgJugador);
 	}

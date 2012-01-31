@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.zkoss.image.AImage;
+import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -1060,6 +1061,15 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				"Se ha inscrito el jugador: " + jugadorBean.getNombres() + " "
 						+ jugadorBean.getApellidos(), Mensaje.EXITO,
 				Messagebox.INFORMATION);
+		/*
+		AMedia amedia = new AMedia();
+		byte[] archivo= 
+		 Component visor = Executions.createComponents(rutasJug
+				+ "frmVisorDocumento.zul", null, null);
+		visor.setVariable("documento", archivo, false);
+*/
+		
+		
 		onClick$btnCancelar();
 	}
 
@@ -1761,11 +1771,15 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 						.getDatoBasico().getNombre());
 				cmbParroquiaFamiliar.setValue(familiarBean.getParroquiaResi()
 						.getNombre());
-
 				txtDireccionHabFamiliar.setValue(familiarBean.getDireccion());
-			/*	cmbCodAreaFamiliar.setValue("--");
-				txtTelefonoHabFamiliar.setRawValue("");
-				cmbCodCelularFamiliar.setValue("--");
+			
+				String[] numero = Util.separarCadena(familiarBean.getTelefonoHabitacion().getTelefonoCompleto(),"-");
+				if (numero.length==2){
+					cmbCodAreaFamiliar.setValue(numero[0]);
+					txtTelefonoHabFamiliar.setValue(numero[1]);	
+				}
+				
+				/*cmbCodCelularFamiliar.setValue("--");
 				txtTelefonoCelFamiliar.setRawValue("");
 				txtCorreoFamiliar.setRawValue("");
 				txtTwitterFamiliar.setRawValue("");

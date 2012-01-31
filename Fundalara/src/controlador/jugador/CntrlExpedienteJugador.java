@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,19 +53,22 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 	private AnnotateDataBinder binder;
 	private ServicioRoster servicioRoster;
 	private ServicioJugador servicioJugador;
-	Textbox txtCedula;
+	private Textbox txtCedula;
 	private Textbox txtPrimerNombre;
 	private Textbox txtSegundoNombre;
 	private Textbox txtPrimerApellido;
 	private Textbox txtSegundoApellido;
-	Button btnCancelar, btnImprimir, btnCatalogoJugador;
-	Iframe ifReport;
-	Map parameters = new HashMap();
+	private Textbox txtFechaIngreso;
+	private Button btnCancelar;
+	private Button btnImprimir;
+	private Button btnCatalogoJugador;
+	private Iframe ifReport;
+	private Map parameters = new HashMap();
 	private Connection con;
 	private String jrxmlSrc;
-	Jugador jugador;
-	Roster roster;
-	PersonaNatural personaN = new PersonaNatural();
+	private Jugador jugador;
+	private Roster roster;
+	private PersonaNatural personaN = new PersonaNatural();
 	
 	
 	public Textbox getTxtCedula() {
@@ -157,11 +161,9 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 				txtSegundoNombre.setValue(jugador.getPersonaNatural().getSegundoNombre());
 				txtPrimerApellido.setValue(jugador.getPersonaNatural().getPrimerApellido());
 				txtSegundoApellido.setValue(jugador.getPersonaNatural().getSegundoApellido());
-				
-				java.util.Date date = new java.util.Date();
-				date = jugador.getPersonaNatural().getPersona().getFechaIngreso();
-				java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-				String fecha = sdf.format(date);
+				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+				String fecha = formato.format(jugador.getPersonaNatural().getPersona().getFechaIngreso());
+				txtFechaIngreso.setValue(fecha);
 				
 				byte[] foto = jugador.getPersonaNatural().getFoto();
 			        if (foto != null){
