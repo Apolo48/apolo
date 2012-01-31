@@ -93,7 +93,7 @@
 				
 				<div align="right">
 					<button id="btnImprimir" image="/Recursos/Imagenes/imprimir.ico"
-						 tooltiptext="/Generar" label="Generar" />
+						 tooltiptext="/Generar" label="Imprimir" />
 					<button id="btnCancelar" image="/Recursos/Imagenes/cancelar.ico"
 						 tooltiptext="Cancelar" label="Cancelar" />
 					<button id="btnSalir" image="/Recursos/Imagenes/salir.png"
