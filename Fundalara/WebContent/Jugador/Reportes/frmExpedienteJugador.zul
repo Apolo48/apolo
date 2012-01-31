@@ -77,7 +77,7 @@
 											style="border:none">
 											<groupbox mold="3d">
 												<image id="imgJugador"
-													src="../../Recursos/Imagenes/jug.png" height="90px"
+													src="../../Recursos/Imagenes/noFoto.jpg" height="90px"
 													width="80px" />
 											</groupbox>
 
@@ -96,7 +96,7 @@
 						 tooltiptext="/Generar" label="Generar" />
 					<button id="btnCancelar" image="/Recursos/Imagenes/cancelar.ico"
 						 tooltiptext="Cancelar" label="Cancelar" />
-					<button id="btnSalir" image="/Recursos/Imagenes/atras.ico"
+					<button id="btnSalir" image="/Recursos/Imagenes/salir.png"
 						 tooltiptext="Salir" label="Salir">
 						<attribute name="onClick">
 	winExpediente.onClose();

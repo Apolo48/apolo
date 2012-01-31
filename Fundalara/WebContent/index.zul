@@ -606,12 +606,7 @@
 					<tabpanel>
 						<tree>
 							<treechildren>
-								<treeitem open="false">
-									<treerow>
-										<treecell
-											label="Consultas Dinámicas" />
-									</treerow>
-								</treeitem>
+
 								<treeitem open="false">
 									<treerow>
 										<treecell label="Especiales" />
@@ -626,9 +621,12 @@
 										</treeitem>
 										<treeitem>
 											<treerow>
-												<treecell label="Anuario" onClick='enlace("Jugador/Vistas/frmConsultarAnuario.zul")' />
+												<treecell
+													label="Anuario"
+													onClick='enlace("Jugador/Vistas/frmConsultarAnuario.zul")' />
 											</treerow>
 										</treeitem>
+
 									</treechildren>
 
 								</treeitem>
@@ -637,7 +635,11 @@
 										<treecell label="Estádisticos" />
 									</treerow>
 								</treeitem>
-
+								<treeitem open="false">
+									<treerow>
+										<treecell label="Dinámicos" />
+									</treerow>
+								</treeitem>
 								<!-- 	<treeitem open="false">
 									<treerow>
 									<treecell label="Deportivos" />

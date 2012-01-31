@@ -24,6 +24,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 
+import org.zkoss.image.AImage;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -35,6 +36,7 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Iframe;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.Textbox;
 
 import servicio.implementacion.ServicioJugador;
@@ -46,6 +48,7 @@ import comun.EstatusRegistro;
 public class CntrlExpedienteJugador extends GenericForwardComposer {
 	Component component;
 	private Component formulario;
+	private Image imgJugador;
 	private AnnotateDataBinder binder;
 	private ServicioRoster servicioRoster;
 	private ServicioJugador servicioJugador;
@@ -159,6 +162,16 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 				date = jugador.getPersonaNatural().getPersona().getFechaIngreso();
 				java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
 				String fecha = sdf.format(date);
+				
+				byte[] foto = jugador.getPersonaNatural().getFoto();
+			        if (foto != null){
+			          try {
+			            AImage aImage = new AImage("foto.jpg", foto);
+			            imgJugador.setContent(aImage);
+			          } catch (IOException e) {
+			            e.printStackTrace();
+			          }	
+			        }				
 				
 							
 				roster= servicioRoster.buscarRoster(jugador.getCedulaRif());
