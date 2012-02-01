@@ -1923,7 +1923,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onChange$txtCedula() {
-		verificarCedulaJugador();
+		//TEMPORAL POR VIDEO
+	//	verificarCedulaJugador();
 	}
 
 	private void verificarCedulaJugador() {
