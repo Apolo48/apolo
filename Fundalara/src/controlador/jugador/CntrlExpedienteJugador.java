@@ -162,7 +162,7 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 					
 		 Component visor = Executions.createComponents("Jugador/Vistas/"
 					+ "frmVisorDocumento.zul", null, null);
-			visor.setVariable("reporte", amedia, false);
+			visor.setVariable("archivo", amedia, false);
 		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
 	}
 	
