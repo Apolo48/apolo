@@ -31,8 +31,10 @@ import org.zkoss.image.AImage;
 import org.zkoss.util.media.AMedia;
 import modelo.Categoria;
 
+import modelo.DatoBasico;
 import modelo.Equipo;
 import modelo.Jugador;
+import modelo.LapsoDeportivo;
 import modelo.Roster;
 import modelo.Competencia;
 
@@ -44,11 +46,14 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.*;
 
 import comun.ConeccionBD;
+import comun.TipoDatoBasico;
 import controlador.jugador.bean.Anuario;
 
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioCompetencia;
+import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioEquipo;
+import servicio.implementacion.ServicioLapsoDeportivo;
 import servicio.implementacion.ServicioRoster;
 
 /**
@@ -71,6 +76,8 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 	private ServicioEquipo servicioEquipo;
 	private ServicioRoster servicioRoster;
 	private ServicioCompetencia servicioCompetencia;
+	private ServicioLapsoDeportivo servicioLapsoDeportivo;
+	private ServicioDatoBasico servicioDatoBasico;
 
 	private Window winAnuarioJugadores;
 	private Equipo equipo = new Equipo();
@@ -80,6 +87,7 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 	private static Roster rosters;
 	private static String valorRetornado = "";
 	private Competencia competencia = new Competencia();
+	private LapsoDeportivo temporada = new LapsoDeportivo();
 	
 	private Anuario anuario = new Anuario();
 	private List<Anuario> listaAnuario = new ArrayList<Anuario>();
@@ -172,6 +180,14 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		return valorRetornado;
 	}
 	
+	public LapsoDeportivo getTemporada() {
+		return temporada;
+	}
+
+	public void setTemporada(LapsoDeportivo temporada) {
+		this.temporada = temporada;
+	}
+	
 	
 	// Para llenar Listas y combos
 
@@ -183,6 +199,14 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		return servicioEquipo.buscarPorCategoria(categoria);
 	}
 
+	public List<LapsoDeportivo> getLapsosDeportivos() {
+		DatoBasico datoLapsoDeportivo = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR");
+		System.out.println("datoBasico: " + datoLapsoDeportivo.getNombre());
+		servicioLapsoDeportivo = new ServicioLapsoDeportivo();
+		return servicioLapsoDeportivo.buscarPorTipoLapso(datoLapsoDeportivo);
+	}
+	
 	public void onChange$cmbEquipo(){		
 		listaRoster = servicioRoster.listarJugadores(equipo);
 

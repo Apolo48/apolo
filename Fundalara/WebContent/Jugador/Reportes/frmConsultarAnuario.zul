@@ -2,10 +2,6 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winAnuarioJugadores"?>
 <zk>
-	<zscript><![CDATA[
-	//@IMPORT
-	import controlador.jugador.converter.*;
-]]></zscript>
 	<window id="winAnuarioJugadores" title="Anuario de Jugadores" border="normal"
 		closable="true" apply="controlador.jugador.CntrlConsultarAnuario"
 		width="695px">
@@ -35,14 +31,18 @@
 							value="@{equipo.codigoEquipo}" />
 					</combobox>
 				</row>
+				<row>
+					<label value="Temporada" />
+					<combobox id="cmbTemporada" readonly="true" width="80%"
+						value="--Seleccione--" selectedItem="@{controller.temporada}"
+						model="@{winAnuarioJugadores$composer.lapsosDeportivos, load-after='cmbEquipo.onChange'}">
+						<comboitem self="@{each='temp'}"
+							label="@{temp.nombre}"
+							value="@{temp.codigoLapsoDeportivo}" />
+					</combobox>
+				</row>
 			</rows>
-		</grid>
-		
-		<!--
-		<separator></separator> 
-		<listbox id="listAnuario" mold="paging" pageSize="5" model="@{controller.jugadores, load-after='cmbEquipo.onChange'}"
-		selectedItem="@{winAnuarioJugadores$composer.jugador}">
-		-->
+		</grid>		
 		
 		<div id="divLista">
 		<listbox id="listAnuario" mold="paging" pageSize="6">		

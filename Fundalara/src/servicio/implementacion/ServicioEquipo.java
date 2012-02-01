@@ -5,8 +5,11 @@ import java.util.List;
 import servicio.interfaz.IServicioEquipo;
 
 import dao.general.DaoEquipo;
+import dao.general.DaoLapsoDeportivo;
 import modelo.Categoria;
+import modelo.DatoBasico;
 import modelo.Equipo;
+import modelo.LapsoDeportivo;
 
 public class ServicioEquipo implements IServicioEquipo {
 
@@ -60,5 +63,20 @@ public class ServicioEquipo implements IServicioEquipo {
 			String lapsoDeportivo, String nombreDivisa) {
 		return daoEquipo.buscarEquiposPorCategoria(categoria, lapsoDeportivo,nombreDivisa);
 	}
+	
+	
+	DaoLapsoDeportivo daoLapsoDeportivo = new DaoLapsoDeportivo();
+	
+	public DaoLapsoDeportivo getDaoLapsoDeportivo() {
+		return daoLapsoDeportivo;
+	}
+
+	public void setDaoLapsoDeportivo(DaoLapsoDeportivo daoLapsoDeportivo) {
+		this.daoLapsoDeportivo = daoLapsoDeportivo;
+	}
+	
+	public List<LapsoDeportivo> buscarPorTipoLapso(DatoBasico db) {
+		return daoLapsoDeportivo.buscarPorTipoLapso(db);
+	}	
 	
 }

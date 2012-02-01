@@ -1,4 +1,4 @@
-package dao.general;
+/*package dao.general;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import org.hibernate.Query;
 import dao.generico.SessionManager;
 
 
-/**
+*//**
  * Clase de acceso y manejo de los datos relacionados a las instituciones
  * 
  * @author Edgar
@@ -26,7 +26,7 @@ import dao.generico.SessionManager;
  * @author Glendy
  * @version 0.1 16/01/2012
  * 
- */
+ *//*
 public class DaoLapsoDeportivo extends GenericDao {
 	
 	public List<LapsoDeportivo> listarActivos(){
@@ -38,12 +38,12 @@ public class DaoLapsoDeportivo extends GenericDao {
 	}
 	
 
-	/**
+	*//**
 	 * Busca un lapso deportivo basado en su identificador
 	 * 
 	 * @param id código del lapso deportivo
 	 * @return Institucion asociada al id o null en caso de no existir
-	 */
+	 *//*
 
 	public LapsoDeportivo buscar(String id) {
 		Session session = getSession();
@@ -58,13 +58,13 @@ public class DaoLapsoDeportivo extends GenericDao {
 		}
 	}
 
-	/**
+	*//**
 	 * Busca todas los lapsos deportivos de un tipo dado
 	 * 
 	 * @param datoBasico
 	 *            tipo de lapso deportivo
 	 * @return List de lapsos deportivos del tipo especificado
-	 */
+	 *//*
 	public List<LapsoDeportivo> buscarLapsoDeportivoTipo(DatoBasico datoBasico) {
 		Session session = getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
@@ -79,4 +79,43 @@ public class DaoLapsoDeportivo extends GenericDao {
 	}
 	
 	
+}
+*/
+
+
+
+
+
+package dao.general;
+
+import java.util.List;
+
+import modelo.DatoBasico;
+import modelo.LapsoDeportivo;
+import modelo.Material;
+import dao.generico.GenericDao;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
+public class DaoLapsoDeportivo extends GenericDao {
+
+public List<LapsoDeportivo> buscarPorTipoLapso(DatoBasico db){		
+	Session session = getSession();
+	Transaction tx =  session.beginTransaction();
+	Criteria where =  getSession().createCriteria(LapsoDeportivo.class);
+	where.add(Restrictions.eq("datoBasico", db));
+	where.add(Restrictions.eq("estatus", 'A'));
+	return where.list();
+}
+
+	public List<LapsoDeportivo> listarActivos(){
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(LapsoDeportivo.class);
+		c.add(Restrictions.eq("estatus",'A'));
+		return c.list();
+	}
+
 }
