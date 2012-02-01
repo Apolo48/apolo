@@ -172,6 +172,14 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	public void setCompetencia(Competencia competencia) {
 		this.competencia = competencia;
 	}
+
+	public List<Hospedaje> getHospedajes() {
+		return hospedajes;
+	}
+
+	public void setHospedajes(List<Hospedaje> hospedajes) {
+		this.hospedajes = hospedajes;
+	}
 	
 	//Método para el llenado de combo
 	public List<Competencia> getCompetencias() {
@@ -217,77 +225,109 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	}
 
 	
-	public void onClick$btnAgregar() {
+	public void onClick$btnAgregar() throws InterruptedException {
 		guardar();
 	}
-	
-	public void onClick$btnQuitar() {
-	
+
+						
+		
+	public void onClick$btnQuitar() throws InterruptedException {
+		Messagebox.show("Esta seguro que Desea BORRAR el Hospedaje?", "ELIMINAR", Messagebox.YES|Messagebox.NO, Messagebox.QUESTION,
+			     new EventListener() {
+			       public void onEvent(Event evt) {
+			         switch (((Integer)evt.getData()).intValue()) {
+			           case Messagebox.YES: eliminar(); break; 
+			           case Messagebox.NO: break; 
+			      }
+			    }
+			   });
+		
 	}
 	
-	public void guardar() {
-		if ((cmbCompetencia.getSelectedIndex() >= 0) && (txtCedulaRep.getValue() != "")){ 
+	public void guardar() throws InterruptedException {
+		if ((cmbCompetencia.getSelectedIndex() >= 0) && (txtCedulaRep.getValue() != "")) {
+			
+			for (int i = 0; i < hospedajes.size(); i++) {
+				if (((txtCedulaRep.getValue().equals(hospedajes.get(i)
+						.getFamiliarJugador().getFamiliar().getCedulaRif())))
+						&& (((Competencia)
+								cmbCompetencia.getSelectedItem().getValue())
+								.getCodigoCompetencia()==hospedajes.get(i).getCompetencia()
+										.getCodigoCompetencia())) {
+					
+					Mensaje.mostrarMensaje("Competencia Duplicada.",
+							Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+					return;
+		} else {
+			
 			hospedaje.setEstatus('A');
 			hospedaje.setCompetencia(competencia);
 			hospedaje.setFamiliarJugador(servicioFamiliarJugador.buscarFamiliar(familiar));
 			servicioHospedaje.agregar(hospedaje);
 			Mensaje.mostrarMensaje("Representante asociado a Hospedaje",
 					Mensaje.EXITO, Messagebox.INFORMATION);
+			hospedaje=new Hospedaje();
 			limpiar();
-		}
-	}
-	
-	
-	public void onClick$btnCancelar() { //DEBE MEJORARSE CON UN CONDICIONAL XQ IGUAL BORRAR AL HACER CLICK EN OK
-	
-			Mensaje.mostrarMensaje("Borrará TODOS los datos, está seguro?",
-				Mensaje.INFORMACION, Messagebox.INFORMATION);
-			if (ok); {
-				limpiar();
-		}
-	}
-	
-	
-	public void onClick$btnSalir() { //DEBE MEJORARSE CON UN CONDICIONAL XQ IGUAL BORRAR AL HACER CLICK EN OK
+				}
+			}
 		
-		Mensaje.mostrarMensaje("Saldrá de la ventana, está seguro?",
-				Mensaje.INFORMACION, Messagebox.INFORMATION);
-		if (ok); {
-			winRegistrarHospedaje.detach();
-		}
+		}	
+	}
+				
+	
+	
+	public void eliminar() {
+		hospedaje=hospedajes.get(listHospedaje.getSelectedIndex());
+		hospedaje.setEstatus('E');
+		servicioHospedaje.eliminar(hospedaje);
+		hospedajes=servicioHospedaje.listarrepre(servicioFamiliarJugador.buscarFamiliar(familiar));
+		binder.loadComponent(listHospedaje);
+	}
+	
+	public void onClick$btnCancelar() throws InterruptedException {
+		Messagebox.show("Borrará TODOS los datos, está seguro?", "INFORMACIÓN",  Messagebox.YES|Messagebox.NO, Messagebox.QUESTION,
+			     new EventListener() {
+			       public void onEvent(Event evt) {
+			         switch (((Integer)evt.getData()).intValue()) {
+			           case Messagebox.YES: limpiar(); break; 
+			           case Messagebox.NO: break; 
+			      }
+			    }
+		  });
+	}
+	
+	public void onClick$btnSalir() throws InterruptedException { 
+		Messagebox.show("Saldrá de la ventana, está seguro?", "INFORMACIÓN", Messagebox.YES|Messagebox.NO, Messagebox.QUESTION,
+			     new EventListener() {
+			       public void onEvent(Event evt) {
+			         switch (((Integer)evt.getData()).intValue()) {
+			           case Messagebox.YES: winRegistrarHospedaje.detach(); break; 
+			           case Messagebox.NO: break; 
+			      }
+			    }
+		  });
 	}
 
 	//Métodos propios del Controlador
 	
 	// Borra los datos introducidos en la interfaz
 	public void limpiar() {
+		hospedaje= new Hospedaje();
 		txtCedulaRep.setValue(null);
 		txtNombreRep.setValue(null);
 		txtApellidoRep.setValue(null);
 		txtDireccionRep.setValue(null);
 		btnCatalogoRep.setDisabled(false);
-		cmbCompetencia.setValue(null);
+		cmbCompetencia.setValue("--Seleccione--");
 		dtboxFechaIni.setValue(null);
 		dtboxFechaFin.setValue(null);
 		txtEstado.setValue(null);
 		competencia = new Competencia();
 		familiar = new Familiar();
-	}
-	
-	// Cambia el estatus del hospedaje
-	public void cambiarEstatusHospedaje() {
-		hospedaje.setEstatus('E');
-		servicioHospedaje.actualizar(hospedaje);
-		//hospedaje = new modelo.Hospedaje();
-		//binder.loadAll();
+		hospedajes=new ArrayList<Hospedaje>();
+		binder.loadComponent(listHospedaje);
 	}
 
-	public List<Hospedaje> getHospedajes() {
-		return hospedajes;
-	}
 
-	public void setHospedajes(List<Hospedaje> hospedajes) {
-		this.hospedajes = hospedajes;
-	}
 	
 }

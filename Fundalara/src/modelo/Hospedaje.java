@@ -5,9 +5,11 @@ package modelo;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -15,6 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "hospedaje", schema = "public")
+@SequenceGenerator(name = "hospedaje_seq", sequenceName = "hospedaje_codigo_hospedaje_seq_1")
 public class Hospedaje implements java.io.Serializable {
 
 	private int codigoHospedaje;
@@ -35,6 +38,7 @@ public class Hospedaje implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_hospedaje", unique = true, nullable = false)
+	@GeneratedValue(generator = "hospedaje_seq")
 	public int getCodigoHospedaje() {
 		return this.codigoHospedaje;
 	}

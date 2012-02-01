@@ -20,7 +20,7 @@ import dao.generico.GenericDao;
  * Clase de acceso y manejo de los datos relacionados al Hospedaje
  * 
  * @author Erika O
- * @version 0.2 14-01-12
+ * @version 0.3 27-01-12
  * 
  */
 
@@ -33,7 +33,6 @@ public class DaoHospedaje extends GenericDao {
 	 * @param c
 	 *            Objeto Hospedaje a ser guardado
 	 */
-	//public void guardar(Hospedaje c, Competencia cm, FamiliarJugador fj) {
 	public void guardar(Hospedaje c) {
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
@@ -66,6 +65,14 @@ public class DaoHospedaje extends GenericDao {
 		}
 	}
 	
+	/**
+	 * Método usado en Registrar Hospedaje, para listar los representantes y se pueda guardar en la grid
+	 * los datos del familiarJugador necesarios
+	 * 
+	 * @param familiarJugador a ser listado
+	 * @return
+	 */
+	
 	public List<Hospedaje> listarrepre(FamiliarJugador familiarJugador){
 		Session session = this.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
@@ -74,7 +81,6 @@ public class DaoHospedaje extends GenericDao {
 				.add(Restrictions.eq("estatus", 'A'));
 		return c.list();
 	}
-	
 	
 }
 	

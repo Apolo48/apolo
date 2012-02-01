@@ -2,7 +2,7 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winRegistrarHospedaje"?>
 
-<window id="winRegistrarHospedaje" title="Registro de Hospedaje"
+<window id="winRegistrarHospedaje" title="Hospedar Jugadores"
 	apply="controlador.jugador.CntrlRegistrarHospedaje" border="normal"
 	width="620px" closable="true">
 	
@@ -92,7 +92,7 @@
 <label value="(*) Campo Obligatorio" style="color:red" />
 
 
-<grid>
+<grid id="gridRepresentantes" >
 		<columns>
 			<column width="90%" />
 			<column width="10%" />
@@ -103,11 +103,15 @@
 					  model="@{controller.hospedajes}">
 
 					<listhead>
-						<listheader label="Representante" />
+						<listheader label="Cédula" width="20%" />
+						<listheader label="Nombre" width="25%" />
+						<listheader label="Apellido" width="25%" />
 						<listheader label="Competencia" />
 					</listhead>
 					<listitem   self="@{each='hospedaje'}" value="@{hospedaje}" >
+						<listcell label="@{hospedaje.familiarJugador.familiar.cedulaRif}" />
 						<listcell label="@{hospedaje.familiarJugador.familiar.personaNatural.primerNombre}" />
+						<listcell label="@{hospedaje.familiarJugador.familiar.personaNatural.primerApellido}" />
 						<listcell label="@{hospedaje.competencia.nombre}" />
 					</listitem>
 				</listbox>
@@ -122,38 +126,6 @@
 		</rows>
 	</grid>
 
-	<!--  	<grid style="border:none;">
-			<columns>
-				<column width="90%" />
-				<column width="10%" />
-			</columns>
-			<rows>
-				<row style="border:none;">
-					<listbox id="listEquipo" mold="paging" pageSize="5"
-						model="@{controller.equipos}">
-						selectedItem="@{winConfigurarEquipo$composer.equipo}">
-						<listhead>
-							<listheader label="Nombre" />
-							<listheader label="Categoría" />
-							<listheader label="Tipo" width="15%" />
-							<listheader label="Divisa" width="15%" />
-						</listhead>
-						<listitem self="@{each='equipo'}"
-							value="@{equipo}">
-							<listcell label="@{equipo.nombre}" />
-							<listcell
-								label="@{equipo.categoria.nombre}" />
-							<listcell
-								label="@{equipo.datoBasico.nombre}" />
-							<listcell label="@{equipo.divisa.nombre}" />
-						</listitem>
-
-					</listbox>
-					
-				</row>
-
-			</rows>
-		</grid>-->
 	
 	<div align="right">
 		<button id="btnCancelar" label="Cancelar"
