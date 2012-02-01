@@ -16,7 +16,7 @@ import org.zkoss.zul.Window;
  * de archivos.
  * Recibe dos parametros: 
  * -archivo: byte[] o AMedia.
- * -orientacion: 'vertical'(defecto), 'horizontal'
+ * -orientacion: 'vertical'(por defecto), 'horizontal'
  * 
  * @author Robert A
  * @author German L

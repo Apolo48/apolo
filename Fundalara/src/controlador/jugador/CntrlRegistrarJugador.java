@@ -1067,25 +1067,25 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				"Se ha inscrito el jugador: " + jugadorBean.getNombres() + " "
 						+ jugadorBean.getApellidos(), Mensaje.EXITO,
 				Messagebox.INFORMATION);
-	
-		
-		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
-		String jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/planillaInscripcion.pdf");
-		//File archivo = new File( "C:\\reporteTemporal\\planillaInscripcion.pdf");
+
+		/**** CODIGO TEMPORAL PARA VIDEO Inicio ****/
+		String jrxmlSrc = Sessions.getCurrent().getWebApp()
+				.getRealPath("/WEB-INF/reportes/planillaInscripcion.pdf");
+		// File archivo = new File(
+		// "C:\\reporteTemporal\\planillaInscripcion.pdf");
 		File archivo = new File(jrxmlSrc);
-		AMedia amedia=null;
+		AMedia amedia = null;
 		try {
-			 amedia = new AMedia(null,null,null,archivo,true);
+			amedia = new AMedia(null, null, null, archivo, true);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-					
-		 Component visor = Executions.createComponents(rutasJug
-					+ "frmVisorDocumento.zul", null, null);
-			visor.setVariable("archivo", amedia, false);
+
+		Component visor = Executions.createComponents(rutasJug
+				+ "frmVisorDocumento.zul", null, null);
+		visor.setVariable("archivo", amedia, false);
 		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
-			
-			
+
 		onClick$btnCancelar();
 	}
 
@@ -1360,7 +1360,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		Component visor = Executions.createComponents(rutasJug
 				+ "frmVisorDocumento.zul", null, null);
 		visor.setVariable("archivo", archivo, false);
-		
+
 	}
 
 	private byte[] obtenerArchivo(String codigo, List<DocumentoEntregado> lista) {
@@ -1439,8 +1439,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	private void sugerirCategoria() {
-		Categoria cat = servicioCategoria.buscarPorEdad(txtEdad.getValue());
-		categoria = cat;
+		categoria = servicioCategoria.buscarPorEdad(txtEdad.getValue());
 		binder.loadComponent(cmbCategoria);
 
 	}
@@ -1751,6 +1750,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	/**** NUEVO *****/
 	public void onClick$btnModificarFamiliar() {
 		if (listFamiliares.getSelectedIndex() >= 0) {
+			limpiarFamiliar();
 			familiarBean = (controlador.jugador.bean.Familiar) listFamiliares
 					.getSelectedItem().getValue();
 			if (familiarBean != null) {
@@ -1760,11 +1760,14 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 						.setValue(familiarBean.getNacionalidad());
 				txtPrimerNombreFamiliar
 						.setValue(familiarBean.getPrimerNombre());
-				txtSegundoNombreFamiliar.setValue(familiarBean
+
+				txtSegundoNombreFamiliar.setRawValue(familiarBean
 						.getSegundoNombre());
+
 				txtPrimerApellidoFamiliar.setValue(familiarBean
 						.getPrimerApellido());
-				txtSegundoApellidoFamiliar.setValue(familiarBean
+
+				txtSegundoApellidoFamiliar.setRawValue(familiarBean
 						.getSegundoApellido());
 				cmbParentesco
 						.setValue(familiarBean.getParentesco().getNombre());
@@ -1781,31 +1784,44 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 						e.printStackTrace();
 					}
 				}
-				cmbEstadoFamiliar.setValue(familiarBean.getParroquiaResi()
-						.getDatoBasico().getDatoBasico().getNombre());
-				cmbMunicipioFamiliar.setValue(familiarBean.getParroquiaResi()
-						.getDatoBasico().getNombre());
-				cmbParroquiaFamiliar.setValue(familiarBean.getParroquiaResi()
-						.getNombre());
-				txtDireccionHabFamiliar.setValue(familiarBean.getDireccion());
-			
-				String[] numero = Util.separarCadena(familiarBean.getTelefonoHabitacion().getTelefonoCompleto(),"-");
-				if (numero.length==2){
-					cmbCodAreaFamiliar.setValue(numero[0]);
-					txtTelefonoHabFamiliar.setValue(numero[1]);	
-				}
-				
-				/*cmbCodCelularFamiliar.setValue("--");
-				txtTelefonoCelFamiliar.setRawValue("");
-				txtCorreoFamiliar.setRawValue("");
-				txtTwitterFamiliar.setRawValue("");
+				if (familiarBean.getParroquiaResi() != null) {
+					cmbEstadoFamiliar.setValue(familiarBean.getParroquiaResi()
+							.getDatoBasico().getDatoBasico().getNombre());
+					cmbMunicipioFamiliar.setValue(familiarBean
+							.getParroquiaResi().getDatoBasico().getNombre());
+					cmbParroquiaFamiliar.setValue(familiarBean
+							.getParroquiaResi().getNombre());
 
-				// Limpiando pestanna Ubicacion
+				}
+				txtDireccionHabFamiliar.setValue(familiarBean.getDireccion());
+
+				if (familiarBean.getTelefonoHabitacion().getTelefonoCompleto() != null) {
+					String[] numeroHab = Util
+							.separarCadena(familiarBean.getTelefonoHabitacion()
+									.getTelefonoCompleto(), "-");
+					if (numeroHab.length == 2) {
+						cmbCodAreaFamiliar.setValue(numeroHab[0]);
+						txtTelefonoHabFamiliar.setValue(numeroHab[1]);
+					}
+				}
+
+				if (familiarBean.getTelefonoHabitacion().getTelefonoCompleto() != null) {
+					String[] numeroCel = Util
+							.separarCadena(familiarBean.getTelefonoCelular()
+									.getTelefonoCompleto(), "-");
+					if (numeroCel.length == 2) {
+						cmbCodCelularFamiliar.setValue(numeroCel[0]);
+						txtTelefonoCelFamiliar.setValue(numeroCel[1]);
+					}
+				}
+				txtCorreoFamiliar.setValue(familiarBean.getCorreoElectronico());
+				txtTwitterFamiliar.setValue(familiarBean.getTwitter());
 				cmbComisiones.setSelectedIndex(-1);
-				// binder.loadComponent(cmbComisiones);
-				comision = new DatoBasico();
+				// La lista de comisiones ya esta asociada al familairBean, solo
+				// hace falta el load.
 				binder.loadComponent(listComisiones);
-*/
+				familiares.remove(familiarBean);
+				binder.loadComponent(listFamiliares);
 			} else {
 				Mensaje.mostrarMensaje("Seleccione un familiar.",
 						Mensaje.INFORMACION, Messagebox.EXCLAMATION);
@@ -1854,7 +1870,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		binder.loadComponent(listComisiones);
 
 		// Limpiando Listbox Familiares
-		binder.loadComponent(listFamiliares);
+		// pasar la sgt linea para el borrar N, el el anterior solo para 1
+		// binder.loadComponent(listFamiliares);
 	}
 
 	private boolean buscarFamiliarEnLista(
@@ -1926,8 +1943,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onChange$txtCedula() {
-		//TEMPORAL POR VIDEO
-	//	verificarCedulaJugador();
+		// TEMPORAL POR VIDEO
+		// verificarCedulaJugador();
 	}
 
 	private void verificarCedulaJugador() {
