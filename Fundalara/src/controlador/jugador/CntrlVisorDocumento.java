@@ -94,7 +94,7 @@ public class CntrlVisorDocumento extends GenericForwardComposer {
 
 	public void onClose$winVisorDocumento() {
 		amedia = null;
-		iframeDocumento.setContent(null);
+		iframeDocumento= new Iframe();
 		winVisorDocumento.detach();
 	}
 }
