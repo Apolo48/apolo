@@ -32,12 +32,15 @@
 		</groupbox>
 		<separator />
 		
-		<iframe id="ifReport" width="80%" height="400px" visible="false" align="center"/>
+		<div align="center">
+			<iframe id="ifReport" width="95%" height="400px" visible="false"/>
+		</div>
+		<separator />
 		
 		<div align="center">
 			<button id="btnImprimirVisor" label="Imprimir-Visor" image="../../Recursos/Imagenes/imprimir.ico" />
 			<button id="btnImprimirFrame" label="Imprimir-Frame" image="../../Recursos/Imagenes/imprimir.ico" />
-			<button id="btnImprimirExportar" label="Imprimir-Exportar" image="../../Recursos/Imagenes/imprimir.ico" />
+			<!-- <button id="btnImprimirExportar" label="Imprimir-Exportar" image="../../Recursos/Imagenes/imprimir.ico" /> -->
 			<button id="btnImprimirViewer" label="Imprimir-JasperViewer" image="../../Recursos/Imagenes/imprimir.ico" />
 		</div>
 		<div align="center">

@@ -30,6 +30,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Iframe;
 
 import comun.ConeccionBD;
@@ -73,7 +74,7 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	//Metodos del Controlador
 	public void mostrarVisor() throws JRException {
 		/*
-		 * Funciona para IExplorer, Firefox, Chrome y Opera (VERIFICAR ULTIMO)
+		 * Funciona para IExplorer, Firefox, Chrome y Opera
 		 * Permite ver, guardar e imprimir, todo desde el visor
 		 * Observacion: uso de codigo mas sencillo para generar pdf
 		 * El codigo usado en mostrarFrame tambien puede usarse en este caso
@@ -82,7 +83,8 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
 		
 		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
-		final AMedia amedia = new AMedia("inscritosRetirados.pdf","pdf",null, archivo);
+		final AMedia amedia = new AMedia("inscritosRetirados.pdf","pdf","application/pdf", archivo);
+		
 		
 		Component visor = Executions.createComponents("Jugador/Vistas/"
 					+ "frmVisorDocumento.zul", null, null);
@@ -91,7 +93,7 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	
 	public void mostrarFrame() throws JRException, IOException {
 		/*
-		 * Funciona para IExplorer, Firefox, Chrome y Opera (VERIFICAR ULTIMO)
+		 * Funciona para IExplorer, Firefox, Chrome y Opera
 		 * Permite ver, guardar e imprimir, todo desde el iframe
 		 * Desventaja, debe usarse con un zul con ancho adecuado al reporte
  		 * Observacion: uso de codigo algo mas complejo para generar pdf
@@ -108,18 +110,18 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 		exporter.exportReport();
 		arrayOutputStream.close();
 		ifReport.setVisible(true);
-		final AMedia amedia = new AMedia("inscritosRetirados.pdf","pdf",null, arrayOutputStream.toByteArray());
+		final AMedia amedia = new AMedia("inscritosRetirados.pdf","pdf","application/pdf", arrayOutputStream.toByteArray());
 		
 		ifReport.setContent(amedia);
 	}
 	
-	public void exportarArchivo() throws JRException, IOException {
-		/*
+/*	public void exportarArchivo() throws JRException, IOException {
+		
 		 * 1-Funciona para IExplorer desde el zul o visor, no permite exportar (ventana guardar)
 		 * 2-Funciona para Firefox, abre ventana para exportar
 		 * 3-No funciona en Chrome, ni en visor o zul, ni permite exportar
 		 * 4-Opera falta prueba - Posiblemente funcione por pruebas anteriores
-		 * */
+		 * 
 		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
 		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
 		
@@ -134,11 +136,11 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 		ifReport.setVisible(true);
 		final AMedia amedia = new AMedia("inscritosRetirados.pdf","pdf","pdf/application", arrayOutputStream.toByteArray());
 		ifReport.setContent(amedia);
-	}
+	}*/
 	
 	public void mostrarViewer() throws JRException {
 		/*
-		 * Funciona para IExplorer, Firefox, Chrome y Opera (VERIFICAR ULTIMO)
+		 * Funciona para IExplorer, Firefox, Chrome y Opera
 		 * Permite ver, guardar e imprimir, todo desde el jasperViewer
 		 * Observacion: no es necesario crea pdf
 		 * Tiene opcion de guardar en diferentes formatos pero se pierden datos en Docx y HTML
@@ -152,7 +154,7 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	
 	public void imprimirReporte() throws JRException {
 		/*
-		 * Funciona para IExplorer, Firefox, Chrome y Opera (VERIFICAR ULTIMO)
+		 * Funciona para IExplorer, Firefox, Chrome y Opera
 		 * Permite imprimir desde PrintDialog de java
 		 * */
 		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
@@ -163,14 +165,20 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	
 	public void exportarReporte() throws JRException {
 		/*
-		 * Funciona para IExplorer, Firefox, Chrome y Opera (VERIFICAR ULTIMO)
+		 * Funciona para Firefox, Chrome y Opera
+		 * No Funciona en IExplorer
 		 * Permite crea un pdf en la ruta indicada
 		 * */
 		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
 		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
 		
-		String destino = "C://inscritosRetirados.pdf"; //DEBE SER PARAMETRO
-		JasperExportManager.exportReportToPdfFile(jaspPrint, destino);
+		/*String destino = "C://inscritosRetirados.pdf"; //DEBE SER PARAMETRO
+		JasperExportManager.exportReportToPdfFile(jaspPrint, destino);*/
+		
+		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
+		final AMedia amedia = new AMedia("inscritosRetirados.pdf","pdf","application/pdf", archivo);
+		 
+		Filedownload.save(amedia);
 	}
 	
 	//Eventos
@@ -188,12 +196,12 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 		mostrarFrame();
 	}
 	
-	public void onClick$btnImprimirExportar() throws SQLException, JRException, IOException {
+/*	public void onClick$btnImprimirExportar() throws SQLException, JRException, IOException {
 		con = ConeccionBD.getCon("postgres","postgres","123456");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
 		parameters.put("temporada","2011-2012");
 		exportarArchivo();
-	}
+	}*/
 	
 	public void onClick$btnImprimirViewer() throws SQLException, JRException {
 		con = ConeccionBD.getCon("postgres","postgres","123456");
