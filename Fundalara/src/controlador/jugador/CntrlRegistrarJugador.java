@@ -1082,7 +1082,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					
 		 Component visor = Executions.createComponents(rutasJug
 					+ "frmVisorDocumento.zul", null, null);
-			visor.setVariable("reporte", amedia, false);
+			visor.setVariable("archivo", amedia, false);
 		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
 			
 			
@@ -1359,8 +1359,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 		Component visor = Executions.createComponents(rutasJug
 				+ "frmVisorDocumento.zul", null, null);
-		visor.setVariable("documento", archivo, false);
-
+		visor.setVariable("archivo", archivo, false);
+		
 	}
 
 	private byte[] obtenerArchivo(String codigo, List<DocumentoEntregado> lista) {
