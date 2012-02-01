@@ -13,7 +13,7 @@
 	</queryString>
 	<field name="nombreJugador" class="java.lang.String"/>
 	<field name="apellidoJugador" class="java.lang.String"/>
-	<field name="fotoJugador" class="java.lang.Byte"/>
+	<field name="fotoJugador" class="java.lang.Object"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

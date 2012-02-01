@@ -20,6 +20,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -189,6 +190,8 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		Listitem listItem = null;
 		listAnuario = new Listbox();
 		
+		listaAnuario = new ArrayList<Anuario>();
+		
 /*		for (int i = 0; i < listAnuario.getItemCount() ; i++) {
 			listAnuario.removeItemAt(i);
 		}
@@ -243,8 +246,7 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 
 	
 	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
-		
-	/**	
+			
 		con = ConeccionBD.getCon("postgres","postgres","123456");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/Anuario2.jrxml");
 		//jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ExpedienteJugador.jrxml");
@@ -253,15 +255,14 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		//parameters.put("fotoJug" , listaRoster.get(0).getPersonaNatural().getFoto());
 
 		
-		ImageIcon n;
+	/*	ImageIcon n;
 		Jugador jug = listaRoster.get(0);
-/*		if (jug.getPersonaNatural().getFoto() != null) {
+		if (jug.getPersonaNatural().getFoto() != null) {
 			n = new ImageIcon((byte[]) jug.getPersonaNatural().getFoto());
 		} else {
 			n = new ImageIcon();
 		}
-		parameters.put("fotoJug" , (Object) n);
-*/		
+		parameters.put("fotoJug" , (Object) n);	*/
 		
 /*		byte[] foto = jugador.getPersonaNatural().getFoto();
         if (foto != null){
@@ -273,16 +274,14 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
         }	
         parameters.put("fotoJug" , aImage);
 */        
-        /**
+        
 		parameters.put("nombreJug" , listaRoster.get(0).getPersonaNatural().getPrimerNombre() + " " +
 				listaRoster.get(0).getPersonaNatural().getPrimerApellido());
 		//parameters.put("cedulajug_1",listaRoster.get(0).getCedulaRif());
 		showReportfromJrxml();
 		
-		***/
-		
 		// El codigo anterior debe volver a descomentarse luego de video
-		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
+		/**** CODIGO TEMPORAL PARA VIDEO Inicio****//*
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/anuario.pdf");
 		//File archivo = new File( "C:\\reporteTemporal\\anuario.pdf");
 		File archivo = new File(jrxmlSrc);
@@ -296,13 +295,13 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		 Component visor = Executions.createComponents("Jugador/Vistas/"
 					+ "frmVisorDocumento.zul", null, null);
 			visor.setVariable("archivo", amedia, false);
-		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
+		*//**** CODIGO TEMPORAL PARA VIDEO Fin ****/
 		
 		
 	}	
 	
 	public void showReportfromJrxml() throws JRException, IOException{
-		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
+/*		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
 		
 		//JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(listaRoster);
 		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(listaAnuario);
@@ -319,8 +318,21 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,arrayOutputStream);
 		exporter.exportReport();
 		arrayOutputStream.close();
-		final AMedia amedia = new AMedia("Anuario.pdf","pdf","pdf/application", arrayOutputStream.toByteArray());
+		ifReport.setVisible(true);
+		final AMedia amedia = new AMedia("Anuario.pdf","pdf","application/pdf", arrayOutputStream.toByteArray());
 		ifReport.setContent(amedia);
+*/		
+		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(listaAnuario);	
+		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
+		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, ds);
+		
+		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
+		final AMedia amedia = new AMedia("Anuario.pdf","pdf","application/pdf", archivo);
+		
+		
+		Component visor = Executions.createComponents("Jugador/Vistas/"
+					+ "frmVisorDocumento.zul", null, null);
+			visor.setVariable("archivo", amedia, false);
 	}	
 	
 	public void onClick$btnSalir(){
