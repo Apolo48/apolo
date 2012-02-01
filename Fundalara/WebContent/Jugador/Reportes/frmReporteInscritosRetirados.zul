@@ -1,0 +1,48 @@
+<?page title="Reporte de inscritos y retirados" contentType="text/html;charset=UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?> 
+<zk>
+	<window id="winReporteInscritosRetirados" title="Reporte de Inscritos y Retirados"
+	border="normal" closable="true"
+	apply="controlador.jugador.CntrlReporteInscritosRetirados">
+
+		<groupbox closable="false" style="border-color:orange">
+			<caption label="Filtro" />
+			<grid style="border:none;" oddRowSclass="none">
+				<columns>
+					<column />
+					<column />
+					<column />
+					<column />
+					<column />
+				</columns>
+				<rows>
+					<row style="border:none">
+						<label value="Temporada" />
+						<combobox id="cmbTemporada" constraint="no empty"
+							readonly="true"
+							value="--Seleccione--" width="25%"
+							model="@{winReporteInscritosRetirados$composer.lapsosDeportivo}">
+							<comboitem self="@{each='lapso'}"
+								label="@{lapso.nombre}" />
+						</combobox>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<separator />
+		
+		<iframe id="ifReport" width="80%" height="400px" visible="false" align="center"/>
+		
+		<div align="center">
+			<button id="btnImprimirVisor" label="Imprimir-Visor" image="../../Recursos/Imagenes/imprimir.ico" />
+			<button id="btnImprimirFrame" label="Imprimir-Frame" image="../../Recursos/Imagenes/imprimir.ico" />
+			<button id="btnImprimirExportar" label="Imprimir-Exportar" image="../../Recursos/Imagenes/imprimir.ico" />
+			<button id="btnImprimirViewer" label="Imprimir-JasperViewer" image="../../Recursos/Imagenes/imprimir.ico" />
+		</div>
+		<div align="center">
+			<button id="btnImprimirReporte" label="Imprimir" image="../../Recursos/Imagenes/imprimir.ico" />
+			<button id="btnExportarReporte" label="Exportar" image="../../Recursos/Imagenes/imprimir.ico" />
+		</div>
+	</window>
+</zk>
