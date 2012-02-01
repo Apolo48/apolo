@@ -283,7 +283,9 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		
 		// El codigo anterior debe volver a descomentarse luego de video
 		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
-		File archivo = new File( "C:\\reporteTemporal\\anuario.pdf");
+		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/anuario.pdf");
+		//File archivo = new File( "C:\\reporteTemporal\\anuario.pdf");
+		File archivo = new File(jrxmlSrc);
 		AMedia amedia=null;
 		try {
 			 amedia = new AMedia(null,null,null,archivo,true);

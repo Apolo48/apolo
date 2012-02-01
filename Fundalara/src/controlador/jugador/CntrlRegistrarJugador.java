@@ -21,6 +21,7 @@ import org.zkoss.image.AImage;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -1069,7 +1070,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	
 		
 		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
-		File archivo = new File( "C:\\reporteTemporal\\planillaInscripcion.pdf");
+		String jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/planillaInscripcion.pdf");
+		//File archivo = new File( "C:\\reporteTemporal\\planillaInscripcion.pdf");
+		File archivo = new File(jrxmlSrc);
 		AMedia amedia=null;
 		try {
 			 amedia = new AMedia(null,null,null,archivo,true);

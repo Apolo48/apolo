@@ -150,7 +150,9 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 		//Codigo anterior ->descomentar luego de video
 		
 		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
-		File archivo = new File( "C:\\reporteTemporal\\expediente.pdf");
+		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/expediente.pdf");
+		//File archivo = new File( "C:\\reporteTemporal\\expediente.pdf");
+		File archivo = new File(jrxmlSrc);
 		AMedia amedia=null;
 		try {
 			 amedia = new AMedia(null,null,null,archivo,true);
