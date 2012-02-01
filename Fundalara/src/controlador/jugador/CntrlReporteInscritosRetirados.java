@@ -88,7 +88,7 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 		
 		Component visor = Executions.createComponents("Jugador/Vistas/"
 					+ "frmVisorDocumento.zul", null, null);
-			visor.setVariable("reporte", amedia, false);
+			visor.setVariable("archivo", amedia, false);
 	}
 	
 	public void mostrarFrame() throws JRException, IOException {
