@@ -1,6 +1,8 @@
 package controlador.jugador;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -135,13 +137,31 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 	}
 	// ---------------------------------------------------------------------------------------------------
 	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
+		
+		/*
 		con = ConeccionBD.getCon("postgres","postgres","123456");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ExpedienteJugador.jrxml");
 		parameters.put("cedulajug_1",txtCedula.getText());
 		//parameters.put("fechemihas_1",dtbFechaEmiHasta.getText() );
 		//parameters.put("fechvendes_1", dtbFechaVenDesde.getText());
 		//parameters.put("fechvenchas_1", dtbFechaVenHasta.getText());
-		showReportfromJrxml();
+		showReportfromJrxml();*/
+		
+		//Codigo anterior ->descomentar luego de video
+		
+		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
+		File archivo = new File( "C:\\reporteTemporal\\expediente.pdf");
+		AMedia amedia=null;
+		try {
+			 amedia = new AMedia(null,null,null,archivo,true);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+					
+		 Component visor = Executions.createComponents("Jugador/Vistas/"
+					+ "frmVisorDocumento.zul", null, null);
+			visor.setVariable("reporte", amedia, false);
+		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
 	}
 	
 		

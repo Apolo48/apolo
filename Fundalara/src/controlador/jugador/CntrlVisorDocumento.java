@@ -20,6 +20,7 @@ public class CntrlVisorDocumento extends GenericForwardComposer {
 	private Window winVisorDocumento;
 	byte[] archivo = null;
 	AMedia amedia = null;
+
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
@@ -29,6 +30,14 @@ public class CntrlVisorDocumento extends GenericForwardComposer {
 
 	public void onCreate$winVisorDocumento() {
 		byte[] archivo = (byte[]) formulario.getVariable("documento", false);
+
+		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
+		AMedia media = (AMedia) formulario.getVariable("reporte", false);
+		if (media != null) {
+			iframeDocumento.setContent(media);
+			winVisorDocumento.setTitle("Olimpo");
+		}
+		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
 		if (archivo != null) {
 			InputStream mediais = new ByteArrayInputStream(archivo);
 			String mime = "";
@@ -46,33 +55,30 @@ public class CntrlVisorDocumento extends GenericForwardComposer {
 			} else {
 				formato = mime.split("/");
 			}
-			 amedia = new AMedia("archivo." + formato[1], formato[1],
-					mime, mediais);
-			 iframeDocumento.setContent(amedia);	
-		/*	if (formato[0].equals("image")){
-				iframeDocumento.setVisible(false);
-				AImage imagen=null;
-				try {
-					imagen = new AImage("imagen."+formato[1], mediais);
-				} catch (IOException e) {
-					e.printStackTrace();
-				} 
-				imgImagen.setContent(imagen);
-				imgImagen.setVisible(true);
-				winVisorDocumento.setHeight("300px");
-				winVisorDocumento.setWidth("200px");
-			}else{
-				iframeDocumento.setContent(amedia);	
-			}*/
+			amedia = new AMedia("archivo." + formato[1], formato[1], mime,
+					mediais);
+			iframeDocumento.setContent(amedia);
+			/*
+			 * if (formato[0].equals("image")){
+			 * iframeDocumento.setVisible(false); AImage imagen=null; try {
+			 * imagen = new AImage("imagen."+formato[1], mediais); } catch
+			 * (IOException e) { e.printStackTrace(); }
+			 * imgImagen.setContent(imagen); imgImagen.setVisible(true);
+			 * winVisorDocumento.setHeight("300px");
+			 * winVisorDocumento.setWidth("200px"); }else{
+			 * iframeDocumento.setContent(amedia); }
+			 */
 		}
 
 	}
-	public void onClick$btnSalir(){
+
+	public void onClick$btnSalir() {
 		onClose$winVisorDocumento();
 	}
-	public void onClose$winVisorDocumento( ) {
-		 amedia=null;
-		 winVisorDocumento.detach();
-	
+
+	public void onClose$winVisorDocumento() {
+		amedia = null;
+		winVisorDocumento.detach();
+
 	}
 }

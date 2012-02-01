@@ -1,6 +1,11 @@
 package controlador.jugador;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -1056,20 +1061,28 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
-	public void onClick$btnInscribir() {
+	public void onClick$btnInscribir() throws URISyntaxException {
 		Mensaje.mostrarMensaje(
 				"Se ha inscrito el jugador: " + jugadorBean.getNombres() + " "
 						+ jugadorBean.getApellidos(), Mensaje.EXITO,
 				Messagebox.INFORMATION);
-		/*
-		AMedia amedia = new AMedia();
-		byte[] archivo= 
+	
+		
+		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
+		File archivo = new File( "C:\\reporteTemporal\\planillaInscripcion.pdf");
+		AMedia amedia=null;
+		try {
+			 amedia = new AMedia(null,null,null,archivo,true);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+					
 		 Component visor = Executions.createComponents(rutasJug
-				+ "frmVisorDocumento.zul", null, null);
-		visor.setVariable("documento", archivo, false);
-*/
-		
-		
+					+ "frmVisorDocumento.zul", null, null);
+			visor.setVariable("reporte", amedia, false);
+		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
+			
+			
 		onClick$btnCancelar();
 	}
 

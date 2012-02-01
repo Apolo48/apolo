@@ -2,6 +2,8 @@ package controlador.jugador;
 
 //import java.awt.Image;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -34,6 +36,7 @@ import modelo.Roster;
 import modelo.Competencia;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
@@ -240,6 +243,8 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 
 	
 	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
+		
+	/**	
 		con = ConeccionBD.getCon("postgres","postgres","123456");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/Anuario2.jrxml");
 		//jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ExpedienteJugador.jrxml");
@@ -268,11 +273,30 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
         }	
         parameters.put("fotoJug" , aImage);
 */        
-        
+        /**
 		parameters.put("nombreJug" , listaRoster.get(0).getPersonaNatural().getPrimerNombre() + " " +
 				listaRoster.get(0).getPersonaNatural().getPrimerApellido());
 		//parameters.put("cedulajug_1",listaRoster.get(0).getCedulaRif());
 		showReportfromJrxml();
+		
+		***/
+		
+		// El codigo anterior debe volver a descomentarse luego de video
+		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
+		File archivo = new File( "C:\\reporteTemporal\\anuario.pdf");
+		AMedia amedia=null;
+		try {
+			 amedia = new AMedia(null,null,null,archivo,true);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+					
+		 Component visor = Executions.createComponents("Jugador/Vistas/"
+					+ "frmVisorDocumento.zul", null, null);
+			visor.setVariable("reporte", amedia, false);
+		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
+		
+		
 	}	
 	
 	public void showReportfromJrxml() throws JRException, IOException{
