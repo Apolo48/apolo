@@ -245,36 +245,62 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	}
 	
 	public void guardar() throws InterruptedException {
-		if ((cmbCompetencia.getSelectedIndex() >= 0) && (txtCedulaRep.getValue() != "")) {
-			
-			for (int i = 0; i < hospedajes.size(); i++) {
+		if ((cmbCompetencia.getSelectedIndex() >= 0)
+				&& (txtCedulaRep.getValue() != "")) {
+
+	/*		for (int i = 0; i < hospedajes.size(); i++) {
 				if (((txtCedulaRep.getValue().equals(hospedajes.get(i)
 						.getFamiliarJugador().getFamiliar().getCedulaRif())))
-						&& (((Competencia)
-								cmbCompetencia.getSelectedItem().getValue())
-								.getCodigoCompetencia()==hospedajes.get(i).getCompetencia()
-										.getCodigoCompetencia())) {
-					
+						&& (((Competencia) cmbCompetencia.getSelectedItem()
+								.getValue()).getCodigoCompetencia() == hospedajes
+								.get(i).getCompetencia().getCodigoCompetencia())) {
+
 					Mensaje.mostrarMensaje("Competencia Duplicada.",
 							Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 					return;
-		} else {
+				} else {
+					hospedaje.setEstatus('A');
+					hospedaje.setCompetencia(competencia);
+					hospedaje.setFamiliarJugador(servicioFamiliarJugador
+							.buscarFamiliar(familiar));
+					servicioHospedaje.agregar(hospedaje);
+					Mensaje.mostrarMensaje(
+							"Representante asociado a Hospedaje",
+							Mensaje.EXITO, Messagebox.INFORMATION);
+					hospedaje = new Hospedaje();
+					limpiar();
+				}
+			}*/
 			
-			hospedaje.setEstatus('A');
-			hospedaje.setCompetencia(competencia);
-			hospedaje.setFamiliarJugador(servicioFamiliarJugador.buscarFamiliar(familiar));
-			servicioHospedaje.agregar(hospedaje);
-			Mensaje.mostrarMensaje("Representante asociado a Hospedaje",
-					Mensaje.EXITO, Messagebox.INFORMATION);
-			hospedaje=new Hospedaje();
-			limpiar();
+			boolean existe = false;
+			for (int i = 0; i < hospedajes.size(); i++) {
+				if (((txtCedulaRep.getValue().equals(hospedajes.get(i)
+						.getFamiliarJugador().getFamiliar().getCedulaRif())))
+						&& (((Competencia) cmbCompetencia.getSelectedItem()
+								.getValue()).getCodigoCompetencia() == hospedajes
+								.get(i).getCompetencia().getCodigoCompetencia())) {
+
+					Mensaje.mostrarMensaje("Competencia Duplicada.",
+							Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+					existe = true;
+					break;
 				}
 			}
-		
-		}	
+			
+			if (!existe){
+				hospedaje.setEstatus('A');
+				hospedaje.setCompetencia(competencia);
+				hospedaje.setFamiliarJugador(servicioFamiliarJugador
+						.buscarFamiliar(familiar));
+				servicioHospedaje.agregar(hospedaje);
+				Mensaje.mostrarMensaje(
+						"Representante asociado a Hospedaje",
+						Mensaje.EXITO, Messagebox.INFORMATION);
+				hospedaje = new Hospedaje();
+				limpiar();
+			}
+		}
 	}
-				
-	
 	
 	public void eliminar() {
 		hospedaje=hospedajes.get(listHospedaje.getSelectedIndex());

@@ -61,7 +61,7 @@ public class DaoHospedaje extends GenericDao {
 			competencia.setEstatus('E');
 			session.saveOrUpdate(competencia);
 		
-		tx.commit();
+			tx.commit();
 		}
 	}
 	
