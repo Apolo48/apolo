@@ -262,17 +262,20 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		        listItem.appendChild(listCell);	        
 				listAnuario.appendChild(listItem);
 						
-				
+				Label lbl = new Label();
+				lbl.setValue("#" + jug.getNumero() + "\n" + jug.getPersonaNatural().getPrimerNombre() + "\n" + jug.getPersonaNatural().getPrimerApellido());
+				lbl.setMultiline(true);
 				Listcell listCell2 = new Listcell();
-				listCell2.setLabel(jug.getPersonaNatural().getPrimerNombre() + " " + jug.getPersonaNatural().getPrimerApellido());
+				listCell2.appendChild(lbl);
 				
 				anuario.setNombreJugador(jug.getPersonaNatural().getPrimerNombre());
 				anuario.setApellidoJugador(jug.getPersonaNatural().getPrimerApellido());
 				anuario.setFotoJugador(n.getImage());
+				anuario.setNumeroJugador(jug.getNumero());
 				listaAnuario.add(anuario);
 				
 				listItem.appendChild(listCell2);
-				listAnuario.appendChild(listItem);						
+				listAnuario.appendChild(listItem);
 			}			
 		}
 		else{
@@ -291,9 +294,8 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 					con = ConeccionBD.getCon("postgres","postgres","123456");
 					jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/Anuario.jrxml");
 					parameters.put("categoriaJug" , cmbCategoria.getSelectedItem().getLabel());
-					parameters.put("equipoJug" , cmbEquipo.getSelectedItem().getLabel());        
-					parameters.put("nombreJug" , listaRoster.get(0).getPersonaNatural().getPrimerNombre() + " " +
-							listaRoster.get(0).getPersonaNatural().getPrimerApellido());
+					parameters.put("equipoJug" , cmbEquipo.getSelectedItem().getLabel());
+					parameters.put("tempJug" , cmbTemporada.getSelectedItem().getLabel());
 					showReportfromJrxml();							
 				}
 				else{
@@ -314,7 +316,8 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		
 	
 	public void showReportfromJrxml() throws JRException, IOException{
-		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
+/*
+		*//**** CODIGO TEMPORAL PARA VIDEO Inicio****//*
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/anuario.pdf");
 		File archivo = new File(jrxmlSrc);
 		AMedia amedia=null;
@@ -323,14 +326,14 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
-		
-		/*JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(listaAnuario);	
+		*//**** CODIGO TEMPORAL PARA VIDEO Fin ****//*
+*/		
+		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(listaAnuario);	
 		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
 		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, ds);
 		
 		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
-		final AMedia amedia = new AMedia("Anuario.pdf","pdf","application/pdf", archivo);*/
+		final AMedia amedia = new AMedia("Anuario.pdf","pdf","application/pdf", archivo);
 				
 		Component visor = Executions.createComponents(rutasGen
 					+ "frmVisorDocumento.zul", null, null);

@@ -681,7 +681,7 @@
 															onClick='enlace("Jugador/Reportes/frmExpedienteJugador.zul")' />
 													</treerow>
 												</treeitem>
-												<treeitem>
+												<treeitem visible="false">
 													<treerow>
 														<treecell
 															label="Inscritos Retirados"
