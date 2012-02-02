@@ -1,4 +1,4 @@
-package controlador.jugador;
+package controlador.general;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
