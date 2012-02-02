@@ -47,6 +47,7 @@ import org.zkoss.zul.*;
 
 import comun.ConeccionBD;
 import comun.Mensaje;
+import comun.Ruta;
 import comun.TipoDatoBasico;
 import controlador.jugador.bean.Anuario;
 
@@ -91,6 +92,8 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 	private static String valorRetornado = "";
 	private Competencia competencia = new Competencia();
 	private LapsoDeportivo temporada = new LapsoDeportivo();
+	
+	private String rutasGen = Ruta.GENERAL.getRutaVista();
 	
 	private Anuario anuario = new Anuario();
 	private List<Anuario> listaAnuario = new ArrayList<Anuario>();
@@ -329,7 +332,7 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
 		final AMedia amedia = new AMedia("Anuario.pdf","pdf","application/pdf", archivo);*/
 				
-		Component visor = Executions.createComponents("Jugador/Vistas/"
+		Component visor = Executions.createComponents(rutasGen
 					+ "frmVisorDocumento.zul", null, null);
 			visor.setVariable("archivo", amedia, false);
 	}	

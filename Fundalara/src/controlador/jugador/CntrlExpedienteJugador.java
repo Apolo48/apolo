@@ -47,6 +47,7 @@ import servicio.implementacion.ServicioRoster;
 
 import comun.ConeccionBD;
 import comun.EstatusRegistro;
+import comun.Ruta;
 
 public class CntrlExpedienteJugador extends GenericForwardComposer {
 	Component component;
@@ -71,6 +72,7 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 	private Jugador jugador;
 	private Roster roster;
 	private PersonaNatural personaN = new PersonaNatural();
+	private String rutasGen = Ruta.GENERAL.getRutaVista();
 	
 	
 	public Textbox getTxtCedula() {
@@ -151,7 +153,6 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 		
 		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/expediente.pdf");
-		//File archivo = new File( "C:\\reporteTemporal\\expediente.pdf");
 		File archivo = new File(jrxmlSrc);
 		AMedia amedia=null;
 		try {
@@ -160,7 +161,7 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 			e.printStackTrace();
 		}
 					
-		 Component visor = Executions.createComponents("Jugador/Vistas/"
+		 Component visor = Executions.createComponents(rutasGen
 					+ "frmVisorDocumento.zul", null, null);
 			visor.setVariable("archivo", amedia, false);
 		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/

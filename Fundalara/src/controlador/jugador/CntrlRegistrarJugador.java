@@ -207,6 +207,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Bandbox bboxNumero;
 	private Component formulario;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
+	private String rutasGen = Ruta.GENERAL.getRutaVista();
 
 	// Servicios
 	private ServicioDatoBasico servicioDatoBasico;
@@ -1071,8 +1072,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		/**** CODIGO TEMPORAL PARA VIDEO Inicio ****/
 		String jrxmlSrc = Sessions.getCurrent().getWebApp()
 				.getRealPath("/WEB-INF/reportes/planillaInscripcion.pdf");
-		// File archivo = new File(
-		// "C:\\reporteTemporal\\planillaInscripcion.pdf");
 		File archivo = new File(jrxmlSrc);
 		AMedia amedia = null;
 		try {
@@ -1081,7 +1080,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			e.printStackTrace();
 		}
 
-		Component visor = Executions.createComponents(rutasJug
+		Component visor = Executions.createComponents(rutasGen
 				+ "frmVisorDocumento.zul", null, null);
 		visor.setVariable("archivo", amedia, false);
 		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
@@ -1357,7 +1356,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			archivo = obtenerArchivo(codigo, documentosMedicos);
 		}
 
-		Component visor = Executions.createComponents(rutasJug
+		Component visor = Executions.createComponents(rutasGen
 				+ "frmVisorDocumento.zul", null, null);
 		visor.setVariable("archivo", archivo, false);
 

@@ -34,6 +34,7 @@ import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Iframe;
 
 import comun.ConeccionBD;
+import comun.Ruta;
 
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioLapsoDeportivo;
@@ -54,6 +55,8 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	// Servicios
 	private ServicioLapsoDeportivo servicioLapsoDeportivo;
 	private ServicioCategoria servicioCategoria;
+	
+	private String rutasGen = Ruta.GENERAL.getRutaVista();
 	
 	// Binder
 	private AnnotateDataBinder binder;
@@ -86,7 +89,7 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 		final AMedia amedia = new AMedia("inscritosRetirados.pdf","pdf","application/pdf", archivo);
 		
 		
-		Component visor = Executions.createComponents("Jugador/Vistas/"
+		Component visor = Executions.createComponents(rutasGen
 					+ "frmVisorDocumento.zul", null, null);
 			visor.setVariable("archivo", amedia, false);
 	}
