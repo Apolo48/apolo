@@ -286,7 +286,7 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 			if (cmbEquipo.getSelectedIndex() >= 0) {
 				if (cmbTemporada.getSelectedIndex() >= 0) {
 					con = ConeccionBD.getCon("postgres","postgres","123456");
-					jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/Anuario2.jrxml");
+					jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/Anuario.jrxml");
 					parameters.put("categoriaJug" , cmbCategoria.getSelectedItem().getLabel());
 					parameters.put("equipoJug" , cmbEquipo.getSelectedItem().getLabel());        
 					parameters.put("nombreJug" , listaRoster.get(0).getPersonaNatural().getPrimerNombre() + " " +
