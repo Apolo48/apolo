@@ -1485,7 +1485,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		limpiarJugador();
 		familiarBean = new controlador.jugador.bean.Familiar();
 		familiares = new ArrayList<controlador.jugador.bean.Familiar>();
-		limpiarFamiliar();
+		limpiarFaseFamiliar();
 		inicializarCheckPoints();
 	}
 
@@ -1868,10 +1868,15 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		// binder.loadComponent(cmbComisiones);
 		comision = new DatoBasico();
 		binder.loadComponent(listComisiones);
-
 		// Limpiando Listbox Familiares
-		// pasar la sgt linea para el borrar N, el el anterior solo para 1
-		// binder.loadComponent(listFamiliares);
+			
+
+		
+	}
+	
+	private void limpiarFaseFamiliar(){
+		limpiarFamiliar();
+		binder.loadComponent(listFamiliares);
 	}
 
 	private boolean buscarFamiliarEnLista(
