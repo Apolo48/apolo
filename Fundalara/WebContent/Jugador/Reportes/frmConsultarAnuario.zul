@@ -5,7 +5,7 @@
 	<window id="winAnuarioJugadores" title="Anuario de Jugadores" border="normal"
 		closable="true" apply="controlador.jugador.CntrlConsultarAnuario"
 		width="695px">
-		<grid style="border:none;">
+		<grid oddRowSclass="none" style="border:none;">
 			<columns style="border:none">
 				<column width="12%" />
 				<column width="38%" />
@@ -25,17 +25,17 @@
 					<label value="Equipo" />
 					<combobox id="cmbEquipo" readonly="true" width="80%"
 						value="--Seleccione--" selectedItem="@{controller.equipo}"
-						model="@{winAnuarioJugadores$composer.equipos, load-after='cmbCategoria.onChange'}">
+						model="@{winAnuarioJugadores$composer.equipos, load-after='cmbCategoria.onSelect'}">
 						<comboitem self="@{each='equipo'}"
 							label="@{equipo.datoBasico.nombre}"
 							value="@{equipo.codigoEquipo}" />
 					</combobox>
 				</row>
-				<row>
+				<row style="border:none">
 					<label value="Temporada" />
 					<combobox id="cmbTemporada" readonly="true" width="80%"
 						value="--Seleccione--" selectedItem="@{controller.temporada}"
-						model="@{winAnuarioJugadores$composer.lapsosDeportivos, load-after='cmbEquipo.onChange'}">
+						model="@{winAnuarioJugadores$composer.lapsosDeportivos, load-after='cmbEquipo.onSelect'}">
 						<comboitem self="@{each='temp'}"
 							label="@{temp.nombre}"
 							value="@{temp.codigoLapsoDeportivo}" />
