@@ -7,7 +7,7 @@ import modelo.DatoBasico;
  * 
  * @author Robert A
  * @author German L
- * @version 0.1 22/12/2011
+ * @version 0.1.2 04/02/2012
  * 
  */
 

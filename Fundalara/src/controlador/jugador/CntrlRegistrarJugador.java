@@ -3,12 +3,7 @@ package controlador.jugador;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -124,6 +119,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Button btnSubirDocumentoAcad;
 	private Button btnCatalogoJugador;
 	private Button btnCancelar;
+	private Button  btnModificarFamiliar;
 	private Tab tabRegJugador;
 	private Tab tabRegFamiliar;
 	private Tab tabJugPersonales;
@@ -216,7 +212,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioRecaudoPorProceso servicioRecaudoPorProceso;
 	private ServicioInstitucion servicioInstitucion;
 	private ServicioJugador servicioJugador;
-	private ServicioMedico servicioMedico;
 	private ServicioDatoMedico servicioDatoMedico;
 	private ServicioDatoAcademico servicioDatoAcademico;
 	private ServicioAfeccionJugador servicioAfeccionJugador;
@@ -273,7 +268,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private PersonaNatural personaNFamiliar = new PersonaNatural();
 	private List<FamiliarJugador> familiaresJugadores = new ArrayList<FamiliarJugador>();
 	private Jugador jugadorTemp = new Jugador();
-
+	
 	// Binder
 	private AnnotateDataBinder binder;
 	/**
@@ -1065,7 +1060,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public void onClick$btnInscribir() throws URISyntaxException {
 		Mensaje.mostrarMensaje(
-				"Se ha inscrito el jugador: " + jugadorBean.getNombres() + " "
+				"Se ha  inscrito el jugador: \n" + jugadorBean.getNombres() + " "
 						+ jugadorBean.getApellidos(), Mensaje.EXITO,
 				Messagebox.INFORMATION);
 
@@ -1103,6 +1098,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	private void habilitarCatalogoJugador(boolean sw) {
 		btnCatalogoJugador.setDisabled(sw);
+		btnCatalogoJugador.setImage("/Recursos/Imagenes/consultar.ico");
 	}
 
 	private void guardarDocumentoPersonal() {
@@ -1230,6 +1226,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			servicioAfeccionJugador.actualizar(afeccionJugador, datoMedico);
 		} else {
 			datoMedico.setJugador(jugador);
+			datoMedico.setObservacion(datoMedico.getObservacion().toUpperCase());
 			datoMedico.setEstatus(EstatusRegistro.ACTIVO);
 			servicioDatoMedico.agregar(datoMedico);
 			afeccionJugador = guardarDatosAfeccionesToModelo();
@@ -1733,6 +1730,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					familiares.add(familiarBean);
 					binder.loadComponent(listFamiliares);
 					limpiarFamiliar();
+					btnModificarFamiliar.setDisabled(false);
+					txtCedulaFamiliar.setReadonly(false);
+					cmbNacionalidadFamiliar.setDisabled(false);
 				} else {
 					Mensaje.mostrarMensaje(
 							"El familiar: " + familiarBean.getNombres() + " "
@@ -1746,13 +1746,17 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
-	/**** NUEVO *****/
+	
 	public void onClick$btnModificarFamiliar() {
 		if (listFamiliares.getSelectedIndex() >= 0) {
+			btnModificarFamiliar.setDisabled(true);
+			btnModificarFamiliar.setImage("/Recursos/Imagenes/editar.ico");
 			limpiarFamiliar();
 			familiarBean = (controlador.jugador.bean.Familiar) listFamiliares
 					.getSelectedItem().getValue();
 			if (familiarBean != null) {
+				txtCedulaFamiliar.setReadonly(true);
+				cmbNacionalidadFamiliar.setDisabled(true);
 				txtCedulaFamiliar.setValue(Integer.parseInt(familiarBean
 						.getCedula()));
 				cmbNacionalidadFamiliar
@@ -1828,7 +1832,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
-	/**** NUEVO ****/
+	
 
 	private void limpiarFamiliar() {
 		// Limpiando pestanna Perfil
@@ -1947,8 +1951,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onChange$txtCedula() {
-		// TEMPORAL POR VIDEO
-		// verificarCedulaJugador();
+		 verificarCedulaJugador();
 	}
 
 	private void verificarCedulaJugador() {
@@ -1969,6 +1972,34 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					"La cédula ingresada ya está registrada o no es válida.",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtCedula.setFocus(true);
+			txtCedula.setSelectionRange(0, txtCedula.getText().length());
 		}
 	}
+	
+	
+	public void onChange$txtCedulaFamiliar() {
+		verificarCedulaFamiliar();
+	}
+	private void verificarCedulaFamiliar() {
+		String cedulaCompleta = "";
+		boolean noValida = true;
+		String nacionalidad = (cmbNacionalidadFamiliar.getSelectedItem() == null ? ""
+				: cmbNacionalidadFamiliar.getSelectedItem().getLabel());
+		String cedula = (txtCedulaFamiliar.getValue() == null ? "" : "-"
+				+ txtCedulaFamiliar.getValue().toString());
+		
+		if (nacionalidad != "" && cedula != "") {
+			cedulaCompleta = nacionalidad + cedula;
+			noValida = servicioPersona.existePersona(cedulaCompleta);
+		}
+		if (noValida) {
+			Mensaje.mostrarMensaje(
+					"La cédula ingresada ya está registrada o no es válida.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+			txtCedulaFamiliar.setFocus(true);
+			txtCedulaFamiliar.setSelectionRange(0, txtCedulaFamiliar.getText().length());
+		}
+	}
+	
+	
 }

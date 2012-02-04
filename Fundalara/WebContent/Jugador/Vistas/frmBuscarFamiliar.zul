@@ -3,13 +3,8 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winBuscarfamiliar"?>
 <zk>
 	<window id="winBuscarfamiliar" title="Buscar Familiar" border="normal" width="500px" closable="true" mode="modal" apply="controlador.jugador.CntrlBuscarFamiliar">
-		
-	
-		
-	<listbox id="listFamiliar"  mold="paging" pageSize="5"  model="@{controller.familiares}">
-			<!-- <auxhead sclass="category-center">
-				<auxheader label="Listado Familiares" colspan="4" align="center"/>
-			</auxhead> -->
+
+	<listbox id="listFamiliar"  mold="paging" pageSize="10"  model="@{controller.familiares}">
 			<listhead>
 				<listheader align="center" label="Cédula" width="24%"/>
 				<listheader label="Nombre" width="38%"/>
