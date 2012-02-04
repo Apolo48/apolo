@@ -87,7 +87,6 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 
 	public void onCreate$winBuscarjugador() {
 		estatus = (Character) catalogo.getVariable("estatus", false);
-		System.out.println(estatus);
 		Jugadores = servicioJugador.buscarJugadores(filter2.getValue()
 				.toString().toUpperCase(), filter3.getValue().toString()
 				.toUpperCase(), filter4.getValue().toString().toUpperCase(),

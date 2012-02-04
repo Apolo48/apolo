@@ -38,10 +38,6 @@ public class DaoMedico extends GenericDao {
 				.add(Restrictions.like("nombre", filtro3+"%"))
 				.add(Restrictions.like("apellido", filtro4+"%"));
 		List<Medico> lista= c.list();
-		for (int i = 0; i < lista.size(); i++) {
-			System.out.println(lista.get(i).getNombre());
-		}
-		
 		return lista;
 	}
 }
