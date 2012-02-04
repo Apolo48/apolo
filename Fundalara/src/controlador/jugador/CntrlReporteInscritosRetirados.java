@@ -35,11 +35,14 @@ import org.zkoss.zul.Iframe;
 
 import comun.ConeccionBD;
 import comun.Ruta;
+import comun.TipoDatoBasico;
 
 import servicio.implementacion.ServicioCategoria;
+import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioLapsoDeportivo;
 
 import modelo.Categoria;
+import modelo.DatoBasico;
 import modelo.LapsoDeportivo;
 
 public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
@@ -54,7 +57,7 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	
 	// Servicios
 	private ServicioLapsoDeportivo servicioLapsoDeportivo;
-	private ServicioCategoria servicioCategoria;
+	private ServicioDatoBasico servicioDatoBasico;
 	
 	private String rutasGen = Ruta.GENERAL.getRutaVista();
 	
@@ -68,10 +71,11 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 		formulario  = comp;
 	}
 	
-	/*public List<LapsoDeportivo> getLapsosDeportivo() {
-		return servicioLapsoDeportivo.listar();*/
-	public List<Categoria> getLapsosDeportivo() {
-		return servicioCategoria.listar();
+	public List<LapsoDeportivo> getLapsosDeportivos() {
+		DatoBasico datoLapsoDeportivo = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR");
+		servicioLapsoDeportivo = new ServicioLapsoDeportivo();
+		return servicioLapsoDeportivo.buscarPorTipoLapso(datoLapsoDeportivo);
 	}
 	
 	//Metodos del Controlador

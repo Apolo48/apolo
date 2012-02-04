@@ -22,7 +22,7 @@
 						<combobox id="cmbTemporada" constraint="no empty"
 							readonly="true"
 							value="--Seleccione--" width="25%"
-							model="@{winReporteInscritosRetirados$composer.lapsosDeportivo}">
+							model="@{winReporteInscritosRetirados$composer.lapsosDeportivos}">
 							<comboitem self="@{each='lapso'}"
 								label="@{lapso.nombre}" />
 						</combobox>
