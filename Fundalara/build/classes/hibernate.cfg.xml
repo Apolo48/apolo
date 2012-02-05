@@ -74,6 +74,7 @@
         <mapping class="modelo.Grupo" />
         <mapping class="modelo.DocumentoIndumentaria" />
         <mapping class="modelo.IngresoDocumentoAcreedor" />
+        <mapping class="modelo.PersonalEquipoJuego" />
         <mapping class="modelo.TareaActividad" />
         <mapping class="modelo.ProveedorBanco" />
         <mapping class="modelo.CuentaPagarMaterial" />
@@ -108,7 +109,6 @@
         <mapping class="modelo.TipoIngreso" />
         <mapping class="modelo.SolicitudMantenimiento" />
         <mapping class="modelo.TestJugador" />
-        <mapping class="modelo.JugadorForaneoRosterCompetencia" />
         <mapping class="modelo.RosterCompetencia" />
         <mapping class="modelo.EgresoFormaPago" />
         <mapping class="modelo.TallaPorJugador" />
@@ -139,11 +139,13 @@
         <mapping class="modelo.SeguridadFuncional" />
         <mapping class="modelo.ActividadCalendario" />
         <mapping class="modelo.PersonaNatural" />
+        <mapping class="modelo.CategoriaLiga" />
         <mapping class="modelo.RecepcionMaterial" />
         <mapping class="modelo.InstalacionUtilizada" />
         <mapping class="modelo.Horario" />
         <mapping class="modelo.Equipo" />
         <mapping class="modelo.EscalaMedicion" />
+        <mapping class="modelo.LigaCompetencia" />
         <mapping class="modelo.PersonalEquipoCompetencia" />
         <mapping class="modelo.Almacen" />
         <mapping class="modelo.DatoAcademicoPersonal" />
