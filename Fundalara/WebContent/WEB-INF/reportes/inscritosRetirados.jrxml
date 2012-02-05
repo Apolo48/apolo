@@ -14,20 +14,26 @@ FROM
 		</queryString>
 	</subDataset>
 	<queryString>
-		<![CDATA[SELECT to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy') AS fecha_actual,
-       to_char(CURRENT_TIMESTAMP, 'HH12:MI')||' A.M.' AS hora_actual, categoria.nombre AS categoria, COUNT(jugador.cedula_rif) AS inscritos, COUNT (retiro_traslado.cedula_rif) AS retirados, COUNT(persona.fecha_ingreso) AS nuevo_ingreso, COUNT(jugador_plan.cedula_rif) AS plan_vacacional
+		<![CDATA[SELECT
+to_char(CURRENT_TIMESTAMP,'dd/mm/yyyy') AS fecha_actual,
+to_char(CURRENT_TIMESTAMP, 'HH12:MI A.M.') AS hora_actual,
+categoria.nombre AS categoria,
+COUNT(jugador.cedula_rif) AS inscritos,
+COUNT(retiro_traslado.cedula_rif) AS retirados,
+COUNT(persona.fecha_ingreso) AS nuevo_ingreso
+
 FROM
 categoria
 LEFT JOIN equipo ON (categoria.codigo_categoria=equipo.codigo_categoria)
 LEFT JOIN roster ON (equipo.codigo_equipo=roster.codigo_equipo AND roster.estatus='A')
 LEFT JOIN jugador ON (jugador.cedula_rif=roster.cedula_rif AND jugador.estatus='A')
 LEFT JOIN persona ON (jugador.cedula_rif=persona.cedula_rif AND persona.estatus='A')
-LEFT JOIN jugador_plan ON (jugador.cedula_rif=jugador_plan.cedula_rif AND jugador_plan.estatus='A')
 LEFT JOIN retiro_traslado ON (jugador.cedula_rif=retiro_traslado.cedula_rif AND retiro_traslado.estatus='A')
+
 WHERE
 categoria.estatus='A'
-GROUP BY categoria.codigo_categoria,categoria.nombre, persona.fecha_ingreso
-ORDER BY categoria.codigo_categoria ASC; ]]>
+GROUP BY categoria.codigo_categoria,categoria.nombre
+ORDER BY categoria.codigo_categoria ASC;]]>
 	</queryString>
 	<field name="fecha_actual" class="java.lang.String"/>
 	<field name="hora_actual" class="java.lang.String"/>
@@ -35,7 +41,6 @@ ORDER BY categoria.codigo_categoria ASC; ]]>
 	<field name="inscritos" class="java.lang.Long"/>
 	<field name="retirados" class="java.lang.Long"/>
 	<field name="nuevo_ingreso" class="java.lang.Long"/>
-	<field name="plan_vacacional" class="java.lang.Long"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -174,11 +179,6 @@ ORDER BY categoria.codigo_categoria ASC; ]]>
 				<reportElement x="377" y="0" width="38" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nuevo_ingreso}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="377" y="20" width="38" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{plan_vacacional}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="220" y="40" width="55" height="40"/>
