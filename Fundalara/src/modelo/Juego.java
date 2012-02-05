@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -31,6 +31,7 @@ public class Juego implements java.io.Serializable {
 	private Date fecha;
 	private String observaciones;
 	private int cantidadInning;
+	private char estatus;
 	private Set<ActividadCalendario> actividadCalendarios = new HashSet<ActividadCalendario>(
 			0);
 	private Set<MaterialActividad> materialActividads = new HashSet<MaterialActividad>(
@@ -47,7 +48,7 @@ public class Juego implements java.io.Serializable {
 
 	public Juego(int codigoJuego, Estadio estadio, Competencia competencia,
 			DatoBasico datoBasico, Date horaInicio, Date fecha,
-			int cantidadInning) {
+			int cantidadInning, char estatus) {
 		this.codigoJuego = codigoJuego;
 		this.estadio = estadio;
 		this.competencia = competencia;
@@ -55,11 +56,12 @@ public class Juego implements java.io.Serializable {
 		this.horaInicio = horaInicio;
 		this.fecha = fecha;
 		this.cantidadInning = cantidadInning;
+		this.estatus = estatus;
 	}
 
 	public Juego(int codigoJuego, Estadio estadio, Competencia competencia,
 			DatoBasico datoBasico, Date horaInicio, Date fecha,
-			String observaciones, int cantidadInning,
+			String observaciones, int cantidadInning, char estatus,
 			Set<ActividadCalendario> actividadCalendarios,
 			Set<MaterialActividad> materialActividads,
 			Set<EquipoJuego> equipoJuegos,
@@ -73,6 +75,7 @@ public class Juego implements java.io.Serializable {
 		this.fecha = fecha;
 		this.observaciones = observaciones;
 		this.cantidadInning = cantidadInning;
+		this.estatus = estatus;
 		this.actividadCalendarios = actividadCalendarios;
 		this.materialActividads = materialActividads;
 		this.equipoJuegos = equipoJuegos;
@@ -157,6 +160,15 @@ public class Juego implements java.io.Serializable {
 
 	public void setCantidadInning(int cantidadInning) {
 		this.cantidadInning = cantidadInning;
+	}
+
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "juego")

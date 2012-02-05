@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +24,6 @@ public class LineUp implements java.io.Serializable {
 	private RosterCompetencia rosterCompetencia;
 	private Juego juego;
 	private DatoBasico datoBasicoByCodigoPosicion;
-	private DatoBasico datoBasicoByCodigoTipoMencion;
 	private DatoBasico datoBasicoByCodigoEstadoLineUp;
 	private Integer ordenBate;
 	private Set<DesempennoIndividual> desempennoIndividuals = new HashSet<DesempennoIndividual>(
@@ -43,14 +42,12 @@ public class LineUp implements java.io.Serializable {
 
 	public LineUp(int codigoLineUp, RosterCompetencia rosterCompetencia,
 			Juego juego, DatoBasico datoBasicoByCodigoPosicion,
-			DatoBasico datoBasicoByCodigoTipoMencion,
 			DatoBasico datoBasicoByCodigoEstadoLineUp, Integer ordenBate,
 			Set<DesempennoIndividual> desempennoIndividuals) {
 		this.codigoLineUp = codigoLineUp;
 		this.rosterCompetencia = rosterCompetencia;
 		this.juego = juego;
 		this.datoBasicoByCodigoPosicion = datoBasicoByCodigoPosicion;
-		this.datoBasicoByCodigoTipoMencion = datoBasicoByCodigoTipoMencion;
 		this.datoBasicoByCodigoEstadoLineUp = datoBasicoByCodigoEstadoLineUp;
 		this.ordenBate = ordenBate;
 		this.desempennoIndividuals = desempennoIndividuals;
@@ -95,17 +92,6 @@ public class LineUp implements java.io.Serializable {
 	public void setDatoBasicoByCodigoPosicion(
 			DatoBasico datoBasicoByCodigoPosicion) {
 		this.datoBasicoByCodigoPosicion = datoBasicoByCodigoPosicion;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_tipo_mencion")
-	public DatoBasico getDatoBasicoByCodigoTipoMencion() {
-		return this.datoBasicoByCodigoTipoMencion;
-	}
-
-	public void setDatoBasicoByCodigoTipoMencion(
-			DatoBasico datoBasicoByCodigoTipoMencion) {
-		this.datoBasicoByCodigoTipoMencion = datoBasicoByCodigoTipoMencion;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

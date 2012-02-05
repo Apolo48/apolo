@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -126,7 +126,7 @@ public class DatoBasico implements java.io.Serializable {
 			0);
 	private Set<IngresoFormaPago> ingresoFormaPagosForCodigoBanco = new HashSet<IngresoFormaPago>(
 			0);
-	private Set<TareaActividad> tareaActividadsForCodigoDatoBasico = new HashSet<TareaActividad>(
+	private Set<TareaActividad> tareaActividadsForEstadoTarea = new HashSet<TareaActividad>(
 			0);
 	private Set<Sesion> sesions = new HashSet<Sesion>(0);
 	private Set<PersonalSuplente> personalSuplentes = new HashSet<PersonalSuplente>(
@@ -167,7 +167,6 @@ public class DatoBasico implements java.io.Serializable {
 			0);
 	private Set<DatoSocial> datoSocials = new HashSet<DatoSocial>(0);
 	private Set<DatoConducta> datoConductas = new HashSet<DatoConducta>(0);
-	private Set<LineUp> lineUpsForCodigoTipoMencion = new HashSet<LineUp>(0);
 	private Set<LineUp> lineUpsForCodigoEstadoLineUp = new HashSet<LineUp>(0);
 	private Set<Juego> juegos = new HashSet<Juego>(0);
 	private Set<MotivoSancion> motivoSancions = new HashSet<MotivoSancion>(0);
@@ -254,7 +253,7 @@ public class DatoBasico implements java.io.Serializable {
 			Set<TareaActividadPlanificada> tareaActividadPlanificadas,
 			Set<Competencia> competenciasForCodigoOrganizacion,
 			Set<IngresoFormaPago> ingresoFormaPagosForCodigoBanco,
-			Set<TareaActividad> tareaActividadsForCodigoDatoBasico,
+			Set<TareaActividad> tareaActividadsForEstadoTarea,
 			Set<Sesion> sesions,
 			Set<PersonalSuplente> personalSuplentes,
 			Set<Equipo> equiposForCodigoTipoLapso,
@@ -277,7 +276,6 @@ public class DatoBasico implements java.io.Serializable {
 			Set<RecaudoPorProceso> recaudoPorProcesosForCodigoDocumento,
 			Set<PlanificacionActividad> planificacionActividads,
 			Set<DatoSocial> datoSocials, Set<DatoConducta> datoConductas,
-			Set<LineUp> lineUpsForCodigoTipoMencion,
 			Set<LineUp> lineUpsForCodigoEstadoLineUp, Set<Juego> juegos,
 			Set<MotivoSancion> motivoSancions,
 			Set<Material> materialsForCodigoUnidadMedida,
@@ -347,7 +345,7 @@ public class DatoBasico implements java.io.Serializable {
 		this.tareaActividadPlanificadas = tareaActividadPlanificadas;
 		this.competenciasForCodigoOrganizacion = competenciasForCodigoOrganizacion;
 		this.ingresoFormaPagosForCodigoBanco = ingresoFormaPagosForCodigoBanco;
-		this.tareaActividadsForCodigoDatoBasico = tareaActividadsForCodigoDatoBasico;
+		this.tareaActividadsForEstadoTarea = tareaActividadsForEstadoTarea;
 		this.sesions = sesions;
 		this.personalSuplentes = personalSuplentes;
 		this.equiposForCodigoTipoLapso = equiposForCodigoTipoLapso;
@@ -372,7 +370,6 @@ public class DatoBasico implements java.io.Serializable {
 		this.planificacionActividads = planificacionActividads;
 		this.datoSocials = datoSocials;
 		this.datoConductas = datoConductas;
-		this.lineUpsForCodigoTipoMencion = lineUpsForCodigoTipoMencion;
 		this.lineUpsForCodigoEstadoLineUp = lineUpsForCodigoEstadoLineUp;
 		this.juegos = juegos;
 		this.motivoSancions = motivoSancions;
@@ -991,14 +988,14 @@ public class DatoBasico implements java.io.Serializable {
 		this.ingresoFormaPagosForCodigoBanco = ingresoFormaPagosForCodigoBanco;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoBasicoByCodigoDatoBasico")
-	public Set<TareaActividad> getTareaActividadsForCodigoDatoBasico() {
-		return this.tareaActividadsForCodigoDatoBasico;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoBasicoByEstadoTarea")
+	public Set<TareaActividad> getTareaActividadsForEstadoTarea() {
+		return this.tareaActividadsForEstadoTarea;
 	}
 
-	public void setTareaActividadsForCodigoDatoBasico(
-			Set<TareaActividad> tareaActividadsForCodigoDatoBasico) {
-		this.tareaActividadsForCodigoDatoBasico = tareaActividadsForCodigoDatoBasico;
+	public void setTareaActividadsForEstadoTarea(
+			Set<TareaActividad> tareaActividadsForEstadoTarea) {
+		this.tareaActividadsForEstadoTarea = tareaActividadsForEstadoTarea;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoBasico")
@@ -1229,16 +1226,6 @@ public class DatoBasico implements java.io.Serializable {
 
 	public void setDatoConductas(Set<DatoConducta> datoConductas) {
 		this.datoConductas = datoConductas;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoBasicoByCodigoTipoMencion")
-	public Set<LineUp> getLineUpsForCodigoTipoMencion() {
-		return this.lineUpsForCodigoTipoMencion;
-	}
-
-	public void setLineUpsForCodigoTipoMencion(
-			Set<LineUp> lineUpsForCodigoTipoMencion) {
-		this.lineUpsForCodigoTipoMencion = lineUpsForCodigoTipoMencion;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoBasicoByCodigoEstadoLineUp")

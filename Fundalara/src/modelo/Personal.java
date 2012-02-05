@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,6 +52,7 @@ public class Personal implements java.io.Serializable {
 	private Set<PersonalActividad> personalActividads = new HashSet<PersonalActividad>(
 			0);
 	private Set<PersonalCargo> personalCargos = new HashSet<PersonalCargo>(0);
+	private Set<Actividad> actividads = new HashSet<Actividad>(0);
 	private Set<PlanificacionActividad> planificacionActividads = new HashSet<PlanificacionActividad>(
 			0);
 
@@ -79,7 +80,7 @@ public class Personal implements java.io.Serializable {
 			Set<DatoAcademicoPersonal> datoAcademicoPersonals,
 			Set<AfeccionPersonal> afeccionPersonals,
 			Set<PersonalActividad> personalActividads,
-			Set<PersonalCargo> personalCargos,
+			Set<PersonalCargo> personalCargos, Set<Actividad> actividads,
 			Set<PlanificacionActividad> planificacionActividads) {
 		this.datoBasico = datoBasico;
 		this.personaNatural = personaNatural;
@@ -99,6 +100,7 @@ public class Personal implements java.io.Serializable {
 		this.afeccionPersonals = afeccionPersonals;
 		this.personalActividads = personalActividads;
 		this.personalCargos = personalCargos;
+		this.actividads = actividads;
 		this.planificacionActividads = planificacionActividads;
 	}
 
@@ -280,6 +282,15 @@ public class Personal implements java.io.Serializable {
 
 	public void setPersonalCargos(Set<PersonalCargo> personalCargos) {
 		this.personalCargos = personalCargos;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personal")
+	public Set<Actividad> getActividads() {
+		return this.actividads;
+	}
+
+	public void setActividads(Set<Actividad> actividads) {
+		this.actividads = actividads;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personal")

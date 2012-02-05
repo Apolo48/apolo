@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +23,7 @@ public class PlanificacionActividad implements java.io.Serializable {
 	private int codigoPlanificacionActividad;
 	private DatoBasico datoBasico;
 	private InstalacionUtilizada instalacionUtilizada;
+	private ComisionFamiliar comisionFamiliar;
 	private Personal personal;
 	private char estatus;
 	private boolean actividadPeriodico;
@@ -56,9 +57,9 @@ public class PlanificacionActividad implements java.io.Serializable {
 
 	public PlanificacionActividad(int codigoPlanificacionActividad,
 			DatoBasico datoBasico, InstalacionUtilizada instalacionUtilizada,
-			Personal personal, char estatus, boolean actividadPeriodico,
-			boolean actividadPlantilla, String descripcion,
-			String descripcionInstalacion,
+			ComisionFamiliar comisionFamiliar, Personal personal, char estatus,
+			boolean actividadPeriodico, boolean actividadPlantilla,
+			String descripcion, String descripcionInstalacion,
 			Set<MaterialActividadPlanificada> materialActividadPlanificadas,
 			Set<Actividad> actividads,
 			Set<PersonalActividadPlanificada> personalActividadPlanificadas,
@@ -68,6 +69,7 @@ public class PlanificacionActividad implements java.io.Serializable {
 		this.codigoPlanificacionActividad = codigoPlanificacionActividad;
 		this.datoBasico = datoBasico;
 		this.instalacionUtilizada = instalacionUtilizada;
+		this.comisionFamiliar = comisionFamiliar;
 		this.personal = personal;
 		this.estatus = estatus;
 		this.actividadPeriodico = actividadPeriodico;
@@ -111,6 +113,16 @@ public class PlanificacionActividad implements java.io.Serializable {
 	public void setInstalacionUtilizada(
 			InstalacionUtilizada instalacionUtilizada) {
 		this.instalacionUtilizada = instalacionUtilizada;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_comision_familiar")
+	public ComisionFamiliar getComisionFamiliar() {
+		return this.comisionFamiliar;
+	}
+
+	public void setComisionFamiliar(ComisionFamiliar comisionFamiliar) {
+		this.comisionFamiliar = comisionFamiliar;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

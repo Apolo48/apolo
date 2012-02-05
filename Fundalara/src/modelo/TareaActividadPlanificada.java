@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,34 +23,30 @@ public class TareaActividadPlanificada implements java.io.Serializable {
 	private PlanificacionActividad planificacionActividad;
 	private PersonalActividadPlanificada personalActividadPlanificada;
 	private char estatus;
-	private boolean tareaEjecutada;
 
 	public TareaActividadPlanificada() {
 	}
 
 	public TareaActividadPlanificada(int codigoTareaActividadPlanificada,
 			DatoBasico datoBasico,
-			PlanificacionActividad planificacionActividad, char estatus,
-			boolean tareaEjecutada) {
+			PlanificacionActividad planificacionActividad, char estatus) {
 		this.codigoTareaActividadPlanificada = codigoTareaActividadPlanificada;
 		this.datoBasico = datoBasico;
 		this.planificacionActividad = planificacionActividad;
 		this.estatus = estatus;
-		this.tareaEjecutada = tareaEjecutada;
 	}
 
 	public TareaActividadPlanificada(int codigoTareaActividadPlanificada,
 			DatoBasico datoBasico, ComisionFamiliar comisionFamiliar,
 			PlanificacionActividad planificacionActividad,
 			PersonalActividadPlanificada personalActividadPlanificada,
-			char estatus, boolean tareaEjecutada) {
+			char estatus) {
 		this.codigoTareaActividadPlanificada = codigoTareaActividadPlanificada;
 		this.datoBasico = datoBasico;
 		this.comisionFamiliar = comisionFamiliar;
 		this.planificacionActividad = planificacionActividad;
 		this.personalActividadPlanificada = personalActividadPlanificada;
 		this.estatus = estatus;
-		this.tareaEjecutada = tareaEjecutada;
 	}
 
 	@Id
@@ -113,15 +109,6 @@ public class TareaActividadPlanificada implements java.io.Serializable {
 
 	public void setEstatus(char estatus) {
 		this.estatus = estatus;
-	}
-
-	@Column(name = "tarea_ejecutada", nullable = false)
-	public boolean isTareaEjecutada() {
-		return this.tareaEjecutada;
-	}
-
-	public void setTareaEjecutada(boolean tareaEjecutada) {
-		this.tareaEjecutada = tareaEjecutada;
 	}
 
 }

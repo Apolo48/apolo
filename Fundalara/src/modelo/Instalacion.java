@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -38,11 +38,10 @@ public class Instalacion implements java.io.Serializable {
 	}
 
 	public Instalacion(int codigoInstalacion, DatoBasico datoBasico,
-			char estatus, BigDecimal tamano) {
+			char estatus) {
 		this.codigoInstalacion = codigoInstalacion;
 		this.datoBasico = datoBasico;
 		this.estatus = estatus;
-		this.tamano = tamano;
 	}
 
 	public Instalacion(int codigoInstalacion, DatoBasico datoBasico,
@@ -109,7 +108,7 @@ public class Instalacion implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	@Column(name = "tamano", nullable = false, precision = 131089, scale = 0)
+	@Column(name = "tamano", precision = 131089, scale = 0)
 	public BigDecimal getTamano() {
 		return this.tamano;
 	}

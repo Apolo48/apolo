@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -29,7 +29,6 @@ public class Periodicidad implements java.io.Serializable {
 	private int mesRepeticion;
 	private int numeroRepeticionesPeriodicidad;
 	private Date fechaFinalizacionPeriodicidad;
-	private String estatus;
 	private Date horaInicio;
 	private Date horaCulminacion;
 	private char estatus1;
@@ -42,8 +41,8 @@ public class Periodicidad implements java.io.Serializable {
 			String frecuenciaPeriodicidad, int lapsoRepeticion,
 			String periodicidadSemanal, int diaRepeticion, int mesRepeticion,
 			int numeroRepeticionesPeriodicidad,
-			Date fechaFinalizacionPeriodicidad, String estatus,
-			Date horaInicio, Date horaCulminacion, char estatus1) {
+			Date fechaFinalizacionPeriodicidad, Date horaInicio,
+			Date horaCulminacion, char estatus1) {
 		this.codigoPeriodicidad = codigoPeriodicidad;
 		this.planificacionActividad = planificacionActividad;
 		this.frecuenciaPeriodicidad = frecuenciaPeriodicidad;
@@ -53,7 +52,6 @@ public class Periodicidad implements java.io.Serializable {
 		this.mesRepeticion = mesRepeticion;
 		this.numeroRepeticionesPeriodicidad = numeroRepeticionesPeriodicidad;
 		this.fechaFinalizacionPeriodicidad = fechaFinalizacionPeriodicidad;
-		this.estatus = estatus;
 		this.horaInicio = horaInicio;
 		this.horaCulminacion = horaCulminacion;
 		this.estatus1 = estatus1;
@@ -144,15 +142,6 @@ public class Periodicidad implements java.io.Serializable {
 	public void setFechaFinalizacionPeriodicidad(
 			Date fechaFinalizacionPeriodicidad) {
 		this.fechaFinalizacionPeriodicidad = fechaFinalizacionPeriodicidad;
-	}
-
-	@Column(name = "estatus", nullable = false)
-	public String getEstatus() {
-		return this.estatus;
-	}
-
-	public void setEstatus(String estatus) {
-		this.estatus = estatus;
 	}
 
 	@Temporal(TemporalType.TIME)

@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,31 +24,35 @@ public class EquipoJuego implements java.io.Serializable {
 	private Juego juego;
 	private EquipoCompetencia equipoCompetencia;
 	private boolean homeClub;
+	private char estatus;
 	private Set<DesempennoColectivo> desempennoColectivos = new HashSet<DesempennoColectivo>(
 			0);
-	private Set<PersonalEquipo> personalEquipos = new HashSet<PersonalEquipo>(0);
+	private Set<PersonalEquipoJuego> personalEquipoJuegos = new HashSet<PersonalEquipoJuego>(
+			0);
 
 	public EquipoJuego() {
 	}
 
 	public EquipoJuego(int codigoEquipoJuego, Juego juego,
-			EquipoCompetencia equipoCompetencia, boolean homeClub) {
+			EquipoCompetencia equipoCompetencia, boolean homeClub, char estatus) {
 		this.codigoEquipoJuego = codigoEquipoJuego;
 		this.juego = juego;
 		this.equipoCompetencia = equipoCompetencia;
 		this.homeClub = homeClub;
+		this.estatus = estatus;
 	}
 
 	public EquipoJuego(int codigoEquipoJuego, Juego juego,
 			EquipoCompetencia equipoCompetencia, boolean homeClub,
-			Set<DesempennoColectivo> desempennoColectivos,
-			Set<PersonalEquipo> personalEquipos) {
+			char estatus, Set<DesempennoColectivo> desempennoColectivos,
+			Set<PersonalEquipoJuego> personalEquipoJuegos) {
 		this.codigoEquipoJuego = codigoEquipoJuego;
 		this.juego = juego;
 		this.equipoCompetencia = equipoCompetencia;
 		this.homeClub = homeClub;
+		this.estatus = estatus;
 		this.desempennoColectivos = desempennoColectivos;
-		this.personalEquipos = personalEquipos;
+		this.personalEquipoJuegos = personalEquipoJuegos;
 	}
 
 	@Id
@@ -92,6 +94,15 @@ public class EquipoJuego implements java.io.Serializable {
 		this.homeClub = homeClub;
 	}
 
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipoJuego")
 	public Set<DesempennoColectivo> getDesempennoColectivos() {
 		return this.desempennoColectivos;
@@ -102,14 +113,14 @@ public class EquipoJuego implements java.io.Serializable {
 		this.desempennoColectivos = desempennoColectivos;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "personal_equipo_juego", schema = "public", joinColumns = { @JoinColumn(name = "codigo_equipo_juego", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "codigo_personal_equipo", nullable = false, updatable = false) })
-	public Set<PersonalEquipo> getPersonalEquipos() {
-		return this.personalEquipos;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipoJuego")
+	public Set<PersonalEquipoJuego> getPersonalEquipoJuegos() {
+		return this.personalEquipoJuegos;
 	}
 
-	public void setPersonalEquipos(Set<PersonalEquipo> personalEquipos) {
-		this.personalEquipos = personalEquipos;
+	public void setPersonalEquipoJuegos(
+			Set<PersonalEquipoJuego> personalEquipoJuegos) {
+		this.personalEquipoJuegos = personalEquipoJuegos;
 	}
 
 }

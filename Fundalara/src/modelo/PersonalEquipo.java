@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -34,7 +33,8 @@ public class PersonalEquipo implements java.io.Serializable {
 	private char estatus;
 	private Set<AsistenciaPersonalEntrenamiento> asistenciaPersonalEntrenamientos = new HashSet<AsistenciaPersonalEntrenamiento>(
 			0);
-	private Set<EquipoJuego> equipoJuegos = new HashSet<EquipoJuego>(0);
+	private Set<PersonalEquipoJuego> personalEquipoJuegos = new HashSet<PersonalEquipoJuego>(
+			0);
 	private Set<PersonalEquipoCompetencia> personalEquipoCompetencias = new HashSet<PersonalEquipoCompetencia>(
 			0);
 
@@ -63,7 +63,7 @@ public class PersonalEquipo implements java.io.Serializable {
 			String eventualidad,
 			char estatus,
 			Set<AsistenciaPersonalEntrenamiento> asistenciaPersonalEntrenamientos,
-			Set<EquipoJuego> equipoJuegos,
+			Set<PersonalEquipoJuego> personalEquipoJuegos,
 			Set<PersonalEquipoCompetencia> personalEquipoCompetencias) {
 		this.codigoPersonalEquipo = codigoPersonalEquipo;
 		this.planTemporada = planTemporada;
@@ -74,7 +74,7 @@ public class PersonalEquipo implements java.io.Serializable {
 		this.eventualidad = eventualidad;
 		this.estatus = estatus;
 		this.asistenciaPersonalEntrenamientos = asistenciaPersonalEntrenamientos;
-		this.equipoJuegos = equipoJuegos;
+		this.personalEquipoJuegos = personalEquipoJuegos;
 		this.personalEquipoCompetencias = personalEquipoCompetencias;
 	}
 
@@ -166,13 +166,14 @@ public class PersonalEquipo implements java.io.Serializable {
 		this.asistenciaPersonalEntrenamientos = asistenciaPersonalEntrenamientos;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "personalEquipos")
-	public Set<EquipoJuego> getEquipoJuegos() {
-		return this.equipoJuegos;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personalEquipo")
+	public Set<PersonalEquipoJuego> getPersonalEquipoJuegos() {
+		return this.personalEquipoJuegos;
 	}
 
-	public void setEquipoJuegos(Set<EquipoJuego> equipoJuegos) {
-		this.equipoJuegos = equipoJuegos;
+	public void setPersonalEquipoJuegos(
+			Set<PersonalEquipoJuego> personalEquipoJuegos) {
+		this.personalEquipoJuegos = personalEquipoJuegos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personalEquipo")

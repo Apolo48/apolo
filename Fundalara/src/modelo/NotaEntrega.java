@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -34,8 +34,10 @@ public class NotaEntrega implements java.io.Serializable {
 	public NotaEntrega() {
 	}
 
-	public NotaEntrega(int codigoNotaEntrega, Date fechaRecepcion, char estatus) {
+	public NotaEntrega(int codigoNotaEntrega, CuentaPagar cuentaPagar,
+			Date fechaRecepcion, char estatus) {
 		this.codigoNotaEntrega = codigoNotaEntrega;
+		this.cuentaPagar = cuentaPagar;
 		this.fechaRecepcion = fechaRecepcion;
 		this.estatus = estatus;
 	}
@@ -73,7 +75,7 @@ public class NotaEntrega implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "origen")
+	@JoinColumn(name = "codigo_cuenta_pagar", nullable = false)
 	public CuentaPagar getCuentaPagar() {
 		return this.cuentaPagar;
 	}

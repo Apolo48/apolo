@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.AttributeOverride;
@@ -27,24 +27,28 @@ public class CategoriaCompetencia implements java.io.Serializable {
 	private Competencia competencia;
 	private Date duracionHora;
 	private Integer duracionInning;
+	private char estatus;
 
 	public CategoriaCompetencia() {
 	}
 
 	public CategoriaCompetencia(CategoriaCompetenciaId id, Categoria categoria,
-			Competencia competencia) {
+			Competencia competencia, char estatus) {
 		this.id = id;
 		this.categoria = categoria;
 		this.competencia = competencia;
+		this.estatus = estatus;
 	}
 
 	public CategoriaCompetencia(CategoriaCompetenciaId id, Categoria categoria,
-			Competencia competencia, Date duracionHora, Integer duracionInning) {
+			Competencia competencia, Date duracionHora, Integer duracionInning,
+			char estatus) {
 		this.id = id;
 		this.categoria = categoria;
 		this.competencia = competencia;
 		this.duracionHora = duracionHora;
 		this.duracionInning = duracionInning;
+		this.estatus = estatus;
 	}
 
 	@EmbeddedId
@@ -96,6 +100,15 @@ public class CategoriaCompetencia implements java.io.Serializable {
 
 	public void setDuracionInning(Integer duracionInning) {
 		this.duracionInning = duracionInning;
+	}
+
+	@Column(name = "estatus", nullable = false, length = 1)
+	public char getEstatus() {
+		return this.estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
 	}
 
 }

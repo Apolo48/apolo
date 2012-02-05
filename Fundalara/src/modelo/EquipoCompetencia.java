@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,10 +31,8 @@ public class EquipoCompetencia implements java.io.Serializable {
 	}
 
 	public EquipoCompetencia(int codigoEquipoCompetencia,
-			PersonaNatural personaNatural, Competencia competencia,
-			Equipo equipo, char estatus) {
+			Competencia competencia, Equipo equipo, char estatus) {
 		this.codigoEquipoCompetencia = codigoEquipoCompetencia;
-		this.personaNatural = personaNatural;
 		this.competencia = competencia;
 		this.equipo = equipo;
 		this.estatus = estatus;
@@ -62,7 +60,7 @@ public class EquipoCompetencia implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cedula_delegado", nullable = false)
+	@JoinColumn(name = "cedula_delegado")
 	public PersonaNatural getPersonaNatural() {
 		return this.personaNatural;
 	}

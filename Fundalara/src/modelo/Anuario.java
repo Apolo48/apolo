@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 28-ene-2012 22:13:44 by Hibernate Tools 3.4.0.CR1
+// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,15 +19,18 @@ public class Anuario implements java.io.Serializable {
 
 	private int codigoAnuario;
 	private Roster roster;
+	private LapsoDeportivo lapsoDeportivo;
 	private byte[] foto;
 	private char estatus;
 
 	public Anuario() {
 	}
 
-	public Anuario(int codigoAnuario, Roster roster, byte[] foto, char estatus) {
+	public Anuario(int codigoAnuario, Roster roster,
+			LapsoDeportivo lapsoDeportivo, byte[] foto, char estatus) {
 		this.codigoAnuario = codigoAnuario;
 		this.roster = roster;
+		this.lapsoDeportivo = lapsoDeportivo;
 		this.foto = foto;
 		this.estatus = estatus;
 	}
@@ -50,6 +53,16 @@ public class Anuario implements java.io.Serializable {
 
 	public void setRoster(Roster roster) {
 		this.roster = roster;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_lapso_deportivo", nullable = false)
+	public LapsoDeportivo getLapsoDeportivo() {
+		return this.lapsoDeportivo;
+	}
+
+	public void setLapsoDeportivo(LapsoDeportivo lapsoDeportivo) {
+		this.lapsoDeportivo = lapsoDeportivo;
 	}
 
 	@Column(name = "foto", nullable = false)
