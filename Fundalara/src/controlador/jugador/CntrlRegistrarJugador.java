@@ -31,7 +31,9 @@ import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Panel;
 import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
@@ -201,7 +203,18 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Listbox listDocPersonales;
 	private Listbox listDocMedicos;
 	private Listbox listFamiliares;
+	private Listbox list00;
+	private Listbox list20;
+	private Listbox list40;
+	private Listbox list60;
+	private Listbox list80;
 	private Bandbox bboxNumero;
+	private Panel pnl1;
+	private Panel pnl2;
+	private Panel pnl3;
+	private Panel pnl4;
+	private Panel pnl5;
+	
 	private Component formulario;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 	private String rutasGen = Ruta.GENERAL.getRutaVista();
@@ -226,6 +239,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioFamiliarJugador servicioFamiliarJugador;
 	private ServicioPersona servicioPersona;
 	private ServicioComisionFamiliar servicioComisionFamiliar;
+	
 
 	// Modelos
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
@@ -269,6 +283,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private PersonaNatural personaNFamiliar = new PersonaNatural();
 	private List<FamiliarJugador> familiaresJugadores = new ArrayList<FamiliarJugador>();
 	private Jugador jugadorTemp = new Jugador();
+	private List<Jugador> listaRoster = new ArrayList<Jugador>();
 
 	// Binder
 	private AnnotateDataBinder binder;
@@ -2099,4 +2114,90 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
+	public boolean numeroDisponible (int valor) {
+		boolean result = true;
+		for (int j = 0; j < listaRoster.size(); j++){
+			if (listaRoster.get(j).getNumero().equals(valor)) {
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	public void limpiarListBox(Listbox l) {
+		int max = l.getItemCount();
+		for (int c = max-1;  c >= 0 ; c--) {
+			l.removeItemAt(c);
+		}
+	}
+	
+	public void reiniciarNumero() {
+		//bboxNumero.setRawValue("");
+		bboxNumero.setRawValue("0");
+		limpiarListBox(list00);
+		limpiarListBox(list20);
+		limpiarListBox(list40);
+		limpiarListBox(list60);
+		limpiarListBox(list80);
+		pnl1.setOpen(false);
+		pnl2.setOpen(false);
+		pnl3.setOpen(false);
+		pnl4.setOpen(false);
+		pnl5.setOpen(false);
+	}
+	
+	// Eventos
+	public void onSelect$cmbCategoria() {
+		reiniciarNumero();
+	}
+	
+	public void onSelect$cmbEquipo() {
+		reiniciarNumero();
+		listaRoster = servicioRoster.listarJugadores(equipo);
+		Listitem listItem = new Listitem();
+		Listcell listCell = new Listcell();
+		Label aux = new Label();
+		for (int i = 0; i < 100; i++) {
+			if (i%5 == 0){
+				listItem = new Listitem();
+			}
+			listCell = new Listcell();	                
+			aux = new Label();
+			final int k = i;
+			aux.setValue(String.valueOf(i));
+			if (numeroDisponible(i)) {
+				listCell.addEventListener("onClick", 
+						new EventListener() {
+							public void onEvent(Event event) throws Exception {
+								bboxNumero.setValue(String.valueOf(k));
+							}
+	            		});
+			} else {
+				aux.setStyle("color:red");
+				listCell.addEventListener("onClick", 
+						new EventListener() {
+							public void onEvent(Event event) throws Exception {
+								Mensaje.mostrarMensaje("Número no disponible",
+										Mensaje.ERROR, Messagebox.ERROR);
+							}
+	            		});
+			}
+			listCell.appendChild(aux);
+			listItem.appendChild(listCell);
+			
+			if (i < 20) {
+				list00.appendChild(listItem);
+			} else if (i < 40) {
+				list20.appendChild(listItem);
+			} else if (i < 60) {
+				list40.appendChild(listItem);
+			} else if (i < 80) {
+				list60.appendChild(listItem);
+			} else {//if (i < 60) {
+				list80.appendChild(listItem);
+			}
+		}
+	}
+	
 }

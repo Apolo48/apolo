@@ -478,8 +478,8 @@
 														<listcell
 															label="@{docPer.recaudoPorProceso.cantidad}" />
 														<listcell>
-															<spinner id="spCantidad"
-																width="60%" value="@{docPer.cantidad}"
+															<spinner
+																id="spCantidad" width="60%" value="@{docPer.cantidad}"
 																constraint="min 0 max 10" />
 														</listcell>
 														<listcell
@@ -705,9 +705,9 @@
 														<listcell
 															label="@{docMed.recaudoPorProceso.cantidad}" />
 														<listcell>
-															<spinner id="spCantidadMed"
-																width="60%" value="@{docMed.cantidad}"
-																constraint="min 0 max 10" />
+															<spinner
+																id="spCantidadMed" width="60%"
+																value="@{docMed.cantidad}" constraint="min 0 max 10" />
 														</listcell>
 														<listcell
 															label="@{docMed.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
@@ -818,9 +818,9 @@
 														<listcell
 															label="@{docAcad.recaudoPorProceso.cantidad}" />
 														<listcell>
-															<spinner id="spCantidadAcad"
-																width="60%" value="@{docAcad.cantidad}"
-																constraint="min 0 max 10" />
+															<spinner
+																id="spCantidadAcad" width="60%"
+																value="@{docAcad.cantidad}" constraint="min 0 max 10" />
 														</listcell>
 														<listcell
 															label="@{docAcad.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
@@ -998,7 +998,8 @@
 																	constraint="no empty"
 																	model="@{winRegistrarJugador$composer.equipos, load-after='cmbCategoria.onChange,dtboxFechaNac.onChange'}">
 																	<comboitem
-																		self="@{each='equipo'}" label="@{equipo.nombre}" />
+																		self="@{each='equipo'}" label="@{equipo.nombre}" 
+																		value="@{equipo.codigoEquipo}"/>
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
@@ -1024,76 +1025,8 @@
 																			onClick="pnl2.setOpen(false);pnl3.setOpen(false);pnl4.setOpen(false);pnl5.setOpen(false);">
 																			<panelchildren>
 																				<listbox
-																					width="180px"
+																					id="list00" width="180px"
 																					onSelect="self.setSelectedIndex(-1);bboxNumero.close();">
-																					<listitem>
-																						<listcell
-																							label="00"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="01"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="02"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="03"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="04"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="05"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="06"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="07"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="08"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="09"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="10"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="11"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="12"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="13"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="14"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="15"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="16"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="17"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="18"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="19"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
 																				</listbox>
 																			</panelchildren>
 																		</panel>
@@ -1104,76 +1037,8 @@
 																			onClick="pnl1.setOpen(false);pnl3.setOpen(false);pnl4.setOpen(false);pnl5.setOpen(false);">
 																			<panelchildren>
 																				<listbox
-																					width="180px"
+																					id="list20" width="180px"
 																					onSelect="self.setSelectedIndex(-1);bboxNumero.close();">
-																					<listitem>
-																						<listcell
-																							label="20"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="21"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="22"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="23"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="24"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="25"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="26"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="27"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="28"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="29"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="30"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="31"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="32"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="33"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="34"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="35"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="36"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="37"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="38"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="39"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
 																				</listbox>
 																			</panelchildren>
 																		</panel>
@@ -1184,76 +1049,8 @@
 																			onClick="pnl1.setOpen(false);pnl2.setOpen(false);pnl4.setOpen(false);pnl5.setOpen(false);">
 																			<panelchildren>
 																				<listbox
-																					width="180px"
+																					id="list40" width="180px"
 																					onSelect="self.setSelectedIndex(-1);bboxNumero.close();">
-																					<listitem>
-																						<listcell
-																							label="40"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="41"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="42"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="43"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="44"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="45"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="46"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="47"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="48"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="49"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="50"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="51"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="52"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="53"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="54"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="55"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="56"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="57"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="58"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="59"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
 																				</listbox>
 																			</panelchildren>
 																		</panel>
@@ -1264,76 +1061,8 @@
 																			onClick="pnl1.setOpen(false);pnl2.setOpen(false);pnl3.setOpen(false);pnl5.setOpen(false);">
 																			<panelchildren>
 																				<listbox
-																					width="180px"
+																					id="list60" width="180px"
 																					onSelect="self.setSelectedIndex(-1);bboxNumero.close();">
-																					<listitem>
-																						<listcell
-																							label="60"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="61"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="62"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="63"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="64"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="65"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="66"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="67"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="68"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="69"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="70"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="71"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="72"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="73"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="74"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="75"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="76"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="77"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="78"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="79"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
 																				</listbox>
 																			</panelchildren>
 																		</panel>
@@ -1344,76 +1073,8 @@
 																			onClick="pnl1.setOpen(false);pnl2.setOpen(false);pnl3.setOpen(false);pnl4.setOpen(false);">
 																			<panelchildren>
 																				<listbox
-																					width="180px"
+																					id="list80" width="180px"
 																					onSelect="self.setSelectedIndex(-1);bboxNumero.close();">
-																					<listitem>
-																						<listcell
-																							label="80"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="81"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="82"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="83"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="84"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="85"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="86"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="87"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="88"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="89"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="90"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="91"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="92"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="93"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="94"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
-																					<listitem>
-																						<listcell
-																							label="95"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="96"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="97"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="98"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																						<listcell
-																							label="99"
-																							onClick="bboxNumero.setValue(self.getLabel());" />
-																					</listitem>
 																				</listbox>
 																			</panelchildren>
 																		</panel>
@@ -1449,8 +1110,8 @@
 																value="Peso" />
 															<div>
 																<decimalbox
-																	value="@{controller.jugadorBean.peso}" id="txtPeso" format="###.##"
-																	constraint="no negative" />
+																	value="@{controller.jugadorBean.peso}" id="txtPeso"
+																	format="###.##" constraint="no negative" />
 																<label
 																	value="Kg." />
 																<label
@@ -1460,8 +1121,8 @@
 																value="Altura" />
 															<div>
 																<decimalbox
-																	value="@{controller.jugadorBean.altura}" id="txtAltura" format="#.##"
-																	constraint="no negative" />
+																	value="@{controller.jugadorBean.altura}" id="txtAltura"
+																	format="#.##" constraint="no negative" />
 																<label
 																	value="mts." />
 																<label
