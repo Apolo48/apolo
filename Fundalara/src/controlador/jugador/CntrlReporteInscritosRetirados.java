@@ -30,6 +30,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Iframe;
 
@@ -54,6 +55,9 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	private Connection con;
 	private String jrxmlSrc;
 	private String jasperSrc;
+	private Combobox cmbTemporada;
+	
+	private LapsoDeportivo lapsoDeportivo;
 	
 	// Servicios
 	private ServicioLapsoDeportivo servicioLapsoDeportivo;
@@ -71,6 +75,14 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 		formulario  = comp;
 	}
 	
+	public LapsoDeportivo getLapsoDeportivo() {
+		return lapsoDeportivo;
+	}
+
+	public void setLapsoDeportivo(LapsoDeportivo lapsoDeportivo) {
+		this.lapsoDeportivo = lapsoDeportivo;
+	}
+
 	public List<LapsoDeportivo> getLapsosDeportivos() {
 		DatoBasico datoLapsoDeportivo = servicioDatoBasico.buscarTipo(
 				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR");
@@ -122,43 +134,6 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 		ifReport.setContent(amedia);
 	}
 	
-/*	public void exportarArchivo() throws JRException, IOException {
-		
-		 * 1-Funciona para IExplorer desde el zul o visor, no permite exportar (ventana guardar)
-		 * 2-Funciona para Firefox, abre ventana para exportar
-		 * 3-No funciona en Chrome, ni en visor o zul, ni permite exportar
-		 * 4-Opera falta prueba - Posiblemente funcione por pruebas anteriores
-		 * 
-		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
-		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
-		
-		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
-		JRExporter exporter = new JRPdfExporter();
-		exporter.setParameters(parameters);
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT ,jaspPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,arrayOutputStream);
-		exporter.exportReport();
-		arrayOutputStream.close();
-		
-		ifReport.setVisible(true);
-		final AMedia amedia = new AMedia("inscritosRetirados.pdf","pdf","pdf/application", arrayOutputStream.toByteArray());
-		ifReport.setContent(amedia);
-	}*/
-	
-	public void mostrarViewer() throws JRException {
-		/*
-		 * Funciona para IExplorer, Firefox, Chrome y Opera
-		 * Permite ver, guardar e imprimir, todo desde el jasperViewer
-		 * Observacion: no es necesario crea pdf
-		 * Tiene opcion de guardar en diferentes formatos pero se pierden datos en Docx y HTML
-		 * guarda bien en PDF
-		 * */
-		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
-		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
-		
-		JasperViewer.viewReport(jaspPrint, false);
-	}
-	
 	public void imprimirReporte() throws JRException {
 		/*
 		 * Funciona para IExplorer, Firefox, Chrome y Opera
@@ -192,42 +167,29 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	public void onClick$btnImprimirVisor() throws SQLException, JRException {
 		con = ConeccionBD.getCon("postgres","postgres","123456");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
-		parameters.put("temporada","k");
+		parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
 		mostrarVisor();
 	}
 	
 	public void onClick$btnImprimirFrame() throws SQLException, JRException, IOException {
 		con = ConeccionBD.getCon("postgres","postgres","123456");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
-        parameters.put("temporada","2011-2012");
+        parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
 		mostrarFrame();
 	}
 	
-/*	public void onClick$btnImprimirExportar() throws SQLException, JRException, IOException {
-		con = ConeccionBD.getCon("postgres","postgres","123456");
-		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
-		parameters.put("temporada","2011-2012");
-		exportarArchivo();
-	}*/
-	
-	public void onClick$btnImprimirViewer() throws SQLException, JRException {
-		con = ConeccionBD.getCon("postgres","postgres","123456");
-		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
-		parameters.put("temporada","2011-2012");
-		mostrarViewer();
-	}
-	
+
 	public void onClick$btnImprimirReporte() throws SQLException, JRException {
 		con = ConeccionBD.getCon("postgres","postgres","123456");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
-		parameters.put("temporada","2011-2012");
+		parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
 		imprimirReporte();
 	}
 	
 	public void onClick$btnExportarReporte() throws SQLException, JRException {
 		con = ConeccionBD.getCon("postgres","postgres","123456");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
-        parameters.put("temporada","2011-2012");
+        parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
         exportarReporte();
 	}
 	
