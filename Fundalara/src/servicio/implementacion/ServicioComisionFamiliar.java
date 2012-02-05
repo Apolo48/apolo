@@ -5,6 +5,8 @@ import java.util.List;
 import dao.general.DaoComisionFamiliar;
 
 import modelo.ComisionFamiliar;
+import modelo.DatoBasico;
+import modelo.Familiar;
 import servicio.interfaz.IServicioComisionFamiliar;
 
 public class ServicioComisionFamiliar implements IServicioComisionFamiliar {
@@ -46,6 +48,10 @@ public class ServicioComisionFamiliar implements IServicioComisionFamiliar {
 	@Override
 	public void agregar(List<ComisionFamiliar> comisiones) {
 		daoComisionFamiliar.guardar(comisiones);
+	}
+	@Override
+	public List<DatoBasico> buscarComisiones(Familiar familiar) {
+		return daoComisionFamiliar.buscarComisiones(familiar);
 	}
 
 }

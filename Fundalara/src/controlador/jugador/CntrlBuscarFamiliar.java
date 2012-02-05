@@ -92,10 +92,10 @@ public class CntrlBuscarFamiliar extends GenericForwardComposer {
 		switch (estatus) {
 		    
 		case 1:
-			w.setTitle("Catalogo Representantes");
+			w.setTitle("Catálogo Representantes");
 			break;
 		case 2:
-			w.setTitle("Catalogo Familiares");
+			w.setTitle("Catálogo Familiares");
 			break;
 		   
 		}

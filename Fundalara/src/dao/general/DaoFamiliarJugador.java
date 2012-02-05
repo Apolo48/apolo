@@ -7,6 +7,7 @@ import java.util.List;
 
 import modelo.Categoria;
 import modelo.Competencia;
+import modelo.DatoBasico;
 import modelo.DatoSocial;
 import modelo.Equipo;
 import modelo.Familiar;
@@ -19,6 +20,16 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import dao.generico.GenericDao;
+
+/**
+ * Clase de acceso y manejo de los datos relacionados a los familiares de los
+ * jugadores
+ * 
+ * @author Robert A
+ * @author German L
+ * @version 0.1.3 05/02/2012
+ * 
+ */
 
 public class DaoFamiliarJugador extends GenericDao {
 	
@@ -50,6 +61,11 @@ public class DaoFamiliarJugador extends GenericDao {
 	}
 	
 	
+	/**
+	 * Guarda/actualiza las asociaciones de un jugador con una lista de familiares
+	 * @param familiaresJugadores lista de familiares  
+	 * @param jugador jugador
+	 */
 	public void guardar(List<FamiliarJugador> familiaresJugadores, Jugador jugador){
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
@@ -106,6 +122,26 @@ public class DaoFamiliarJugador extends GenericDao {
 		}
 		return posicion;
 	}
-	
+
+	/**
+	 * Busca el parentesco de un familiar con un jugador dado en caso de que exista
+	 * @param familiar
+	 * @param cedulaJugador
+	 * @return parentesco o null si no existe relacion entre el familiar y el jugador
+	 */
+	public DatoBasico buscarParentesco(Familiar familiar, String cedulaJugador){
+		Session sesion = getSession();
+		Transaction tx = sesion.beginTransaction();
+		
+		Criteria c = sesion.createCriteria(FamiliarJugador.class)
+				.add(Restrictions.eq("familiar", familiar))
+				.createCriteria("jugador")
+				.add(Restrictions.eq("cedulaRif", cedulaJugador));
+		
+		FamiliarJugador dato = (FamiliarJugador) c.uniqueResult();
+		
+		tx.commit();
+		return dato==null?null:dato.getDatoBasico();
+	}
 
 }

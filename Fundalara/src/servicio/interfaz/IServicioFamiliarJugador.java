@@ -2,6 +2,7 @@ package servicio.interfaz;
 
 import java.util.List;
 
+import modelo.DatoBasico;
 import modelo.Familiar;
 import modelo.FamiliarJugador;
 import modelo.Jugador;
@@ -18,4 +19,6 @@ public interface IServicioFamiliarJugador {
 	public abstract List<FamiliarJugador> buscarFamiliarJugador(Jugador jugador);
 
 	public abstract FamiliarJugador buscarFamiliar(Familiar familiar);
+	
+	public abstract DatoBasico buscarParentesco(Familiar familiar, String cedulaJugador);
 }

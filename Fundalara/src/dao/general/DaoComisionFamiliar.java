@@ -96,11 +96,31 @@ public class DaoComisionFamiliar extends GenericDao {
 
 	/**
 	 * Elimina las comisiones que ya han sido actualizadas de la lista auxiliar
+	 * 
 	 * @param lista
 	 * @param comisionRemover
 	 */
 	private void depurarLista(List<ComisionFamiliar> lista,
 			ComisionFamiliar comisionRemover) {
 		lista.remove(comisionRemover);
+	}
+
+	public List<DatoBasico> buscarComisiones(Familiar familiar) {
+		List<DatoBasico> lista = new ArrayList<DatoBasico>();
+		List<ComisionFamiliar> comisionesAlmacenadasPorFamiliar = new ArrayList<ComisionFamiliar>();
+		Session session = this.getSession();
+		Transaction tx = session.beginTransaction();
+
+		Criteria c = session.createCriteria(ComisionFamiliar.class)
+				.add(Restrictions.eq("estatus", 'A'))
+				.createCriteria("familiarJugador")
+				.add(Restrictions.eq("familiar", familiar))
+				.add(Restrictions.eq("estatus", 'A'));
+		comisionesAlmacenadasPorFamiliar = c.list();
+		for (ComisionFamiliar comisionFamiliar : comisionesAlmacenadasPorFamiliar) {
+			lista.add(comisionFamiliar.getDatoBasico());
+		}
+		tx.commit();
+		return lista;
 	}
 }

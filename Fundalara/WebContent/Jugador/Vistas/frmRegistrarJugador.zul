@@ -62,14 +62,14 @@
 										<div>
 											<textbox
 												style='text-transform:uppercase;' id="txtPrimerNombre"
-												maxlength="40" width="80%"
+												maxlength="20" width="80%"
 												value="@{controller.jugadorBean.primerNombre}" />
 											<label value="(*)"
 												style="color:red" />
 										</div>
 										<label value="Segundo Nombre" />
 										<textbox
-											style='text-transform:uppercase;' maxlength="40"
+											style='text-transform:uppercase;' maxlength="20"
 											id="txtSegundoNombre" width="80%"
 											value="@{controller.jugadorBean.segundoNombre}" />
 									</row>
@@ -78,7 +78,7 @@
 											width="95%" />
 										<div>
 											<textbox
-												style='text-transform:uppercase;' maxlength="40" width="80%"
+												style='text-transform:uppercase;' maxlength="20" width="80%"
 												id="txtPrimerApellido"
 												value="@{controller.jugadorBean.primerApellido}" />
 											<label value="(*)"
@@ -87,7 +87,7 @@
 										<label value="Segundo Apellido"
 											width="95%" />
 										<textbox
-											style='text-transform:uppercase;' maxlength="40"
+											style='text-transform:uppercase;' maxlength="20"
 											id="txtSegundoApellido" width="80%"
 											value="@{controller.jugadorBean.segundoApellido}" />
 									</row>
@@ -1449,7 +1449,7 @@
 																value="Peso" />
 															<div>
 																<decimalbox
-																	value="@{controller.jugadorBean.peso}" id="txtPeso"
+																	value="@{controller.jugadorBean.peso}" id="txtPeso" format="###.##"
 																	constraint="no negative" />
 																<label
 																	value="Kg." />
@@ -1460,7 +1460,7 @@
 																value="Altura" />
 															<div>
 																<decimalbox
-																	value="@{controller.jugadorBean.altura}" id="txtAltura"
+																	value="@{controller.jugadorBean.altura}" id="txtAltura" format="#.##"
 																	constraint="no negative" />
 																<label
 																	value="mts." />
@@ -1645,7 +1645,7 @@
 																		<div>
 																			<textbox
 																				style='text-transform:uppercase;' width="80%"
-																				id="txtPrimerNombreFamiliar">
+																				id="txtPrimerNombreFamiliar" maxlength="20">
 																			</textbox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1654,7 +1654,7 @@
 																			value="Segundo Nombre" />
 																		<textbox
 																			style='text-transform:uppercase;' width="80%"
-																			id="txtSegundoNombreFamiliar">
+																			id="txtSegundoNombreFamiliar" maxlength="20">
 																		</textbox>
 																	</row>
 																	<row
@@ -1664,7 +1664,7 @@
 																		<div>
 																			<textbox
 																				style='text-transform:uppercase;' width="80%"
-																				id="txtPrimerApellidoFamiliar">
+																				id="txtPrimerApellidoFamiliar" maxlength="20">
 																			</textbox>
 																			<label
 																				value="(*)" style="color:red" />
@@ -1673,7 +1673,7 @@
 																			value="Segundo Apellido" />
 																		<textbox
 																			style='text-transform:uppercase;' width="80%"
-																			id="txtSegundoApellidoFamiliar">
+																			id="txtSegundoApellidoFamiliar" maxlength="20">
 																		</textbox>
 																	</row>
 																	<row

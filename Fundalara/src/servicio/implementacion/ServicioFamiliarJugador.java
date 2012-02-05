@@ -5,6 +5,7 @@ import java.util.List;
 import servicio.interfaz.IServicioFamiliarJugador;
 
 import dao.general.DaoFamiliarJugador;
+import modelo.DatoBasico;
 import modelo.Familiar;
 import modelo.FamiliarJugador;
 import modelo.Jugador;
@@ -57,6 +58,9 @@ DaoFamiliarJugador daoFamiliarJugador;
 	public void agregar(List<FamiliarJugador> familiaresJugadores, Jugador jugador){
 		daoFamiliarJugador.guardar(familiaresJugadores, jugador);
 	}
-	
 
+@Override
+	public DatoBasico buscarParentesco(Familiar familiar, String cedulaJugador) {
+		return daoFamiliarJugador.buscarParentesco(familiar, cedulaJugador);
+	}
 }
