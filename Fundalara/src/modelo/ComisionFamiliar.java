@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "comision_familiar", schema = "public")
-@SequenceGenerator(name = "comisionFamiliar_seq", sequenceName = "comision_familiar_codigo_comision_familiar_seq_1")
+@SequenceGenerator(name = "comisionFamiliar_seq", sequenceName = "comision_familiar_codigo_comision_familiar_seq_1_2")
 public class ComisionFamiliar implements java.io.Serializable {
 
 	private int codigoComisionFamiliar;

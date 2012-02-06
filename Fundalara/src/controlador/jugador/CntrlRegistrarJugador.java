@@ -737,7 +737,10 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public List<Equipo> getEquipos() {
-		return servicioEquipo.buscarPorCategoria(categoria);
+		if (categoria != null) {
+			return servicioEquipo.buscarEquiposDisponibles(categoria);
+		}
+		return null;
 	}
 
 	public List<DatoBasico> getValoresBrazoLanzamiento() {
@@ -1069,25 +1072,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public void onClick$btnGuardar() {
 		if (verificarCampos(camposPerfil, true)) {
-			guardarJugador();
-			habilitarCatalogoJugador(true);
-
-			if (medico.getNumeroColegio() != null) {
-				guardarDatoMedico();
-			}
-			if (verificarCampos(new InputElement[] { cmbInstitucionEducativa,
-					cmbAnnioEscolar, cmbCurso }, false)) {
-				guardarDatoAcademico();
-			}
-			if (verificarCampos(new InputElement[] { cmbEquipo }, false)) {
-				guardarRoster();
-			}
-			guardarDatoSocial();
-			guardarTallas();
-			guardarDocumentoPersonal();
-			guardarDocumentoAcademico();
-			guardarDocumentoMedico();
-			guardarFamiliares();
+			guadarDatos(EstatusRegistro.TEMPORAL);
 			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
 					Mensaje.EXITO, Messagebox.EXCLAMATION);
 		}
@@ -1100,28 +1085,55 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		 * onClick$btnAgregarFamiliar(); }
 		 */
 
-		Mensaje.mostrarMensaje(
-				"Se ha  inscrito el jugador: \n" + jugadorBean.getNombres()
-						+ " " + jugadorBean.getApellidos(), Mensaje.EXITO,
-				Messagebox.INFORMATION);
-
-		/**** CODIGO TEMPORAL PARA VIDEO Inicio ****/
-		String jrxmlSrc = Sessions.getCurrent().getWebApp()
-				.getRealPath("/WEB-INF/reportes/planillaInscripcion.pdf");
-		File archivo = new File(jrxmlSrc);
-		AMedia amedia = null;
-		try {
-			amedia = new AMedia(null, null, null, archivo, true);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		/*
+		 * 
+		 * Mensaje.mostrarMensaje( "Se ha  inscrito el jugador: \n" +
+		 * jugadorBean.getNombres() + " " + jugadorBean.getApellidos(),
+		 * Mensaje.EXITO, Messagebox.INFORMATION);
+		 * 
+		 * 
+		 * String jrxmlSrc = Sessions.getCurrent().getWebApp()
+		 * .getRealPath("/WEB-INF/reportes/planillaInscripcion.pdf"); File
+		 * archivo = new File(jrxmlSrc); AMedia amedia = null; try { amedia =
+		 * new AMedia(null, null, null, archivo, true); } catch
+		 * (FileNotFoundException e) { e.printStackTrace(); }
+		 * 
+		 * Component visor = Executions.createComponents(rutasGen +
+		 * "frmVisorDocumento.zul", null, null); visor.setVariable("archivo",
+		 * amedia, false);
+		 */
+		if (verificarCampos(camposPerfil, true)) {
+			guadarDatos(EstatusRegistro.ACTIVO);
+			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
+					Mensaje.EXITO, Messagebox.EXCLAMATION);
 		}
 
-		Component visor = Executions.createComponents(rutasGen
-				+ "frmVisorDocumento.zul", null, null);
-		visor.setVariable("archivo", amedia, false);
-		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
-
 		onClick$btnCancelar();
+	}
+
+	private void guadarDatos(char estatus) {
+		guardarJugador(estatus);
+		habilitarCatalogoJugador(true);
+
+		if (medico.getNumeroColegio() != null) {
+			guardarDatoMedico();
+		}
+		if (verificarCampos(new InputElement[] { cmbInstitucionEducativa,
+				cmbAnnioEscolar, cmbCurso }, false)) {
+			guardarDatoAcademico();
+		}
+		if (estatus == EstatusRegistro.ACTIVO) {
+			if (verificarCampos(new InputElement[] { cmbEquipo }, false)) {
+				guardarRoster();
+			}
+		}
+		guardarDatoSocial();
+		guardarTallas();
+		guardarDocumentoPersonal();
+		guardarDocumentoAcademico();
+		guardarDocumentoMedico();
+		guardarFamiliares(estatus);
+
 	}
 
 	// Metodos propios del ctrl
@@ -1186,8 +1198,28 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
-	public void guardarJugador() {
+	public void guardarJugador(char estatus) {
+		/*
+		 * guardarDatosBeanToModelo(); if (checkPoints.get(Point.JUGADOR)) { //
+		 * Actualizamos personaN.setPersona(persona);
+		 * jugador.setPersonaNatural(personaN);
+		 * servicioJugador.actualizar(jugador); } else { // Guardamos DatoBasico
+		 * datoTipoPersona = servicioDatoBasico.buscarTipo(
+		 * TipoDatoBasico.TIPO_PERSONA, "Jugador"); persona.setFechaIngreso(new
+		 * Date()); persona.setDatoBasicoByCodigoTipoPersona(datoTipoPersona);
+		 * persona.setEstatus(EstatusRegistro.TEMPORAL);
+		 * personaN.setEstatus(EstatusRegistro.TEMPORAL);
+		 * jugador.setEstatus(EstatusRegistro.TEMPORAL);
+		 * personaN.setPersona(persona); jugador.setPersonaNatural(personaN);
+		 * servicioJugador.agregar(jugador); checkPoints.put(Point.JUGADOR,
+		 * true); }
+		 */
+
 		guardarDatosBeanToModelo();
+		if (estatus == EstatusRegistro.ACTIVO) {
+			jugador.setFechaInscripcion(new Date());
+			persona.setFechaIngreso(new Date());
+		}
 		if (checkPoints.get(Point.JUGADOR)) {
 			// Actualizamos
 			personaN.setPersona(persona);
@@ -1195,13 +1227,16 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			servicioJugador.actualizar(jugador);
 		} else {
 			// Guardamos
+
 			DatoBasico datoTipoPersona = servicioDatoBasico.buscarTipo(
 					TipoDatoBasico.TIPO_PERSONA, "Jugador");
+
 			persona.setFechaIngreso(new Date());
+
 			persona.setDatoBasicoByCodigoTipoPersona(datoTipoPersona);
-			persona.setEstatus(EstatusRegistro.TEMPORAL);
-			personaN.setEstatus(EstatusRegistro.TEMPORAL);
-			jugador.setEstatus(EstatusRegistro.TEMPORAL);
+			persona.setEstatus(estatus);
+			personaN.setEstatus(estatus);
+			jugador.setEstatus(estatus);
 			personaN.setPersona(persona);
 			jugador.setPersonaNatural(personaN);
 			servicioJugador.agregar(jugador);
@@ -1650,7 +1685,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	/** NUEVO */
 
-	private void guardarFamiliares() {
+	private void guardarFamiliares(char estatus) {
 		FamiliarJugador familiarJugador;
 		Familiar familiarAux;
 		ComisionFamiliar familiarComision;
@@ -1660,7 +1695,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		List<ComisionFamiliar> familiaresComisiones = new ArrayList<ComisionFamiliar>();
 
 		for (controlador.jugador.bean.Familiar familiar : familiares) {
-			familiarAux = guardarFamiliarBeanToModelo(familiar, datoTipoPersona);
+			familiarAux = guardarFamiliarBeanToModelo(familiar,
+					datoTipoPersona, estatus);
 			familiaresModelo.add(familiarAux);
 
 			familiarJugador = new FamiliarJugador();
@@ -1749,15 +1785,20 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 							familiar, jugadorBean.getCedulaCompleta()));
 			familiarBean.setComisionesFamiliar(servicioComisionFamiliar
 					.buscarComisiones(familiar));
+			// new
+			familiarBean.setEstatus(familiar.getEstatus());
 		}
 	}
 
 	private Familiar guardarFamiliarBeanToModelo(
 			controlador.jugador.bean.Familiar familiarBean,
-			DatoBasico tipoPersona) {
+			DatoBasico tipoPersona, char estatus) {
 		personaFamiliar = new Persona();
 		personaNFamiliar = new PersonaNatural();
 		familiar = new Familiar();
+		if (estatus == EstatusRegistro.ACTIVO) {
+			jugadorBean.setEstatus(EstatusRegistro.ACTIVO);
+		}
 
 		personaFamiliar.setCedulaRif(familiarBean.getCedulaCompleta());
 		personaFamiliar.setCorreoElectronico(familiarBean
@@ -1770,7 +1811,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		personaFamiliar.setDireccion(familiarBean.getDireccion());
 		personaFamiliar.setDatoBasicoByCodigoTipoPersona(tipoPersona);
 		personaFamiliar.setFechaIngreso(new Date());
-		personaFamiliar.setEstatus(EstatusRegistro.TEMPORAL);
+		// personaFamiliar.setEstatus(EstatusRegistro.TEMPORAL);
+		personaFamiliar.setEstatus(jugadorBean.getEstatus());
 
 		personaNFamiliar.setCedulaRif(familiarBean.getCedulaCompleta());
 		personaNFamiliar.setCelular(familiarBean.getTelefonoCelular()
@@ -1780,12 +1822,16 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		personaNFamiliar.setSegundoApellido(familiarBean.getSegundoApellido());
 		personaNFamiliar.setSegundoNombre(familiarBean.getSegundoNombre());
 		personaNFamiliar.setFoto(familiarBean.getFoto());
-		personaNFamiliar.setEstatus(EstatusRegistro.TEMPORAL);
+		// personaNFamiliar.setEstatus(EstatusRegistro.TEMPORAL);
+		personaNFamiliar.setEstatus(jugadorBean.getEstatus());
 		personaNFamiliar.setPersona(personaFamiliar);
 
 		familiar.setCedulaRif(familiarBean.getCedulaCompleta());
 		familiar.setDatoBasico(familiarBean.getProfesion());
-		familiar.setEstatus(EstatusRegistro.TEMPORAL);
+		familiar.setEstatus(jugadorBean.getEstatus());
+
+		// familiar.setEstatus(EstatusRegistro.TEMPORAL);
+
 		familiar.setPersonaNatural(personaNFamiliar);
 
 		return familiar;
@@ -2216,9 +2262,12 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	/**
-	 * Busca si existe un representante en el list diferente al recien seleccionado
-	 * @param cedula del familaior actual que se intenta asignar como representante 
-	 * @return  familiar marcado como representante
+	 * Busca si existe un representante en el list diferente al recien
+	 * seleccionado
+	 * 
+	 * @param cedula
+	 *            del familaior actual que se intenta asignar como representante
+	 * @return familiar marcado como representante
 	 */
 	private controlador.jugador.bean.Familiar existeRepresentante(String cedula) {
 		controlador.jugador.bean.Familiar familiarAux = null;

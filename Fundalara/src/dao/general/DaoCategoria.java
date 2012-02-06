@@ -1,5 +1,6 @@
 package dao.general;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -64,10 +65,13 @@ public class DaoCategoria extends GenericDao {
 		Session session = this.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
 		Criteria c = session.createCriteria(Categoria.class)
-				.add(Restrictions.gt("edadInferior", edad))
-				.add(Restrictions.gt("edadSuperior", edad))
+				.add(Restrictions.ge("edadSuperior", edad))
 				.add(Restrictions.eq("estatus", 'A'));
-		return c.list();
+		List<Categoria> listCategoria = c.list();
+		if (listCategoria.size() > 1) {
+			listCategoria = listCategoria.subList(0, 2);
+		}
+		return listCategoria;
 	}
 	
 	/**

@@ -14,7 +14,7 @@ import modelo.LapsoDeportivo;
 public class ServicioEquipo implements IServicioEquipo {
 
 	DaoEquipo daoEquipo;
-		
+
 	public DaoEquipo getDaoEquipo() {
 		return daoEquipo;
 	}
@@ -43,12 +43,12 @@ public class ServicioEquipo implements IServicioEquipo {
 	public List<Equipo> listar() {
 		return daoEquipo.listarActivos(Equipo.class);
 	}
-	
-	public List<Equipo> buscarPorCategoria(Categoria categoria){
+
+	public List<Equipo> buscarPorCategoria(Categoria categoria) {
 		return daoEquipo.buscarEquiposPorCategoria(categoria);
 	}
-	
-	public boolean buscarPorCodigo (Equipo equipo) {
+
+	public boolean buscarPorCodigo(Equipo equipo) {
 		return daoEquipo.buscarPorCodigo(equipo);
 	}
 
@@ -57,12 +57,27 @@ public class ServicioEquipo implements IServicioEquipo {
 			String lapsoDeportivo) {
 		return daoEquipo.buscarEquiposPorCategoria(categoria, lapsoDeportivo);
 	}
-	
+
 	@Override
 	public List<Equipo> buscarPorCategoria(Categoria categoria,
 			String lapsoDeportivo, String nombreDivisa) {
-		return daoEquipo.buscarEquiposPorCategoria(categoria, lapsoDeportivo,nombreDivisa);
+		return daoEquipo.buscarEquiposPorCategoria(categoria, lapsoDeportivo,
+				nombreDivisa);
 	}
-	
-	
+
+	public List<Equipo> buscarEquiposDisponibles(Categoria categoria,
+			String lapsoDeportivo, String nombreDivisa) {
+		return daoEquipo.buscarEquiposDisponibles(categoria, lapsoDeportivo,
+				nombreDivisa);
+	}
+
+	public List<Equipo> buscarEquiposDisponibles(Categoria categoria) {
+		return daoEquipo.buscarEquiposDisponibles(categoria);
+	}
+
+	public List<Equipo> buscarEquiposDisponibles(Categoria categoria,
+			String lapsoDeportivo) {
+		return daoEquipo.buscarEquiposDisponibles(categoria, lapsoDeportivo);
+	}
+
 }

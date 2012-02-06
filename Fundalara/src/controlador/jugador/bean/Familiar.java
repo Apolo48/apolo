@@ -3,6 +3,8 @@ package controlador.jugador.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import comun.EstatusRegistro;
+
 import modelo.DatoBasico;
 
 /**
@@ -18,13 +20,27 @@ public class Familiar  extends Persona{
 	private DatoBasico profesion;
 	private List<DatoBasico> comisionesFamiliar;
 	private boolean representante;
+	private char estatus;
 		
 	public Familiar() {
 		 super();
 		 parentesco = new DatoBasico();
 		 profesion =  new DatoBasico();
 		 comisionesFamiliar = new ArrayList<DatoBasico>();
+		 estatus= EstatusRegistro.TEMPORAL;
 	}
+
+	
+	
+	public char getEstatus() {
+		return estatus;
+	}
+
+	public void setEstatus(char estatus) {
+		this.estatus = estatus;
+	}
+
+
 
 	public DatoBasico getParentesco() {
 		return parentesco;
@@ -72,4 +88,7 @@ public class Familiar  extends Persona{
 	public String getCedulaCompleta() {
 		return getNacionalidad().toUpperCase() + "-" + getCedula();
 	}
+	
+	
+	
 }

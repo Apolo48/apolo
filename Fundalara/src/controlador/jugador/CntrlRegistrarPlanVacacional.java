@@ -178,11 +178,9 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		return estadoVenezuela;
 	}
 
-
 	public void setEstadoVenezuela(DatoBasico estadoVenezuela) {
 		this.estadoVenezuela = estadoVenezuela;
 	}
-
 
 	public DatoBasico getMunicipio() {
 		return municipio;
@@ -235,10 +233,10 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	}
 	
 	public List<Equipo> getEquipos() {
-		return servicioEquipo.buscarPorCategoria(categoria);
+		return servicioEquipo.buscarPorCategoria(categoria, "PLAN VACACIONAL");
 	}
 	
-/*	public List<HorarioPlanTemporada> getHorariosPlan() {
+	/*public List<HorarioPlanTemporada> getHorariosPlan() {
 		DatoBasico datoLapsoDeportivo = servicioDatoBasico.buscarTipo(
 				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "PLAN VACACIONAL");
 		PlanTemporada plan = servicioPlanTemporada.buscarPorCategoriaLapDep(categoria,servicioLapsoDeportivo.buscarDosCampos(datoLapsoDeportivo));
@@ -371,7 +369,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		txtNombre.setDisabled(flag);   
 		txtApellido.setDisabled(flag);
 		dtboxFechaNac.setDisabled(flag);
-		cmbTipoJugador.setDisabled(flag);
+		//cmbTipoJugador.setDisabled(flag);
 		cmbCategoria.setDisabled(flag);
 		//cmbEquipo.setDisabled(flag);
 		cmbNacionalidad.setDisabled(flag);
