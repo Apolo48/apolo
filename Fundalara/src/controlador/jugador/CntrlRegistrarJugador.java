@@ -4,13 +4,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.ImageIcon;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.AMedia;
@@ -62,6 +74,7 @@ import servicio.implementacion.ServicioInstitucion;
 import servicio.implementacion.ServicioRoster;
 import servicio.implementacion.ServicioTallaPorJugador;
 
+import comun.ConeccionBD;
 import comun.EstatusRegistro;
 import comun.FileLoader;
 import comun.Ruta;
@@ -284,6 +297,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private List<FamiliarJugador> familiaresJugadores = new ArrayList<FamiliarJugador>();
 	private Jugador jugadorTemp = new Jugador();
 	private List<Jugador> listaRoster = new ArrayList<Jugador>();
+
+	private Connection con;
+	private Map<String, Object> parameters = new HashMap<String, Object>();
 
 	// Binder
 	private AnnotateDataBinder binder;
@@ -1078,37 +1094,65 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
-	public void onClick$btnInscribir() throws URISyntaxException {
+	public void onClick$btnInscribir() {
 		/*
 		 * Considerar al inscribir Si aun esta editando un familiar , anexarlo a
 		 * la lista para guardarlo if (btnModificarFamiliar.isDisabled()){
 		 * onClick$btnAgregarFamiliar(); }
 		 */
 
-		/*
-		 * 
-		 * Mensaje.mostrarMensaje( "Se ha  inscrito el jugador: \n" +
-		 * jugadorBean.getNombres() + " " + jugadorBean.getApellidos(),
-		 * Mensaje.EXITO, Messagebox.INFORMATION);
-		 * 
-		 * 
-		 * String jrxmlSrc = Sessions.getCurrent().getWebApp()
-		 * .getRealPath("/WEB-INF/reportes/planillaInscripcion.pdf"); File
-		 * archivo = new File(jrxmlSrc); AMedia amedia = null; try { amedia =
-		 * new AMedia(null, null, null, archivo, true); } catch
-		 * (FileNotFoundException e) { e.printStackTrace(); }
-		 * 
-		 * Component visor = Executions.createComponents(rutasGen +
-		 * "frmVisorDocumento.zul", null, null); visor.setVariable("archivo",
-		 * amedia, false);
-		 */
 		if (verificarCampos(camposPerfil, true)) {
 			guadarDatos(EstatusRegistro.ACTIVO);
-			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
-					Mensaje.EXITO, Messagebox.EXCLAMATION);
+			Mensaje.mostrarMensaje(
+					"Se ha  inscrito el jugador: \n" + jugadorBean.getNombres()
+							+ " " + jugadorBean.getApellidos(), Mensaje.EXITO,
+					Messagebox.INFORMATION);
+			generarPlanillaInscripcion();
+			onClick$btnCancelar();
 		}
 
-		onClick$btnCancelar();
+	}
+
+	private void generarPlanillaInscripcion() {
+		ImageIcon n = new ImageIcon();
+		byte[] foto = jugador.getPersonaNatural().getFoto();
+		if (foto != null) {
+			n = new ImageIcon((byte[]) jugador.getPersonaNatural().getFoto());
+		} else {
+			n = new ImageIcon();
+		}
+		try {
+			con = ConeccionBD.getCon("postgres", "postgres", "123456");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String jrxmlSrc = Sessions.getCurrent().getWebApp()
+				.getRealPath("/WEB-INF/reportes/planillaInscripcion.jrxml");
+		parameters.put("cedulaJugador", jugador.getCedulaRif());// Cédula del
+																// jugador
+		parameters.put("foto", n.getImage()); // Imagen del jugador
+		try {
+			mostrarPlanilla(jrxmlSrc);
+		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void mostrarPlanilla(String jrxmlSrc) throws JRException,
+			IOException {
+		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
+		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters,
+				con);
+		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);// Generar
+																			// Pdf
+		final AMedia amedia = new AMedia("planillaInscripcion.pdf", "pdf",
+				"application/pdf", archivo);
+		Component visor = Executions.createComponents(rutasGen
+				+ "frmVisorDocumento.zul", null, null);
+		visor.setVariable("archivo", amedia, false);
 	}
 
 	private void guadarDatos(char estatus) {
@@ -1565,6 +1609,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		familiares = new ArrayList<controlador.jugador.bean.Familiar>();
 		limpiarFaseFamiliar();
 		inicializarCheckPoints();
+		habilitarCatalogoJugador(false);
 	}
 
 	public void limpiarJugador() {
