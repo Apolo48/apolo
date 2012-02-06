@@ -65,18 +65,4 @@ public class ServicioEquipo implements IServicioEquipo {
 	}
 	
 	
-	DaoLapsoDeportivo daoLapsoDeportivo = new DaoLapsoDeportivo();
-	
-	public DaoLapsoDeportivo getDaoLapsoDeportivo() {
-		return daoLapsoDeportivo;
-	}
-
-	public void setDaoLapsoDeportivo(DaoLapsoDeportivo daoLapsoDeportivo) {
-		this.daoLapsoDeportivo = daoLapsoDeportivo;
-	}
-	
-	public List<LapsoDeportivo> buscarPorTipoLapso(DatoBasico db) {
-		return daoLapsoDeportivo.buscarPorTipoLapso(db);
-	}	
-	
 }

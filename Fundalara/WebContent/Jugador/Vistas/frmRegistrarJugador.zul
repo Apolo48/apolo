@@ -1673,7 +1673,7 @@
 											<listcell
 												label="@{familiarJug.parentesco.nombre}" />
 											<listcell>
-												<checkbox
+												<checkbox onCheck="controller.verificarRepresentante(self,self.getParent().getParent())"
 													checked="@{familiarJug.representante}" />
 											</listcell>
 										</listitem>

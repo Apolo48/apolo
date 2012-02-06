@@ -23,6 +23,7 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Decimalbox;
@@ -214,7 +215,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Panel pnl3;
 	private Panel pnl4;
 	private Panel pnl5;
-	
+
 	private Component formulario;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 	private String rutasGen = Ruta.GENERAL.getRutaVista();
@@ -239,7 +240,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioFamiliarJugador servicioFamiliarJugador;
 	private ServicioPersona servicioPersona;
 	private ServicioComisionFamiliar servicioComisionFamiliar;
-	
 
 	// Modelos
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
@@ -933,14 +933,15 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		Component catalogo = Executions.createComponents(rutasJug
 				+ "frmBuscarFamiliar.zul", null, null);
 		catalogo.setVariable("formulario", formulario, false);
-		//2: Familiar
+		// 2: Familiar
 		catalogo.setVariable("estatus", 2, false);
 		formulario.addEventListener("onCatalogoBuscarFamiliarCerrado",
 				new EventListener() {
 					@Override
 					public void onEvent(Event arg0) throws Exception {
-						Familiar familiarAux = (Familiar) formulario.getVariable("familiar", false);
-						if (familiarAux!=null){
+						Familiar familiarAux = (Familiar) formulario
+								.getVariable("familiar", false);
+						if (familiarAux != null) {
 							limpiarFamiliar();
 							guardarFamiliarModeloToBean(familiarAux);
 							guardarBeanToVista(familiarBean);
@@ -1070,7 +1071,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		if (verificarCampos(camposPerfil, true)) {
 			guardarJugador();
 			habilitarCatalogoJugador(true);
-			
+
 			if (medico.getNumeroColegio() != null) {
 				guardarDatoMedico();
 			}
@@ -1093,14 +1094,12 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnInscribir() throws URISyntaxException {
-		/*Considerar al inscribir
-		 *  Si aun esta editando un familiar , anexarlo a la lista para guardarlo
-		 * if (btnModificarFamiliar.isDisabled()){
-			onClick$btnAgregarFamiliar();
-		}
-		 * 
-		 * */
-		
+		/*
+		 * Considerar al inscribir Si aun esta editando un familiar , anexarlo a
+		 * la lista para guardarlo if (btnModificarFamiliar.isDisabled()){
+		 * onClick$btnAgregarFamiliar(); }
+		 */
+
 		Mensaje.mostrarMensaje(
 				"Se ha  inscrito el jugador: \n" + jugadorBean.getNombres()
 						+ " " + jugadorBean.getApellidos(), Mensaje.EXITO,
@@ -1142,7 +1141,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		btnCatalogoJugador.setDisabled(sw);
 		btnCatalogoJugador.setImage("/Recursos/Imagenes/consultar.ico");
 	}
-	
+
 	private void deshabilitarCatalogoFamiliar(boolean sw) {
 		btnCatalogoFamiliar.setDisabled(sw);
 		btnCatalogoFamiliar.setImage("/Recursos/Imagenes/consultar.ico");
@@ -1542,7 +1541,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtPrimerApellido.setRawValue("");
 		txtSegundoApellido.setRawValue("");
 		cmbGenero.setRawValue("");
-		imgJugador.setContent(new Image().getContent());
+		// imgJugador.setContent(new Image().getContent());
 		imgJugador.setSrc("/Recursos/Imagenes/noFoto.jpg");
 
 		// Limpiando pestanna Personales
@@ -1659,7 +1658,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				TipoDatoBasico.TIPO_PERSONA, "Familiar");
 		List<Familiar> familiaresModelo = new ArrayList<Familiar>();
 		List<ComisionFamiliar> familiaresComisiones = new ArrayList<ComisionFamiliar>();
-		
+
 		for (controlador.jugador.bean.Familiar familiar : familiares) {
 			familiarAux = guardarFamiliarBeanToModelo(familiar, datoTipoPersona);
 			familiaresModelo.add(familiarAux);
@@ -1707,7 +1706,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					.getTelefonoHabitacion() != null
 					&& familiar.getPersonaNatural().getPersona()
 							.getTelefonoHabitacion() != "") {
-				String[] numeroHab = Util.separarCadena(familiar.getPersonaNatural().getPersona()
+				String[] numeroHab = Util.separarCadena(familiar
+						.getPersonaNatural().getPersona()
 						.getTelefonoHabitacion(), "-");
 				if (numeroHab.length == 2) {
 					familiarBean.setTelefonoHabitacion(new Telefono(
@@ -1724,7 +1724,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 			if (familiar.getPersonaNatural().getCelular() != null
 					&& familiar.getPersonaNatural().getCelular() != "") {
-				String[] numeroCel = Util.separarCadena(familiar.getPersonaNatural().getCelular(), "-");
+				String[] numeroCel = Util.separarCadena(familiar
+						.getPersonaNatural().getCelular(), "-");
 				if (numeroCel.length == 2) {
 					familiarBean.setTelefonoCelular(new Telefono(
 							servicioDatoBasico
@@ -1743,7 +1744,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					.getSegundoApellido());
 			familiarBean.setFoto(familiar.getPersonaNatural().getFoto());
 			familiarBean.setProfesion(familiar.getDatoBasico());
-			familiarBean.setParentesco(servicioFamiliarJugador.buscarParentesco(familiar, jugadorBean.getCedulaCompleta()));
+			familiarBean
+					.setParentesco(servicioFamiliarJugador.buscarParentesco(
+							familiar, jugadorBean.getCedulaCompleta()));
 			familiarBean.setComisionesFamiliar(servicioComisionFamiliar
 					.buscarComisiones(familiar));
 		}
@@ -1852,16 +1855,18 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
-	public void onClick$btnElimnarFamiliar(){
+	public void onClick$btnElimnarFamiliar() {
 		if (listFamiliares.getSelectedIndex() >= 0) {
-				familiares.remove((controlador.jugador.bean.Familiar)listFamiliares.getSelectedItem().getValue());
-				binder.loadComponent(listFamiliares);
-			} else {
-				Mensaje.mostrarMensaje("Seleccione un familiar.",
-						Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-			}
+			familiares
+					.remove((controlador.jugador.bean.Familiar) listFamiliares
+							.getSelectedItem().getValue());
+			binder.loadComponent(listFamiliares);
+		} else {
+			Mensaje.mostrarMensaje("Seleccione un familiar.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+		}
 	}
-	
+
 	private void guardarBeanToVista(
 			controlador.jugador.bean.Familiar familiarBean) {
 
@@ -1877,8 +1882,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 		txtSegundoApellidoFamiliar.setRawValue(familiarBean
 				.getSegundoApellido());
-		if (familiarBean.getParentesco()!=null){
-			cmbParentesco.setValue(familiarBean.getParentesco().getNombre());	
+		if (familiarBean.getParentesco() != null) {
+			cmbParentesco.setValue(familiarBean.getParentesco().getNombre());
 		}
 		if (familiarBean.getProfesion() != null) {
 			cmbProfesion.setValue(familiarBean.getProfesion().getNombre());
@@ -2114,9 +2119,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
-	public boolean numeroDisponible (int valor) {
+	public boolean numeroDisponible(int valor) {
 		boolean result = true;
-		for (int j = 0; j < listaRoster.size(); j++){
+		for (int j = 0; j < listaRoster.size(); j++) {
 			if (listaRoster.get(j).getNumero().equals(valor)) {
 				result = false;
 				break;
@@ -2124,16 +2129,16 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 		return result;
 	}
-	
+
 	public void limpiarListBox(Listbox l) {
 		int max = l.getItemCount();
-		for (int c = max-1;  c >= 0 ; c--) {
+		for (int c = max - 1; c >= 0; c--) {
 			l.removeItemAt(c);
 		}
 	}
-	
+
 	public void reiniciarNumero() {
-		//bboxNumero.setRawValue("");
+		// bboxNumero.setRawValue("");
 		bboxNumero.setRawValue("0");
 		limpiarListBox(list00);
 		limpiarListBox(list20);
@@ -2146,12 +2151,12 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		pnl4.setOpen(false);
 		pnl5.setOpen(false);
 	}
-	
+
 	// Eventos
 	public void onSelect$cmbCategoria() {
 		reiniciarNumero();
 	}
-	
+
 	public void onSelect$cmbEquipo() {
 		reiniciarNumero();
 		listaRoster = servicioRoster.listarJugadores(equipo);
@@ -2159,33 +2164,31 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		Listcell listCell = new Listcell();
 		Label aux = new Label();
 		for (int i = 0; i < 100; i++) {
-			if (i%5 == 0){
+			if (i % 5 == 0) {
 				listItem = new Listitem();
 			}
-			listCell = new Listcell();	                
+			listCell = new Listcell();
 			aux = new Label();
 			final int k = i;
 			aux.setValue(String.valueOf(i));
 			if (numeroDisponible(i)) {
-				listCell.addEventListener("onClick", 
-						new EventListener() {
-							public void onEvent(Event event) throws Exception {
-								bboxNumero.setValue(String.valueOf(k));
-							}
-	            		});
+				listCell.addEventListener("onClick", new EventListener() {
+					public void onEvent(Event event) throws Exception {
+						bboxNumero.setValue(String.valueOf(k));
+					}
+				});
 			} else {
 				aux.setStyle("color:red");
-				listCell.addEventListener("onClick", 
-						new EventListener() {
-							public void onEvent(Event event) throws Exception {
-								Mensaje.mostrarMensaje("Número no disponible",
-										Mensaje.ERROR, Messagebox.ERROR);
-							}
-	            		});
+				listCell.addEventListener("onClick", new EventListener() {
+					public void onEvent(Event event) throws Exception {
+						Mensaje.mostrarMensaje("Número no disponible",
+								Mensaje.ERROR, Messagebox.ERROR);
+					}
+				});
 			}
 			listCell.appendChild(aux);
 			listItem.appendChild(listCell);
-			
+
 			if (i < 20) {
 				list00.appendChild(listItem);
 			} else if (i < 40) {
@@ -2194,10 +2197,38 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				list40.appendChild(listItem);
 			} else if (i < 80) {
 				list60.appendChild(listItem);
-			} else {//if (i < 60) {
+			} else {// if (i < 60) {
 				list80.appendChild(listItem);
 			}
 		}
 	}
-	
+
+	public void verificarRepresentante(Checkbox check, Listitem listitem) {
+		Listcell columnaCero = (Listcell) listitem.getFirstChild();
+		String cedulaCompleta = columnaCero.getLabel();
+		if (check.isChecked()) {
+			controlador.jugador.bean.Familiar familiarAux = existeRepresentante(cedulaCompleta);
+			if (familiarAux != null) {
+				familiarAux.setRepresentante(false);
+				binder.loadComponent(listFamiliares);
+			}
+		}
+	}
+
+	/**
+	 * Busca si existe un representante en el list diferente al recien seleccionado
+	 * @param cedula del familaior actual que se intenta asignar como representante 
+	 * @return  familiar marcado como representante
+	 */
+	private controlador.jugador.bean.Familiar existeRepresentante(String cedula) {
+		controlador.jugador.bean.Familiar familiarAux = null;
+		for (controlador.jugador.bean.Familiar familiar : familiares) {
+			if (familiar.isRepresentante()
+					&& !familiar.getCedulaCompleta().equals(cedula)) {
+				familiarAux = familiar;
+				break;
+			}
+		}
+		return familiarAux;
+	}
 }

@@ -12,8 +12,8 @@ import modelo.Jugador;
 
 public class ServicioFamiliarJugador implements IServicioFamiliarJugador {
 
-DaoFamiliarJugador daoFamiliarJugador;
-	
+	DaoFamiliarJugador daoFamiliarJugador;
+
 	public DaoFamiliarJugador getDaoFamiliarJugador() {
 		return daoFamiliarJugador;
 	}
@@ -42,24 +42,25 @@ DaoFamiliarJugador daoFamiliarJugador;
 
 	@Override
 	public List<FamiliarJugador> listar() {
-		return daoFamiliarJugador.listar( FamiliarJugador.class);
+		return daoFamiliarJugador.listar(FamiliarJugador.class);
 	}
-	
+
 	@Override
 	public List<FamiliarJugador> buscarFamiliarJugador(Jugador jugador) {
 		return daoFamiliarJugador.buscarFamiliarJugador(jugador);
 	}
-	
+
 	@Override
 	public FamiliarJugador buscarFamiliar(Familiar familiar) {
 		return daoFamiliarJugador.buscar(familiar);
 	}
-	
-	public void agregar(List<FamiliarJugador> familiaresJugadores, Jugador jugador){
+
+	public void agregar(List<FamiliarJugador> familiaresJugadores,
+			Jugador jugador) {
 		daoFamiliarJugador.guardar(familiaresJugadores, jugador);
 	}
 
-@Override
+	@Override
 	public DatoBasico buscarParentesco(Familiar familiar, String cedulaJugador) {
 		return daoFamiliarJugador.buscarParentesco(familiar, cedulaJugador);
 	}
