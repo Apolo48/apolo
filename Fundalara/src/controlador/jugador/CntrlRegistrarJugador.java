@@ -1597,7 +1597,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			componente.setFocus(true);
 		}
 		return flag;
-	}
+	} 
 
 	public void onClick$btnCancelar() {
 		// FALTA VALIDAR SALIDA
