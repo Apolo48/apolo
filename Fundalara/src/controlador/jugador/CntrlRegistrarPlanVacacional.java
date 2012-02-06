@@ -1,11 +1,15 @@
 package controlador.jugador;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import modelo.Categoria;
 import modelo.DatoBasico;
 import modelo.Equipo;
+import modelo.Familiar;
+import modelo.FamiliarJugador;
+import modelo.HorarioPlanTemporada;
 import modelo.Jugador;
 import modelo.JugadorPlan;
 import modelo.Persona;
@@ -28,8 +32,15 @@ import org.zkoss.zul.Window;
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioEquipo;
+import servicio.implementacion.ServicioFamiliarJugador;
+import servicio.implementacion.ServicioHorario;
+import servicio.implementacion.ServicioHorarioPlanTemporada;
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioJugadorPlan;
+import servicio.implementacion.ServicioLapsoDeportivo;
+import servicio.implementacion.ServicioPlanTemporada;
+import servicio.implementacion.ServicioRoster;
+import servicio.implementacion.ServicioTallaPorJugador;
 
 import comun.EstatusRegistro;
 import comun.TipoDatoBasico;
@@ -63,6 +74,10 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private Textbox txtApellidoRepr;
 	private Combobox cmbCodArea;
 	private Combobox cmbCodCelular;
+	private Combobox cmbEstadoRepr;
+	private Combobox cmbMunicipioRepr;
+	private Combobox cmbParroquiaRepr;
+	private Textbox txtDireccionHabRepr;
 	//Datos de La Categoria y Equipo
 	private Combobox cmbEquipo;
 	private Combobox cmbCategoria;
@@ -92,6 +107,8 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private PersonaNatural personaN = new PersonaNatural();
 	private Jugador jugador = new Jugador();
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
+	private DatoBasico tipoIndumentaria = new DatoBasico();
+	private HorarioPlanTemporada horarioPlan = new HorarioPlanTemporada();
 	//private RepresentantePlan representantePlan= new RepresentantePlan();//Cambiar x Familiar 
 	
 	private DatoBasico estadoVenezuela = new DatoBasico();
@@ -104,7 +121,15 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private ServicioCategoria servicioCategoria;
 	private ServicioEquipo servicioEquipo;
 	private ServicioJugadorPlan servicioJugadorPlan;
-	//private ServicioRepresentantePlan servicioRepresentantePlan; // CAMBIAR x familiar
+	private ServicioFamiliarJugador servicioFamiliarJugador;
+	private ServicioTallaPorJugador servicioTallaPorJugador;
+	private ServicioRoster servicioRoster;
+	private ServicioPlanTemporada servicioPlanTemporada;
+	private ServicioLapsoDeportivo servicioLapsoDeportivo;
+	private ServicioHorario servicioHorario;
+	private ServicioHorarioPlanTemporada servicioHorarioPlanTemporada;
+	
+	List<FamiliarJugador> listaFamiliarJugador = new ArrayList<FamiliarJugador>();
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -125,17 +150,6 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		this.jugadorPlan = jugadorPlan;
 	}
 
-
-/*	public RepresentantePlan getRepresentantePlan() {
-		return representantePlan;
-	}
-
-
-	public void setRepresentantePlan(RepresentantePlan representantePlan) {
-		this.representantePlan = representantePlan;
-	}*/
-
-
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -152,6 +166,14 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		this.equipo = equipo;
 	}
 	
+	public HorarioPlanTemporada getHorarioPlan() {
+		return horarioPlan;
+	}
+
+	public void setHorarioPlan(HorarioPlanTemporada horarioPlan) {
+		this.horarioPlan = horarioPlan;
+	}
+
 	public DatoBasico getEstadoVenezuela() {
 		return estadoVenezuela;
 	}
@@ -216,6 +238,15 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		return servicioEquipo.buscarPorCategoria(categoria);
 	}
 	
+/*	public List<HorarioPlanTemporada> getHorariosPlan() {
+		DatoBasico datoLapsoDeportivo = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "PLAN VACACIONAL");
+		PlanTemporada plan = servicioPlanTemporada.buscarPorCategoriaLapDep(categoria,servicioLapsoDeportivo.buscarDosCampos(datoLapsoDeportivo));
+		HorarioPlanTemporada horarioPlan = servicioHorarioPlanTemporada.buscarPorEquipo(equipo);
+		return servicioHorarioPlanTemporada.buscarPorEquipo(equipo);
+
+	}*/
+	
 	//Eventos
 	public void onChange$cmbTipoJugador() {
 		visibleButton(true);
@@ -254,10 +285,82 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				jugador = (Jugador) formulario.getVariable("jugador", false);
-				//txtCedula.setValue(jugador.getCedulaRif());
-				txtNombre.setValue(jugador.getPersonaNatural().getPrimerNombre() + jugador.getPersonaNatural().getSegundoNombre());
-				//TODOS LOS DEMAS APLICA MISMO CASO LINEA ANTERIOR
-				//REVISAR DONDE ESTAN UBICADOS LOS DATOS EN TABLAS JUGADOR, PERSONA_NATURAL, PERSONA
+				if (jugador.getCedulaRif() != null) {
+					cmbNacionalidad.setValue(jugador.getCedulaRif().substring(0,1));
+					if (cmbNacionalidad.getValue().toCharArray()[0] == 'R') {
+						txtCedula.setRawValue(jugador.getCedulaRif().substring(2, jugador.getCedulaRif().length()-2));
+						txtCedulaSecuencia.setValue(Integer.decode(jugador.getCedulaRif().substring(jugador.getCedulaRif().length()-1, jugador.getCedulaRif().length()).toString()));
+					} else {
+						txtCedula.setRawValue(jugador.getCedulaRif().substring(2, jugador.getCedulaRif().length()));
+					}
+					
+				}
+				if (jugador.getPersonaNatural().getPrimerNombre() != null) {
+					txtNombre.setValue(jugador.getPersonaNatural().getPrimerNombre());
+					if (jugador.getPersonaNatural().getSegundoNombre() != null) {
+						txtNombre.setValue(txtNombre.getValue() + " " +jugador.getPersonaNatural().getSegundoNombre());
+					}
+				}
+				if (jugador.getPersonaNatural().getPrimerApellido() != null) {
+					txtApellido.setValue(jugador.getPersonaNatural().getPrimerApellido());
+					if (jugador.getPersonaNatural().getSegundoApellido() != null) {
+						txtApellido.setValue(txtApellido.getValue() + " " +jugador.getPersonaNatural().getSegundoApellido());
+					}
+				}
+				dtboxFechaNac.setValue(jugador.getPersonaNatural().getFechaNacimiento());
+				//Events.sendEvent(new Event("onChange",dtboxFechaNac));
+				
+				List<DatoBasico> listTallasEntrenamiento = servicioTallaPorJugador
+						.buscarTallasPorTipo(jugador, tipoIndumentaria);
+				for (DatoBasico datoBasico : listTallasEntrenamiento) {
+					
+					if (datoBasico.getDatoBasico().getNombre().equals("CAMISA")){
+						cmbTalla.setValue(datoBasico.getNombre());
+					}				
+				}
+				
+				Familiar representante = new Familiar();
+				listaFamiliarJugador = servicioFamiliarJugador.buscarFamiliarJugador(jugador);
+				for (int i = 0; i < listaFamiliarJugador.size(); i++) {
+					if (listaFamiliarJugador.get(i).isRepresentanteActual()) {
+						representante = listaFamiliarJugador.get(i).getFamiliar();
+						break;
+					}
+				}
+				if (representante.getCedulaRif() != null) {
+					cmbNacionalidadF.setValue(representante.getCedulaRif().substring(0,1));
+					txtCedulaF.setRawValue(representante.getCedulaRif().substring(2, representante.getCedulaRif().length()));
+				}
+				if (representante.getPersonaNatural().getPrimerNombre() != null) {
+					txtNombreRepr.setValue(representante.getPersonaNatural().getPrimerNombre());
+					if (representante.getPersonaNatural().getSegundoNombre() != null) {
+						txtNombreRepr.setValue(txtNombreRepr.getValue() + " " +representante.getPersonaNatural().getSegundoNombre());
+					}
+				}
+				if (representante.getPersonaNatural().getPrimerApellido() != null) {
+					txtApellidoRepr.setValue(representante.getPersonaNatural().getPrimerApellido());
+					if (representante.getPersonaNatural().getSegundoApellido() != null) {
+						txtApellidoRepr.setValue(txtApellidoRepr.getValue() + " " +representante.getPersonaNatural().getSegundoApellido());
+					}
+				}
+				cmbEstadoRepr.setValue(representante.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getDatoBasico().getNombre());
+				cmbMunicipioRepr.setValue(representante.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getDatoBasico().getNombre());
+				cmbParroquiaRepr.setValue(representante.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia().getNombre());
+				txtDireccionHabRepr.setValue(representante.getPersonaNatural().getPersona().getDireccion());
+				if (representante.getPersonaNatural().getPersona().getTelefonoHabitacion() != null) {
+					cmbCodArea.setValue(representante.getPersonaNatural().getPersona().getTelefonoHabitacion().substring(0, 4));
+					txtTelefono.setRawValue(representante.getPersonaNatural().getPersona().getTelefonoHabitacion().substring(5, representante.getPersonaNatural().getPersona().getTelefonoHabitacion().length()));
+				}
+				if (representante.getPersonaNatural().getCelular() != null) {
+					cmbCodCelular.setValue(representante.getPersonaNatural().getCelular().substring(0, 4));
+					txtCelular.setRawValue(representante.getPersonaNatural().getCelular().substring(5, representante.getPersonaNatural().getCelular().length()));
+				}
+				//Falta Categoria
+				categoria = servicioRoster.buscarRoster(jugador.getCedulaRif()).getEquipo().getCategoria();
+				cmbCategoria.setValue(categoria.getNombre());
+				//Events.sendEvent(Events.ON_CHANGE,cmbCategoria));
+				//Events.sendEvent(Events.ON_CHANGE);
+				binder.loadComponent(cmbEquipo);
 			}
 		});
 	}
@@ -270,7 +373,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		dtboxFechaNac.setDisabled(flag);
 		cmbTipoJugador.setDisabled(flag);
 		cmbCategoria.setDisabled(flag);
-		cmbEquipo.setDisabled(flag);
+		//cmbEquipo.setDisabled(flag);
 		cmbNacionalidad.setDisabled(flag);
 		cmbNacionalidadF.setDisabled(flag);
 		txtCedula.setDisabled(flag);

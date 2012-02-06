@@ -4,11 +4,22 @@ import java.util.List;
 
 import dao.general.DaoPlanTemporada;
 
+import modelo.Categoria;
+import modelo.LapsoDeportivo;
 import modelo.PlanTemporada;
 import servicio.interfaz.IServicioPlanTemporada;
 
 public class ServicioPlanTemporada implements IServicioPlanTemporada {
     DaoPlanTemporada daoPlanTemporada;
+    
+	public DaoPlanTemporada getDaoPlanTemporada() {
+		return daoPlanTemporada;
+	}
+
+	public void setDaoPlanTemporada(DaoPlanTemporada daoPlanTemporada) {
+		this.daoPlanTemporada = daoPlanTemporada;
+	}
+	
 	@Override
 	public void guardar(PlanTemporada pt) {
 		// TODO Auto-generated method stub
@@ -32,13 +43,11 @@ public class ServicioPlanTemporada implements IServicioPlanTemporada {
 		// TODO Auto-generated method stub
 		return daoPlanTemporada.listar(PlanTemporada.class);
 	}
-
-	public DaoPlanTemporada getDaoPlanTemporada() {
-		return daoPlanTemporada;
+	
+	@Override
+	public PlanTemporada buscarPorCategoriaLapDep(Categoria ct,LapsoDeportivo ld) {
+		return daoPlanTemporada.buscarPorCategoriaLapsoDeportivo(ct, ld);
 	}
 
-	public void setDaoPlanTemporada(DaoPlanTemporada daoPlanTemporada) {
-		this.daoPlanTemporada = daoPlanTemporada;
-	}
 
 }

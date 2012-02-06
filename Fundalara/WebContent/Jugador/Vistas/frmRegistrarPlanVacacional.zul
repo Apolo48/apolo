@@ -296,13 +296,21 @@
 							<label value="Horario" />
 							<div>
 								<combobox id="cmbHorario"
-									value="--Seleccione--" width="62%">
+									value="-Seleccione-" width="62%">
 									<comboitem label="8:00am-10:30am" />
 									<comboitem label="10:30am-1:30pm" />
 									<comboitem label="1:30pm-4:00pm" />
 									<comboitem label="4:00pm-6:30pm" />
 									<comboitem label="6:30pm-9:00pm" />
 								</combobox>
+								<!-- <combobox value="-Seleccione-"
+									width="80%" id="cmbHorario" selectedItem="@{controller.horarioPlan}"
+									constraint="no empty"
+									model="@{winRegistrarPlanVacacional$composer.horariosPlan, load-after='cmbEquipo.onChange'}">
+									<comboitem self="@{each='horarioP'}"
+										label="@{horarioP.codigoHorarioPlan}"
+										value="@{horarioP.codigoHorarioPlan}" />
+								</combobox> -->
 								<label value="(*)" style="color:red" />
 							</div>
 						</row>
