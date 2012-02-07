@@ -1102,7 +1102,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		 * onClick$btnAgregarFamiliar(); }
 		 */
 
-		if (verificarCampos(camposPerfil, true)) {
+		if (verificarCamposInscripcion(camposPerfil, false)) {
 			guadarDatos(EstatusRegistro.ACTIVO);
 			Mensaje.mostrarMensaje(
 					"Se ha  inscrito el jugador: \n" + jugadorBean.getNombres()
@@ -1599,7 +1599,33 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			componente.setFocus(true);
 		}
 		return flag;
-	} 
+	}
+	
+	/**
+	 * Verifica que los campos obligatorios tengan valores y
+	 * cumplan con las restricciones definidas,
+	 * notificando en los casos que no se cumpla
+	 * 
+	 * @param camposValidar
+	 *            arreglo de campos a validar
+	 * @param mostrarMensaje
+	 *            valor booleano para indicar si se debe mostar el mensaje de
+	 *            error en caso de presentarse
+	 * @return true si los campos son validos, en caso contrario false
+	 */
+	private boolean verificarCamposInscripcion(InputElement[] camposValidar, boolean mostrarMensaje) {
+		boolean result = false;
+		if (verificarCampos(camposPerfil,false)) {
+			if (verificarCampos(new InputElement[] { cmbNacionalidadFamiliar,
+					txtCedulaFamiliar, txtPrimerNombreFamiliar,
+					txtPrimerApellidoFamiliar }, false)) {
+				if (cmbParentesco.getSelectedIndex() != -1) {
+					result = true;
+				}
+			}
+		}
+		return result;
+	}
 
 	public void onClick$btnCancelar() {
 		// FALTA VALIDAR SALIDA
