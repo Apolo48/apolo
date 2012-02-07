@@ -11,7 +11,6 @@ public interface IServicioHospedaje {
 
 	public abstract void eliminar(Hospedaje c);
 
-	//public abstract void agregar(Hospedaje c, Competencia cm, FamiliarJugador fj);
 	public abstract void agregar(Hospedaje c);
 
 	public abstract void actualizar(Hospedaje c);
@@ -19,5 +18,11 @@ public interface IServicioHospedaje {
 	public abstract List<Hospedaje> listar();
 
 	public abstract List<Hospedaje> listarrepre(FamiliarJugador familiarJugador);
+
+	public boolean verificar(Competencia competencia,
+			FamiliarJugador familiarJugador);
+
+	public abstract Hospedaje activar(Competencia competencia,
+			FamiliarJugador familiarJugador);
 
 }

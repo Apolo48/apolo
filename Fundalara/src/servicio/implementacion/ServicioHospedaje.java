@@ -10,11 +10,10 @@ import modelo.Competencia;
 import modelo.FamiliarJugador;
 import modelo.Hospedaje;
 
-
 public class ServicioHospedaje implements IServicioHospedaje {
 
 	DaoHospedaje daoHospedaje;
-	
+
 	public DaoHospedaje getDaoHospedaje() {
 		return daoHospedaje;
 	}
@@ -30,8 +29,7 @@ public class ServicioHospedaje implements IServicioHospedaje {
 
 	@Override
 	public void agregar(Hospedaje c) {
-	//public void agregar(Hospedaje c, Competencia cm, FamiliarJugador fj) {
-		//daoHospedaje.guardar(c, cm, fj);
+		c.setCodigoHospedaje(daoHospedaje.generarCodigo(c.getClass()));
 		daoHospedaje.guardar(c);
 
 	}
@@ -46,10 +44,21 @@ public class ServicioHospedaje implements IServicioHospedaje {
 	public List<Hospedaje> listar() {
 		return daoHospedaje.listar(Hospedaje.class);
 	}
-	
+
 	@Override
 	public List<Hospedaje> listarrepre(FamiliarJugador familiarJugador) {
 		return daoHospedaje.listarrepre(familiarJugador);
 	}
 
+	@Override
+	public boolean verificar(Competencia competencia,
+			FamiliarJugador familiarJugador) {
+		return daoHospedaje.verificar(competencia, familiarJugador);
+	}
+
+	@Override
+	public Hospedaje activar(Competencia competencia,
+			FamiliarJugador familiarJugador) {
+		return daoHospedaje.activar(competencia, familiarJugador);
+	}
 }
