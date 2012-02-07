@@ -39,7 +39,7 @@ import controlador.jugador.bean.Familiar;
  * @version 0.1 22/01/2012
  * 
  * */
-public class CntrlVistaPreviaJugador extends GenericForwardComposer {
+public class CntrlVistaRegistroJugador extends GenericForwardComposer {
 	private Window winVistaPreviaJugador;   
 	private Component vista;
 	private Label lblCedula;

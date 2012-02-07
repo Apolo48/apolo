@@ -5,7 +5,7 @@
 <zk>
 	<window border="normal" title="Vista Previa del Registro"
 		closable="true" width="640px" id="winVistaPreviaJugador" mode="modal"
-		 apply="controlador.jugador.CntrlVistaPreviaJugador"	>
+		 apply="controlador.jugador.CntrlVistaRegistroJugador"	>
 
 		<groupbox style="border-color:orange" closable="false">
 			<caption label="Jugador" />
