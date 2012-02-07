@@ -402,6 +402,76 @@
 							</listcell>
 						</listitem>
 					</listbox>
+					
+					<groupbox style="border-color:orange"
+							id="grboxFamiliar"
+								closable="false" visible="false">
+								<caption label="Datos Básicos" />
+
+								<grid style="border:none;">
+									<columns>
+										<column width="85%" />
+										<column width="15%" />
+									</columns>
+									<rows>
+										<row style="border:none;">
+											<grid style="border:none;"
+												oddRowSclass="none">
+												<columns>
+													<column width="22%" />
+													<column width="30%" />
+													<column width="26%" />
+													<column />
+												</columns>
+												<rows>
+													<row
+														style="border:none;">
+														<label value="Cédula" />
+														<label id="lblCedulaFamiliar" style="font-weight: bold;" width="80%"/>
+													</row>
+													<row
+														style="border:none;">
+														<label value="Primer Nombre" />
+														<label id="lblPrimerNombreF" style="font-weight: bold;" width="80%"/>
+														<label value="Segundo Nombre" />
+														<label id="lblSegundoNombreF" style="font-weight: bold;" width="95%"/>
+
+													</row>
+													<row
+														style="border:none;">
+														<label value="Primer Apellido" />
+														<label width="80%" id="lblPrimerApellidoF" style="font-weight: bold;"/>
+														<label value="Segundo Apellido" />
+														<label width="95%" id="lblSegundoApellidoF" style="font-weight: bold;"/>
+													</row>
+													<row
+														style="border:none;">
+														<label value="Parentesco" />
+														<label id="lblParentesco" width="67%" style="font-weight: bold;"/>
+														<label value="Ocupación" />
+														<label id="lblProfesion" width="80%" style="font-weight: bold;"/>
+													</row>
+												</rows>
+											</grid>
+											<grid style="border:none;"
+												oddRowSclass="none">
+												<rows>
+													<row
+														style="border:none;" height="80%" align="center"
+														valign="middle">
+														<groupbox
+															style="border-color:orange" mold="3d">
+															<image id="imgFamiliar"
+																src="/Recursos/Imagenes/noFoto.jpg" height="80px"
+																width="80px" />
+														</groupbox>
+													</row>
+												</rows>
+											</grid>
+										</row>
+									</rows>
+								</grid>
+							</groupbox>
 				</tabpanel>
 			</tabpanels>
 		</tabbox>

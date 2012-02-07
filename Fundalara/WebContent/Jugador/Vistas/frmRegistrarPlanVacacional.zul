@@ -29,10 +29,13 @@
 								</combobox>
 								<label value="(*)" style="color:red" />
 							</div>
+						</row>
+						
+						<row style="border:none;">
 							<label value="Cédula" />
 							<div>
 								<combobox id="cmbNacionalidad"
-									readonly="true" value="-" width="6%" focus="true"
+									readonly="true" value="-" width="10%" focus="true"
 									constraint="no empty">
 									<comboitem label="V" value="V" />
 									<comboitem label="E" value="E" />

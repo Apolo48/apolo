@@ -366,7 +366,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	//Metodos propios del ctrl
 	/*Habilita o deshabilita los campos de la vista.*/
 	private void disabledFields(boolean flag) {
-		txtNombre.setDisabled(flag);   
+		/*txtNombre.setDisabled(flag);  
 		txtApellido.setDisabled(flag);
 		dtboxFechaNac.setDisabled(flag);
 		//cmbTipoJugador.setDisabled(flag);
@@ -381,7 +381,24 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		cmbCodArea.setDisabled(flag);
 		txtTelefono.setDisabled(flag);
 		cmbCodCelular.setDisabled(flag);
-		txtCelular.setDisabled(flag);
+		txtCelular.setDisabled(flag);*/
+		
+		txtNombre.setReadonly(flag);
+		txtApellido.setReadonly(flag);
+		dtboxFechaNac.setReadonly(flag);
+		//cmbTipoJugador.setDisabled(flag);
+		cmbCategoria.setDisabled(flag);
+		//cmbEquipo.setDisabled(flag);
+		cmbNacionalidad.setDisabled(flag);
+		cmbNacionalidadF.setDisabled(flag);
+		txtCedula.setReadonly(flag);
+		txtCedulaF.setReadonly(flag);
+		txtNombreRepr.setReadonly(flag);
+		txtApellidoRepr.setReadonly(flag);
+		cmbCodArea.setDisabled(flag);
+		txtTelefono.setReadonly(flag);
+		cmbCodCelular.setDisabled(flag);
+		txtCelular.setReadonly(flag);
 	}
 
 	/**

@@ -11,6 +11,7 @@ import modelo.DatoBasico;
 import modelo.DatoMedico;
 import modelo.DatoSocial;
 import modelo.Equipo;
+import modelo.FamiliarJugador;
 import modelo.Medico;
 
 import org.zkoss.image.AImage;
@@ -18,6 +19,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Checkbox;
+import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
@@ -82,6 +84,15 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 	private Label lblPantalon;
 	private Label lblCalzado;
 	private Listbox listFamiliares;
+	private Label lblCedulaFamiliar;
+	private Label lblPrimerNombreF;
+	private Label lblSegundoNombreF;
+	private Label lblPrimerApellidoF;
+	private Label lblSegundoApellidoF;
+	private Label lblParentesco;
+	private Label lblProfesion;
+	private Image imgFamiliar;
+	private Groupbox grboxFamiliar;
 	
 	private AnnotateDataBinder binder;
 	
@@ -297,6 +308,45 @@ public class CntrlVistaPreviaJugador extends GenericForwardComposer {
 			
 			listFamiliares.appendChild(listItem);
 		}
+	}
+	
+	public void onSelect$listFamiliares() {
+		Listcell ls = (Listcell) listFamiliares.getSelectedItem().getChildren().get(0);
+		Label lb = (Label) ls.getChildren().get(0);
+		System.out.println(lblCedulaFamiliar.getValue().equals(lb.getValue()));
+		if (lblCedulaFamiliar.getValue().equals(lb.getValue())) {
+			grboxFamiliar.setVisible(false);
+			lblCedulaFamiliar.setValue("");
+		} else {
+			for (int x = 0; x < familiares.size(); x++) {
+				if (familiares.get(x).getCedulaCompleta().equals(lb.getValue())) {
+					controlador.jugador.bean.Familiar familiar = familiares.get(x);
+					lblCedulaFamiliar.setValue(familiar.getCedulaCompleta());
+					lblPrimerNombreF.setValue(familiar.getPrimerNombre());
+					if (familiar.getSegundoNombre() != null) {
+						lblSegundoNombreF.setValue(familiar.getSegundoNombre());
+					}
+					lblPrimerApellidoF.setValue(familiar.getPrimerApellido());
+					if (familiar.getSegundoApellido() != null) {
+						lblSegundoApellidoF.setValue(familiar.getSegundoApellido());
+					}
+					lblParentesco.setValue(familiar.getParentesco().getNombre());
+					if (familiar.getProfesion() != null) {
+						lblProfesion.setValue(familiar.getProfesion().getNombre());
+					}
+					if (familiar.getFoto() != null) {
+						try {
+							AImage aImage = new AImage("fotoF.jpg", familiar.getFoto());
+							imgFamiliar.setContent(aImage);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					grboxFamiliar.setVisible(true);
+				}
+			}
+		}
+		listFamiliares.setSelectedIndex(-1);
 	}
 
 	public controlador.jugador.bean.Jugador getJugador() {

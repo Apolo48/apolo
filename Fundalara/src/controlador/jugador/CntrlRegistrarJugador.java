@@ -297,6 +297,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private List<FamiliarJugador> familiaresJugadores = new ArrayList<FamiliarJugador>();
 	private Jugador jugadorTemp = new Jugador();
 	private List<Jugador> listaRoster = new ArrayList<Jugador>();
+	private List<Integer> listaNum = new ArrayList<Integer>();
 
 	private Connection con;
 	private Map<String, Object> parameters = new HashMap<String, Object>();
@@ -1536,7 +1537,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtSegundoApellido.setReadonly(flag);
 		txtSegundoNombre.setReadonly(flag);
 		cmbGenero.setDisabled(flag);
-		// btnFoto.setDisabled(flag);
+		btnFoto.setDisabled(flag);
+		btnFoto.setImage("/Recursos/Imagenes/foto.png");
 	}
 
 	public void limpiarAfeccion() {
@@ -2212,9 +2214,10 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public boolean numeroDisponible(int valor) {
 		boolean result = true;
-		for (int j = 0; j < listaRoster.size(); j++) {
-			if (listaRoster.get(j).getNumero().equals(valor)) {
+		for (int j = 0; j < listaNum.size(); j++) {
+			if (listaNum.get(j).equals(valor)) {
 				result = false;
+				listaNum.remove(j);
 				break;
 			}
 		}
@@ -2229,7 +2232,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void reiniciarNumero() {
-		// bboxNumero.setRawValue("");
 		bboxNumero.setRawValue("0");
 		limpiarListBox(list00);
 		limpiarListBox(list20);
@@ -2242,6 +2244,17 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		pnl4.setOpen(false);
 		pnl5.setOpen(false);
 	}
+	
+	public List<Integer> extraerNumeros() {
+		listaRoster = servicioRoster.listarJugadores(equipo);
+		List<Integer> lista = new ArrayList<Integer>();
+		for (int p = 0; p < listaRoster.size(); p++) {
+			if (listaRoster.get(p).getNumero() != null){
+				lista.add(listaRoster.get(p).getNumero());
+			}
+		}
+		return lista;
+	}
 
 	// Eventos
 	public void onSelect$cmbCategoria() {
@@ -2250,7 +2263,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public void onSelect$cmbEquipo() {
 		reiniciarNumero();
-		listaRoster = servicioRoster.listarJugadores(equipo);
+		listaNum = extraerNumeros();
 		Listitem listItem = new Listitem();
 		Listcell listCell = new Listcell();
 		Label aux = new Label();
@@ -2288,7 +2301,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				list40.appendChild(listItem);
 			} else if (i < 80) {
 				list60.appendChild(listItem);
-			} else {// if (i < 60) {
+			} else {// if (i < 100) {
 				list80.appendChild(listItem);
 			}
 		}
@@ -2325,4 +2338,5 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 		return familiarAux;
 	}
+
 }
