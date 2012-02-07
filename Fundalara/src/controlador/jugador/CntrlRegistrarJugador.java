@@ -1102,13 +1102,14 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		 * onClick$btnAgregarFamiliar(); }
 		 */
 
-		if (verificarCamposInscripcion(camposPerfil, false)) {
+		//if (verificarCamposInscripcion(camposPerfil, false)) {
+		if (verificarCampos(camposPerfil, false)) {
 			guadarDatos(EstatusRegistro.ACTIVO);
 			Mensaje.mostrarMensaje(
 					"Se ha  inscrito el jugador: \n" + jugadorBean.getNombres()
 							+ " " + jugadorBean.getApellidos(), Mensaje.EXITO,
 					Messagebox.INFORMATION);
-			generarPlanillaInscripcion();
+			//generarPlanillaInscripcion();
 			onClick$btnCancelar();
 		}
 
