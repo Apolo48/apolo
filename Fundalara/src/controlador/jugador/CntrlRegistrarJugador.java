@@ -1615,30 +1615,29 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 */
 	private boolean verificarCamposInscripcion(InputElement[] camposValidar, boolean mostrarMensaje) {
 		InputElement[] camposPerfilJugador = new InputElement[] { cmbNacionalidad, txtCedula,
-				txtPrimerNombre, txtPrimerApellido, cmbGenero };
+				txtPrimerNombre, txtPrimerApellido, cmbGenero, dtboxFechaNac };
 		InputElement[] camposPerfilFamiliar = new InputElement[] { cmbNacionalidadFamiliar,
 				txtCedulaFamiliar, txtPrimerNombreFamiliar, txtPrimerApellidoFamiliar };
 		
 		boolean result = false;
 		if (verificarCampos(camposPerfilJugador,false)) {
 			//if (imgJugador.getSrc() != "../../Recursos/Imagenes/noFoto.jpg") {
-				if (verificarCampos(camposPerfilFamiliar, false)) {
+				//if (verificarCampos(camposPerfilFamiliar, false)) {
 					if (cmbParentesco.getSelectedIndex() != -1) {
 						//if (imgFamiliar.getSrc() != "../../Recursos/Imagenes/noFoto.jpg") {
 							result = true;
 						//}
 					}
-				}
+				//}
 			//}
 		}
 		return result;		
 		
 	/*	txtSegundoNombre
 		txtSegundoApellido
-		dtboxFechaNac
 		txtTelefonoHabitacion
 		txtTelefonoCelular
-		spHorasSemanales.
+		spHorasSemanales
 		txtSegundoNombreFamiliar
 		txtSegundoApellidoFamiliar
 		txtTelefonoHabFamiliar

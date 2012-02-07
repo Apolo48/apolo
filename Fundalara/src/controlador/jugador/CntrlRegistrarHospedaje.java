@@ -69,7 +69,6 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	private Button btnSalir;
 
 	// Variables
-	// boolean sw = true;
 	char estatus;
 	boolean ok = true;
 
