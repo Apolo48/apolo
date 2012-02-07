@@ -1614,17 +1614,35 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 * @return true si los campos son validos, en caso contrario false
 	 */
 	private boolean verificarCamposInscripcion(InputElement[] camposValidar, boolean mostrarMensaje) {
+		InputElement[] camposPerfilJugador = new InputElement[] { cmbNacionalidad, txtCedula,
+				txtPrimerNombre, txtPrimerApellido, cmbGenero };
+		InputElement[] camposPerfilFamiliar = new InputElement[] { cmbNacionalidadFamiliar,
+				txtCedulaFamiliar, txtPrimerNombreFamiliar, txtPrimerApellidoFamiliar };
+		
 		boolean result = false;
-		if (verificarCampos(camposPerfil,false)) {
-			if (verificarCampos(new InputElement[] { cmbNacionalidadFamiliar,
-					txtCedulaFamiliar, txtPrimerNombreFamiliar,
-					txtPrimerApellidoFamiliar }, false)) {
-				if (cmbParentesco.getSelectedIndex() != -1) {
-					result = true;
+		if (verificarCampos(camposPerfilJugador,false)) {
+			//if (imgJugador.getSrc() != "../../Recursos/Imagenes/noFoto.jpg") {
+				if (verificarCampos(camposPerfilFamiliar, false)) {
+					if (cmbParentesco.getSelectedIndex() != -1) {
+						//if (imgFamiliar.getSrc() != "../../Recursos/Imagenes/noFoto.jpg") {
+							result = true;
+						//}
+					}
 				}
-			}
+			//}
 		}
-		return result;
+		return result;		
+		
+	/*	txtSegundoNombre
+		txtSegundoApellido
+		dtboxFechaNac
+		txtTelefonoHabitacion
+		txtTelefonoCelular
+		spHorasSemanales.
+		txtSegundoNombreFamiliar
+		txtSegundoApellidoFamiliar
+		txtTelefonoHabFamiliar
+		txtTelefonoCelFamiliar*/
 	}
 
 	public void onClick$btnCancelar() {
@@ -1826,8 +1844,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 				}
 			}
-			familiarBean.setTwitter(familiar.getPersonaNatural().getPersona()
-					.getTwitter());
+			if (familiar.getPersonaNatural().getPersona().getTwitter() != null){
+				familiarBean.setTwitter(familiar.getPersonaNatural().getPersona().getTwitter().substring(1, familiar.getPersonaNatural().getPersona().getTwitter().length()));
+			}
 			familiarBean.setDireccion(familiar.getPersonaNatural().getPersona()
 					.getDireccion());
 
