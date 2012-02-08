@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inscritos y retirados" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.3310000000000006"/>
-	<property name="ireport.x" value="64"/>
-	<property name="ireport.y" value="34"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="19"/>
 	<subDataset name="dataset1"/>
 	<subDataset name="dataset2"/>
-	<subDataset name="New Dataset 1">
-		<queryString language="SQL">
-			<![CDATA[SELECT
-     categoria."nombre"
-FROM
-     "categoria" categoria]]>
-		</queryString>
-	</subDataset>
 	<parameter name="nombreTemporada" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
@@ -78,241 +70,237 @@ ORDER BY categoria.codigo_categoria ASC;]]>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="215" splitType="Stretch">
+		<band height="180" splitType="Stretch">
 			<staticText>
-				<reportElement x="164" y="163" width="251" height="17"/>
+				<reportElement x="120" y="124" width="329" height="17"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Cantidad de jugadores inscritos y retirados.]]></text>
+				<text><![CDATA[Cantidad de jugadores inscritos y retirados por categoía.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="209" y="180" width="78" height="17"/>
+				<reportElement x="190" y="141" width="78" height="23"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Temporada:]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="415" y="123" width="45" height="20"/>
-				<textElement>
-					<font size="10"/>
-				</textElement>
-				<text><![CDATA[Fecha:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="415" y="143" width="29" height="20"/>
-				<textElement/>
-				<text><![CDATA[Hora:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="455" y="123" width="90" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{fecha_actual}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="455" y="143" width="85" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{hora_actual}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="287" y="180" width="160" height="20"/>
+				<reportElement x="268" y="141" width="148" height="23"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombreTemporada}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="0" y="0" width="555" height="123"/>
+				<imageExpression><![CDATA["Encabezado.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="37" splitType="Stretch">
-			<elementGroup>
-				<staticText>
-					<reportElement mode="Opaque" x="24" y="1" width="130" height="35" backcolor="#FFCC99"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<text><![CDATA[Categoria]]></text>
-				</staticText>
-			</elementGroup>
 			<rectangle>
-				<reportElement mode="Transparent" x="23" y="1" width="130" height="35" forecolor="#000000"/>
+				<reportElement mode="Transparent" x="43" y="1" width="130" height="35" forecolor="#000000"/>
 				<graphicElement>
-					<pen lineWidth="0.5"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle>
-				<reportElement mode="Transparent" x="377" y="0" width="93" height="36" forecolor="#000000"/>
-				<graphicElement>
-					<pen lineWidth="0.5"/>
+					<pen lineWidth="1.0"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement mode="Opaque" x="154" y="1" width="121" height="35" backcolor="#FFCC99"/>
+				<reportElement mode="Opaque" x="172" y="1" width="123" height="35" backcolor="#FFCC99"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="277" y="0" width="138" height="37" backcolor="#FFCC99"/>
+				<reportElement mode="Opaque" x="295" y="1" width="140" height="35" backcolor="#FFCC99"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Modalidad]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement mode="Transparent" x="275" y="1" width="140" height="35"/>
+				<reportElement mode="Transparent" x="295" y="1" width="140" height="35"/>
 			</rectangle>
 			<staticText>
-				<reportElement mode="Opaque" x="417" y="2" width="68" height="35" backcolor="#FFCC99"/>
+				<reportElement mode="Opaque" x="435" y="1" width="68" height="35" backcolor="#FFCC99"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Activos]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement mode="Transparent" x="415" y="1" width="68" height="35"/>
+				<reportElement mode="Transparent" x="435" y="1" width="68" height="35"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="152" y="1" width="123" height="35"/>
+				<reportElement mode="Transparent" x="172" y="1" width="123" height="35"/>
 			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="44" y="1" width="127" height="35" backcolor="#FFCC99"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Categoría]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="80" splitType="Stretch">
 			<textField>
-				<reportElement x="24" y="0" width="129" height="74"/>
+				<reportElement x="43" y="0" width="130" height="80"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
 			</textField>
-			<elementGroup/>
 			<rectangle>
-				<reportElement mode="Transparent" x="23" y="0" width="130" height="80" forecolor="#000000"/>
+				<reportElement mode="Transparent" x="43" y="0" width="130" height="80" forecolor="#000000"/>
 				<graphicElement>
-					<pen lineWidth="0.5"/>
+					<pen lineWidth="1.0"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement mode="Transparent" x="277" y="20" width="100" height="20" backcolor="#FFCC99"/>
+				<reportElement mode="Transparent" x="295" y="20" width="100" height="20" backcolor="#FFCC99"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Reinscritos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="277" y="0" width="100" height="20" backcolor="#FFCC99"/>
+				<reportElement mode="Transparent" x="295" y="0" width="100" height="20" backcolor="#FFCC99"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Nuevos ingresos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="152" y="0" width="70" height="40" backcolor="#FFCC99"/>
+				<reportElement mode="Transparent" x="172" y="0" width="70" height="40" backcolor="#FFCC99"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Inscritos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="153" y="39" width="69" height="40" backcolor="#FFCC99"/>
+				<reportElement mode="Transparent" x="173" y="39" width="69" height="40" backcolor="#FFCC99"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Retirados]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="277" y="40" width="100" height="20"/>
+				<reportElement x="295" y="40" width="100" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Egresados]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="277" y="60" width="100" height="20"/>
+				<reportElement x="295" y="60" width="100" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Pases]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="377" y="0" width="38" height="20"/>
+				<reportElement x="395" y="0" width="40" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nuevo_ingreso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="220" y="40" width="55" height="40"/>
+				<reportElement x="240" y="40" width="55" height="40"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{retirados}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement mode="Transparent" x="152" y="0" width="68" height="40"/>
+				<reportElement mode="Transparent" x="172" y="0" width="68" height="40"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="152" y="40" width="68" height="40"/>
+				<reportElement mode="Transparent" x="172" y="40" width="68" height="40"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="275" y="0" width="100" height="20"/>
+				<reportElement mode="Transparent" x="295" y="0" width="100" height="20"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="275" y="20" width="100" height="20"/>
+				<reportElement mode="Transparent" x="295" y="20" width="100" height="20"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="275" y="40" width="100" height="20"/>
+				<reportElement mode="Transparent" x="295" y="40" width="100" height="20"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="275" y="60" width="100" height="20"/>
+				<reportElement mode="Transparent" x="295" y="60" width="100" height="20"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="375" y="0" width="40" height="20"/>
+				<reportElement mode="Transparent" x="395" y="0" width="40" height="20"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="375" y="20" width="40" height="20"/>
+				<reportElement mode="Transparent" x="395" y="20" width="40" height="20"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="220" y="40" width="55" height="40"/>
+				<reportElement mode="Transparent" x="240" y="40" width="55" height="40"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="375" y="40" width="40" height="20"/>
+				<reportElement mode="Transparent" x="395" y="40" width="40" height="20"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="375" y="60" width="40" height="20"/>
+				<reportElement x="395" y="60" width="40" height="20"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="220" y="0" width="55" height="40"/>
+				<reportElement mode="Transparent" x="240" y="0" width="55" height="40"/>
 			</rectangle>
 			<textField>
-				<reportElement x="222" y="0" width="53" height="40"/>
+				<reportElement x="240" y="0" width="55" height="40"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{inscritos}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement x="415" y="0" width="68" height="80"/>
+				<reportElement x="435" y="0" width="68" height="80"/>
 			</rectangle>
 			<textField>
-				<reportElement x="377" y="20" width="38" height="19"/>
+				<reportElement x="395" y="20" width="40" height="20"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{reinscritos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="377" y="40" width="38" height="20"/>
+				<reportElement x="395" y="40" width="40" height="20"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{egresados}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="377" y="60" width="38" height="20"/>
+				<reportElement x="395" y="60" width="40" height="20"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{pase}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="417" y="0" width="66" height="79"/>
+				<reportElement x="435" y="0" width="68" height="80"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{activos}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="70" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="28" splitType="Stretch">
+		<band height="92" splitType="Stretch">
+			<image scaleImage="RealHeight" hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="-1" width="555" height="63"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<imageExpression><![CDATA["PieDePagina.jpg"]]></imageExpression>
+			</image>
 			<textField>
-				<reportElement x="405" y="8" width="80" height="20"/>
+				<reportElement x="195" y="72" width="90" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha_actual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="72" width="85" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{hora_actual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="72" width="80" height="20"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="485" y="8" width="40" height="20"/>
+				<reportElement x="475" y="72" width="40" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="43" y="72" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Sistema Olimpo]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>
 		<band height="292" splitType="Stretch">
 			<bar3DChart>
 				<chart theme="aegean">
-					<reportElement mode="Opaque" x="66" y="19" width="439" height="273"/>
+					<reportElement mode="Opaque" x="44" y="19" width="459" height="273"/>
 					<chartTitle position="Top"/>
 					<chartSubtitle/>
 					<chartLegend textColor="#000000"/>
