@@ -135,7 +135,7 @@ public class CntrlVistaRegistroJugador extends GenericForwardComposer {
 		lblPrimerNombre.setValue(jugador.getPrimerNombre());
 		lblSegundoNombre.setValue(jugador.getSegundoNombre());
 		lblPrimerApellido.setValue(jugador.getPrimerApellido());
-		lblSegundoApellido.setValue(jugador.getSegundoNombre());
+		lblSegundoApellido.setValue(jugador.getSegundoApellido());
 		lblGenero.setValue(jugador.getGenero().getNombre());
 		if (jugador.getFoto() != null) {
 			try {
@@ -172,11 +172,8 @@ public class CntrlVistaRegistroJugador extends GenericForwardComposer {
 
 		// Cargar Datos Medicos
 		String tipoSangre = "";
-		if (jugador.getTipoSangre().getGrupoSanguineo().getNombre() != null){
-			tipoSangre += jugador.getTipoSangre().getGrupoSanguineo().getNombre();
-		}
-		if (jugador.getTipoSangre().getFactorRH().getNombre() != null){
-			tipoSangre += jugador.getTipoSangre().getFactorRH().getNombre();
+		if (jugador.getTipoSangre().getTipoSangre()!=null){
+			tipoSangre=jugador.getTipoSangre().getTipoSangre();
 		}
 		lblGrupoSan.setValue(tipoSangre);
 		if (medico.getNombre() != null) {
