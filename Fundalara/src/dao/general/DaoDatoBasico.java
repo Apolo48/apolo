@@ -40,12 +40,24 @@ public class DaoDatoBasico extends GenericDao {
 		return c.list();
 	}
 	
-	public DatoBasico buscarPorCodigo(String td) {
+	public DatoBasico buscarPorCodigo(Integer i) {
 		// TODO Auto-generated method stub
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
 		Criteria c = getSession().createCriteria(DatoBasico.class);
-		c.add(Restrictions.eq("codigoDatoBasico", td));
-		return (DatoBasico) c.list().get(0);
+		c.add(Restrictions.eq("codigoDatoBasico", i));
+		return (DatoBasico) c.uniqueResult();
 	}
+
+	public DatoBasico buscarPorString(String s) {
+		// TODO Auto-generated method stub
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		Criteria c = getSession().createCriteria(DatoBasico.class);
+		c.add(Restrictions.eq("nombre", s));
+		c.add(Restrictions.eq("estatus", 'A'));
+		return (DatoBasico) c.list().get(0);
+	}	
 	
 	
 	/**

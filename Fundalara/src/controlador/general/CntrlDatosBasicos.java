@@ -416,7 +416,7 @@ public class CntrlDatosBasicos extends GenericForwardComposer {
 	public void onSelect$lboxDatos() {
 		editar=true;
 		
-		datoBasico = servicioDatoBasico.buscarPorCodigo(lboxDatos.getSelectedItem().getValue()+""); 
+		datoBasico = servicioDatoBasico.buscarPorCodigo(Integer.valueOf(lboxDatos.getSelectedItem().getValue()+"")); 
 		if (lboxDatos.getSelectedItem().getIndex() >= 0) {
 			Listcell lc1 = (Listcell) lboxDatos.getSelectedItem().getChildren()
 					.get(0);

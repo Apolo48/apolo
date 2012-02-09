@@ -51,10 +51,10 @@ public class ServicioDatoBasico implements IServicioDatoBasico {
 	}
 
 	@Override
-	public DatoBasico buscarPorCodigo(String td) {
-		// TODO Auto-generated method stub
-		return daoDatoBasico.buscarPorCodigo(td);
+	public DatoBasico buscarPorCodigo(Integer i) {
+		return daoDatoBasico.buscarPorCodigo(i);
 	}
+
 	
 	@Override
 	public List<DatoBasico> buscar(TipoDatoBasico tipoDato) {
