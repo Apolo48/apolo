@@ -123,12 +123,9 @@ public class CntrlVistaRegistroJugador extends GenericForwardComposer {
 		categoria = (Categoria) vista.getVariable("categoria", false);
 		equipo = (Equipo) vista.getVariable("equipo", false);
 		familiares = (List<Familiar>) vista.getVariable("familiares", false);
-		
-		//mostrarValores(jugador);
 		mostrarValores();
 	}
 
-	//private void mostrarValores(controlador.jugador.bean.Jugador jugador) {
 	private void mostrarValores() {
 		// Datos Basicos
 		lblCedula.setValue(jugador.getCedulaCompleta());
@@ -147,7 +144,7 @@ public class CntrlVistaRegistroJugador extends GenericForwardComposer {
 		}
 		if (jugador.getFechaNacimiento() != null) {
 			lblFechaNac.setValue(Util.convertirFecha(jugador.getFechaNacimiento(),"dd/MM/yyyy"));
-			lblEdad.setValue(String.valueOf(Util.calcularDiferenciaAnnios(jugador.getFechaNacimiento())));
+			lblEdad.setValue(String.valueOf(Util.calcularDiferenciaAnnios(jugador.getFechaNacimiento()))+ " años");
 		}
 		if (jugador.getPaisNac() != null) {
 			lblPais.setValue(jugador.getPaisNac().getNombre());
@@ -181,7 +178,7 @@ public class CntrlVistaRegistroJugador extends GenericForwardComposer {
 		}
 		lblNumeroCol.setValue(medico.getNumeroColegio());
 		if (datoMedico.getFechaInforme() != null) {
-			lblFechaRev.setValue(datoMedico.getFechaInforme().toString());
+			lblFechaRev.setValue(Util.convertirFecha(datoMedico.getFechaInforme(),"dd/MM/yyyy"));
 		}
 		
 		listAfeccionesActuales.removeItemAt(0);
@@ -310,7 +307,6 @@ public class CntrlVistaRegistroJugador extends GenericForwardComposer {
 	public void onSelect$listFamiliares() {
 		Listcell ls = (Listcell) listFamiliares.getSelectedItem().getChildren().get(0);
 		Label lb = (Label) ls.getChildren().get(0);
-		System.out.println(lblCedulaFamiliar.getValue().equals(lb.getValue()));
 		if (lblCedulaFamiliar.getValue().equals(lb.getValue())) {
 			grboxFamiliar.setVisible(false);
 			lblCedulaFamiliar.setValue("");
