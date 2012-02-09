@@ -60,7 +60,9 @@ public class ServicioJugador implements IServicioJugador {
 		return daoJugador.buscarJugadores(filtro2, filtro3, filtro4, filtro1, estatus);
 	}
 	
-	
+	public int generarCodigoTemporal(){
+		return daoJugador.generarCodigoTemporal();
+	}
 
 
 }

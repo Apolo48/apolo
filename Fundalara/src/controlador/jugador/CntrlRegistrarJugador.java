@@ -1127,8 +1127,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				checkPoints.put(Point.FAMILIAR, true);
 			}
 			binder.loadComponent(listFamiliares);
-
 			jugadorTemp = null;
+			deshabilitarCamposCedula(true);
 		}
 	}
 
@@ -1158,14 +1158,23 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		boolean flag = false;
 		if (cmbNacionalidad.getSelectedItem().getValue().equals("R")) {
 			flag = true;
-			txtCedula.setRawValue(null);
+			//txtCedula.setRawValue(null);
+			int codigoTemporal = servicioJugador.generarCodigoTemporal();
+			txtCedula.setValue(codigoTemporal);
 			txtCedula.setReadonly(true);
+			txtCedulaSecuencia.setValue(0);
+			lblSeparador.setVisible(flag);
+			txtCedulaSecuencia.setVisible(flag);
+			jugadorBean.setCedula(String.valueOf(codigoTemporal));
+			jugadorBean.setSecuencia("0");
 		} else {
 			txtCedula.setReadonly(false);
+			lblSeparador.setVisible(flag);
+			txtCedulaSecuencia.setVisible(flag);
 			verificarCedulaJugador();
+			//txtCedulaSecuencia.setRawValue(null);
 		}
-		lblSeparador.setVisible(flag);
-		txtCedulaSecuencia.setVisible(flag);
+	
 	}
 
 	public void onClick$btnVistaPrevia() {
@@ -1353,6 +1362,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	public void onClick$btnGuardar() {
 		if (verificarCampos(camposPerfil, true)) {
 			guadarDatos(EstatusRegistro.TEMPORAL);
+			deshabilitarCamposCedula(true);
 			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
 					Mensaje.EXITO, Messagebox.EXCLAMATION);
 		}
@@ -1830,7 +1840,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private void inhabilitarPerfil(boolean flag) {
 		cmbNacionalidad.setDisabled(flag);
 		txtCedula.setReadonly(flag);
-		txtCedulaSecuencia.setReadonly(flag);
+	//	txtCedulaSecuencia.setReadonly(flag);
 		txtPrimerApellido.setReadonly(flag);
 		txtPrimerNombre.setReadonly(flag);
 		txtSegundoApellido.setReadonly(flag);
@@ -1912,6 +1922,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		limpiarFaseFamiliar();
 		
 		habilitarCatalogoJugador(false);
+		lblSeparador.setVisible(false);
+		txtCedulaSecuencia.setVisible(false);
 	}
 
 	public void limpiarJugador() {
@@ -2633,6 +2645,11 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			}
 		}
 		return familiarAux;
+	}
+	
+	private void deshabilitarCamposCedula(boolean sw){
+		txtCedula.setReadonly(sw);
+		cmbNacionalidad.setDisabled(sw);
 	}
 }
 
