@@ -194,7 +194,7 @@
 													<treerow>
 														<treecell
 															label="Recaudos"
-															onClick='enlace("Jugador/Vistas/configurarRecaudo.zul")' />
+															onClick='enlace("Jugador/Vistas/frmConfigurarRecaudo.zul")' />
 													</treerow>
 												</treeitem>
 												<treeitem>

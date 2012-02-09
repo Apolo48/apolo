@@ -411,8 +411,6 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 	}
 	
 	public void inicializar() {
-		
-		
 		btnAgregar.setDisabled(false);
 		btnQuitar.setDisabled(true);
 		btnModificar.setDisabled(true);
@@ -427,7 +425,6 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 		cmbDivisa.setText("");
 		cmbTipo.setText("");
 		cmbTipoLapso.setText("");
-		
 	}
 	
    public void onSelect$listEquipo() {
@@ -446,31 +443,23 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 		btnModificar.setDisabled(false);
 		btnQuitar.setDisabled(false);
 		btnAgregar.setDisabled(true);
-		
 	}
 	
 	
 	public int buscarCat(Categoria categoria){
 		for (int i = 0; i < categorias.size(); i++) {
 			if (categorias.get(i).getNombre().equals(categoria.getNombre())){
-				
 				return i;
-				
 			}
-			
 		}
-		
 		return -1;
-		
 	}
 	
 	public int buscarDiv(Divisa divisa){
 		for (int i = 0; i < divisas.size(); i++) {
 			if (divisas.get(i).getNombre().equals(divisa.getNombre())){
 				return i;
-				
 			}
-			
 		}
 		return -1;
 	    
