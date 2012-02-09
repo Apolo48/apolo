@@ -144,7 +144,7 @@ public class CntrlVistaRegistroJugador extends GenericForwardComposer {
 		}
 		if (jugador.getFechaNacimiento() != null) {
 			lblFechaNac.setValue(Util.convertirFecha(jugador.getFechaNacimiento(),"dd/MM/yyyy"));
-			lblEdad.setValue(String.valueOf(Util.calcularDiferenciaAnnios(jugador.getFechaNacimiento()))+ " años");
+			lblEdad.setValue(String.valueOf(Util.calcularDiferenciaAnnios(jugador.getFechaNacimiento()))+ " AÑOS");
 		}
 		if (jugador.getPaisNac() != null) {
 			lblPais.setValue(jugador.getPaisNac().getNombre());
