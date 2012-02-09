@@ -1587,7 +1587,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	// modificado
 	public void guardarJugador(char estatus) {
 
-		guardarDatosBeanToModelo();
+		guardarDatosBeanToModelo(estatus);
 		if (estatus == EstatusRegistro.ACTIVO) {
 			jugador.setFechaInscripcion(new Date());
 			persona.setFechaIngreso(new Date());
@@ -1630,7 +1630,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 * Guarda los datos "base" asociados al bean Jugador en las clases
 	 * correspondientes del modelo.
 	 */
-	private void guardarDatosBeanToModelo() {
+	private void guardarDatosBeanToModelo(char estatus) {
 		// 1. Persona
 		persona.setCedulaRif(jugadorBean.getCedulaCompleta());
 		persona.setCorreoElectronico(jugadorBean.getCorreoElectronico());
@@ -1657,7 +1657,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		jugador.setDatoBasicoByCodigoPais(jugadorBean.getPaisNac());
 		jugador.setDatoBasicoByCodigoParroquiaNacimiento(jugadorBean
 				.getParroquiaNac());
-		jugador.setNumero(jugadorBean.getNumero());
+		if (estatus == EstatusRegistro.ACTIVO) {
+			jugador.setNumero(jugadorBean.getNumero());
+		}
 		jugador.setPeso(jugadorBean.getPeso());
 		jugador.setAltura(jugadorBean.getAltura());
 		jugador.setPosicionBateo(jugadorBean.getPosicionBateo().getNombre());
