@@ -1212,7 +1212,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		vista.setVariable("categoria", categoria, false);
 		vista.setVariable("equipo", equipo, false);
 		vista.setVariable("familiares", familiares, false);
-
 	}
 
 	public void onClick$btnDesp() {
@@ -1225,7 +1224,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 	public void onClick$btnSalir() {
 		onClose$winRegistrarJugador();
-		
+
 	}
 
 	public void onClick$btnFoto() {
@@ -1405,7 +1404,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					"Se ha  inscrito el jugador: \n" + jugadorBean.getNombres()
 							+ " " + jugadorBean.getApellidos(), Mensaje.EXITO,
 					Messagebox.INFORMATION);
-			// generarPlanillaInscripcion();
+			 generarPlanillaInscripcion();
 			cancelar();
 		}
 
@@ -1944,8 +1943,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		return flag;
 	}
 
-	
-	public void cancelar(){
+	public void cancelar() {
 		onClick$btnAntes();
 		inicializarCheckPoints();
 		jugadorBean = new controlador.jugador.bean.Jugador();
@@ -1962,21 +1960,19 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		lblSeparador.setVisible(false);
 		txtCedulaSecuencia.setVisible(false);
 	}
-	
+
 	// modificado
-	public void onClick$btnCancelar() {		
-		Mensaje.mostrarConfirmacion(
-				"¿Está seguro de cancelar la operación? ",
+	public void onClick$btnCancelar() {
+		Mensaje.mostrarConfirmacion("¿Está seguro de cancelar la operación? ",
 				Mensaje.CONFIRMAR, Messagebox.YES | Messagebox.NO,
 				new org.zkoss.zk.ui.event.EventListener() {
-					public void onEvent(Event evt)
-							throws InterruptedException {
+					public void onEvent(Event evt) throws InterruptedException {
 						if (evt.getName().equals("onYes")) {
 							cancelar();
 						}
 					}
 				});
-		
+
 	}
 
 	public void limpiarJugador() {
@@ -2707,19 +2703,29 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		txtCedula.setReadonly(sw);
 		cmbNacionalidad.setDisabled(sw);
 	}
-	
-	
-	public void onClose$winRegistrarJugador(){
-		Mensaje.mostrarConfirmacion(
-				"¿Está seguro de cerrar la ventana ? ",
+
+	public void onClose$winRegistrarJugador() {
+		Mensaje.mostrarConfirmacion("¿Está seguro de cerrar la ventana ? ",
 				Mensaje.CONFIRMAR, Messagebox.YES | Messagebox.NO,
 				new org.zkoss.zk.ui.event.EventListener() {
-					public void onEvent(Event evt)
-							throws InterruptedException {
+					public void onEvent(Event evt) throws InterruptedException {
 						if (evt.getName().equals("onYes")) {
 							winRegistrarJugador.detach();
 						}
 					}
 				});
 	}
+
+	private boolean  verificarDocumentos(List<DocumentoEntregado> lista) {
+		boolean sw=true;
+		for (DocumentoEntregado de : lista) {
+			if (de.getRecaudoPorProceso().getDatoBasicoByCodigoImportancia().getNombre().equalsIgnoreCase("Obligatorio")){
+				if (((de.getCantidad()==null)?0:de.getCantidad()) < (de.getRecaudoPorProceso().getCantidad())){
+					sw= false;
+				}
+			}
+		}
+		return sw;
+	}
+
 }

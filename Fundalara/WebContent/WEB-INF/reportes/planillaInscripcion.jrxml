@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanillaInscripcion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.1000000000000019"/>
-	<property name="ireport.x" value="23"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
@@ -54,9 +54,7 @@ INNER JOIN familiar_jugador ON
 comision_familiar.codigo_familiar_jugador=familiar_jugador.codigo_familiar_jugador
 INNER JOIN dato_basico ON dato_basico.codigo_dato_basico =
 comision_familiar.codigo_comision
-WHERE familiar_jugador.cedula_familiar=$P{cedulaFamiliar}
-AND comision_familiar.estatus='A'
-AND dato_basico.estatus='A']]>
+WHERE familiar_jugador.cedula_familiar=$P{cedulaFamiliar}]]>
 		</queryString>
 		<field name="comision" class="java.lang.String"/>
 		<field name="descripcion" class="java.lang.String"/>
@@ -85,21 +83,15 @@ AND dato_basico.estatus='A']]>
        p2.telefono_habitacion AS telefono_familiar,
        p2.correo_electronico
 FROM persona_natural pn1
-INNER JOIN persona p1 ON p1.cedula_rif = pn1.cedula_rif
-INNER JOIN roster ON roster.cedula_rif=pn1.cedula_rif
-INNER JOIN equipo ON equipo.codigo_equipo=roster.codigo_equipo
-INNER JOIN categoria ON categoria.codigo_categoria=equipo.codigo_categoria
-INNER JOIN familiar_jugador ON familiar_jugador.cedula_rif= pn1.cedula_rif
-INNER JOIN persona_natural pn2 ON pn2.cedula_rif=familiar_jugador.cedula_familiar
-INNER JOIN persona p2 ON p2.cedula_rif=pn2.cedula_rif
+LEFT JOIN persona p1 ON p1.cedula_rif = pn1.cedula_rif
+LEFT JOIN roster ON roster.cedula_rif=pn1.cedula_rif
+LEFT JOIN equipo ON equipo.codigo_equipo=roster.codigo_equipo
+LEFT JOIN categoria ON categoria.codigo_categoria=equipo.codigo_categoria
+LEFT JOIN familiar_jugador ON familiar_jugador.cedula_rif= pn1.cedula_rif
+LEFT JOIN persona_natural pn2 ON pn2.cedula_rif=familiar_jugador.cedula_familiar
+LEFT JOIN persona p2 ON p2.cedula_rif=pn2.cedula_rif
 WHERE pn1.cedula_rif=$P{cedulaJugador}
-AND pn1.estatus='A'
-AND roster.estatus='A'
-AND equipo.estatus='A'
-AND categoria.estatus='A'
-AND familiar_jugador.representante_actual= TRUE
-AND pn2.estatus='A'
-AND p2.estatus='A']]>
+AND familiar_jugador.representante_actual= TRUE]]>
 	</queryString>
 	<field name="cedula_rif" class="java.lang.String"/>
 	<field name="primer_nombre" class="java.lang.String"/>
@@ -260,7 +252,7 @@ AND p2.estatus='A']]>
 				</textElement>
 				<text><![CDATA[Dirección:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="163" y="297" width="188" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>

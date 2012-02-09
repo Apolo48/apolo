@@ -68,6 +68,10 @@ public class DaoFamiliar extends GenericDao {
 		return lista;
 	}
 
+	/**
+	 * Guardar/actualiza  una lista de familiares
+	 * @param familiares lista de familiares
+	 */
 	public void guardar(List<Familiar> familiares) {
 		int cantidad = 0;
 		Session session = getSession();
