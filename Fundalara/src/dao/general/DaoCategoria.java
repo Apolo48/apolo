@@ -78,11 +78,21 @@ public class DaoCategoria extends GenericDao {
 	 * Agregados para ConfigurarCategoria
 	 */
 	public List listar(Class o) {
+		//Session session = getSession();
+		Session session = SessionManager.getSession();
+		Transaction tx =  session.beginTransaction();
+		List lista = session.createCriteria(o).list();
+		return lista;
+	}
+	
+	
+	/*//Usado antes de 08/02
+	public List listar(Class o) {
 		Session session = getSession();
 		Transaction tx =  session.beginTransaction();
 		List lista = session.createCriteria(o).add(Restrictions.eq("estatus", 'A')).list();
 		return lista;
-	}
+	}*/
 	
 	public boolean buscarPorCodigo(Categoria categoria) {
 		//Categoria categoria;

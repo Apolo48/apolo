@@ -36,19 +36,16 @@ public class ServicioRecaudoPorProceso implements IServicioRecaudoPorProceso {
 	@Override
 	public void eliminar(RecaudoPorProceso c) {
 		daoRecaudoPorProceso.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(RecaudoPorProceso c) {
 		daoRecaudoPorProceso.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(RecaudoPorProceso c) {
 		daoRecaudoPorProceso.actualizar(c);
-
 	}
 
 	@Override

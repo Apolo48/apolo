@@ -60,6 +60,6 @@ public class DaoRecaudoPorProceso extends GenericDao {
 		List<RecaudoPorProceso> lista = c2.list();
 		
 		return lista;
-
 	}
+	
 }

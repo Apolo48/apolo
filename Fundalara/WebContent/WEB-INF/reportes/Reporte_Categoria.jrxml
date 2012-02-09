@@ -4,35 +4,36 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[select numero_colegio, matricula, nombre, apellido, telefono_oficina from medico order by nombre]]>
+		<![CDATA[select nombre, edad_inferior, edad_superior, cantidad_equipo from categoria order by edad_inferior]]>
 	</queryString>
-	<field name="numero_colegio" class="java.lang.String"/>
-	<field name="matricula" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
-	<field name="apellido" class="java.lang.String"/>
-	<field name="telefono_oficina" class="java.lang.String"/>
+	<field name="edad_inferior" class="java.lang.Integer"/>
+	<field name="edad_superior" class="java.lang.Integer"/>
+	<field name="cantidad_equipo" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="138" splitType="Stretch">
 			<staticText>
-				<reportElement x="411" y="116" width="48" height="20"/>
+				<reportElement x="411" y="118" width="48" height="20"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Fecha: ]]></text>
 			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="459" y="118" width="96" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 			<elementGroup/>
 			<image>
 				<reportElement x="0" y="0" width="555" height="138"/>
 				<imageExpression><![CDATA["Encabezado.jpg"]]></imageExpression>
 			</image>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="459" y="118" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -42,81 +43,77 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="24" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Medicos Registrados]]></text>
+				<text><![CDATA[Categorias Registradas]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="45" splitType="Stretch">
 			<staticText>
-				<reportElement x="5" y="22" width="105" height="20"/>
+				<reportElement x="21" y="22" width="105" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Numero Colegio]]></text>
+				<text><![CDATA[Nombre Categoria]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="110" y="22" width="89" height="20"/>
-				<textElement textAlignment="Left">
+				<reportElement x="185" y="22" width="100" height="20"/>
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Matricula]]></text>
+				<text><![CDATA[Edad Inferior]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="198" y="22" width="122" height="20"/>
-				<textElement textAlignment="Left">
+				<reportElement x="301" y="22" width="100" height="20"/>
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nombre]]></text>
+				<text><![CDATA[Edad Superior]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="320" y="22" width="135" height="20"/>
-				<textElement textAlignment="Left">
+				<reportElement x="406" y="22" width="135" height="20"/>
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Apellido]]></text>
+				<text><![CDATA[Cantidad de Equipos]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="42" width="555" height="3" forecolor="#FF9933"/>
+				<reportElement x="7" y="42" width="548" height="3" forecolor="#FF9933"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
 			</line>
-			<staticText>
-				<reportElement x="455" y="22" width="100" height="20"/>
-				<textElement textAlignment="Left">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Telefono Oficina]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="27" splitType="Stretch">
 			<textField>
-				<reportElement x="5" y="0" width="105" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{numero_colegio}]]></textFieldExpression>
+				<reportElement x="406" y="5" width="114" height="19"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad_equipo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="110" y="0" width="89" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{matricula}]]></textFieldExpression>
+				<reportElement x="285" y="5" width="100" height="19"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{edad_superior}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="198" y="0" width="122" height="20"/>
-				<textElement/>
+				<reportElement x="185" y="3" width="100" height="21"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{edad_inferior}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="11" y="3" width="144" height="21"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="320" y="0" width="135" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="455" y="0" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{telefono_oficina}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -229,7 +226,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total de Medicos:]]></text>
+				<text><![CDATA[Total de Categorias:]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
 				<reportElement x="-98" y="-99" width="40" height="20"/>

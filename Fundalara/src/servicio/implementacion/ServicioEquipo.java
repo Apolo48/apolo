@@ -44,10 +44,12 @@ public class ServicioEquipo implements IServicioEquipo {
 		return daoEquipo.listarActivos(Equipo.class);
 	}
 
+	@Override
 	public List<Equipo> buscarPorCategoria(Categoria categoria) {
 		return daoEquipo.buscarEquiposPorCategoria(categoria);
 	}
 
+	@Override
 	public boolean buscarPorCodigo(Equipo equipo) {
 		return daoEquipo.buscarPorCodigo(equipo);
 	}

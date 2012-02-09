@@ -12,23 +12,27 @@
 					<grid style="border:none;" oddRowSclass="none">
 						<columns>
 							<column width="15%" />
-							<column width="50%" />
+							<column width="30%" /> <!-- 50 -->
 							<column width="20%" />
 							<column width="15" />
 						</columns>
 						<rows>
 								<row style="border:none">
 								<label value="Edad Inferior" />
-								<div>
-									<spinner id="spEdadInferior" maxlength="2" value="@{controller.categoria.edadInferior}"
-										width="7%" readonly="true" constraint="no negative"/>
-									<label value="años" /> 
+							    <div>
+									 				  <intbox id="intEdadInferior" maxlength="2" readonly="true" constraint="no negative"  width="10%" focus="true"/> 
+									 				  <button id="btnAumentarEI" label="+" />
+									 				  <button label="-" id="btnDisminuirEI" />
+													  <label value="años" />
 								</div>
 									<label value="Edad Superior" />
 								<div>
-									<spinner id="spEdadSuperior" maxlength="2" value="@{controller.categoria.edadSuperior}"
-										width="23%" readonly="true" constraint="no negative" />
-									<label value="años" />
+								
+									<intbox id="intEdadSuperior" maxlength="2" readonly="true" constraint="no negative"  width="10%" focus="true"/> 
+										<button label="+" id="btnAumentarES" />
+													<button label="-" id="btnDisminuirES" />
+													<label value="años" /> 
+
 								</div>
 							</row>
 							<row style="border:none">
@@ -58,10 +62,11 @@
 		<listbox id="listCategoria" mold="paging" pageSize="7"  model="@{winConfigurarCategoria$composer.categorias}" 
 					    selectedItem="@{winConfigurarCategoria$composer.categoria}">
 						<listhead>
-							<listheader label="Nombre Categoria" width="35%" />
+							<listheader label="Nombre Categoria" width="25%" />
 							<listheader label="Edad Inferior" width="22%" />
 							<listheader label="Edad Superior" width="22%" />
 							<listheader label="Cantidad Equipos" width="22%"  />
+							<listheader label="Estado" width="22%"  />
 							
 						</listhead>
 						<listitem   self="@{each='categoria'}" value="@{categoria}">
@@ -69,6 +74,7 @@
 							<listcell label="@{categoria.edadInferior}" />
 							<listcell label="@{categoria.edadSuperior}" />
 							<listcell label="@{categoria.cantidadEquipo}" />
+							<listcell label="@{categoria.estatus}" />
 							
 						</listitem>
 					
@@ -86,9 +92,8 @@
 </grid>
 
 		<div align="right">
-		<!--  	<button label="Guardar"
-				image="/Recursos/Imagenes/guardar.ico" orient="horizontal"
-				width="100px" /> -->
+		<button image="/Recursos/Imagenes/imprimir.ico" width="100px"
+				id="btnImprimir" onClick="" tooltiptext="/Generar" label="Generar" />
 			<button id="btnCancelar" label="Cancelar"
 				image="/Recursos/Imagenes/cancelar.ico" orient="horizontal"
 				width="100px" />

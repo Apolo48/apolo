@@ -40,4 +40,5 @@ public class DaoMedico extends GenericDao {
 		List<Medico> lista= c.list();
 		return lista;
 	}
+	
 }
