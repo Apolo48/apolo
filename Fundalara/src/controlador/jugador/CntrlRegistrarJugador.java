@@ -1224,8 +1224,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnSalir() {
-		// FALTA VALIDACION DE SALIDA
-		winRegistrarJugador.detach();
+		onClose$winRegistrarJugador();
+		
 	}
 
 	public void onClick$btnFoto() {
@@ -1406,7 +1406,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 							+ " " + jugadorBean.getApellidos(), Mensaje.EXITO,
 					Messagebox.INFORMATION);
 			// generarPlanillaInscripcion();
-			onClick$btnCancelar();
+			cancelar();
 		}
 
 	}
@@ -1591,6 +1591,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		if (estatus == EstatusRegistro.ACTIVO) {
 			jugador.setFechaInscripcion(new Date());
 			persona.setFechaIngreso(new Date());
+			persona.setEstatus(estatus);
+			personaN.setEstatus(estatus);
+			jugador.setEstatus(estatus);
 		}
 		if (checkPoints.get(Point.JUGADOR)) {
 			// Actualizamos
@@ -1939,10 +1942,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		return flag;
 	}
 
-	// modificado
-	public void onClick$btnCancelar() {
-		// FALTA VALIDAR SALIDA
-		// USAR CHECKPOINTS
+	
+	public void cancelar(){
 		onClick$btnAntes();
 		inicializarCheckPoints();
 		jugadorBean = new controlador.jugador.bean.Jugador();
@@ -1958,6 +1959,22 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		habilitarCatalogoJugador(false);
 		lblSeparador.setVisible(false);
 		txtCedulaSecuencia.setVisible(false);
+	}
+	
+	// modificado
+	public void onClick$btnCancelar() {		
+		Mensaje.mostrarConfirmacion(
+				"¿Está seguro de cancelar la operación? ",
+				Mensaje.CONFIRMAR, Messagebox.YES | Messagebox.NO,
+				new org.zkoss.zk.ui.event.EventListener() {
+					public void onEvent(Event evt)
+							throws InterruptedException {
+						if (evt.getName().equals("onYes")) {
+							cancelar();
+						}
+					}
+				});
+		
 	}
 
 	public void limpiarJugador() {
@@ -2669,7 +2686,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	 * seleccionado
 	 * 
 	 * @param cedula
-	 *            del familaior actual que se intenta asignar como representante
+	 *            del familiar actual que se intenta asignar como representante
 	 * @return familiar marcado como representante
 	 */
 	private controlador.jugador.bean.Familiar existeRepresentante(String cedula) {
@@ -2687,5 +2704,20 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private void deshabilitarCamposCedula(boolean sw) {
 		txtCedula.setReadonly(sw);
 		cmbNacionalidad.setDisabled(sw);
+	}
+	
+	
+	public void onClose$winRegistrarJugador(){
+		Mensaje.mostrarConfirmacion(
+				"¿Está seguro de cerrar la ventana ? ",
+				Mensaje.CONFIRMAR, Messagebox.YES | Messagebox.NO,
+				new org.zkoss.zk.ui.event.EventListener() {
+					public void onEvent(Event evt)
+							throws InterruptedException {
+						if (evt.getName().equals("onYes")) {
+							winRegistrarJugador.detach();
+						}
+					}
+				});
 	}
 }

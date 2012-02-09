@@ -12,4 +12,5 @@
 	<desktop-config>
 		<theme-provider-class>zkthemer.ThemeProvider</theme-provider-class>
 	</desktop-config>
+
 </zk>
