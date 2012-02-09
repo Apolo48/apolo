@@ -6,6 +6,7 @@ import servicio.interfaz.IServicioDocumentoMedico;
 
 import dao.general.DaoDocumentoMedico;
 
+import modelo.DatoAcademico;
 import modelo.DatoMedico;
 import modelo.DocumentoEntregado;
 import modelo.DocumentoMedico;
@@ -61,7 +62,10 @@ public class ServicioDocumentoMedico implements IServicioDocumentoMedico {
 	
 	public void actualizar(List<DocumentoEntregado> documentos) {
 		daoDocumentoMedico.actualizar(documentos);
-
+	}
+	
+	public List<DocumentoEntregado>  buscarDocumentos(DatoMedico datoMedico){
+		return daoDocumentoMedico.buscarDocumentos(datoMedico);
 	}
 
 

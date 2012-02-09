@@ -6,6 +6,7 @@ import servicio.interfaz.IServicioDatoMedico;
 
 import dao.general.DaoDatoMedico;
 import modelo.DatoMedico;
+import modelo.Jugador;
 
 /**
  * Clase para brindar los servicios para manejar los datos relacionados con los datos medicos de los jugadores
@@ -53,5 +54,9 @@ public class ServicioDatoMedico implements IServicioDatoMedico {
 	@Override
 	public int obtenerUltimoId() {
 		return daoDatoMedico.obtenerUltimoId();
+	}
+	
+	public DatoMedico buscarDatoMedico(Jugador jugador){
+		return daoDatoMedico.buscarDatoMedico(jugador);
 	}
 }

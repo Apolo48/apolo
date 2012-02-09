@@ -156,5 +156,5 @@ public class DaoEquipo extends GenericDao {
 	public List<Equipo> buscarEquiposDisponibles(Categoria categoria) {
 		return this.buscarEquiposDisponibles(categoria, "TEMPORADA REGULAR");
 	}
-	
+
 }

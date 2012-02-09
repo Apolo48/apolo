@@ -61,7 +61,10 @@ public class ServicioDocumentoPersonal implements IServicioDocumentoPersonal {
 	
 	public void actualizar(List<DocumentoEntregado> documentos) {
 		daoDocumentoPersonal.actualizar(documentos);
-		
+	}
+	
+	public List<DocumentoEntregado> buscarDocumentos(Jugador jugador){
+		return daoDocumentoPersonal.buscarDocumentos(jugador);
 	}
 
 }

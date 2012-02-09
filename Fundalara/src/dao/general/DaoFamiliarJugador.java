@@ -18,6 +18,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import dao.generico.GenericDao;
@@ -175,7 +176,39 @@ public class DaoFamiliarJugador extends GenericDao {
 		FamiliarJugador familiarJugador = (FamiliarJugador) c1.uniqueResult();
 		familiarJugador.setRepresentanteActual(sw);
 		sesion.update(familiarJugador);
-
 		tx.commit();
 	}
+	
+	
+	public int generarSecuencia(Familiar familiar){
+		Session session = getSession();
+		Transaction tx =  session.beginTransaction();
+		int cantidad=0;
+		Criteria criteria = session.createCriteria(FamiliarJugador.class);
+				criteria.setProjection(Projections.rowCount())
+				.add(Restrictions.eq("familiar", familiar))
+				.add(Restrictions.like("jugador.cedulaRif", "R-%-%"));
+		cantidad = (Integer)criteria.list().get(0)+1; 
+		tx.commit();
+		return cantidad;
+		
+	}
+	
+	public boolean esRepresentanteActual(String cedulaJugador, Familiar familiar) {
+		boolean sw=false;
+		Session sesion = getSession();
+		Transaction tx = sesion.beginTransaction();
+		Criteria c1 = sesion.createCriteria(FamiliarJugador.class)
+				.add(Restrictions.eq("familiar", familiar))
+				.add(Restrictions.eq("representanteActual", true))
+				.add(Restrictions.eq("jugador.cedulaRif", cedulaJugador));
+		FamiliarJugador familiarJugador = (FamiliarJugador) c1.uniqueResult();
+		tx.commit();
+		if (familiarJugador!=null){
+			sw=true;
+		}
+		return sw;
+	}
+	
+	
 }

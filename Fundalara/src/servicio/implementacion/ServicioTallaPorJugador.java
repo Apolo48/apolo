@@ -66,7 +66,7 @@ public class ServicioTallaPorJugador implements IServicioTallaPorJugador {
 
 	}
 	
-@Override
+	@Override
 	public List<DatoBasico> buscarTallasPorTipo(Jugador jugador,
 			DatoBasico tipoIndumentaria) {
 		return daoTallaPorJugador. buscarTallasPorTipo( jugador,

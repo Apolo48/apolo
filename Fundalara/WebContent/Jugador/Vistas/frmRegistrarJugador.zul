@@ -445,7 +445,7 @@
 														</groupbox>
 													</row>
 												</rows>
-											</grid>
+											</grid> 
 											<groupbox
 												style="border-color:orange" closable="false">
 												<caption
@@ -484,8 +484,8 @@
 														</listcell>
 														<listcell
 															label="@{docPer.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
-														<listcell
-															label="Subir"
+														<listcell														
+															label="@{docPer.documento, converter='controlador.jugador.converter.LabelConverter'}" 
 															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
 														</listcell>
 														<listcell
@@ -712,7 +712,7 @@
 														<listcell
 															label="@{docMed.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
 														<listcell
-															label="Subir"
+																label="@{docMed.documento, converter='controlador.jugador.converter.LabelConverter'}"
 															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
 														</listcell>
 														<listcell
@@ -746,51 +746,42 @@
 															style="border:none;" spans="1,3">
 															<label
 																value="Institución" />
-															<div>
-																<combobox
-																	id="cmbInstitucionEducativa" width="90%"
-																	constraint="no empty"
-																	model="@{winRegistrarJugador$composer.institucionesEducativas}"
-																	selectedItem="@{controller.datoAcademico.institucion}"
-																	readonly="true" value="--Seleccione--">
-																	<comboitem
-																		self="@{each='institucionE'}"
-																		label="@{institucionE.nombre}" />
-																</combobox>
-																<label value="(*)" style="color:red" />
-															</div>
+															<combobox
+																id="cmbInstitucionEducativa" width="90%"
+																constraint="no empty"
+																model="@{winRegistrarJugador$composer.institucionesEducativas}"
+																selectedItem="@{controller.datoAcademico.institucion}"
+																readonly="true" value="--Seleccione--">
+																<comboitem
+																	self="@{each='institucionE'}"
+																	label="@{institucionE.nombre}" />
+															</combobox>
 														</row>
 														<row
 															style="border:none;">
 															<label
 																value="Año escolar" />
-															<div>
-																<combobox
-																	id="cmbAnnioEscolar" readonly="true"
-																	model="@{winRegistrarJugador$composer.annoEsc}"
-																	constraint="no empty"
-																	selectedItem="@{controller.datoAcademico.datoBasicoByCodigoAnnoEscolar}"
-																	value="--Seleccione--" width="80%">
-																	<comboitem
-																		self="@{each='anno_escolar'}"
-																		label="@{anno_escolar.nombre}" />
-																</combobox>
-																<label value="(*)" style="color:red" />
-															</div>
+															<combobox
+																id="cmbAnnioEscolar" readonly="true"
+																model="@{winRegistrarJugador$composer.annoEsc}"
+																constraint="no empty"
+																selectedItem="@{controller.datoAcademico.datoBasicoByCodigoAnnoEscolar}"
+																value="--Seleccione--" width="80%">
+																<comboitem
+																	self="@{each='anno_escolar'}"
+																	label="@{anno_escolar.nombre}" />
+															</combobox>
 															<label
 																value="Curso" />
-															<div>
-																<combobox
-																	id="cmbCurso"
-																	model="@{winRegistrarJugador$composer.cursos}"
-																	constraint="no empty"
-																	selectedItem="@{controller.datoAcademico.datoBasicoByCodigoCurso}"
-																	readonly="true" value="--Seleccione--">
-																	<comboitem
-																		self="@{each='curso'}" label="@{curso.nombre}" />
-																</combobox>
-																<label value="(*)" style="color:red" />
-															</div>
+															<combobox
+																id="cmbCurso"
+																model="@{winRegistrarJugador$composer.cursos}"
+																constraint="no empty"
+																selectedItem="@{controller.datoAcademico.datoBasicoByCodigoCurso}"
+																readonly="true" value="--Seleccione--">
+																<comboitem
+																	self="@{each='curso'}" label="@{curso.nombre}" />
+															</combobox>
 														</row>
 													</rows>
 												</grid>
@@ -834,7 +825,7 @@
 														<listcell
 															label="@{docAcad.recaudoPorProceso.datoBasicoByCodigoImportancia.nombre}" />
 														<listcell
-															label="Subir"
+															label="@{docAcad.documento, converter='controlador.jugador.converter.LabelConverter'}"
 															onClick="winRegistrarJugador$composer.subirDocumento(self,self.getParent().getParent())">
 														</listcell>
 														<listcell
@@ -1440,7 +1431,8 @@
 																		self="@{each='estadoFamiliar'}"
 																		label="@{estadoFamiliar.nombre}" />
 																</combobox>
-																<label value="(*)" style="color:red" />
+																<label
+																	value="(*)" style="color:red" />
 															</div>
 															<label
 																value="Municipio" />
@@ -1525,6 +1517,8 @@
 																<textbox
 																	style='text-transform:uppercase;'
 																	id="txtTelefonoHabFamiliar" width="40%" maxlength="7" />
+																<label
+																	value="(*)" style="color:red" />
 															</div>
 															<label
 																value="Teléfono Celular" />
@@ -1541,6 +1535,8 @@
 																<textbox
 																	style='text-transform:uppercase;'
 																	id="txtTelefonoCelFamiliar" width="40%" maxlength="7" />
+																<label
+																	value="(*)" style="color:red" />
 															</div>
 														</row>
 														<row

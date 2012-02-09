@@ -11,6 +11,7 @@ import modelo.RetiroTraslado;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import dao.generico.GenericDao;
@@ -52,9 +53,12 @@ public class DaoJugador extends GenericDao {
 	public void actualizar(Jugador c) {
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(c.getPersonaNatural().getPersona());
+		session.merge(c.getPersonaNatural().getPersona());
+		session.merge(c.getPersonaNatural());
+		session.merge(c);
+		/*session.saveOrUpdate(c.getPersonaNatural().getPersona());
 		session.saveOrUpdate(c.getPersonaNatural());
-		session.saveOrUpdate(c);
+		session.saveOrUpdate(c);*/
 		tx.commit();
 	}
 
@@ -136,6 +140,23 @@ public class DaoJugador extends GenericDao {
 	}
 	
 	
+	
+	/**
+	 * @return numero de registros (+1) en jugador con la el comodin 'R'
+	 */
+	public int generarCodigoTemporal(){
+		Session session = getSession();
+		Transaction tx =  session.beginTransaction();
+		int cantidad=0;
+		Criteria criteria = session.createCriteria(Jugador.class);
+				criteria.setProjection(Projections.rowCount())
+				.add(Restrictions.like("cedulaRif", "R-%"));
+		cantidad = (Integer)criteria.list().get(0)+1; 
+		tx.commit();
+		return cantidad;
+	}
+	
+
 
 	
 }

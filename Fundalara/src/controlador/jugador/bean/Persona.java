@@ -18,10 +18,12 @@ public class Persona {
 	private Telefono telefonoHabitacion;
 	private Telefono telefonoCelular;
 	private DatoBasico parroquiaResi;
+	private DatoBasico tipoPersona;
 	private String correoElectronico;
 	private String twitter;
 	private String direccion;
 	private Date fechaNacimiento;
+	private Date fechaIngreso;
 	private DatoBasico genero;
 	private String primerNombre;
 	private String segundoNombre;
@@ -34,6 +36,7 @@ public class Persona {
 		telefonoHabitacion = new Telefono();
 		telefonoCelular = new Telefono();
 		genero = new DatoBasico();
+		tipoPersona= new DatoBasico();
 	}
 
 	public String getNacionalidad() {
@@ -175,4 +178,23 @@ public class Persona {
 		return getPrimerApellido().toUpperCase() + " " 
 				+ (getSegundoApellido() == null ? "" :  getSegundoApellido().toUpperCase());
 	}
+
+	public DatoBasico getTipoPersona() {
+		return tipoPersona;
+	}
+
+	public void setTipoPersona(DatoBasico tipoPersona) {
+		this.tipoPersona = tipoPersona;
+	}
+
+	public Date getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+	
+	
+	
 }

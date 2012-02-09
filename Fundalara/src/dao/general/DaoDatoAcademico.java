@@ -4,12 +4,14 @@ package dao.general;
 import java.util.List;
 
 import modelo.DatoAcademico;
+import modelo.DatoMedico;
 import modelo.Jugador;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 
@@ -51,5 +53,20 @@ public class DaoDatoAcademico extends GenericDao {
 		Criteria c = sesion.createCriteria(DatoAcademico.class)	
 		.add(Restrictions.eq("jugador", jugador));
 		return c.list();
+	}
+	
+	
+	public DatoAcademico buscarDatoAcademico(Jugador jugador){
+		Session sesion = getSession();
+		org.hibernate.Transaction tx = sesion.beginTransaction();
+		Criteria c = sesion.createCriteria(DatoAcademico.class)
+				.add(Restrictions.eq("jugador",jugador))
+				.add(Restrictions.eq("estatus",'A'))
+				.addOrder( Order.asc("codigoAcademico") )
+				.setMaxResults(1);
+		DatoAcademico datoAcademico = (DatoAcademico) c.uniqueResult();
+		tx.commit();
+		return datoAcademico;
+
 	}
 }

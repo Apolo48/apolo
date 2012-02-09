@@ -60,6 +60,10 @@ public class ServicioDocumentoAcademico implements IServicioDocumentoAcademico {
 	
 	public void actualizar(List<DocumentoEntregado> documentos) {
 			daoDocumentoAcademico.actualizar(documentos);
-		
 		}
+	
+	
+	public List<DocumentoEntregado>  buscarDocumentos(DatoAcademico datoAcademico){
+		return daoDocumentoAcademico.buscarDocumentos(datoAcademico);
+	}
 }

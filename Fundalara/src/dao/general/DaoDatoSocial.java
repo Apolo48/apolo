@@ -119,8 +119,12 @@ public class DaoDatoSocial extends GenericDao {
 	public List<DatoSocial> buscarPorJugador(Jugador jugador) {
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
-		Criteria c = sesion.createCriteria(DatoSocial.class)	
+		Criteria c = sesion.createCriteria(DatoSocial.class)
+		.add(Restrictions.eq("estatus",'A'))
 		.add(Restrictions.eq("jugador", jugador));
-		return c.list();
+		 List<DatoSocial> lista =c.list();
+		
+		 
+		return lista;
 	}
 }

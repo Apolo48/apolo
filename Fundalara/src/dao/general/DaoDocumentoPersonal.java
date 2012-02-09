@@ -1,18 +1,24 @@
 package dao.general;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
+import modelo.DatoBasico;
 import modelo.DocumentoEntregado;
 import modelo.DocumentoPersonal;
 import modelo.DocumentoPersonalId;
 import modelo.Jugador;
 
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
+import comun.TipoDatoBasico;
 
 import dao.generico.GenericDao;
 
@@ -63,5 +69,22 @@ public class DaoDocumentoPersonal extends GenericDao {
 	}
 	
 	
+	public List<DocumentoEntregado> buscarDocumentos(Jugador jugador){
+			Session sesion = getSession();
+			Transaction tx = sesion.beginTransaction();
+			Criteria c = sesion.createCriteria(DocumentoPersonal.class)
+					.add(Restrictions.eq("jugador", jugador))
+					.add(Restrictions.eq("estatus", 'A'));
+			List<DocumentoEntregado>  aux =  new ArrayList<DocumentoEntregado>();
+			List<DocumentoPersonal>  auxPersonal =  c.list();
+			for (DocumentoPersonal documentoPersonal : auxPersonal) {
+				aux.add(documentoPersonal.getDocumentoEntregado());
+			}
+			
+			return aux;
+		
+	}
+	
 
 }
+

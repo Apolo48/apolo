@@ -60,4 +60,9 @@ public class ServicioDatoAcademico implements IServicioDatoAcademico {
 	public List<DatoAcademico> buscarPorJugador(Jugador jugador){
 		return daoDatoAcademico.buscarPorJugador(jugador);
 	}
+	
+	
+	public DatoAcademico buscarDatoAcademico(Jugador jugador){
+		return daoDatoAcademico.buscarDatoAcademico(jugador);
+	}
 }

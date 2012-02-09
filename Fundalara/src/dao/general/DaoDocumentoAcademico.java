@@ -1,5 +1,6 @@
 package dao.general;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -13,6 +14,7 @@ import modelo.DatoBasico;
 import modelo.DocumentoAcademico;
 import modelo.DocumentoAcademicoId;
 import modelo.DocumentoEntregado;
+import modelo.DocumentoPersonal;
 import modelo.TallaPorIndumentaria;
 import modelo.TallaPorJugador;
 import modelo.TallaPorJugadorId;
@@ -67,5 +69,22 @@ public class DaoDocumentoAcademico extends GenericDao {
 			session.update(documentoEntregado);
 		}
 		tx.commit();
+	}
+	
+	
+	public List<DocumentoEntregado>  buscarDocumentos(DatoAcademico datoAcademico){
+		Session sesion = getSession();
+		Transaction tx = sesion.beginTransaction();
+		Criteria c = sesion.createCriteria(DocumentoAcademico.class)
+				.add(Restrictions.eq("datoAcademico", datoAcademico))
+				.add(Restrictions.eq("estatus", 'A'));
+		List<DocumentoEntregado>  aux =  new ArrayList<DocumentoEntregado>();
+		List<DocumentoAcademico>  auxAcademico =  c.list();
+		for (DocumentoAcademico documentoAcademico : auxAcademico) {
+			aux.add(documentoAcademico.getDocumentoEntregado());
+		}
+		
+		return aux;
+		
 	}
 }

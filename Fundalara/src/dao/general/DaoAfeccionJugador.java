@@ -114,6 +114,7 @@ public class DaoAfeccionJugador extends GenericDao {
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
 		Criteria c = sesion.createCriteria(AfeccionJugador.class)
+		.add(Restrictions.eq("estatus", 'A'))
 		.createCriteria("datoMedico")
 		.add(Restrictions.eq("jugador", jugador));
 		return c.list();

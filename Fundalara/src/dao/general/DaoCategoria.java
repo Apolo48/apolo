@@ -113,5 +113,5 @@ public class DaoCategoria extends GenericDao {
 		tx.commit();
 		return sw;
 	}
-
+	
 }
