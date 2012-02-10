@@ -100,7 +100,8 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 	private Button btnAumentarEI;
 	private Button btnDisminuirES; 
 	private Button btnDisminuirEI;
-	private int edadInferior,edadSuperior;
+	private int edadInferior;
+	private int edadSuperior;
 	
 	//Iframe ifReporte;
 	private String rutasGen = Ruta.GENERAL.getRutaVista();
@@ -112,8 +113,7 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
     public void onCreate$winConfigurarCategoria(ForwardEvent event) {
 	    // get the databinder for later extra load and save
 	    // note: binder is not ready in doAfterCompose, so do it here
-    
-	  }
+    }
  
     public Categoria getCategoria() {
 		return categoria;
@@ -144,7 +144,6 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 		listaCategoria=servicioCategoria.listar();
 		inicializar();
 		aplicarConstraints();
-
 	}
 	
 	public void onSelect$listCategoria() {
@@ -157,46 +156,33 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 		intEdadSuperior.setValue((listaCategoria.get(listCategoria.getSelectedIndex()).getEdadSuperior()));
 	}
 	
-	
-	
 	public  List<Categoria> getCategorias(){
-		
 		 return servicioCategoria.listar();
 	}
 	
 	public void onClick$btnAumentarEI(){
-		
-		
-		 
 		 edadInferior = (intEdadInferior.getValue());
 		 edadInferior++;
 		 intEdadInferior.setValue(edadInferior);
 		 edadSuperior  = (intEdadSuperior.getValue());
 		 edadInferior++;
 		 intEdadSuperior.setValue(edadInferior);
-		
-	    
 	}
 	
 	public void onClick$btnAumentarES(){
-		
 		 edadInferior = (intEdadInferior.getValue());
 		 edadInferior++;
 		 intEdadInferior.setValue(edadInferior);
 		 edadSuperior  = (intEdadSuperior.getValue());
 		 edadInferior++;
 		 intEdadSuperior.setValue(edadInferior);
-		
 	}
 	
 	public void onClick$btnDisminuirES(){
-		
 		if ( intEdadInferior.getValue()==1 ){
 			intEdadInferior.setValue(1);
-		
 		}
 		else {
-			
 			edadInferior = (intEdadInferior.getValue());
 			 --edadInferior;
 			 intEdadInferior.setValue(edadInferior);
@@ -204,18 +190,13 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 			 --edadSuperior;
 			 intEdadSuperior.setValue(edadSuperior);	
 		}
-		
-		
 	}
 	
 	public void onClick$btnDisminuirEI(){
-		 
 		if ( intEdadInferior.getValue()==1 ){
 			intEdadInferior.setValue(1);
-		
 		}
 		else {
-			
 			edadInferior = (intEdadInferior.getValue());
 			 --edadInferior;
 			 intEdadInferior.setValue(edadInferior);
@@ -226,20 +207,11 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 	}
 	
 	public void onClick$spCantidadEquipo(){
-		 
 		if ( spCantidadEquipo.getValue()==1 )
 			spCantidadEquipo.setValue(1);
-		
-		
-		else {}
 	}
 	
-	
-	
-	
 	public void onClick$btnAgregar() throws InterruptedException {
-		
-	
 	   edadInferior = (intEdadInferior.getValue());
 	   edadSuperior = (intEdadSuperior.getValue());
 		if (txtNombre.getText() == "") {
@@ -261,13 +233,10 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 				 Messagebox.show("Ya existe la categoria", "Mensaje", Messagebox.OK, Messagebox.INFORMATION);
 							 return;
 					 }
-			
 			 else if(intEdadInferior.getValue().equals(listaCategoria.get(i).getEdadInferior()) && intEdadSuperior.getValue().equals(listaCategoria.get(i).getEdadSuperior())){
 				 alert("Ya existe la categoria");
 				 return;
 			 }
-			 
-			 
 			
 			 if(intEdadInferior.getValue()>listaCategoria.get(i).getEdadInferior()){
 				 if(intEdadInferior.getValue()<=listaCategoria.get(i).getEdadSuperior()){
@@ -282,7 +251,6 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 					 return;
 				 }
 			 }
-			
 	        }			
 			categoria.setEstatus('A');
 			categoria.setNombre(txtNombre.getValue().toUpperCase());
@@ -301,7 +269,6 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 			 limpiar(); 
 			 }
 		}
-		 
 	}
 	
 	 public void onClick$btnQuitar() throws InterruptedException {
@@ -311,18 +278,13 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 				return;
 		}
 	   
-	   
-	 
-	  
 		public void doYes(){
 			if (listCategoria.getSelectedIndex() >= 0) {
-				
 				Categoria categoriaTemp = (Categoria) listCategoria.getSelectedItem().getValue();
 				  if (servicioCategoria.buscarPorCodigo(categoria)==false)
 				//System.out.println(servicioCategoria.buscarPorCodigo(categoria));
 					alert ("No se puede borrar mientras existan equipos en esta categoria");
 				  else {
-				 
 					categoria.setEstatus('E');
 		            listaCategoria.remove(categoriaTemp);
 					servicioCategoria.eliminar(categoriaTemp);
@@ -333,30 +295,20 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 				alert("Seleccione un dato para eliminar.");
 			 } 
 		}
-
-  
   
 	private void aplicarConstraints() {
 		// Registro Jugador
-		
 		txtNombre.setConstraint(Restriccion.TEXTO_SIMPLE
 				.asignarRestriccionExtra("no empty"));
-	
 		spCantidadEquipo.setConstraint(Restriccion.CANTIDAD_EQUIPO
 				.getRestriccion());
 		/*intEdadInferior.setConstraint(Restriccion.EDAD_INFERIOR
 				.getRestriccion());
 		intEdadSuperior.setConstraint(Restriccion.EDAD_SUPERIOR
 				.getRestriccion());*/
-		
-		
-		
 	}
 	
-
-	
 public void onClick$btnModificar() throws InterruptedException{
-		
 		if (categoria!= null){
 			edadInferior = (intEdadInferior.getValue());
 		    edadSuperior = (intEdadSuperior.getValue());
@@ -371,8 +323,6 @@ public void onClick$btnModificar() throws InterruptedException{
 			else
 				return;
 		}
-					 
-			
 		else{
 			alert("Seleccione un dato");
 		}
@@ -385,10 +335,7 @@ public void onClick$btnModificar() throws InterruptedException{
 	}
 	
     public void onClick$btnSalir()  {
-    	
-
-   winConfigurarCategoria.detach();
-   
+    	winConfigurarCategoria.detach();
 	}
 	
 	public void limpiar(){
@@ -397,16 +344,11 @@ public void onClick$btnModificar() throws InterruptedException{
 		inicializar();
 	}
 	
-	
-	
-	
 	public void onClick$btnCancelar(){
 		limpiar();
 	}
 	
 	public void inicializar() {
-	   
-	
 		//spEdadInferior.setValue(1);
 		intEdadInferior.setValue(3);
 		intEdadSuperior.setValue(5);
@@ -415,41 +357,30 @@ public void onClick$btnModificar() throws InterruptedException{
 		btnModificar.setDisabled(true);
 	    btnSalir.setDisabled(false);
 		btnCancelar.setDisabled(false);
-		
 	}
 	
 	public boolean validar() throws InterruptedException{
-		
 		int edadInferior = (intEdadInferior.getValue());
 	    int edadSuperior = (intEdadSuperior.getValue());
 	    
 		 if (spCantidadEquipo.getValue()==0 && edadInferior==0 && edadSuperior==0 ){
-			 
 			 Messagebox.show("Ningun dato numerico puede ser cero (0)", "Mensaje", Messagebox.OK, Messagebox.INFORMATION);
 			 txtEdadInferior.setFocus(true);
 			 return false;
-	         }
+	     }
 		 else if (edadInferior > edadSuperior ){
 			             Messagebox.show("La edad inferior es mayor a edad superior", "Mensaje", Messagebox.OK, Messagebox.INFORMATION);
 						 spEdadInferior.setFocus(true);
 						 return false;
 				         }
-			
 					 else {
 						 int dif =  edadSuperior - edadInferior ;
-						
 						 if ( dif > 1 ){
 							 Messagebox.show("Rango de edad no permitido en esta categoria", "Mensaje", Messagebox.OK, Messagebox.INFORMATION);
 							 intEdadInferior.setFocus(true);
 							 return false;
-								
 						 }
-						 
-						
-								
-				
 					 }
-			
 	       return true; 
 		}
 	
@@ -477,5 +408,5 @@ public void onClick$btnModificar() throws InterruptedException{
 		//parameters.put("NombreRepre",txtNombres.);
 		showReportfromJrxml();
 	}
+	
 }
-
