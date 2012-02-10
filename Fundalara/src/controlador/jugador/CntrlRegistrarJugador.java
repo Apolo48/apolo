@@ -1015,8 +1015,10 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				}
 			}
 
-			bboxNumero.setRawValue(pJugador.getNumero().toString());
-			jugadorBean.setNumero(pJugador.getNumero());
+			if (pJugador.getNumero() != null) {
+				bboxNumero.setRawValue(pJugador.getNumero().toString());
+				jugadorBean.setNumero(pJugador.getNumero());
+			}
 			txtPeso.setRawValue(BigDecimal.valueOf(pJugador.getPeso()));
 			txtAltura.setRawValue(BigDecimal.valueOf(pJugador.getAltura()));
 			cmbBrazoLanzar.setValue(pJugador.getBrazoLanzar());
@@ -2381,7 +2383,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			}
 		}
 
-		if (familiarBean.getTelefonoHabitacion().getTelefonoCompleto() != null) {
+		if (familiarBean.getTelefonoCelular().getTelefonoCompleto() != null) {
 			String[] numeroCel = Util.separarCadena(familiarBean
 					.getTelefonoCelular().getTelefonoCompleto(), "-");
 			if (numeroCel.length == 2) {
