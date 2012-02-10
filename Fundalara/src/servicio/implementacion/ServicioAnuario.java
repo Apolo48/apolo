@@ -14,7 +14,9 @@ import modelo.Roster;
 
 /**
  * Clase para brindar los servicios para manejar los datos relacionados con el anuario de los jugadores
-
+ * @author Robert A
+ * @author German L
+ * @version 0.1 02/02/2012
  */
 public class ServicioAnuario implements IServicioAnuario {
 

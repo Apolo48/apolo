@@ -52,6 +52,7 @@ import org.zkoss.zul.api.Tab;
 import org.zkoss.zul.impl.InputElement;
 
 import servicio.implementacion.ServicioAfeccionJugador;
+import servicio.implementacion.ServicioAnuario;
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioComisionFamiliar;
 import servicio.implementacion.ServicioDatoAcademico;
@@ -84,6 +85,7 @@ import controlador.jugador.restriccion.Edad;
 import controlador.jugador.restriccion.Restriccion;
 import modelo.AfeccionJugador;
 import modelo.AfeccionJugadorId;
+import modelo.Anuario;
 import modelo.Categoria;
 import modelo.ComisionFamiliar;
 import modelo.DatoAcademico;
@@ -251,6 +253,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioFamiliarJugador servicioFamiliarJugador;
 	private ServicioPersona servicioPersona;
 	private ServicioComisionFamiliar servicioComisionFamiliar;
+	private ServicioAnuario servicioAnuario;
 
 	// Modelos
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
@@ -1406,7 +1409,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			if (jugadorBean.getNacionalidad().equals("R")) {
 				cedula = servicioJugador.actualizarDatosJugador(jugador);
 			}
-
+			actualizarAnuario(roster);
 			Mensaje.mostrarMensaje(
 					"Se ha  inscrito el jugador: \n" + jugadorBean.getNombres()
 							+ " " + jugadorBean.getApellidos(), Mensaje.EXITO,
@@ -1415,6 +1418,13 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			cancelar();
 		}
 
+	}
+
+	private void actualizarAnuario(Roster roster) {
+		Anuario anuario = new Anuario();
+		anuario.setFoto(jugadorBean.getFoto());
+		anuario.setRoster(roster);
+		servicioAnuario.agregar(anuario);
 	}
 
 	/**
@@ -1957,7 +1967,26 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		limpiarJugador();
 		familiarBean = new controlador.jugador.bean.Familiar();
 		familiares = new ArrayList<controlador.jugador.bean.Familiar>();
+		inicializar();
+		limpiarFaseFamiliar();
+		deshabilitarCatalogoFamiliar(false);
+		cmbNacionalidad.setDisabled(false);
+		txtCedula.setReadonly(false);
+		cmbNacionalidadFamiliar.setDisabled(false);
+		txtCedulaFamiliar.setReadonly(false);
+		habilitarCatalogoJugador(false);
+		lblSeparador.setVisible(false);
+		txtCedulaSecuencia.setVisible(false);
+	}
+	
+	private void inicializar(){
 		familiar = new Familiar();
+		persona = new Persona();
+		personaN = new PersonaNatural();
+		jugador = new Jugador();
+		personaFamiliar = new Persona();
+		personaNFamiliar = new PersonaNatural();
+		jugadorTemp = new Jugador();
 		equipo = new Equipo();
 		categoria = new Categoria();
 		estadoVenezuela = new DatoBasico();
@@ -1972,15 +2001,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		afeccion = new DatoBasico();
 		afeccionesJugador = new ArrayList<DatoBasico>();
 		roster = new Roster();
-		limpiarFaseFamiliar();
-		deshabilitarCatalogoFamiliar(false);
-		cmbNacionalidad.setDisabled(false);
-		txtCedula.setReadonly(false);
-		cmbNacionalidadFamiliar.setDisabled(false);
-		txtCedulaFamiliar.setReadonly(false);
-		habilitarCatalogoJugador(false);
-		lblSeparador.setVisible(false);
-		txtCedulaSecuencia.setVisible(false);
 	}
 
 	// modificado
