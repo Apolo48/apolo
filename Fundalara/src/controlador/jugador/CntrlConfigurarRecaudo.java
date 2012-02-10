@@ -1,53 +1,39 @@
 package controlador.jugador;
 
-
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Iframe;
-import org.zkoss.zul.Image;
-import org.zkoss.zul.Intbox;
-import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Spinner;
-import org.zkoss.zul.Textbox;
-import org.zkoss.zul.api.Tab;
 
 import comun.ConeccionBD;
+import comun.Ruta;
 import comun.TipoDatoBasico;
 
-import modelo.Categoria;
 import modelo.DatoBasico;
-import modelo.Divisa;
-import modelo.Equipo;
 import modelo.TipoDato;
 import modelo.RecaudoPorProceso;
 
@@ -68,9 +54,9 @@ import servicio.implementacion.ServicioRecaudoPorProceso;
 public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 	
 	//Servicios
-	ServicioDatoBasico servicioDatoBasico;
-	ServicioTipoDato servicioTipoDato;
-	ServicioRecaudoPorProceso servicioRecaudoPorProceso;
+	private ServicioDatoBasico servicioDatoBasico;
+	private ServicioTipoDato servicioTipoDato;
+	private ServicioRecaudoPorProceso servicioRecaudoPorProceso;
 	
 	//Modelos
 	private DatoBasico datobasico = new DatoBasico();
@@ -94,17 +80,16 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 	private List<DatoBasico> importancias =new ArrayList<DatoBasico>();
 	private List<RecaudoPorProceso> listrecaudos =new ArrayList<RecaudoPorProceso>();
 	
-	Listbox listprocesos;
+	private Listbox listprocesos;
 	
-	Iframe ifReporte;
+	private String rutasGen = Ruta.GENERAL.getRutaVista();
 
 	private Connection con;
 	private String jrxmlSrc;
 	private Map parameters = new HashMap();
 	
-	AnnotateDataBinder binder ;
-	Component formulario;
-	
+	private AnnotateDataBinder binder ;
+	private Component formulario;
 	
 	//Eventos
 	public void doAfterCompose(Component comp) throws Exception {
@@ -157,8 +142,6 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 		this.proceso = proceso;
 	}
 	
-	
-
 	public DatoBasico getRecaudo() {
 		return recaudo;
 	};
@@ -194,26 +177,25 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
     }
 	
     public void onSelect$listprocesos(){
-    	listrecaudos=servicioRecaudoPorProceso.listar();
-    	proceso=listrecaudos.get(listprocesos.getSelectedIndex()).getDatoBasicoByCodigoProceso().getDatoBasico();
-    	binder.loadComponent(cmbProceso);
-    	accion=listrecaudos.get(listprocesos.getSelectedIndex()).getDatoBasicoByCodigoProceso();
-    	recaudo=listrecaudos.get(listprocesos.getSelectedIndex()).getDatoBasicoByCodigoDocumento();
-    	importancia=listrecaudos.get(listprocesos.getSelectedIndex()).getDatoBasicoByCodigoImportancia();
-    	spnCantidad.setValue(listrecaudos.get(listprocesos.getSelectedIndex()).getCantidad());
-    	binder.loadAll();
-    	if(listrecaudos.get(listprocesos.getSelectedIndex()).getEstatus()=='A'){
-    		btnEliminar.setDisabled(false);
-    		btnModificar.setDisabled(false);
-    		}
-    		else{
-    			btnEliminar.setDisabled(true);	
+    	if (listprocesos.getSelectedIndex() >= 0) {
+        	listrecaudos=servicioRecaudoPorProceso.listar();
+        	proceso=listrecaudos.get(listprocesos.getSelectedIndex()).getDatoBasicoByCodigoProceso().getDatoBasico();
+        	binder.loadComponent(cmbProceso);
+        	accion=listrecaudos.get(listprocesos.getSelectedIndex()).getDatoBasicoByCodigoProceso();
+        	recaudo=listrecaudos.get(listprocesos.getSelectedIndex()).getDatoBasicoByCodigoDocumento();
+        	importancia=listrecaudos.get(listprocesos.getSelectedIndex()).getDatoBasicoByCodigoImportancia();
+        	spnCantidad.setValue(listrecaudos.get(listprocesos.getSelectedIndex()).getCantidad());
+        	binder.loadAll();
+        	if(listrecaudos.get(listprocesos.getSelectedIndex()).getEstatus()=='A'){
+        		btnEliminar.setDisabled(false);
+        		btnModificar.setDisabled(false);
+    		} else {
+    			btnEliminar.setDisabled(true);
     			btnModificar.setDisabled(false);
     		}
-    	
-		btnGuardar.setDisabled(true);
+    		btnGuardar.setDisabled(true);
+    	}
     }
-	
 	
 	//Eventos
 	private void limpiar() {
@@ -231,9 +213,6 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 	public void onClick$btnCancelar() {
 		limpiar();
 	}
-	
-	
-	
 	
 	public void onClick$btnGuardar() throws InterruptedException {
 		listrecaudos=servicioRecaudoPorProceso.listar();
@@ -293,7 +272,6 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 		else{
 			Messagebox.show("Complete los datos para poder modificar el recaudo", "MODIFICAR", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
-		
 	}
 	
 	public void actualizar(){
@@ -311,9 +289,6 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 			      }
 			    }
 			   });
-		
-		
-		
 	}
 	
 	public void doYes(){
@@ -321,7 +296,6 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 		servicioRecaudoPorProceso.actualizar(recaudoporproceso);
 		limpiar();
 	}
-	
 	
 	public DatoBasico getAccion() {
 		return accion;
@@ -339,26 +313,29 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 		this.importancia = importancia;
 	}
 
-	public void showReportfromJrxml() throws JRException, IOException{
-		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
-		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
-		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
-		JRExporter exporter = new JRPdfExporter();
-		exporter.setParameters(parameters);
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT ,jaspPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,arrayOutputStream);
-		exporter.exportReport();
-		arrayOutputStream.close();
-		final AMedia amedia = new AMedia("ListadoDeRecaudos.pdf","pdf","pdf/application", arrayOutputStream.toByteArray());
-		ifReporte.setContent(amedia);
-	}
-	// ---------------------------------------------------------------------------------------------------
 	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
 		con = ConeccionBD.getCon("postgres","postgres","123456");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/Reporte_Recaudo_por_proceso.jrxml");
-		//parameters.put("NombreRepre",txtNombres.);
-		showReportfromJrxml();
+		//parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
+		mostrarVisor();
 	}
-	
+
+	public void mostrarVisor() throws JRException {
+		/*
+		 * Funciona para IExplorer, Firefox, Chrome y Opera
+		 * Permite ver, guardar e imprimir, todo desde el visor
+		 * Observacion: uso de codigo mas sencillo para generar pdf
+		 * El codigo usado en mostrarFrame tambien puede usarse en este caso
+		 * */
+		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
+		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
+		
+		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
+		final AMedia amedia = new AMedia("ListadoDeRecaudos.pdf","pdf","application/pdf", archivo);
+		
+		Component visor = Executions.createComponents(rutasGen
+					+ "frmVisorDocumento.zul", null, null);
+			visor.setVariable("archivo", amedia, false);
+	}
 
 }

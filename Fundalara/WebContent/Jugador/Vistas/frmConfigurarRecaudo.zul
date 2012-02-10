@@ -1,9 +1,9 @@
-<?page title="Parametro Recaudo"?>
+<?page title="Configurar Recaudos"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"?>
 <zk>
 	<window id="winConfigurarRecaudo" apply="controlador.jugador.CntrlConfigurarRecaudo" 
-	title="Recaudo" border="normal" width="60%"
+	title="Recaudos" border="normal" width="60%"
 		closable="true">
 		<grid style="border:none" oddRowSclass="none">
 			<columns>
