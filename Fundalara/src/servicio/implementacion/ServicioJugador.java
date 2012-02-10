@@ -64,5 +64,8 @@ public class ServicioJugador implements IServicioJugador {
 		return daoJugador.generarCodigoTemporal();
 	}
 
+	public String actualizarDatosJugador(Jugador jugador) {
+		return daoJugador.actualizarDatosJugador(jugador);
+	}
 
 }

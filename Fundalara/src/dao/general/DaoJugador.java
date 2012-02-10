@@ -3,12 +3,15 @@ package dao.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.Familiar;
 import modelo.Jugador;
 import modelo.Persona;
 import modelo.PersonaNatural;
 import modelo.RetiroTraslado;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
@@ -56,9 +59,6 @@ public class DaoJugador extends GenericDao {
 		session.merge(c.getPersonaNatural().getPersona());
 		session.merge(c.getPersonaNatural());
 		session.merge(c);
-		/*session.saveOrUpdate(c.getPersonaNatural().getPersona());
-		session.saveOrUpdate(c.getPersonaNatural());
-		session.saveOrUpdate(c);*/
 		tx.commit();
 	}
 
@@ -133,30 +133,117 @@ public class DaoJugador extends GenericDao {
 					.add(Restrictions.like("primerNombre", filtro3 + "%"))
 					.add(Restrictions.like("primerApellido", filtro4 + "%"));
 			List<Jugador> lista = c.list();
-		
+
 			return lista;
 		}
 
 	}
-	
-	
-	
+
 	/**
 	 * @return numero de registros (+1) en jugador con la el comodin 'R'
 	 */
-	public int generarCodigoTemporal(){
+	public int generarCodigoTemporal() {
 		Session session = getSession();
-		Transaction tx =  session.beginTransaction();
-		int cantidad=0;
+		Transaction tx = session.beginTransaction();
+		int cantidad = 0;
 		Criteria criteria = session.createCriteria(Jugador.class);
-				criteria.setProjection(Projections.rowCount())
-				.add(Restrictions.like("cedulaRif", "R-%"));
-		cantidad = (Integer)criteria.list().get(0)+1; 
+		criteria.setProjection(Projections.rowCount()).add(
+				Restrictions.like("cedulaRif", "R-%"));
+		cantidad = (Integer) criteria.list().get(0) + 1;
 		tx.commit();
 		return cantidad;
 	}
-	
 
+	/**
+	 * Actualiza los datos asociados al jugador, a su nuevo identificador (cedula generada)
+	 * @param jugador datos del jugador
+	 * @return cedula generada
+	 */
+	public String actualizarDatosJugador(Jugador jugador) {
+		DaoFamiliarJugador daoFJ = new DaoFamiliarJugador();
+		Familiar representante = daoFJ.buscarRepresentanteActual(jugador
+				.getCedulaRif());
+		String nuevaCedula = "";
+		String cedulaActual = "";
+		String secuencia = "";
+		Transaction tx = null;
+		if (representante != null) {
+			cedulaActual = jugador.getCedulaRif();
+			secuencia = String.valueOf(daoFJ.generarSecuencia(representante));
+			nuevaCedula = representante.getCedulaRif() + "-" + secuencia;
+			try {
+				String inserts[] = {
+						"INSERT INTO persona (SELECT '"
+								+ nuevaCedula
+								+ "', codigo_tipo_persona, codigo_parroquia, telefono_habitacion, "
+								+ "fecha_ingreso, correo_electronico, twitter, direccion, fecha_egreso, estatus"
+								+ " FROM persona WHERE cedula_rif='"
+								+ cedulaActual + "')",
+						"INSERT INTO persona_natural (SELECT '"
+								+ nuevaCedula
+								+ "', codigo_genero, celular, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido,"
+								+ " fecha_nacimiento, foto,estatus "
+								+ "FROM persona_natural WHERE cedula_rif='"
+								+ cedulaActual + "' )",
+						"INSERT INTO jugador (SELECT '"
+								+ nuevaCedula
+								+ "', codigo_pais, codigo_parroquia_nacimiento, numero, "
+								+ "tipo_de_sangre, peso, altura, brazo_lanzar, posicion_bateo, "
+								+ "estatus, fecha_inscripcion FROM jugador WHERE "
+								+ "cedula_rif='" + cedulaActual + "')" };
+				String updates[] = {
+						"UPDATE roster SET cedula_rif='" + nuevaCedula
+								+ "' WHERE cedula_rif='" + cedulaActual + "'",
+						"UPDATE dato_medico SET cedula_rif='" + nuevaCedula
+								+ "' WHERE cedula_rif='" + cedulaActual + "'",
+						"UPDATE dato_academico SET cedula_rif='" + nuevaCedula
+								+ "' WHERE cedula_rif='" + cedulaActual + "'",
+						"UPDATE dato_social SET cedula_rif='" + nuevaCedula
+								+ "' WHERE cedula_rif='" + cedulaActual + "'",
+						"UPDATE talla_por_jugador SET cedula_rif='"
+								+ nuevaCedula + "' WHERE cedula_rif='"
+								+ cedulaActual + "'",
+						"UPDATE documento_personal SET cedula_rif='"
+								+ nuevaCedula + "' WHERE cedula_rif='"
+								+ cedulaActual + "'",
+						"UPDATE familiar_jugador SET cedula_rif='"
+								+ nuevaCedula + "' WHERE cedula_rif='"
+								+ cedulaActual + "'" };
+				String deletions[] = {
+						"DELETE FROM jugador WHERE " + "cedula_rif='"
+								+ cedulaActual + "'",
+						"DELETE FROM persona_natural WHERE " + "cedula_rif='"
+								+ cedulaActual + "'",
+						"DELETE FROM persona WHERE " + "cedula_rif='"
+								+ cedulaActual + "'"
+				};
 
-	
+				Session session = getSession();
+				tx = session.beginTransaction();
+				SQLQuery sqlQuery =null;
+				//Duplicamos los datos del jugador
+				for (String insert : inserts) {
+					 sqlQuery = session.createSQLQuery(insert);  
+					 sqlQuery.executeUpdate();
+				}
+				//Actualizamos claves
+				for (String update : updates) {
+					 sqlQuery = session.createSQLQuery(update);  
+					 sqlQuery.executeUpdate();
+				}
+				//Eliminamos el registro con cedula temporal
+				for (String delete : deletions) {
+					 sqlQuery = session.createSQLQuery(delete);  
+					 sqlQuery.executeUpdate();
+				}
+				tx.commit();
+			} catch (HibernateException e) {
+				if (tx!=null){
+					tx.rollback();
+				}
+			}
+		}
+		return nuevaCedula;
+	}
+
 }

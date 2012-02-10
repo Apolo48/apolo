@@ -1285,9 +1285,9 @@
 																				id="cmbNacionalidadFamiliar" readonly="true"
 																				value="-" width="10%" constraint="no empty">
 																				<comboitem
-																					label="V" />
+																					label="V" value="V"/>
 																				<comboitem
-																					label="E" />
+																					label="E" value="E"/>
 																			</combobox>
 																			<intbox
 																				id="txtCedulaFamiliar" constraint="no negative"

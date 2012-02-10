@@ -2,14 +2,10 @@ package dao.general;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
+
 import java.util.List;
 
-import modelo.Categoria;
-import modelo.Competencia;
 import modelo.DatoBasico;
-import modelo.DatoSocial;
-import modelo.Equipo;
 import modelo.Familiar;
 import modelo.Jugador;
 import modelo.FamiliarJugador;
@@ -17,7 +13,6 @@ import modelo.FamiliarJugador;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -187,7 +182,8 @@ public class DaoFamiliarJugador extends GenericDao {
 		Criteria criteria = session.createCriteria(FamiliarJugador.class);
 				criteria.setProjection(Projections.rowCount())
 				.add(Restrictions.eq("familiar", familiar))
-				.add(Restrictions.like("jugador.cedulaRif", "R-%-%"));
+				.add(Restrictions.like("jugador.cedulaRif", "R-%-%"))
+				.add(Restrictions.eq("representanteActual", true));
 		cantidad = (Integer)criteria.list().get(0)+1; 
 		tx.commit();
 		return cantidad;

@@ -1400,13 +1400,18 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		 */
 
 		// if (verificarCamposInscripcion(camposPerfil, false)) {
+		String cedula = jugadorBean.getCedulaCompleta();
 		if (verificarCampos(camposPerfil, false)) {
 			guadarDatos(EstatusRegistro.ACTIVO);
+			if (jugadorBean.getNacionalidad().equals("R")) {
+				cedula = servicioJugador.actualizarDatosJugador(jugador);
+			}
+
 			Mensaje.mostrarMensaje(
 					"Se ha  inscrito el jugador: \n" + jugadorBean.getNombres()
 							+ " " + jugadorBean.getApellidos(), Mensaje.EXITO,
 					Messagebox.INFORMATION);
-			 generarPlanillaInscripcion();
+			generarPlanillaInscripcion(cedula);
 			cancelar();
 		}
 
@@ -1456,7 +1461,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		 */
 	}
 
-	private void generarPlanillaInscripcion() {
+	private void generarPlanillaInscripcion(String cedula) {
 		ImageIcon n = new ImageIcon();
 		byte[] foto = jugador.getPersonaNatural().getFoto();
 		if (foto != null) {
@@ -1471,8 +1476,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 		String jrxmlSrc = Sessions.getCurrent().getWebApp()
 				.getRealPath("/WEB-INF/reportes/planillaInscripcion.jrxml");
-		parameters.put("cedulaJugador", jugador.getCedulaRif());// Cédula del
-																// jugador
+		parameters.put("cedulaJugador", cedula);// Cédula del
+												// jugador
 		parameters.put("foto", n.getImage()); // Imagen del jugador
 		try {
 			mostrarPlanilla(jrxmlSrc);
@@ -1952,6 +1957,21 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		limpiarJugador();
 		familiarBean = new controlador.jugador.bean.Familiar();
 		familiares = new ArrayList<controlador.jugador.bean.Familiar>();
+		familiar = new Familiar();
+		equipo = new Equipo();
+		categoria = new Categoria();
+		estadoVenezuela = new DatoBasico();
+		estadoVenezuelaResi = new DatoBasico();
+		municipioNac = new DatoBasico();
+		municipioResi = new DatoBasico();
+		estadoVenezuelaFamiliar = new DatoBasico();
+		municipioFamiliar = new DatoBasico();
+		datoMedico = new DatoMedico();
+		comision = new DatoBasico();
+		medico = new Medico();
+		afeccion = new DatoBasico();
+		afeccionesJugador = new ArrayList<DatoBasico>();
+		roster = new Roster();
 		limpiarFaseFamiliar();
 		deshabilitarCatalogoFamiliar(false);
 		cmbNacionalidad.setDisabled(false);
@@ -2259,7 +2279,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	private void guardarFamiliarVistaToBean() {
-		familiarBean.setNacionalidad(cmbNacionalidad.getSelectedItem()
+		familiarBean.setNacionalidad(cmbNacionalidadFamiliar.getSelectedItem()
 				.getValue().toString());
 		familiarBean.setCedula(txtCedulaFamiliar.getValue().toString());
 		familiarBean.setPrimerNombre(txtPrimerNombreFamiliar.getValue());
@@ -2718,12 +2738,14 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				});
 	}
 
-	private boolean  verificarDocumentos(List<DocumentoEntregado> lista) {
-		boolean sw=true;
+	private boolean verificarDocumentos(List<DocumentoEntregado> lista) {
+		boolean sw = true;
 		for (DocumentoEntregado de : lista) {
-			if (de.getRecaudoPorProceso().getDatoBasicoByCodigoImportancia().getNombre().equalsIgnoreCase("Obligatorio")){
-				if (((de.getCantidad()==null)?0:de.getCantidad()) < (de.getRecaudoPorProceso().getCantidad())){
-					sw= false;
+			if (de.getRecaudoPorProceso().getDatoBasicoByCodigoImportancia()
+					.getNombre().equalsIgnoreCase("Obligatorio")) {
+				if (((de.getCantidad() == null) ? 0 : de.getCantidad()) < (de
+						.getRecaudoPorProceso().getCantidad())) {
+					sw = false;
 				}
 			}
 		}
