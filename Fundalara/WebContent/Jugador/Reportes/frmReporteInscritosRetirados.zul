@@ -41,7 +41,15 @@
 		<separator />
 		
 		<div align="right">
-			<button id="btnImprimirVisor" label="Generar" image="../../Recursos/Imagenes/imprimir.ico" />
+			<button id="btnImprimirVisor" label="Generar"
+					image="../../Recursos/Imagenes/imprimir.ico" orient="horizontal"
+					width="100px" />
+			<button id="btnCancelar" label="Cancelar"
+					image="../../Recursos/Imagenes/cancelar.ico" orient="horizontal"
+					width="100px" />
+			<button id="btnSalir" label="Salir"
+					image="../../Recursos/Imagenes/salir.png" orient="horizontal"
+					width="100px" />
 		</div>
 	</window>
 </zk>

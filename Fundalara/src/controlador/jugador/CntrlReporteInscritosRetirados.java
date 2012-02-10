@@ -23,6 +23,7 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
 import comun.ConeccionBD;
 import comun.Ruta;
@@ -37,6 +38,7 @@ import modelo.LapsoDeportivo;
 
 public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	
+	private Window winReporteInscritosRetirados;
 	private Component formulario;
 	private Map parameters = new HashMap();
 	private Connection con;
@@ -101,15 +103,27 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 		
 	//Eventos
 	public void onClick$btnImprimirVisor() throws SQLException, JRException {
-		con = ConeccionBD.getCon("postgres","postgres","123456");
-		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
-		parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
-		mostrarVisor();
+		if (cmbTemporada.getSelectedIndex() >= 0) {
+			con = ConeccionBD.getCon("postgres","postgres","123456");
+			jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
+			parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
+			mostrarVisor();
+		}
 	}
 	
 	public void onSelect$cmbTemporada() {
 		txtFechaInicio.setValue(Util.convertirFecha(lapsoDeportivo.getFechaInicio(),"dd/MM/yyyy"));
 		txtFechaFin.setValue(Util.convertirFecha(lapsoDeportivo.getFechaFin(),"dd/MM/yyyy"));
 	}
+	
+	public void onClick$btnSalir() {
+		winReporteInscritosRetirados.detach();
+	}
 		
+	public void onClick$btnCancelar() {
+		cmbTemporada.setSelectedIndex(-1);
+		txtFechaInicio.setValue("");
+		txtFechaFin.setValue("");
+	}
+	
 }
