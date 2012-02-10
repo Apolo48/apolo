@@ -802,15 +802,11 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		return lista;
 	}
 
-	//OJO aun no funciona
 	public List<LapsoDeportivo> getTemporadas() {
-		List<LapsoDeportivo> lista = null;
 		DatoBasico datoLapsoDeportivo = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "Temporada Regular");
-		if (datoLapsoDeportivo != null) {
-			lista = servicioLapsoDeportivo.buscarLapsoDeportivoTipo(datoLapsoDeportivo);
-		}
-		return lista;
+				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR");
+		servicioLapsoDeportivo = new ServicioLapsoDeportivo();
+		return servicioLapsoDeportivo.buscarPorTipoLapso(datoLapsoDeportivo);
 	}	
 
 	public List<DatoBasico> getTallasCalzado() {

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inscritos y retirados" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.3310000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="19"/>
+	<property name="ireport.y" value="336"/>
 	<subDataset name="dataset1"/>
 	<subDataset name="dataset2"/>
 	<parameter name="nombreTemporada" class="java.lang.String"/>
@@ -92,10 +92,6 @@ ORDER BY categoria.codigo_categoria ASC;]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nombreTemporada}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="0" y="0" width="555" height="123"/>
-				<imageExpression><![CDATA["Encabezado.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -258,17 +254,6 @@ ORDER BY categoria.codigo_categoria ASC;]]>
 	</detail>
 	<pageFooter>
 		<band height="92" splitType="Stretch">
-			<image scaleImage="RealHeight" hAlign="Center" vAlign="Middle">
-				<reportElement x="0" y="-1" width="555" height="63"/>
-				<box leftPadding="0">
-					<pen lineWidth="0.0"/>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<imageExpression><![CDATA["PieDePagina.jpg"]]></imageExpression>
-			</image>
 			<textField>
 				<reportElement x="195" y="72" width="90" height="20"/>
 				<textElement/>
@@ -298,33 +283,22 @@ ORDER BY categoria.codigo_categoria ASC;]]>
 	</pageFooter>
 	<summary>
 		<band height="292" splitType="Stretch">
-			<bar3DChart>
-				<chart theme="aegean">
-					<reportElement mode="Opaque" x="44" y="19" width="459" height="273"/>
-					<chartTitle position="Top"/>
+			<pie3DChart>
+				<chart>
+					<reportElement x="125" y="71" width="200" height="100"/>
+					<chartTitle/>
 					<chartSubtitle/>
-					<chartLegend textColor="#000000"/>
+					<chartLegend/>
 				</chart>
-				<categoryDataset>
-					<categorySeries>
-						<seriesExpression><![CDATA["Inscritos"]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
-						<valueExpression><![CDATA[$F{inscritos}]]></valueExpression>
-					</categorySeries>
-					<categorySeries>
-						<seriesExpression><![CDATA["Retirados"]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{categoria}]]></categoryExpression>
-						<valueExpression><![CDATA[$F{retirados}]]></valueExpression>
-					</categorySeries>
-				</categoryDataset>
-				<bar3DPlot>
-					<plot>
-						<seriesColor seriesOrder="0" color="#CC0000"/>
-						<seriesColor seriesOrder="1" color="#FF9933"/>
-					</plot>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{categoria}]]></keyExpression>
+					<valueExpression><![CDATA[$F{inscritos}]]></valueExpression>
+				</pieDataset>
+				<pie3DPlot>
+					<plot/>
 					<itemLabel/>
-				</bar3DPlot>
-			</bar3DChart>
+				</pie3DPlot>
+			</pie3DChart>
 		</band>
 	</summary>
 </jasperReport>
