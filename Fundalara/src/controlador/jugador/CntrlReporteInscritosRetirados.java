@@ -1,27 +1,17 @@
 package controlador.jugador;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.view.JasperViewer;
 
 import org.zkoss.util.media.AMedia;
 import org.zkoss.zk.ui.Component;
@@ -31,31 +21,30 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Iframe;
+import org.zkoss.zul.Textbox;
 
 import comun.ConeccionBD;
 import comun.Ruta;
 import comun.TipoDatoBasico;
+import comun.Util;
 
-import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioLapsoDeportivo;
 
-import modelo.Categoria;
 import modelo.DatoBasico;
 import modelo.LapsoDeportivo;
 
 public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	
 	private Component formulario;
-	private Iframe ifReport;
-	private Jasperreport jReport;
 	private Map parameters = new HashMap();
 	private Connection con;
 	private String jrxmlSrc;
 	private String jasperSrc;
 	private Combobox cmbTemporada;
+	private Textbox txtFechaInicio;
+	private Textbox txtFechaFin;
 	
 	private LapsoDeportivo lapsoDeportivo;
 	
@@ -109,60 +98,7 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 					+ "frmVisorDocumento.zul", null, null);
 			visor.setVariable("archivo", amedia, false);
 	}
-	
-	public void mostrarFrame() throws JRException, IOException {
-		/*
-		 * Funciona para IExplorer, Firefox, Chrome y Opera
-		 * Permite ver, guardar e imprimir, todo desde el iframe
-		 * Desventaja, debe usarse con un zul con ancho adecuado al reporte
- 		 * Observacion: uso de codigo algo mas complejo para generar pdf
-		 * El codigo usado en mostrarVisor no puede usarse en este caso
-		 * */
-		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
-		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
 		
-		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
-		JRExporter exporter = new JRPdfExporter();
-		exporter.setParameters(parameters);
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT ,jaspPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,arrayOutputStream);
-		exporter.exportReport();
-		arrayOutputStream.close();
-		ifReport.setVisible(true);
-		final AMedia amedia = new AMedia("inscritosRetirados.pdf","pdf","application/pdf", arrayOutputStream.toByteArray());
-		
-		ifReport.setContent(amedia);
-	}
-	
-	public void imprimirReporte() throws JRException {
-		/*
-		 * Funciona para IExplorer, Firefox, Chrome y Opera
-		 * Permite imprimir desde PrintDialog de java
-		 * */
-		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
-		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
-		
-		JasperPrintManager.printReport(jaspPrint, true);
-	}
-	
-	public void exportarReporte() throws JRException {
-		/*
-		 * Funciona para Firefox, Chrome y Opera
-		 * No Funciona en IExplorer
-		 * Permite crea un pdf en la ruta indicada
-		 * */
-		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
-		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
-		
-		/*String destino = "C://inscritosRetirados.pdf"; //DEBE SER PARAMETRO
-		JasperExportManager.exportReportToPdfFile(jaspPrint, destino);*/
-		
-		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
-		final AMedia amedia = new AMedia("inscritosRetirados.pdf","pdf","application/pdf", archivo);
-		 
-		Filedownload.save(amedia);
-	}
-	
 	//Eventos
 	public void onClick$btnImprimirVisor() throws SQLException, JRException {
 		con = ConeccionBD.getCon("postgres","postgres","123456");
@@ -171,26 +107,9 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 		mostrarVisor();
 	}
 	
-	public void onClick$btnImprimirFrame() throws SQLException, JRException, IOException {
-		con = ConeccionBD.getCon("postgres","postgres","123456");
-		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
-        parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
-		mostrarFrame();
+	public void onSelect$cmbTemporada() {
+		txtFechaInicio.setValue(Util.convertirFecha(lapsoDeportivo.getFechaInicio(),"dd/MM/yyyy"));
+		txtFechaFin.setValue(Util.convertirFecha(lapsoDeportivo.getFechaFin(),"dd/MM/yyyy"));
 	}
-	
-
-	public void onClick$btnImprimirReporte() throws SQLException, JRException {
-		con = ConeccionBD.getCon("postgres","postgres","123456");
-		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
-		parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
-		imprimirReporte();
-	}
-	
-	public void onClick$btnExportarReporte() throws SQLException, JRException {
-		con = ConeccionBD.getCon("postgres","postgres","123456");
-		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/inscritosRetirados.jrxml");
-        parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
-        exportarReporte();
-	}
-	
+		
 }

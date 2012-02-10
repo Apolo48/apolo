@@ -681,6 +681,103 @@
 															onClick='enlace("Jugador/Reportes/frmExpedienteJugador.zul")' />
 													</treerow>
 												</treeitem>
+											</treechildren>
+										</treeitem>
+
+										<treeitem open="false">
+											<treerow>
+												<treecell
+													label="Entrenamientos" />
+											</treerow>
+											<treechildren>
+												<treeitem
+													open="false">
+													<treerow>
+														<treecell
+															label="" onClick='' />
+													</treerow>
+												</treeitem>
+											</treechildren>
+										</treeitem>
+
+										<treeitem open="false">
+											<treerow>
+												<treecell
+													label="Competencias" />
+											</treerow>
+											<treechildren>
+												<treeitem
+													open="false">
+													<treerow>
+														<treecell
+															label="Desempeño Deportivo"
+															onClick='enlace("Competencias/Reportes/FrmReporteDesempenoJugadorLLENA.zul")' />
+													</treerow>
+												</treeitem>
+											</treechildren>
+										</treeitem>
+
+										<treeitem open="false">
+											<treerow>
+												<treecell
+													label="Actividades complementarias" />
+											</treerow>
+											<treechildren>
+												<treeitem
+													open="false">
+													<treerow>
+														<treecell
+															label="" onClick='' />
+													</treerow>
+												</treeitem>
+											</treechildren>
+										</treeitem>
+
+										<treeitem open="false">
+											<treerow>
+												<treecell
+													label="Actividades de mantenimiento" />
+											</treerow>
+											<treechildren>
+												<treeitem
+													open="false">
+													<treerow>
+														<treecell
+															label="" onClick='' />
+													</treerow>
+												</treeitem>
+											</treechildren>
+										</treeitem>
+
+										<treeitem open="false">
+											<treerow>
+												<treecell
+													label="Administrativas" />
+											</treerow>
+											<treechildren>
+												<treeitem
+													open="false">
+													<treerow>
+														<treecell
+															label="" onClick='' />
+													</treerow>
+												</treeitem>
+											</treechildren>
+										</treeitem>
+									</treechildren>
+								</treeitem>
+
+								<treeitem open="false">
+									<treerow>
+										<treecell label="Estádisticos" />
+									</treerow>
+									<treechildren>
+										<treeitem open="false">
+											<treerow>
+												<treecell
+													label="Jugadores" />
+											</treerow>
+											<treechildren>
 												<treeitem>
 													<treerow>
 														<treecell
@@ -773,16 +870,7 @@
 										</treeitem>
 									</treechildren>
 								</treeitem>
-
-
-
-
-
-								<treeitem open="false">
-									<treerow>
-										<treecell label="Estádisticos" />
-									</treerow>
-								</treeitem>
+								
 								<treeitem open="false">
 									<treerow>
 										<treecell label="Dinámicos" />
