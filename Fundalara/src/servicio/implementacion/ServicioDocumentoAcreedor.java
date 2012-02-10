@@ -22,13 +22,13 @@ import servicio.interfaz.IServicioDocumentoAcreedor;
 public class ServicioDocumentoAcreedor implements IServicioDocumentoAcreedor {
 
 	DaoDocumentoAcreedor daoDocumentoAcreedor;
-/*	ServicioTipoIngreso servicioTipoIngreso = new ServicioTipoIngreso();
+	ServicioTipoIngreso servicioTipoIngreso = new ServicioTipoIngreso();
 	ServicioIngresoInscripcion servicioIngresoInscripcion= new ServicioIngresoInscripcion();
 	ServicioPersona servicioPersona = new ServicioPersona();
 	DocumentoAcreedor documento= new DocumentoAcreedor();
 	List<IngresoInscripcion> conceptos = new ArrayList<IngresoInscripcion>();
     ServicioLapsoDeportivo servicioLapsoDeportivo = new ServicioLapsoDeportivo();
-	*/
+	
 	public DaoDocumentoAcreedor getDaoDocumentoAcreedor() {
 		return daoDocumentoAcreedor;
 	}
@@ -61,18 +61,18 @@ public class ServicioDocumentoAcreedor implements IServicioDocumentoAcreedor {
 		return daoDocumentoAcreedor.listar(DocumentoAcreedor.class);
 	}
 
-
+	@Override
 	public List<DocumentoAcreedor> listarActivos() {
 		return daoDocumentoAcreedor.listarActivos(DocumentoAcreedor.class);
 	}
 
-
+	@Override
 	public DocumentoAcreedor buscarPorCodigo(DocumentoAcreedor d) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-/*
+	@Override
 	public List<DocumentoAcreedor> buscarPendientesPorRif(Persona td) {
 		// TODO Auto-generated method stub
 		return daoDocumentoAcreedor.buscarPendientesPorRif(td);
@@ -103,8 +103,8 @@ public class ServicioDocumentoAcreedor implements IServicioDocumentoAcreedor {
 				documento = new DocumentoAcreedor();
 				documento.setPersonaByCedulaRif(representante);
 				documento.setTipoIngreso(concepto.getTipoIngreso());
-				documento.setMonto(concepto.getMonto());
-				documento.setSaldo(concepto.getMonto());
+				documento.setMonto(concepto.getTipoIngreso().getMonto());
+				documento.setSaldo(concepto.getTipoIngreso().getMonto());
 				documento.setFechaEmision(fechaActual.getTime());
 				documento.setPersonaByCedulaAtleta(atleta);
 				documento.setEstado('P');
@@ -139,5 +139,5 @@ public class ServicioDocumentoAcreedor implements IServicioDocumentoAcreedor {
 		}
 
 	}
-*/
+
 }

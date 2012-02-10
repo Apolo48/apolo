@@ -60,6 +60,7 @@ import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioDatoMedico;
 import servicio.implementacion.ServicioDatoSocial;
 import servicio.implementacion.ServicioDocumentoAcademico;
+import servicio.implementacion.ServicioDocumentoAcreedor;
 import servicio.implementacion.ServicioDocumentoMedico;
 import servicio.implementacion.ServicioDocumentoPersonal;
 import servicio.implementacion.ServicioEquipo;
@@ -83,6 +84,7 @@ import controlador.jugador.bean.Telefono;
 import controlador.jugador.bean.TipoSangre;
 import controlador.jugador.restriccion.Edad;
 import controlador.jugador.restriccion.Restriccion;
+import dao.general.DaoDatoBasico;
 import modelo.AfeccionJugador;
 import modelo.AfeccionJugadorId;
 import modelo.Anuario;
@@ -254,6 +256,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private ServicioPersona servicioPersona;
 	private ServicioComisionFamiliar servicioComisionFamiliar;
 	private ServicioAnuario servicioAnuario;
+	private ServicioDocumentoAcreedor servicioDocumentoAcreedor;
 
 	// Modelos
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
@@ -1410,6 +1413,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				cedula = servicioJugador.actualizarDatosJugador(jugador);
 			}
 			actualizarAnuario(roster);
+			generarCompromisoPago(cedula);
 			Mensaje.mostrarMensaje(
 					"Se ha  inscrito el jugador: \n" + jugadorBean.getNombres()
 							+ " " + jugadorBean.getApellidos(), Mensaje.EXITO,
@@ -1417,9 +1421,17 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			generarPlanillaInscripcion(cedula);
 			cancelar();
 		}
-
 	}
 
+	
+	private void generarCompromisoPago(String cedulaJugador){
+		DatoBasico tipoLapso = new DaoDatoBasico().buscarTipo(
+				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR");
+		Familiar representante = servicioFamiliarJugador.buscarRepresentanteActual(cedulaJugador);
+		servicioDocumentoAcreedor.crearCompromisos(representante.getPersonaNatural().getPersona(), persona,
+				tipoLapso, tipoInscripcion);
+		
+	}
 	private void actualizarAnuario(Roster roster) {
 		Anuario anuario = new Anuario();
 		anuario.setFoto(jugadorBean.getFoto());

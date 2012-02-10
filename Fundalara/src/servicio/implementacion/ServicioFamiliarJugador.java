@@ -68,4 +68,9 @@ public class ServicioFamiliarJugador implements IServicioFamiliarJugador {
 	public boolean esRepresentanteActual(String cedulaJugador, Familiar familiar){
 		return daoFamiliarJugador.esRepresentanteActual( cedulaJugador,  familiar);
 	}
+	
+	
+	public Familiar buscarRepresentanteActual(String cedulaJugador) {
+		return daoFamiliarJugador.buscarRepresentanteActual(cedulaJugador);
+	}
 }

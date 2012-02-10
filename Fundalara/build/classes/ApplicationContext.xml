@@ -677,5 +677,15 @@
 		<property name="daoComisionFamiliar" ref="daoComisionFamiliar"></property>
 	</bean>
 	
+		<bean id="daoTipoIngreso" class="dao.general.DaoTipoIngreso"></bean>
+	<bean id="servicioTipoIngreso" class="servicio.implementacion.ServicioTipoIngreso">
+		<property name="daoTipoIngreso" ref="daoTipoIngreso"></property>
+	</bean>
+	
+		<bean id="daoIngresoInscripcion" class="dao.general.DaoIngresoInscripcion"></bean>
+	<bean id="servicioIngresoInscripcion" class="servicio.implementacion.ServicioIngresoInscripcion">
+		<property name="daoIngresoInscripcion" ref="daoIngresoInscripcion"></property>
+	</bean>
+	
 	
 </beans>
