@@ -7,8 +7,10 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -16,6 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "categoria", schema = "public")
+@SequenceGenerator(name = "categoria_seq", sequenceName = "categoria_codigo_categoria_seq_1")
 public class Categoria implements java.io.Serializable {
 
 	private int codigoCategoria;
@@ -75,6 +78,7 @@ public class Categoria implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_categoria", unique = true, nullable = false)
+	@GeneratedValue(generator = "categoria_seq")
 	public int getCodigoCategoria() {
 		return this.codigoCategoria;
 	}

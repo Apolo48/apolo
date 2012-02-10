@@ -20,7 +20,7 @@
 								<row style="border:none">
 								<label value="Edad Inferior" />
 							    <div>
-									 				  <intbox id="intEdadInferior" maxlength="2" readonly="true" constraint="no negative"  width="10%" focus="true"/> 
+									 				  <intbox id="intEdadInferior" maxlength="2" readonly="true" constraint="no negative" width="10%" focus="true"/> 
 									 				  <button id="btnAumentarEI" label="+" />
 									 				  <button label="-" id="btnDisminuirEI" />
 													  <label value="años" />
@@ -37,7 +37,7 @@
 							</row>
 							<row style="border:none">
 								<label value="Nombre" />
-									<textbox id="txtNombre" width="80%" focus="true" value="@{controller.categoria.nombre}" />
+									<textbox id="txtNombre" width="80%" focus="true" value="@{controller.categoria.nombre}" style='text-transform:uppercase;'  />
 									<label value="Cantidad Equipos" />
 									<spinner id="spCantidadEquipo" width="20%" readonly="true" constraint="no negative" value="@{controller.categoria.cantidadEquipo}"/>
 							</row>
@@ -62,7 +62,7 @@
 		<listbox id="listCategoria" mold="paging" pageSize="7"  model="@{winConfigurarCategoria$composer.categorias}" 
 					    selectedItem="@{winConfigurarCategoria$composer.categoria}">
 						<listhead>
-							<listheader label="Nombre Categoria" width="25%" />
+							<listheader label="Nombre Categoría" width="25%" />
 							<listheader label="Edad Inferior" width="22%" />
 							<listheader label="Edad Superior" width="22%" />
 							<listheader label="Cantidad Equipos" width="22%"  />
