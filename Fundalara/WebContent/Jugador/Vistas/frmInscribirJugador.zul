@@ -2,8 +2,9 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <zk>
+<div align="center">
 	<window id="winInscribirJugador" title="Inscribir" border="normal"
-		width="677px" closable="true"
+		width="677px" closable="true" style="text-align:left"
 		apply="controlador.jugador.CntrlInscribirJugador">
 
 		<grid style="border:none;" oddRowSclass="none">
@@ -28,4 +29,5 @@
 			<include id="incCuerpo" tipo="${controller.tipoIncripcion}" />
 		</div>
 	</window>
+	</div>
 </zk>
