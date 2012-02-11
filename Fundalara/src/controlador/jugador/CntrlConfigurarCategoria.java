@@ -257,7 +257,7 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 			categoria.setCantidadEquipo(spCantidadEquipo.getValue());
 			categoria.setEdadInferior(intEdadInferior.getValue());
 			categoria.setEdadSuperior(intEdadSuperior.getValue());
-		    //categoria.setCodigoCategoria(servicioCategoria.listar().size()+1);
+		    categoria.setCodigoCategoria(servicioCategoria.listar().size()+1);
 		    servicioCategoria.agregar(categoria);
 		   
 			 try {

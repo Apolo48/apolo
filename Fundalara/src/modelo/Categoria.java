@@ -18,7 +18,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "categoria", schema = "public")
-@SequenceGenerator(name = "categoria_seq", sequenceName = "categoria_codigo_categoria_seq_1")
 public class Categoria implements java.io.Serializable {
 
 	private int codigoCategoria;
@@ -78,7 +77,6 @@ public class Categoria implements java.io.Serializable {
 
 	@Id
 	@Column(name = "codigo_categoria", unique = true, nullable = false)
-	@GeneratedValue(generator = "categoria_seq")
 	public int getCodigoCategoria() {
 		return this.codigoCategoria;
 	}
