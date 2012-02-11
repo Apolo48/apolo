@@ -5,38 +5,35 @@
  * 
  * @author Ramir H.
  * @author Andrea O.
- * @version 0.2.5 20/01/2012
+ * @version 1.0 11/02/2012
  * 
  * */
 
-
 package controlador.jugador;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import modelo.Ascenso;
 import modelo.Categoria;
-import modelo.ComisionEquipo;
+import modelo.ComisionFamiliar;
 import modelo.DatoBasico;
-import modelo.DocumentoAscenso;
-import modelo.DocumentoAscensoId;
-import modelo.DocumentoEntregado;
-import modelo.FamiliarComisionEquipo;
 import modelo.Jugador;
 import modelo.Equipo;
 import modelo.PersonaNatural;
 import modelo.Persona;
-import modelo.RecaudoPorProceso;
 import modelo.Roster;
 import modelo.FamiliarJugador;
 import modelo.Familiar;
+import modelo.DatoBasico;
 
+import org.zkoss.image.AImage;
 import org.zkoss.zhtml.Sup;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -73,105 +70,90 @@ import comun.Util;
 
 import controlador.jugador.restriccion.Restriccion;
 
-import servicio.implementacion.ServicioAscenso;
 import servicio.implementacion.ServicioCategoria;
-import servicio.implementacion.ServicioComisionEquipo;
+import servicio.implementacion.ServicioComisionFamiliar;
 import servicio.implementacion.ServicioDatoBasico;
-import servicio.implementacion.ServicioDocumentoAscenso;
-import servicio.implementacion.ServicioDocumentoEntregado;
 import servicio.implementacion.ServicioEquipo;
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioPersonaNatural;
-import servicio.implementacion.ServicioRecaudoPorProceso;
 import servicio.implementacion.ServicioRoster;
 import servicio.implementacion.ServicioFamiliarJugador;
 import servicio.implementacion.ServicioFamiliar;
 import servicio.implementacion.ServicioPersona;
-import servicio.implementacion.ServicioFamiliarComisionEquipo;
+import servicio.implementacion.ServicioDatoBasico;
 
-public class CntrlActualizarFamiliar extends GenericForwardComposer{
+public class CntrlActualizarFamiliar extends GenericForwardComposer {
 
-
-	//Servicios
+	// Servicios
 	private ServicioFamiliar servicioFamiliar;
 	private ServicioRoster servicioRoster;
 	private ServicioJugador servicioJugador;
 	private ServicioCategoria servicioCategoria;
 	private ServicioEquipo servicioEquipo;
-	private ServicioComisionEquipo servicioComisionEquipo;
-	private ServicioAscenso servicioAscenso;
+	private ServicioComisionFamiliar servicioComisionFamiliar;
 	private ServicioDatoBasico servicioDatoBasico;
-	private ServicioRecaudoPorProceso servicioRecaudoPorProceso;
-	private ServicioDocumentoAscenso servicioDocumentoAscenso;
-	private ServicioDocumentoEntregado servicioDocumentoEntregado;
 	private ServicioFamiliarJugador servicioFamiliarJugador;
 	private ServicioPersona servicioPersona;
 	private ServicioPersonaNatural servicioPersonaNatural;
-	private ServicioFamiliarComisionEquipo servicioFamiliarComisionEquipo;
-	
-	
-	
+
 	// Modelos
-	
 
 	private Familiar familiar = new Familiar();
-
 	private Jugador jugador = new Jugador();
-
 	private Roster roster = new Roster();
 	private Equipo equipo = new Equipo();
 	private Categoria categoria = new Categoria();
-	private Ascenso ascenso= new Ascenso();
-	private ComisionEquipo comisionEquipo = new ComisionEquipo();
-	private DatoBasico tipoAscenso = new DatoBasico();
+	private ComisionFamiliar comisionFamiliar = new ComisionFamiliar();
 	private DatoBasico parentesco = new DatoBasico();
 	private DatoBasico profesion = new DatoBasico();
 	private DatoBasico comision = new DatoBasico();
 	private DatoBasico comisionNuevas = new DatoBasico();
-	private FamiliarComisionEquipo familiarComisionEquipo = new FamiliarComisionEquipo();
-	
-	private RecaudoPorProceso recaudoAscenso = new RecaudoPorProceso();
-	private DocumentoEntregado docEntAscenso = new DocumentoEntregado();
-	
 	private Persona persona = new Persona();
 	private PersonaNatural personaNatural = new PersonaNatural();
-	
+	private FamiliarJugador familiarJugador = new FamiliarJugador();
+	private DatoBasico estado = new DatoBasico();
+	private DatoBasico municipio = new DatoBasico();
+	private DatoBasico parroquia = new DatoBasico();
+	private DatoBasico codigoArea = new DatoBasico();
+	private DatoBasico codigoCel = new DatoBasico();
+	private DatoBasico datoBasico = new DatoBasico();
+	private InputElement[] camposPerfil1;
+	private InputElement[] camposPerfil2;
+
 	Listbox listComisiones;
 	List<DatoBasico> comisionesFamiliar = new ArrayList<DatoBasico>();
-	
+
 	Listbox listComisionesNuevas;
 	List<DatoBasico> comisionesFamiliarNuevas = new ArrayList<DatoBasico>();
-			
-	
-	
+	List<ComisionFamiliar> comisionesfamilia = new ArrayList<ComisionFamiliar>();
+
 	Listbox listaFamiliar;
-	private FamiliarJugador familiarJugador = new FamiliarJugador();
 	List<FamiliarJugador> listaFamiliarJugador = new ArrayList<FamiliarJugador>();
 
-	
 	// Binder
 	private AnnotateDataBinder binder;
 
 	// Variables
+	private int varGuarda = 0;
 	int edad;
 	String nombres;
 	String apellidos;
 	String primerNombre;
-	Boolean sw=false;
-	
+	Boolean sw = false;
+
 	private Textbox txtCedula;
 	private Textbox txtCedulaFamiliar;
 	private Textbox txtNombre;
 	private Textbox txtApellido;
 	private Textbox txtCategoria;
 	private Textbox txtEquipo;
-    private Intbox txtNumero;
+	private Textbox txtNumero;
 	private Textbox txtFechaNac;
 	private Image imgJugador;
-	private Image imgFamiliar;
+	private Image imgFamiliar, imgjugador;
 	private Window winActualizarFamiliar;
 	private Combobox cmbNacionalidad;
-	private Combobox cmbNacionalidadFamiliar;	
+	private Combobox cmbNacionalidadFamiliar;
 	private Combobox cmbCategoria;
 	private Combobox cmbEquipo;
 	private Textbox txtPrimerNombre;
@@ -185,265 +167,61 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	private Listcell celdaRepresentante;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 	private Panel panelFamiliar;
-	private Button btnEditar, btnAgregar, btnQuitar;
-	
+	private Button btnEditar, btnAgregar, btnQuitar, btnGuardar,
+			btnFotoFamiliar;
+	Combobox cmbTipo, cmbEstadoResi, cmbParroquiaResi, cmbMunicipioResi,
+	cmbCodArea, cmbCodCelular;
+	Textbox txtDireccionHabitacion, txtTelefonoHabitacion, txtCorreo,
+	txtTwitter, txtTelefonoCelular;
+
 	Component formulario;
 	private Map<String, Object> requestScope;
-	//private Datebox dtboxFechaNac;
-	/* 
-	 public void onCreate$winActualizarFamiliar(ForwardEvent event) {
-		    // get the databinder for later extra load and save
-		    // note: binder is not ready in doAfterCompose, so do it here
-		    binder = (AnnotateDataBinder) event.getTarget().getVariable("binder", false);
-		  }
-	 */
-	
-	Combobox cmbTipo, cmbEstadoResi, cmbParroquiaResi, cmbMunicipioResi, cmbCodArea, cmbCodCelular;
-	Textbox txtDireccionHabitacion, txtTelefonoHabitacion, txtCorreo, txtTwitter, txtTelefonoCelular;
-	
-	private DatoBasico estado = new DatoBasico();
-	private DatoBasico municipio = new DatoBasico();
-	private DatoBasico parroquia = new DatoBasico();
-	//private DatoBasico parroquia1 = new DatoBasico();
-	private DatoBasico codigoArea = new DatoBasico();
-	private DatoBasico codigoCel = new DatoBasico();
-	private DatoBasico datoBasico = new DatoBasico();
-	private InputElement[] camposPerfil1, camposPerfil2;
-	
-	
-	 @Override
-		public void doAfterCompose(Component comp) throws Exception {
-			super.doAfterCompose(comp);
-			comp.setVariable("controller", this, false);  //Hacemos visible el modelo para el databinder
-			formulario=comp;
-			
-			inicializarCheckPoints();
-		//	btnEditar.setDisabled(true);
-		//	btnAgregar.setDisabled(true);
-		//	btnQuitar.setDisabled(true);
-			
-			
-		}
-	
-		public Map<String, Object> getRequestScope() {
-			return requestScope;
-		}
 
-		public void setRequestScope(Map<String, Object> requestScope) {
-			this.requestScope = requestScope;
-		}
-		
+
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		comp.setVariable("controller", this, false); // Hacemos visible el
+														// modelo para el
+														// databinder
+		formulario = comp;
+
+		inicializarCheckPoints();
+		btnEditar.setDisabled(true);
+		btnAgregar.setDisabled(true);
+		btnQuitar.setDisabled(true);
+		btnEditar.setImage("/Recursos/Imagenes/editar.ico");
+		btnAgregar.setImage("/Recursos/Imagenes/agregar.ico");
+		btnQuitar.setImage("/Recursos/Imagenes/quitar.ico");
+		btnGuardar.setVisible(false);
+		//aplicarConstraints();
+
+	}
+
+	public Map<String, Object> getRequestScope() {
+		return requestScope;
+	}
+
+	public void setRequestScope(Map<String, Object> requestScope) {
+		this.requestScope = requestScope;
+	}
+
 	public void onClick$btnFotoFamiliar() {
-		new FileLoader().cargarImagen(imgFamiliar);
+		FileLoader fl = new FileLoader();
+		byte[] foto = fl.cargarImagenEnBean(imgFamiliar);
+		if (foto != null) {
+			personaNatural.setFoto(foto);
+		}
 	}
-	
-	
-	public void onClick$btnBuscar(){
-		 Component catalogo= Executions.createComponents(rutasJug +
-	 "frmBuscarJugador.zul", null, null);
-//		Component catalogo = Executions.createComponents(
-//				"frmBuscarJugador.zul", null, null);
-		catalogo.setVariable("formulario", formulario, false);
-		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
 
-		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				// TODO Auto-generated method stub
-				jugador = (Jugador) formulario.getVariable("jugador", false);
-				sw=true;
-				agregarCampos();
-				roster= servicioRoster.buscarRoster(jugador.getCedulaRif());
-				//listaFamiliarJugador = servicioFamiliarJugador.buscarFamiliarJugador(jugador.getCedulaRif());
-				Date fechaN = jugador.getPersonaNatural()
-						.getFechaNacimiento();
-				edad = Util.calcularDiferenciaAnnios(fechaN);
-				//System.out.println(edad);
-				binder.loadAll();							
-			}
-		});
-		  	
-	  }
 
-	public void agregarCampos() {
-		String segNombre = jugador.getPersonaNatural()
-				.getSegundoNombre();
-		nombres = jugador.getPersonaNatural().getPrimerNombre()
-				+ (segNombre == null ? "" : " " + segNombre);
-		String segApellido = jugador.getPersonaNatural()
-				.getSegundoApellido();
-		apellidos = jugador.getPersonaNatural()
-				.getPrimerApellido()
-				+ (segApellido == null ? "" : " " + segApellido);
-	
-		txtCedula.setValue(jugador.getCedulaRif());
-
-		
-		listaFamiliarJugador = servicioFamiliarJugador.buscarFamiliarJugador(jugador);
-		
-		//System.out.println(listaFamiliarJugador.get(0).isRepresentanteActual());
-
-  
-	}
-	
 	private void limpiarFamiliar() {
 		familiar = new Familiar();
-		//cmbComisiones.setSelectedIndex(-1);
-	//	List<FamiliarJugador> listaFamiliarJugador = new ArrayList<FamiliarJugador>();
 		binder.loadComponent(listaFamiliar);
 	}
-	
-	private void limpiarCamposFamiliar(){
-		cmbCodArea.setValue("--");
-		cmbCodCelular.setValue("--");
-		cmbEstadoResi.setValue("--Seleccione--");
-		cmbMunicipioResi.setValue("--Seleccione--");
-		cmbParentesco.setValue("--Seleccione--");
-		cmbParroquiaResi.setValue("--Seleccione--");
-		cmbProfesion.setValue("--Seleccione--");
-		cmbComisiones.setValue("--Seleccione--");		
-		txtCedulaFamiliar.setValue("");
-		txtPrimerNombre.setValue("");
-		txtSegundoNombre.setValue("");
-		txtPrimerApellido.setValue("");
-		txtSegundoApellido.setValue("");
-		txtDireccionHabitacion.setValue("");
-		txtTelefonoCelular.setValue("");
-		txtTelefonoHabitacion.setValue("");
-		txtCorreo.setValue("");
-		txtTwitter.setValue("");
-		
-	/*	
-		familiar = new Familiar();
-		persona = new Persona();
-		personaNatural = new PersonaNatural();
-
-		comisionEquipo = new ComisionEquipo();
-		familiarComisionEquipo = new FamiliarComisionEquipo();
-		familiarJugador = new FamiliarJugador();
-		*/
-		comisionesFamiliar.clear();
-		binder.loadComponent(listComisiones);
-		
-		comisionesFamiliarNuevas.clear();
-		binder.loadComponent(listComisionesNuevas);
-		//limpiarComision();
-
-		
-	}
-
 
 	
-	
-	public void onClick$btnEditar() {
-		/*familiar = (Familiar) formulario.getVariable("familiar", false);
-		sw = true;
-		binder.loadAll();	
-		*/
-		limpiarCamposFamiliar();
-		panelFamiliar.setVisible(true);
-		txtPrimerNombre.setFocus(true);
-		camposPerfil1 = new InputElement[] {txtPrimerNombre, txtPrimerApellido, cmbParroquiaResi };
-	
-		//aplicarConstraints();
-		//inicializarCheckPoints();
-		if (listaFamiliar.getSelectedIndex() >= 0) {
-			FamiliarJugador familiarSeleccionado = (FamiliarJugador) listaFamiliar.getSelectedItem()
-					.getValue();
-			familiar = familiarSeleccionado.getFamiliar();
-			
-			
-			if(familiar != null){
-				txtCedulaFamiliar.setValue(familiar.getCedulaRif());
-				//familiarJugador =  familiarSeleccionado;
-				//System.out.println(familiarSeleccionado.getFamiliar().getCedulaRif());
-				
-				// lista de dato basico
-				comisionesFamiliar = servicioFamiliarComisionEquipo.buscarFamiliarComisionEquipo(familiarSeleccionado);
-				//System.out.println(familiarComisionEquipo.getComisionEquipo().getDatoBasico().getNombre());
-		       
-				if (comisionesFamiliar.size()>0){
-					  binder.loadComponent(listComisiones);
-				}
-				
-				//binder.loadAll();
-				txtPrimerNombre.setValue(familiar.getPersonaNatural().getPrimerNombre());
-				txtSegundoNombre.setValue(familiar.getPersonaNatural().getSegundoNombre());
-				txtPrimerApellido.setValue(familiar.getPersonaNatural().getPrimerApellido());
-				txtSegundoApellido.setValue(familiar.getPersonaNatural().getSegundoApellido());
-				cmbParentesco.setValue(familiarJugador.getDatoBasico().getNombre());
-				cmbProfesion.setValue(familiar.getDatoBasico().getNombre());
-				
-				
-				persona = familiar.getPersonaNatural().getPersona();
-				
-				if(persona!=null){
-				
-				cmbParroquiaResi.setValue(persona.getDatoBasicoByCodigoParroquia().getNombre());
-				cmbMunicipioResi.setValue(persona.getDatoBasicoByCodigoParroquia().getDatoBasico().getNombre());
-				cmbEstadoResi.setValue(persona.getDatoBasicoByCodigoParroquia().getDatoBasico().getDatoBasico().getNombre());
-				txtDireccionHabitacion.setValue(persona.getDireccion());
-				
-				
-				String telf  = persona.getTelefonoHabitacion();
-					if(telf!=null){
-						cmbCodArea.setValue(telf.substring(0,4));
-						txtTelefonoHabitacion.setValue(telf.substring(5));
-					}
-				
-				String celu = persona.getPersonaNatural().getCelular();
-					if(celu!=null){
-						cmbCodCelular.setValue(celu.substring(0,4));
-						txtTelefonoCelular.setValue(celu.substring(5));
-					}
-				
-				txtCorreo.setValue(persona.getCorreoElectronico());
-				txtTwitter.setValue(persona.getTwitter());
-				
-				//System.out.println(persona.getCedulaRif());
-
-				}
-			}
-			
-		} else {
-			alert("Seleccione un dato");
-		}
-
-	}
-	
-
-	
-	public void onClick$btnCancelar() {
-		limpiarCamposFamiliar();
-		panelFamiliar.setVisible(false);
-		
-		listaFamiliarJugador.clear();
-		binder.loadComponent(listaFamiliar);
-		
-		txtCedula.setValue("");
-		txtNombre.setValue("");
-		txtApellido.setValue("");
-		txtCategoria.setValue("");
-		txtNumero.setValue(null);
-		txtEquipo.setValue("");
-		txtFechaNac.setValue(null);
-		
-
-	}
-	
-	public void onClick$btnAgregar() {
-		limpiarCamposFamiliar();
-		panelFamiliar.setVisible(true);
-		//cmbNacionalidadFamiliar.setDisabled(false);
-		txtCedulaFamiliar.setReadonly(false);
-		
-	}
-	
-	public void onClick$btnSalir() {
-		//FALTA VALIDACION DE SALIDA
-		winActualizarFamiliar.detach();
-	}
-	
+	// GETTERS AND SETTERS
 	
 	public FamiliarJugador getFamiliarJugador() {
 		return familiarJugador;
@@ -457,7 +235,8 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 		return listaFamiliarJugador;
 	}
 
-	public void setListaFamiliarJugador(List<FamiliarJugador> listaFamiliarJugador) {
+	public void setListaFamiliarJugador(
+			List<FamiliarJugador> listaFamiliarJugador) {
 		this.listaFamiliarJugador = listaFamiliarJugador;
 	}
 
@@ -471,6 +250,14 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 
 	public Image getImgFamiliar() {
 		return imgFamiliar;
+	}
+
+	public Image getImgjugador() {
+		return imgjugador;
+	}
+
+	public void setImgjugador(Image imgjugador) {
+		this.imgjugador = imgjugador;
 	}
 
 	public void setImgFamiliar(Image imgFamiliar) {
@@ -516,7 +303,7 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
+
 	public String getNombres() {
 		return nombres;
 	}
@@ -540,7 +327,7 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	public void setParentesco(DatoBasico parentesco) {
 		this.parentesco = parentesco;
 	}
-	
+
 	public List<DatoBasico> getParentescos() {
 		return servicioDatoBasico.buscar(TipoDatoBasico.PARENTESCO);
 	}
@@ -560,11 +347,11 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	public void setProfesion(DatoBasico profesion) {
 		this.profesion = profesion;
 	}
-	
+
 	public List<DatoBasico> getProfesiones() {
 		return servicioDatoBasico.buscar(TipoDatoBasico.PROFESION);
 	}
-	
+
 	public DatoBasico getComision() {
 		return comision;
 	}
@@ -572,85 +359,31 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	public void setComision(DatoBasico comision) {
 		this.comision = comision;
 	}
-	
+
 	public List<DatoBasico> getComisiones() {
-/*		List<DatoBasico> lista = null;
-		DatoBasico datoComision = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.COMISION, "comision");
-		if (datoComision != null) {
-			lista = servicioDatoBasico.buscarDatosPorRelacion(datoComision);
-		}
-		return lista;   */
+
 		return servicioDatoBasico.buscar(TipoDatoBasico.COMISION);
 	}
-	
-	// Eventos
 
-	public void onClick$btnAgregarComision() {
-		if(cmbComisiones.getSelectedIndex()>= 0){
-			int aux=0;
-			for (int i = 0; i < comisionesFamiliar.size(); i++) {
-				if(comisionesFamiliar.get(i).getCodigoDatoBasico() == comision.getCodigoDatoBasico()){
-					aux = 1;
-				}
-				
-	
-			}
-			
-			
-			if((!comisionesFamiliarNuevas.contains(comision))&&(aux==0)) {
-				
-				comisionesFamiliarNuevas.add(comision);
-				limpiarComision();
-			}
-			else{
-				Mensaje.mostrarMensaje("Comisión Duplicada.",Mensaje.ERROR_DATOS,Messagebox.EXCLAMATION);
-				
-			}
-		}
-		else {
-			Mensaje.mostrarMensaje("Seleccione una Comisión.",Mensaje.INFORMACION ,Messagebox.EXCLAMATION);
-			cmbComisiones.setFocus(true);
-		}
-		
-}
-	
-	public void onClick$btnEliminarComision(){
-		if (listComisionesNuevas.getSelectedIndex() >= 0) {
-			DatoBasico comisionSel = (DatoBasico) listComisionesNuevas.getSelectedItem()
-					.getValue();
-			comisionesFamiliarNuevas.remove(comisionSel);
-			binder.loadComponent(listComisionesNuevas);
-		} else {
-			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
-					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-		}		
-	}
-	
 	private void limpiarComision() {
-		//comision = new DatoBasico();
 		cmbComisiones.setSelectedIndex(-1);
-		
-	//	List<FamiliarComisionEquipo> comisionesFamiliar = new ArrayList<FamiliarComisionEquipo>();
-		//Listbox listComisiones = null;
+
 		binder.loadComponent(listComisionesNuevas);
 	}
 
-	public FamiliarComisionEquipo getFamiliarComisionEquipo() {
-		return familiarComisionEquipo;
+	public ComisionFamiliar getComisionFamiliar() {
+		return comisionFamiliar;
 	}
 
-	public void setFamiliarComisionEquipo(
-			FamiliarComisionEquipo familiarComisionEquipo) {
-		this.familiarComisionEquipo = familiarComisionEquipo;
+	public void setFamiliarComisionEquipo(ComisionFamiliar ComisionFamiliar) {
+		this.comisionFamiliar = comisionFamiliar;
 	}
 
 	public List<DatoBasico> getComisionesFamiliar() {
 		return comisionesFamiliar;
 	}
 
-	public void setComisionesFamiliar(
-			List<DatoBasico> comisionesFamiliar) {
+	public void setComisionesFamiliar(List<DatoBasico> comisionesFamiliar) {
 		this.comisionesFamiliar = comisionesFamiliar;
 	}
 
@@ -673,7 +406,8 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	public List<DatoBasico> getCodigosCel() {
 		return servicioDatoBasico.buscar(TipoDatoBasico.CODIGO_CELULAR);
 	}
-	// Getters y setters
+
+
 	public DatoBasico getCodigoArea() {
 		return codigoArea;
 	}
@@ -681,21 +415,18 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	public void setCodigoArea(DatoBasico codigoArea) {
 		this.codigoArea = codigoArea;
 	}
-	
+
 	public List<DatoBasico> getCodigosArea() {
 		return servicioDatoBasico.buscar(TipoDatoBasico.CODIGO_AREA);
 	}
 
-	
 	public DatoBasico getEstado() {
 		return estado;
 	}
 
-
 	public void setEstado(DatoBasico estado) {
 		this.estado = estado;
 	}
-
 
 	public DatoBasico getMunicipio() {
 		return municipio;
@@ -705,7 +436,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 		this.municipio = municipio;
 	}
 
-
 	public DatoBasico getParroquia() {
 		return parroquia;
 	}
@@ -713,7 +443,7 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 	public void setParroquia(DatoBasico parroquia) {
 		this.parroquia = parroquia;
 	}
-	
+
 	public List<DatoBasico> getEstadosVenezuela() {
 		return servicioDatoBasico.buscar(TipoDatoBasico.ESTADO_VENEZUELA);
 	}
@@ -742,31 +472,9 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 			List<DatoBasico> comisionesFamiliarNuevas) {
 		this.comisionesFamiliarNuevas = comisionesFamiliarNuevas;
 	}
-	
-	
-	private void aplicarConstraints() {
-		// Registro Jugador
-		//txtCedula.setConstraint(Restriccion.CEDULA.getRestriccion());
-		txtPrimerNombre.setConstraint(Restriccion.TEXTO_SIMPLE
-				.asignarRestriccionExtra("no empty"));
-		txtPrimerApellido.setConstraint(Restriccion.TEXTO_SIMPLE.asignarRestriccionExtra("no empty"));
-		txtSegundoNombre.setConstraint(Restriccion.TEXTO_SIMPLE
-				.getRestriccion());
-		txtSegundoApellido.setConstraint(Restriccion.TEXTO_SIMPLE
-				.getRestriccion());
-		
-		txtTelefonoHabitacion.setConstraint(Restriccion.TELEFONO
-				.getRestriccion());
-		txtTelefonoCelular.setConstraint(Restriccion.TELEFONO.getRestriccion());
-		txtCorreo.setConstraint(Restriccion.EMAIL.getRestriccion());
-		
-		txtDireccionHabitacion.setConstraint(Restriccion.TEXTO_SIMPLE.getRestriccion());
-		txtTwitter.setConstraint(Restriccion.TEXTO_SIMPLE.getRestriccion());
-		
-	
-	}
-	
-	
+
+
+	// metodo que verifica si los campos obligatorios estan llenos para poder guardar
 	private boolean verificarCampos(InputElement[] camposValidar,
 			boolean mostrarMensaje) {
 		List<InputElement> campos = Arrays.asList(camposValidar);
@@ -788,108 +496,623 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer{
 		}
 		return flag;
 	}
-	
+
+	// boton de guardar que llama a las funciones necesarias
 	public void onClick$btnGuardar() {
-		if (verificarCampos(camposPerfil1, true)) {
+		System.out.println("00");
+		//if (verificarCampos(camposPerfil1, true)) {
+		if (verificarCampos(new InputElement[] { txtCedulaFamiliar, 
+				txtPrimerNombre, txtPrimerApellido, cmbProfesion },
+				true)) {
 			guardarFamiliar();
-	/*		if (medico.getNumeroColegio() != null) {
-				guardarDatoMedico();
-			}
-			if (verificarCampos(new InputElement[] { cmbInstitucionEducativa,
-					cmbAnnioEscolar, cmbCurso }, false)) {
-				guardarDatoAcademico();
-			}
-			if (verificarCampos(new InputElement[] { cmbEquipo }, false)) {
-				guardarRoster();
-			}
-			guardarDatoSocial();
-			guardarTallas();
-			guardarDocumentoPersonal();
-			guardarDocumentoAcademico();
-			guardarDocumentoMedico();    */
-			Mensaje.mostrarMensaje("Los datos del Familiar han sido guardados.",
+			Mensaje.mostrarMensaje(
+					"Los datos del Familiar han sido guardados.",
 					Mensaje.EXITO, Messagebox.EXCLAMATION);
 
 		}
 		limpiarCamposFamiliar();
 		panelFamiliar.setVisible(false);
+		btnGuardar.setVisible(false);
+	}
+
+	// metodo que guarda los cambios realizados a un familiar y que deberia guardar un familiar nuevo (no guarda un familiar nuevo completo solo en persona pero da error)
+	private void guardarFamiliar() {
+		System.out.println("0");
+		persona.setCorreoElectronico(txtCorreo.getValue());
+
+		parroquia = servicioDatoBasico.buscarTipo(TipoDatoBasico.PARROQUIA,
+				cmbParroquiaResi.getValue().toUpperCase());
+
+		persona.setDatoBasicoByCodigoParroquia(parroquia);
+		String celul, habit;
+
+		habit = cmbCodArea.getValue() + "-"
+				+ txtTelefonoHabitacion.getValue().toUpperCase();
+		persona.setTelefonoHabitacion(habit);
+
+		System.out.println("1");
+
+		persona.setTwitter(txtTwitter.getValue().toUpperCase());
+		persona.setDireccion(txtDireccionHabitacion.getValue().toUpperCase());
+		if (varGuarda == 1) {
+			System.out.println("222");
+			DatoBasico tipopersona = new DatoBasico();
+			tipopersona = servicioDatoBasico.buscarTipo(
+					TipoDatoBasico.TIPO_PERSONA, "FAMILIAR");
+			persona.setDatoBasicoByCodigoTipoPersona(tipopersona);
+			java.util.Date fechaActual = new java.util.Date();
+			persona.setFechaIngreso(fechaActual);
+			persona.setCedulaRif(txtCedulaFamiliar.getValue().toUpperCase());
+			persona.setEstatus('A');
+			personaNatural.setCedulaRif(txtCedulaFamiliar.getValue()
+					.toUpperCase());
+			personaNatural.setEstatus('A');
+
+		}
+		if (varGuarda == 2) {
+			personaNatural = persona.getPersonaNatural();
+		}
+
+		personaNatural
+				.setPrimerNombre(txtPrimerNombre.getValue().toUpperCase());
+		personaNatural.setPrimerApellido(txtPrimerApellido.getValue()
+				.toUpperCase());
+		personaNatural.setSegundoApellido(txtSegundoApellido.getValue()
+				.toUpperCase());
+		personaNatural.setSegundoNombre(txtSegundoNombre.getValue()
+				.toUpperCase());
+
+		if ((cmbCodCelular.getSelectedIndex() > 0)
+				&& (txtTelefonoCelular.getValue() != "")) {
+			celul = cmbCodCelular.getValue() + "-"
+					+ txtTelefonoCelular.getValue().toUpperCase();
+			personaNatural.setCelular(celul);
+		}
+		System.out.println("2");
+
+		personaNatural.setPersona(persona);
+
+		// personaNatural.setFoto(imgFamiliar);
+
+		if (comisionesFamiliarNuevas.size() > 0) {
+
+			List<ComisionFamiliar> comisionesfamilia = new ArrayList<ComisionFamiliar>();
+			for (int i = 0; i < comisionesFamiliarNuevas.size(); i++) {
+				comisionFamiliar = new ComisionFamiliar();
+
+				comision = servicioDatoBasico.buscarTipo(
+						TipoDatoBasico.COMISION, comisionesFamiliarNuevas
+								.get(i).getNombre());
+
+				comisionFamiliar.setFamiliarJugador(familiarJugador);
+
+				comisionFamiliar.setDatoBasico(comision);
+
+				comisionFamiliar.setEstatus('A');
+
+				comisionesfamilia.add(comisionFamiliar);
+
+			}
+
+			System.out.println("3");
+
+			for (int i = 0; i < comisionesFamiliar.size(); i++) {
+				comisionFamiliar = new ComisionFamiliar();
+				comisionFamiliar.setDatoBasico(comisionesFamiliar.get(i));
+				comisionFamiliar.setFamiliarJugador(familiarJugador);
+				comisionFamiliar.setEstatus(comisionesFamiliar.get(i)
+						.getEstatus());
+
+				comisionesfamilia.add(comisionFamiliar);
+
+			}
+
+			System.out.println("4");
+			servicioComisionFamiliar.agregar(comisionesfamilia);
+			System.out.println("5");
+		} else {
+			for (int i = 0; i < comisionesFamiliar.size(); i++) {
+				comisionFamiliar = new ComisionFamiliar();
+				comisionFamiliar.setDatoBasico(comisionesFamiliar.get(i));
+				comisionFamiliar.setFamiliarJugador(familiarJugador);
+				comisionFamiliar.setEstatus(comisionesFamiliar.get(i)
+						.getEstatus());
+
+				comisionesfamilia.add(comisionFamiliar);
+
+			}
+
+			servicioComisionFamiliar.agregar(comisionesfamilia);
+		}
+
+		profesion = servicioDatoBasico.buscarTipo(TipoDatoBasico.PROFESION,
+				cmbProfesion.getValue());
+		familiar.setDatoBasico(profesion);
+		if (varGuarda == 2) {
+			familiar.setPersonaNatural(personaNatural);
+		}
+
+		if (varGuarda == 1) {
+
+			familiar.setCedulaRif(txtCedulaFamiliar.getValue().toUpperCase());
+			familiar.setEstatus('A');
+			familiarJugador.setJugador(jugador);
+			familiarJugador.setRepresentanteActual(false);
+			java.util.Date fechaActual = new java.util.Date();
+			familiarJugador.setFechaIngreso(fechaActual);
+			familiarJugador.setEstatus('A');
+
+		}
+		parentesco = servicioDatoBasico.buscarTipo(TipoDatoBasico.PARENTESCO,
+				cmbParentesco.getValue());
+		familiarJugador.setDatoBasico(parentesco);
+		familiarJugador.setFamiliar(familiar);
+		System.out.println("6");
+		servicioPersona.actualizar(persona);
+		System.out.println("8");
+		servicioPersonaNatural.actualizar(personaNatural);
+		System.out.println("9");
+		servicioFamiliar.actualizar(familiar);
+		System.out.println("10");
+		servicioFamiliarJugador.actualizar(familiarJugador);
+		System.out.println("11");
+		persona = new Persona();
+		personaNatural = new PersonaNatural();
+		familiar = new Familiar();
+		familiarJugador = new FamiliarJugador();
+		comisionFamiliar = new ComisionFamiliar();
+		binder.loadAll();
+		System.out.println("12");
+
+		limpiarCamposFamiliar();
+
+	}
+
+	// se sale de la pantalla de Actualizar Familiar con previo aviso
+	public void onClick$btnSalir() throws InterruptedException {
+		Messagebox.show("Saldrá de la ventana, está seguro?", "INFORMACIÓN",
+				Messagebox.YES | Messagebox.NO, Messagebox.QUESTION,
+				new EventListener() {
+					public void onEvent(Event evt) {
+						switch (((Integer) evt.getData()).intValue()) {
+						case Messagebox.YES:
+							winActualizarFamiliar.detach();
+							break;
+						case Messagebox.NO:
+							break;
+						}
+					}
+				});
+	}
+
+	// se elimina una comision de la lista de comisiones cargadas anteriormente
+	public void onClick$btnEliminarComisionVieja() throws InterruptedException {
+		Messagebox.show("Esta seguro que Desea BORRAR la COMISIÓN?",
+				"ELIMINAR", Messagebox.YES | Messagebox.NO,
+				Messagebox.QUESTION, new EventListener() {
+					public void onEvent(Event evt) {
+						switch (((Integer) evt.getData()).intValue()) {
+						case Messagebox.YES:
+							eliminar();
+							break;
+						case Messagebox.NO:
+							break;
+						}
+					}
+				});
+
+	}
+
+	public void eliminar() {
+		comisionesFamiliar.remove(listComisiones.getSelectedIndex());
+		binder.loadComponent(listComisiones);
+	}
+
+	//se elimina un familiar que no sea el representante del jugador
+	public void onClick$btnQuitar() throws InterruptedException {
+
+		int posicion = 0;
+
+		posicion = listaFamiliar.getSelectedIndex();
+
+		if (listaFamiliarJugador.get(posicion).isRepresentanteActual() == false) {
+			Messagebox.show(
+					"Esta seguro que Desea BORRAR el Familiar del Jugador?",
+					"ELIMINAR", Messagebox.YES | Messagebox.NO,
+					Messagebox.QUESTION, new EventListener() {
+						public void onEvent(Event evt) {
+							switch (((Integer) evt.getData()).intValue()) {
+							case Messagebox.YES:
+								quitarfamiliar();
+								break;
+							case Messagebox.NO:
+								break;
+							}
+						}
+					});
+		} else {
+			Mensaje.mostrarMensaje(
+					"No se puede eliminar el Familiar por ser el Representante legal",
+					Mensaje.INFORMACION, Messagebox.INFORMATION);
+
+		}
+	}
+
+	// se elimina un familiar que no sea el representante del jugador
+	public void quitarfamiliar() {
+
+		int posicion = 0;
+
+		posicion = listaFamiliar.getSelectedIndex();
+
+		if (listaFamiliarJugador.get(posicion).isRepresentanteActual() == false) {
+
+			List<DatoBasico> auxiliarcomisiones = new ArrayList<DatoBasico>();
+			auxiliarcomisiones = servicioComisionFamiliar
+					.buscarComisiones(listaFamiliarJugador.get(posicion)
+							.getFamiliar());
+
+			List<ComisionFamiliar> comisionesfamilia = new ArrayList<ComisionFamiliar>();
+
+			for (int i = 0; i < auxiliarcomisiones.size(); i++) {
+
+				comisionFamiliar = new ComisionFamiliar();
+				comisionFamiliar.setDatoBasico(auxiliarcomisiones.get(i)
+						.getDatoBasico());
+				comisionFamiliar.setFamiliarJugador(listaFamiliarJugador
+						.get(posicion));
+				comisionFamiliar.setEstatus(auxiliarcomisiones.get(i)
+						.getEstatus());
+				comisionesfamilia.add(comisionFamiliar);
+
+			}
+
+			for (int i = 0; i < comisionesfamilia.size(); i++) {
+
+				comisionesfamilia.remove(i);
+
+			}
+
+			servicioComisionFamiliar.agregar(comisionesfamilia);
+
+			familiarJugador = new FamiliarJugador();
+
+			familiarJugador = listaFamiliarJugador.get(posicion);
+
+			familiarJugador.setEstatus('E');
+
+			servicioFamiliarJugador.actualizar(familiarJugador);
+
+			listaFamiliarJugador.remove(posicion);
+			binder.loadComponent(listaFamiliar);
+			limpiarCamposFamiliar();
+			panelFamiliar.setVisible(false);
+		}
+	}
+
+	
+	// Se limpia todos los campos referentes al panel de familiar
+		private void limpiarCamposFamiliar() {
+			/*familiar = new Familiar();
+			comisionFamiliar = new ComisionFamiliar();
+			parentesco = new DatoBasico();
+			profesion = new DatoBasico();
+			comision = new DatoBasico();
+			comisionNuevas = new DatoBasico();
+			persona = new Persona();
+			personaNatural = new PersonaNatural();
+			familiarJugador = new FamiliarJugador();
+			estado = new DatoBasico();
+			municipio = new DatoBasico();
+			parroquia = new DatoBasico();
+			codigoArea = new DatoBasico();
+			codigoCel = new DatoBasico();
+			datoBasico = new DatoBasico();*/
+			
+			cmbCodArea.setValue("--");
+			cmbCodCelular.setValue("--");
+			cmbEstadoResi.setValue("--Seleccione--");
+			cmbMunicipioResi.setValue("--Seleccione--");
+			cmbParentesco.setValue("--Seleccione--");
+			cmbParroquiaResi.setValue("--Seleccione--");
+			cmbProfesion.setValue("--Seleccione--");
+			cmbComisiones.setValue("--Seleccione--");
+			txtCedulaFamiliar.setRawValue("");
+			txtPrimerNombre.setRawValue("");
+			txtSegundoNombre.setRawValue("");
+			txtPrimerApellido.setRawValue("");
+			txtSegundoApellido.setRawValue("");
+			txtDireccionHabitacion.setValue("");
+			txtTelefonoCelular.setRawValue("");
+			txtTelefonoHabitacion.setRawValue("");
+			txtCorreo.setRawValue("");
+			txtTwitter.setValue("");
+			imgFamiliar.setSrc("/Recursos/Imagenes/noFoto.jpg");
+
+			comisionesFamiliar.clear();
+			binder.loadComponent(listComisiones);
+
+			comisionesFamiliarNuevas.clear();
+			binder.loadComponent(listComisionesNuevas);
+
+		}
+
+	public void onClick$btnBuscar() {
+		Component catalogo = Executions.createComponents(rutasJug
+				+ "frmBuscarJugador.zul", null, null);
+		// Component catalogo = Executions.createComponents(
+		// "frmBuscarJugador.zul", null, null);
+		catalogo.setVariable("formulario", formulario, false);
+		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
+		limpiarCamposFamiliar();
+		panelFamiliar.setVisible(false);
+		varGuarda = 0;
+		imgjugador.setSrc("/Recursos/Imagenes/noFoto.jpg");
+		formulario.addEventListener("onCatalogoBuscarJugadorCerrado",
+				new EventListener() {
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						jugador = (Jugador) formulario.getVariable("jugador",
+								false);
+						sw = true;
+						agregarCampos();
+						roster = servicioRoster.buscarRoster(jugador
+								.getCedulaRif());
+						// listaFamiliarJugador =
+						// servicioFamiliarJugador.buscarFamiliarJugador(jugador.getCedulaRif());
+						Date fechaN = jugador.getPersonaNatural()
+								.getFechaNacimiento();
+						edad = Util.calcularDiferenciaAnnios(fechaN);
+						// System.out.println(edad);
+						btnEditar.setDisabled(false);
+						btnAgregar.setDisabled(false);
+						btnQuitar.setDisabled(false);
+						btnEditar.setImage("/Recursos/Imagenes/editar.ico");
+						btnAgregar.setImage("/Recursos/Imagenes/agregar.ico");
+						btnQuitar.setImage("/Recursos/Imagenes/quitar.ico");
+						binder.loadAll();
+					}
+				});
+
+	}
+
+	public void agregarCampos() {
+		String segNombre = jugador.getPersonaNatural().getSegundoNombre();
+		nombres = jugador.getPersonaNatural().getPrimerNombre()
+				+ (segNombre == null ? "" : " " + segNombre);
+		String segApellido = jugador.getPersonaNatural().getSegundoApellido();
+		apellidos = jugador.getPersonaNatural().getPrimerApellido()
+				+ (segApellido == null ? "" : " " + segApellido);
+
+		txtCedula.setValue(jugador.getCedulaRif());
+
+		byte[] foto = jugador.getPersonaNatural().getFoto();
+		if (foto != null) {
+			try {
+				AImage aImage = new AImage("foto.jpg", foto);
+				imgjugador.setContent(aImage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		listaFamiliarJugador = servicioFamiliarJugador
+				.buscarFamiliarJugador(jugador);
 
 	}
 	
-	private void guardarFamiliar(){
 
-		persona.setCorreoElectronico(txtCorreo.getValue());
-		
-	//	parroquia1 = (DatoBasico) cmbParroquiaResi.getSelectedItem().getValue();
-		//persona.setDatoBasicoByCodigoParroquia((DatoBasico) cmbParroquiaResi.getSelectedItem().getValue());
-	//	persona.setTelefonoHabitacion(txtTelefonoHabitacion.getValue());
-		persona.setTwitter(txtTwitter.getValue());
-		persona.setDireccion(txtDireccionHabitacion.getValue());
-		
-	//	System.out.println(cmbParentesco.getSelectedItem().getValue());
-	//	System.out.println(cmbParroquiaResi.getSelectedItem().getValue());
-		//personaNatural.setCelular(txtTelefonoCelular.getValue());
-		personaNatural.setPrimerNombre(txtPrimerNombre.getValue());
-		personaNatural.setPrimerApellido(txtPrimerApellido.getValue());
-		personaNatural.setSegundoApellido(txtSegundoApellido.getValue());
-		personaNatural.setSegundoNombre(txtSegundoNombre.getValue());
-	//	personaNatural.setFoto(imgFamiliar);
-		
-		//familiarJugador.setDatoBasico((DatoBasico) cmbParentesco.getSelectedItem().getValue());
-		
-		if (comisionesFamiliarNuevas.size() >0){
-			
-			System.out.println("ENTROOO");
-			
-		for (int i = 0; i < comisionesFamiliarNuevas.size(); i++) {
-			comisionEquipo.setCodigoComisionEquipo(comisionesFamiliarNuevas.get(i).getCodigoDatoBasico());
-			comisionEquipo.setEquipo(roster.getEquipo());
-			comisionEquipo.setMaximoComision(10);
-			comisionEquipo.setCantidadComision(1);
-			comisionEquipo.setEstatus1('A');
-			servicioComisionEquipo.agregar(comisionEquipo);
-			
+	// edita el familiar que seleccionemos de la lista y lo carga en los campos del panel de familiar
+	public void onClick$btnEditar() {
+		limpiarCamposFamiliar();
+		txtCedulaFamiliar.setReadonly(true);
+		panelFamiliar.setVisible(true);
+		txtPrimerNombre.setFocus(true);
+		camposPerfil1 = new InputElement[] { txtPrimerNombre,
+				txtPrimerApellido, cmbParroquiaResi };
+		varGuarda = 2;
+		btnGuardar.setVisible(true);
+		// aplicarConstraints();
+		// inicializarCheckPoints();
+		if (listaFamiliar.getSelectedIndex() >= 0) {
+			FamiliarJugador familiarSeleccionado = (FamiliarJugador) listaFamiliar
+					.getSelectedItem().getValue();
+			familiar = familiarSeleccionado.getFamiliar();
+
+			if (familiar != null) {
+				txtCedulaFamiliar.setValue(familiar.getCedulaRif());
+
+				comisionesFamiliar = servicioComisionFamiliar
+						.buscarComisiones(familiar);
+
+				if (comisionesFamiliar.size() > 0) {
+					binder.loadComponent(listComisiones);
+				}
+
+				txtPrimerNombre.setValue(familiar.getPersonaNatural()
+						.getPrimerNombre());
+				txtSegundoNombre.setValue(familiar.getPersonaNatural()
+						.getSegundoNombre());
+				txtPrimerApellido.setValue(familiar.getPersonaNatural()
+						.getPrimerApellido());
+				txtSegundoApellido.setValue(familiar.getPersonaNatural()
+						.getSegundoApellido());
+
+				byte[] foto = familiar.getPersonaNatural().getFoto();
+				if (foto != null) {
+					try {
+						AImage aImage = new AImage("foto.jpg", foto);
+						imgFamiliar.setContent(aImage);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
+				if (familiarJugador.getDatoBasico() != null) {
+					cmbParentesco.setValue(familiarJugador.getDatoBasico()
+							.getNombre());
+				}
+				if (familiar.getDatoBasico() != null) {
+					cmbProfesion.setValue(familiar.getDatoBasico().getNombre());
+				}
+				personaNatural = familiar.getPersonaNatural();
+				persona = familiar.getPersonaNatural().getPersona();
+
+				if (persona != null) {
+					if (persona.getDatoBasicoByCodigoParroquia() != null) {
+						cmbParroquiaResi.setValue(persona
+								.getDatoBasicoByCodigoParroquia().getNombre());
+						cmbMunicipioResi.setValue(persona
+								.getDatoBasicoByCodigoParroquia()
+								.getDatoBasico().getNombre());
+						cmbEstadoResi.setValue(persona
+								.getDatoBasicoByCodigoParroquia()
+								.getDatoBasico().getDatoBasico().getNombre());
+					}
+
+					txtDireccionHabitacion.setValue(persona.getDireccion());
+
+					String telf = persona.getTelefonoHabitacion();
+					if (telf != null) {
+						cmbCodArea.setValue(telf.substring(0, 4));
+						txtTelefonoHabitacion.setValue(telf.substring(5));
+					}
+
+					String celu = persona.getPersonaNatural().getCelular();
+					if (celu != null) {
+						cmbCodCelular.setValue(celu.substring(0, 4));
+						txtTelefonoCelular.setValue(celu.substring(5));
+					}
+
+					txtCorreo.setValue(persona.getCorreoElectronico());
+					txtTwitter.setValue(persona.getTwitter());
+
+				}
+			}
+
+		} else {
+			alert("Seleccione un dato");
 		}
+
+	}
+	
+	// borra todos los campos del formulario Actualizar Familiar 
+	public void onClick$btnCancelar() {
+		limpiarCamposFamiliar();
+		panelFamiliar.setVisible(false);
+
+		listaFamiliarJugador.clear();
+		binder.loadComponent(listaFamiliar);
+
+		txtCedula.setRawValue("");
+		txtNombre.setRawValue("");
+		txtApellido.setRawValue("");
+		txtCategoria.setRawValue("");
+		txtNumero.setRawValue("");
+		txtEquipo.setRawValue("");
+		txtFechaNac.setRawValue("");
+		btnGuardar.setVisible(false);
+		btnAgregar.setDisabled(true);
+		btnEditar.setDisabled(true);
+		btnQuitar.setDisabled(true);
+		btnEditar.setImage("/Recursos/Imagenes/editar.ico");
+		btnAgregar.setImage("/Recursos/Imagenes/agregar.ico");
+		btnQuitar.setImage("/Recursos/Imagenes/quitar.ico");
+		imgjugador.setSrc("/Recursos/Imagenes/noFoto.jpg");
+	}
+
+	// para agregar un nuevo familiar llama a las funciones necesarias
+	public void onClick$btnAgregar() {
+		limpiarCamposFamiliar();
+		panelFamiliar.setVisible(true);
+		// cmbNacionalidadFamiliar.setDisabled(false);
+		txtCedulaFamiliar.setReadonly(false);
+		varGuarda = 1;
+
+		camposPerfil1 = new InputElement[] { txtCedulaFamiliar,
+				txtPrimerNombre, txtPrimerApellido, cmbParroquiaResi };
+		btnGuardar.setVisible(true);
+
+	}
+	
+	// agrega una comision que seleccionemos del combo de comisiones
+	public void onClick$btnAgregarComision() {
+		if (cmbComisiones.getSelectedIndex() >= 0) {
+			int aux = 0;
+			for (int i = 0; i < comisionesFamiliar.size(); i++) {
+				if (comisionesFamiliar.get(i).getCodigoDatoBasico() == comision
+						.getCodigoDatoBasico()) {
+					aux = 1;
+				}
+
+			}
+
+			if ((!comisionesFamiliarNuevas.contains(comision)) && (aux == 0)) {
+
+				comisionesFamiliarNuevas.add(comision);
+				limpiarComision();
+			} else {
+				Mensaje.mostrarMensaje("Comisión Duplicada.",
+						Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+
+			}
+		} else {
+			Mensaje.mostrarMensaje("Seleccione una Comisión.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+			cmbComisiones.setFocus(true);
 		}
-		
-		if (checkPoints.get(Point.FAMILIAR)) {
-			// Actualizamos
-			personaNatural.setPersona(persona);
-			familiar.setPersonaNatural(personaNatural);
-			familiarJugador.setFamiliar(familiar);
-			servicioFamiliarJugador.actualizar(familiarJugador);
-			servicioJugador.actualizar(jugador);
-			//servicioFamiliar.actualizar(familiar);
+
+	}
+
+	// elimina las comision que seleccionemos de la lista de comisiones nuevas
+	public void onClick$btnEliminarComision() {
+		if (listComisionesNuevas.getSelectedIndex() >= 0) {
+			DatoBasico comisionSel = (DatoBasico) listComisionesNuevas
+					.getSelectedItem().getValue();
+			comisionesFamiliarNuevas.remove(comisionSel);
+			binder.loadComponent(listComisionesNuevas);
+		} else {
+			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 	}
 	
 	private enum Point {
-		FAMILIAR, COMISION_EQUIPO, PERSONA, PERSONA_NATURAL, FAMILIAR_JUGADOR, JUGADOR
+		FAMILIAR, COMISION_FAMILIAR, PERSONA, PERSONA_NATURAL, FAMILIAR_JUGADOR, JUGADOR
 	};
-	
+
 	/**
 	 * Indica que secciones/puntos el usuario ya ha almacenado en relacion al
 	 * jugador
 	 */
 	private EnumMap<Point, Boolean> checkPoints;
-	
+
 	private void inicializarCheckPoints() {
 		checkPoints = new EnumMap<Point, Boolean>(Point.class);
 		checkPoints.put(Point.FAMILIAR, false);
-		checkPoints.put(Point.COMISION_EQUIPO, false);
+		checkPoints.put(Point.COMISION_FAMILIAR, false);
 		checkPoints.put(Point.PERSONA, false);
-		checkPoints.put(Point.PERSONA_NATURAL,false);
-		checkPoints.put(Point.FAMILIAR_JUGADOR,false);
-		checkPoints.put(Point.JUGADOR,false);
-		
-/*		checkPoints.put(Point.DATO_SOCIAL, false);
-		checkPoints.put(Point.ROSTER, false);
-		checkPoints.put(Point.DOCUMENTO_PERSONAL, false);
-		checkPoints.put(Point.DOCUMENTO_ACADEMICO, false);
-		checkPoints.put(Point.DOCUMENTO_MEDICO, false);
-		checkPoints.put(Point.TALLA, false);     */
+		checkPoints.put(Point.PERSONA_NATURAL, false);
+		checkPoints.put(Point.FAMILIAR_JUGADOR, false);
+		checkPoints.put(Point.JUGADOR, false);
+
 	}
-
-
+	
+	private void aplicarConstraints() {
+		// Registro Jugador
+		txtCedulaFamiliar.setConstraint(Restriccion.CEDULA.getRestriccion());
+		txtPrimerNombre.setConstraint(Restriccion.TEXTO_SIMPLE
+				.asignarRestriccionExtra("no empty"));
+		txtPrimerApellido.setConstraint(Restriccion.TEXTO_SIMPLE
+				.asignarRestriccionExtra("no empty"));
+		txtSegundoNombre.setConstraint(Restriccion.TEXTO_SIMPLE
+				.getRestriccion());
+		txtSegundoApellido.setConstraint(Restriccion.TEXTO_SIMPLE
+				.getRestriccion());
+		txtTelefonoHabitacion.setConstraint(Restriccion.TELEFONO
+				.getRestriccion());
+		txtTelefonoCelular.setConstraint(Restriccion.TELEFONO.getRestriccion());
+		txtCorreo.setConstraint(Restriccion.EMAIL.getRestriccion());
+	}
 
 }
