@@ -1204,10 +1204,14 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			txtCedula.setReadonly(false);
 			lblSeparador.setVisible(flag);
 			txtCedulaSecuencia.setVisible(flag);
-			verificarCedulaJugador();
+			verificarCedulaJugador(true);
 			// txtCedulaSecuencia.setRawValue(null);
 		}
 
+	}
+
+	public void onChange$cmbNacionalidadFamiliar() {
+		verificarCedulaFamiliar();
 	}
 
 	public void onClick$btnVistaPrevia() {
@@ -1392,47 +1396,53 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnGuardar() {
-		if (verificarCampos(camposPerfil, true)) {
-			guadarDatos(EstatusRegistro.TEMPORAL);
-			deshabilitarCamposCedula(true);
-			Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
-					Mensaje.EXITO, Messagebox.EXCLAMATION);
+		if (verificarCedulaJugador(false) == false ||  checkPoints.get(Point.JUGADOR)) {
+			if (verificarCampos(camposPerfil, true)) {
+				guadarDatos(EstatusRegistro.TEMPORAL);
+				deshabilitarCamposCedula(true);
+				Mensaje.mostrarMensaje(
+						"Los datos del jugador han sido guardados.",
+						Mensaje.EXITO, Messagebox.EXCLAMATION);
+			}
 		}
 	}
 
 	public void onClick$btnInscribir() {
-		/*
-		 * Considerar al inscribir Si aun esta editando un familiar , anexarlo a
-		 * la lista para guardarlo if (btnModificarFamiliar.isDisabled()){
-		 * onClick$btnAgregarFamiliar(); }
-		 */
-		
-		String cedula = jugadorBean.getCedulaCompleta();
-		if (verificarCamposInscripcion()) {
-			guadarDatos(EstatusRegistro.ACTIVO);
-			if (jugadorBean.getNacionalidad().equals("R")) {
-				cedula = servicioJugador.actualizarDatosJugador(jugador);
+		if (verificarCedulaJugador(false) == false ||  checkPoints.get(Point.JUGADOR)) {
+			if (btnModificarFamiliar.isDisabled()) { // Existe un familiar en
+														// modo edicion
+				onClick$btnAgregarFamiliar();
 			}
-			actualizarAnuario(roster);
-			generarCompromisoPago(cedula);
-			Mensaje.mostrarMensaje(
-					"Se ha  inscrito el jugador: \n" + jugadorBean.getNombres()
-							+ " " + jugadorBean.getApellidos(), Mensaje.EXITO,
-					Messagebox.INFORMATION);
-			generarPlanillaInscripcion(cedula);
-			cancelar();
+			String cedula = jugadorBean.getCedulaCompleta();
+			if (verificarCamposInscripcion()) {
+				guadarDatos(EstatusRegistro.ACTIVO);
+				if (jugadorBean.getNacionalidad().equals("R")) {
+					cedula = servicioJugador.actualizarDatosJugador(jugador);
+				}
+				actualizarAnuario(roster);
+				generarCompromisoPago(cedula);
+				Mensaje.mostrarMensaje(
+						"Se ha  inscrito el jugador: \n"
+								+ jugadorBean.getNombres() + " "
+								+ jugadorBean.getApellidos(), Mensaje.EXITO,
+						Messagebox.INFORMATION);
+				generarPlanillaInscripcion(cedula);
+				cancelar();
+			}
 		}
 	}
 
-	
-	private void generarCompromisoPago(String cedulaJugador){
+	private void generarCompromisoPago(String cedulaJugador) {
 		DatoBasico tipoLapso = new DaoDatoBasico().buscarTipo(
 				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR");
-		Familiar representante = servicioFamiliarJugador.buscarRepresentanteActual(cedulaJugador);
-		servicioDocumentoAcreedor.crearCompromisos(representante.getPersonaNatural().getPersona(), persona,
-				tipoLapso, tipoInscripcion);
-		
+		Familiar representante = servicioFamiliarJugador
+				.buscarRepresentanteActual(cedulaJugador);
+		servicioDocumentoAcreedor.crearCompromisos(representante
+				.getPersonaNatural().getPersona(), persona, tipoLapso,
+				tipoInscripcion);
+
 	}
+
 	private void actualizarAnuario(Roster roster) {
 		Anuario anuario = new Anuario();
 		anuario.setFoto(jugadorBean.getFoto());
@@ -1672,7 +1682,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		List<AfeccionJugador> afeccionJugador = new ArrayList<AfeccionJugador>();
 		datoMedico.setMedico(medico);
 		if (datoMedico.getObservacion() != null) {
-			datoMedico.setObservacion(datoMedico.getObservacion().toUpperCase());
+			datoMedico
+					.setObservacion(datoMedico.getObservacion().toUpperCase());
 		}
 		if (checkPoints.get(Point.DATO_MEDICO)) {
 			servicioDatoMedico.actualizar(datoMedico);
@@ -2302,8 +2313,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		lblSeparador.setVisible(false);
 		txtCedulaSecuencia.setVisible(false);
 	}
-	
-	private void inicializar(){
+
+	private void inicializar() {
 		familiar = new Familiar();
 		persona = new Persona();
 		personaN = new PersonaNatural();
@@ -2659,28 +2670,29 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnAgregarFamiliar() {
+
 		if (verificarCampos(new InputElement[] { cmbNacionalidadFamiliar,
 				txtCedulaFamiliar, txtPrimerNombreFamiliar,
 				txtPrimerApellidoFamiliar }, false)) {
-			if (cmbParentesco.getSelectedIndex() != -1) {
-				guardarFamiliarVistaToBean();
-				if (!buscarFamiliarEnLista(familiares, familiarBean)) {
-					familiares.add(familiarBean);
-					binder.loadComponent(listFamiliares);
-					limpiarFamiliar();
-					btnModificarFamiliar.setDisabled(false);
-					txtCedulaFamiliar.setReadonly(false);
-					cmbNacionalidadFamiliar.setDisabled(false);
-					deshabilitarCatalogoFamiliar(false);
+				if (cmbParentesco.getSelectedIndex() != -1) {
+					guardarFamiliarVistaToBean();
+					if (!buscarFamiliarEnLista(familiares, familiarBean)) {
+						familiares.add(familiarBean);
+						binder.loadComponent(listFamiliares);
+						limpiarFamiliar();
+						btnModificarFamiliar.setDisabled(false);
+						txtCedulaFamiliar.setReadonly(false);
+						cmbNacionalidadFamiliar.setDisabled(false);
+						deshabilitarCatalogoFamiliar(false);
+					} else {
+						Mensaje.mostrarMensaje(
+								"El familiar: " + familiarBean.getNombres()
+										+ " " + familiarBean.getApellidos()
+										+ "  ya está asociado al jugador.",
+								Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+					}
 				} else {
-					Mensaje.mostrarMensaje(
-							"El familiar: " + familiarBean.getNombres() + " "
-									+ familiarBean.getApellidos()
-									+ "  ya está asociado al jugador.",
-							Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-				}
-			} else {
-				cmbParentesco.setFocus(true);
+					cmbParentesco.setFocus(true);
 			}
 		}
 	}
@@ -2898,55 +2910,66 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onChange$txtCedula() {
-		verificarCedulaJugador();
+		verificarCedulaJugador(true);
 	}
 
-	private void verificarCedulaJugador() {
+	private boolean verificarCedulaJugador(boolean sw) {
 		String cedulaCompleta = "";
 		boolean noValida = true;
-		String nacionalidad = (cmbNacionalidad.getSelectedItem() == null ? ""
-				: cmbNacionalidad.getSelectedItem().getLabel());
-		String cedula = (txtCedula.getValue() == null ? "" : "-"
-				+ txtCedula.getValue().toString());
-		String secuencia = (txtCedulaSecuencia.getValue() == null ? "" : "-"
-				+ txtCedulaSecuencia.getValue().toString());
-		if (nacionalidad != "" && cedula != "") {
-			cedulaCompleta = nacionalidad + cedula + "" + secuencia;
-			noValida = servicioPersona.existePersona(cedulaCompleta);
+		if (cmbNacionalidad.getSelectedItem() == null) {
+			noValida = false;
+		} else {
+			String nacionalidad = (cmbNacionalidad.getSelectedItem() == null ? ""
+					: cmbNacionalidad.getSelectedItem().getLabel());
+			String cedula = (txtCedula.getValue() == null ? "" : "-"
+					+ txtCedula.getValue().toString());
+			String secuencia = (txtCedulaSecuencia.getValue() == null ? ""
+					: "-" + txtCedulaSecuencia.getValue().toString());
+			if (nacionalidad != "" && cedula != "") {
+				cedulaCompleta = nacionalidad + cedula + "" + secuencia;
+				noValida = servicioPersona.existePersona(cedulaCompleta);
+			}
+			if (noValida && sw) {
+				Mensaje.mostrarMensaje(
+						"La cédula ingresada ya está registrada o no es válida.",
+						Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+				txtCedula.setFocus(true);
+				txtCedula.setSelectionRange(0, txtCedula.getText().length());
+			}
 		}
-		if (noValida) {
-			Mensaje.mostrarMensaje(
-					"La cédula ingresada ya está registrada o no es válida.",
-					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-			txtCedula.setFocus(true);
-			txtCedula.setSelectionRange(0, txtCedula.getText().length());
-		}
+		return noValida;
 	}
 
 	public void onChange$txtCedulaFamiliar() {
 		verificarCedulaFamiliar();
 	}
 
-	private void verificarCedulaFamiliar() {
+	private boolean verificarCedulaFamiliar() {
 		String cedulaCompleta = "";
 		boolean noValida = true;
-		String nacionalidad = (cmbNacionalidadFamiliar.getSelectedItem() == null ? ""
-				: cmbNacionalidadFamiliar.getSelectedItem().getLabel());
-		String cedula = (txtCedulaFamiliar.getValue() == null ? "" : "-"
-				+ txtCedulaFamiliar.getValue().toString());
+		if (cmbNacionalidadFamiliar.getSelectedItem() == null) {
+			noValida = false;
+		} else {
+			String nacionalidad = (cmbNacionalidadFamiliar.getSelectedItem() == null ? ""
+					: cmbNacionalidadFamiliar.getSelectedItem().getLabel());
+			String cedula = (txtCedulaFamiliar.getValue() == null ? "" : "-"
+					+ txtCedulaFamiliar.getValue().toString());
 
-		if (nacionalidad != "" && cedula != "") {
-			cedulaCompleta = nacionalidad + cedula;
-			noValida = servicioPersona.existePersona(cedulaCompleta);
+			if (nacionalidad != "" && cedula != "") {
+				cedulaCompleta = nacionalidad + cedula;
+				noValida = servicioPersona.existePersona(cedulaCompleta);
+			}
+			if (noValida) {
+				Mensaje.mostrarMensaje(
+						"La cédula ingresada ya está registrada o no es válida.",
+						Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+				txtCedulaFamiliar.setFocus(true);
+				txtCedulaFamiliar.setSelectionRange(0, txtCedulaFamiliar
+						.getText().length());
+			}
 		}
-		if (noValida) {
-			Mensaje.mostrarMensaje(
-					"La cédula ingresada ya está registrada o no es válida.",
-					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-			txtCedulaFamiliar.setFocus(true);
-			txtCedulaFamiliar.setSelectionRange(0, txtCedulaFamiliar.getText()
-					.length());
-		}
+		return noValida;
+
 	}
 
 	public boolean numeroDisponible(int valor) {
