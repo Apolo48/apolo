@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="inscritos y retirados" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.3310000000000006"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="19"/>
+	<property name="ireport.x" value="33"/>
+	<property name="ireport.y" value="115"/>
 	<subDataset name="dataset1"/>
 	<subDataset name="dataset2"/>
 	<parameter name="nombreTemporada" class="java.lang.String"/>
@@ -22,10 +22,10 @@ COUNT(tPase.cedula_rif) AS pase,
 FROM
 categoria
 LEFT JOIN plan_temporada ON (plan_temporada.codigo_categoria = categoria.codigo_categoria
-AND plan_temporada.estatus='A')
+AND plan_temporada.estatus <> 'E')
 
 LEFT JOIN lapso_deportivo ON (lapso_deportivo.codigo_lapso_deportivo = plan_temporada.codigo_lapso_deportivo
-AND lapso_deportivo.estatus = 'A' AND lapso_deportivo.nombre = $P{nombreTemporada})
+AND lapso_deportivo.estatus <> 'E' AND lapso_deportivo.nombre = $P{nombreTemporada})
 
 LEFT JOIN equipo ON (equipo.codigo_categoria = categoria.codigo_categoria AND equipo.estatus = 'A')
 
@@ -280,12 +280,12 @@ ORDER BY categoria.codigo_categoria ASC;]]>
 				<textFieldExpression><![CDATA[$F{hora_actual}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="395" y="72" width="80" height="20"/>
+				<reportElement x="395" y="72" width="85" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de "]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="475" y="72" width="40" height="20"/>
+				<reportElement x="486" y="72" width="40" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
