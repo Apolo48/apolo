@@ -13,12 +13,13 @@ import comun.Util;
 
 public enum Restriccion {
 	EMAIL("/.+@.+\\.[a-zA-Z]+/",
-			"Ingrese un correo electrónico válido, Ej: correo@servidor.com"), 
+			"Ingrese un correo electrónico válido, Ej: correo@servidor.com"),
 			HORAS_SEMANAL_SOCIAL("min 1 max 30", "Ingrese una cantidad de horas válidas (01-30)"), 
-			CEDULA("no negative,no empty", "Ingrese una cédula válida"), 
+			CEDULA("no negative,no empty", "Ingrese una cédula válida"),
 			CEDULA_COMPLETA("/[V,E,R]{1}[-]{1}[0-9]{8}/", ""),
-			TELEFONO("/[0-9]{7}/", "Ingrese un número válido, Ej: 2660011"), 
-			TEXTO_SIMPLE("/^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$/", "Ingrese un texto válido"), 
+			TELEFONO("/[0-9]{7}/", "Ingrese un número válido, Ej: 2660011"),
+			TELEFONO_COMPLETO("/[0-9]{4}-[0-9]{7}/", "Ingrese un número válido, Ej: 2660011"),
+			TEXTO_SIMPLE("/^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$/", "Ingrese un texto válido"),
 			FECHA_NACIMIENTO("between " + Util.getFecha(Edad.EDAD_MAXIMA, Util.LIMITE_INFERIOR) + " and "
 					+ Util.getFecha(Edad.EDAD_MINIMA, Util.LIMITE_SUPERIOR),"Ingrese una fecha válida"),
 			CANTIDAD_EQUIPO("min 1 max 6",""),

@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 
@@ -82,7 +84,6 @@ import comun.Mensaje;
 import comun.TipoDatoBasico;
 import controlador.jugador.bean.Telefono;
 import controlador.jugador.bean.TipoSangre;
-import controlador.jugador.restriccion.Edad;
 import controlador.jugador.restriccion.Restriccion;
 import dao.general.DaoDatoBasico;
 import modelo.AfeccionJugador;
@@ -940,6 +941,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			jugadorBean.setFechaNacimiento(pn.getFechaNacimiento());
 			if (pn.getFechaNacimiento() != null) {
 				onChange$dtboxFechaNac();
+				binder.loadComponent(cmbEquipo);
 			}
 
 			txtCorreo.setRawValue(p.getCorreoElectronico());
@@ -1404,10 +1406,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		 * la lista para guardarlo if (btnModificarFamiliar.isDisabled()){
 		 * onClick$btnAgregarFamiliar(); }
 		 */
-
-		// if (verificarCamposInscripcion(camposPerfil, false)) {
+		
 		String cedula = jugadorBean.getCedulaCompleta();
-		if (verificarCampos(camposPerfil, false)) {
+		if (verificarCamposInscripcion()) {
 			guadarDatos(EstatusRegistro.ACTIVO);
 			if (jugadorBean.getNacionalidad().equals("R")) {
 				cedula = servicioJugador.actualizarDatosJugador(jugador);
@@ -1437,50 +1438,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		anuario.setFoto(jugadorBean.getFoto());
 		anuario.setRoster(roster);
 		servicioAnuario.agregar(anuario);
-	}
-
-	/**
-	 * Verifica que los campos obligatorios tengan valores y cumplan con las
-	 * restricciones definidas, notificando en los casos que no se cumpla
-	 * 
-	 * @param camposValidar
-	 *            arreglo de campos a validar
-	 * @param mostrarMensaje
-	 *            valor booleano para indicar si se debe mostar el mensaje de
-	 *            error en caso de presentarse
-	 * @return true si los campos son validos, en caso contrario false
-	 */
-	private boolean verificarCamposInscripcion(InputElement[] camposValidar,
-			boolean mostrarMensaje) {
-		InputElement[] camposPerfilJugador = new InputElement[] {
-				cmbNacionalidad, txtCedula, txtPrimerNombre, txtPrimerApellido,
-				cmbGenero, dtboxFechaNac };
-		InputElement[] camposPerfilFamiliar = new InputElement[] {
-				cmbNacionalidadFamiliar, txtCedulaFamiliar,
-				txtPrimerNombreFamiliar, txtPrimerApellidoFamiliar };
-
-		boolean result = false;
-		if (verificarCampos(camposPerfilJugador, false)) {
-			// if (imgJugador.getSrc() != "../../Recursos/Imagenes/noFoto.jpg")
-			// {
-			// if (verificarCampos(camposPerfilFamiliar, false)) {
-			if (cmbParentesco.getSelectedIndex() != -1) {
-				// if (imgFamiliar.getSrc() !=
-				// "../../Recursos/Imagenes/noFoto.jpg") {
-				result = true;
-				// }
-			}
-			// }
-			// }
-		}
-		return result;
-
-		/*
-		 * txtSegundoNombre txtSegundoApellido txtTelefonoHabitacion
-		 * txtTelefonoCelular spHorasSemanales txtSegundoNombreFamiliar
-		 * txtSegundoApellidoFamiliar txtTelefonoHabFamiliar
-		 * txtTelefonoCelFamiliar
-		 */
 	}
 
 	private void generarPlanillaInscripcion(String cedula) {
@@ -1714,7 +1671,9 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private void guardarDatoMedico() {
 		List<AfeccionJugador> afeccionJugador = new ArrayList<AfeccionJugador>();
 		datoMedico.setMedico(medico);
-		datoMedico.setObservacion(datoMedico.getObservacion().toUpperCase());
+		if (datoMedico.getObservacion() != null) {
+			datoMedico.setObservacion(datoMedico.getObservacion().toUpperCase());
+		}
 		if (checkPoints.get(Point.DATO_MEDICO)) {
 			servicioDatoMedico.actualizar(datoMedico);
 			afeccionJugador = guardarDatosAfeccionesToModelo();
@@ -1970,6 +1929,359 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			componente.setFocus(true);
 		}
 		return flag;
+	}
+
+	private boolean validarCampos(String[] camposValidar, String[] restriccion,
+			String origen, boolean mostrarMensaje) {
+		List<String> campos = Arrays.asList(camposValidar);
+		List<String> restr = Arrays.asList(restriccion);
+		boolean flag = true;
+		Iterator<String> iterador = campos.iterator();
+		Iterator<String> iter = restr.iterator();
+
+		while (iterador.hasNext() && flag) {
+			String e = iterador.next();
+			String r = iter.next();
+
+			Pattern patron = Pattern.compile(r);
+			Matcher valor = patron.matcher(e);
+			System.out.println(e);
+
+			if ((valor.find()) || (e == null)) {
+				flag = false;
+			}
+
+		}
+		if (!flag && mostrarMensaje) {
+			Mensaje.mostrarMensaje("Ingrese un valor valido del " + origen,
+					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+		}
+
+		return flag;
+	}
+
+	private boolean validarCampoNoObligatorio(String[] camposValidar,
+			String[] restriccion, boolean mostrarMensaje) {
+		List<String> campos = Arrays.asList(camposValidar);
+		List<String> restr = Arrays.asList(restriccion);
+		boolean flag = true;
+		Iterator<String> iterador = campos.iterator();
+		Iterator<String> iter = restr.iterator();
+
+		int i = 0;
+		while (iterador.hasNext() && flag) {
+			String e = iterador.next();
+			String r = iter.next();
+
+			System.out.print(i);
+			i++;
+			System.out.println(" " + e);
+
+			if ((e != null) && (e.trim() != "")) {
+				Pattern patron = Pattern.compile(r);
+				Matcher valor = patron.matcher(e);
+				if (valor.find()) {
+					flag = false;
+				}
+			}
+
+		}
+		if (!flag && mostrarMensaje) {
+			Mensaje.mostrarMensaje("Ingrese un valor válido.",
+					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+		}
+
+		return flag;
+	}
+
+	/**
+	 * Verifica que los campos obligatorios tengan valores y cumplan con las
+	 * restricciones definidas, notificando en los casos que no se cumpla
+	 * 
+	 * @param camposValidar
+	 *            arreglo de campos a validar
+	 * @param mostrarMensaje
+	 *            valor booleano para indicar si se debe mostar el mensaje de
+	 *            error en caso de presentarse
+	 * @return true si los campos son validos, en caso contrario false
+	 */
+	private boolean verificarCamposInscripcion() {
+		InputElement[] camposPerfilJugador = new InputElement[] {
+				cmbNacionalidad, txtCedula, txtPrimerNombre, txtPrimerApellido,
+				cmbGenero, dtboxFechaNac };
+
+		boolean result = false;
+		if (verificarCampos(camposPerfilJugador, true)) {
+			if (validarCampoNoObligatorio(
+					new String[] { jugadorBean.getSegundoNombre(),
+							jugadorBean.getSegundoApellido(),
+							jugadorBean.getTelefonoHabitacion().getNumero(),
+							jugadorBean.getTelefonoCelular().getNumero(),
+							jugadorBean.getCorreoElectronico() }, new String[] {
+							Restriccion.TEXTO_SIMPLE.getConstraint(),
+							Restriccion.TEXTO_SIMPLE.getConstraint(),
+							Restriccion.TELEFONO.getConstraint(),
+							Restriccion.TELEFONO.getConstraint(),
+							Restriccion.EMAIL.getConstraint() }, true)) {
+				if (jugadorBean.getFoto() != null) {
+					if (dtboxFechaNac.getValue() != null) {
+						if ((jugadorBean.getPaisNac() != null)
+								&& ((jugadorBean.getPaisNac().getNombre()
+										.equalsIgnoreCase("VENEZUELA")) ? (jugadorBean
+										.getParroquiaNac() != null) : true)) {
+							if ((jugadorBean.getParroquiaResi() != null)
+									&& (jugadorBean.getDireccion() != null)) {
+								if (((cmbCodArea.getSelectedIndex() >= 0) ? (jugadorBean
+										.getTelefonoHabitacion().getNumero() != null)
+										: true)
+										&& ((jugadorBean
+												.getTelefonoHabitacion()
+												.getNumero() != null) ? (cmbCodArea
+												.getSelectedIndex() >= 0)
+												: true)) {
+									if (((cmbCodCelular.getSelectedIndex() >= 0) ? (jugadorBean
+											.getTelefonoCelular().getNumero() != null)
+											: true)
+											&& ((jugadorBean
+													.getTelefonoCelular()
+													.getNumero() != null) ? (cmbCodCelular
+													.getSelectedIndex() >= 0)
+													: true)) {
+										if (verificarDocumentos(documentosPersonales)) {
+											if (jugadorBean.getTipoSangre()
+													.getTipoSangre() != null) {
+												if (medico.getNumeroColegio() != null) {
+													if (datoMedico
+															.getFechaInforme() != null ? !datoMedico
+															.getFechaInforme()
+															.after(new Date())
+															: false) {
+														if (verificarDocumentos(documentosMedicos)) {
+															if ((datoAcademico
+																	.getInstitucion() != null ? (datoAcademico
+																	.getInstitucion()
+																	.getNombre() != null)
+																	: false)
+																	&& (datoAcademico
+																			.getDatoBasicoByCodigoAnnoEscolar() != null)
+																	&& (datoAcademico
+																			.getDatoBasicoByCodigoCurso() != null)) {
+																if (verificarDocumentos(documentosAcademicos)) {
+																	if ((cmbCategoria
+																			.getSelectedIndex() >= 0)
+																			&& (cmbEquipo
+																					.getSelectedIndex() >= 0)) {
+																		if ((bboxNumero
+																				.getValue() != null) ? numeroDisponible(Integer
+																				.parseInt(bboxNumero
+																						.getValue()))
+																				: false) {
+																			if ((jugadorBean
+																					.getPeso() != 0)
+																					&& (jugadorBean
+																							.getAltura() != 0)) {
+																				if ((jugadorBean
+																						.getTallaCamisa() != null)
+																						&& (jugadorBean
+																								.getTallaPantalon() != null)
+																						&& (jugadorBean
+																								.getTallaCalzado() != null)) {
+																					boolean rep = false;
+																					if (familiares
+																							.size() > 0) {
+																						for (int p = 0; p < familiares
+																								.size(); p++) {
+																							System.out
+																									.println("FAMILIAR");
+																							if (validarCampos(
+																									new String[] {
+																											familiares
+																													.get(p)
+																													.getCedulaCompleta(),
+																											familiares
+																													.get(p)
+																													.getPrimerNombre(),
+																											familiares
+																													.get(p)
+																													.getPrimerApellido() },
+																									new String[] {
+																											Restriccion.CEDULA_COMPLETA
+																													.getConstraint(),
+																											Restriccion.TEXTO_SIMPLE
+																													.getConstraint(),
+																											Restriccion.TEXTO_SIMPLE
+																													.getConstraint() },
+																									"familiar.",
+																									true)) {
+																								System.out
+																										.println("PASO FAMILIAR");
+																								if (familiares
+																										.get(p)
+																										.getParentesco() != null) {
+																									if (familiares
+																											.get(p)
+																											.getFoto() != null) {
+																										if ((familiares
+																												.get(p)
+																												.getParroquiaResi() != null)
+																												&& (familiares
+																														.get(p)
+																														.getDireccion() != null)) {
+																											if (familiares
+																													.get(p)
+																													.isRepresentante()) {
+																												rep = true;
+																											}
+																											if (validarCampoNoObligatorio(
+																													new String[] {
+																															familiares
+																																	.get(p)
+																																	.getSegundoNombre(),
+																															familiares
+																																	.get(p)
+																																	.getSegundoApellido(),
+																															familiares
+																																	.get(p)
+																																	.getTelefonoHabitacion()
+																																	.getTelefonoCompleto(),
+																															familiares
+																																	.get(p)
+																																	.getTelefonoCelular()
+																																	.getTelefonoCompleto() },
+																													new String[] {
+																															Restriccion.TEXTO_SIMPLE
+																																	.getConstraint(),
+																															Restriccion.TEXTO_SIMPLE
+																																	.getConstraint(),
+																															Restriccion.TELEFONO_COMPLETO
+																																	.getConstraint(),
+																															Restriccion.TELEFONO_COMPLETO
+																																	.getConstraint() },
+																													true)) {
+																												if ((familiares
+																														.get(p)
+																														.getComisionesFamiliar()
+																														.size() > 0)
+																														&& cmbComisiones
+																																.getSelectedIndex() <= 0) {
+																													if (rep) {
+																														result = true;
+																													} else {
+																														mostrarError("Debe seleccionar un familiar como representante!");
+																													}
+																												} else {
+																													mostrarError("Verificar Datos de Comisionesdel famliar "
+																															+ familiares
+																																	.get(p)
+																																	.getPrimerNombre()
+																															+ " "
+																															+ familiares
+																																	.get(p)
+																																	.getPrimerApellido()
+																															+ "!");
+																													break;
+																												}
+																											}
+																										} else {
+																											mostrarError("Verificar datos de residencia del famliar "
+																													+ familiares
+																															.get(p)
+																															.getPrimerNombre()
+																													+ " "
+																													+ familiares
+																															.get(p)
+																															.getPrimerApellido()
+																													+ "!");
+																											break;
+																										}
+																									} else {
+																										mostrarError("Verificar foto del famliar "
+																												+ familiares
+																														.get(p)
+																														.getPrimerNombre()
+																												+ " "
+																												+ familiares
+																														.get(p)
+																														.getPrimerApellido()
+																												+ "!");
+																										break;
+																									}
+																								} else {
+																									mostrarError("Verificar datos de parestesco del famliar "
+																											+ familiares
+																													.get(p)
+																													.getPrimerNombre()
+																											+ " "
+																											+ familiares
+																													.get(p)
+																													.getPrimerApellido()
+																											+ "!");
+																									break;
+																								}
+																							}
+																						}
+																					} else {
+																						mostrarError("Debe ingresar datos de familiar");
+																					}
+																				} else {
+																					mostrarError("Verifique datos de indumentaria!");
+																				}
+																			} else {
+																				mostrarError("Verifique información física del jugador!");
+																			}
+																		} else {
+																			mostrarError("Número dorsal seleccionado no está disponible");
+																		}
+																	} else {
+																		mostrarError("Verifique información de equipo!");
+																	}
+																} else {
+																	mostrarError("Verificar documento academico!");
+																}
+															} else {
+																mostrarError("Verifique información de institución educativa!");
+															}
+														} else {
+															mostrarError("Verificar documento medico!");
+														}
+													} else {
+														mostrarError("Indique fecha de informe medico!");
+													}
+												} else {
+													mostrarError("Indique información de medico!");
+												}
+											} else {
+												mostrarError("Verificar Tipo de Sangre del Jugador!");
+											}
+										} else {
+											mostrarError("Verificar documento personal!");
+										}
+									} else {
+										mostrarError("Verificar datos de Telefono Celular del Jugador!");
+									}
+								} else {
+									mostrarError("Verificar datos de Telefono Habitación del Jugador!");
+								}
+							} else {
+								mostrarError("Indique datos de residencia del jugador!");
+							}
+						} else {
+							mostrarError("Indique datos de lugar de Nacimiento!");
+						}
+					} else {
+						mostrarError("Defina la fecha de Nacimiento!");
+					}
+				} else {
+					mostrarError("Seleccione una foto para el jugador!");
+				}
+			}
+		}
+		return result;
+	}
+
+	public void mostrarError(String msj) { // Recibir componente
+		Mensaje.mostrarMensaje(msj, Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+		// componente.setFocus(true);
 	}
 
 	public void cancelar() {
