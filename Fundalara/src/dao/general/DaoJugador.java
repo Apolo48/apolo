@@ -1,10 +1,14 @@
 package dao.general;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import modelo.Anuario;
+import modelo.DatoBasico;
 import modelo.Familiar;
 import modelo.Jugador;
+import modelo.LapsoDeportivo;
 import modelo.Persona;
 import modelo.PersonaNatural;
 import modelo.RetiroTraslado;
@@ -16,6 +20,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+
+import comun.EstatusRegistro;
+import comun.TipoDatoBasico;
 
 import dao.generico.GenericDao;
 
@@ -93,12 +100,15 @@ public class DaoJugador extends GenericDao {
 		tx.commit();
 	}
 
-	public List buscarJugadores(String filtro2, String filtro3, String filtro4,
+	public List<Jugador> buscarJugadores(String filtro2, String filtro3, String filtro4,
 			String filtro1, char estatus) {
 		Session session = getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
-		if (estatus == 'E') {
-			Criteria c = session.createCriteria(Jugador.class)
+		List<Jugador> lista = new ArrayList<Jugador>();
+		Criteria c = null;
+		switch (estatus) {
+		case 'E':
+			c = session.createCriteria(Jugador.class)
 					.add(Restrictions.eq("estatus", estatus))
 					.add(Restrictions.like("cedulaRif", filtro2 + "%"));
 			if (filtro1 != "") {
@@ -111,19 +121,46 @@ public class DaoJugador extends GenericDao {
 			Criteria c1 = session.createCriteria(RetiroTraslado.class).add(
 					Restrictions.eq("estatus", 'A'));
 			List<RetiroTraslado> lista1 = c1.list();
-			List<Jugador> lista = new ArrayList<Jugador>();
+
 			for (int i = 0; i < lista2.size(); i++) {
 				for (int j = 0; j < lista1.size(); j++) {
 					if (lista2.get(i).getCedulaRif()
 							.equals(lista1.get(j).getJugador().getCedulaRif())) {
 						lista.add(lista2.get(i));
-
 					}
 				}
 			}
-			return lista;
-		} else {
-			Criteria c = session.createCriteria(Jugador.class)
+			break;
+		case 'R':
+			DatoBasico tipoLapso = new DaoDatoBasico().buscarTipo(
+					TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR");
+			LapsoDeportivo lapsoDeportivo = new LapsoDeportivo();
+
+			Criteria cLapsoDeportivo = session
+					.createCriteria(LapsoDeportivo.class)
+					.add(Restrictions.eq("datoBasico", tipoLapso))
+					.add(Restrictions.eq("estatus", 'A'));
+			lapsoDeportivo = (LapsoDeportivo) cLapsoDeportivo.uniqueResult();
+			if (lapsoDeportivo != null) {
+				c = session
+						.createCriteria(Jugador.class)
+						.add(Restrictions.eq("estatus", EstatusRegistro.ACTIVO))
+						.add(Restrictions.not(Restrictions.between(
+								"fechaInscripcion",
+								lapsoDeportivo.getFechaInicio(),
+								lapsoDeportivo.getFechaFin())))
+						.add(Restrictions.like("cedulaRif", filtro2 + "%"));
+				if (filtro1 != "") {
+					c.add(Restrictions.eq("numero", Integer.valueOf(filtro1)));
+				}
+				c.createCriteria("personaNatural")
+						.add(Restrictions.like("primerNombre", filtro3 + "%"))
+						.add(Restrictions.like("primerApellido", filtro4 + "%"));
+				lista = c.list();
+			}
+			break;
+		default:
+			c = session.createCriteria(Jugador.class)
 					.add(Restrictions.eq("estatus", estatus))
 					.add(Restrictions.like("cedulaRif", filtro2 + "%"));
 			if (filtro1 != "") {
@@ -132,11 +169,12 @@ public class DaoJugador extends GenericDao {
 			c.createCriteria("personaNatural")
 					.add(Restrictions.like("primerNombre", filtro3 + "%"))
 					.add(Restrictions.like("primerApellido", filtro4 + "%"));
-			List<Jugador> lista = c.list();
+			lista = c.list();
 
-			return lista;
+			break;
 		}
 
+		return lista;
 	}
 
 	/**
@@ -155,8 +193,11 @@ public class DaoJugador extends GenericDao {
 	}
 
 	/**
-	 * Actualiza los datos asociados al jugador, a su nuevo identificador (cedula generada)
-	 * @param jugador datos del jugador
+	 * Actualiza los datos asociados al jugador, a su nuevo identificador
+	 * (cedula generada)
+	 * 
+	 * @param jugador
+	 *            datos del jugador
 	 * @return cedula generada
 	 */
 	public String actualizarDatosJugador(Jugador jugador) {
@@ -215,30 +256,29 @@ public class DaoJugador extends GenericDao {
 						"DELETE FROM persona_natural WHERE " + "cedula_rif='"
 								+ cedulaActual + "'",
 						"DELETE FROM persona WHERE " + "cedula_rif='"
-								+ cedulaActual + "'"
-				};
+								+ cedulaActual + "'" };
 
 				Session session = getSession();
 				tx = session.beginTransaction();
-				SQLQuery sqlQuery =null;
-				//Duplicamos los datos del jugador
+				SQLQuery sqlQuery = null;
+				// Duplicamos los datos del jugador
 				for (String insert : inserts) {
-					 sqlQuery = session.createSQLQuery(insert);  
-					 sqlQuery.executeUpdate();
+					sqlQuery = session.createSQLQuery(insert);
+					sqlQuery.executeUpdate();
 				}
-				//Actualizamos claves
+				// Actualizamos claves
 				for (String update : updates) {
-					 sqlQuery = session.createSQLQuery(update);  
-					 sqlQuery.executeUpdate();
+					sqlQuery = session.createSQLQuery(update);
+					sqlQuery.executeUpdate();
 				}
-				//Eliminamos el registro con cedula temporal
+				// Eliminamos el registro con cedula temporal
 				for (String delete : deletions) {
-					 sqlQuery = session.createSQLQuery(delete);  
-					 sqlQuery.executeUpdate();
+					sqlQuery = session.createSQLQuery(delete);
+					sqlQuery.executeUpdate();
 				}
 				tx.commit();
 			} catch (HibernateException e) {
-				if (tx!=null){
+				if (tx != null) {
 					tx.rollback();
 				}
 			}

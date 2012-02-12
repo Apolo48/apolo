@@ -39,5 +39,9 @@ public class EstatusRegistro {
 	 * inactivo por lesión o sanción
 	 */
 	public static final char SUSPENDIDO = 'S';
+	
+	public static final char REGULAR = 'R';
+	
+	public static final char PLAN_VACACIONAL = 'P';
 
 }
