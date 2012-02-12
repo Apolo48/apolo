@@ -44,16 +44,16 @@ public class DaoCategoria extends GenericDao {
 				.add(Restrictions.eq("estatus", 'A'));
 		return (Categoria) c.uniqueResult();
 	}
-	
+
 	public List<Categoria> buscarCategoriasPorEdad(int edad) {
 		Session session = this.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
 		Criteria c = session.createCriteria(Categoria.class)
 				.add(Restrictions.le("edadInferior", edad))
 				.add(Restrictions.eq("estatus", 'A'));
-		return  c.list();
+		return c.list();
 	}
-	
+
 	/**
 	 * Busca las categorias superiores a la que le corresponde a un jugador
 	 * 
@@ -73,45 +73,67 @@ public class DaoCategoria extends GenericDao {
 		}
 		return listCategoria;
 	}
-	
+
 	/**
 	 * Agregados para ConfigurarCategoria
 	 */
 	public List listar(Class o) {
-		//Session session = getSession();
+		// Session session = getSession();
 		Session session = SessionManager.getSession();
-		Transaction tx =  session.beginTransaction();
+		Transaction tx = session.beginTransaction();
 		List lista = session.createCriteria(o).list();
 		return lista;
 	}
-	
-	
-	/*//Usado antes de 08/02
-	public List listar(Class o) {
-		Session session = getSession();
-		Transaction tx =  session.beginTransaction();
-		List lista = session.createCriteria(o).add(Restrictions.eq("estatus", 'A')).list();
-		return lista;
-	}*/
-	
+
+	/*
+	 * //Usado antes de 08/02 public List listar(Class o) { Session session =
+	 * getSession(); Transaction tx = session.beginTransaction(); List lista =
+	 * session.createCriteria(o).add(Restrictions.eq("estatus", 'A')).list();
+	 * return lista; }
+	 */
+
 	public boolean buscarPorCodigo(Categoria categoria) {
-		//Categoria categoria;
+		// Categoria categoria;
 		boolean sw;
 		Session session = SessionManager.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
-		Query query = session.createSQLQuery(
-				"select * from equipo,categoria where categoria.estatus='A' and equipo.estatus='A'and equipo.codigo_categoria=categoria.codigo_categoria and equipo.codigo_categoria='"
-						+ categoria.getCodigoCategoria() + "'").addEntity(Categoria.class);
-		
+		Query query = session
+				.createSQLQuery(
+						"select * from equipo,categoria where categoria.estatus='A' and equipo.estatus='A'and equipo.codigo_categoria=categoria.codigo_categoria and equipo.codigo_categoria='"
+								+ categoria.getCodigoCategoria() + "'")
+				.addEntity(Categoria.class);
+
 		List<Object> lista = query.list();
-	
-		if (lista.size()!=0) {
-			sw=false;
+
+		if (lista.size() != 0) {
+			sw = false;
 		} else {
-			sw=true;
+			sw = true;
 		}
 		tx.commit();
 		return sw;
+	}
+
+	
+	/**
+	 * Busca las categorias superiores a la que le corresponden a un jugador
+	 * para el ascenso
+	 * @param edad
+	 *            del jugador
+	 * @return Lista de categorias superiores sino null
+	 */
+	public List<Categoria> buscarCategoriasAscenso(int edad) {
+		Session session = this.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(Categoria.class)
+ 				.add(Restrictions.gt("edadInferior", edad))
+				.add(Restrictions.gt("edadSuperior", edad))
+				.add(Restrictions.eq("estatus", 'A'));
+		List<Categoria> listCategoria = c.list();
+		if (listCategoria.size() > 1) {
+			listCategoria = listCategoria.subList(0, 2);
+		}
+		return listCategoria;
 	}
 	
 }

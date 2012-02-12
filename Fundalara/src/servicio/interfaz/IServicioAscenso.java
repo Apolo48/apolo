@@ -15,8 +15,5 @@ public interface IServicioAscenso {
 
 	public abstract List<Ascenso> listar();
 	
-	public abstract void actualizarAscenso(Roster r);
-	
-	public abstract Ascenso buscarAscenso(Roster r);
-	
+	public abstract void actualizarAscenso(Roster r);	
 }

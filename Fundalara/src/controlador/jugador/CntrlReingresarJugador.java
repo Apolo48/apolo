@@ -74,6 +74,7 @@ import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioPersona;
 import servicio.implementacion.ServicioRecaudoPorProceso;
 import servicio.implementacion.ServicioInstitucion;
+import servicio.implementacion.ServicioRetiroTraslado;
 import servicio.implementacion.ServicioRoster;
 import servicio.implementacion.ServicioTallaPorJugador;
 
@@ -260,6 +261,7 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 	private ServicioComisionFamiliar servicioComisionFamiliar;
 	private ServicioAnuario servicioAnuario;
 	private ServicioDocumentoAcreedor servicioDocumentoAcreedor;
+	private ServicioRetiroTraslado servicioRetiroTraslado;
 
 	// Modelos
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
@@ -1366,6 +1368,9 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		String cedula = jugadorBean.getCedulaCompleta();
 		if (verificarCamposInscripcion()) {
 			guadarDatos(EstatusRegistro.ACTIVO);
+			if (estatusJugador==EstatusRegistro.ELIMINADO){
+				servicioRetiroTraslado.reingresarJugador(jugador);
+			}
 			actualizarAnuario(roster);
 			generarCompromisoPago(cedula);
 			Mensaje.mostrarMensaje(
@@ -1385,7 +1390,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		servicioDocumentoAcreedor.crearCompromisos(representante
 				.getPersonaNatural().getPersona(), persona, tipoLapso,
 				tipoInscripcion);
-
 	}
 
 	private void actualizarAnuario(Roster roster) {

@@ -6,6 +6,7 @@ import servicio.interfaz.IServicioRetiroTraslado;
 
 import dao.general.DaoRetiroTraslado;
 
+import modelo.Jugador;
 import modelo.RetiroTraslado;
 
 public class ServicioRetiroTraslado implements IServicioRetiroTraslado {
@@ -44,6 +45,11 @@ public class ServicioRetiroTraslado implements IServicioRetiroTraslado {
 
 	public int contarfilas (RetiroTraslado r, int operacion){
 		return daoRetiroTraslado.contarfilas(r,operacion);
+	}
+	
+	
+	public void reingresarJugador(Jugador jugador){
+		daoRetiroTraslado.reingresarJugador(jugador);
 	}
 		
 }
