@@ -8,6 +8,7 @@ import modelo.Anuario;
 import modelo.DatoBasico;
 import modelo.Familiar;
 import modelo.Jugador;
+import modelo.JugadorPlan;
 import modelo.LapsoDeportivo;
 import modelo.Persona;
 import modelo.PersonaNatural;
@@ -100,31 +101,37 @@ public class DaoJugador extends GenericDao {
 		Jugador jugador2 = (Jugador) c3.uniqueResult();
 		jugador2.setEstatus('E');
 		session.update(jugador2);
-		
+
 		Criteria c4 = session.createCriteria(Roster.class)
 				.add(Restrictions.eq("jugador", jugador))
 				.add(Restrictions.eq("estatus", 'A'));
 
 		Roster roster = (Roster) c4.uniqueResult();
-		if (roster!=null){
+		if (roster != null) {
 			roster.setEstatus('E');
 			session.update(roster);
 		}
-		
+
 		tx.commit();
 	}
 
 	/**
 	 * Busca los jugadores segun los filtros seleccionados
-	 * @param filtro2 filtro de la cedula
-	 * @param filtro3 filtro del primer nombre
-	 * @param filtro4 filtro del primer apellido
-	 * @param filtro1 filtro del numero de camiseta
-	 * @param estatus estatus del registro
+	 * 
+	 * @param filtro2
+	 *            filtro de la cedula
+	 * @param filtro3
+	 *            filtro del primer nombre
+	 * @param filtro4
+	 *            filtro del primer apellido
+	 * @param filtro1
+	 *            filtro del numero de camiseta
+	 * @param estatus
+	 *            estatus del registro
 	 * @return List de Jugadores filtrados
 	 */
-	public List<Jugador> buscarJugadores(String filtro2, String filtro3, String filtro4,
-			String filtro1, char estatus) {
+	public List<Jugador> buscarJugadores(String filtro2, String filtro3,
+			String filtro4, String filtro1, char estatus) {
 		Session session = getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
 		List<Jugador> lista = new ArrayList<Jugador>();
@@ -307,6 +314,102 @@ public class DaoJugador extends GenericDao {
 			}
 		}
 		return nuevaCedula;
+	}
+
+	/**
+	 * Actualiza todos los registros del jugador con la nueva cédula
+	 * 
+	 * @param jugador
+	 *            Objeto Jugador seleccionado y la nueva cédula del jugador
+	 */
+	public void cambiarCedula(String nuevaCedula, Jugador jugador) {
+		String cedulaActual = "";
+		Transaction tx = null;
+		cedulaActual = jugador.getCedulaRif();
+		try {
+			String inserts[] = {
+					"INSERT INTO persona (SELECT '"
+							+ nuevaCedula
+							+ "', codigo_tipo_persona, codigo_parroquia, telefono_habitacion,fecha_ingreso, correo_electronico, twitter, direccion, fecha_egreso, estatus FROM persona WHERE cedula_rif='"
+							+ cedulaActual + "')",
+					"INSERT INTO persona_natural (SELECT '"
+							+ nuevaCedula
+							+ "', codigo_genero, celular, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido,fecha_nacimiento, foto,estatus FROM persona_natural WHERE cedula_rif='"
+							+ cedulaActual + "' )",
+					"INSERT INTO jugador (SELECT '"
+							+ nuevaCedula
+							+ "', codigo_pais, codigo_parroquia_nacimiento, numero, tipo_de_sangre, peso, altura, brazo_lanzar, posicion_bateo, estatus, fecha_inscripcion FROM jugador WHERE cedula_rif='"
+							+ cedulaActual + "')",
+					"INSERT INTO jugador_plan (SELECT '"
+							+ nuevaCedula
+							+ "', codigo_tipo_jugador, codigo_talla_indumentaria,	apellido, nombre, estatus, fecha_nacimiento FROM jugador_plan WHERE cedula_rif='"
+							+ cedulaActual + "')" };
+
+			String updates[] = {
+					"UPDATE roster SET cedula_rif='" + nuevaCedula
+							+ "' WHERE cedula_rif='" + cedulaActual + "'",
+					"UPDATE dato_medico SET cedula_rif='" + nuevaCedula
+							+ "' WHERE cedula_rif='" + cedulaActual + "'",
+					"UPDATE dato_academico SET cedula_rif='" + nuevaCedula
+							+ "' WHERE cedula_rif='" + cedulaActual + "'",
+					"UPDATE dato_social SET cedula_rif='" + nuevaCedula
+							+ "' WHERE cedula_rif='" + cedulaActual + "'",
+					"UPDATE talla_por_jugador SET cedula_rif='" + nuevaCedula
+							+ "' WHERE cedula_rif='" + cedulaActual + "'",
+					"UPDATE documento_personal SET cedula_rif='" + nuevaCedula
+							+ "' WHERE cedula_rif='" + cedulaActual + "'",
+					"UPDATE documento_acreedor SET cedula_atleta='"
+							+ nuevaCedula + "' WHERE cedula_atleta='"
+							+ cedulaActual + "'",
+					"UPDATE familiar_jugador SET cedula_rif='" + nuevaCedula
+							+ "' WHERE cedula_rif='" + cedulaActual + "'",
+					"UPDATE dato_deportivo SET cedula_rif='" + nuevaCedula
+							+ "'WHERE cedula_rif='" + cedulaActual + "'",
+					"UPDATE retiro_traslado SET cedula_rif='" + nuevaCedula
+							+ "' WHERE cedula_rif='" + cedulaActual + "'",
+					"UPDATE dato_conducta SET cedula_rif='" + nuevaCedula
+							+ "' WHERE cedula_rif='" + cedulaActual + "'",
+					"UPDATE roster_plan SET cedula_rif='" + nuevaCedula
+							+ "' WHERE cedula_rif='" + cedulaActual + "'",
+					"UPDATE representante_jugador_plan SET cedula_jugador='"
+							+ nuevaCedula + "' WHERE cedula_jugador='"
+							+ cedulaActual + "'" };
+
+			String deletions[] = {
+					"DELETE FROM jugador_plan WHERE cedula_rif='"
+							+ cedulaActual + "'",
+					"DELETE FROM jugador WHERE cedula_rif='" + cedulaActual
+							+ "'",
+					"DELETE FROM persona_natural WHERE cedula_rif='"
+							+ cedulaActual + "'",
+					"DELETE FROM persona WHERE cedula_rif='" + cedulaActual
+							+ "'" };
+
+			Session session = getSession();
+			tx = session.beginTransaction();
+			SQLQuery sqlQuery = null;
+			// Duplica los datos del jugador
+			for (String insert : inserts) {
+				sqlQuery = session.createSQLQuery(insert);
+				sqlQuery.executeUpdate();
+			}
+			// Actualiza claves
+			for (String update : updates) {
+				sqlQuery = session.createSQLQuery(update);
+				sqlQuery.executeUpdate();
+			}
+			// Elimina el registro con cédula temporal
+			for (String delete : deletions) {
+				sqlQuery = session.createSQLQuery(delete);
+				sqlQuery.executeUpdate();
+			}
+
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+		}
 	}
 
 }

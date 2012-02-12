@@ -67,5 +67,10 @@ public class ServicioJugador implements IServicioJugador {
 	public String actualizarDatosJugador(Jugador jugador) {
 		return daoJugador.actualizarDatosJugador(jugador);
 	}
+	
+	@Override
+	public void cambiarCedula(String nuevaCedula, Jugador jugador) {
+		 daoJugador.cambiarCedula(nuevaCedula, jugador);
+	}
 
 }
