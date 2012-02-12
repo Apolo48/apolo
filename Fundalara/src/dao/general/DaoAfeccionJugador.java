@@ -48,7 +48,7 @@ public class DaoAfeccionJugador extends GenericDao {
 	 */
 	public void actualizar(List<AfeccionJugador> afeccionesJug,
 			DatoMedico datoMedico) {
-		int codigoDatoMedico = datoMedico.getCodigoDatoMedico();
+		//int codigoDatoMedico = datoMedico.getCodigoDatoMedico();
 		int p = 0;
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
@@ -56,7 +56,8 @@ public class DaoAfeccionJugador extends GenericDao {
 		 afecciones.addAll(afeccionesJug);
 		Criteria c = sesion.createCriteria(AfeccionJugador.class)
 				.createCriteria("datoMedico")
-				.add(Restrictions.eq("codigoDatoMedico", codigoDatoMedico));
+			//	.add(Restrictions.eq("codigoDatoMedico", codigoDatoMedico))
+				.add(Restrictions.eq("jugador", datoMedico.getJugador()))	;
 		List<AfeccionJugador> afeccionesAlmacenadas = (List<AfeccionJugador>) c.list();
 		for (AfeccionJugador afeccionAlmacenada : afeccionesAlmacenadas) {
 			p = buscarAfeccionPorCodigo(afecciones, afeccionAlmacenada

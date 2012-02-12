@@ -72,4 +72,13 @@ public class ServicioRoster implements IServicioRoster {
 		}		
 		return jugad;
 	}
+	
+	
+	public Roster buscarRosterPendiente(Jugador jugador){
+		return daoRoster.buscarRosterPendiente(jugador);
+	}
+	
+	public void confirmarRoster(Roster roster){
+		daoRoster.confirmarRoster(roster);
+	}
 }
