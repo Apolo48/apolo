@@ -574,6 +574,11 @@
 	<bean id="servicioHorario" class="servicio.implementacion.ServicioHorario">
 		<property name="daoHorario" ref="daoHorario"></property>
 	</bean>
+	
+	<bean id="daoHorarioPlanTemporada" class="dao.general.DaoHorarioPlanTemporada"></bean>
+	<bean id="servicioHorarioPlanTemporada" class="servicio.implementacion.ServicioHorarioPlanTemporada">
+		<property name="daoHorarioPlanTemporada" ref="daoHorarioPlanTemporada"></property>
+	</bean>
 
 	<bean id="daoPersonalEquipo" class="dao.general.DaoPersonalEquipo"></bean>
 	<bean id="servicioPersonalEquipo" class="servicio.implementacion.ServicioPersonalEquipo">

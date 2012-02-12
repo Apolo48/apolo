@@ -266,20 +266,20 @@
 				
 				<groupbox style="border-color:orange" closable="false">
 					<caption label="Horarios"/>
-					<listbox id="HorarioP" mold="paging" pageSize="5"
-						model="@{winRegistrarPlanvacacional$composer.horariosPlan}">
+					<listbox id="listHorarioPlan" mold="paging" pageSize="5"
+						model="@{winRegistrarPlanVacacional$composer.horariosPlan, load-after='cmbEquipo.onChange'}">
 						<listhead>
 							<listheader width="30%" label="Día" />
 							<listheader width="35%" label="Hora Inicio" />
 							<listheader width="35%" label="Hora Fin" />
 						</listhead>
 						<listitem self="@{each='horarioP'}" value="horarioP">
-							<listcell visible="false"
-								label="@{horasP.horario.dia}" />
-							<listcell visible="false"
-								label="@{horasP.horario.horaInicio}" />
 							<listcell
-								label="@{horasP.horario.horaFin}" />
+								label="@{horarioP.horario.datoBasico.nombre}" />
+							<listcell
+								label="@{horarioP.horario.horaInicio, converter='controlador.jugador.converter.HourConverter'}" />
+							<listcell
+								label="@{horarioP.horario.horaFin, converter='controlador.jugador.converter.HourConverter'}" />
 						</listitem>
 					</listbox>
 				</groupbox>

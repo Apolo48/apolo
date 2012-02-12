@@ -27,6 +27,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
@@ -86,8 +87,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	// Plan Vacacional
 	private Combobox cmbEquipo;
 	private Combobox cmbCategoria;
-	private Combobox cmbTurno;
-	private Combobox cmbHorario;
+	private Listbox listHorarioPlan;
 	// Botones
 	private Button btnCatalogoJugador;
 	private Button btnCatalogoFamiliar;
@@ -179,7 +179,6 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 			RepresentanteJugadorPlan representanteJugadorPlan) {
 		this.representanteJugadorPlan = representanteJugadorPlan;
 	}
-
 	
 	public Categoria getCategoria() {
 		return categoria;
@@ -283,7 +282,10 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	}
 
 	public List<HorarioPlanTemporada> getHorariosPlan() {
-		return servicioHorarioPlanTemporada.buscarPorEquipo(equipo);
+		if (cmbEquipo.getSelectedIndex() >= 0) {
+			return servicioHorarioPlanTemporada.buscarPorEquipo(equipo);
+		}
+		return null;
 	}
 
 	// Eventos
@@ -559,7 +561,6 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		txtNombre.setReadonly(flag);
 		txtApellido.setReadonly(flag);
 		dtboxFechaNac.setReadonly(flag);
-		//cmbTipoJugador.setDisabled(flag);
 		cmbCategoria.setDisabled(flag);
 		cmbNacionalidad.setDisabled(flag);
 		cmbNacionalidadF.setDisabled(flag);
@@ -571,7 +572,6 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		txtTelefono.setReadonly(flag);
 		cmbCodCelular.setDisabled(flag);
 		txtCelular.setReadonly(flag);
-		//btnCatalogoFamiliar.setDisabled(flag);
 	}
 
 	/**
@@ -585,13 +585,11 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 			disabledFields(flag);//Deshabilitar campos
 		}
 		else {
-			//btnCatalogoJugador.setVisible(!flag);
 			txtCedula.setFocus(true);
 			disabledFields(!flag);//Habilitar campos
 		}
 	}
 
-	// modificaciones echas hasta ahora. por Luis
 	public void guardar() throws InterruptedException {
 		if ((cmbTipoJugador.getSelectedIndex() >= 0)
 				&& (txtCedula.getText() != "") && (txtCedulaF.getText() != "")) {
