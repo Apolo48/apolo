@@ -889,6 +889,13 @@
 										<treecell label="Sistema" />
 									</treerow>
 									<treechildren>
+											<treeitem>
+											<treerow>
+												<treecell
+													label="Cambiar Cédula Jugador"
+													onClick='enlace("Jugador/Vistas/frmCambiarCedula.zul")' />
+											</treerow>
+										</treeitem>
 										<treeitem>
 											<treerow>
 												<treecell
