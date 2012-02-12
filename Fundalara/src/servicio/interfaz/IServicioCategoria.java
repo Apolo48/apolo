@@ -8,6 +8,7 @@ import modelo.Categoria;
  * Interfaz  que define el contrato de los servicios  para el acceso y manejo de las categorias de los jugadores 
  * @author Robert A
  * @author German L
+ * @author Maria F
  * @version 0.1 30/12/2011
  *
  */
@@ -28,5 +29,7 @@ public interface IServicioCategoria {
 	public abstract List<Categoria> buscarCategoriasPorEdad(int edad);
 	
 	public boolean buscarPorCodigo (Categoria categoria);
+	
+	public abstract List<Categoria> buscarCategoriasAscenso(int edad);
 	
 }

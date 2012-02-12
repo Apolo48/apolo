@@ -56,9 +56,4 @@ public class ServicioAscenso implements IServicioAscenso {
 		daoAscenso.actualizar(r);
 	}
 
-	@Override
-	public Ascenso buscarAscenso(Roster r) {
-		return daoAscenso.buscarAscenso(r);
-	}
-
 }

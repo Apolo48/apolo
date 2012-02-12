@@ -8,8 +8,19 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import modelo.Jugador;
 import modelo.RetiroTraslado;
 import modelo.DatoBasico;
+
+/**
+ * Clase de acceso y manejo de los datos relacionados a los retiros y traslados ocurridos en la divisa
+ * 
+ * @author Robert A
+ * @author German L
+ * @author Edgar L
+ * @version 0.1.9 10/01/2012
+ * 
+ */
 
 public class DaoRetiroTraslado extends GenericDao {
 
@@ -32,5 +43,24 @@ public class DaoRetiroTraslado extends GenericDao {
 		return cantidad;
 	}
 	
-
+	/**
+	 * Actualiza el estatus de un retiro a 'jugador reingresado'
+	 * @param jugador jugador que reingresa a la divisa
+	 */
+	public void reingresarJugador(Jugador jugador){
+		Session session = getSession();
+		Transaction tx =  session.beginTransaction();
+		Criteria criteria = session.createCriteria(RetiroTraslado.class)
+		.add(Restrictions.eq("jugador", jugador))
+		.add(Restrictions.eq("estatus", 'A'));
+		
+		RetiroTraslado retiro= (RetiroTraslado) criteria.uniqueResult();
+		if (retiro!=null){
+			retiro.setEstatus('R');
+			session.update(retiro);
+		}
+		tx.commit();
+	}
+	
 }
+
