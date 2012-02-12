@@ -600,11 +600,15 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 				//JugadorPlan
 				String cedula = cmbNacionalidad.getValue()+"-"+txtCedula.getValue();
 				jugadorPlan.setCedulaRif(cedula);
-				jugadorPlan.setNombre(txtNombre.getText());
-				jugadorPlan.setApellido(txtApellido.getText());
+				jugadorPlan.setNombre(txtNombre.getValue().toUpperCase());
+				jugadorPlan.setApellido(txtApellido.getValue().toUpperCase());
 				jugadorPlan.setFechaNacimiento(dtboxFechaNac.getValue());
-				jugadorPlan.setDatoBasico((DatoBasico) cmbTipoJugador.getSelectedItem().getValue());
-				TallaPorIndumentaria talla = servicioTallaPorIndumentaria.buscarPorDatoBasico((DatoBasico) cmbTipoJugador.getSelectedItem().getValue());
+				DatoBasico tipoJugador = servicioDatoBasico.buscarTipo(TipoDatoBasico.TIPO_JUGADOR, cmbTipoJugador.getSelectedItem().getValue().toString());
+				System.out.println(tipoJugador.getNombre());
+				jugadorPlan.setDatoBasico(tipoJugador);
+				DatoBasico datoTalla = servicioDatoBasico.buscarTipo(TipoDatoBasico.TALLA_INDUMENTARIA, cmbTalla.getSelectedItem().getValue().toString());
+				System.out.println(datoTalla.getNombre());
+				TallaPorIndumentaria talla = servicioTallaPorIndumentaria.buscarPorDatoBasico(datoTalla); 
 				jugadorPlan.setTallaPorIndumentaria(talla);
 				jugadorPlan.setEstatus('A');
 				//jugadorPlan.setJugador(jugador);
@@ -627,14 +631,15 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 					}
 				}
 				persona.setDatoBasicoByCodigoTipoPersona(tipoPersona);
-				persona.setDireccion(txtDireccionHabRepr.getValue());
+				persona.setDireccion(txtDireccionHabRepr.getValue().toUpperCase());
 				persona.setTelefonoHabitacion(cmbCodArea+"-"+String.valueOf(txtTelefono.getValue()));
+				persona.setFechaIngreso(new Date());
 				persona.setEstatus('A');
 				servicioPersona.agregar(persona);
 				
 				personaNatural.setCedulaRif(cedulaFamiliar);
-				personaNatural.setPrimerNombre(txtNombreRepr.getValue());
-				personaNatural.setPrimerApellido(txtApellidoRepr.getValue());
+				personaNatural.setPrimerNombre(txtNombreRepr.getValue().toUpperCase());
+				personaNatural.setPrimerApellido(txtApellidoRepr.getValue().toUpperCase());
 				personaNatural.setCelular(cmbCodCelular+"-"+String.valueOf(txtCelular.getValue()));
 				personaNatural.setPersona(persona);
 				personaNatural.setEstatus('A');

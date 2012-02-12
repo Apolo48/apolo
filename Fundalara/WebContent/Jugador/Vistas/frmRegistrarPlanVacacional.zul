@@ -25,7 +25,7 @@
 									focus="true" width="70%">
 									<comboitem self="@{each='tipoI'}"
 										label="@{tipoI.nombre}"
-										value="@{tipoI.codigoDatoBasico}" />
+										value="@{tipoI.nombre}" />
 								</combobox>
 								<label value="(*)" style="color:red" />
 							</div>
@@ -55,16 +55,16 @@
 						</row>
 
 						<row style="border:none;">
-							<label value="Nombre" />
+							<label value="Primer Nombre" />
 							<div>
-								<textbox id="txtNombre"
+								<textbox id="txtNombre" style='text-transform:uppercase;'
 									value="@{controller.jugadorPlan.nombre}" maxlength="40"
 									width="84%" />
 								<label value="(*)" style="color:red" />
 							</div>
-							<label value="Apellido" width="90%" />
+							<label value="Primer Apellido" width="90%" />
 							<div>
-								<textbox id="txtApellido"
+								<textbox id="txtApellido" style='text-transform:uppercase;'
 									value="@{controller.jugadorPlan.apellido}" maxlength="40"
 									width="69%" />
 								<label value="(*)" style="color:red" />
@@ -95,10 +95,10 @@
 							<div>
 								<combobox id="cmbTalla" readonly="true"
 									selectedItem="@{controller.tipoIndumentaria}"
-									value="@{controller.jugadorPlan.tallaPorIndumentaria}" width="65%"
+									width="65%"
 									model="@{winRegistrarPlanVacacional$composer.tallasCamisa}">
 									<comboitem
-										self="@{each='tallaCamisa'}" label="@{tallaCamisa.nombre}" />
+										self="@{each='tallaCamisa'}" label="@{tallaCamisa.nombre}" value="@{tallaCamisa.nombre}"/>
 								</combobox>
 								<label value="(*)" style="color:red" />
 							</div>
@@ -135,15 +135,15 @@
 							</div>
 						</row>
 						<row style="border:none;">
-							<label value="Nombre" />
+							<label value="Primer Nombre" />
 							<div>
-								<textbox id="txtNombreRepr" width="84%"
+								<textbox id="txtNombreRepr" width="84%" style='text-transform:uppercase;'
 									value="@{controller.personaNatural.primerNombre}" />
 								<label value="(*)" style="color:red" />
 							</div>
-							<label value="Apellido" />
+							<label value="Primer Apellido" />
 							<div>
-								<textbox id="txtApellidoRepr" width="69%"
+								<textbox id="txtApellidoRepr" width="69%" style='text-transform:uppercase;'
 									value="@{controller.personaNatural.primerApellido}"/>
 								<label value="(*)" style="color:red" />
 							</div>
@@ -190,8 +190,9 @@
 							<label value="Dirección Habitación" />
 							<div>
 								<textbox
-									value="@{controller.persona.direccion}"
-									style='text-transform:uppercase;' maxlength="180" height="40px"
+									value="@{controller.persona.direccion}" 
+									style='text-transform:uppercase;'
+									maxlength="180" height="40px"
 									width="90%" multiline="true" id="txtDireccionHabRepr" />
 								<label value="(*)" style="color:red" />
 							</div>
@@ -238,7 +239,6 @@
 						<row style="border:none;">
 							<label value="Categoría" />
 							<div>
-
 								<combobox id="cmbCategoria"
 									value="-Seleccione-" selectedItem="@{controller.categoria}"
 									width="70%" readonly="true"
