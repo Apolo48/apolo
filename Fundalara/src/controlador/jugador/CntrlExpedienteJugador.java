@@ -22,10 +22,14 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+
+import javax.swing.ImageIcon;
 
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.AMedia;
@@ -41,6 +45,7 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioRoster;
@@ -50,7 +55,7 @@ import comun.EstatusRegistro;
 import comun.Ruta;
 
 public class CntrlExpedienteJugador extends GenericForwardComposer {
-	Component component;
+	private Window winExpediente;
 	private Component formulario;
 	private Image imgJugador;
 	private AnnotateDataBinder binder;
@@ -74,6 +79,20 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 	private PersonaNatural personaN = new PersonaNatural();
 	private String rutasGen = Ruta.GENERAL.getRutaVista();
 	
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		comp.setVariable("controller", this, false);
+		formulario  = comp;
+	}
+	
+	public Jugador getJugador() {
+		return jugador;
+	}
+
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
+	}
 	
 	public Textbox getTxtCedula() {
 		return txtCedula;
@@ -114,60 +133,39 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 	public void setTxtSegundoApellido(Textbox txtSegundoApellido) {
 		this.txtSegundoApellido = txtSegundoApellido;
 	}
-
-	@Override
-	public void doAfterCompose(Component comp) throws Exception {
-		// TODO Auto-generated method stub
-		super.doAfterCompose(comp);
-		comp.setVariable("controller", this, false);
-		formulario  = comp;
-	}
 	
 	// ---------------------------------------------------------------------------------------------------
-	public void showReportfromJrxml() throws JRException, IOException{
+	public void showReportfromJrxml() throws JRException, IOException{		
 		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
 		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
-		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
-		JRExporter exporter = new JRPdfExporter();
-		exporter.setParameters(parameters);
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT ,jaspPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,arrayOutputStream);
-		exporter.exportReport();
-		arrayOutputStream.close();
-		final AMedia amedia = new AMedia("Expediente.pdf","pdf","pdf/application", arrayOutputStream.toByteArray());
-		ifReport.setContent(amedia);
+		
+		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
+		final AMedia amedia = new AMedia("Expediente.pdf","pdf","application/pdf", archivo);
+				
+		Component visor = Executions.createComponents(rutasGen
+					+ "frmVisorDocumento.zul", null, null);
+			visor.setVariable("archivo", amedia, false);
 	}
 	// ---------------------------------------------------------------------------------------------------
 	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
-		
-		/*
-		con = ConeccionBD.getCon("postgres","postgres","123456");
-		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ExpedienteJugador.jrxml");
-		parameters.put("cedulajug_1",txtCedula.getText());
-		//parameters.put("fechemihas_1",dtbFechaEmiHasta.getText() );
-		//parameters.put("fechvendes_1", dtbFechaVenDesde.getText());
-		//parameters.put("fechvenchas_1", dtbFechaVenHasta.getText());
-		showReportfromJrxml();*/
-		
-		//Codigo anterior ->descomentar luego de video
-		
-		/**** CODIGO TEMPORAL PARA VIDEO Inicio****/
-		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/expediente.pdf");
-		File archivo = new File(jrxmlSrc);
-		AMedia amedia=null;
-		try {
-			 amedia = new AMedia(null,null,null,archivo,true);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		ImageIcon n = new ImageIcon();
+		byte[] foto = jugador.getPersonaNatural().getFoto();
+		if (foto != null) {
+				n = new ImageIcon((byte[]) jugador
+						.getPersonaNatural().getFoto());
+								
+		}else{
+			n= new ImageIcon();
 		}
-					
-		 Component visor = Executions.createComponents(rutasGen
-					+ "frmVisorDocumento.zul", null, null);
-			visor.setVariable("archivo", amedia, false);
-		/**** CODIGO TEMPORAL PARA VIDEO Fin ****/
+		con = ConeccionBD.getCon("postgres","postgres","123456");
+		//jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ReportPlanilla.jrxml");
+		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ExpedienteJugador.jrxml");
+		parameters.put("cedulajug_1" ,jugador.getCedulaRif());
+		parameters.put("fotoJugador" ,n.getImage());
+		//parameters.put("SUBREPORT_DIR","/WEB-INF/reportes/ReportPlanilla_subreport1.jrxml");
+    	showReportfromJrxml();		
 	}
 	
-		
 	public void onClick$btnCatalogoJugador() {
 		// se crea el catalogo y se llama
 		Component catalogo = Executions.createComponents("/Jugador/Vistas/frmBuscarJugador.zul", null, null);
@@ -197,13 +195,15 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 			            e.printStackTrace();
 			          }	
 			        }				
-				
-							
-				roster= servicioRoster.buscarRoster(jugador.getCedulaRif());
-				binder.loadAll();
 
+			    roster= servicioRoster.buscarRoster(jugador.getCedulaRif());
+				binder.loadAll();
 			} 
 		});
+	}
+	
+	public void onClick$btnSalir() {
+		winExpediente.detach();
 	}
 	
 }

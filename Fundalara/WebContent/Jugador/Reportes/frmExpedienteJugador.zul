@@ -88,24 +88,16 @@
 						</rows>
 					</grid>
 				</groupbox>
-				
-				<iframe id="ifReport" visible="false"/>
-				
-				<div align="right">
-					<button id="btnImprimir" image="/Recursos/Imagenes/imprimir.ico"
-						 tooltiptext="/Generar" label="Imprimir" />
-					<button id="btnCancelar" image="/Recursos/Imagenes/cancelar.ico"
-						 tooltiptext="Cancelar" label="Cancelar" />
-					<button id="btnSalir" image="/Recursos/Imagenes/salir.png"
-						 tooltiptext="Salir" label="Salir">
-						<attribute name="onClick">
-	winExpediente.onClose();
-</attribute>
-
-					</button>
-				</div>
-
 			</panelchildren>
 		</panel>
+		
+		<div align="right">
+			<button id="btnImprimir"
+				image="/Recursos/Imagenes/imprimir.ico" label="Generar" />
+			<button id="btnCancelar"
+				image="/Recursos/Imagenes/cancelar.ico" label="Cancelar" />
+			<button id="btnSalir" image="/Recursos/Imagenes/salir.png"
+				label="Salir" />
+		</div>
 	</window>
 </zk>
