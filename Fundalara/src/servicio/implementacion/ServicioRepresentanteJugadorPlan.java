@@ -4,6 +4,9 @@ import java.util.List;
 
 import dao.general.DaoRepresentanteJugadorPlan;
 
+import modelo.FamiliarJugador;
+import modelo.Jugador;
+import modelo.JugadorPlan;
 import modelo.RepresentanteJugadorPlan;
 import servicio.interfaz.IServicioRepresentanteJugadorPlan;
 
@@ -45,5 +48,11 @@ public class ServicioRepresentanteJugadorPlan implements
 	public List<RepresentanteJugadorPlan> listar() {
 		return daoRepresentanteJugadorPlan.listar(RepresentanteJugadorPlan.class);
 	}
+	
+	@Override
+	public List<RepresentanteJugadorPlan> buscarRepresentanteJugador(JugadorPlan jugadorPlan) {
+		return daoRepresentanteJugadorPlan.buscarRepresentanteJugador(jugadorPlan);
+	}
+
 
 }

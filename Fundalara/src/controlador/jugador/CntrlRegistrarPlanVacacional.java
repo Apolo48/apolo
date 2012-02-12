@@ -5,13 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import modelo.Categoria;
-import modelo.Competencia;
 import modelo.DatoBasico;
 import modelo.Equipo;
 import modelo.Familiar;
 import modelo.FamiliarJugador;
 import modelo.HorarioPlanTemporada;
-import modelo.Hospedaje;
 import modelo.Jugador;
 import modelo.JugadorPlan;
 import modelo.Persona;
@@ -27,7 +25,6 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Messagebox;
@@ -37,19 +34,20 @@ import org.zkoss.zul.Window;
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioEquipo;
+import servicio.implementacion.ServicioFamiliar;
 import servicio.implementacion.ServicioFamiliarJugador;
-import servicio.implementacion.ServicioHorario;
 import servicio.implementacion.ServicioHorarioPlanTemporada;
-import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioJugadorPlan;
-import servicio.implementacion.ServicioLapsoDeportivo;
-import servicio.implementacion.ServicioPlanTemporada;
+import servicio.implementacion.ServicioPersona;
+import servicio.implementacion.ServicioPersonaNatural;
 import servicio.implementacion.ServicioRepresentanteJugadorPlan;
 import servicio.implementacion.ServicioRoster;
+import servicio.implementacion.ServicioTallaPorIndumentaria;
 import servicio.implementacion.ServicioTallaPorJugador;
 
 import comun.EstatusRegistro;
 import comun.Mensaje;
+import comun.Ruta;
 import comun.TipoDatoBasico;
 import comun.Util;
 
@@ -92,6 +90,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private Combobox cmbHorario;
 	// Botones
 	private Button btnCatalogoJugador;
+	private Button btnCatalogoFamiliar;
 	private Button btnGuardar;
 	private Button btnModificar;
 	private Button btnEliminar;
@@ -100,6 +99,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private Window winRegistrarPlanVacacional;
 
 	private Component formulario;
+	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
 	// Binder
 	private AnnotateDataBinder binder;
@@ -120,17 +120,24 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private DatoBasico parroquia = new DatoBasico();
 	
 	// Servicios
-	private ServicioDatoBasico servicioDatoBasico;
-	private ServicioCategoria servicioCategoria;
-	private ServicioEquipo servicioEquipo;
 	private ServicioJugadorPlan servicioJugadorPlan;
-	private ServicioTallaPorJugador servicioTallaPorJugador;
-	private ServicioRoster servicioRoster;
-	private ServicioHorarioPlanTemporada servicioHorarioPlanTemporada;
+	private ServicioFamiliar servicioFamiliar;
+	private ServicioPersona servicioPersona;
+	private ServicioPersonaNatural servicioPersonaNatural;
 	private ServicioRepresentanteJugadorPlan servicioRepresentanteJugadorPlan;
 	private ServicioFamiliarJugador servicioFamiliarJugador;
+	private ServicioCategoria servicioCategoria;
+	private ServicioEquipo servicioEquipo;
+	private ServicioDatoBasico servicioDatoBasico;
+	private ServicioTallaPorJugador servicioTallaPorJugador;
+	private ServicioTallaPorIndumentaria servicioTallaPorIndumentaria;
+	private ServicioRoster servicioRoster;
+	private ServicioHorarioPlanTemporada servicioHorarioPlanTemporada;
 	
 	List<FamiliarJugador> listaFamiliarJugador = new ArrayList<FamiliarJugador>();
+	List<RepresentanteJugadorPlan> listaRepresentanteJugador = new ArrayList<RepresentanteJugadorPlan>();
+	
+	private int seleccion = 0;
 
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -190,6 +197,14 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		this.equipo = equipo;
 	}
 
+	public DatoBasico getTipoIndumentaria() {
+		return tipoIndumentaria;
+	}
+
+	public void setTipoIndumentaria(DatoBasico tipoIndumentaria) {
+		this.tipoIndumentaria = tipoIndumentaria;
+	}
+
 	public DatoBasico getEstadoVenezuela() {
 		return estadoVenezuela;
 	}
@@ -213,6 +228,14 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 
 	public void setParroquia(DatoBasico parroquia) {
 		this.parroquia = parroquia;
+	}
+
+	public int getSeleccion() {
+		return seleccion;
+	}
+
+	public void setSeleccion(int seleccion) {
+		this.seleccion = seleccion;
 	}
 
 	// Metodos para carga de combos/listbox
@@ -308,145 +331,226 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 					}
 				});
 	}
-
-	public void onClick$btnCatalogoJugador() {
-		//Crear y ejecutar catalogo
-		Component catalogo = Executions.createComponents(
-				"/Jugador/Vistas/frmBuscarJugador.zul", null, null);
-		catalogo.setVariable("formulario", formulario, false);//Asignar referencia del formulario al catalogo.
-		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
-
-		formulario.addEventListener("onCatalogoBuscarJugadorCerrado",
+	
+	public void onClick$btnCatalogoFamiliar() {
+		Component catalogo = Executions.createComponents(rutasJug
+				+ "frmBuscarFamiliar.zul", null, null);
+		catalogo.setVariable("formulario", formulario, false);
+		// 2: Familiar
+		catalogo.setVariable("estatus", 2, false);
+		formulario.addEventListener("onCatalogoBuscarFamiliarCerrado",
 				new EventListener() {
-					/*
-					 * (non-Javadoc)
-					 * 
-					 * @see
-					 * org.zkoss.zk.ui.event.EventListener#onEvent(org.zkoss
-					 * .zk.ui.event.Event)
-					 */
 					@Override
 					public void onEvent(Event arg0) throws Exception {
-						jugador = (Jugador) formulario.getVariable("jugador",
-								false);
-						String datosCedula[] = jugador.getCedulaRif().split("-");
-						cmbNacionalidad.setValue(datosCedula[0]);
-						txtCedula.setValue(Integer.valueOf(datosCedula[1]));
-						if (datosCedula.length == 3) {
-							txtCedulaSecuencia.setValue(Integer.valueOf(datosCedula[2]));
-						}
-						if (jugador.getPersonaNatural().getPrimerNombre() != null) {
-							txtNombre.setValue(jugador.getPersonaNatural()
-									.getPrimerNombre());
-							if (jugador.getPersonaNatural().getSegundoNombre() != null) {
-								txtNombre.setValue(txtNombre.getValue()
-										+ " "
-										+ jugador.getPersonaNatural()
-												.getSegundoNombre());
-							}
-						}
-						if (jugador.getPersonaNatural().getPrimerApellido() != null) {
-							txtApellido.setValue(jugador.getPersonaNatural()
-									.getPrimerApellido());
-							if (jugador.getPersonaNatural()
-									.getSegundoApellido() != null) {
-								txtApellido.setValue(txtApellido.getValue()
-										+ " "
-										+ jugador.getPersonaNatural()
-												.getSegundoApellido());
-							}
-						}
-						dtboxFechaNac.setValue(jugador.getPersonaNatural()
-								.getFechaNacimiento());
-
-						List<DatoBasico> listTallasEntrenamiento = servicioTallaPorJugador
-								.buscarTallasPorTipo(jugador, tipoIndumentaria);
-						for (DatoBasico datoBasico : listTallasEntrenamiento) {
-
-							if (datoBasico.getDatoBasico().getNombre()
-									.equals("CAMISA")) {
-								cmbTalla.setValue(datoBasico.getNombre());
-							}
+						representante = (Familiar) formulario.getVariable("familiar", false);
+						if (representante != null) {
+							mostrarRepresentante();
 						}
 
-						listaFamiliarJugador = servicioFamiliarJugador
-								.buscarFamiliarJugador(jugador);
-						for (int i = 0; i < listaFamiliarJugador.size(); i++) {
-							if (listaFamiliarJugador.get(i)
-									.isRepresentanteActual()) {
-								representante = listaFamiliarJugador.get(i)
-										.getFamiliar();
-								break;
-							}
-						}
-						
-						String datosCedulaF[] = representante.getCedulaRif().split("-");
-						cmbNacionalidadF.setValue(datosCedulaF[0]);
-						txtCedulaF.setValue(Integer.valueOf(datosCedulaF[1]));
-						
-						if (representante.getPersonaNatural().getPrimerNombre() != null) {
-							txtNombreRepr.setValue(representante
-									.getPersonaNatural().getPrimerNombre());
-							if (representante.getPersonaNatural()
-									.getSegundoNombre() != null) {
-								txtNombreRepr.setValue(txtNombreRepr.getValue()
-										+ " "
-										+ representante.getPersonaNatural()
-												.getSegundoNombre());
-							}
-						}
-						if (representante.getPersonaNatural()
-								.getPrimerApellido() != null) {
-							txtApellidoRepr.setValue(representante
-									.getPersonaNatural().getPrimerApellido());
-							if (representante.getPersonaNatural()
-									.getSegundoApellido() != null) {
-								txtApellidoRepr.setValue(txtApellidoRepr
-										.getValue()
-										+ " "
-										+ representante.getPersonaNatural()
-												.getSegundoApellido());
-							}
-						}
-						cmbEstadoRepr.setValue(representante
-								.getPersonaNatural().getPersona()
-								.getDatoBasicoByCodigoParroquia()
-								.getDatoBasico().getDatoBasico().getNombre());
-						cmbMunicipioRepr.setValue(representante
-								.getPersonaNatural().getPersona()
-								.getDatoBasicoByCodigoParroquia()
-								.getDatoBasico().getNombre());
-						cmbParroquiaRepr.setValue(representante
-								.getPersonaNatural().getPersona()
-								.getDatoBasicoByCodigoParroquia().getNombre());
-						txtDireccionHabRepr.setValue(representante
-								.getPersonaNatural().getPersona()
-								.getDireccion());
-						
-						if (representante.getPersonaNatural().getPersona()
-								.getTelefonoHabitacion() != null) {
-							String[] numeroHab = Util.separarCadena(representante
-									.getPersonaNatural().getPersona()
-									.getTelefonoHabitacion(), "-");
-							if (numeroHab.length == 2) {
-								cmbCodArea.setValue(numeroHab[0]);
-								txtTelefono.setRawValue(numeroHab[1]);
-							}
-						}
-
-						if (representante.getPersonaNatural().getCelular() != null) {
-							String[] numeroCel = Util.separarCadena(representante.getPersonaNatural().getCelular(), "-");
-							if (numeroCel.length == 2) {
-								cmbCodCelular.setValue(numeroCel[0]);
-								txtCelular.setRawValue(numeroCel[1]);
-							}
-						}
-						
-						categoria = servicioRoster.buscarRoster(jugador.getCedulaRif()).getEquipo().getCategoria();
-						cmbCategoria.setValue(categoria.getNombre());
-						binder.loadComponent(cmbEquipo);
 					}
 				});
+	}
+
+	public void onClick$btnCatalogoJugador() {
+		if (cmbTipoJugador.getSelectedIndex() >= 0) {
+			Component catalogo = Executions.createComponents(rutasJug
+					+ "frmBuscarJugador.zul", null, null);//Crear y ejecutar catalogo
+			catalogo.setVariable("formulario", formulario, false);//Asignar referencia del formulario al catalogo.
+			final boolean tipo = (cmbTipoJugador.getSelectedItem().getLabel().equalsIgnoreCase("NO REGULAR"));
+			if (tipo) {
+				catalogo.setVariable("estatus", EstatusRegistro.PLAN_VACACIONAL, false);
+			} else {
+				catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
+			}
+
+			formulario.addEventListener("onCatalogoBuscarJugadorCerrado",
+					new EventListener() {
+						/*
+						 * (non-Javadoc)
+						 * 
+						 * @see
+						 * org.zkoss.zk.ui.event.EventListener#onEvent(org.zkoss
+						 * .zk.ui.event.Event)
+						 */
+						@Override
+						public void onEvent(Event arg0) throws Exception {
+							if (tipo) {
+								mostrarJugadorPlan();
+								setSeleccion(1);
+							} else {
+								mostrarJugador();
+								setSeleccion(2);
+							}
+						}
+					});
+		}
+	}
+	
+	public void mostrarJugador() {
+		jugador = (Jugador) formulario.getVariable("jugador",
+				false);
+		String datosCedula[] = jugador.getCedulaRif().split("-");
+		cmbNacionalidad.setValue(datosCedula[0]);
+		txtCedula.setValue(Integer.valueOf(datosCedula[1]));
+		if (datosCedula.length == 3) {
+			txtCedulaSecuencia.setValue(Integer.valueOf(datosCedula[2]));
+		}
+		if (jugador.getPersonaNatural().getPrimerNombre() != null) {
+			txtNombre.setValue(jugador.getPersonaNatural()
+					.getPrimerNombre());
+			if (jugador.getPersonaNatural().getSegundoNombre() != null) {
+				txtNombre.setValue(txtNombre.getValue()
+						+ " "
+						+ jugador.getPersonaNatural()
+						.getSegundoNombre());
+			}
+		}
+		if (jugador.getPersonaNatural().getPrimerApellido() != null) {
+			txtApellido.setValue(jugador.getPersonaNatural()
+					.getPrimerApellido());
+			if (jugador.getPersonaNatural()
+					.getSegundoApellido() != null) {
+				txtApellido.setValue(txtApellido.getValue()
+						+ " "
+						+ jugador.getPersonaNatural()
+						.getSegundoApellido());
+			}
+		}
+		dtboxFechaNac.setValue(jugador.getPersonaNatural()
+				.getFechaNacimiento());
+		
+		List<DatoBasico> listTallasEntrenamiento = servicioTallaPorJugador
+				.buscarTallasPorTipo(jugador, tipoIndumentaria);
+		for (DatoBasico datoBasico : listTallasEntrenamiento) {
+			
+			if (datoBasico.getDatoBasico().getNombre()
+					.equals("CAMISA")) {
+				cmbTalla.setValue(datoBasico.getNombre());
+			}
+		}
+		
+		if (representante.getCedulaRif() == null) {
+			listaFamiliarJugador = servicioFamiliarJugador
+					.buscarFamiliarJugador(jugador);
+			for (int i = 0; i < listaFamiliarJugador.size(); i++) {
+				if (listaFamiliarJugador.get(i)
+						.isRepresentanteActual()) {
+					representante = listaFamiliarJugador.get(i)
+							.getFamiliar();
+					break;
+				}
+			}
+			mostrarRepresentante();
+		}
+		
+		categoria = servicioRoster.buscarRoster(jugador.getCedulaRif()).getEquipo().getCategoria();
+		cmbCategoria.setValue(categoria.getNombre());
+		binder.loadComponent(cmbEquipo);
+	}
+	
+	public void mostrarJugadorPlan() {
+		JugadorPlan jugadorPlan = (JugadorPlan) formulario.getVariable("jugadorPlan", false);
+		String datosCedula[] = jugadorPlan.getCedulaRif().split("-");
+		cmbNacionalidad.setValue(datosCedula[0]);
+		txtCedula.setValue(Integer.valueOf(datosCedula[1]));
+		if (datosCedula.length == 3) {
+			txtCedulaSecuencia.setValue(Integer.valueOf(datosCedula[2]));
+		}
+		if (jugadorPlan.getNombre() != null) {
+			txtNombre.setValue(jugadorPlan.getNombre());
+		}
+		if (jugador.getPersonaNatural().getPrimerApellido() != null) {
+			txtApellido.setValue(jugadorPlan.getApellido());
+		}
+		dtboxFechaNac.setValue(jugadorPlan.getFechaNacimiento());
+	
+		cmbTalla.setValue(jugadorPlan.getTallaPorIndumentaria().getDatoBasicoByCodigoTalla().getNombre());
+		
+		List<DatoBasico> lista = null;
+		DatoBasico datoIndumentaria = servicioDatoBasico.buscarTipo(
+				TipoDatoBasico.INDUMENTARIA, "Camisa");
+		if (datoIndumentaria != null) {
+			lista = servicioDatoBasico.buscarDatosPorRelacion(datoIndumentaria);
+		}
+
+		listaRepresentanteJugador = servicioRepresentanteJugadorPlan
+				.buscarRepresentanteJugador(jugadorPlan);
+		for (int i = 0; i < listaRepresentanteJugador.size(); i++) {
+			if (String.valueOf(listaRepresentanteJugador.get(i).getEstatus()).equalsIgnoreCase("A")) {
+				representante = listaRepresentanteJugador.get(i).getFamiliar();
+				break;
+			}
+		}
+		
+		mostrarRepresentante();
+		
+		categoria = servicioRoster.buscarRoster(jugador.getCedulaRif()).getEquipo().getCategoria();
+		cmbCategoria.setValue(categoria.getNombre());
+		binder.loadComponent(cmbEquipo);
+	}
+	
+	public void mostrarRepresentante() {
+		String datosCedulaF[] = representante.getCedulaRif().split("-");
+		cmbNacionalidadF.setValue(datosCedulaF[0]);
+		txtCedulaF.setValue(Integer.valueOf(datosCedulaF[1]));
+		
+		if (representante.getPersonaNatural().getPrimerNombre() != null) {
+			txtNombreRepr.setValue(representante
+					.getPersonaNatural().getPrimerNombre());
+			if (representante.getPersonaNatural()
+					.getSegundoNombre() != null) {
+				txtNombreRepr.setValue(txtNombreRepr.getValue()
+						+ " "
+						+ representante.getPersonaNatural()
+								.getSegundoNombre());
+			}
+		}
+		if (representante.getPersonaNatural()
+				.getPrimerApellido() != null) {
+			txtApellidoRepr.setValue(representante
+					.getPersonaNatural().getPrimerApellido());
+			if (representante.getPersonaNatural()
+					.getSegundoApellido() != null) {
+				txtApellidoRepr.setValue(txtApellidoRepr
+						.getValue()
+						+ " "
+						+ representante.getPersonaNatural()
+								.getSegundoApellido());
+			}
+		}
+		cmbEstadoRepr.setValue(representante
+				.getPersonaNatural().getPersona()
+				.getDatoBasicoByCodigoParroquia()
+				.getDatoBasico().getDatoBasico().getNombre());
+		cmbMunicipioRepr.setValue(representante
+				.getPersonaNatural().getPersona()
+				.getDatoBasicoByCodigoParroquia()
+				.getDatoBasico().getNombre());
+		cmbParroquiaRepr.setValue(representante
+				.getPersonaNatural().getPersona()
+				.getDatoBasicoByCodigoParroquia().getNombre());
+		txtDireccionHabRepr.setValue(representante
+				.getPersonaNatural().getPersona()
+				.getDireccion());
+		
+		if (representante.getPersonaNatural().getPersona()
+				.getTelefonoHabitacion() != null) {
+			String[] numeroHab = Util.separarCadena(representante
+					.getPersonaNatural().getPersona()
+					.getTelefonoHabitacion(), "-");
+			if (numeroHab.length == 2) {
+				cmbCodArea.setValue(numeroHab[0]);
+				txtTelefono.setRawValue(numeroHab[1]);
+			}
+		}
+
+		if (representante.getPersonaNatural().getCelular() != null) {
+			String[] numeroCel = Util.separarCadena(representante.getPersonaNatural().getCelular(), "-");
+			if (numeroCel.length == 2) {
+				cmbCodCelular.setValue(numeroCel[0]);
+				txtCelular.setRawValue(numeroCel[1]);
+			}
+		}
 	}
 
 	// Metodos propios del ctrl
@@ -455,7 +559,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		txtNombre.setReadonly(flag);
 		txtApellido.setReadonly(flag);
 		dtboxFechaNac.setReadonly(flag);
-		cmbTipoJugador.setDisabled(flag);
+		//cmbTipoJugador.setDisabled(flag);
 		cmbCategoria.setDisabled(flag);
 		cmbNacionalidad.setDisabled(flag);
 		cmbNacionalidadF.setDisabled(flag);
@@ -467,6 +571,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		txtTelefono.setReadonly(flag);
 		cmbCodCelular.setDisabled(flag);
 		txtCelular.setReadonly(flag);
+		//btnCatalogoFamiliar.setDisabled(flag);
 	}
 
 	/**
@@ -480,7 +585,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 			disabledFields(flag);//Deshabilitar campos
 		}
 		else {
-			btnCatalogoJugador.setVisible(!flag);
+			//btnCatalogoJugador.setVisible(!flag);
 			txtCedula.setFocus(true);
 			disabledFields(!flag);//Habilitar campos
 		}
@@ -490,48 +595,66 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	public void guardar() throws InterruptedException {
 		if ((cmbTipoJugador.getSelectedIndex() >= 0)
 				&& (txtCedula.getText() != "") && (txtCedulaF.getText() != "")) {
-
-			Comboitem item = cmbTipoJugador.getSelectedItem();
-			DatoBasico dato = (DatoBasico) item.getValue();
-			Comboitem itemtalla = cmbTalla.getSelectedItem();
-			TallaPorIndumentaria talla = (TallaPorIndumentaria) itemtalla.getValue();
-			/*Comboitem itemestado = cmbEstadoRepr.getSelectedItem();
-			DatoBasico datoestado = (DatoBasico) itemestado.getValue();
-			Comboitem itemmunicipio = cmbMunicipioRepr.getSelectedItem();
-			DatoBasico datomunicipio = (DatoBasico) itemmunicipio.getValue();
-			Comboitem itemdatoparroquia = cmbParroquiaRepr.getSelectedItem();
-			DatoBasico datoparroquia = (DatoBasico) itemdatoparroquia
-					.getValue();
-			Comboitem itemtelefono = cmbCodArea.getSelectedItem();
-			DatoBasico datoarea = (DatoBasico) itemtelefono.getValue();
-			Comboitem itemcelular = cmbCodCelular.getSelectedItem();
-			DatoBasico datocelular = (DatoBasico) itemcelular.getValue();*/
-		
-			jugadorPlan.setCedulaRif(jugador.getCedulaRif());
-			jugadorPlan.setNombre(txtNombre.getText());
-			jugadorPlan.setApellido(txtApellido.getText());
-			jugadorPlan.setFechaNacimiento(dtboxFechaNac.getValue());
-			jugadorPlan.setDatoBasico(dato);
-			jugadorPlan.setTallaPorIndumentaria(talla);
-			jugadorPlan.setEstatus('A');
-			/*personaN.setCedulaRif(jugador.getCedulaRif());
-			personaN.setPrimerNombre(txtNombreRepr.getText());
-			personaN.setPrimerApellido(txtApellidoRepr.getText());
-					
-			servicioJugadorPlan.agregar(jugadorPlan);
-			servicioRepresentanteJugadorPlan.agregar(representanteJugadorPlan);
-			servicioDatoBasico.agregar(tipoIndumentaria);
-			servicioDatoBasico.agregar(estadoVenezuela);
-			servicioDatoBasico.agregar(municipio);
-			servicioDatoBasico.agregar(parroquia);
-			servicioDatoBasico.agregar(Telefono);
-			servicioDatoBasico.agregar(Celular);
-			servicioCategoria.agregar(categoria);
-			servicioEquipo.agregar(equipo);
+	
+			if (getSeleccion() != 1) {
+				//JugadorPlan
+				String cedula = cmbNacionalidad.getValue()+"-"+txtCedula.getValue();
+				jugadorPlan.setCedulaRif(cedula);
+				jugadorPlan.setNombre(txtNombre.getText());
+				jugadorPlan.setApellido(txtApellido.getText());
+				jugadorPlan.setFechaNacimiento(dtboxFechaNac.getValue());
+				jugadorPlan.setDatoBasico((DatoBasico) cmbTipoJugador.getSelectedItem().getValue());
+				TallaPorIndumentaria talla = servicioTallaPorIndumentaria.buscarPorDatoBasico((DatoBasico) cmbTipoJugador.getSelectedItem().getValue());
+				jugadorPlan.setTallaPorIndumentaria(talla);
+				jugadorPlan.setEstatus('A');
+				//jugadorPlan.setJugador(jugador);
+				servicioJugadorPlan.agregar(jugadorPlan);
+			} 
+			//CASO CONTRARIO VERIFICA SI ACTUALIZA 
 			
-*/			// representanteJugadorPlan = new RepresentateJugadorPlan();
-			// representanteJugadorPlan.setFamiliar(familiar);
-			// servicioJugadorPlan.agregar(jugador);
+			
+			String cedulaFamiliar = cmbNacionalidadF.getValue()+"-"+txtCedulaF.getValue();
+			
+			if (getSeleccion() == 0) {
+				persona.setCedulaRif(cedulaFamiliar);
+				persona.setDatoBasicoByCodigoParroquia((DatoBasico) cmbParroquiaRepr.getSelectedItem().getValue());
+				DatoBasico tipoPersona = null;
+				List<DatoBasico> tipos = servicioDatoBasico.buscar(TipoDatoBasico.TIPO_JUGADOR);
+				for (int k = 0; k < tipos.size(); k++) {
+					if (tipos.get(k).getNombre().equals(cmbTipoJugador.getSelectedItem().getValue())){
+						tipoPersona = tipos.get(k);
+						break;
+					}
+				}
+				persona.setDatoBasicoByCodigoTipoPersona(tipoPersona);
+				persona.setDireccion(txtDireccionHabRepr.getValue());
+				persona.setTelefonoHabitacion(cmbCodArea+"-"+String.valueOf(txtTelefono.getValue()));
+				persona.setEstatus('A');
+				servicioPersona.agregar(persona);
+				
+				personaNatural.setCedulaRif(cedulaFamiliar);
+				personaNatural.setPrimerNombre(txtNombreRepr.getValue());
+				personaNatural.setPrimerApellido(txtApellidoRepr.getValue());
+				personaNatural.setCelular(cmbCodCelular+"-"+String.valueOf(txtCelular.getValue()));
+				personaNatural.setPersona(persona);
+				personaNatural.setEstatus('A');
+				servicioPersonaNatural.agregar(personaNatural);
+
+				representante.setCedulaRif(cedulaFamiliar);
+				representante.setPersonaNatural(personaNatural);
+				representante.setEstatus('A');
+				servicioFamiliar.agregar(representante);
+			}
+			
+			
+			if (getSeleccion() != 1) {
+				representanteJugadorPlan.setFamiliar(representante);
+				representanteJugadorPlan.setJugadorPlan(jugadorPlan);
+				representanteJugadorPlan.setEstatus('A');
+				servicioRepresentanteJugadorPlan.agregar(representanteJugadorPlan);
+			}
+			//CASO CONTRARIO VERIFICO SI ACTUALIZA
+			
 			Mensaje.mostrarMensaje("Jugador asociado a el Plan Vacacional ",
 					Mensaje.EXITO, Messagebox.INFORMATION);
 		}
@@ -575,6 +698,8 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		estadoVenezuela = new DatoBasico();
 		municipio = new DatoBasico();
 		parroquia = new DatoBasico();
+		
+		setSeleccion(0);
 
 		binder.loadAll();
 		disabledFields(false);
