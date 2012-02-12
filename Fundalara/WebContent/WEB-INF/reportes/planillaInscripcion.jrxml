@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanillaInscripcion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.1000000000000019"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="1092"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#FFFFFF"/>
@@ -69,7 +69,7 @@ WHERE familiar_jugador.cedula_familiar=$P{cedulaFamiliar}]]>
 		<defaultValueExpression><![CDATA["C:\\Documents and Settings\\Antonietta\\Escritorio\\planilla cl 05-02-12\\Planilla\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT pn1.cedula_rif,
+		<![CDATA[SELECT DISTINCT pn1.cedula_rif,
        pn1.primer_nombre,
        pn1.primer_apellido,
        to_char(pn1.fecha_nacimiento, 'dd/mm/yyyy') AS fecha_nac,

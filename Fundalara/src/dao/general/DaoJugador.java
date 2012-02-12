@@ -12,6 +12,7 @@ import modelo.LapsoDeportivo;
 import modelo.Persona;
 import modelo.PersonaNatural;
 import modelo.RetiroTraslado;
+import modelo.Roster;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -32,6 +33,8 @@ import dao.generico.GenericDao;
  * @author Robert A
  * @author German L
  * @author Edgar L
+ * @author Maria F
+ * @author Miguel B
  * @version 0.1.9 10/01/2012
  * 
  */
@@ -97,9 +100,29 @@ public class DaoJugador extends GenericDao {
 		Jugador jugador2 = (Jugador) c3.uniqueResult();
 		jugador2.setEstatus('E');
 		session.update(jugador2);
+		
+		Criteria c4 = session.createCriteria(Roster.class)
+				.add(Restrictions.eq("jugador", jugador))
+				.add(Restrictions.eq("estatus", 'A'));
+
+		Roster roster = (Roster) c4.uniqueResult();
+		if (roster!=null){
+			roster.setEstatus('E');
+			session.update(roster);
+		}
+		
 		tx.commit();
 	}
 
+	/**
+	 * Busca los jugadores segun los filtros seleccionados
+	 * @param filtro2 filtro de la cedula
+	 * @param filtro3 filtro del primer nombre
+	 * @param filtro4 filtro del primer apellido
+	 * @param filtro1 filtro del numero de camiseta
+	 * @param estatus estatus del registro
+	 * @return List de Jugadores filtrados
+	 */
 	public List<Jugador> buscarJugadores(String filtro2, String filtro3, String filtro4,
 			String filtro1, char estatus) {
 		Session session = getSession();

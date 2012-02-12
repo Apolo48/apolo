@@ -83,7 +83,7 @@ public class DaoRoster extends GenericDao {
 	
 	 /**
 	  * Guarda los datos de roster
-	 * @param o objero roster
+	 * @param o objeto roster
 	 */
 	public void guardar(Roster o) {		
 			Session session = getSession();
@@ -119,6 +119,26 @@ public class DaoRoster extends GenericDao {
 				.add(Restrictions.eq("estatus", 'A'));
 		List<Roster> lista = c.list();
 		return lista;
+	}
+	
+	
+	public Roster buscarRosterPendiente(Jugador jugador){
+		Session session = this.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(Roster.class)
+				.add(Restrictions.eq("jugador", jugador))
+				.add(Restrictions.eq("estatus", 'P'));
+		return (Roster) c.uniqueResult();
+	}
+	
+	
+	public void confirmarRoster(Roster roster){
+		Session session = this.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		roster.setEstatus('A');
+		session.update(roster);
+		tx.commit();	
+		
 	}
 	
 }

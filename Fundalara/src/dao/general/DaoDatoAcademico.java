@@ -62,7 +62,7 @@ public class DaoDatoAcademico extends GenericDao {
 		Criteria c = sesion.createCriteria(DatoAcademico.class)
 				.add(Restrictions.eq("jugador",jugador))
 				.add(Restrictions.eq("estatus",'A'))
-				.addOrder( Order.asc("codigoAcademico") )
+				.addOrder( Order.desc("codigoAcademico") )
 				.setMaxResults(1);
 		DatoAcademico datoAcademico = (DatoAcademico) c.uniqueResult();
 		tx.commit();

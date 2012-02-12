@@ -3,10 +3,10 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"  root="winReingresarJugador" ?>
 <zk>
 	<div align="left">
-		<window border="none" width="670px" height="945px"
+		<window border="none" width="670px" height="970px"
 			id="winReingresarJugador"
-			apply="controlador.jugador.CntrlReingresarJugador">		
-			<separator/>
+			apply="controlador.jugador.CntrlReingresarJugador">
+			<separator />
 			<grid style="border:none;" oddRowSclass="none">
 				<columns>
 					<column width="20%" />
@@ -16,8 +16,10 @@
 					<row style="border:none;">
 						<label value="Tipo Reingreso" />
 						<radiogroup id="radGroupTipo">
-							<radio id="radioReinscripcion" label="Reinscripción" value="reinscripcion" checked="true" />
-							<radio id="radioReincorporacion" label="Reincorporación" value="reincorporacion" />
+							<radio id="radioReinscripcion"
+								label="Reinscripción" value="reinscripcion" checked="true" />
+							<radio id="radioReincorporacion"
+								label="Reincorporación" value="reincorporacion" />
 						</radiogroup>
 					</row>
 				</rows>
@@ -42,48 +44,21 @@
 								</columns>
 								<rows>
 									<row style="border:none;"
-										spans="1,3">
+										spans="1,1,2">
 										<label value="Cédula" />
-										<div>
-											<combobox
-												id="cmbNacionalidad" readonly="true" value="-" width="4%"
-												focus="true" constraint="no empty"
-												selectedItem="@{controller.jugadorBean.nacionalidad}">
-												<comboitem label="V"
-													value="V" />
-												<comboitem label="E"
-													value="E" />
-												<comboitem label="R"
-													value="R" />
-											</combobox>
-											<intbox id="txtCedula"
-												value="@{controller.jugadorBean.cedula}" maxlength="8"
-												width="20%" />
-											<label value="-"
-												id="lblSeparador" visible="false" />
-											<intbox
-												id="txtCedulaSecuencia" constraint="no negative" width="5%"
-												readonly="true" visible="false"
-												value="@{controller.jugadorBean.secuencia}" />
-											<label value="(*)"
-												style="color:red" />
-											<button
-												id="btnCatalogoJugador"
-												image="../../Recursos/Imagenes/consultar.ico" />
-										</div>
+										<textbox id="txtCedula" readonly="true"
+											width="80%" value="@{controller.jugadorBean.cedulaCompleta}" />
+										<button id="btnCatalogoJugador"
+											image="../../Recursos/Imagenes/consultar.ico" />
 									</row>
 									<row style="border:none;">
 										<label value="Primer Nombre" />
-										<div>
-											<textbox
+											<textbox readonly="true"
 												style='text-transform:uppercase;' id="txtPrimerNombre"
 												maxlength="20" width="80%"
 												value="@{controller.jugadorBean.primerNombre}" />
-											<label value="(*)"
-												style="color:red" />
-										</div>
 										<label value="Segundo Nombre" />
-										<textbox
+										<textbox readonly="true"
 											style='text-transform:uppercase;' maxlength="20"
 											id="txtSegundoNombre" width="80%"
 											value="@{controller.jugadorBean.segundoNombre}" />
@@ -91,17 +66,13 @@
 									<row style="border:none;">
 										<label value="Primer Apellido"
 											width="95%" />
-										<div>
-											<textbox
+											<textbox readonly="true"
 												style='text-transform:uppercase;' maxlength="20" width="80%"
 												id="txtPrimerApellido"
 												value="@{controller.jugadorBean.primerApellido}" />
-											<label value="(*)"
-												style="color:red" />
-										</div>
 										<label value="Segundo Apellido"
 											width="95%" />
-										<textbox
+										<textbox  readonly="true"
 											style='text-transform:uppercase;' maxlength="20"
 											id="txtSegundoApellido" width="80%"
 											value="@{controller.jugadorBean.segundoApellido}" />
@@ -109,18 +80,10 @@
 									<row style="border:none;"
 										spans="1,3">
 										<label value="Género" />
-										<div>
-											<combobox id="cmbGenero"
-												constraint="no empty"
-												selectedItem="@{controller.jugadorBean.genero}"
-												readonly="true" value="--Seleccione--" width="25%"
-												model="@{winReingresarJugador$composer.generos}">
-												<comboitem
-													self="@{each='genero'}" label="@{genero.nombre}" />
-											</combobox>
-											<label value="(*)"
-												style="color:red" />
-										</div>
+											<textbox readonly="true"
+											style='text-transform:uppercase;' 
+											id="txtGenero" width="28%"
+											value="@{controller.jugadorBean.genero.nombre}" />
 									</row>
 								</rows>
 							</grid>
@@ -206,7 +169,7 @@
 																		<div>
 																			<datebox
 																				value="@{controller.jugadorBean.fechaNacimiento}"
-																				id="dtboxFechaNac" format="dd/MM/yyyy"
+																				id="dtboxFechaNac" format="dd/MM/yyyy" disabled="true"
 																				style="font-family: Tahoma, Arial, Helvetica, Sans-Serif;font-style: normal;font-style: normal;font-weight: normal;font-size: 13px;" />
 																			<label
 																				value="(*)" style="color:red" />
@@ -1753,10 +1716,6 @@
 
 				<button id="btnVistaPrevia" label="Vista Previa"
 					image="../../Recursos/Imagenes/reporte.ico" orient="horizontal"
-					width="100px" />
-
-				<button id="btnGuardar" label="Guardar"
-					image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"
 					width="100px" />
 
 				<button id="btnInscribir" label="Inscribir"

@@ -133,5 +133,14 @@ public class Jugador extends Persona {
 		return getNacionalidad()==null?"":getNacionalidad().toUpperCase() + "-" + getCedula()
 				+ (((secuencia == null)|| (secuencia.equals("0"))) ? "" : "-" + secuencia);
 	}
+	
+	public void setCedulaCompleta(String cedulaCompleta) {
+		String datosCedula[] = cedulaCompleta.split("-");
+		this.setNacionalidad(datosCedula[0]);
+		this.setCedula(datosCedula[1]);
+		if (datosCedula.length == 3) {
+			this.setSecuencia(datosCedula[2]);
+		}
+	}
 
 }
