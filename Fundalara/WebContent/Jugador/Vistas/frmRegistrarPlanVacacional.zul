@@ -21,7 +21,6 @@
 							<div>
 								<combobox value="-Seleccione-"
 									id="cmbTipoJugador" readonly="true"
-									selectedItem="@{controller.tipoIndumentaria}"
 									model="@{winRegistrarPlanVacacional$composer.tipoJugadores}"
 									focus="true" width="70%">
 									<comboitem self="@{each='tipoI'}"
@@ -51,7 +50,7 @@
 									visible="false" />
 								<button id="btnCatalogoJugador"
 									focus="true" tooltiptext="Consultar Jugador"
-									image="../../Recursos/Imagenes/consultar.ico" visible="false" />
+									image="../../Recursos/Imagenes/consultar.ico" />
 							</div>
 						</row>
 
@@ -95,6 +94,7 @@
 							<label value="Talla Camisa" />
 							<div>
 								<combobox id="cmbTalla" readonly="true"
+									selectedItem="@{controller.tipoIndumentaria}"
 									value="@{controller.jugadorPlan.tallaPorIndumentaria}" width="65%"
 									model="@{winRegistrarPlanVacacional$composer.tallasCamisa}">
 									<comboitem
@@ -129,6 +129,9 @@
 								<intbox id="txtCedulaF"
 									constraint="no negative" width="20%" />
 								<label value="(*)" style="color:red" />
+								<button id="btnCatalogoFamiliar"
+									focus="true" tooltiptext="Consultar Jugador"
+									image="../../Recursos/Imagenes/consultar.ico" />
 							</div>
 						</row>
 						<row style="border:none;">
