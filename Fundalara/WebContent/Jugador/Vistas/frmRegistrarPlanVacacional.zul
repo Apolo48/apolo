@@ -121,7 +121,7 @@
 						<row spans="1,3" style="border:none;">
 							<label value="Cédula" />
 							<div>
-								<combobox id="cmbNacionalidadF"
+								<combobox id="cmbNacionalidadF" readonly="true"
 									value="-" width="5%">
 									<comboitem label="V" />
 									<comboitem label="E" />

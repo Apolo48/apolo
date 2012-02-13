@@ -110,7 +110,12 @@ public class DaoAfeccionJugador extends GenericDao {
 		return posicion;
 	}
 	
-	
+	/**
+	 * Obtiene las afecciones asociadas a un jugador
+	 * @param jugador
+	 * 			Dato de Jugador a buscar 
+	 * @return Lista de afecciones por jugador
+	 * */
 	public List<AfeccionJugador> buscarPorJugador(Jugador jugador) {
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
