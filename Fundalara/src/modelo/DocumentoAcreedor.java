@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
+// Generated 13/02/2012 02:19:00 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -46,12 +46,11 @@ public class DocumentoAcreedor implements java.io.Serializable {
 	}
 
 	public DocumentoAcreedor(int codigoDocumentoAcreedor,
-			TipoIngreso tipoIngreso, Date fechaEmision, Date fechaVencimiento,
-			double monto, char estado, char estatus, double saldo) {
+			TipoIngreso tipoIngreso, Date fechaEmision, double monto,
+			char estado, char estatus, double saldo) {
 		this.codigoDocumentoAcreedor = codigoDocumentoAcreedor;
 		this.tipoIngreso = tipoIngreso;
 		this.fechaEmision = fechaEmision;
-		this.fechaVencimiento = fechaVencimiento;
 		this.monto = monto;
 		this.estado = estado;
 		this.estatus = estatus;
@@ -135,7 +134,7 @@ public class DocumentoAcreedor implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha_vencimiento", nullable = false, length = 13)
+	@Column(name = "fecha_vencimiento", length = 13)
 	public Date getFechaVencimiento() {
 		return this.fechaVencimiento;
 	}

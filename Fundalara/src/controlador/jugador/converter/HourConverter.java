@@ -11,11 +11,11 @@ import org.zkoss.zkplus.databind.TypeConverter;
  * 
  * @author Robert A
  * @author German L
- * @version 0.1 30/12/2011
+ * @version 0.1 11/02/2012
  * 
  */
 public class HourConverter implements TypeConverter {
-	private static SimpleDateFormat formato = new SimpleDateFormat("HH:mm a");
+	private static SimpleDateFormat formato = new SimpleDateFormat("h:mm a");
 
 	@Override
 	public Object coerceToBean(Object arg0, Component arg1) {

@@ -95,5 +95,32 @@ public class DaoFamiliar extends GenericDao {
 	}
 	
 	
+	
+	/**
+	 * Guardar un familiar
+	 * @param familiar
+	 */
+	public void guardar(Familiar familiar) {
+		int cantidad = 0;
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+	
+			Criteria c = session.createCriteria(Familiar.class).add(
+					Restrictions.eq("cedulaRif", familiar.getCedulaRif()));
+			c.setProjection(Projections.rowCount());
+			cantidad = (Integer) c.list().get(0);
+			if (cantidad != 0) {// Actualizar
+				session.merge(familiar.getPersonaNatural().getPersona());
+				session.merge(familiar.getPersonaNatural());
+				session.merge(familiar);
+			} else {// guardar
+				session.save(familiar.getPersonaNatural().getPersona());
+				session.save(familiar.getPersonaNatural());
+				session.save(familiar);
+			}
+		
+		tx.commit();
+	}
+	
 
 }

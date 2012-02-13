@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
+// Generated 13/02/2012 02:19:00 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -27,7 +27,7 @@ public class CuentaPagar implements java.io.Serializable {
 	private DatoBasico datoBasicoByCodigoTipoEgreso;
 	private Persona persona;
 	private DatoBasico datoBasicoByCodigoTipoDocumento;
-	private String origen;
+	private String numeroDocumento;
 	private Date fechaEmision;
 	private double montoTotal;
 	private Date fechaVencimiento;
@@ -46,16 +46,12 @@ public class CuentaPagar implements java.io.Serializable {
 	}
 
 	public CuentaPagar(int codigoCuentaPagar,
-			DatoBasico datoBasicoByCodigoTipoEgreso,
-			DatoBasico datoBasicoByCodigoTipoDocumento, Date fechaEmision,
-			double montoTotal, Date fechaVencimiento, char estado,
-			char estatus, double saldo) {
+			DatoBasico datoBasicoByCodigoTipoEgreso, Date fechaEmision,
+			double montoTotal, char estado, char estatus, double saldo) {
 		this.codigoCuentaPagar = codigoCuentaPagar;
 		this.datoBasicoByCodigoTipoEgreso = datoBasicoByCodigoTipoEgreso;
-		this.datoBasicoByCodigoTipoDocumento = datoBasicoByCodigoTipoDocumento;
 		this.fechaEmision = fechaEmision;
 		this.montoTotal = montoTotal;
-		this.fechaVencimiento = fechaVencimiento;
 		this.estado = estado;
 		this.estatus = estatus;
 		this.saldo = saldo;
@@ -63,7 +59,7 @@ public class CuentaPagar implements java.io.Serializable {
 
 	public CuentaPagar(int codigoCuentaPagar,
 			DatoBasico datoBasicoByCodigoTipoEgreso, Persona persona,
-			DatoBasico datoBasicoByCodigoTipoDocumento, String origen,
+			DatoBasico datoBasicoByCodigoTipoDocumento, String numeroDocumento,
 			Date fechaEmision, double montoTotal, Date fechaVencimiento,
 			String concepto, char estado, char estatus, Double subtotal,
 			double saldo, Set<EgresoCuentaPagar> egresoCuentaPagars,
@@ -73,7 +69,7 @@ public class CuentaPagar implements java.io.Serializable {
 		this.datoBasicoByCodigoTipoEgreso = datoBasicoByCodigoTipoEgreso;
 		this.persona = persona;
 		this.datoBasicoByCodigoTipoDocumento = datoBasicoByCodigoTipoDocumento;
-		this.origen = origen;
+		this.numeroDocumento = numeroDocumento;
 		this.fechaEmision = fechaEmision;
 		this.montoTotal = montoTotal;
 		this.fechaVencimiento = fechaVencimiento;
@@ -119,7 +115,7 @@ public class CuentaPagar implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_tipo_documento", nullable = false)
+	@JoinColumn(name = "codigo_tipo_documento")
 	public DatoBasico getDatoBasicoByCodigoTipoDocumento() {
 		return this.datoBasicoByCodigoTipoDocumento;
 	}
@@ -129,13 +125,13 @@ public class CuentaPagar implements java.io.Serializable {
 		this.datoBasicoByCodigoTipoDocumento = datoBasicoByCodigoTipoDocumento;
 	}
 
-	@Column(name = "origen")
-	public String getOrigen() {
-		return this.origen;
+	@Column(name = "numero_documento")
+	public String getNumeroDocumento() {
+		return this.numeroDocumento;
 	}
 
-	public void setOrigen(String origen) {
-		this.origen = origen;
+	public void setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = numeroDocumento;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -158,7 +154,7 @@ public class CuentaPagar implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "fecha_vencimiento", nullable = false, length = 13)
+	@Column(name = "fecha_vencimiento", length = 13)
 	public Date getFechaVencimiento() {
 		return this.fechaVencimiento;
 	}

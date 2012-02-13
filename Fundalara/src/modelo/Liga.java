@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
+// Generated 13/02/2012 02:19:00 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +21,7 @@ public class Liga implements java.io.Serializable {
 	private int codigoLiga;
 	private String nombre;
 	private String localidad;
+	private byte[] logo;
 	private char estatus;
 	private Set<LigaCompetencia> ligaCompetencias = new HashSet<LigaCompetencia>(
 			0);
@@ -36,12 +37,13 @@ public class Liga implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	public Liga(int codigoLiga, String nombre, String localidad, char estatus,
-			Set<LigaCompetencia> ligaCompetencias,
+	public Liga(int codigoLiga, String nombre, String localidad, byte[] logo,
+			char estatus, Set<LigaCompetencia> ligaCompetencias,
 			Set<CategoriaLiga> categoriaLigas) {
 		this.codigoLiga = codigoLiga;
 		this.nombre = nombre;
 		this.localidad = localidad;
+		this.logo = logo;
 		this.estatus = estatus;
 		this.ligaCompetencias = ligaCompetencias;
 		this.categoriaLigas = categoriaLigas;
@@ -73,6 +75,15 @@ public class Liga implements java.io.Serializable {
 
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
+	}
+
+	@Column(name = "logo")
+	public byte[] getLogo() {
+		return this.logo;
+	}
+
+	public void setLogo(byte[] logo) {
+		this.logo = logo;
 	}
 
 	@Column(name = "estatus", nullable = false, length = 1)

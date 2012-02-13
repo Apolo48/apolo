@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
+// Generated 13/02/2012 02:19:00 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +25,8 @@ public class EquipoCompetencia implements java.io.Serializable {
 	private Competencia competencia;
 	private Equipo equipo;
 	private char estatus;
+	private Set<EquipoFaseCompetencia> equipoFaseCompetencias = new HashSet<EquipoFaseCompetencia>(
+			0);
 	private Set<EquipoJuego> equipoJuegos = new HashSet<EquipoJuego>(0);
 
 	public EquipoCompetencia() {
@@ -40,12 +42,15 @@ public class EquipoCompetencia implements java.io.Serializable {
 
 	public EquipoCompetencia(int codigoEquipoCompetencia,
 			PersonaNatural personaNatural, Competencia competencia,
-			Equipo equipo, char estatus, Set<EquipoJuego> equipoJuegos) {
+			Equipo equipo, char estatus,
+			Set<EquipoFaseCompetencia> equipoFaseCompetencias,
+			Set<EquipoJuego> equipoJuegos) {
 		this.codigoEquipoCompetencia = codigoEquipoCompetencia;
 		this.personaNatural = personaNatural;
 		this.competencia = competencia;
 		this.equipo = equipo;
 		this.estatus = estatus;
+		this.equipoFaseCompetencias = equipoFaseCompetencias;
 		this.equipoJuegos = equipoJuegos;
 	}
 
@@ -96,6 +101,16 @@ public class EquipoCompetencia implements java.io.Serializable {
 
 	public void setEstatus(char estatus) {
 		this.estatus = estatus;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipoCompetencia")
+	public Set<EquipoFaseCompetencia> getEquipoFaseCompetencias() {
+		return this.equipoFaseCompetencias;
+	}
+
+	public void setEquipoFaseCompetencias(
+			Set<EquipoFaseCompetencia> equipoFaseCompetencias) {
+		this.equipoFaseCompetencias = equipoFaseCompetencias;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "equipoCompetencia")
