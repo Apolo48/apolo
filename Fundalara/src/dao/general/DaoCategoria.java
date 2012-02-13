@@ -75,7 +75,9 @@ public class DaoCategoria extends GenericDao {
 	}
 
 	/**
-	 * Agregados para ConfigurarCategoria
+	 * Busca todas las categorias disponibles al momento
+	 * @param o Clase usada para consultas
+	 * @return lista de las categorias disponibles al momentos 
 	 */
 	public List listar(Class o) {
 		// Session session = getSession();
@@ -84,13 +86,6 @@ public class DaoCategoria extends GenericDao {
 		List lista = session.createCriteria(o).list();
 		return lista;
 	}
-
-	/*
-	 * //Usado antes de 08/02 public List listar(Class o) { Session session =
-	 * getSession(); Transaction tx = session.beginTransaction(); List lista =
-	 * session.createCriteria(o).add(Restrictions.eq("estatus", 'A')).list();
-	 * return lista; }
-	 */
 
 	public boolean buscarPorCodigo(Categoria categoria) {
 		// Categoria categoria;
@@ -113,7 +108,6 @@ public class DaoCategoria extends GenericDao {
 		tx.commit();
 		return sw;
 	}
-
 	
 	/**
 	 * Busca las categorias superiores a la que le corresponden a un jugador

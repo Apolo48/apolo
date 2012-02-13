@@ -205,6 +205,15 @@ public class DaoTallaPorJugador extends GenericDao {
 		return talla;
 	}
 
+	/**
+	 * Busca la talla relacionada a un jugador y un tipo de indumentaria
+	 * 
+	 * @param jugador
+	 *            Clase jugador a la cual se quiere obtener sus tallas
+	 * @param tipoIndumentaria
+	 *            Tipo de indumentaria a la cual se quiere obtener su talla
+	 * @return lista con las tallas obtenidas, en caso de no haber null
+	 */	
 	public List<DatoBasico> buscarTallasPorTipo(Jugador jugador,
 			DatoBasico tipoIndumentaria) {
 		List<DatoBasico> lista = new ArrayList<DatoBasico>();
@@ -223,8 +232,6 @@ public class DaoTallaPorJugador extends GenericDao {
 		}
 		tx.commit();
 		return lista;
-
 	}
-
 
 }

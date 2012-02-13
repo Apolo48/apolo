@@ -115,7 +115,14 @@ public class DaoDatoSocial extends GenericDao {
 		return posicion;
 	}
 	
-	
+	/**
+	 * Busca los datos sociales pertinentes a un jugador
+	 * 
+	 * @param jugador
+	 *            Jugador al cual se desea obtener sus datos sociales
+	 * @return Lista con los datos sociales del jugador, en caso de no
+	 *         existir se retorna null
+	 */	
 	public List<DatoSocial> buscarPorJugador(Jugador jugador) {
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();

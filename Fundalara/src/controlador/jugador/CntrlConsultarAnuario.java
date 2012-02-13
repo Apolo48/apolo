@@ -1,9 +1,6 @@
 package controlador.jugador;
 
 //import java.awt.Image;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,20 +9,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javassist.expr.NewArray;
 
 import javax.swing.ImageIcon;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.AMedia;
@@ -117,14 +110,13 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 	Map parameters = new HashMap();
 	Iframe ifReport;
 	
-	private Button btnImprimir;
+	private Button btnGenerar;
 	private Button btnsalir;
 
 	@Override
 	public void doAfterCompose(Component c) throws Exception {
 		super.doAfterCompose(c);
 		c.setVariable("controller", this, true);
-		// se guarda la referencia al catalogo
 		catalogo = c;
 		cmbEquipo.setDisabled(true);
 		cmbTemporada.setDisabled(true);
@@ -152,7 +144,7 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 	}
 
 	public void setJugador(Jugador jugador) {
-		jugador = jugador;
+		this.jugador = jugador;
 	}
 
 	public void setListaRoster(List<Jugador> listaRoster) {
@@ -187,9 +179,7 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		this.temporada = temporada;
 	}
 	
-	
 	// Para llenar Listas y combos
-
 	public List<Categoria> getCategorias() {
 		return servicioCategoria.listar();
 	}
@@ -205,9 +195,7 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 		return servicioLapsoDeportivo.buscarPorTipoLapso(datoLapsoDeportivo);
 	}
 	
-	
 	//Metodos
-	
 	public void onSelect$cmbCategoria() {
 		cmbEquipo.setDisabled(false);
 		cmbEquipo.getItems().clear();
@@ -282,12 +270,10 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 			Mensaje.mostrarMensaje("No hay fotos registradas para los valores seleccionados",
 					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 		}
-		
 		divLista.appendChild(listAnuario);		
 	}
-
 	
-	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
+	public void onClick$btnGenerar() throws SQLException, JRException, IOException {
 		if (cmbCategoria.getSelectedIndex() >= 0) {
 			if (cmbEquipo.getSelectedIndex() >= 0) {
 				if (cmbTemporada.getSelectedIndex() >= 0) {
@@ -313,21 +299,8 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 			cmbCategoria.setFocus(true);			
 		}			
 	}	
-		
 	
 	public void showReportfromJrxml() throws JRException, IOException{
-/*
-		*//**** CODIGO TEMPORAL PARA VIDEO Inicio****//*
-		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/anuario.pdf");
-		File archivo = new File(jrxmlSrc);
-		AMedia amedia=null;
-		try {
-			 amedia = new AMedia(null,null,null,archivo,true);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		*//**** CODIGO TEMPORAL PARA VIDEO Fin ****//*
-*/		
 		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(listaAnuario);	
 		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
 		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, ds);

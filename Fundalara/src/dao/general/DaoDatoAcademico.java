@@ -46,7 +46,14 @@ public class DaoDatoAcademico extends GenericDao {
 		return id;
 	}
 	
-	
+	/**
+	 * Busca los datos academicos pertinentes a un jugador
+	 * 
+	 * @param jugador
+	 *            Jugador al cual se desea obtener sus datos academicos
+	 * @return Lista con los datos academicos del jugador, en caso de no
+	 *         existir se retorna null
+	 */	
 	public List<DatoAcademico> buscarPorJugador(Jugador jugador) {
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
