@@ -16,6 +16,7 @@ import modelo.Persona;
 import modelo.PersonaNatural;
 import modelo.RepresentanteJugadorPlan;
 import modelo.RepresentanteJugadorPlanId;
+import modelo.RosterPlan;
 import modelo.TallaPorIndumentaria;
 
 import org.zkoss.zk.ui.Component;
@@ -44,6 +45,7 @@ import servicio.implementacion.ServicioJugadorPlan;
 import servicio.implementacion.ServicioPersona;
 import servicio.implementacion.ServicioPersonaNatural;
 import servicio.implementacion.ServicioRepresentanteJugadorPlan;
+import servicio.implementacion.ServicioRosterPlan;
 import servicio.implementacion.ServicioTallaPorIndumentaria;
 import servicio.implementacion.ServicioTallaPorJugador;
 
@@ -117,6 +119,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private Equipo equipo = new Equipo();
 	private DatoBasico tipoIndumentaria = new DatoBasico();
 	private RepresentanteJugadorPlan representanteJugadorPlan = new RepresentanteJugadorPlan();
+	private RosterPlan roster = new RosterPlan();
 
 	private DatoBasico estadoVenezuela = new DatoBasico();
 	private DatoBasico municipio = new DatoBasico();
@@ -135,6 +138,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private ServicioTallaPorJugador servicioTallaPorJugador;
 	private ServicioTallaPorIndumentaria servicioTallaPorIndumentaria;
 	private ServicioHorarioPlanTemporada servicioHorarioPlanTemporada;
+	private ServicioRosterPlan servicioRosterPlan;
 	
 	List<FamiliarJugador> listaFamiliarJugador = new ArrayList<FamiliarJugador>();
 	List<RepresentanteJugadorPlan> listaRepresentanteJugador = new ArrayList<RepresentanteJugadorPlan>();
@@ -285,10 +289,18 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	}
 
 	public List<HorarioPlanTemporada> getHorariosPlan() {
-		if (cmbEquipo.getSelectedIndex() >= 0) {
+		
+		if (equipo!=null) {
+			System.out.println("actualziando el horario ");
 			return servicioHorarioPlanTemporada.buscarPorEquipo(equipo);
 		}
 		return null;
+		
+		/*if (cmbEquipo.getSelectedIndex() >= 0) {
+			System.out.println("actualziando el horario ");
+			return servicioHorarioPlanTemporada.buscarPorEquipo(equipo);
+		}
+		return null;*/
 	}
 
 	// Eventos
@@ -399,27 +411,15 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		if (jugador.getPersonaNatural().getPrimerNombre() != null) {
 			txtNombre.setValue(jugador.getPersonaNatural()
 					.getPrimerNombre());
-			if (jugador.getPersonaNatural().getSegundoNombre() != null) {
-				txtNombre.setValue(txtNombre.getValue()
-						+ " "
-						+ jugador.getPersonaNatural()
-						.getSegundoNombre());
-			}
 		}
 		if (jugador.getPersonaNatural().getPrimerApellido() != null) {
 			txtApellido.setValue(jugador.getPersonaNatural()
 					.getPrimerApellido());
-			if (jugador.getPersonaNatural()
-					.getSegundoApellido() != null) {
-				txtApellido.setValue(txtApellido.getValue()
-						+ " "
-						+ jugador.getPersonaNatural()
-						.getSegundoApellido());
-			}
 		}
 		dtboxFechaNac.setValue(jugador.getPersonaNatural()
 				.getFechaNacimiento());
 		onChange$dtboxFechaNac();
+	
 		
 		List<DatoBasico> listTallasEntrenamiento = servicioTallaPorJugador
 				.buscarTallasPorTipo(jugador, tipoIndumentaria);
@@ -444,6 +444,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		mostrarRepresentante();
 		
 		sugerirCategoria();
+
 		//Events.sendEvent(new Event("onChange",this.dtboxFechaNac));
 		//Events.sendEvent(new Event("onChange",this.cmbCategoria)); 
 		binder.loadComponent(cmbEquipo);
@@ -484,7 +485,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 			}
 		}
 		mostrarRepresentante();
-		
+		mostrarEquipo(jugadorPlan);
 		sugerirCategoria();
 		Events.sendEvent(new Event("onChange",this.cmbCategoria)); 
 		binder.loadComponent(cmbEquipo);
@@ -566,9 +567,21 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		}
 	}
 	
-	
-	private void mostrarEquipo(){
-		
+	private void guardarRoster(JugadorPlan jugadorPlan){
+		roster = new RosterPlan();
+		roster.setJugadorPlan(jugadorPlan);
+		roster.setFechaIngreso(new Date());
+		roster.setEquipo(equipo);
+		roster.setEstatus(EstatusRegistro.ACTIVO);
+		servicioRosterPlan.agregar(roster);
+	}
+	private void mostrarEquipo(JugadorPlan jugador){
+		roster = servicioRosterPlan.buscar(jugador);
+		if ( roster!=null){
+			equipo= roster.getEquipo();
+			cmbEquipo.setValue(equipo.getNombre());
+			binder.loadComponent(listHorarioPlan);
+		}
 	}
 	private void sugerirCategoria() {
 		categoria = servicioCategoria.buscarPorEdad(txtEdad.getValue());
@@ -609,7 +622,11 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		}
 	}
 
-	public void guardar() throws InterruptedException {
+	public void guardar()   {
+		/* 0: Ingreso manual
+		 * 1: Via catalogo jugador plan 
+		 * 2: Via catalogo jugador 
+		 */
 		if ((cmbTipoJugador.getSelectedIndex() >= 0)
 				&& (txtCedula.getText() != "") && (txtCedulaF.getText() != "")) {
 	
@@ -675,6 +692,8 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 				System.out.println("Guardar Representante Post");
 			}
 			
+			//Guardando en el roster
+			guardarRoster(jugadorPlan);
 			
 			if (getSeleccion() != 1) {
 				RepresentanteJugadorPlanId id = new RepresentanteJugadorPlanId(representante.getCedulaRif(), jugadorPlan.getCedulaRif());
