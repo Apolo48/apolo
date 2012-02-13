@@ -195,7 +195,7 @@ root="winAscensoEspecial"?>
 		<space height="10px" />
 		<panel title="Documentos">
 			<panelchildren>
-				<listbox id="listDoc" mold="paging" pageSize="3"
+				<listbox id="listDoc" mold="paging" pageSize="5"
 					model="@{winAscensoEspecial$composer.recaudosAscenso}"
 					selectedItem="@{controller.docEntAscenso}">
 					<listhead>
@@ -213,7 +213,7 @@ root="winAscensoEspecial"?>
 							label="@{docAsc.recaudoPorProceso.cantidad}" />
 						<listcell>
 							<spinner id="spCantidad" width="45%"
-								value="@{docAsc.cantidad}" />
+								value="@{docAsc.cantidad}" constraint="min 0 max 5" />
 						</listcell>
 						<listcell label="Subir"
 							onClick="winAscensoEspecial$composer.subirDocumento(self,self.getParent().getParent())">
@@ -223,31 +223,29 @@ root="winAscensoEspecial"?>
 			</panelchildren>
 		</panel>
 		<space height="10px" />
-
-		<panel title="Especificaciones Técnicas Acumuladas">
-	    	<panelchildren>
+		
+	<panel title="Especificaciones Técnicas">
+		 <panelchildren>
 				<groupbox style="border-color:orange"
 					closable="false">
 					<caption label="Ofensiva" />
-					<listbox id="listOfensiva">					
-					</listbox>
+					<listbox id="listOfensiva"/>					
 				</groupbox>
 				
 				<groupbox style="border-color:orange"
 					closable="false">
 					<caption label="Defensiva" />
-					<listbox id="listDefensiva">						
-					</listbox>
+					<listbox id="listDefensiva"/>
 				</groupbox>
 				
 				<groupbox style="border-color:orange"
 					closable="false">
 					<caption label="Pitcheo" />
-					<listbox id="listPitcheo">
-					</listbox>
+					<listbox id="listPitcheo"/>
 				</groupbox>			
 			</panelchildren>
 		</panel>
+	
 		<space height="10px" />
 
 		<div align="right">

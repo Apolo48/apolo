@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
+
 import modelo.Ascenso;
 import modelo.Categoria;
 import modelo.DatoBasico;
@@ -33,6 +35,7 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
@@ -54,6 +57,7 @@ import comun.Mensaje;
 import comun.Ruta;
 import comun.TipoDatoBasico;
 import comun.Util;
+import controlador.jugador.bean.Anuario;
 import controlador.jugador.converter.DateConverter;
 import dao.general.DaoAscenso;
 
@@ -104,6 +108,7 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	private RecaudoPorProceso recaudoAscenso = new RecaudoPorProceso();
 	private DocumentoEntregado docEntAscenso = new DocumentoEntregado();
 	private LapsoDeportivo lapso = new LapsoDeportivo();
+	private boolean cntrl;
 
 	// binder
 	private AnnotateDataBinder binder;
@@ -145,7 +150,9 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	private Listbox listOfensiva;
 	private Listbox listDefensiva;
 	private Listbox listPitcheo;
-
+	private Div divOfensiva;
+	private Div divDefensiva;
+	private Div divPitcheo;
 	private Map<String, Object> requestScope;
 	Component formulario;
 
@@ -276,63 +283,25 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 			}
 		}
 		return documentosAscenso;
+
 	}
 
 	// Eventos
 	public void onClick$btnCatalogoJugador() {
 		Component catalogo = Executions.createComponents(rutasJug
 				+ "frmBuscarJugador.zul", null, null);
-		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
 		catalogo.setVariable("formulario", formulario, false);
+		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
 		formulario.addEventListener("onCatalogoBuscarJugadorCerrado",
 				new EventListener() {
 					@Override
 					public void onEvent(Event arg0) throws Exception {
-						// TODO Auto-generated method stub
-						btnCatalogoJugador.setDisabled(true);
-						jugador = (Jugador) formulario.getVariable("jugador",
-								false);
-						roster = servicioRoster.buscarRoster(jugador
-								.getCedulaRif());
-
-						DatoBasico temporada = new DatoBasico();
-						temporada = servicioDatoBasico.buscarTipo(
-								TipoDatoBasico.TIPO_LAPSO_DEPORTIVO,
-								"TEMPORADA REGULAR");
-						LapsoDeportivo lapsoDeportivo = new LapsoDeportivo();
-						servicioLapsoDeportivo = new ServicioLapsoDeportivo();
-						lapsoDeportivo= servicioLapsoDeportivo.buscarDosCampos(temporada);
-						if (lapsoDeportivo == null)
-							System.out.println("Lapso no encontrado");
-						else {
-							Date fechaI = lapsoDeportivo.getFechaInicioAscenso();
-                         	Date fechaF = lapsoDeportivo.getFechaFinAscenso();
-                      		if (roster.getFechaIngreso().before(fechaF)
-									&& roster.getFechaIngreso().after(fechaI)) {
-								alert("El jugador ya fue ascendido en esta temporada");
-								btnCatalogoJugador.setDisabled(false);
-							} else {
-								sw = true;
-								cmbCategoria.setFocus(true);
-								btnGuardar.setDisabled(false);
-								Date fecha = jugador.getPersonaNatural()
-										.getFechaNacimiento();
-								java.text.SimpleDateFormat formato = new java.text.SimpleDateFormat(
-										"dd/MM/yyyy");
-								String fechaNac = formato.format(fecha);
-								txtFechaNac.setValue(fechaNac);
-								agregarCampos();
-								imprimirList("OFENSIVO", listOfensiva);
-								imprimirList("DEFENSIVO",listDefensiva);
-								imprimirList("PITCHEO", listPitcheo);
-								edad = Util.calcularDiferenciaAnnios(fecha);
-								binder.loadAll();
-							}
-						}
+						jugador = (Jugador) formulario.getVariable("jugador",false);
+						mostrarDatos();
 					}
 				});
 	}
-
+	
 	public void onSelect$cmbCategoria() {
 		cmbEquipo.setDisabled(false);
 		reiniciarNumero();
@@ -378,7 +347,7 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 				list40.appendChild(listItem);
 			} else if (i < 80) {
 				list60.appendChild(listItem);
-			} else {// if (i < 60) {
+			} else {// if (i < 100)
 				list80.appendChild(listItem);
 			}
 		}
@@ -388,49 +357,155 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 		limpiar();
 	}
 
+	public void onClose$winAscensoEspecial() {
+		Mensaje.mostrarConfirmacion("¿Está seguro de cerrar la ventana ? ",
+				Mensaje.CONFIRMAR, Messagebox.YES | Messagebox.NO,
+				new org.zkoss.zk.ui.event.EventListener() {
+					public void onEvent(Event evt) throws InterruptedException {
+						if (evt.getName().equals("onYes")) {
+							winAscensoEspecial.detach();
+						}
+					}
+				});
+	}
+
 	public void onClick$btnSalir() {
-		winAscensoEspecial.detach();
+		onClose$winAscensoEspecial();
 	}
 	
-	public void imprimirList(String mod, Listbox list){
-		Listhead listhead= new Listhead();
-	    Listitem listItem = new Listitem();
- 		DaoAscenso daoAscenso=new DaoAscenso();
+	public void imprimirList(String mod, Listbox list, Div div) {
+		Listitem listhead = new Listitem();
+		Listitem listItem = new Listitem();
 		DatoBasico modalidad = new DatoBasico();
 		modalidad = servicioDatoBasico.buscarTipo(
 				TipoDatoBasico.MODALIDAD_INDICADOR, mod);
-    	List<Object> lista= servicioDesempennoIndividual.calcularDesempenno(modalidad, roster);
-  	    for(Object o:lista){
-  	      Object[]arr= (Object[])o;
-		  String av= (String)arr[0];
-		  Float v=(Float)arr[1];
-		  String valorD= String.valueOf(v);
-		  listhead.appendChild(new Listheader(av));
-		  listItem.appendChild(new Listcell(valorD));
-		  list.appendChild(listhead);
-	      list.appendChild(listItem);
-    	}       
-	 }  	
-	
-		
-     public void onClick$btnGuardar() {
-		if (camposVacios() != true) {
-			// Cambia de estatus el registro anterior del ascenso
-			servicioAscenso.actualizarAscenso(roster);
-			cambiarEstatusRoster();
-			nuevoRoster();
-			agregarAscenso();
-			actualizarNroJugador();
-			documentoEnt(documentosAscenso);
-			Mensaje.mostrarMensaje("Jugador cambiado de categoría",
-					Mensaje.EXITO, Messagebox.INFORMATION);
-			limpiar();
+		List<Object> lista = new ArrayList<Object>();
+		lista = servicioDesempennoIndividual.calcularDesempenno(
+				modalidad, roster);
+		boolean var = false; 
+		if (lista == null) {
+			System.out.println("El Jugador no tiene estadísticas");
+		} else {
+			for (Object o : lista) {
+				Label aux1 = new Label();
+				Label aux2 = new Label();
+				Listcell listheader = new Listcell();
+				Listcell listcell = new Listcell();
+				Object[] arr = (Object[]) o;
+				
+				String av = (String) arr[0];
+				aux1.setValue(av);
+				aux1.setStyle("font-weight:bold;");
+				listheader.appendChild(aux1);
+				listhead.appendChild(listheader);
+				if (!var){
+					list.appendChild(listhead);
+					var = !var;
+				}
+				
+				Float v = (Float) arr[1];
+				String valorD = String.valueOf(v);
+				aux2.setValue(valorD);
+				listcell.appendChild(aux2);
+				listItem.appendChild(listcell);
+				list.appendChild(listItem);
+			}
 		}
+	}
+
+	
+//	public void verificarNumero(){
+//		Mensaje.mostrarConfirmacion(
+//				"¿Desea que el número del jugador sea 0? ", Mensaje.CONFIRMAR,
+//				Messagebox.YES | Messagebox.NO,
+//				new org.zkoss.zk.ui.event.EventListener() {
+//					public void onEvent(Event evt)
+//							throws InterruptedException {
+//						if (evt.getName().equals("onYes"))
+//						return true;
+//						        {
+//						}
+//	}
+	
+	public void onClick$btnGuardar() {
+		if (camposVacios() != true) {
+			Mensaje.mostrarConfirmacion(
+					"¿Está seguro de ascender al jugador? ", Mensaje.CONFIRMAR,
+					Messagebox.YES | Messagebox.NO,
+					new org.zkoss.zk.ui.event.EventListener() {
+						public void onEvent(Event evt)
+								throws InterruptedException {
+							if (evt.getName().equals("onYes")) {
+								// Cambia de estatus el registro anterior del
+								// ascenso
+								servicioAscenso.actualizarAscenso(roster);
+								cambiarEstatusRoster();
+								nuevoRoster();
+								agregarAscenso();
+								actualizarNroJugador();
+								documentoEnt(documentosAscenso);
+								Mensaje.mostrarMensaje(
+										"Jugador cambiado de categoría exitosamente",
+										Mensaje.EXITO, Messagebox.INFORMATION);
+								limpiar();
+
+							}
+						}
+					});
+		}
+		// else
+		// Mensaje.mostrarMensaje("Por favor ingrese el nuevo equipo al que va el jugador",
+		// Mensaje.EXITO, Messagebox.INFORMATION);
 	}
 
 	// Métodos del controlador
 
 	// Concatena y muestra algunos datos en la interfaz
+	public void mostrarDatos() {
+		if (txtCedula.getValue().length() == 0) {
+			btnCatalogoJugador.setDisabled(true);
+			btnCatalogoJugador.setImage("/Recursos/Imagenes/consultar.ico");
+			roster = servicioRoster.buscarRoster(jugador
+					.getCedulaRif());
+			DatoBasico temporada = new DatoBasico();
+			temporada = servicioDatoBasico.buscarTipo(
+					TipoDatoBasico.TIPO_LAPSO_DEPORTIVO,
+					"TEMPORADA REGULAR");
+			LapsoDeportivo lapsoDeportivo = new LapsoDeportivo();
+			servicioLapsoDeportivo = new ServicioLapsoDeportivo();
+			lapsoDeportivo = servicioLapsoDeportivo
+					.buscarDosCampos(temporada);
+			if (lapsoDeportivo == null)
+				System.out.println("Lapso no encontrado");
+			else {
+				Date fechaI = lapsoDeportivo
+						.getFechaInicioAscenso();
+				Date fechaF = lapsoDeportivo.getFechaFinAscenso();
+				if (roster.getFechaIngreso().before(fechaF)
+						&& roster.getFechaIngreso().after(fechaI)) {
+					alert("El jugador ya fue ascendido en esta temporada");
+					btnCatalogoJugador.setDisabled(false);
+				} else {
+					sw = true;
+					cmbCategoria.setFocus(true);
+					btnGuardar.setDisabled(false);
+					Date fecha = jugador.getPersonaNatural()
+							.getFechaNacimiento();
+					java.text.SimpleDateFormat formato = new java.text.SimpleDateFormat(
+							"dd/MM/yyyy");
+					String fechaNac = formato.format(fecha);
+					txtFechaNac.setValue(fechaNac);
+					agregarCampos();
+					imprimirList("OFENSIVO", listOfensiva, divOfensiva);
+					imprimirList("DEFENSIVO", listDefensiva, divDefensiva);
+					imprimirList("PITCHEO", listPitcheo, divPitcheo);
+					edad = Util.calcularDiferenciaAnnios(fecha);
+					binder.loadAll();
+				}
+			}
+		}
+	}
+
 	public void agregarCampos() {
 		String segNombre = jugador.getPersonaNatural().getSegundoNombre();
 		nombres = jugador.getPersonaNatural().getPrimerNombre()
@@ -448,7 +523,6 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 				e.printStackTrace();
 			}
 		}
-
 		cmbCategoria.setDisabled(false);
 	}
 
@@ -468,8 +542,8 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 		for (int c = max - 1; c >= 0; c--) {
 			l.removeItemAt(c);
 		}
-	}	
-
+	}
+	
 	public void reiniciarNumero() {
 		bboxNumero.setRawValue("0");
 		limpiarListBox(list00);
@@ -508,7 +582,6 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 			actualizarArchivo(codigo, docsE, null);
 			lc.setLabel("Subir");
 		}
-
 	}
 
 	public void subirDocumento(Listcell lc, Listbox listbox) {
@@ -554,16 +627,15 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 		cmbCategoria.setDisabled(true);
 		cmbEquipo.setDisabled(true);
 		btnCatalogoJugador.setDisabled(false);
+		btnCatalogoJugador.setImage("/Recursos/Imagenes/consultar.ico");
 		btnCatalogoJugador.setFocus(true);
 		btnGuardar.setDisabled(true);
 		limpiarListBox(listDoc);
-		Image imgJ = new Image();
-		imgJ.setSrc("../../Recursos/Imagenes/noFoto.jpg");
-		imgJugador.setContent(imgJ.getContent());
+		imgJugador.setSrc("/Recursos/Imagenes/noFoto.jpg");
+		
 		limpiarListBox(listOfensiva);
 		limpiarListBox(listDefensiva);
 		limpiarListBox(listPitcheo);
-
 	}
 
 	public boolean camposVacios() {
@@ -579,18 +651,20 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 						Messagebox.EXCLAMATION);
 				cmbEquipo.setFocus(true);
 				vacio = true;
-				// } else {
-				// System.out.println(spCantidad.getValue());
-				// if (spCantidad.getValue() != null ) {
-				// if(spCantidad.getValue()<0){
-				// System.out.println(spCantidad.getValue());
-				// Mensaje.mostrarMensaje("Cantidad no válida", Mensaje.ERROR,
-				// Messagebox.EXCLAMATION);
-				// spCantidad.setFocus(true);
-				// vacio = true;
-				// }
-				// }
 			}
+
+			// } else {
+			// System.out.println(spCantidad.getValue());
+			// if (spCantidad.getValue() != null ) {
+			// if(spCantidad.getValue()<0){
+			// System.out.println(spCantidad.getValue());
+			// Mensaje.mostrarMensaje("Cantidad no válida", Mensaje.ERROR,
+			// Messagebox.EXCLAMATION);
+			// spCantidad.setFocus(true);
+			// vacio = true;
+			// }
+			// }
+
 		}
 		return vacio;
 	}
@@ -606,7 +680,7 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	public void cambiarEstatusRoster() {
 		roster.setEstatus(EstatusRegistro.ELIMINADO);
 		servicioRoster.actualizar(roster);
-		roster= new Roster();
+		roster = new Roster();
 	}
 
 	// Agrega un nuevo registro del roster

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Expediente" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="5275"/>
+	<property name="ireport.x" value="146"/>
+	<property name="ireport.y" value="168"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<style name="table">
 		<box>
@@ -538,7 +538,7 @@ J.cedula_rif=$P{cedulajug_1}
 AND R.cedula_rif=J.cedula_rif
 AND RC.codigo_roster= R.codigo_roster
 AND LU.codigo_roster_competencia= RC.codigo_roster_competencia
-AND IND.codigo_modalidad=283 --CODIGO DE OFENSIVA
+AND IND.codigo_modalidad=282 --CODIGO DE OFENSIVA
 AND ICC.codigo_indicador=IND.codigo_indicador
 AND DI.codigo_indicador_categoria_competencia=ICC.codigo_indicador_categoria_competencia
 AND DI.codigo_line_up= LU.codigo_line_up
@@ -568,7 +568,7 @@ J.cedula_rif=$P{cedulajug_1}
 AND R.cedula_rif=J.cedula_rif
 AND RC.codigo_roster= R.codigo_roster
 AND LU.codigo_roster_competencia= RC.codigo_roster_competencia
-AND IND.codigo_modalidad=283 --CODIGO DE OFENSIVA
+AND IND.codigo_modalidad=284 --CODIGO DE OFENSIVA
 AND ICC.codigo_indicador=IND.codigo_indicador
 AND DI.codigo_indicador_categoria_competencia=ICC.codigo_indicador_categoria_competencia
 AND DI.codigo_line_up= LU.codigo_line_up
@@ -992,7 +992,7 @@ AND D5.codigo_dato_basico=P.codigo_parroquia]]>
 				<text><![CDATA[Teléfono Celular:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="153" y="662" width="156" height="20"/>
+				<reportElement x="153" y="665" width="156" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
