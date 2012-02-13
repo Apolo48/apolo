@@ -21,6 +21,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
@@ -380,13 +381,13 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 						@Override
 						public void onEvent(Event arg0) throws Exception {
 							if (tipo) {
+								setSeleccion(1);
 								limpiar();
 								mostrarJugadorPlan();
-								setSeleccion(1);
 							} else {
+								setSeleccion(2);
 								limpiar();
 								mostrarJugador();
-								setSeleccion(2);
 							}
 						}
 					});
@@ -425,6 +426,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		}
 		dtboxFechaNac.setValue(jugador.getPersonaNatural()
 				.getFechaNacimiento());
+		onChange$dtboxFechaNac();
 		
 		List<DatoBasico> listTallasEntrenamiento = servicioTallaPorJugador
 				.buscarTallasPorTipo(jugador, tipoIndumentaria);
@@ -448,8 +450,9 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		}
 		mostrarRepresentante();
 		
-		categoria = servicioRoster.buscarRoster(jugador.getCedulaRif()).getEquipo().getCategoria();
-		cmbCategoria.setValue(categoria.getNombre());
+		sugerirCategoria();
+		//Events.sendEvent(new Event("onChange",this.dtboxFechaNac));
+		//Events.sendEvent(new Event("onChange",this.cmbCategoria)); 
 		binder.loadComponent(cmbEquipo);
 	}
 	
@@ -468,6 +471,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 			txtApellido.setValue(jugadorPlan.getApellido());
 		}
 		dtboxFechaNac.setValue(jugadorPlan.getFechaNacimiento());
+		onChange$dtboxFechaNac();
 	
 		cmbTalla.setValue(jugadorPlan.getTallaPorIndumentaria().getDatoBasicoByCodigoTalla().getNombre());
 		
@@ -488,8 +492,8 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		}
 		mostrarRepresentante();
 		
-		categoria = servicioRoster.buscarRoster(jugador.getCedulaRif()).getEquipo().getCategoria();
-		cmbCategoria.setValue(categoria.getNombre());
+		sugerirCategoria();
+		Events.sendEvent(new Event("onChange",this.cmbCategoria)); 
 		binder.loadComponent(cmbEquipo);
 	}
 	
@@ -526,13 +530,24 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 				.getPersonaNatural().getPersona()
 				.getDatoBasicoByCodigoParroquia()
 				.getDatoBasico().getDatoBasico().getNombre());
+		estadoVenezuela = representante
+				.getPersonaNatural().getPersona()
+				.getDatoBasicoByCodigoParroquia()
+				.getDatoBasico().getDatoBasico();
 		cmbMunicipioRepr.setValue(representante
 				.getPersonaNatural().getPersona()
 				.getDatoBasicoByCodigoParroquia()
 				.getDatoBasico().getNombre());
+		municipio = representante
+				.getPersonaNatural().getPersona()
+				.getDatoBasicoByCodigoParroquia()
+				.getDatoBasico();
 		cmbParroquiaRepr.setValue(representante
 				.getPersonaNatural().getPersona()
 				.getDatoBasicoByCodigoParroquia().getNombre());
+		parroquia = representante
+				.getPersonaNatural().getPersona()
+				.getDatoBasicoByCodigoParroquia();
 		txtDireccionHabRepr.setValue(representante
 				.getPersonaNatural().getPersona()
 				.getDireccion());
@@ -555,6 +570,11 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 				txtCelular.setRawValue(numeroCel[1]);
 			}
 		}
+	}
+	
+	private void sugerirCategoria() {
+		categoria = servicioCategoria.buscarPorEdad(txtEdad.getValue());
+		binder.loadComponent(cmbCategoria);
 	}
 
 	// Metodos propios del ctrl
@@ -666,19 +686,18 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 
 	public void limpiar() {
 		//Componentes
+		cmbNacionalidad.setValue("--");
 		txtCedula.setRawValue(null);
-		txtNombre.setRawValue(null);
-		txtApellido.setRawValue(null);
+		txtNombre.setRawValue("");
+		txtApellido.setRawValue("");
 		dtboxFechaNac.setValue(null);
 		txtEdad.setValue(null);
-		cmbTalla.setValue(null);
+		cmbTalla.setSelectedIndex(-1);
+		cmbNacionalidadF.setValue("--");
 		txtCedulaF.setRawValue(null);
-		txtNombreRepr.setRawValue(null);
-		txtApellidoRepr.setRawValue(null);
-		txtDireccionHabRepr.setValue(null);
-		cmbEstadoRepr.setSelectedIndex(-1);
-		cmbMunicipioRepr.setSelectedIndex(-1);
-		cmbParroquiaRepr.setSelectedIndex(-1);
+		txtNombreRepr.setRawValue("");
+		txtApellidoRepr.setRawValue("");
+		txtDireccionHabRepr.setValue("");
 		cmbCodArea.setSelectedIndex(-1);
 		cmbCodCelular.setSelectedIndex(-1);
 		txtTelefono.setRawValue(null);
@@ -696,20 +715,28 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		equipo = new Equipo();
 		tipoIndumentaria = new DatoBasico();
 		representanteJugadorPlan = new RepresentanteJugadorPlan();
-
-		estadoVenezuela = new DatoBasico();
-		municipio = new DatoBasico();
-		parroquia = new DatoBasico();
 		
 		setSeleccion(0);
-
-		binder.loadAll();
-		
 	}
 	
 	public void limpiarComplemento() {
 		cmbTipoJugador.setSelectedIndex(-1);
+		cmbEstadoRepr.setSelectedIndex(-1);
+		cmbMunicipioRepr.setSelectedIndex(-1);
+		cmbParroquiaRepr.setSelectedIndex(-1);
+		estadoVenezuela = new DatoBasico();
+		municipio = new DatoBasico();
+		parroquia = new DatoBasico();
 		disabledFields(false);
+		/*binder.loadComponent(cmbCodArea);
+		binder.loadComponent(cmbCodCelular);
+		binder.loadComponent(cmbTalla);
+		binder.loadComponent(cmbEstadoRepr);
+		binder.loadComponent(cmbMunicipioRepr);
+		binder.loadComponent(cmbParroquiaRepr);
+		binder.loadComponent(cmbCategoria);
+		binder.loadComponent(cmbEquipo);*/
+		binder.loadAll();
 	}
 	
 	/**
