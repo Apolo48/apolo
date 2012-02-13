@@ -22,6 +22,7 @@
 	<bean id="daoCuentaPagarMaterial" class="dao.general.DaoCuentaPagarMaterial">
 	</bean>
 	
+
 	<bean id="servicioCuentaPagarMaterial" class="servicio.implementacion.ServicioCuentaPagarMaterial">
 		<property name="daoCuentaPagarMaterial" ref="daoCuentaPagarMaterial"></property>
 	</bean>
@@ -555,11 +556,13 @@
 		<property name="daoActividadEntrenamiento" ref="daoActividadEntrenamiento"></property>
 	</bean>
 
+<!-- 
+
 	<bean id="daoActividadesEjecutadas" class="dao.general.DaoActividadesEjecutadas"></bean>
 	<bean id="servicioActividadesEjecutadas" class="servicio.implementacion.ServicioActividadesEjecutadas">
 		<property name="daoActividadesEjecutadas" ref="daoActividadesEjecutadas"></property>
 	</bean>
-
+ -->
 	<bean id="daoActividadPlanificada" class="dao.general.DaoActividadPlanificada"></bean>
 	<bean id="servicioActividadPlanificada" class="servicio.implementacion.ServicioActividadPlanificada">
 		<property name="daoActividadPlanificada" ref="daoActividadPlanificada"></property>

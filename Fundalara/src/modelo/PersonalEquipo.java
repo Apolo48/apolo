@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
+// Generated 13/02/2012 02:19:00 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -33,8 +33,6 @@ public class PersonalEquipo implements java.io.Serializable {
 	private char estatus;
 	private Set<AsistenciaPersonalEntrenamiento> asistenciaPersonalEntrenamientos = new HashSet<AsistenciaPersonalEntrenamiento>(
 			0);
-	private Set<PersonalEquipoJuego> personalEquipoJuegos = new HashSet<PersonalEquipoJuego>(
-			0);
 	private Set<PersonalEquipoCompetencia> personalEquipoCompetencias = new HashSet<PersonalEquipoCompetencia>(
 			0);
 
@@ -63,7 +61,6 @@ public class PersonalEquipo implements java.io.Serializable {
 			String eventualidad,
 			char estatus,
 			Set<AsistenciaPersonalEntrenamiento> asistenciaPersonalEntrenamientos,
-			Set<PersonalEquipoJuego> personalEquipoJuegos,
 			Set<PersonalEquipoCompetencia> personalEquipoCompetencias) {
 		this.codigoPersonalEquipo = codigoPersonalEquipo;
 		this.planTemporada = planTemporada;
@@ -74,7 +71,6 @@ public class PersonalEquipo implements java.io.Serializable {
 		this.eventualidad = eventualidad;
 		this.estatus = estatus;
 		this.asistenciaPersonalEntrenamientos = asistenciaPersonalEntrenamientos;
-		this.personalEquipoJuegos = personalEquipoJuegos;
 		this.personalEquipoCompetencias = personalEquipoCompetencias;
 	}
 
@@ -164,16 +160,6 @@ public class PersonalEquipo implements java.io.Serializable {
 	public void setAsistenciaPersonalEntrenamientos(
 			Set<AsistenciaPersonalEntrenamiento> asistenciaPersonalEntrenamientos) {
 		this.asistenciaPersonalEntrenamientos = asistenciaPersonalEntrenamientos;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personalEquipo")
-	public Set<PersonalEquipoJuego> getPersonalEquipoJuegos() {
-		return this.personalEquipoJuegos;
-	}
-
-	public void setPersonalEquipoJuegos(
-			Set<PersonalEquipoJuego> personalEquipoJuegos) {
-		this.personalEquipoJuegos = personalEquipoJuegos;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personalEquipo")

@@ -15,6 +15,7 @@ import modelo.JugadorPlan;
 import modelo.Persona;
 import modelo.PersonaNatural;
 import modelo.RepresentanteJugadorPlan;
+import modelo.RepresentanteJugadorPlanId;
 import modelo.TallaPorIndumentaria;
 
 import org.zkoss.zk.ui.Component;
@@ -43,7 +44,6 @@ import servicio.implementacion.ServicioJugadorPlan;
 import servicio.implementacion.ServicioPersona;
 import servicio.implementacion.ServicioPersonaNatural;
 import servicio.implementacion.ServicioRepresentanteJugadorPlan;
-import servicio.implementacion.ServicioRoster;
 import servicio.implementacion.ServicioTallaPorIndumentaria;
 import servicio.implementacion.ServicioTallaPorJugador;
 
@@ -57,8 +57,9 @@ import controlador.jugador.restriccion.Restriccion;
 /**
  * Clase controladora de los eventos de la vista Plan Vacacional.
  * 
- * @author Maria F,Luis D
- * @version 1.0 26/11/2011
+ * @author Maria F
+ * @author Luis D
+ * @version 2.0 13/02/2012
  */
 
 public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
@@ -133,7 +134,6 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	private ServicioDatoBasico servicioDatoBasico;
 	private ServicioTallaPorJugador servicioTallaPorJugador;
 	private ServicioTallaPorIndumentaria servicioTallaPorIndumentaria;
-	private ServicioRoster servicioRoster;
 	private ServicioHorarioPlanTemporada servicioHorarioPlanTemporada;
 	
 	List<FamiliarJugador> listaFamiliarJugador = new ArrayList<FamiliarJugador>();
@@ -371,13 +371,6 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 
 			formulario.addEventListener("onCatalogoBuscarJugadorCerrado",
 					new EventListener() {
-						/*
-						 * (non-Javadoc)
-						 * 
-						 * @see
-						 * org.zkoss.zk.ui.event.EventListener#onEvent(org.zkoss
-						 * .zk.ui.event.Event)
-						 */
 						@Override
 						public void onEvent(Event arg0) throws Exception {
 							if (tipo) {
@@ -467,7 +460,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		if (jugadorPlan.getNombre() != null) {
 			txtNombre.setValue(jugadorPlan.getNombre());
 		}
-		if (jugador.getPersonaNatural().getPrimerApellido() != null) {
+		if (jugadorPlan.getApellido() != null) {
 			txtApellido.setValue(jugadorPlan.getApellido());
 		}
 		dtboxFechaNac.setValue(jugadorPlan.getFechaNacimiento());
@@ -552,6 +545,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 				.getPersonaNatural().getPersona()
 				.getDireccion());
 		
+		
 		if (representante.getPersonaNatural().getPersona()
 				.getTelefonoHabitacion() != null) {
 			String[] numeroHab = Util.separarCadena(representante
@@ -572,6 +566,10 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		}
 	}
 	
+	
+	private void mostrarEquipo(){
+		
+	}
 	private void sugerirCategoria() {
 		categoria = servicioCategoria.buscarPorEdad(txtEdad.getValue());
 		binder.loadComponent(cmbCategoria);
@@ -623,17 +621,18 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 				jugadorPlan.setApellido(txtApellido.getValue().toUpperCase());
 				jugadorPlan.setFechaNacimiento(dtboxFechaNac.getValue());
 				DatoBasico tipoJugador = servicioDatoBasico.buscarTipo(TipoDatoBasico.TIPO_JUGADOR, cmbTipoJugador.getSelectedItem().getValue().toString());
-				System.out.println(tipoJugador.getNombre());
 				jugadorPlan.setDatoBasico(tipoJugador);
 				DatoBasico datoTalla = servicioDatoBasico.buscarTipo(TipoDatoBasico.TALLA_INDUMENTARIA, cmbTalla.getSelectedItem().getValue().toString());
-				System.out.println(datoTalla.getNombre());
 				TallaPorIndumentaria talla = servicioTallaPorIndumentaria.buscarPorDatoBasico(datoTalla); 
 				jugadorPlan.setTallaPorIndumentaria(talla);
 				jugadorPlan.setEstatus('A');
+				System.out.println("Guardar JugadorPlan Pre");
 				//jugadorPlan.setJugador(jugador);
 				servicioJugadorPlan.agregar(jugadorPlan);
+				System.out.println("Guardar JugadorPlan Post");
 			} 
 			//CASO CONTRARIO VERIFICA SI ACTUALIZA 
+			
 			
 			
 			String cedulaFamiliar = cmbNacionalidadF.getValue()+"-"+txtCedulaF.getValue();
@@ -651,31 +650,41 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 				}
 				persona.setDatoBasicoByCodigoTipoPersona(tipoPersona);
 				persona.setDireccion(txtDireccionHabRepr.getValue().toUpperCase());
-				persona.setTelefonoHabitacion(cmbCodArea+"-"+String.valueOf(txtTelefono.getValue()));
+				persona.setTelefonoHabitacion(cmbCodArea.getText()+"-"+String.valueOf(txtTelefono.getValue()));
 				persona.setFechaIngreso(new Date());
 				persona.setEstatus('A');
-				servicioPersona.agregar(persona);
+				System.out.println("Guardar Persona Pre");
+				//servicioPersona.agregar(persona);
+				System.out.println("Guardar Persona Post");
 				
 				personaNatural.setCedulaRif(cedulaFamiliar);
 				personaNatural.setPrimerNombre(txtNombreRepr.getValue().toUpperCase());
 				personaNatural.setPrimerApellido(txtApellidoRepr.getValue().toUpperCase());
-				personaNatural.setCelular(cmbCodCelular+"-"+String.valueOf(txtCelular.getValue()));
+				personaNatural.setCelular(cmbCodCelular.getText()+"-"+String.valueOf(txtCelular.getValue()));
 				personaNatural.setPersona(persona);
 				personaNatural.setEstatus('A');
-				servicioPersonaNatural.agregar(personaNatural);
+				System.out.println("Guardar PersonaNatural Pre");
+				//servicioPersonaNatural.agregar(personaNatural);
+				System.out.println("Guardar PersonaNatural Post");
 
 				representante.setCedulaRif(cedulaFamiliar);
 				representante.setPersonaNatural(personaNatural);
 				representante.setEstatus('A');
+				System.out.println("Guardar Representante Pre");
 				servicioFamiliar.agregar(representante);
+				System.out.println("Guardar Representante Post");
 			}
 			
 			
 			if (getSeleccion() != 1) {
+				RepresentanteJugadorPlanId id = new RepresentanteJugadorPlanId(representante.getCedulaRif(), jugadorPlan.getCedulaRif());
+				representanteJugadorPlan.setId(id);
 				representanteJugadorPlan.setFamiliar(representante);
 				representanteJugadorPlan.setJugadorPlan(jugadorPlan);
 				representanteJugadorPlan.setEstatus('A');
+				System.out.println("Guardar RepresentantaJugadorPlan Pre");
 				servicioRepresentanteJugadorPlan.agregar(representanteJugadorPlan);
+				System.out.println("Guardar RepresentantaJugadorPlan Post");
 			}
 			//CASO CONTRARIO VERIFICO SI ACTUALIZA
 			

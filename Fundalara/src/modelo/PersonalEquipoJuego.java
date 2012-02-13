@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
+// Generated 13/02/2012 02:19:00 PM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -20,31 +20,43 @@ import javax.persistence.Table;
 public class PersonalEquipoJuego implements java.io.Serializable {
 
 	private PersonalEquipoJuegoId id;
+	private PersonalEquipoCompetencia personalEquipoCompetencia;
 	private EquipoJuego equipoJuego;
-	private PersonalEquipo personalEquipo;
 	private char estatus;
 
 	public PersonalEquipoJuego() {
 	}
 
 	public PersonalEquipoJuego(PersonalEquipoJuegoId id,
-			EquipoJuego equipoJuego, PersonalEquipo personalEquipo, char estatus) {
+			PersonalEquipoCompetencia personalEquipoCompetencia,
+			EquipoJuego equipoJuego, char estatus) {
 		this.id = id;
+		this.personalEquipoCompetencia = personalEquipoCompetencia;
 		this.equipoJuego = equipoJuego;
-		this.personalEquipo = personalEquipo;
 		this.estatus = estatus;
 	}
 
 	@EmbeddedId
 	@AttributeOverrides({
 			@AttributeOverride(name = "codigoEquipoJuego", column = @Column(name = "codigo_equipo_juego", nullable = false)),
-			@AttributeOverride(name = "codigoPersonalEquipo", column = @Column(name = "codigo_personal_equipo", nullable = false)) })
+			@AttributeOverride(name = "codigoPersonalEquipoCompetencia", column = @Column(name = "codigo_personal_equipo_competencia", nullable = false)) })
 	public PersonalEquipoJuegoId getId() {
 		return this.id;
 	}
 
 	public void setId(PersonalEquipoJuegoId id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_personal_equipo_competencia", nullable = false, insertable = false, updatable = false)
+	public PersonalEquipoCompetencia getPersonalEquipoCompetencia() {
+		return this.personalEquipoCompetencia;
+	}
+
+	public void setPersonalEquipoCompetencia(
+			PersonalEquipoCompetencia personalEquipoCompetencia) {
+		this.personalEquipoCompetencia = personalEquipoCompetencia;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -55,16 +67,6 @@ public class PersonalEquipoJuego implements java.io.Serializable {
 
 	public void setEquipoJuego(EquipoJuego equipoJuego) {
 		this.equipoJuego = equipoJuego;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codigo_personal_equipo", nullable = false, insertable = false, updatable = false)
-	public PersonalEquipo getPersonalEquipo() {
-		return this.personalEquipo;
-	}
-
-	public void setPersonalEquipo(PersonalEquipo personalEquipo) {
-		this.personalEquipo = personalEquipo;
 	}
 
 	@Column(name = "estatus", nullable = false, length = 1)

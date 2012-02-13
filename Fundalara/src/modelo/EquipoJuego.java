@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
+// Generated 13/02/2012 02:19:00 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,6 +24,10 @@ public class EquipoJuego implements java.io.Serializable {
 	private Juego juego;
 	private EquipoCompetencia equipoCompetencia;
 	private boolean homeClub;
+	private Integer carrera;
+	private Integer hit;
+	private Integer error;
+	private char ganado;
 	private char estatus;
 	private Set<DesempennoColectivo> desempennoColectivos = new HashSet<DesempennoColectivo>(
 			0);
@@ -34,22 +38,29 @@ public class EquipoJuego implements java.io.Serializable {
 	}
 
 	public EquipoJuego(int codigoEquipoJuego, Juego juego,
-			EquipoCompetencia equipoCompetencia, boolean homeClub, char estatus) {
+			EquipoCompetencia equipoCompetencia, boolean homeClub, char ganado,
+			char estatus) {
 		this.codigoEquipoJuego = codigoEquipoJuego;
 		this.juego = juego;
 		this.equipoCompetencia = equipoCompetencia;
 		this.homeClub = homeClub;
+		this.ganado = ganado;
 		this.estatus = estatus;
 	}
 
 	public EquipoJuego(int codigoEquipoJuego, Juego juego,
 			EquipoCompetencia equipoCompetencia, boolean homeClub,
+			Integer carrera, Integer hit, Integer error, char ganado,
 			char estatus, Set<DesempennoColectivo> desempennoColectivos,
 			Set<PersonalEquipoJuego> personalEquipoJuegos) {
 		this.codigoEquipoJuego = codigoEquipoJuego;
 		this.juego = juego;
 		this.equipoCompetencia = equipoCompetencia;
 		this.homeClub = homeClub;
+		this.carrera = carrera;
+		this.hit = hit;
+		this.error = error;
+		this.ganado = ganado;
 		this.estatus = estatus;
 		this.desempennoColectivos = desempennoColectivos;
 		this.personalEquipoJuegos = personalEquipoJuegos;
@@ -92,6 +103,42 @@ public class EquipoJuego implements java.io.Serializable {
 
 	public void setHomeClub(boolean homeClub) {
 		this.homeClub = homeClub;
+	}
+
+	@Column(name = "carrera")
+	public Integer getCarrera() {
+		return this.carrera;
+	}
+
+	public void setCarrera(Integer carrera) {
+		this.carrera = carrera;
+	}
+
+	@Column(name = "hit")
+	public Integer getHit() {
+		return this.hit;
+	}
+
+	public void setHit(Integer hit) {
+		this.hit = hit;
+	}
+
+	@Column(name = "error")
+	public Integer getError() {
+		return this.error;
+	}
+
+	public void setError(Integer error) {
+		this.error = error;
+	}
+
+	@Column(name = "ganado", nullable = false, length = 1)
+	public char getGanado() {
+		return this.ganado;
+	}
+
+	public void setGanado(char ganado) {
+		this.ganado = ganado;
 	}
 
 	@Column(name = "estatus", nullable = false, length = 1)

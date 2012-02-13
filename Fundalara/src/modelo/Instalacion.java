@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
+// Generated 13/02/2012 02:19:00 PM by Hibernate Tools 3.4.0.CR1
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -22,17 +22,18 @@ import javax.persistence.Table;
 public class Instalacion implements java.io.Serializable {
 
 	private int codigoInstalacion;
+	private Instalacion instalacion;
 	private DatoBasico datoBasico;
 	private String descripcion;
 	private Integer capacidad;
 	private char estatus;
 	private BigDecimal tamano;
-	private String ubicacion;
 	private Set<Almacen> almacens = new HashSet<Almacen>(0);
 	private Set<InstalacionUtilizada> instalacionUtilizadas = new HashSet<InstalacionUtilizada>(
 			0);
 	private Set<InstalacionEjecutada> instalacionEjecutadas = new HashSet<InstalacionEjecutada>(
 			0);
+	private Set<Instalacion> instalacions = new HashSet<Instalacion>(0);
 
 	public Instalacion() {
 	}
@@ -44,21 +45,23 @@ public class Instalacion implements java.io.Serializable {
 		this.estatus = estatus;
 	}
 
-	public Instalacion(int codigoInstalacion, DatoBasico datoBasico,
-			String descripcion, Integer capacidad, char estatus,
-			BigDecimal tamano, String ubicacion, Set<Almacen> almacens,
+	public Instalacion(int codigoInstalacion, Instalacion instalacion,
+			DatoBasico datoBasico, String descripcion, Integer capacidad,
+			char estatus, BigDecimal tamano, Set<Almacen> almacens,
 			Set<InstalacionUtilizada> instalacionUtilizadas,
-			Set<InstalacionEjecutada> instalacionEjecutadas) {
+			Set<InstalacionEjecutada> instalacionEjecutadas,
+			Set<Instalacion> instalacions) {
 		this.codigoInstalacion = codigoInstalacion;
+		this.instalacion = instalacion;
 		this.datoBasico = datoBasico;
 		this.descripcion = descripcion;
 		this.capacidad = capacidad;
 		this.estatus = estatus;
 		this.tamano = tamano;
-		this.ubicacion = ubicacion;
 		this.almacens = almacens;
 		this.instalacionUtilizadas = instalacionUtilizadas;
 		this.instalacionEjecutadas = instalacionEjecutadas;
+		this.instalacions = instalacions;
 	}
 
 	@Id
@@ -69,6 +72,16 @@ public class Instalacion implements java.io.Serializable {
 
 	public void setCodigoInstalacion(int codigoInstalacion) {
 		this.codigoInstalacion = codigoInstalacion;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ubicacion")
+	public Instalacion getInstalacion() {
+		return this.instalacion;
+	}
+
+	public void setInstalacion(Instalacion instalacion) {
+		this.instalacion = instalacion;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -117,15 +130,6 @@ public class Instalacion implements java.io.Serializable {
 		this.tamano = tamano;
 	}
 
-	@Column(name = "ubicacion")
-	public String getUbicacion() {
-		return this.ubicacion;
-	}
-
-	public void setUbicacion(String ubicacion) {
-		this.ubicacion = ubicacion;
-	}
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instalacion")
 	public Set<Almacen> getAlmacens() {
 		return this.almacens;
@@ -153,6 +157,15 @@ public class Instalacion implements java.io.Serializable {
 	public void setInstalacionEjecutadas(
 			Set<InstalacionEjecutada> instalacionEjecutadas) {
 		this.instalacionEjecutadas = instalacionEjecutadas;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instalacion")
+	public Set<Instalacion> getInstalacions() {
+		return this.instalacions;
+	}
+
+	public void setInstalacions(Set<Instalacion> instalacions) {
+		this.instalacions = instalacions;
 	}
 
 }

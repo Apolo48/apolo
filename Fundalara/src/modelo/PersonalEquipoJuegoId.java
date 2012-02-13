@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
+// Generated 13/02/2012 02:19:00 PM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -12,14 +12,15 @@ import javax.persistence.Embeddable;
 public class PersonalEquipoJuegoId implements java.io.Serializable {
 
 	private int codigoEquipoJuego;
-	private int codigoPersonalEquipo;
+	private String codigoPersonalEquipoCompetencia;
 
 	public PersonalEquipoJuegoId() {
 	}
 
-	public PersonalEquipoJuegoId(int codigoEquipoJuego, int codigoPersonalEquipo) {
+	public PersonalEquipoJuegoId(int codigoEquipoJuego,
+			String codigoPersonalEquipoCompetencia) {
 		this.codigoEquipoJuego = codigoEquipoJuego;
-		this.codigoPersonalEquipo = codigoPersonalEquipo;
+		this.codigoPersonalEquipoCompetencia = codigoPersonalEquipoCompetencia;
 	}
 
 	@Column(name = "codigo_equipo_juego", nullable = false)
@@ -31,13 +32,14 @@ public class PersonalEquipoJuegoId implements java.io.Serializable {
 		this.codigoEquipoJuego = codigoEquipoJuego;
 	}
 
-	@Column(name = "codigo_personal_equipo", nullable = false)
-	public int getCodigoPersonalEquipo() {
-		return this.codigoPersonalEquipo;
+	@Column(name = "codigo_personal_equipo_competencia", nullable = false)
+	public String getCodigoPersonalEquipoCompetencia() {
+		return this.codigoPersonalEquipoCompetencia;
 	}
 
-	public void setCodigoPersonalEquipo(int codigoPersonalEquipo) {
-		this.codigoPersonalEquipo = codigoPersonalEquipo;
+	public void setCodigoPersonalEquipoCompetencia(
+			String codigoPersonalEquipoCompetencia) {
+		this.codigoPersonalEquipoCompetencia = codigoPersonalEquipoCompetencia;
 	}
 
 	public boolean equals(Object other) {
@@ -50,15 +52,22 @@ public class PersonalEquipoJuegoId implements java.io.Serializable {
 		PersonalEquipoJuegoId castOther = (PersonalEquipoJuegoId) other;
 
 		return (this.getCodigoEquipoJuego() == castOther.getCodigoEquipoJuego())
-				&& (this.getCodigoPersonalEquipo() == castOther
-						.getCodigoPersonalEquipo());
+				&& ((this.getCodigoPersonalEquipoCompetencia() == castOther
+						.getCodigoPersonalEquipoCompetencia()) || (this
+						.getCodigoPersonalEquipoCompetencia() != null
+						&& castOther.getCodigoPersonalEquipoCompetencia() != null && this
+						.getCodigoPersonalEquipoCompetencia().equals(
+								castOther.getCodigoPersonalEquipoCompetencia())));
 	}
 
 	public int hashCode() {
 		int result = 17;
 
 		result = 37 * result + this.getCodigoEquipoJuego();
-		result = 37 * result + this.getCodigoPersonalEquipo();
+		result = 37
+				* result
+				+ (getCodigoPersonalEquipoCompetencia() == null ? 0 : this
+						.getCodigoPersonalEquipoCompetencia().hashCode());
 		return result;
 	}
 

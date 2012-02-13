@@ -1,6 +1,6 @@
 package modelo;
 
-// Generated 04-feb-2012 16:31:02 by Hibernate Tools 3.4.0.CR1
+// Generated 13/02/2012 02:19:00 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +25,7 @@ public class DatoBasico implements java.io.Serializable {
 	private DatoBasico datoBasico;
 	private String nombre;
 	private String descripcion;
+	private Boolean edicion;
 	private char estatus;
 	private Set<RetiroTraslado> retiroTrasladosForCodigoTipoOperacion = new HashSet<RetiroTraslado>(
 			0);
@@ -195,6 +196,7 @@ public class DatoBasico implements java.io.Serializable {
 			DatoBasico datoBasico,
 			String nombre,
 			String descripcion,
+			Boolean edicion,
 			char estatus,
 			Set<RetiroTraslado> retiroTrasladosForCodigoTipoOperacion,
 			Set<FamiliarJugador> familiarJugadors,
@@ -287,6 +289,7 @@ public class DatoBasico implements java.io.Serializable {
 		this.datoBasico = datoBasico;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.edicion = edicion;
 		this.estatus = estatus;
 		this.retiroTrasladosForCodigoTipoOperacion = retiroTrasladosForCodigoTipoOperacion;
 		this.familiarJugadors = familiarJugadors;
@@ -426,6 +429,15 @@ public class DatoBasico implements java.io.Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	@Column(name = "edicion")
+	public Boolean getEdicion() {
+		return this.edicion;
+	}
+
+	public void setEdicion(Boolean edicion) {
+		this.edicion = edicion;
 	}
 
 	@Column(name = "estatus", nullable = false, length = 1)
