@@ -1177,6 +1177,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		if (!cmbPaisNac.getSelectedItem().getLabel()
 				.equalsIgnoreCase("Venezuela")) {
 			inhabilitar = true;
+			jugadorBean.setParroquiaNac(null);
 		}
 		if (inhabilitar) {
 			cmbParroquiaNac.setSelectedIndex(-1);
@@ -1956,7 +1957,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 			Pattern patron = Pattern.compile(r);
 			Matcher valor = patron.matcher(e);
-			System.out.println(e);
 
 			if ((valor.find()) || (e == null)) {
 				flag = false;
@@ -1984,9 +1984,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 			String e = iterador.next();
 			String r = iter.next();
 
-			System.out.print(i);
 			i++;
-			System.out.println(" " + e);
 
 			if ((e != null) && (e.trim() != "")) {
 				Pattern patron = Pattern.compile(r);
@@ -2102,8 +2100,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 																							.size() > 0) {
 																						for (int p = 0; p < familiares
 																								.size(); p++) {
-																							System.out
-																									.println("FAMILIAR");
+																						
 																							if (validarCampos(
 																									new String[] {
 																											familiares
@@ -2124,8 +2121,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 																													.getConstraint() },
 																									"familiar.",
 																									true)) {
-																								System.out
-																										.println("PASO FAMILIAR");
+																							
 																								if (familiares
 																										.get(p)
 																										.getParentesco() != null) {

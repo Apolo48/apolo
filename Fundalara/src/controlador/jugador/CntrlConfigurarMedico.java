@@ -130,13 +130,23 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 
 	public void onClick$btnGuardar() {
 		
-		if(txtApellido.getValue()!= "" && txtNombre.getValue()!= "" && txtTelefonoCelular.getValue().toString().length()==7 
-				&& txtTelefonoHabitacion.getValue().toString().length()==7 
-				&& txtNumcol.getValue()!="" && txtNumcol.getValue().toString().length()==6
-				&& txtCedula.getValue()!="" && cmbEspecialidad.getSelectedIndex()!=-1
+		System.out.println(txtApellido.getValue());
+		System.out.println(txtTelefonoCelular.getText().toString().length());
+		System.out.println(cmbCodCelular.getSelectedIndex());
+		System.out.println(cmbEspecialidad.getSelectedIndex());
+		System.out.println(cmbNacionalidad.getSelectedIndex());
+		System.out.println(txtTelefonoHabitacion.getText().toString().length());
+		System.out.println(txtNombre.getValue());
+		System.out.println(txtCedula.getValue().trim());
+		
+		
+		if(txtApellido.getValue().trim()!="" && txtNombre.getValue().trim()!= "" && txtTelefonoCelular.getText().toString().length()==7 
+				&& txtTelefonoHabitacion.getText().toString().length()==7 
+				&& txtNumcol.getValue().trim()!="" && txtNumcol.getText().toString().length()==6
+				&& txtCedula.getValue().trim()!="" && cmbEspecialidad.getSelectedIndex()!=-1
 				&& cmbNacionalidad.getSelectedIndex()!=-1 && cmbCodCelular.getSelectedIndex()!=-1
-				&& cmbCodArea.getSelectedIndex()!=-1 && txtMatricula.getValue()!="" 
-				&& txtMatricula.getValue().length()==6) {		
+				&& cmbCodArea.getSelectedIndex()!=-1 && txtMatricula.getValue().trim()!="" 
+				&& txtMatricula.getText().length()==6) {		
 		especialidades=servicioDatoBasico.buscar(TipoDatoBasico.ESPECIALIDAD);
 		medico.setApellido(txtApellido.getValue().toUpperCase());
 		medico.setNombre(txtNombre.getValue().toUpperCase());
