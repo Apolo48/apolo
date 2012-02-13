@@ -126,8 +126,7 @@
 									<comboitem label="V" />
 									<comboitem label="E" />
 								</combobox>
-								<intbox id="txtCedulaF"
-									constraint="no negative" width="20%" />
+								<intbox id="txtCedulaF" maxlength="8" width="20%" />
 								<label value="(*)" style="color:red" />
 								<button id="btnCatalogoFamiliar"
 									focus="true" tooltiptext="Consultar Jugador"
@@ -206,7 +205,7 @@
 									<comboitem self="@{each='codArea'}"
 										label="@{codArea.nombre}" value="@{codArea.codigoDatoBasico}" />
 								</combobox>
-								<intbox id="txtTelefono"
+								<intbox id="txtTelefono" maxlength="7"
 									constraint="no negative" width="40%" />
 							</div>
 							<label value="Teléfono Celular" />
@@ -217,7 +216,7 @@
 									<comboitem self="@{each='codCel'}"
 										label="@{codCel.nombre}" value="@{codCel.codigoDatoBasico}" />
 								</combobox>
-								<intbox id="txtCelular"
+								<intbox id="txtCelular" maxlength="7"
 									constraint="no negative" width="40%" />
 								<label value="(*)" style="color:red" />
 							</div>
@@ -290,11 +289,8 @@
 			<label value="(*) Campo Obligatorio" style="color:red" />
 		</div>
 		<div align="right">
-			<button id="btnGuardar" label="Guardar"
-				image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"
-				width="100px" />
-			<button id="btnModificar" label="Modificar"
-				image="../../Recursos/Imagenes/editar.ico" orient="horizontal"
+			<button id="btnGuardar" label="Inscribir"
+				image="../../Recursos/Imagenes/inscribir.gif" orient="horizontal"
 				width="100px" />
 			<button id="btnEliminar" label="Eliminar"
 				image="../../Recursos/Imagenes/eliminar.ico" orient="horizontal"

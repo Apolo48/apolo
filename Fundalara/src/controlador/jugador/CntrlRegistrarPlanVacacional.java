@@ -51,6 +51,7 @@ import comun.Mensaje;
 import comun.Ruta;
 import comun.TipoDatoBasico;
 import comun.Util;
+import controlador.jugador.restriccion.Restriccion;
 
 /**
  * Clase controladora de los eventos de la vista Plan Vacacional.
@@ -144,6 +145,7 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
 		formulario = comp;
+		aplicarConstraints();
 	}
 
 	//Getters y setters
@@ -296,21 +298,20 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	public void onClick$btnGuardar() throws InterruptedException {
 		guardar();
 		limpiar();
+		limpiarComplemento();
 	}
 
 	public void onClick$btnCancelar() {
-		if ((cmbTipoJugador.getSelectedIndex() >= 0)
-				&& (txtCedula.getText() != "") && (txtCedulaF.getText() != "")) {
-			Mensaje.mostrarConfirmacion("¿Está seguro de cancelar la operación?",
-					Mensaje.CONFIRMAR, Messagebox.YES | Messagebox.NO,
-					new org.zkoss.zk.ui.event.EventListener() {
-						public void onEvent(Event evt) throws InterruptedException {
-							if (evt.getName().equals("onYes")) {
-								limpiar();
-							}
+		Mensaje.mostrarConfirmacion("¿Está seguro de cancelar la operación?",
+				Mensaje.CONFIRMAR, Messagebox.YES | Messagebox.NO,
+				new org.zkoss.zk.ui.event.EventListener() {
+					public void onEvent(Event evt) throws InterruptedException {
+						if (evt.getName().equals("onYes")) {
+							limpiar();
+							limpiarComplemento();
 						}
-					});
-		}
+					}
+				});
 	}
 
 	public void onChange$dtboxFechaNac() {
@@ -335,22 +336,24 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	}
 	
 	public void onClick$btnCatalogoFamiliar() {
-		Component catalogo = Executions.createComponents(rutasJug
-				+ "frmBuscarFamiliar.zul", null, null);
-		catalogo.setVariable("formulario", formulario, false);
-		// 2: Familiar
-		catalogo.setVariable("estatus", 2, false);
-		formulario.addEventListener("onCatalogoBuscarFamiliarCerrado",
-				new EventListener() {
-					@Override
-					public void onEvent(Event arg0) throws Exception {
-						representante = (Familiar) formulario.getVariable("familiar", false);
-						if (representante != null) {
-							mostrarRepresentante();
-						}
+		if (cmbTipoJugador.getSelectedIndex() >= 0) {
+			Component catalogo = Executions.createComponents(rutasJug
+					+ "frmBuscarFamiliar.zul", null, null);
+			catalogo.setVariable("formulario", formulario, false);
+			// 2: Familiar
+			catalogo.setVariable("estatus", 2, false);
+			formulario.addEventListener("onCatalogoBuscarFamiliarCerrado",
+					new EventListener() {
+						@Override
+						public void onEvent(Event arg0) throws Exception {
+							representante = (Familiar) formulario.getVariable("familiar", false);
+							if (representante != null) {
+								mostrarRepresentante();
+							}
 
-					}
-				});
+						}
+					});
+		}
 	}
 
 	public void onClick$btnCatalogoJugador() {
@@ -377,9 +380,11 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 						@Override
 						public void onEvent(Event arg0) throws Exception {
 							if (tipo) {
+								limpiar();
 								mostrarJugadorPlan();
 								setSeleccion(1);
 							} else {
+								limpiar();
 								mostrarJugador();
 								setSeleccion(2);
 							}
@@ -431,19 +436,17 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 			}
 		}
 		
-		if (representante.getCedulaRif() == null) {
-			listaFamiliarJugador = servicioFamiliarJugador
-					.buscarFamiliarJugador(jugador);
-			for (int i = 0; i < listaFamiliarJugador.size(); i++) {
-				if (listaFamiliarJugador.get(i)
-						.isRepresentanteActual()) {
-					representante = listaFamiliarJugador.get(i)
-							.getFamiliar();
-					break;
-				}
+		listaFamiliarJugador = servicioFamiliarJugador
+				.buscarFamiliarJugador(jugador);
+		for (int i = 0; i < listaFamiliarJugador.size(); i++) {
+			if (listaFamiliarJugador.get(i)
+					.isRepresentanteActual()) {
+				representante = listaFamiliarJugador.get(i)
+						.getFamiliar();
+				break;
 			}
-			mostrarRepresentante();
 		}
+		mostrarRepresentante();
 		
 		categoria = servicioRoster.buscarRoster(jugador.getCedulaRif()).getEquipo().getCategoria();
 		cmbCategoria.setValue(categoria.getNombre());
@@ -483,7 +486,6 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 				break;
 			}
 		}
-		
 		mostrarRepresentante();
 		
 		categoria = servicioRoster.buscarRoster(jugador.getCedulaRif()).getEquipo().getCategoria();
@@ -580,7 +582,6 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 	 */
 	private void visibleButton(boolean flag) {
 		if (cmbTipoJugador.getSelectedItem().getLabel().equals("REGULAR")) {
-			btnCatalogoJugador.setVisible(flag);
 			btnCatalogoJugador.setFocus(true);
 			disabledFields(flag);//Deshabilitar campos
 		}
@@ -665,25 +666,23 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 
 	public void limpiar() {
 		//Componentes
-		cmbTipoJugador.setSelectedIndex(-1);
-		jugadorPlan = new JugadorPlan();
-		txtCedula.setValue(null);
-		txtNombre.setValue(null);
-		txtApellido.setValue(null);
+		txtCedula.setRawValue(null);
+		txtNombre.setRawValue(null);
+		txtApellido.setRawValue(null);
 		dtboxFechaNac.setValue(null);
 		txtEdad.setValue(null);
 		cmbTalla.setValue(null);
-		txtCedulaF.setValue(null);
-		txtNombreRepr.setValue(null);
-		txtApellidoRepr.setValue(null);
+		txtCedulaF.setRawValue(null);
+		txtNombreRepr.setRawValue(null);
+		txtApellidoRepr.setRawValue(null);
 		txtDireccionHabRepr.setValue(null);
 		cmbEstadoRepr.setSelectedIndex(-1);
 		cmbMunicipioRepr.setSelectedIndex(-1);
 		cmbParroquiaRepr.setSelectedIndex(-1);
 		cmbCodArea.setSelectedIndex(-1);
 		cmbCodCelular.setSelectedIndex(-1);
-		txtTelefono.setValue(null);
-		txtCelular.setValue(null);
+		txtTelefono.setRawValue(null);
+		txtCelular.setRawValue(null);
 		cmbCategoria.setSelectedIndex(-1);
 		cmbEquipo.setSelectedIndex(-1);
 		
@@ -705,7 +704,30 @@ public class CntrlRegistrarPlanVacacional extends GenericForwardComposer {
 		setSeleccion(0);
 
 		binder.loadAll();
+		
+	}
+	
+	public void limpiarComplemento() {
+		cmbTipoJugador.setSelectedIndex(-1);
 		disabledFields(false);
+	}
+	
+	/**
+	 * Aplica las restricciones de captura de datos a los componentes de la
+	 * vista
+	 */
+	private void aplicarConstraints() {
+		//Jugador Plan
+		txtCedula.setConstraint(Restriccion.CEDULA.getRestriccion());
+		txtNombre.setConstraint(Restriccion.TEXTO_SIMPLE.asignarRestriccionExtra("no empty"));
+		txtApellido.setConstraint(Restriccion.TEXTO_SIMPLE.asignarRestriccionExtra("no empty"));
+		dtboxFechaNac.setConstraint(Restriccion.FECHA_NACIMIENTO.getRestriccion());
+		//Reprsentante
+		txtCedulaF.setConstraint(Restriccion.CEDULA.getRestriccion());
+		txtNombreRepr.setConstraint(Restriccion.TEXTO_SIMPLE.asignarRestriccionExtra("no empty"));
+		txtApellidoRepr.setConstraint(Restriccion.TEXTO_SIMPLE.asignarRestriccionExtra("no empty"));
+		txtTelefono.setConstraint(Restriccion.TELEFONO.getRestriccion());
+		txtCelular.setConstraint(Restriccion.TELEFONO.getRestriccion());
 	}
 
 	/*
