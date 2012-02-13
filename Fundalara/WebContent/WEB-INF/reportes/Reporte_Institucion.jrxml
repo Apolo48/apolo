@@ -138,7 +138,7 @@ dato_basico.codigo_dato_basico=institucion.codigo_tipo_institucion)]]>
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="53" splitType="Stretch">
+		<band height="74" splitType="Stretch">
 			<textField evaluationTime="Report">
 				<reportElement x="-141" y="-99" width="40" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -202,11 +202,11 @@ dato_basico.codigo_dato_basico=institucion.codigo_tipo_institucion)]]>
 				</graphicElement>
 			</line>
 			<image>
-				<reportElement x="0" y="0" width="566" height="53"/>
+				<reportElement x="-1" y="0" width="555" height="53"/>
 				<imageExpression><![CDATA["PieDePagina.jpg"]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="458" y="15" width="90" height="20"/>
+				<reportElement x="465" y="53" width="90" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>

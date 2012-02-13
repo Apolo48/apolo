@@ -7,7 +7,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zkplus.databind.TypeConverter;
 
 /**
- * Clase para convertir el formato por defecto de las fechas a dd/MM/yyyy
+ * Clase para convertir el formato por defecto de las horas
  * 
  * @author Robert A
  * @author German L

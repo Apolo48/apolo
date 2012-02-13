@@ -88,7 +88,7 @@
 								<row style="border:none;">
 									<label value="  Nombres" />
 									<div>
-										<textbox width="88%" id="txtNombre"
+										<textbox width="88%"
 											maxlength="40" value="@{controller.medico.nombre}"
 											style='text-transform:uppercase;' constraint="/[A-Z,a-z, ]+/:Introduzca solo Caracteres Alfanumericos" />
 									</div>
@@ -125,7 +125,7 @@
 										</combobox>
 										<textbox width="55%"
 											maxlength="7" id="txtTelefonoCelular"
-											style='text-transform:uppercase;' constraint="/[0-9]+/:Introduzca solo Numeros" />
+											style='text-transform:uppercase;' constraint="/[0-9]+/:Introduzca solo Numeros"/>
 									</div>
 								</row>
 							</rows>
@@ -187,9 +187,10 @@
 
 			</rows>
 		</grid>
+         <iframe id="ifReporte"></iframe>
 		<space></space>
 		<div align="right">
-		<button image="/Recursos/Imagenes/imprimir.ico" width="100px"
+		    <button image="/Recursos/Imagenes/reporte.ico" width="100px"
 				id="btnImprimir" onClick="" tooltiptext="/Generar" label="Generar" />
 			<button id="btnCancelar" label="Cancelar"
 				image="/Recursos/Imagenes/cancelar.ico" orient="horizontal"
