@@ -244,7 +244,7 @@
 									model="@{winRegistrarPlanVacacional$composer.categorias, load-after='dtboxFechaNac.onChange'}">
 									<comboitem
 										self="@{each='categoria'}" label="@{categoria.nombre}"
-										value="@{categoria.codigoCategoria}" />
+										value="@{categoria}" />
 								</combobox>
 								<label value="(*)" style="color:red" />
 							</div>
@@ -292,7 +292,7 @@
 			<button id="btnGuardar" label="Inscribir"
 				image="../../Recursos/Imagenes/inscribir.gif" orient="horizontal"
 				width="100px" />
-			<button id="btnEliminar" label="Eliminar"
+			<button id="btnEliminar" label="Retirar"
 				image="../../Recursos/Imagenes/eliminar.ico" orient="horizontal"
 				width="100px" />
 			<button id="btnCancelar" label="Cancelar"

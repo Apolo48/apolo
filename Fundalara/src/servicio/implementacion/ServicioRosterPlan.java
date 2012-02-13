@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.general.DaoRosterPlan;
 
+import modelo.JugadorPlan;
 import modelo.RosterPlan;
 import servicio.interfaz.IServicioRosterPlan;
 
@@ -41,6 +42,9 @@ public class ServicioRosterPlan implements IServicioRosterPlan {
 	@Override
 	public List<RosterPlan> listar() {
 		return daoRosterPlan.listar(RosterPlan.class);
+	}
+	public RosterPlan  buscar (JugadorPlan jugadorPlan){
+		return daoRosterPlan.buscarRoster(jugadorPlan);
 	}
 
 }
