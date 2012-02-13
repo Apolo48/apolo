@@ -41,8 +41,9 @@ public class ServicioInstitucion implements IServicioInstitucion {
 	public List<Institucion> listar() {
 		return  daoInstitucion.listar( Institucion.class);
 	}
+
 	@Override
-    public Institucion buscar (String id){
+    public Institucion buscar (int id){
     	return daoInstitucion.buscar(id);
     }
 	
@@ -50,4 +51,11 @@ public class ServicioInstitucion implements IServicioInstitucion {
 	public List<Institucion> buscarInstitucionTipo(DatoBasico datoBasico) {
 		return daoInstitucion.buscarInstitucionTipo(datoBasico);
 	}
+	
+	
+	public Institucion buscarpornombre (String nombre){
+    	return daoInstitucion.buscarpornombre(nombre);
+    }
+	
+	
 }

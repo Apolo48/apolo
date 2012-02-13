@@ -14,6 +14,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -44,6 +45,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Constraint;
 import org.zkoss.zul.Iframe;
+import org.zkoss.zul.Window;
 
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
@@ -53,6 +55,7 @@ import servicio.implementacion.ServicioMedico;
 import servicio.implementacion.ServicioDatoBasico;
 
 import comun.ConeccionBD;
+import comun.Ruta;
 
 import comun.TipoDatoBasico;
 
@@ -77,6 +80,7 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 
 	// private DatoBasico especialidad = new DatoBasico();
 	private Medico medico = new Medico();
+	Window winConfigurarMedico;
 
 	Button btnGuardar;
 	Button btnModificar;
@@ -84,13 +88,13 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	Button btnCancelar;
 	Button btnSalir;
 	Button btnBuscar;
-	Iframe ifReporte;
+
 
 	private Connection con;
 	private String jrxmlSrc;
 	private Map parameters = new HashMap();
 	
-
+	private String rutasGen = Ruta.GENERAL.getRutaVista();
 
 	Listbox listmedico;
 	
@@ -147,7 +151,7 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		limpiar();
 		}
 		else{
-			alert("Complete los Datos Necesarios para Guardar el Medico");
+			alert("Debe Completar los Datos Necesarios para Guardar el Medico");
 		}
 		
 	}
@@ -185,7 +189,7 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 			   });
 		}
 		else{
-			alert("Complete los Datos Necesarios para Registro de el Medico");
+			alert("Debe Completar los Datos Necesarios para Registro de el Medico");
 		}
 	}
 
@@ -265,7 +269,9 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		binder.loadAll();
 		binder.loadComponent(listmedico);
 		txtNumcol.setFocus(true);
-		
+		btnGuardar.setImage("/Recursos/Imagenes/agregar.ico");
+		btnModificar.setImage("/Recursos/Imagenes/editar.ico");
+		btnEliminar.setImage("/Recursos/Imagenes/quitar.ico");
 	}
 
 	public int buscaresp(Medico medico){
@@ -354,26 +360,36 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		
 	}
 	
-	public void showReportfromJrxml() throws JRException, IOException{
-		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
-		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
-		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
-		JRExporter exporter = new JRPdfExporter();
-		exporter.setParameters(parameters);
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT ,jaspPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,arrayOutputStream);
-		exporter.exportReport();
-		arrayOutputStream.close();
-		final AMedia amedia = new AMedia("ListadoDeMedicos.pdf","pdf","pdf/application", arrayOutputStream.toByteArray());
-		ifReporte.setContent(amedia);
+	public void onClick$btnSalir(){
+		winConfigurarMedico.detach();
 	}
-	// ---------------------------------------------------------------------------------------------------
+	
+	
 	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
 		con = ConeccionBD.getCon("postgres","postgres","123456");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ReporteListadoMedico.jrxml");
-		//parameters.put("NombreRepre",txtNombres.);
-		showReportfromJrxml();
+		//parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
+		mostrarVisor();
 	}
 
+
+public void mostrarVisor() throws JRException {
+	/*
+	 * Funciona para IExplorer, Firefox, Chrome y Opera
+	 * Permite ver, guardar e imprimir, todo desde el visor
+	 * Observacion: uso de codigo mas sencillo para generar pdf
+	 * El codigo usado en mostrarFrame tambien puede usarse en este caso
+	 * */
+	JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
+	JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
+	
+	byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
+	final AMedia amedia = new AMedia("ListadoDeMedicos.pdf","pdf","application/pdf", archivo);
+	
+	
+	Component visor = Executions.createComponents(rutasGen
+				+ "frmVisorDocumento.zul", null, null);
+		visor.setVariable("archivo", amedia, false);
+}
 	
 }

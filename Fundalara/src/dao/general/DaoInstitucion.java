@@ -30,7 +30,7 @@ public class DaoInstitucion extends GenericDao {
 	 *            código de la institucion
 	 * @return Institucion asociada al id o null en caso de no existir
 	 */
-	public Institucion buscar(String id) {
+	public Institucion buscar(int id) {
 		Session session = getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
 		Criteria c = session.createCriteria(Institucion.class);
@@ -42,7 +42,6 @@ public class DaoInstitucion extends GenericDao {
 			return null;
 		}
 	}
-
 	/**
 	 * Busca todas las instituciones de un tipo dado
 	 * 
@@ -64,4 +63,21 @@ public class DaoInstitucion extends GenericDao {
 		return lista;
 	}
 
+	
+	
+	public Institucion buscarpornombre(String nombre) {
+		Session session = getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(Institucion.class);
+		c.add(Restrictions.eq("nombre", nombre));
+		List list = c.list();
+		if (list.size() > 0) {
+			return (Institucion) list.get(0);
+		} else {
+			return null;
+		}
+	}
+
+
+	
 }

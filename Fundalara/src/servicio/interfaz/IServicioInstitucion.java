@@ -15,7 +15,7 @@ public interface IServicioInstitucion {
 	
 	public abstract List<Institucion> listar();
 	
-	public abstract Institucion buscar (String id);
+	public abstract Institucion buscar (int id);
 	
 	public abstract List<Institucion> buscarInstitucionTipo(DatoBasico datoBasico);
 }
