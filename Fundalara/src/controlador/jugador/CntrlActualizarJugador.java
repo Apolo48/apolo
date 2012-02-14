@@ -1,11 +1,13 @@
 package controlador.jugador;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -58,6 +60,7 @@ import controlador.jugador.bean.ActividadSocial;
 import controlador.jugador.bean.NuevoCurso;
 import controlador.jugador.bean.SancionJugador;
 import controlador.jugador.bean.Afeccion;
+import controlador.jugador.bean.Telefono;
 //import controlador.jugador.bean.Persona;
 
 import modelo.AfeccionJugador;
@@ -98,20 +101,20 @@ import modelo.Roster;
  * */
 public class CntrlActualizarJugador extends GenericForwardComposer {
 	private static final DatoBasico Actualizar = null;
-	
+
 	// Componentes visuales
 	private Window winActualizarJugador;
-	
+
 	private Datebox dtboxFechaInicioActividad;
 	private Datebox dtboxFechaInicioSancion;
 
 	private Intbox txtEdad;
-	private Intbox txtHorasSemanales;	
+	private Intbox txtHorasSemanales;
 	private Intbox txtTelefonoHabitacion;
 	private Intbox txtTelefonoCelular;
 	private Intbox txtCantidad;
 
-	private Textbox txtFechaNac;	
+	private Textbox txtFechaNac;
 	private Textbox txtCedulaSecuencia;
 	private Textbox txtCedula;
 	private Textbox txtPrimerNombre;
@@ -128,14 +131,14 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 
 	private Decimalbox txtPeso;
 	private Decimalbox txtAltura;
-	
+
 	private Combobox cmbNacionalidadFamiliar;
 	private Combobox cmbEstadoNac;
 	private Combobox cmbMunicipioNac;
 	private Combobox cmbParroquiaNac;
 	private Combobox cmbParroquiaResi;
 	private Combobox cmbMunicipioResi;
-	private Combobox cmbEstadoResi;	
+	private Combobox cmbEstadoResi;
 	private Combobox cmbAfecciones;
 	private Combobox cmbInstitucionEducativa;
 	private Combobox cmbCurso;
@@ -157,7 +160,7 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private Combobox cmbCompetencia;
 	private Combobox cmbTemporada;
 	private Combobox cmbTipoSancion;
-	
+
 	private Button btnGuardar;
 	private Button btnFoto;
 	private Button btnCatalogoMedico;
@@ -173,18 +176,18 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private Button btnSubirDocumentoInf;
 	private Button btnSubirDocumentoMem;
 	private Button btnSalir;
-	
+
 	private Listbox listAfeccionesActuales;
 	private Listbox listAcademico;
 	private Listbox listActividadesSociales;
 	private Listbox listConducta;
 	private Listbox listDocAcademicos;
 	private Listbox listLogros;
-	
-	private Label lblSeparador;	
+
+	private Label lblSeparador;
 	private Component formulario;
 	private Include incCuerpo;
-	private Image imgJugador;		
+	private Image imgJugador;
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
 	// Servicios
@@ -201,10 +204,8 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private ServicioCompetencia servicioCompetencia;
 	private ServicioDatoAcademico servicioDatoAcademico;
 	private ServicioDatoSocial servicioDatoSocial;
-	//private ServicioDatoConducta servicioDatoConducta;
+	// private ServicioDatoConducta servicioDatoConducta;
 	private ServicioMotivoSancion servicioMotivoSancion;
-	
-
 
 	// Modelos
 	private Jugador jugador = new Jugador();
@@ -240,31 +241,31 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private DatoBasico suspension;
 	private DatoBasico tipoIndumentaria = new DatoBasico();
 	private MotivoSancion motivoSancion = new MotivoSancion();
-	
+
 	private Medico medico = new Medico();
 	private List<Afeccion> afeccionesJugador = new ArrayList<Afeccion>();
 
 	private DatoBasico motivoJugador = new DatoBasico();
 	private List<DatoBasico> motivosJugador = new ArrayList<DatoBasico>();
-		
+
 	private DatoSocial datoSocial = new DatoSocial();
 	private List<DatoSocial> datoSociales = new ArrayList<DatoSocial>();
 
 	private DatoBasico logroJugador = new DatoBasico();
 	private List<DatoBasico> logrosJugador = new ArrayList<DatoBasico>();
-	
+
 	private Competencia competencia = new Competencia();
-	private List<Competencia> listCompetencias = new ArrayList<Competencia>();	
-	
+	private List<Competencia> listCompetencias = new ArrayList<Competencia>();
+
 	private DatoAcademico datoAcademico = new DatoAcademico();
 	private List<DatoAcademico> listaAcademica = new ArrayList<DatoAcademico>();
-	
-	//private DatoConducta datoConducta = new DatoConducta();
-	//private List<DatoConducta> listaConducta = new ArrayList<DatoConducta>();
-	
+
+	// private DatoConducta datoConducta = new DatoConducta();
+	// private List<DatoConducta> listaConducta = new ArrayList<DatoConducta>();
+
 	private MotivoSancion datoConducta = new MotivoSancion();
-	private List<MotivoSancion> listaConducta = new ArrayList<MotivoSancion>();	
-	
+	private List<MotivoSancion> listaConducta = new ArrayList<MotivoSancion>();
+
 	Roster roster;
 	Persona persona;
 	private Persona Pers = new Persona();
@@ -284,10 +285,10 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		comp.setVariable("controller", this, false);
 		formulario = comp;
 		tipoIndumentaria = servicioDatoBasico.buscarTipo(
-				TipoDatoBasico.TIPO_UNIFORME, "Entrenamiento");		
+				TipoDatoBasico.TIPO_UNIFORME, "Entrenamiento");
 	}
 
-	// Getters y setters	
+	// Getters y setters
 	public Textbox getTxtObservacion() {
 		return txtObservacion;
 	}
@@ -295,23 +296,23 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	public void setTxtObservacion(Textbox txtObservacion) {
 		this.txtObservacion = txtObservacion;
 	}
-	
+
 	public Datebox getDtboxFechaInicioSancion() {
 		return dtboxFechaInicioSancion;
 	}
 
 	public void setDtboxFechaInicioSancion(Datebox dtboxFechaInicioSancion) {
 		this.dtboxFechaInicioSancion = dtboxFechaInicioSancion;
-	}	
-	
+	}
+
 	public Intbox getTxtCantidad() {
 		return txtCantidad;
 	}
 
 	public void setTxtCantidad(Intbox txtCantidad) {
 		this.txtCantidad = txtCantidad;
-	}	
-	
+	}
+
 	public Combobox getCmbMotivo() {
 		return cmbMotivo;
 	}
@@ -326,8 +327,8 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 
 	public void setCmbTipoSancion(Combobox cmbTipoSancion) {
 		this.cmbTipoSancion = cmbTipoSancion;
-	}	
-	
+	}
+
 	public MotivoSancion getMotivoSancion() {
 		return motivoSancion;
 	}
@@ -342,7 +343,7 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 
 	public void setListaConducta(List<MotivoSancion> listaConducta) {
 		this.listaConducta = listaConducta;
-	}	
+	}
 
 	public List<DatoAcademico> getListaAcademica() {
 		return listaAcademica;
@@ -351,23 +352,23 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	public void setListaAcademica(List<DatoAcademico> listaAcademica) {
 		this.listaAcademica = listaAcademica;
 	}
-	
+
 	public DatoAcademico getDatoAcademico() {
 		return datoAcademico;
 	}
 
 	public void setDatoAcademico(DatoAcademico datoAcademico) {
 		this.datoAcademico = datoAcademico;
-	}	
-	
+	}
+
 	public Jugador getJugador() {
 		return jugador;
 	}
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
-	}	
-	
+	}
+
 	public List<DatoBasico> getMotivosJugador() {
 		return motivosJugador;
 	}
@@ -398,8 +399,8 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 
 	public void setTxtAltura(Decimalbox txtAltura) {
 		this.txtAltura = txtAltura;
-	}	
-	
+	}
+
 	public Combobox getCmbCompetencia() {
 		return cmbCompetencia;
 	}
@@ -643,12 +644,11 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	public Competencia getCompetencia() {
 		return competencia;
 	}
-	
+
 	public void setCompetencia(Competencia competencia) {
 		this.competencia = competencia;
-	}	
+	}
 
-	
 	// Metodos para carga de combos/listbox
 	public List<Categoria> getCategorias() {
 		return servicioCategoria.listar();
@@ -725,7 +725,7 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	public List<DatoBasico> getActualizacion() {
 		return servicioDatoBasico.buscar(TipoDatoBasico.ACTUALIZACION_MEDICA);
 	}
-	
+
 	public Include getIncCuerpo() {
 		return incCuerpo;
 	}
@@ -736,8 +736,8 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 
 	public List<Competencia> getCompetencias() {
 		return servicioCompetencia.listar();
-	}	
-	
+	}
+
 	public List<DocumentoEntregado> getRecaudosPersonales() {
 		List<RecaudoPorProceso> lista = servicioRecaudoPorProceso
 				.buscarPorProceso(Actualizar, TipoDatoBasico.TIPO_DOCUMENTO,
@@ -807,7 +807,7 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 				TipoDatoBasico.TIPO_LAPSO_DEPORTIVO, "TEMPORADA REGULAR");
 		servicioLapsoDeportivo = new ServicioLapsoDeportivo();
 		return servicioLapsoDeportivo.buscarPorTipoLapso(datoLapsoDeportivo);
-	}	
+	}
 
 	public List<DatoBasico> getTallasCalzado() {
 		List<DatoBasico> lista = null;
@@ -839,8 +839,7 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		return lista;
 	}
 
-	
-	// Eventos	
+	// Eventos
 	public void onClick$btnCatalogoJugador() {
 		// se crea el catalogo y se llama
 		Component catalogo = Executions.createComponents(
@@ -849,115 +848,233 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		catalogo.setVariable("formulario", formulario, false);
 		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
 
-		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
+		formulario.addEventListener("onCatalogoBuscarJugadorCerrado",
+				new EventListener() {
 
-			/* (non-Javadoc)
-			 * @see org.zkoss.zk.ui.event.EventListener#onEvent(org.zkoss.zk.ui.event.Event)
-			 */
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				//DATOS DEL JUGADOR
-				jugador = (Jugador) formulario.getVariable("jugador", false);
-				txtCedula.setValue(jugador.getCedulaRif());
-				txtPrimerNombre.setValue(jugador.getPersonaNatural().getPrimerNombre());
-				txtSegundoNombre.setValue(jugador.getPersonaNatural().getSegundoNombre());
-				txtPrimerApellido.setValue(jugador.getPersonaNatural().getPrimerApellido());
-				txtSegundoApellido.setValue(jugador.getPersonaNatural().getSegundoApellido());
-				txtGenero.setValue(jugador.getPersonaNatural().getDatoBasico().getNombre());				
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						// DATOS DEL JUGADOR
+						jugador = (Jugador) formulario.getVariable("jugador",
+								false);
+						txtCedula.setValue(jugador.getCedulaRif());
+						txtPrimerNombre.setValue(jugador.getPersonaNatural()
+								.getPrimerNombre());
+						txtSegundoNombre.setValue(jugador.getPersonaNatural()
+								.getSegundoNombre());
+						txtPrimerApellido.setValue(jugador.getPersonaNatural()
+								.getPrimerApellido());
+						txtSegundoApellido.setValue(jugador.getPersonaNatural()
+								.getSegundoApellido());
+						txtGenero.setValue(jugador.getPersonaNatural()
+								.getDatoBasico().getNombre());
 
-				
-				//PERSONALES
-				java.util.Date date = new java.util.Date();
-				date = jugador.getPersonaNatural().getFechaNacimiento();
-				java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-				String fecha = sdf.format(date);
-				txtFechaNac.setValue(fecha);				
-				txtEdad.setValue(Util.calcularDiferenciaAnnios(date));
-								
-				cmbPaisNac.setValue(jugador.getDatoBasicoByCodigoPais().getNombre());
-				cmbEstadoNac.setValue(jugador
-						.getDatoBasicoByCodigoParroquiaNacimiento()
-						.getDatoBasico().getDatoBasico().getNombre());				
-				cmbMunicipioNac.setValue(jugador
-						.getDatoBasicoByCodigoParroquiaNacimiento()
-						.getDatoBasico().getNombre()); 
-				cmbParroquiaNac.setValue(jugador
-						.getDatoBasicoByCodigoParroquiaNacimiento()
-						.getNombre());
+						byte[] foto = jugador.getPersonaNatural().getFoto();
+						if (foto != null) {
+							try {
+								AImage aImage = new AImage("foto.jpg", foto);
+								imgJugador.setContent(aImage);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
 
-				cmbEstadoResi.setValue(jugador.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia()
-						.getDatoBasico().getDatoBasico().getNombre());
-				cmbMunicipioResi.setValue(jugador.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia()
-						.getDatoBasico().getNombre());
-				cmbParroquiaResi.setValue(jugador.getPersonaNatural().getPersona().getDatoBasicoByCodigoParroquia()
-						.getNombre());
+						// PERSONALES
+						java.util.Date date = jugador.getPersonaNatural()
+								.getFechaNacimiento();
+						java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(
+								"dd/MM/yyyy");
+						String fecha = sdf.format(jugador.getPersonaNatural()
+								.getFechaNacimiento());
+						txtFechaNac.setValue(fecha);
+						txtEdad.setValue(Util.calcularDiferenciaAnnios(date));
 
-				txtDireccion.setValue(jugador.getPersonaNatural().getPersona().getDireccion());
-				String telf = jugador.getPersonaNatural().getPersona().getTelefonoHabitacion();
-				cmbCodArea.setValue(telf.substring(0,4));
-				int numEntero = Integer.parseInt(telf.substring(5,telf.length()));
-				txtTelefonoHabitacion.setValue(numEntero);
-				
-				String telfcel = jugador.getPersonaNatural().getCelular();
-				cmbCodCelular.setValue(telfcel.substring(0,4));
-				int numEnteroCel = Integer.parseInt(telfcel.substring(5,telfcel.length()));
-				txtTelefonoCelular.setValue(numEnteroCel);				
-				
-				txtCorreo.setValue(jugador.getPersonaNatural().getPersona().getCorreoElectronico());
-				txtTwitter.setValue(jugador.getPersonaNatural().getPersona().getTwitter());
-	
-				
-				//DEPORTIVOS				
-				txtPeso.setValue(BigDecimal.valueOf(jugador.getPeso()));
-				txtAltura.setValue(BigDecimal.valueOf(jugador.getAltura()));
-				cmbBrazoLanzar.setValue(jugador.getBrazoLanzar());
-				cmbPosicionBateo.setValue(jugador.getPosicionBateo());
+						if (jugador.getDatoBasicoByCodigoPais() != null) {
+							cmbPaisNac.setValue(jugador
+									.getDatoBasicoByCodigoPais().getNombre());
+						}
 
-				List<DatoBasico> listTallasEntrenamiento = servicioTallaPorJugador
-						.buscarTallasPorTipo(jugador, tipoIndumentaria);
-				for (DatoBasico datoBasico : listTallasEntrenamiento) {
-					
-					if (datoBasico.getDatoBasico().getNombre().equals("CAMISA")){
-						cmbTallaCamisa.setValue(datoBasico.getNombre());
+						if (jugador.getDatoBasicoByCodigoParroquiaNacimiento() != null) {
+							cmbEstadoNac.setValue(jugador
+									.getDatoBasicoByCodigoParroquiaNacimiento()
+									.getDatoBasico().getDatoBasico()
+									.getNombre());
+							cmbMunicipioNac.setValue(jugador
+									.getDatoBasicoByCodigoParroquiaNacimiento()
+									.getDatoBasico().getNombre());
+							cmbParroquiaNac.setValue(jugador
+									.getDatoBasicoByCodigoParroquiaNacimiento()
+									.getNombre());
+
+						}
+
+						if (jugador.getPersonaNatural().getPersona()
+								.getDatoBasicoByCodigoParroquia() != null) {
+							cmbEstadoResi.setValue(jugador.getPersonaNatural()
+									.getPersona()
+									.getDatoBasicoByCodigoParroquia()
+									.getDatoBasico().getDatoBasico()
+									.getNombre());
+							cmbMunicipioResi.setValue(jugador
+									.getPersonaNatural().getPersona()
+									.getDatoBasicoByCodigoParroquia()
+									.getDatoBasico().getNombre());
+							cmbParroquiaResi.setValue(jugador
+									.getPersonaNatural().getPersona()
+									.getDatoBasicoByCodigoParroquia()
+									.getNombre());
+						}
+						txtDireccion.setValue(jugador.getPersonaNatural()
+								.getPersona().getDireccion());
+						String telf = jugador.getPersonaNatural().getPersona()
+								.getTelefonoHabitacion();
+
+						if (telf != null && telf != "") {
+							String[] numeroCel = Util.separarCadena(telf, "-");
+							if (numeroCel.length == 2) {
+								cmbCodArea.setValue(numeroCel[0]);
+								txtTelefonoHabitacion.setRawValue(numeroCel[1]);
+							}
+						}
+
+						String telfcel = jugador.getPersonaNatural()
+								.getCelular();
+
+						if (telfcel != null && telfcel != "") {
+							String[] numeroCel = Util.separarCadena(telf, "-");
+							if (numeroCel.length == 2) {
+								cmbCodCelular.setValue(numeroCel[0]);
+								txtTelefonoCelular.setRawValue(numeroCel[1]);
+							}
+						}
+
+						txtCorreo.setValue(jugador.getPersonaNatural()
+								.getPersona().getCorreoElectronico());
+						txtTwitter.setValue(jugador.getPersonaNatural()
+								.getPersona().getTwitter());
+
+						// DEPORTIVOS
+						txtPeso.setValue(BigDecimal.valueOf(jugador.getPeso()));
+						txtAltura.setValue(BigDecimal.valueOf(jugador
+								.getAltura()));
+						cmbBrazoLanzar.setValue(jugador.getBrazoLanzar());
+						cmbPosicionBateo.setValue(jugador.getPosicionBateo());
+
+						List<DatoBasico> listTallasEntrenamiento = servicioTallaPorJugador
+								.buscarTallasPorTipo(jugador, tipoIndumentaria);
+						for (DatoBasico datoBasico : listTallasEntrenamiento) {
+
+							if (datoBasico.getDatoBasico().getNombre()
+									.equals("CAMISA")) {
+								cmbTallaCamisa.setValue(datoBasico.getNombre());
+							} else if (datoBasico.getDatoBasico().getNombre()
+									.equals("PANTALON")) {
+								cmbTallaPantalon.setValue(datoBasico
+										.getNombre());
+							} else {
+								cmbTallaCalzado.setValue(datoBasico.getNombre());
+							}
+						}
+
+						// ACADEMICOS
+						listaAcademica = servicioDatoAcademico
+								.buscarPorJugador(jugador);
+						binder.loadComponent(listAcademico);
+
+						// SOCIALES
+						datoSociales = servicioDatoSocial
+								.buscarPorJugador(jugador);
+						binder.loadComponent(listActividadesSociales);
+
+						// CONDUCTA
+						listaConducta = servicioMotivoSancion
+								.buscarPorJugador(jugador);
+						binder.loadComponent(listConducta);
+
+						// binder.loadAll();
 					}
-					else if (datoBasico.getDatoBasico().getNombre().equals("PANTALON")){
-						cmbTallaPantalon.setValue(datoBasico.getNombre());
-					}
-					else{
-						cmbTallaCalzado.setValue(datoBasico.getNombre());
-					}				
-				}				
-				
-				
-				//ACADEMICOS
-				listaAcademica = servicioDatoAcademico.buscarPorJugador(jugador);
-				binder.loadComponent(listAcademico);
-				
-				//SOCIALES
-				datoSociales = servicioDatoSocial.buscarPorJugador(jugador);
-				binder.loadComponent(listActividadesSociales);
-				
-				//CONDUCTA
-				listaConducta = servicioMotivoSancion.buscarPorJugador(jugador);
-				binder.loadComponent(listConducta);				
-				
-				//binder.loadAll();
-			}
-		});
+				});
 	}
 
+	private void actualizarJugador() {
+		byte[] foto = jugadorBean.getFoto();
+		if (foto != null) {
+			jugador.getPersonaNatural().getFoto();
+		}
+
+		// PERSONALES
+		if (cmbPosicionBateo.getSelectedItem() != null) {
+			jugador.setDatoBasicoByCodigoPais((DatoBasico) cmbPaisNac
+					.getSelectedItem().getValue());
+		}
+
+		if (cmbParroquiaNac.getSelectedItem() != null) {
+			jugador.setDatoBasicoByCodigoParroquiaNacimiento((DatoBasico) cmbParroquiaNac
+					.getSelectedItem().getValue());
+		}
+
+		if (cmbParroquiaResi.getSelectedItem() != null) {
+			jugador.getPersonaNatural()
+					.getPersona()
+					.setDatoBasicoByCodigoParroquia(
+							(DatoBasico) cmbParroquiaResi.getSelectedItem()
+									.getValue());
+		}
+
+		jugador.getPersonaNatural().getPersona()
+				.setDireccion(txtDireccion.getText().toString());
+
+		if (cmbCodArea.getSelectedItem() != null
+				&& txtTelefonoHabitacion.getText() != "") {
+			jugador.getPersonaNatural()
+					.getPersona()
+					.setTelefonoHabitacion(
+							cmbCodArea.getSelectedItem().getLabel() + "-"
+									+ txtTelefonoHabitacion.getText());
+		}
+
+		if (cmbCodCelular.getSelectedItem() != null
+				&& txtTelefonoCelular.getText() != "") {
+			jugador.getPersonaNatural().setCelular(
+					cmbCodCelular.getSelectedItem().getLabel() + "-"
+							+ txtTelefonoCelular.getText());
+		}
+
+		jugador.getPersonaNatural().getPersona()
+				.setCorreoElectronico(txtCorreo.getValue());
+		jugador.getPersonaNatural().getPersona()
+				.setTwitter(txtTwitter.getValue());
+
+		// DEPORTIVOS
+		jugador.setPeso(txtAltura.getValue().doubleValue());
+		jugador.setAltura(txtPeso.getValue().doubleValue());
+		if (cmbBrazoLanzar.getSelectedItem() != null) {
+			jugador.setBrazoLanzar(cmbBrazoLanzar.getSelectedItem().getLabel());
+		}
+		if (cmbPosicionBateo.getSelectedItem() != null) {
+			jugador.setPosicionBateo(cmbPosicionBateo.getSelectedItem()
+					.getLabel());
+		}
+
+		servicioJugador.actualizar(jugador);
+	}
 
 	public void onClick$btnCatalogoMedico() {
 		new Util().crearVentana(rutasJug + "buscarMedico.zul", null, null);
 	}
 
 	public void onClick$btnGuardar() {
-		//SE ACTUALIZARA EN BD
-		
+		actualizarJugador();
+		Mensaje.mostrarMensaje("Los datos del jugador han sido guardados.",
+				Mensaje.EXITO, Messagebox.EXCLAMATION);
+
 	}
-	
+
 	public void onClick$btnFoto() {
-		new FileLoader().cargarImagenEnBean(imgJugador);
+		FileLoader fl = new FileLoader();
+		byte[] foto = fl.cargarImagenEnBean(imgJugador);
+		if (foto != null) {
+			jugadorBean.setFoto(foto);
+		}
 	}
 
 	public void onChange$cmbTipoActualizacion() {
@@ -972,11 +1089,12 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 			src = "frmActualizarLesion.zul";
 		}
 		src = rutasJug + src;
-		incCuerpo.setDynamicProperty("actualizacionMedica", actualizacionMedica);
+		incCuerpo
+				.setDynamicProperty("actualizacionMedica", actualizacionMedica);
 		enlace.insertarContenido(incCuerpo, src);
 	}
 
-	//Pestana Academicos
+	// Pestana Academicos
 	public void onClick$btnAgregarInstitucion() {
 		if (cmbInstitucionEducativa.getSelectedIndex() >= 0) {
 			if (cmbAnnioEscolar.getSelectedIndex() >= 0) {
@@ -986,53 +1104,49 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 								.getLabel().equals(listaAcademica.get(i)
 								.getInstitucion().getNombre()))
 								&& ((cmbAnnioEscolar.getSelectedItem()
-										.getLabel()
-										.equals(listaAcademica.get(i)
-												.getDatoBasicoByCodigoAnnoEscolar()
-												.getNombre())))) {
-													Mensaje.mostrarMensaje(
-													"Actividad Académica Duplicada.",
-													Mensaje.ERROR_DATOS,
-													Messagebox.EXCLAMATION);
-													return;
-												}
+										.getLabel().equals(listaAcademica
+										.get(i)
+										.getDatoBasicoByCodigoAnnoEscolar()
+										.getNombre())))) {
+							Mensaje.mostrarMensaje(
+									"Actividad Académica Duplicada.",
+									Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
+							return;
+						}
 					}
 					datoAcademico.setEstatus('A');
 					listaAcademica.add(datoAcademico);
 					limpiarAcademico();
-				}
-				else {
+				} else {
 					Mensaje.mostrarMensaje("Seleccione un Curso.",
 							Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-					cmbCurso.setFocus(true);			
-				}	
-			}
-			else {
+					cmbCurso.setFocus(true);
+				}
+			} else {
 				Mensaje.mostrarMensaje("Seleccione un año escolar.",
 						Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-				cmbAnnioEscolar.setFocus(true);			
-			}						
-		}
-		else {
+				cmbAnnioEscolar.setFocus(true);
+			}
+		} else {
 			Mensaje.mostrarMensaje("Seleccione una institución.",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-			cmbInstitucionEducativa.setFocus(true);			
-		}			
-	}	
+			cmbInstitucionEducativa.setFocus(true);
+		}
+	}
 
 	public void onClick$btnQuitarInstitucion() {
-	if (listAcademico.getSelectedIndex() >= 0) {
-		DatoAcademico academicoSel = (DatoAcademico) listAcademico
-				.getSelectedItem().getValue();
-		listaAcademica.remove(academicoSel);
-		limpiarAcademico();
-	} else {
-		Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
-				Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-		}		
+		if (listAcademico.getSelectedIndex() >= 0) {
+			DatoAcademico academicoSel = (DatoAcademico) listAcademico
+					.getSelectedItem().getValue();
+			listaAcademica.remove(academicoSel);
+			limpiarAcademico();
+		} else {
+			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+		}
 	}
-	
-	//Pestana Sociales	
+
+	// Pestana Sociales
 	public void onClick$btnAgregarActividad() {
 		if (cmbInstitucionRecreativa.getSelectedIndex() >= 0) {
 			if (cmbActividad.getSelectedIndex() >= 0) {
@@ -1093,30 +1207,29 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		}
 	}
 
-	//Pestana Conducta
+	// Pestana Conducta
 	public void onClick$btnAgregarSancion() {
 		if (cmbMotivo.getSelectedIndex() >= 0) {
 			if (cmbTipoSancion.getSelectedIndex() >= 0) {
-				if (txtCantidad.getValue() != null ? txtCantidad.getValue() > 0 : false){
+				if (txtCantidad.getValue() != null ? txtCantidad.getValue() > 0
+						: false) {
 					if (dtboxFechaInicioSancion.getText() != "") {
 						if (txtObservacion.getText() != "") {
 							datoConducta.setEstatus('A');
 							listaConducta.add(datoConducta);
 							limpiarConducta();
-						}
-						else {
+						} else {
 							Mensaje.mostrarMensaje("Indique la observación.",
 									Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 							txtObservacion.setFocus(true);
-						}						
+						}
 					} else {
 						Mensaje.mostrarMensaje("Seleccione una fecha.",
 								Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 						dtboxFechaInicioSancion.setFocus(true);
 					}
 				} else {
-					Mensaje.mostrarMensaje(
-							"Ingrese la cantidad a sancionar.",
+					Mensaje.mostrarMensaje("Ingrese la cantidad a sancionar.",
 							Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 					txtCantidad.setFocus(true);
 				}
@@ -1129,13 +1242,13 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 			Mensaje.mostrarMensaje("Seleccione un Motivo.",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbMotivo.setFocus(true);
-		}		
-	}	
-		
+		}
+	}
+
 	public void onClick$btnQuitarSancion() {
 		if (listConducta.getSelectedIndex() >= 0) {
 			MotivoSancion conductaSel = (MotivoSancion) listConducta
-				.getSelectedItem().getValue();
+					.getSelectedItem().getValue();
 			listaConducta.remove(conductaSel);
 			limpiarConducta();
 		} else {
@@ -1143,48 +1256,37 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 	}
-		
-/*	public void onClick$btnAgregarLogro() {
-		Listitem nuevoItem = new Listitem();
-		nuevoItem.appendChild(new Listcell(this.cmbLogroDeportivo.getSelectedItem()
-				.getLabel()));
-		listLogros.appendChild(nuevoItem);
-	}*/	
 
-/*	public void onClick$btnAgregarLogro() {
-		if (cmbLogroDeportivo.getSelectedIndex() >= 0) {
-			if (!logrosJugador.contains(logro)) {
-				logrosJugador.add(logro);
-				limpiarLogro();
-			} else {
-				Mensaje.mostrarMensaje("Logro Duplicado.",
-						Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
-			}
-		} else {
-			Mensaje.mostrarMensaje("Seleccione un Logro.",
-					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-			cmbLogroDeportivo.setFocus(true);
-		}
+	/*
+	 * public void onClick$btnAgregarLogro() { Listitem nuevoItem = new
+	 * Listitem(); nuevoItem.appendChild(new
+	 * Listcell(this.cmbLogroDeportivo.getSelectedItem() .getLabel()));
+	 * listLogros.appendChild(nuevoItem); }
+	 */
 
-	}*/
-	
-/*	public void onClick$btnAgregarLogro() {
-		if (cmbLogroDeportivo.getSelectedIndex() >= 0) {
-			if (cmbCompetencia.getSelectedIndex() >= 0) {
-				//oo
-			} else {
-				Mensaje.mostrarMensaje("Seleccione una Competencia.",
-					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-					cmbCompetencia.setFocus(true);
-			}
-		} else {
-			Mensaje.mostrarMensaje("Seleccione un Logro.",
-				Mensaje.INFORMACION, Messagebox.EXCLAMATION);
-				cmbLogroDeportivo.setFocus(true);
-		}
-	}	
-*/	
-	
+	/*
+	 * public void onClick$btnAgregarLogro() { if
+	 * (cmbLogroDeportivo.getSelectedIndex() >= 0) { if
+	 * (!logrosJugador.contains(logro)) { logrosJugador.add(logro);
+	 * limpiarLogro(); } else { Mensaje.mostrarMensaje("Logro Duplicado.",
+	 * Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION); } } else {
+	 * Mensaje.mostrarMensaje("Seleccione un Logro.", Mensaje.INFORMACION,
+	 * Messagebox.EXCLAMATION); cmbLogroDeportivo.setFocus(true); }
+	 * 
+	 * }
+	 */
+
+	/*
+	 * public void onClick$btnAgregarLogro() { if
+	 * (cmbLogroDeportivo.getSelectedIndex() >= 0) { if
+	 * (cmbCompetencia.getSelectedIndex() >= 0) { //oo } else {
+	 * Mensaje.mostrarMensaje("Seleccione una Competencia.",
+	 * Mensaje.INFORMACION, Messagebox.EXCLAMATION);
+	 * cmbCompetencia.setFocus(true); } } else {
+	 * Mensaje.mostrarMensaje("Seleccione un Logro.", Mensaje.INFORMACION,
+	 * Messagebox.EXCLAMATION); cmbLogroDeportivo.setFocus(true); } }
+	 */
+
 	// Metodos propios del ctrl
 	public void limpiarAcademico() {
 		datoAcademico = new DatoAcademico();
@@ -1217,19 +1319,18 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		//
 		cmbLogroDeportivo.setSelectedIndex(-1);
 		binder.loadComponent(listLogros);
-	}	
-	
-/*	public void onClick$btnSubirDocumentoInf() {
-		Object media = Fileupload.get();
-	}	
-
-	public void onClick$btnSubirDocumentoMem() {
-		Object media = Fileupload.get();
 	}
-*/	
-	
+
+	/*
+	 * public void onClick$btnSubirDocumentoInf() { Object media =
+	 * Fileupload.get(); }
+	 * 
+	 * public void onClick$btnSubirDocumentoMem() { Object media =
+	 * Fileupload.get(); }
+	 */
+
 	public void onClick$btnSalir() {
 		winActualizarJugador.detach();
-	}	
-	
+	}
+
 }

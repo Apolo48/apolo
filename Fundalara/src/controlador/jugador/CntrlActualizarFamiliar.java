@@ -669,38 +669,29 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 	}
 
 	// se sale de la pantalla de Actualizar Familiar con previo aviso
-	public void onClick$btnSalir() throws InterruptedException {
-		Messagebox.show("Saldrá de la ventana, está seguro?", "INFORMACIÓN",
-				Messagebox.YES | Messagebox.NO, Messagebox.QUESTION,
-				new EventListener() {
-					public void onEvent(Event evt) {
-						switch (((Integer) evt.getData()).intValue()) {
-						case Messagebox.YES:
+	public void onClick$btnSalir()   {
+		Mensaje.mostrarConfirmacion("¿Está seguro de cerrar la ventana ? ",
+				Mensaje.CONFIRMAR, Messagebox.YES | Messagebox.NO,
+				new org.zkoss.zk.ui.event.EventListener() {
+					public void onEvent(Event evt) throws InterruptedException {
+						if (evt.getName().equals("onYes")) {
 							winActualizarFamiliar.detach();
-							break;
-						case Messagebox.NO:
-							break;
 						}
 					}
 				});
 	}
 
 	// se elimina una comision de la lista de comisiones cargadas anteriormente
-	public void onClick$btnEliminarComisionVieja() throws InterruptedException {
-		Messagebox.show("Esta seguro que Desea BORRAR la COMISIÓN?",
-				"ELIMINAR", Messagebox.YES | Messagebox.NO,
-				Messagebox.QUESTION, new EventListener() {
-					public void onEvent(Event evt) {
-						switch (((Integer) evt.getData()).intValue()) {
-						case Messagebox.YES:
+	public void onClick$btnEliminarComisionVieja()   {
+		Mensaje.mostrarConfirmacion("¿Está seguro que desea eliminar la comisión? ",
+				Mensaje.CONFIRMAR, Messagebox.YES | Messagebox.NO,
+				new org.zkoss.zk.ui.event.EventListener() {
+					public void onEvent(Event evt) throws InterruptedException {
+						if (evt.getName().equals("onYes")) {
 							eliminar();
-							break;
-						case Messagebox.NO:
-							break;
 						}
 					}
-				});
-
+				});	
 	}
 
 	public void eliminar() {
@@ -709,27 +700,23 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 	}
 
 	//se elimina un familiar que no sea el representante del jugador
-	public void onClick$btnQuitar() throws InterruptedException {
+	public void onClick$btnQuitar()   {
 
 		int posicion = 0;
 
 		posicion = listaFamiliar.getSelectedIndex();
 
 		if (listaFamiliarJugador.get(posicion).isRepresentanteActual() == false) {
-			Messagebox.show(
-					"Esta seguro que Desea BORRAR el Familiar del Jugador?",
-					"ELIMINAR", Messagebox.YES | Messagebox.NO,
-					Messagebox.QUESTION, new EventListener() {
-						public void onEvent(Event evt) {
-							switch (((Integer) evt.getData()).intValue()) {
-							case Messagebox.YES:
+			
+			Mensaje.mostrarConfirmacion("¿Está seguro que desea eliminar el familiar del jugador? ",
+					Mensaje.CONFIRMAR, Messagebox.YES | Messagebox.NO,
+					new org.zkoss.zk.ui.event.EventListener() {
+						public void onEvent(Event evt) throws InterruptedException {
+							if (evt.getName().equals("onYes")) {
 								quitarfamiliar();
-								break;
-							case Messagebox.NO:
-								break;
 							}
 						}
-					});
+					});	
 		} else {
 			Mensaje.mostrarMensaje(
 					"No se puede eliminar el Familiar por ser el Representante legal",

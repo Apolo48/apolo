@@ -63,7 +63,6 @@
 										height="80%" align="center" valign="middle">
 										<groupbox
 											style="border-color:orange" mold="3d">
-											<!--  content="@{controller.jugador.persona.personaNatural.foto, converter='controlador.jugador.converter.ImageConverter'}"  -->
 											<image id="imgJugador"
 												src="../../Recursos/Imagenes/noFoto.jpg" height="80px"
 												width="80px" />
