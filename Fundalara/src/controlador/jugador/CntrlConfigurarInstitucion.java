@@ -16,6 +16,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
 import org.zkoss.util.media.AMedia;
+import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.ForwardEvent;
@@ -27,6 +28,7 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.*;
 
 import comun.ConeccionBD;
+import comun.Mensaje;
 import comun.Ruta;
 import comun.TipoDatoBasico;
 import modelo.Equipo;
@@ -170,30 +172,44 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 
 	public void onClick$btnGuardar() throws InterruptedException {
 		if (txtNombre.getText() == "") {
-			alert("Seleccione un nombre");
+			//alert("Seleccione un nombre");
+			Mensaje.mostrarMensaje("Seleccione un nombre",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtNombre.focus();
 		} else if (cmbTipo.getText() == "") {
-			alert("Seleccione un Tipo");
+			//alert("Seleccione un Tipo");
+			Mensaje.mostrarMensaje("Seleccione un Tipo",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbTipo.focus();
 		} else if (cmbEstadoResi.getText() == "") {
-			alert("Seleccione un Estado");
+			//alert("Seleccione un Estado");
+			Mensaje.mostrarMensaje("Seleccione un Estado",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbEstadoResi.focus();
 		} else if (cmbMunicipioResi.getText() == "") {
-			alert("Seleccione un Municipio");
+			//alert("Seleccione un Municipio");
+			Mensaje.mostrarMensaje("Seleccione un Municipio",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbMunicipioResi.focus();
 		}
 		else if (cmbParroquiaResi.getText() == "") {
-			alert("Seleccione una Parroquia");
+			//alert("Seleccione una Parroquia");
+			Mensaje.mostrarMensaje("Seleccione un Parroquia",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbParroquiaResi.focus();
 		}
 		else if (txtDireccion.getText() == "") {
-			alert("Seleccione una Dirección");
+			//alert("Seleccione una Dirección");
+			Mensaje.mostrarMensaje("Seleccione un Dirección",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtDireccion.focus();
 		} else {
 			institucionAux = servicioInstitucion.buscarpornombre(txtNombre
 					.getValue().toUpperCase());
 			if (institucionAux != null)
-				alert("La Institución ya había sido agregada");
+				//alert("La Institución ya había sido agregada");
+				Mensaje.mostrarMensaje("La Institución ya había sido agregada",
+						Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 			else {
 				Messagebox.show(
 						"Está seguro que desea agregar la institución?",
@@ -232,22 +248,34 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 
 	public void onClick$btnModificar() throws InterruptedException {
 		if (txtNombre.getText() == "") {
-			alert("Seleccione un nombre");
+			//alert("Seleccione un nombre");
+			Mensaje.mostrarMensaje("Seleccione un nombre",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtNombre.focus();
 		} else if (cmbTipo.getText() == "") {
-			alert("Seleccione un Tipo");
+			//alert("Seleccione un Tipo");
+			Mensaje.mostrarMensaje("Seleccione un Tipo",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbTipo.focus();
 		} else if (cmbEstadoResi.getText() == "") {
-			alert("Seleccione un Estado");
+			//alert("Seleccione un Estado");
+			Mensaje.mostrarMensaje("Seleccione un Estado",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbEstadoResi.focus();
 		} else if (cmbMunicipioResi.getText() == "") {
-			alert("Seleccione un Municipio");
+			//alert("Seleccione un Municipio");
+			Mensaje.mostrarMensaje("Seleccione un Municipio",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbMunicipioResi.focus();
 		} else if (cmbParroquiaResi.getText() == "") {
-			alert("Seleccione una Parroquia");
+			//alert("Seleccione una Parroquia");
+			Mensaje.mostrarMensaje("Seleccione un Parroquia",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbParroquiaResi.focus();
 		} else if (txtDireccion.getText() == "") {
-			alert("Seleccione una Dirección");
+			//alert("Seleccione una Dirección");
+			Mensaje.mostrarMensaje("Seleccione un Dirección",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtDireccion.focus();
 		} else {
 			Messagebox.show("Está seguro que desea modifciar la institución?",

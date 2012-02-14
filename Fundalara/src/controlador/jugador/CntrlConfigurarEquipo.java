@@ -25,6 +25,7 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.*;
 
 import comun.ConeccionBD;
+import comun.Mensaje;
 import comun.Ruta;
 import comun.TipoDatoBasico;
 import controlador.jugador.restriccion.Restriccion;
@@ -273,7 +274,9 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 									.getLabel()
 									.equals(equipos.get(i).getCategoria()
 											.getNombre())) {
-								alert("Ya existe el equipo para la categoria");
+								//alert("Ya existe el equipo para la categoria");
+								Mensaje.mostrarMensaje("Ya existe el equipo para la categoria",
+										Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 								return;
 							}
 						}
@@ -307,12 +310,14 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 					equipo.setCodigoEquipo(servicioEquipo.listar().size() + 1);
 					servicioEquipo.agregar(equipo);
 				}
-				try {
+				Mensaje.mostrarMensaje("Equipo agregado",
+						Mensaje.EXITO, Messagebox.INFORMATION);
+				/*try {
 					Messagebox.show("Equipo agregado", "Exito", Messagebox.OK,
 							Messagebox.INFORMATION);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}
+				}*/
 				equipos.add(equipo);
 				limpiar();
 				binder.loadAll();
@@ -331,7 +336,6 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 			equipo.setMinimoJugador(spMinJugadores.getValue());
 			equipo.setEstatus('A');
 			servicioEquipo.actualizar(equipo);
-			System.out.println("plan");
 		}
 		else {
 			equipo = equipos.get(listEquipo.getSelectedIndex());
@@ -346,14 +350,15 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 			equipo.setMinimoJugador(spMinJugadores.getValue());
 			equipo.setEstatus('A');
 			servicioEquipo.actualizar(equipo);
-			System.out.println("no plan");
 		}
-		try {
+		Mensaje.mostrarMensaje("Equipo modificado",
+				Mensaje.EXITO, Messagebox.INFORMATION);
+		/*try {
 			Messagebox.show("Equipo modificado", "Exito", Messagebox.OK,
 					Messagebox.INFORMATION);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 		limpiar();
 	}
 
@@ -371,9 +376,11 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 		if (listEquipo.getSelectedIndex() >= 0) {
 			Equipo equipoTemp = (Equipo) listEquipo.getSelectedItem()
 					.getValue();
-			if (servicioEquipo.buscarPorCodigo(equipo) == false)
-				// System.out.println(servicioCategoria.buscarPorCodigo(categoria));
-				alert("No se puede borrar mientras existan jugadores en este equipo");
+			if (servicioEquipo.buscarPorCodigo(equipo) == false){
+				//alert("No se puede borrar mientras existan jugadores en este equipo");
+				Mensaje.mostrarMensaje("No se puede borrar mientras existan jugadores en este equipo",
+						Mensaje.ERROR, Messagebox.ERROR);
+			}
 			else {
 				equipo.setEstatus('E');
 				equipos.remove(equipoTemp);
@@ -382,7 +389,9 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 				inicializar();
 			}
 		} else {
-			alert("Seleccione un dato para eliminar.");
+			//alert("Seleccione un dato para eliminar.");
+			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 	}
 

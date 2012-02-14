@@ -978,7 +978,9 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 			}
 
 		} else {
-			alert("Seleccione un dato");
+			//alert("Seleccione un dato");
+			Mensaje.mostrarMensaje("Seleccione un dato",
+					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 		}
 
 	}

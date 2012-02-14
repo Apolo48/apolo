@@ -37,6 +37,7 @@ import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.*;
 
 import comun.ConeccionBD;
+import comun.Mensaje;
 import comun.Ruta;
 
 import controlador.general.CntrlVisorDocumento;
@@ -230,22 +231,28 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 				for (int i = 0; i < listaCategoria.size(); i++) {
 					if (txtNombre.getValue().equals(
 							listaCategoria.get(i).getNombre())) {
-						Messagebox.show("Ya existe la categoria", "Mensaje",
-								Messagebox.OK, Messagebox.INFORMATION);
+						//Messagebox.show("Ya existe la categoria", "Mensaje",
+							//	Messagebox.OK, Messagebox.INFORMATION);
+						Mensaje.mostrarMensaje("Ya existe la categoria",
+								Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 						return;
 					}
 					else if (intEdadInferior.getValue().equals(
 							listaCategoria.get(i).getEdadInferior())
 							&& intEdadSuperior.getValue().equals(
 									listaCategoria.get(i).getEdadSuperior())) {
-						alert("Ya existe la categoria");
+						//alert("Ya existe la categoria");
+						Mensaje.mostrarMensaje("Ya existe la categoria",
+								Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 						return;
 					}
 					if (intEdadInferior.getValue() > listaCategoria.get(i)
 							.getEdadInferior()) {
 						if (intEdadInferior.getValue() <= listaCategoria.get(i)
 								.getEdadSuperior()) {
-							alert("Ya la edad se encuentra en el rango de otra categoria");
+							//alert("Ya la edad se encuentra en el rango de otra categoria");
+							Mensaje.mostrarMensaje("Ya la edad se encuentra en el rango de otra categoria",
+									Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 							return;
 						}
 					}
@@ -253,7 +260,9 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 							.getEdadSuperior()) {
 						if (intEdadSuperior.getValue() >= listaCategoria.get(i)
 								.getEdadInferior()) {
-							alert("Ya la edad se encuentra en el rango de otra categoria");
+							//alert("Ya la edad se encuentra en el rango de otra categoria");
+							Mensaje.mostrarMensaje("Ya la edad se encuentra en el rango de otra categoria",
+									Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 							return;
 						}
 					}
@@ -266,12 +275,13 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 				categoria
 						.setCodigoCategoria(servicioCategoria.listar().size() + 1);
 				servicioCategoria.agregar(categoria);
-				try {
-					Messagebox.show("Categoria agregada", "Exito",
-							Messagebox.OK, Messagebox.INFORMATION);
+				Mensaje.mostrarMensaje("Categoria agregada",Mensaje.EXITO, Messagebox.INFORMATION);
+				/*try {
+					Messagebox.show("Categoria agregada", "Exito",Messagebox.OK, Messagebox.INFORMATION);
+					
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}
+				}*/
 				limpiar();
 			}
 		}
@@ -291,8 +301,10 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 		if (listCategoria.getSelectedIndex() >= 0) {
 			Categoria categoriaTemp = (Categoria) listCategoria
 					.getSelectedItem().getValue();
-			if (servicioCategoria.buscarPorCodigo(categoria) == false)
-				alert("No se puede borrar mientras existan equipos en esta categoria");
+			if (servicioCategoria.buscarPorCodigo(categoria) == false) {
+				//alert("No se puede borrar mientras existan equipos en esta categoria");
+				Mensaje.mostrarMensaje("No se puede borrar mientras existan equipos en esta categoria",Mensaje.ERROR, Messagebox.EXCLAMATION);
+			}
 			else {
 				categoria.setEstatus('E');
 				listaCategoria.remove(categoriaTemp);
@@ -300,7 +312,8 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 				limpiar();
 			}
 		} else {
-			alert("Seleccione un dato para eliminar.");
+			//alert("Seleccione un dato para eliminar.");
+			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 	}
 
@@ -333,7 +346,8 @@ public class CntrlConfigurarCategoria extends GenericForwardComposer {
 				return;
 		}
 		else {
-			alert("Seleccione un dato");
+			//alert("Seleccione un dato");
+			Mensaje.mostrarMensaje("Seleccione un dato",Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 	}
 

@@ -483,7 +483,9 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 				Date fechaF = lapsoDeportivo.getFechaFinAscenso();
 				if (roster.getFechaIngreso().before(fechaF)
 						&& roster.getFechaIngreso().after(fechaI)) {
-					alert("El jugador ya fue ascendido en esta temporada");
+					//alert("El jugador ya fue ascendido en esta temporada");
+					Mensaje.mostrarMensaje("El jugador ya fue ascendido en esta temporada",
+							Mensaje.EXITO, Messagebox.INFORMATION);
 					btnCatalogoJugador.setDisabled(false);
 				} else {
 					sw = true;

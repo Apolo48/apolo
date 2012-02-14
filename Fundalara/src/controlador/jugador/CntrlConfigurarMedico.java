@@ -38,6 +38,7 @@ import servicio.implementacion.ServicioMedico;
 import servicio.implementacion.ServicioDatoBasico;
 
 import comun.ConeccionBD;
+import comun.Mensaje;
 import comun.Ruta;
 
 import comun.TipoDatoBasico;
@@ -105,43 +106,69 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 
 	public void onClick$btnGuardar() {
 		if(txtNumcol.getValue().toString().length()!=6){
-			alert("Debe Indicar Apellido");
+			//alert("Debe Indicar Apellido");
+			Mensaje.mostrarMensaje("Debe Indicar Apellido",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtNumcol.getValue()==""){
-			alert("Debe Indicar Numero de Colegio");
+			//alert("Debe Indicar Numero de Colegio");
+			Mensaje.mostrarMensaje("Debe Indicar Número de Colegio",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtMatricula.getValue()==""){
-			alert("Debe Indicar Numero de Matricula");
+			//alert("Debe Indicar Numero de Matricula");
+			Mensaje.mostrarMensaje("Debe Indicar Número de Matrícula",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtMatricula.getValue().length()!=6){
-			alert("Debe Indicar Numero de Matricula");
+			//alert("Debe Indicar Numero de Matricula");
+			Mensaje.mostrarMensaje("Debe Indicar Número de Matrícula",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(cmbEspecialidad.getSelectedIndex()==-1){
-			alert("Debe Seleccionar una Especialidad");
+			//alert("Debe Seleccionar una Especialidad");
+			Mensaje.mostrarMensaje("Debe Seleccionar una Especialidad",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(cmbNacionalidad.getSelectedIndex()==-1){
-			alert("Debe Seleccionar la Nacionalidad");
+			//alert("Debe Seleccionar la Nacionalidad");
+			Mensaje.mostrarMensaje("Debe Seleccionar la Nacionalidad",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtCedula.getValue()==""){
-			alert("Debe Indicar Cedula");
+			//alert("Debe Indicar Cedula");
+			Mensaje.mostrarMensaje("Debe Indicar Cédula",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtNombre.getValue().toString().length()==0){
-			alert("Debe Indicar Nombre");
+			//alert("Debe Indicar Nombre");
+			Mensaje.mostrarMensaje("Debe Indicar Nombre",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtApellido.getValue().toString().length()==0) {
-			alert("Debe Indicar Numero de Colegio");
+			//alert("Debe Indicar Numero de Colegio");
+			Mensaje.mostrarMensaje("Debe Indicar Número de Colegio",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(cmbCodArea.getSelectedIndex()==-1){
-			alert("Debe Seleccionar el Codigo de Area");
+			//alert("Debe Seleccionar el Código de Área");
+			Mensaje.mostrarMensaje("Debe Seleccionar el Código de Área",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtTelefonoHabitacion.getValue().toString().length()!=7){
-			alert("Debe Indicar Telefono de Habitacion");
+			//alert("Debe Indicar Teléfono de Habitación");
+			Mensaje.mostrarMensaje("Debe Indicar Teléfono de Habitación",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(cmbCodCelular.getSelectedIndex()==-1){
-			alert("Debe Seleccionar el Codigo de Celular");
+			//alert("Debe Seleccionar el Codigo de Celular");
+			Mensaje.mostrarMensaje("Debe Seleccionar el Código de Celular",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtTelefonoCelular.getValue().toString().length()!=7){
-			alert("Debe Indicar Telefono Celular");
+			//alert("Debe Indicar Telefono Celular");
+			Mensaje.mostrarMensaje("Debe Indicar Teléfono Celular",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}		
 		else{
 		especialidades=servicioDatoBasico.buscar(TipoDatoBasico.ESPECIALIDAD);
@@ -161,50 +188,78 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	
 	public void onBlur$txtNumcol(){
 		if(servicioMedico.buscar(txtNumcol.getValue().toString())!=null){
-			alert("El Numero de Colegio Ya Existe");
+			//alert("El Numero de Colegio Ya Existe");
+			Mensaje.mostrarMensaje("El Número de Colegio Ya Existe",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtNumcol.setRawValue(null);
 		}
 	}
 
 	public void onClick$btnModificar() throws InterruptedException {
 		if(txtNumcol.getValue().toString().length()!=6){
-			alert("Debe Indicar Apellido");
+			//alert("Debe Indicar Apellido");
+			Mensaje.mostrarMensaje("Debe Indicar Apellido",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtNumcol.getValue()==""){
-			alert("Debe Indicar Numero de Colegio");
+			//alert("Debe Indicar Numero de Colegio");
+			Mensaje.mostrarMensaje("Debe Indicar Número de Colegio",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtMatricula.getValue()==""){
-			alert("Debe Indicar Numero de Matricula");
+			//alert("Debe Indicar Numero de Matricula");
+			Mensaje.mostrarMensaje("Debe Indicar Número de Matrícula",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtMatricula.getValue().length()!=6){
-			alert("Debe Indicar Numero de Matricula");
+			//alert("Debe Indicar Numero de Matricula");
+			Mensaje.mostrarMensaje("Debe Indicar Número de Matrícula",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(cmbEspecialidad.getSelectedIndex()==-1){
-			alert("Debe Seleccionar una Especialidad");
+			//alert("Debe Seleccionar una Especialidad");
+			Mensaje.mostrarMensaje("Debe Seleccionar una Especialidad",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(cmbNacionalidad.getSelectedIndex()==-1){
-			alert("Debe Seleccionar la Nacionalidad");
+			//alert("Debe Seleccionar la Nacionalidad");
+			Mensaje.mostrarMensaje("Debe Seleccionar la Nacionalidad",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtCedula.getValue()==""){
-			alert("Debe Indicar Cedula");
+			//alert("Debe Indicar Cedula");
+			Mensaje.mostrarMensaje("Debe Indicar Cédula",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtNombre.getValue().toString().length()==0){
-			alert("Debe Indicar Nombre");
+			//alert("Debe Indicar Nombre");
+			Mensaje.mostrarMensaje("Debe Indicar Nombre",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtApellido.getValue().toString().length()==0) {
-			alert("Debe Indicar Numero de Colegio");
+			//alert("Debe Indicar Numero de Colegio");
+			Mensaje.mostrarMensaje("Debe Indicar Número de Colegio",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(cmbCodArea.getSelectedIndex()==-1){
-			alert("Debe Seleccionar el Codigo de Area");
+			//alert("Debe Seleccionar el Código de Área");
+			Mensaje.mostrarMensaje("Debe Seleccionar el Código de Área",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtTelefonoHabitacion.getValue().toString().length()!=7){
-			alert("Debe Indicar Telefono de Habitacion");
+			//alert("Debe Indicar Telefono de Habitacion");
+			Mensaje.mostrarMensaje("Debe Indicar Teléfono de Habitación",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(cmbCodCelular.getSelectedIndex()==-1){
-			alert("Debe Seleccionar el Codigo de Celular");
+			//alert("Debe Seleccionar el Codigo de Celular");
+			Mensaje.mostrarMensaje("Debe Seleccionar el Código de Celular",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}
 		else if(txtTelefonoCelular.getValue().toString().length()!=7){
-			alert("Debe Indicar Telefono Celular");
+			//alert("Debe Indicar Telefono Celular");
+			Mensaje.mostrarMensaje("Debe Indicar Teléfono Celular",
+					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}		
 		else{
 		especialidades=servicioDatoBasico.buscar(TipoDatoBasico.ESPECIALIDAD);
