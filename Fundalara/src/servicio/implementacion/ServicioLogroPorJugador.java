@@ -23,19 +23,16 @@ public class ServicioLogroPorJugador implements IServicioLogroPorJugador {
 	@Override
 	public void eliminar(LogroPorJugador c) {
 		daoLogroPorJugador.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(LogroPorJugador c) {
 		daoLogroPorJugador.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(LogroPorJugador c) {
 		daoLogroPorJugador.actualizar(c);
-
 	}
 
 	@Override

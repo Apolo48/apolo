@@ -10,7 +10,6 @@ import modelo.Jugador;
 
 import servicio.interfaz.IServicioDocumentoPersonal;
 
-
 /**
  * Clase para brindar los servicios para manejar los datos relacionados con los documentos personales de los jugadores
  * @author Robert A
@@ -20,7 +19,6 @@ import servicio.interfaz.IServicioDocumentoPersonal;
  */
 public class ServicioDocumentoPersonal implements IServicioDocumentoPersonal {
 	DaoDocumentoPersonal daoDocumentoPersonal;
-	
 
 	public DaoDocumentoPersonal getDaoDocumentoPersonal() {
 		return daoDocumentoPersonal;
@@ -33,19 +31,16 @@ public class ServicioDocumentoPersonal implements IServicioDocumentoPersonal {
 	@Override
 	public void eliminar(DocumentoPersonal a) {
 		daoDocumentoPersonal.eliminar(a);
-		
 	}
 
 	@Override
 	public void agregar(DocumentoPersonal a) {
 		daoDocumentoPersonal.guardar(a);
-		
 	}
 
 	@Override
 	public void actualizar(DocumentoPersonal a) {
 		daoDocumentoPersonal.actualizar(a);
-		
 	}
 
 	@Override
@@ -56,7 +51,6 @@ public class ServicioDocumentoPersonal implements IServicioDocumentoPersonal {
 	@Override
 	public void guardar(List<DocumentoEntregado> documentos, Jugador jugador) {
 		daoDocumentoPersonal.guardar(documentos, jugador);
-		
 	}
 	
 	public void actualizar(List<DocumentoEntregado> documentos) {

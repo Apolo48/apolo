@@ -11,7 +11,6 @@ import modelo.DatoMedico;
 import modelo.DocumentoEntregado;
 import modelo.DocumentoMedico;
 
-
 /**
  * Clase para brindar los servicios para manejar los datos relacionados con los documentos medicos de los jugadores
  * @author Robert A
@@ -34,19 +33,16 @@ public class ServicioDocumentoMedico implements IServicioDocumentoMedico {
 	@Override
 	public void eliminar(DocumentoMedico c) {
 		daoDocumentoMedico.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(DocumentoMedico c) {
 		daoDocumentoMedico.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(DocumentoMedico c) {
 		daoDocumentoMedico.actualizar(c);
-
 	}
 
 	@Override
@@ -67,6 +63,5 @@ public class ServicioDocumentoMedico implements IServicioDocumentoMedico {
 	public List<DocumentoEntregado>  buscarDocumentos(DatoMedico datoMedico){
 		return daoDocumentoMedico.buscarDocumentos(datoMedico);
 	}
-
 
 }

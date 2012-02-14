@@ -71,5 +71,4 @@ public class ServicioCategoria implements IServicioCategoria {
 		return daoCategoria.buscarCategoriasAscenso(edad);
 	}
 
-	
 }

@@ -24,19 +24,16 @@ public class ServicioMotivoSancion implements IServicioMotivoSancion {
 	@Override
 	public void eliminar(MotivoSancion c) {
 		daoMotivoSancion.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(MotivoSancion c) {
 		daoMotivoSancion.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(MotivoSancion c) {
 		daoMotivoSancion.actualizar(c);
-
 	}
 
 	@Override

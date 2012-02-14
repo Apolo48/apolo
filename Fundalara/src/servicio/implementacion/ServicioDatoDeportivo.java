@@ -22,19 +22,16 @@ public class ServicioDatoDeportivo implements IServicioDatoDeportivo {
 	@Override
 	public void eliminar(DatoDeportivo c) {
 		daoDatoDeportivo.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(DatoDeportivo c) {
 		daoDatoDeportivo.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(DatoDeportivo c) {
 		daoDatoDeportivo.actualizar(c);
-
 	}
 
 	@Override

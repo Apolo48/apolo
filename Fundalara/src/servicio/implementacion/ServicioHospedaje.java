@@ -31,13 +31,11 @@ public class ServicioHospedaje implements IServicioHospedaje {
 	public void agregar(Hospedaje c) {
 		c.setCodigoHospedaje(daoHospedaje.generarCodigo(c.getClass()));
 		daoHospedaje.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(Hospedaje c) {
 		daoHospedaje.actualizar(c);
-
 	}
 
 	@Override
@@ -61,4 +59,5 @@ public class ServicioHospedaje implements IServicioHospedaje {
 			FamiliarJugador familiarJugador) {
 		return daoHospedaje.activar(competencia, familiarJugador);
 	}
+	
 }

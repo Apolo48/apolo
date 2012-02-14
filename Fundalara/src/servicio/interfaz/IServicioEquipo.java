@@ -3,9 +3,7 @@ package servicio.interfaz;
 import java.util.List;
 
 import modelo.Categoria;
-import modelo.DatoBasico;
 import modelo.Equipo;
-import modelo.LapsoDeportivo;
 
 public interface IServicioEquipo {
 	public abstract void eliminar(Equipo c);

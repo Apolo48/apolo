@@ -31,19 +31,16 @@ public class ServicioJugadorPlan implements IServicioJugadorPlan {
 	@Override
 	public void eliminar(JugadorPlan a) {
 		daoJugadorPlan.eliminar(a);
-
 	}
 
 	@Override
 	public void agregar(JugadorPlan a) {
 		daoJugadorPlan.guardar(a);
-
 	}
 
 	@Override
 	public void actualizar(JugadorPlan a) {
 		daoJugadorPlan.actualizar(a);
-
 	}
 
 	@Override

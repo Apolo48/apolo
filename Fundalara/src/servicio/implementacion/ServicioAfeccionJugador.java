@@ -31,24 +31,20 @@ public class ServicioAfeccionJugador implements IServicioAfeccionJugador {
 	@Override
 	public void eliminar(AfeccionJugador c) {
 		daoAfeccionJugador.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(AfeccionJugador c) {
 		daoAfeccionJugador.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(AfeccionJugador c) {
 		daoAfeccionJugador.actualizar(c);
-
 	}
 	
 	public void actualizar(List<AfeccionJugador> afecciones, DatoMedico datoMedico) {
 		daoAfeccionJugador.actualizar(afecciones,datoMedico);
-
 	}
 
 	@Override
@@ -58,7 +54,6 @@ public class ServicioAfeccionJugador implements IServicioAfeccionJugador {
 
 	public void agregar(List<AfeccionJugador> afecciones) {
 		daoAfeccionJugador.guardar(afecciones);
-
 	}
 
 	public List<AfeccionJugador> buscarPorJugador(Jugador jugador){

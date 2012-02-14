@@ -24,13 +24,12 @@ public class ServicioDatoBasico implements IServicioDatoBasico {
 	
 	@Override
 	public void eliminar(DatoBasico d) {
-		
+		daoDatoBasico.eliminar(d);
 	}
 
 	@Override
 	public void agregar(DatoBasico d) {
 		daoDatoBasico.guardar(d);
-
 	}
 
 	@Override
@@ -42,7 +41,6 @@ public class ServicioDatoBasico implements IServicioDatoBasico {
 	public List<DatoBasico> listar() {
 		return daoDatoBasico.listar(DatoBasico.class);
 	}
-	
 
 	@Override
 	public List<DatoBasico> buscarPorTipoDato(TipoDato td) {
@@ -55,7 +53,6 @@ public class ServicioDatoBasico implements IServicioDatoBasico {
 		return daoDatoBasico.buscarPorCodigo(i);
 	}
 
-	
 	@Override
 	public List<DatoBasico> buscar(TipoDatoBasico tipoDato) {
 		return daoDatoBasico.buscar(tipoDato);
@@ -76,6 +73,5 @@ public class ServicioDatoBasico implements IServicioDatoBasico {
 			String nombre) {
 		return daoDatoBasico.buscarPorRelacion(datoBasico, nombre);
 	}
-	
 	
 }

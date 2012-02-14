@@ -28,13 +28,11 @@ public class ServicioInstitucion implements IServicioInstitucion {
 	@Override
 	public void agregar(Institucion c) {
 		 daoInstitucion.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(Institucion c) {
 		 daoInstitucion.actualizar(c);
-
 	}
 
 	@Override
@@ -56,6 +54,5 @@ public class ServicioInstitucion implements IServicioInstitucion {
 	public Institucion buscarpornombre (String nombre){
     	return daoInstitucion.buscarpornombre(nombre);
     }
-	
 	
 }

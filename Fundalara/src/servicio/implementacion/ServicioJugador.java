@@ -32,7 +32,6 @@ public class ServicioJugador implements IServicioJugador {
 	@Override
 	public void eliminar(Jugador c) {
 		daoJugador.eliminar(c);
-
 	}
 
 	@Override
@@ -43,7 +42,6 @@ public class ServicioJugador implements IServicioJugador {
 	@Override
 	public void actualizar(Jugador c) {
 		 daoJugador.actualizar(c);
-		
 	}
 	
 

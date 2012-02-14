@@ -3,9 +3,9 @@ package servicio.interfaz;
 import java.util.List;
 
 import modelo.Jugador;
-import modelo.PersonaNatural;
 
 public interface IServicioJugador {
+	
 	public abstract void eliminar(Jugador c);
 
 	public abstract void agregar(Jugador c);
@@ -18,4 +18,5 @@ public interface IServicioJugador {
 			String filtro3, String filtro4, String filtro1, char estatus);
 
 	public abstract void cambiarCedula(String nuevaCedula, Jugador jugador);
+	
 }

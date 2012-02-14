@@ -24,13 +24,11 @@ public class ServicioRetiroTraslado implements IServicioRetiroTraslado {
 	@Override
 	public void eliminar(RetiroTraslado c) {
 		daoRetiroTraslado.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(RetiroTraslado c) {
 		daoRetiroTraslado.guardar(c);
-
 	}
 
 	@Override
@@ -46,7 +44,6 @@ public class ServicioRetiroTraslado implements IServicioRetiroTraslado {
 	public int contarfilas (RetiroTraslado r, int operacion){
 		return daoRetiroTraslado.contarfilas(r,operacion);
 	}
-	
 	
 	public void reingresarJugador(Jugador jugador){
 		daoRetiroTraslado.reingresarJugador(jugador);

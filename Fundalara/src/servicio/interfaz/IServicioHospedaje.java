@@ -5,7 +5,6 @@ import java.util.List;
 import modelo.Competencia;
 import modelo.FamiliarJugador;
 import modelo.Hospedaje;
-import modelo.Representante;
 
 public interface IServicioHospedaje {
 

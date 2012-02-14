@@ -30,24 +30,20 @@ public class ServicioDatoSocial implements IServicioDatoSocial {
 	@Override
 	public void eliminar(DatoSocial c) {
 		daoDatoSocial.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(DatoSocial c) {
 		daoDatoSocial.guardar(c);
-
 	}
 
 	public void agregar(List<DatoSocial> datos) {
 		daoDatoSocial.guardar(datos);
-
 	}
 
 	@Override
 	public void actualizar(DatoSocial c) {
 		daoDatoSocial.actualizar(c);
-
 	}
 	
 	public void actualizar(List<DatoSocial> datos, Jugador jugador){

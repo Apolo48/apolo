@@ -38,6 +38,7 @@ public class ServicioDivisa implements IServicioDivisa {
 		
 	}*/	
 
+	/**ESTE ES!*/
 	@Override
 	public List<Divisa> listar() {
 		return daoDivisa.listar(Divisa.class);

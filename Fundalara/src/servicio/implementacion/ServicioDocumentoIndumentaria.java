@@ -1,7 +1,5 @@
 package servicio.implementacion;
 
-
-
 import java.util.List;
 
 import dao.general.DaoDocumentoIndumentaria;
@@ -25,13 +23,11 @@ public class ServicioDocumentoIndumentaria implements
 	@Override
 	public void eliminar(DocumentoIndumentaria c) {
 		daoDocumentoIndumentaria.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(DocumentoIndumentaria c) {
 		daoDocumentoIndumentaria.guardar(c);
-
 	}
 
 	@Override
@@ -41,7 +37,6 @@ public class ServicioDocumentoIndumentaria implements
 
 	@Override
 	public List listar() {
-		// TODO Auto-generated method stub
 		return daoDocumentoIndumentaria.listar( DocumentoIndumentaria.class);
 	}
 

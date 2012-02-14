@@ -31,19 +31,16 @@ public class ServicioAscenso implements IServicioAscenso {
 	@Override
 	public void eliminar(Ascenso c) {
 		daoAscenso.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(Ascenso c) {
 		daoAscenso.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(Ascenso c) {
 		daoAscenso.actualizar(c);
-
 	}
 
 	@Override

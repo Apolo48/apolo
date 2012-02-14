@@ -40,7 +40,7 @@ public class ServicioPersona implements IServicioPersona {
 		// TODO Auto-generated method stub
 		return daoPersona.listar( Persona.class);
 	}
-	
+	/**ESTE ES!S*/
 	public boolean  existePersona(String cedula) {
 		return daoPersona.existePersona(cedula);
 	}

@@ -8,7 +8,6 @@ import servicio.interfaz.IServicioMedico;
 
 import dao.general.DaoMedico;
 
-
 public class ServicioMedico implements IServicioMedico {
 
 	DaoMedico daoMedico;

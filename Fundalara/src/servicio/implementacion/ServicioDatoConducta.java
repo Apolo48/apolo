@@ -29,13 +29,11 @@ public class ServicioDatoConducta implements IServicioDatoConducta {
 	@Override
 	public void agregar(DatoConducta c) {
 		daoDatoConducta.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(DatoConducta c) {
 		daoDatoConducta.actualizar(c);
-
 	}
 
 	@Override
@@ -46,6 +44,5 @@ public class ServicioDatoConducta implements IServicioDatoConducta {
 	public List<DatoConducta> buscarPorJugador(Jugador jugador){
 		return daoDatoConducta.buscarPorJugador(jugador);
 	}
-
 
 }

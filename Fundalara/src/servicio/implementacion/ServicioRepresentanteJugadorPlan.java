@@ -12,7 +12,6 @@ import servicio.interfaz.IServicioRepresentanteJugadorPlan;
 
 public class ServicioRepresentanteJugadorPlan implements
 		IServicioRepresentanteJugadorPlan {
-
 	
 	DaoRepresentanteJugadorPlan daoRepresentanteJugadorPlan;
 	
@@ -29,19 +28,16 @@ public class ServicioRepresentanteJugadorPlan implements
 	@Override
 	public void eliminar(RepresentanteJugadorPlan a) {
 		daoRepresentanteJugadorPlan.eliminar(a);
-
 	}
 
 	@Override
 	public void agregar(RepresentanteJugadorPlan a) {
 		daoRepresentanteJugadorPlan.guardar(a);
-
 	}
 
 	@Override
 	public void actualizar(RepresentanteJugadorPlan a) {
 		daoRepresentanteJugadorPlan.actualizar(a);
-
 	}
 
 	@Override
@@ -53,6 +49,5 @@ public class ServicioRepresentanteJugadorPlan implements
 	public List<RepresentanteJugadorPlan> buscarRepresentanteJugador(JugadorPlan jugadorPlan) {
 		return daoRepresentanteJugadorPlan.buscarRepresentanteJugador(jugadorPlan);
 	}
-
 
 }

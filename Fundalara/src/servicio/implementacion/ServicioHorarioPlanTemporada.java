@@ -1,6 +1,5 @@
 package servicio.implementacion;
 
-import java.util.Date;
 import java.util.List;
 
 import dao.general.DaoHorarioPlanTemporada;
@@ -10,7 +9,7 @@ import modelo.Horario;
 import modelo.HorarioPlanTemporada;
 import modelo.PlanTemporada;
 import servicio.interfaz.IServicioHorarioPlanTemporada;
-
+/**TOMADO DE ENTRENAMIENTO*/
 public class ServicioHorarioPlanTemporada implements
 		IServicioHorarioPlanTemporada {
 

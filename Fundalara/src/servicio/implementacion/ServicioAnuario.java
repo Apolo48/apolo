@@ -25,22 +25,27 @@ public class ServicioAnuario implements IServicioAnuario {
 	public DaoAnuario getDaoAnuario() {
 		return daoAnuario;
 	}
+	
 	public void setDaoAnuario(DaoAnuario daoAnuario) {
 		this.daoAnuario = daoAnuario;
 	}
+	
 	@Override
 	public void actualizar(Anuario a) {
 		daoAnuario.actualizar(a);
-		
-	}@Override
+	}
+	
+	@Override
 	public void agregar(Anuario a) {
 		daoAnuario.guardar(a);
-		
-	}@Override
+	}
+	
+	@Override
 	public void eliminar(Anuario a) {
 		daoAnuario.eliminar(a);
-		
-	}@Override
+	}
+	
+	@Override
 	public List<Anuario> listar() {
 		return daoAnuario.listar(Anuario.class);
 	}

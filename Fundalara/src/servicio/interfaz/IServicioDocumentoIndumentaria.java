@@ -14,5 +14,4 @@ public interface IServicioDocumentoIndumentaria {
 	
 	public abstract List listar();
 
-
 }

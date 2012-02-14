@@ -19,7 +19,6 @@ public class ServicioDatoAcademico implements IServicioDatoAcademico {
 
 	DaoDatoAcademico daoDatoAcademico;
 	
-	
 	public DaoDatoAcademico getDaoDatoAcademico() {
 		return daoDatoAcademico;
 	}
@@ -31,19 +30,16 @@ public class ServicioDatoAcademico implements IServicioDatoAcademico {
 	@Override
 	public void eliminar(DatoAcademico c) {
 		daoDatoAcademico.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(DatoAcademico c) {
 		daoDatoAcademico.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(DatoAcademico c) {
 		daoDatoAcademico.actualizar(c);
-
 	}
 
 	@Override
@@ -56,13 +52,12 @@ public class ServicioDatoAcademico implements IServicioDatoAcademico {
 		return daoDatoAcademico.obtenerUltimoId();
 	}
 	
-
 	public List<DatoAcademico> buscarPorJugador(Jugador jugador){
 		return daoDatoAcademico.buscarPorJugador(jugador);
 	}
 	
-	
 	public DatoAcademico buscarDatoAcademico(Jugador jugador){
 		return daoDatoAcademico.buscarDatoAcademico(jugador);
 	}
+	
 }

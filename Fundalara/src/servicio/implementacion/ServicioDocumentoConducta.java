@@ -23,7 +23,6 @@ public class ServicioDocumentoConducta implements IServicioDocumentoConducta {
 	@Override
 	public void eliminar(DocumentoConducta c) {
 		daoDocumentoConducta.eliminar(c);
-
 	}
 
 	@Override
@@ -34,7 +33,6 @@ public class ServicioDocumentoConducta implements IServicioDocumentoConducta {
 	@Override
 	public void actualizar(DocumentoConducta c) {
 		daoDocumentoConducta.actualizar(c);
-
 	}
 
 	@Override

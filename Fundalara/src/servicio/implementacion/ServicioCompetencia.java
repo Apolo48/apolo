@@ -36,6 +36,7 @@ public class ServicioCompetencia implements IServicioCompetencia {
 		return null;
 	}*/
 
+	/**ESTE ES!*/
 	@Override
 	public List<Competencia> listar() {
 		return daoCompetencia.listar(Competencia.class);

@@ -14,5 +14,4 @@ public interface IServicioPersona {
 	
 	public abstract List listar();
 
-
 }

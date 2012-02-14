@@ -30,20 +30,16 @@ public class ServicioDatoMedico implements IServicioDatoMedico {
 	@Override
 	public void eliminar(DatoMedico c) {
 		daoDatoMedico.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(DatoMedico c) {
-
 		daoDatoMedico.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(DatoMedico c) {
 		daoDatoMedico.actualizar(c);
-
 	}
 
 	@Override
@@ -59,4 +55,5 @@ public class ServicioDatoMedico implements IServicioDatoMedico {
 	public DatoMedico buscarDatoMedico(Jugador jugador){
 		return daoDatoMedico.buscarDatoMedico(jugador);
 	}
+	
 }

@@ -11,8 +11,7 @@ import servicio.interfaz.IServicioComisionFamiliar;
 
 public class ServicioComisionFamiliar implements IServicioComisionFamiliar {
 
-	 DaoComisionFamiliar daoComisionFamiliar;
-	 
+	DaoComisionFamiliar daoComisionFamiliar;
 	 
 	public DaoComisionFamiliar getDaoComisionFamiliar() {
 		return daoComisionFamiliar;
@@ -25,19 +24,16 @@ public class ServicioComisionFamiliar implements IServicioComisionFamiliar {
 	@Override
 	public void eliminar(ComisionFamiliar c) {
 		daoComisionFamiliar.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(ComisionFamiliar c) {
 		daoComisionFamiliar.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(ComisionFamiliar c) {
 		daoComisionFamiliar.actualizar(c);
-
 	}
 
 	@Override

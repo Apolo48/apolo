@@ -32,19 +32,16 @@ public class ServicioDocumentoAcademico implements IServicioDocumentoAcademico {
 	@Override
 	public void eliminar(DocumentoAcademico c) {
 		daoDocumentoAcademico.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(DocumentoAcademico c) {
 		daoDocumentoAcademico.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(DocumentoAcademico c) {
 		daoDocumentoAcademico.actualizar(c);
-
 	}
 
 	@Override
@@ -60,10 +57,10 @@ public class ServicioDocumentoAcademico implements IServicioDocumentoAcademico {
 	
 	public void actualizar(List<DocumentoEntregado> documentos) {
 			daoDocumentoAcademico.actualizar(documentos);
-		}
-	
+	}
 	
 	public List<DocumentoEntregado>  buscarDocumentos(DatoAcademico datoAcademico){
 		return daoDocumentoAcademico.buscarDocumentos(datoAcademico);
 	}
+	
 }

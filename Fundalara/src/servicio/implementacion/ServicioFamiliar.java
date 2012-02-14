@@ -6,7 +6,6 @@ import servicio.interfaz.IServicioFamiliar;
 
 import dao.general.DaoFamiliar;
 import modelo.Familiar;
-import modelo.Jugador;
 
 public class ServicioFamiliar implements IServicioFamiliar {
 
@@ -23,19 +22,16 @@ public class ServicioFamiliar implements IServicioFamiliar {
 	@Override
 	public void eliminar(Familiar c) {
 		daoFamiliar.eliminar(c);
-
 	}
 
 	@Override
 	public void agregar(Familiar c) {
 		daoFamiliar.guardar(c);
-
 	}
 
 	@Override
 	public void actualizar(Familiar c) {
 		daoFamiliar.actualizar(c);
-
 	}
 
 	@Override
@@ -45,11 +41,10 @@ public class ServicioFamiliar implements IServicioFamiliar {
 
 	public void agregar(List<Familiar> familiares) {
 		daoFamiliar.guardar(familiares);
-
 	}
 	
 	public List<Familiar> filtrar(int num,String filtro1,String filtro2,String filtro3){
 		return daoFamiliar.cargarLista(num,filtro1, filtro2, filtro3);
-		}
+	}
 	
 }
