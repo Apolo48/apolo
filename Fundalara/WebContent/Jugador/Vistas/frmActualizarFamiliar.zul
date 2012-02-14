@@ -3,8 +3,9 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winActualizarFamiliar" ?>
 
 <zk>
+<div   align="center">
 	<window title="Actualizar Familiar" id="winActualizarFamiliar"
-		border="normal" width="695px"
+		border="normal" width="695px" style="text-align:left"
 		apply="controlador.jugador.CntrlActualizarFamiliar" closable="true">
 		<groupbox style="border-color:orange">
 			<caption style="font-weight: bold" label="Jugador" />
@@ -582,4 +583,5 @@
 			</button>
 		</div>
 	</window>
+	</div>
 </zk>

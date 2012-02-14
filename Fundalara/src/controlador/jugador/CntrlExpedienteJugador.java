@@ -188,4 +188,16 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 		winExpediente.detach();
 	}
 	
+	
+	public void onClick$btnCancelar() {
+		jugador = new Jugador();
+		txtCedula.setValue("");
+		txtPrimerNombre.setValue("");
+		txtSegundoNombre.setValue("");
+		txtPrimerApellido.setValue("");
+		txtSegundoApellido.setValue("");
+		txtFechaIngreso.setValue("");
+		imgJugador.setSrc("/Recursos/Imagenes/noFoto.jpg");
+		binder.loadAll();
+	}
 }

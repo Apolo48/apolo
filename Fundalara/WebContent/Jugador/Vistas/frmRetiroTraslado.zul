@@ -3,9 +3,10 @@
 <?page title="Registro de Pases"?>
 <zk>
 
-	<div align="left">
+	<div align="center">
 		<window id="winRetiroTraslado"
 			title="Registro de Retiro/Traslado" border="normal" width="670px"
+			style="text-align:left"
 			closable="true" apply="controlador.jugador.CntrlRetiroTraslado">
 			<div>
 				<grid oddRowSclass="none" style="border:none;">

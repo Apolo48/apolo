@@ -1,9 +1,10 @@
-<?page title="Reporte de inscritos y retirados" contentType="text/html;charset=UTF-8"?>
+<?page title="inscritos y retirados" contentType="text/html;charset=UTF-8"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?> 
 <zk>
-	<window id="winReporteInscritosRetirados" title="Reporte de Inscritos y Retirados"
-	border="normal" closable="true" width="500px"
+<div align="center">
+	<window id="winReporteInscritosRetirados" title="Inscritos y Retirados"
+	border="normal" closable="true" width="500px"  style="text-align:left"
 	apply="controlador.jugador.CntrlReporteInscritosRetirados">
 
 		<groupbox closable="false" style="border-color:orange">
@@ -52,4 +53,5 @@
 					width="100px" />
 		</div>
 	</window>
+	</div>
 </zk>

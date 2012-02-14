@@ -3,8 +3,9 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"?>
 
 <zk>
+<div   align="center">
 	<window id="winConfigurarRecaudo" apply="controlador.jugador.CntrlConfigurarRecaudo" 
-	title="Recaudo" border="normal" width="60%"
+	title="Recaudos" border="normal" width="60%" style="text-align:left"
 		closable="true">
 		<grid style="border:none" oddRowSclass="none">
 			<columns>
@@ -25,7 +26,7 @@
 					</combobox>
 				</row>
 				<row style="border:none">
-					<label value="Accion"></label>
+					<label value="Acción"></label>
 					<combobox id="cmbAccion" value="--Seleccione--" readonly="true"
 						selectedItem="@{controller.accion}" 
 						model="@{controller.acciones, load-after='cmbProceso.onChange'}" width="70%">
@@ -62,13 +63,13 @@
 						model="@{controller.listrecaudos}"
 						selectedItem="@{winConfigurarRecaudo$composer.recaudoporproceso}">
 						<listhead>
-							<listheader width="23%" align="center" label="Accion">
+							<listheader width="23%" align="center" label="Acción">
 							</listheader>
 							<listheader width="34%" align="center" label="Recaudo">
 							</listheader>
 							<listheader width="17%" label="Cantidad"></listheader>
 							<listheader width="15%" label="Importancia"></listheader>
-							<listheader width="25%" label="estado">	
+							<listheader width="25%" label="Estado">	
 							</listheader>
 						</listhead>
 
@@ -106,4 +107,5 @@
 				width="100px" />
 		</div>
 	</window>
+	</div>
 </zk>

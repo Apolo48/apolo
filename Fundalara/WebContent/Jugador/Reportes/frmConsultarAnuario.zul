@@ -2,8 +2,10 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winAnuarioJugadores"?>
 <zk>
+<div align="center">
 	<window id="winAnuarioJugadores" title="Anuario de Jugadores" border="normal"
 		closable="true" apply="controlador.jugador.CntrlConsultarAnuario"
+		style="text-align:left"
 		width="695px">
 		<grid oddRowSclass="none" style="border:none;">
 			<columns style="border:none">
@@ -64,4 +66,5 @@
 				width="100px" />
 		</div>
 	</window>
+	</div>
 </zk>

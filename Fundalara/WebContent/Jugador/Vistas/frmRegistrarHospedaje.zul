@@ -3,8 +3,10 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winRegistrarHospedaje"?>
 
 <zk>
+<div align="center">
 	<window id="winRegistrarHospedaje" title="Hospedar Jugadores"
 		apply="controlador.jugador.CntrlRegistrarHospedaje" border="normal"
+		style="text-align:left"
 		width="620px" closable="true">
 
 		<panel title="Representante" collapsible="" open="true">
@@ -150,4 +152,5 @@
 			</button>
 		</div>
 	</window>
+	</div>
 </zk>

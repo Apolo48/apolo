@@ -3,8 +3,9 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 
 <zk>
+<div   align="center">
 	<window id="winConfigurarCategoria" title="Categorías"
-		border="normal" width="696px"
+		border="normal" width="696px" style="text-align:left"
 		apply="controlador.jugador.CntrlConfigurarCategoria"
 		closable="true">
 		<panel title="">
@@ -117,4 +118,5 @@
 				width="100px" />
 		</div>
 	</window>
+	</div>
 </zk>

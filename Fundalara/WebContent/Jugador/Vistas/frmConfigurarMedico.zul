@@ -3,8 +3,9 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winConfigurarMedico"?>
 
 <zk>
-	<window id="winConfigurarMedico" title="Registro de Médico"
-		border="normal" width="645px" closable="true"
+<div   align="center">
+	<window id="winConfigurarMedico" title="Médicos"
+		border="normal" width="645px" closable="true" style="text-align:left"
 		apply="controlador.jugador.CntrlConfigurarMedico">
 		<space></space>
 		<grid style="border:none;" oddRowSclass="none">
@@ -188,4 +189,5 @@
 				width="100px"/>
 		</div>
 	</window>
+	</div>
 </zk>

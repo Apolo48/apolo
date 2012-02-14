@@ -4,7 +4,7 @@
 
 <zk>
 	<div align="center">
-		<window id="winconfigurarInstitucion" title="Institución"
+		<window id="winconfigurarInstitucion" title="Instituciones"
 			border="normal" width="480px" closable="true"
 			apply="controlador.jugador.CntrlConfigurarInstitucion"
 			style="text-align:left">
