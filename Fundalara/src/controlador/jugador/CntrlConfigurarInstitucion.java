@@ -262,7 +262,7 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtDireccion.focus();
 		} else {
-			Messagebox.show("Está seguro que desea modifciar la institución?",
+			Messagebox.show("Está seguro que desea modificar la institución?",
 					"MODIFICAR", Messagebox.YES | Messagebox.NO,
 					Messagebox.QUESTION, new EventListener() {
 						public void onEvent(Event evt) {

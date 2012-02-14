@@ -1,7 +1,7 @@
 <?page title="Ascenso Especial"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winAscensoEspecial"?>
-
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" 
+root="winAscensoEspecial"?>
 <zk>
 	<window id="winAscensoEspecial" border="none" width="670px"
 		closable="true" apply="controlador.jugador.CntrlAscensoEspecial">
@@ -199,7 +199,7 @@
 					model="@{winAscensoEspecial$composer.recaudosAscenso}"
 					selectedItem="@{controller.docEntAscenso}">
 					<listhead>
-						<listheader width="37%" label="Nombre" />
+						<listheader width="37%" label="Nombre"/>
 						<listheader width="15%" label="Solicitado" />
 						<listheader width="13%" label="Entregado" />
 						<listheader width="11%" label="Documento" />
@@ -223,35 +223,35 @@
 			</panelchildren>
 		</panel>
 		<space height="10px" />
-
-		<panel title="Especificaciones Técnicas">
-			<panelchildren>
+		
+	<panel title="Especificaciones Técnicas Acumuladas">
+		 <panelchildren>
 				<groupbox style="border-color:orange"
 					closable="false">
 					<caption label="Ofensiva" />
-					<listbox id="listOfensiva" />
+					<listbox id="listOfensiva"/>					
 				</groupbox>
-
+				
 				<groupbox style="border-color:orange"
 					closable="false">
 					<caption label="Defensiva" />
-					<listbox id="listDefensiva" />
+					<listbox id="listDefensiva"/>
 				</groupbox>
-
+				
 				<groupbox style="border-color:orange"
 					closable="false">
 					<caption label="Pitcheo" />
-					<listbox id="listPitcheo" />
-				</groupbox>
+					<listbox id="listPitcheo"/>
+				</groupbox>			
 			</panelchildren>
 		</panel>
-
+	
 		<space height="10px" />
 
 		<div align="right">
 			<button id="btnGuardar" label="Guardar"
 				image="/Recursos/Imagenes/guardar.ico" orient="horizontal"
-				width="100px" disabled="true" />
+				width="100px" disabled="true"/>
 			<button id="btnCancelar" label="Cancelar"
 				image="/Recursos/Imagenes/cancelar.ico" orient="horizontal"
 				width="100px" />

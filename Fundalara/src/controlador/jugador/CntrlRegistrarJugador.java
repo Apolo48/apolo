@@ -2578,7 +2578,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	private void guardarFamiliarVistaToBean() {
-		familiarBean =  new controlador.jugador.bean.Familiar();
+		//familiarBean =  new controlador.jugador.bean.Familiar();
 		familiarBean.setNacionalidad(cmbNacionalidadFamiliar.getSelectedItem()
 				.getValue().toString());
 		familiarBean.setCedula(txtCedulaFamiliar.getValue().toString());
