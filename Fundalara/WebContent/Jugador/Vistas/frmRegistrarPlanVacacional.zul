@@ -292,7 +292,7 @@
 			<button id="btnGuardar" label="Inscribir"
 				image="../../Recursos/Imagenes/inscribir.gif" orient="horizontal"
 				width="100px" />
-			<button id="btnEliminar" label="Retirar"
+			<button id="btnEliminar" label="Retirar" disabled="true"
 				image="../../Recursos/Imagenes/eliminar.ico" orient="horizontal"
 				width="100px" />
 			<button id="btnCancelar" label="Cancelar"

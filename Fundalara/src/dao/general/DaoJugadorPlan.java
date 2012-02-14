@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import modelo.Familiar;
 import modelo.JugadorPlan;
 
 import dao.generico.GenericDao;
@@ -42,5 +44,24 @@ public class DaoJugadorPlan extends GenericDao {
 		jugadores = c.list();
 		return jugadores;
 	}
+	
+	public void  guardar(JugadorPlan jugador){
+		Session session = getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Criteria c = null;
+		
+		c = session.createCriteria(JugadorPlan.class)
+				.add(Restrictions.eq("estatus", 'A'))
+				.add(Restrictions.eq("cedulaRif", jugador.getCedulaRif()));
+					c.setProjection(Projections.rowCount());
+		int cantidad = (Integer) c.list().get(0);
+	
+		if (cantidad==0){
+			session.save(jugador);
+		}else{
+			session.merge(jugador);
+		}
+		
+	} 
 	
 }

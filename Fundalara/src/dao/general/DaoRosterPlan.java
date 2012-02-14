@@ -35,5 +35,17 @@ public class DaoRosterPlan extends GenericDao {
 		return (RosterPlan) c.uniqueResult();
 	}
 	
+	public void retirarJugador(JugadorPlan jugador){
+		Session session = this.getSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		Criteria c = session.createCriteria(RosterPlan.class)
+				.add(Restrictions.eq("jugadorPlan", jugador))
+				.add(Restrictions.eq("estatus", 'A'));
+		RosterPlan r=  (RosterPlan) c.uniqueResult();
+		r.setEstatus('E');
+		session.update(r);
+		tx.commit();
+	}
+	
 	
 }
