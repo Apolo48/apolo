@@ -10,7 +10,6 @@ import org.hibernate.criterion.Restrictions;
 
 import modelo.Jugador;
 import modelo.RetiroTraslado;
-import modelo.DatoBasico;
 
 /**
  * Clase de acceso y manejo de los datos relacionados a los retiros y traslados ocurridos en la divisa
@@ -21,7 +20,6 @@ import modelo.DatoBasico;
  * @version 0.1.9 10/01/2012
  * 
  */
-
 public class DaoRetiroTraslado extends GenericDao {
 
 	/**
@@ -63,4 +61,3 @@ public class DaoRetiroTraslado extends GenericDao {
 	}
 	
 }
-

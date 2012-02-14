@@ -38,7 +38,6 @@ import modelo.TipoDato;
 import modelo.RecaudoPorProceso;
 
 import servicio.implementacion.ServicioDatoBasico;
-import servicio.implementacion.ServicioTipoDato;
 import servicio.implementacion.ServicioRecaudoPorProceso;
 
 /**
@@ -55,7 +54,6 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 
 	// Servicios
 	ServicioDatoBasico servicioDatoBasico;
-	ServicioTipoDato servicioTipoDato;
 	ServicioRecaudoPorProceso servicioRecaudoPorProceso;
 
 	// Modelos

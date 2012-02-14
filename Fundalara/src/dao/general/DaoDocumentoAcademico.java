@@ -10,14 +10,9 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import modelo.DatoAcademico;
-import modelo.DatoBasico;
 import modelo.DocumentoAcademico;
 import modelo.DocumentoAcademicoId;
 import modelo.DocumentoEntregado;
-import modelo.DocumentoPersonal;
-import modelo.TallaPorIndumentaria;
-import modelo.TallaPorJugador;
-import modelo.TallaPorJugadorId;
 import dao.generico.GenericDao;
 
 /**

@@ -5,8 +5,6 @@ import java.util.List;
 
 import modelo.Familiar;
 import modelo.FamiliarJugador;
-import modelo.Jugador;
-import modelo.PersonaNatural;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -26,7 +24,6 @@ import dao.generico.GenericDao;
  * @version 0.1.3 21/01/2012
  * 
  */
-
 public class DaoFamiliar extends GenericDao {
 
 	public List<Familiar> cargarLista(int estatus,String filtro1,String filtro2,String filtro3){
@@ -94,8 +91,6 @@ public class DaoFamiliar extends GenericDao {
 		tx.commit();
 	}
 	
-	
-	
 	/**
 	 * Guardar un familiar
 	 * @param familiar
@@ -118,9 +113,7 @@ public class DaoFamiliar extends GenericDao {
 				session.save(familiar.getPersonaNatural());
 				session.save(familiar);
 			}
-		
 		tx.commit();
 	}
-	
 
 }

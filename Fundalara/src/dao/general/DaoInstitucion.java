@@ -11,7 +11,6 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import dao.generico.GenericDao;
-import dao.generico.SessionManager;
 
 /**
  * Clase de acceso y manejo de los datos relacionados a las instituciones
@@ -42,6 +41,7 @@ public class DaoInstitucion extends GenericDao {
 			return null;
 		}
 	}
+	
 	/**
 	 * Busca todas las instituciones de un tipo dado
 	 * 
@@ -62,8 +62,6 @@ public class DaoInstitucion extends GenericDao {
 		tx.commit();
 		return lista;
 	}
-
-	
 	
 	public Institucion buscarpornombre(String nombre) {
 		Session session = getSession();
@@ -77,7 +75,5 @@ public class DaoInstitucion extends GenericDao {
 			return null;
 		}
 	}
-
-
 	
 }

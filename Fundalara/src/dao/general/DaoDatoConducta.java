@@ -14,6 +14,11 @@ import dao.generico.GenericDao;
 
 public class DaoDatoConducta extends GenericDao {
 	
+	/**
+	 * Obtener lista de Datos de Conducta por un jugador
+	 * @param jugador 
+	 * 			dato de jugador a buscar
+	 */
 	public List<DatoConducta> buscarPorJugador(Jugador jugador) {
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();

@@ -27,7 +27,6 @@ import dao.generico.GenericDao;
  * @version 0.1.3 05/02/2012
  * 
  */
-
 public class DaoFamiliarJugador extends GenericDao {
 
 	public List<FamiliarJugador> buscarFamiliarJugador(Jugador jugador) {
@@ -105,7 +104,6 @@ public class DaoFamiliarJugador extends GenericDao {
 			datoNuevo.setEstatus('A');
 			sesion.save(datoNuevo);
 		}
-
 		tx.commit();
 	}
 
@@ -173,8 +171,7 @@ public class DaoFamiliarJugador extends GenericDao {
 		sesion.update(familiarJugador);
 		tx.commit();
 	}
-	
-	
+
 	public int generarSecuencia(Familiar familiar){
 		Session session = getSession();
 		Transaction tx =  session.beginTransaction();
@@ -187,7 +184,6 @@ public class DaoFamiliarJugador extends GenericDao {
 		cantidad = (Integer)criteria.list().get(0)+1; 
 		tx.commit();
 		return cantidad;
-		
 	}
 	
 	public boolean esRepresentanteActual(String cedulaJugador, Familiar familiar) {
@@ -205,6 +201,5 @@ public class DaoFamiliarJugador extends GenericDao {
 		}
 		return sw;
 	}
-	
 	
 }

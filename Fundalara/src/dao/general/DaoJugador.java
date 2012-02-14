@@ -1,14 +1,11 @@
 package dao.general;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import modelo.Anuario;
 import modelo.DatoBasico;
 import modelo.Familiar;
 import modelo.Jugador;
-import modelo.JugadorPlan;
 import modelo.LapsoDeportivo;
 import modelo.Persona;
 import modelo.PersonaNatural;
@@ -111,7 +108,6 @@ public class DaoJugador extends GenericDao {
 			roster.setEstatus('E');
 			session.update(roster);
 		}
-
 		tx.commit();
 	}
 
@@ -203,7 +199,6 @@ public class DaoJugador extends GenericDao {
 
 			break;
 		}
-
 		return lista;
 	}
 

@@ -101,9 +101,7 @@ public class DaoEquipo extends GenericDao {
 						"select equipo.codigo_equipo,roster.codigo_roster from equipo,roster where roster.estatus='A' and equipo.estatus='A'and equipo.codigo_equipo=roster.codigo_equipo and roster.codigo_equipo='"
 								+ equipo.getCodigoEquipo() + "'").addEntity(
 						Categoria.class);
-
 		List<Object> lista = query.list();
-
 		if (lista.size() != 0) {
 			sw = false;
 		} else {
@@ -144,7 +142,6 @@ public class DaoEquipo extends GenericDao {
 
 		return equipos;
 	}
-	
 	
 	public List<Equipo> buscarEquiposDisponibles(Categoria categoria,
 			String lapsoDeportivo) {

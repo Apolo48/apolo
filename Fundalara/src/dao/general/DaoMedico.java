@@ -3,7 +3,6 @@ package dao.general;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -26,7 +25,6 @@ public class DaoMedico extends GenericDao {
 			return null;
 		}
 	}
-		
 	
 	public List<Medico> cargarLista(String filtro1,String filtro2,String filtro3,String filtro4){
 		Session session = getSession();

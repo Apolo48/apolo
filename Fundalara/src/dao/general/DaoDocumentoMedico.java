@@ -3,11 +3,7 @@ package dao.general;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import modelo.DatoAcademico;
 import modelo.DatoMedico;
-import modelo.DocumentoAcademico;
-import modelo.DocumentoAcademicoId;
 import modelo.DocumentoEntregado;
 import modelo.DocumentoMedico;
 import modelo.DocumentoMedicoId;
@@ -68,7 +64,6 @@ public class DaoDocumentoMedico extends GenericDao {
 		tx.commit();
 	}
 	
-	
 	public List<DocumentoEntregado>  buscarDocumentos(DatoMedico datoMedico){
 		Session sesion = getSession();
 		Transaction tx = sesion.beginTransaction();
@@ -80,11 +75,7 @@ public class DaoDocumentoMedico extends GenericDao {
 		for (DocumentoMedico documentoMedico : auxMedico) {
 			aux.add(documentoMedico.getDocumentoEntregado());
 		}
-		
 		return aux;
-		
 	}
-	
-	
 	
 }

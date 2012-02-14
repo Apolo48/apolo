@@ -17,7 +17,6 @@ import dao.generico.GenericDao;
  * @version 0.1 02/01/2012
  * 
  */
-
 public class DaoRosterPlan extends GenericDao {
 
 	/**
@@ -35,6 +34,12 @@ public class DaoRosterPlan extends GenericDao {
 		return (RosterPlan) c.uniqueResult();
 	}
 	
+	/**
+	 * Retira un jugador inscrito previamente en un plan vacacional
+	 * 
+	 * @param jugador
+	 * 			Dato de jugador a retirar
+	 * */
 	public void retirarJugador(JugadorPlan jugador){
 		Session session = this.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();

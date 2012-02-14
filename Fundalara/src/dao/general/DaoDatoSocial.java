@@ -3,8 +3,6 @@ package dao.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import modelo.AfeccionJugador;
-import modelo.DatoMedico;
 import modelo.DatoSocial;
 import modelo.Jugador;
 
@@ -130,8 +128,7 @@ public class DaoDatoSocial extends GenericDao {
 		.add(Restrictions.eq("estatus",'A'))
 		.add(Restrictions.eq("jugador", jugador));
 		 List<DatoSocial> lista =c.list();
-		
-		 
 		return lista;
 	}
+	
 }

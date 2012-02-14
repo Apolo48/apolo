@@ -80,7 +80,6 @@ public class DaoRoster extends GenericDao {
 		return (Roster) c.uniqueResult();
 	}
 	
-	
 	 /**
 	  * Guarda los datos de roster
 	 * @param o objeto roster
@@ -91,7 +90,6 @@ public class DaoRoster extends GenericDao {
 			session.save(o);
 			tx.commit();		
 		}
-	
 	
 	public List<Roster> buscarEquipo(Jugador jugador, Date fecha) {
 		Session session = this.getSession();
@@ -121,7 +119,6 @@ public class DaoRoster extends GenericDao {
 		return lista;
 	}
 	
-	
 	public Roster buscarRosterPendiente(Jugador jugador){
 		Session session = this.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
@@ -131,14 +128,12 @@ public class DaoRoster extends GenericDao {
 		return (Roster) c.uniqueResult();
 	}
 	
-	
 	public void confirmarRoster(Roster roster){
 		Session session = this.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
 		roster.setEstatus('A');
 		session.update(roster);
 		tx.commit();	
-		
 	}
 	
 }

@@ -22,9 +22,9 @@ import dao.generico.SessionManager;
  * @version 0.1 18/12/2011
  *
  */
-
 public class DaoTipoDato extends GenericDao {
 	
+	/**NOT FOUND*/
 	public TipoDato buscarPorTipo(String tipo) {
 		// TODO Auto-generated method stub
 		Criteria c = getSession().createCriteria(TipoDato.class);

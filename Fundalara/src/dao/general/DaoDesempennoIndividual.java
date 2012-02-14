@@ -3,9 +3,7 @@ package dao.general;
 import java.util.List;
 
 import modelo.DatoBasico;
-import modelo.DesempennoIndividual;
 import modelo.Roster;
-import modelo.TipoDato;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -14,6 +12,16 @@ import dao.generico.GenericDao;
 
 public class DaoDesempennoIndividual extends GenericDao {
 
+	/**
+	 * Obtiene valor acumulado de indicadores deportivos segun 
+	 * categoria actual del jugador  
+	 * 
+	 * @param datoBasico
+	 *            Indica la modalidad deportiva (Ofensiva, Defensiva, Pitcheo)
+	 * @param roster
+	 * 			codigo del roster al que pertenece el jugador
+	 * @return Lista de indicadores acumulados del jugador
+	 */	
 	public List<Object> calcularDesempenno(DatoBasico datoBasico, Roster r) {
 		Session session = this.getSession();
 		org.hibernate.Transaction tx = session.beginTransaction();

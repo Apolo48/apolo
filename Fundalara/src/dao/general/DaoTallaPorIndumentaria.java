@@ -1,7 +1,5 @@
 package dao.general;
 
-import java.util.List;
-
 import modelo.DatoBasico;
 import modelo.TallaPorIndumentaria;
 

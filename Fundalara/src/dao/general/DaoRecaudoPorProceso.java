@@ -23,7 +23,6 @@ import dao.generico.GenericDao;
  * @version 0.1 18/12/2011
  * 
  */
-
 public class DaoRecaudoPorProceso extends GenericDao {
 
 	/**
@@ -38,7 +37,6 @@ public class DaoRecaudoPorProceso extends GenericDao {
 	 *            del tipo de documento (academico, personal)
 	 * @return lista de recaudos solicitados
 	 */
-
 	public List<RecaudoPorProceso> buscarPorProceso(DatoBasico proceso,
 			TipoDatoBasico tipoDocumento, String nombre) {
 

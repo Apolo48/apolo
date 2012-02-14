@@ -1,18 +1,5 @@
 package dao.general;
 
-import java.util.List;
-
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
-
-import comun.TipoDatoBasico;
-
-import modelo.DatoBasico;
-import modelo.DocumentoEntregado;
-import modelo.Jugador;
-
 import dao.generico.GenericDao;
 
 /**
@@ -26,7 +13,5 @@ import dao.generico.GenericDao;
  */
 public class DaoDocumentoEntregado extends GenericDao {
 	public static String SECUENCIA = "documentos_entregados_codigo_documento_seq";
-
-
 
 }

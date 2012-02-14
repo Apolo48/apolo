@@ -8,11 +8,9 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import modelo.Familiar;
 import modelo.JugadorPlan;
 
 import dao.generico.GenericDao;
-
 
 /**
  * Clase de acceso y manejo de los datos relacionados a los jugadores de los planes vacacionales
@@ -61,7 +59,6 @@ public class DaoJugadorPlan extends GenericDao {
 		}else{
 			session.merge(jugador);
 		}
-		
 	} 
 	
 }

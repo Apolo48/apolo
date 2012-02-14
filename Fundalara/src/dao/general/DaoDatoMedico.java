@@ -1,9 +1,6 @@
 package dao.general;
 
-import java.util.List;
-
 import modelo.DatoMedico;
-import modelo.DatoSocial;
 import modelo.Jugador;
 
 import org.hibernate.Criteria;
@@ -42,7 +39,6 @@ public class DaoDatoMedico extends GenericDao {
 
 		return id;
 	}
-	
 	
 	public DatoMedico buscarDatoMedico(Jugador jugador){
 		Session sesion = getSession();
