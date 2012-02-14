@@ -3,8 +3,9 @@
 <?page title="Ficha Familiar de Jugador" contentType="text/html;charset=UTF-8"?>
 
 <zk>
+<div align="center">
 	<window id="winFicha" title="Ficha Familiar" border="normal"
-		closable="true" width="600px"
+		closable="true" width="600px" style="text-align:left"
 		apply="controlador.jugador.CntrlFichaFamiliarJugador">
 		<panel width="100%">
 			<panelchildren>
@@ -105,4 +106,6 @@
 				width="100px" />
 		</div>
 	</window>
+	
+	</div>
 </zk>

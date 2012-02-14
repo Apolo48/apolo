@@ -3,8 +3,9 @@
 <?page title="Expediente de Jugador" contentType="text/html;charset=UTF-8"?>
 
 <zk>
+<div align="center">
 	<window id="winExpediente" title="Expediente" border="normal"
-		closable="true" width="600px"
+		closable="true" width="600px" style="text-align:left"
 		apply="controlador.jugador.CntrlExpedienteJugador">
 		<panel width="100%">
 			<panelchildren>
@@ -105,4 +106,5 @@
 				width="100px" />
 		</div>
 	</window>
+	</div>
 </zk>

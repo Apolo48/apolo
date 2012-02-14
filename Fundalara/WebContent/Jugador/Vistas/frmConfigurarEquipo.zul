@@ -1,10 +1,11 @@
-<?page title="Equipo" contentType="text/html;charset=UTF-8"?>
+<?page title="Equipos" contentType="text/html;charset=UTF-8"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 
 <zk>
-	<window id="winConfigurarEquipo" title="Equipo" border="normal"
-		width="696px" closable="true"
+<div   align="center">
+	<window id="winConfigurarEquipo" title="Equipos" border="normal"
+		width="696px" closable="true" style="text-align:left"
 		apply="controlador.jugador.CntrlConfigurarEquipo">
 		<panel title="">
 			<panelchildren>
@@ -144,4 +145,5 @@
 				width="100px" />
 		</div>
 	</window>
+	</div>
 </zk>

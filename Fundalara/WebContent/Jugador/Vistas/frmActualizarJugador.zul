@@ -3,8 +3,8 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winActualizarJugador" ?>
 
 <zk>
-	<div align="left">
-		<window border="normal" width="670px" height="1000px"
+	<div align="center">
+		<window border="normal" width="670px" height="1000px" style="text-align:left"
 			id="winActualizarJugador" closable="true" title="Actualizar Jugador"
 			apply="controlador.jugador.CntrlActualizarJugador">
 
