@@ -47,4 +47,10 @@ public class ServicioRosterPlan implements IServicioRosterPlan {
 		return daoRosterPlan.buscarRoster(jugadorPlan);
 	}
 
+	
+	public void retirar(JugadorPlan jugador) {
+		daoRosterPlan.retirarJugador(jugador);
+
+	}
+
 }
