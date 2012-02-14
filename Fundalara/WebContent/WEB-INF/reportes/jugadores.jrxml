@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jugadores" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="2.5937424601000023"/>
+	<property name="ireport.x" value="821"/>
+	<property name="ireport.y" value="430"/>
 	<subDataset name="dataset1"/>
 	<parameter name="categoria" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -14,8 +14,8 @@
 		<![CDATA[SELECT
 j.cedula_rif AS Cedula,
 pnj.primer_nombre||' '||pnj.primer_apellido AS Jugador,
-pnj.fecha_nacimiento AS Fecha_de_Nacimiento,
-pj.fecha_ingreso AS Fecha_de_Ingreso,
+to_char( pnj.fecha_nacimiento, 'dd/mm/yyyy')  AS Fecha_de_Nacimiento,
+to_char( pj.fecha_ingreso, 'dd/mm/yyyy') AS Fecha_de_Ingreso,
 pnf.primer_nombre||' '||pnf.primer_apellido AS Representante,
 c.nombre AS Categoria,
 e.nombre AS Equipo
@@ -59,8 +59,8 @@ ORDER BY Fecha_de_Nacimiento ASC;]]>
 	</queryString>
 	<field name="cedula" class="java.lang.String"/>
 	<field name="jugador" class="java.lang.String"/>
-	<field name="fecha_de_nacimiento" class="java.sql.Date"/>
-	<field name="fecha_de_ingreso" class="java.sql.Date"/>
+	<field name="fecha_de_nacimiento" class="java.lang.String"/>
+	<field name="fecha_de_ingreso" class="java.lang.String"/>
 	<field name="representante" class="java.lang.String"/>
 	<field name="categoria" class="java.lang.String"/>
 	<field name="equipo" class="java.lang.String"/>
@@ -69,22 +69,8 @@ ORDER BY Fecha_de_Nacimiento ASC;]]>
 	</background>
 	<title>
 		<band height="138" splitType="Stretch">
-			<staticText>
-				<reportElement x="411" y="118" width="48" height="20"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Fecha: ]]></text>
-			</staticText>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="459" y="118" width="96" height="20"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
 			<image>
-				<reportElement x="0" y="0" width="556" height="138"/>
+				<reportElement x="5" y="0" width="556" height="138"/>
 				<imageExpression><![CDATA["Encabezado.jpg"]]></imageExpression>
 			</image>
 		</band>
@@ -96,7 +82,7 @@ ORDER BY Fecha_de_Nacimiento ASC;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="24" isBold="true"/>
 				</textElement>
-				<text><![CDATA[JUGADORES FUNDALARA]]></text>
+				<text><![CDATA[JUGADORES INSCRITOS]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -116,32 +102,32 @@ ORDER BY Fecha_de_Nacimiento ASC;]]>
 			<staticText>
 				<reportElement stretchType="RelativeToBandHeight" x="86" y="22" width="82" height="20"/>
 				<textElement/>
-				<text><![CDATA[jugador]]></text>
+				<text><![CDATA[Jugador]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="176" y="15" width="61" height="28"/>
+				<reportElement x="172" y="15" width="61" height="28"/>
 				<textElement/>
 				<text><![CDATA[Fecha Nacimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="245" y="15" width="46" height="28"/>
+				<reportElement x="239" y="15" width="46" height="28"/>
 				<textElement/>
 				<text><![CDATA[Fecha Ingreso]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToBandHeight" x="299" y="25" width="82" height="20"/>
 				<textElement/>
-				<text><![CDATA[representante]]></text>
+				<text><![CDATA[Representante]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="399" y="22" width="80" height="20"/>
 				<textElement/>
-				<text><![CDATA[categoria]]></text>
+				<text><![CDATA[Categoría]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="490" y="22" width="80" height="20"/>
 				<textElement/>
-				<text><![CDATA[equipo]]></text>
+				<text><![CDATA[Equipo]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -163,12 +149,12 @@ ORDER BY Fecha_de_Nacimiento ASC;]]>
 				<textFieldExpression><![CDATA[$F{representante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="176" y="0" width="61" height="20"/>
+				<reportElement x="172" y="0" width="61" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{fecha_de_nacimiento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="245" y="0" width="46" height="20"/>
+				<reportElement x="238" y="0" width="58" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{fecha_de_ingreso}]]></textFieldExpression>
 			</textField>
@@ -267,7 +253,7 @@ ORDER BY Fecha_de_Nacimiento ASC;]]>
 				</graphicElement>
 			</line>
 			<textField evaluationTime="Report">
-				<reportElement x="487" y="63" width="40" height="20"/>
+				<reportElement x="491" y="63" width="40" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
@@ -313,7 +299,7 @@ ORDER BY Fecha_de_Nacimiento ASC;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Total de Categorias:]]></text>
+				<text><![CDATA[Total Jugadores:]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
 				<reportElement x="-98" y="-99" width="40" height="20"/>

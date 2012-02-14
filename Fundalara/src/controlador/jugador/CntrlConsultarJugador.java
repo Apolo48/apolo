@@ -1,5 +1,7 @@
 package controlador.jugador;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,12 +13,16 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRTextExporter;
+import net.sf.jasperreports.engine.export.JRTextExporterParameter;
 
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.AMedia;
@@ -50,16 +56,9 @@ import servicio.implementacion.ServicioLapsoDeportivo;
 import servicio.implementacion.ServicioRoster;
 
 /**
- * Clase controladora de los eventos de la vista de igual nombre, el presente
- * controlador se encarga de buscar por categoria, equipo y temporada a los
- * jugadores pertenecientes a la misma y mostrar su foto, nombre y número
  * 
- * @author Glendy Oliveros
- * @author Aimee Monsalve
- * @author Greisy Rodriguez
- * @author Alberto Perozo
- * @author Edgar Luzardo
- * 
+ * @author German L
+ * @author Robert A
  * @version 1.1 25/01/2012
  * 
  * */
@@ -68,20 +67,17 @@ public class CntrlConsultarJugador extends GenericForwardComposer {
 	private ServicioCategoria servicioCategoria;
 	private ServicioEquipo servicioEquipo;
 	private ServicioRoster servicioRoster;
-	private ServicioCompetencia servicioCompetencia;
 	private ServicioLapsoDeportivo servicioLapsoDeportivo;
 	private ServicioDatoBasico servicioDatoBasico;
 
-	private Window winAnuarioJugadores;
+	private Window winConsultarJugador;
 	
 	private Equipo equipo = new Equipo();
 	private Categoria categoria = new Categoria();
 	private Jugador jugador = new Jugador();
-	private Roster roster = new Roster();
 	private static Roster rosters;
 	private static String valorRetornado = "";
-	private Competencia competencia = new Competencia();
-	private LapsoDeportivo temporada = new LapsoDeportivo();
+
 	
 	private String rutasGen = Ruta.GENERAL.getRutaVista();
 	
@@ -92,13 +88,13 @@ public class CntrlConsultarJugador extends GenericForwardComposer {
 	private List<Equipo> Equipos;
 	private List<Jugador> listaRoster = new ArrayList<Jugador>();
 
-	private Listbox listAnuario;
-	private Div divLista;
-
+	private Listbox listJugadores;
+	
 	private Component catalogo;
 	private AnnotateDataBinder binder;
 
-	private Combobox cmbEquipo, cmbCategoria, cmbTemporada;
+	private Combobox cmbEquipo, cmbCategoria;
+	
 	private Listcell celda;
 	private Image img1;
 	
@@ -115,7 +111,7 @@ public class CntrlConsultarJugador extends GenericForwardComposer {
 		c.setVariable("controller", this, true);
 		catalogo = c;
 		cmbEquipo.setDisabled(true);
-		cmbTemporada.setDisabled(true);
+		
 	}
 
 	// Getters y Setters
@@ -148,6 +144,7 @@ public class CntrlConsultarJugador extends GenericForwardComposer {
 	}
 
 	public List<Jugador> getListaRoster() {
+		listaRoster = servicioRoster.listarJugadores(equipo);
 		return listaRoster;
 	}
 
@@ -167,13 +164,7 @@ public class CntrlConsultarJugador extends GenericForwardComposer {
 		return valorRetornado;
 	}
 	
-	public LapsoDeportivo getTemporada() {
-		return temporada;
-	}
 
-	public void setTemporada(LapsoDeportivo temporada) {
-		this.temporada = temporada;
-	}
 	
 	// Para llenar Listas y combos
 	public List<Categoria> getCategorias() {
@@ -196,95 +187,18 @@ public class CntrlConsultarJugador extends GenericForwardComposer {
 		cmbEquipo.setDisabled(false);
 		cmbEquipo.getItems().clear();
 		cmbEquipo.setSelectedIndex(-1);
-		cmbTemporada.setSelectedIndex(-1);
-		cmbTemporada.setDisabled(true);
-	}	
-	
-	public void onSelect$cmbEquipo() {
-		cmbTemporada.setDisabled(false);
-		cmbTemporada.getItems().clear();
-		cmbTemporada.setSelectedIndex(-1);
-	}	
-	
-	public void onSelect$cmbTemporada(){		
-		listaRoster = servicioRoster.listarJugadores(equipo);
-
-		divLista.removeChild(listAnuario);		
-		Listitem listItem = null;
-		listAnuario = new Listbox();
 		
-		listaAnuario = new ArrayList<Anuario>();
-		
-		if (listaRoster.size() != 0) {
-			for (int i = 0; i < listaRoster.size() ; i++) {
-				ImageIcon n = new ImageIcon();
-				AImage aImage = null;
-				anuario = new Anuario();
-				img1 = new Image();
-				img1.setHeight("80px");
-				img1.setWidth("80px");
-				
-				if (i%4 == 0){
-					listItem = new Listitem();
-					listItem.setAttribute("align", "center");
-				}
-				
-				Jugador jug = listaRoster.get(i);		
-				byte[] foto = jug.getPersonaNatural().getFoto();			
-		        if (foto != null){
-		            try {
-		              aImage = new AImage("foto.jpg", foto);
-		              n = new ImageIcon((byte[]) jug.getPersonaNatural().getFoto());
-		              img1.setContent(aImage);
-		            } catch (IOException e) {
-		              e.printStackTrace();
-		            }	
-		          }
-		        
-		        Listcell listCell = new Listcell();	        
-		        listCell.appendChild(img1);	        	        
-		        listItem.appendChild(listCell);	        
-				listAnuario.appendChild(listItem);
-						
-				Label lbl = new Label();
-				lbl.setValue("#" + jug.getNumero() + "\n" + jug.getPersonaNatural().getPrimerNombre() + "\n" + jug.getPersonaNatural().getPrimerApellido());
-				lbl.setMultiline(true);
-				Listcell listCell2 = new Listcell();
-				listCell2.appendChild(lbl);
-				
-				anuario.setNombreJugador(jug.getPersonaNatural().getPrimerNombre());
-				anuario.setApellidoJugador(jug.getPersonaNatural().getPrimerApellido());
-				anuario.setFotoJugador(n.getImage());
-				anuario.setNumeroJugador(jug.getNumero());
-				listaAnuario.add(anuario);
-				
-				listItem.appendChild(listCell2);
-				listAnuario.appendChild(listItem);
-			}			
-		}
-		else{
-			Mensaje.mostrarMensaje("No hay fotos registradas para los valores seleccionados",
-					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
-		}
-		divLista.appendChild(listAnuario);		
-	}
+	}	
 	
 	public void onClick$btnGenerar() throws SQLException, JRException, IOException {
 		if (cmbCategoria.getSelectedIndex() >= 0) {
 			if (cmbEquipo.getSelectedIndex() >= 0) {
-				if (cmbTemporada.getSelectedIndex() >= 0) {
 					con = ConeccionBD.getCon("postgres","postgres","123456");
-					jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/Anuario.jrxml");
-					parameters.put("categoriaJug" , cmbCategoria.getSelectedItem().getLabel());
-					parameters.put("equipoJug" , cmbEquipo.getSelectedItem().getLabel());
-					parameters.put("tempJug" , cmbTemporada.getSelectedItem().getLabel());
+					jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/jugadores.jrxml");
+					parameters.put("categoria" , cmbCategoria.getSelectedItem().getLabel());
+					parameters.put("equipo" , cmbEquipo.getSelectedItem().getLabel());
 					showReportfromJrxml();							
-				}
-				else{
-					Mensaje.mostrarMensaje("Seleccione una Temporada", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
-					cmbTemporada.setFocus(true);			
-				}				
-			}
+					}
 			else{
 				Mensaje.mostrarMensaje("Seleccione un Equipo", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 				cmbEquipo.setFocus(true);			
@@ -297,20 +211,20 @@ public class CntrlConsultarJugador extends GenericForwardComposer {
 	}	
 	
 	public void showReportfromJrxml() throws JRException, IOException{
-		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(listaAnuario);	
 		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
-		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, ds);
-		
+		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
+	
 		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
-		final AMedia amedia = new AMedia("Anuario.pdf","pdf","application/pdf", archivo);
+		final AMedia amedia = new AMedia("JugadoresInscritos.pdf","pdf","application/pdf", archivo);
 				
 		Component visor = Executions.createComponents(rutasGen
 					+ "frmVisorDocumento.zul", null, null);
 			visor.setVariable("archivo", amedia, false);
+
 	}	
 	
 	public void onClick$btnSalir(){
-		winAnuarioJugadores.detach();
+		winConsultarJugador.detach();
 	}
 
 }
