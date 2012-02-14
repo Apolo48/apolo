@@ -159,6 +159,7 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 
 			@Override
 			public void onEvent(Event arg0) throws Exception {
+				onClick$btnCancelar();
 				jugador = (Jugador) formulario.getVariable("jugador",false);
 				txtCedula.setValue(jugador.getCedulaRif());				
 				txtPrimerNombre.setValue(jugador.getPersonaNatural().getPrimerNombre());

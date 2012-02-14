@@ -46,7 +46,9 @@ public class DaoFamiliar extends GenericDao {
 			for (int i = 0; i < lista1.size(); i++) {
 				for (int j = 0; j < lista2.size(); j++) {
 					if(lista1.get(i).getCedulaRif().equals(lista2.get(j).getFamiliar().getCedulaRif())){
-						lista.add(lista2.get(j).getFamiliar());
+						if (!lista.contains(lista2.get(j).getFamiliar())) {
+							lista.add(lista2.get(j).getFamiliar());
+						}
 					}
 				}
 			}
