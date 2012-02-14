@@ -37,11 +37,9 @@ import modelo.LapsoDeportivo;
 public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	
 	private Window winReporteInscritosRetirados;
-	private Component formulario;
 	private Map parameters = new HashMap();
 	private Connection con;
 	private String jrxmlSrc;
-	private String jasperSrc;
 	private Combobox cmbTemporada;
 	private Textbox txtFechaInicio;
 	private Textbox txtFechaFin;
@@ -61,7 +59,6 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
-		formulario  = comp;
 	}
 	
 	public LapsoDeportivo getLapsoDeportivo() {

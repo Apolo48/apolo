@@ -116,7 +116,6 @@ public class CntrlCambiarCedula extends GenericForwardComposer {
 				new EventListener() {
 					@Override
 					public void onEvent(Event arg0) throws Exception {
-						// TODO Auto-generated method stub
 						jugador = (Jugador) formulario.getVariable("jugador",
 								false);
 						roster = servicioRoster.buscarRoster(jugador
@@ -146,7 +145,6 @@ public class CntrlCambiarCedula extends GenericForwardComposer {
 						binder.loadAll();
 					}
 				});
-
 	}
 
 	public void onClose$winCambiarCedula() {

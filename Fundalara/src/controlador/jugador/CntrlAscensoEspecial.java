@@ -6,12 +6,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.ImageIcon;
 
 import modelo.Ascenso;
 import modelo.Categoria;
 import modelo.DatoBasico;
-import modelo.DesempennoIndividual;
 import modelo.DocumentoAscenso;
 import modelo.DocumentoAscensoId;
 import modelo.DocumentoEntregado;
@@ -21,28 +19,22 @@ import modelo.LapsoDeportivo;
 import modelo.RecaudoPorProceso;
 import modelo.Roster;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zkmax.zul.render.ListheadDefault;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listhead;
-import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Spinner;
@@ -57,9 +49,6 @@ import comun.Mensaje;
 import comun.Ruta;
 import comun.TipoDatoBasico;
 import comun.Util;
-import controlador.jugador.bean.Anuario;
-import controlador.jugador.converter.DateConverter;
-import dao.general.DaoAscenso;
 
 import servicio.implementacion.ServicioAscenso;
 import servicio.implementacion.ServicioCategoria;
@@ -82,7 +71,6 @@ import servicio.implementacion.ServicioRoster;
  * @version 0.5 03/01/2012
  * 
  * */
-
 public class CntrlAscensoEspecial extends GenericForwardComposer {
 
 	// Servicios
@@ -283,7 +271,6 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 			}
 		}
 		return documentosAscenso;
-
 	}
 
 	// Eventos
@@ -412,7 +399,6 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 			}
 		}
 	}
-
 	
 //	public void verificarNumero(){
 //		Mensaje.mostrarConfirmacion(
@@ -459,7 +445,6 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 	}
 
 	// Métodos del controlador
-
 	// Concatena y muestra algunos datos en la interfaz
 	public void mostrarDatos() {
 		if (txtCedula.getValue().length() == 0) {
@@ -483,7 +468,6 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 				Date fechaF = lapsoDeportivo.getFechaFinAscenso();
 				if (roster.getFechaIngreso().before(fechaF)
 						&& roster.getFechaIngreso().after(fechaI)) {
-					//alert("El jugador ya fue ascendido en esta temporada");
 					Mensaje.mostrarMensaje("El jugador ya fue ascendido en esta temporada",
 							Mensaje.EXITO, Messagebox.INFORMATION);
 					btnCatalogoJugador.setDisabled(false);
@@ -654,7 +638,6 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 				cmbEquipo.setFocus(true);
 				vacio = true;
 			}
-
 			// } else {
 			// System.out.println(spCantidad.getValue());
 			// if (spCantidad.getValue() != null ) {
@@ -666,7 +649,6 @@ public class CntrlAscensoEspecial extends GenericForwardComposer {
 			// vacio = true;
 			// }
 			// }
-
 		}
 		return vacio;
 	}

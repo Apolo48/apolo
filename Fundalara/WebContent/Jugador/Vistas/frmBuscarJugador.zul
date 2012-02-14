@@ -102,6 +102,5 @@
 			<button label="Salir" id="btnSalir"
 				image="Recursos/Imagenes/salir.png" />
 		</div>
-
 	</window>
 </zk>

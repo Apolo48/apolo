@@ -14,7 +14,6 @@ package controlador.jugador;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.Iterator;
@@ -31,41 +30,31 @@ import modelo.Persona;
 import modelo.Roster;
 import modelo.FamiliarJugador;
 import modelo.Familiar;
-import modelo.DatoBasico;
 
 import org.zkoss.image.AImage;
-import org.zkoss.zhtml.Sup;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Image;
-import org.zkoss.zul.Intbox;
-import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Panel;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.api.Bandbox;
 import org.zkoss.zul.impl.InputElement;
-import org.zkoss.zul.Listcell;
 
 import comun.EstatusRegistro;
 import comun.FileLoader;
 import comun.Mensaje;
 import comun.Ruta;
 import comun.TipoDatoBasico;
-import java.util.EnumMap;
 import comun.Util;
 
 import controlador.jugador.restriccion.Restriccion;
@@ -80,7 +69,6 @@ import servicio.implementacion.ServicioRoster;
 import servicio.implementacion.ServicioFamiliarJugador;
 import servicio.implementacion.ServicioFamiliar;
 import servicio.implementacion.ServicioPersona;
-import servicio.implementacion.ServicioDatoBasico;
 
 public class CntrlActualizarFamiliar extends GenericForwardComposer {
 
@@ -120,15 +108,15 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 	private InputElement[] camposPerfil1;
 	private InputElement[] camposPerfil2;
 
-	Listbox listComisiones;
-	List<DatoBasico> comisionesFamiliar = new ArrayList<DatoBasico>();
+	private Listbox listComisiones;
+	private List<DatoBasico> comisionesFamiliar = new ArrayList<DatoBasico>();
 
-	Listbox listComisionesNuevas;
-	List<DatoBasico> comisionesFamiliarNuevas = new ArrayList<DatoBasico>();
-	List<ComisionFamiliar> comisionesfamilia = new ArrayList<ComisionFamiliar>();
+	private Listbox listComisionesNuevas;
+	private List<DatoBasico> comisionesFamiliarNuevas = new ArrayList<DatoBasico>();
+	private List<ComisionFamiliar> comisionesfamilia = new ArrayList<ComisionFamiliar>();
 
-	Listbox listaFamiliar;
-	List<FamiliarJugador> listaFamiliarJugador = new ArrayList<FamiliarJugador>();
+	private Listbox listaFamiliar;
+	private List<FamiliarJugador> listaFamiliarJugador = new ArrayList<FamiliarJugador>();
 
 	// Binder
 	private AnnotateDataBinder binder;
@@ -136,10 +124,10 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 	// Variables
 	private int varGuarda = 0;
 	int edad;
-	String nombres;
-	String apellidos;
-	String primerNombre;
-	Boolean sw = false;
+	private String nombres;
+	private String apellidos;
+	private String primerNombre;
+	private Boolean sw = false;
 
 	private Textbox txtCedula;
 	private Textbox txtCedulaFamiliar;
@@ -185,7 +173,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 														// modelo para el
 														// databinder
 		formulario = comp;
-
 		inicializarCheckPoints();
 		btnEditar.setDisabled(true);
 		btnAgregar.setDisabled(true);
@@ -195,7 +182,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 		btnQuitar.setImage("/Recursos/Imagenes/quitar.ico");
 		btnGuardar.setVisible(false);
 		//aplicarConstraints();
-
 	}
 
 	public Map<String, Object> getRequestScope() {
@@ -214,15 +200,12 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 		}
 	}
 
-
 	private void limpiarFamiliar() {
 		familiar = new Familiar();
 		binder.loadComponent(listaFamiliar);
 	}
-
 	
 	// GETTERS AND SETTERS
-	
 	public FamiliarJugador getFamiliarJugador() {
 		return familiarJugador;
 	}
@@ -473,7 +456,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 		this.comisionesFamiliarNuevas = comisionesFamiliarNuevas;
 	}
 
-
 	// metodo que verifica si los campos obligatorios estan llenos para poder guardar
 	private boolean verificarCampos(InputElement[] camposValidar,
 			boolean mostrarMensaje) {
@@ -547,7 +529,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 			personaNatural.setCedulaRif(txtCedulaFamiliar.getValue()
 					.toUpperCase());
 			personaNatural.setEstatus('A');
-
 		}
 		if (varGuarda == 2) {
 			personaNatural = persona.getPersonaNatural();
@@ -591,7 +572,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 				comisionFamiliar.setEstatus('A');
 
 				comisionesfamilia.add(comisionFamiliar);
-
 			}
 
 			System.out.println("3");
@@ -604,7 +584,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 						.getEstatus());
 
 				comisionesfamilia.add(comisionFamiliar);
-
 			}
 
 			System.out.println("4");
@@ -619,9 +598,7 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 						.getEstatus());
 
 				comisionesfamilia.add(comisionFamiliar);
-
 			}
-
 			servicioComisionFamiliar.agregar(comisionesfamilia);
 		}
 
@@ -633,7 +610,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 		}
 
 		if (varGuarda == 1) {
-
 			familiar.setCedulaRif(txtCedulaFamiliar.getValue().toUpperCase());
 			familiar.setEstatus('A');
 			familiarJugador.setJugador(jugador);
@@ -641,7 +617,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 			java.util.Date fechaActual = new java.util.Date();
 			familiarJugador.setFechaIngreso(fechaActual);
 			familiarJugador.setEstatus('A');
-
 		}
 		parentesco = servicioDatoBasico.buscarTipo(TipoDatoBasico.PARENTESCO,
 				cmbParentesco.getValue());
@@ -665,7 +640,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 		System.out.println("12");
 
 		limpiarCamposFamiliar();
-
 	}
 
 	// se sale de la pantalla de Actualizar Familiar con previo aviso
@@ -701,11 +675,8 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 
 	//se elimina un familiar que no sea el representante del jugador
 	public void onClick$btnQuitar()   {
-
 		int posicion = 0;
-
 		posicion = listaFamiliar.getSelectedIndex();
-
 		if (listaFamiliarJugador.get(posicion).isRepresentanteActual() == false) {
 			
 			Mensaje.mostrarConfirmacion("¿Está seguro que desea eliminar el familiar del jugador? ",
@@ -727,11 +698,8 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 
 	// se elimina un familiar que no sea el representante del jugador
 	public void quitarfamiliar() {
-
 		int posicion = 0;
-
 		posicion = listaFamiliar.getSelectedIndex();
-
 		if (listaFamiliarJugador.get(posicion).isRepresentanteActual() == false) {
 
 			List<DatoBasico> auxiliarcomisiones = new ArrayList<DatoBasico>();
@@ -761,15 +729,10 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 			}
 
 			servicioComisionFamiliar.agregar(comisionesfamilia);
-
 			familiarJugador = new FamiliarJugador();
-
 			familiarJugador = listaFamiliarJugador.get(posicion);
-
 			familiarJugador.setEstatus('E');
-
 			servicioFamiliarJugador.actualizar(familiarJugador);
-
 			listaFamiliarJugador.remove(posicion);
 			binder.loadComponent(listaFamiliar);
 			limpiarCamposFamiliar();
@@ -827,8 +790,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 	public void onClick$btnBuscar() {
 		Component catalogo = Executions.createComponents(rutasJug
 				+ "frmBuscarJugador.zul", null, null);
-		// Component catalogo = Executions.createComponents(
-		// "frmBuscarJugador.zul", null, null);
 		catalogo.setVariable("formulario", formulario, false);
 		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
 		limpiarCamposFamiliar();
@@ -845,12 +806,9 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 						agregarCampos();
 						roster = servicioRoster.buscarRoster(jugador
 								.getCedulaRif());
-						// listaFamiliarJugador =
-						// servicioFamiliarJugador.buscarFamiliarJugador(jugador.getCedulaRif());
 						Date fechaN = jugador.getPersonaNatural()
 								.getFechaNacimiento();
 						edad = Util.calcularDiferenciaAnnios(fechaN);
-						// System.out.println(edad);
 						btnEditar.setDisabled(false);
 						btnAgregar.setDisabled(false);
 						btnQuitar.setDisabled(false);
@@ -860,7 +818,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 						binder.loadAll();
 					}
 				});
-
 	}
 
 	public void agregarCampos() {
@@ -885,7 +842,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 
 		listaFamiliarJugador = servicioFamiliarJugador
 				.buscarFamiliarJugador(jugador);
-
 	}
 	
 
@@ -978,7 +934,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 			}
 
 		} else {
-			//alert("Seleccione un dato");
 			Mensaje.mostrarMensaje("Seleccione un dato",
 					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 		}
@@ -1021,7 +976,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 		camposPerfil1 = new InputElement[] { txtCedulaFamiliar,
 				txtPrimerNombre, txtPrimerApellido, cmbParroquiaResi };
 		btnGuardar.setVisible(true);
-
 	}
 	
 	// agrega una comision que seleccionemos del combo de comisiones
@@ -1033,7 +987,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 						.getCodigoDatoBasico()) {
 					aux = 1;
 				}
-
 			}
 
 			if ((!comisionesFamiliarNuevas.contains(comision)) && (aux == 0)) {
@@ -1043,14 +996,12 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 			} else {
 				Mensaje.mostrarMensaje("Comisión Duplicada.",
 						Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
-
 			}
 		} else {
 			Mensaje.mostrarMensaje("Seleccione una Comisión.",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbComisiones.setFocus(true);
 		}
-
 	}
 
 	// elimina las comision que seleccionemos de la lista de comisiones nuevas
@@ -1088,7 +1039,6 @@ public class CntrlActualizarFamiliar extends GenericForwardComposer {
 	}
 	
 	private void aplicarConstraints() {
-		// Registro Jugador
 		txtCedulaFamiliar.setConstraint(Restriccion.CEDULA.getRestriccion());
 		txtPrimerNombre.setConstraint(Restriccion.TEXTO_SIMPLE
 				.asignarRestriccionExtra("no empty"));

@@ -1,6 +1,5 @@
 package controlador.jugador;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,19 +10,15 @@ import modelo.Equipo;
 import modelo.Jugador;
 import modelo.Roster;
 
-import org.python.antlr.PythonParser.return_stmt_return;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
-import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import comun.Mensaje;
-import comun.Util;
 
 import servicio.implementacion.ServicioAscenso;
 import servicio.implementacion.ServicioCategoria;
@@ -65,7 +60,7 @@ public class CntrlAscensoEdad extends GenericForwardComposer {
 	private Window winAscensoEdad;
 
 	// lista
-	List<Jugador> listaJug;
+	private List<Jugador> listaJug;
 
 	@Override
 	// Coloca visible el modelo para el databinder
@@ -125,7 +120,6 @@ public class CntrlAscensoEdad extends GenericForwardComposer {
 	}
 
 	// Para llenar los combos
-
 	public List<Categoria> getCategorias() {
 		return servicioCategoria.listar();
 	}
@@ -144,7 +138,6 @@ public class CntrlAscensoEdad extends GenericForwardComposer {
 	}
 
 	// Eventos
-
 	public void onSelect$cmbCategoria() {
 		cmbEquipo.setDisabled(false);
 	}
@@ -207,7 +200,6 @@ public class CntrlAscensoEdad extends GenericForwardComposer {
 	}
 
 	// Métodos propios del controlador
-
 	public void limpiar() {
 		cmbEquipo.setValue(null);
 		cmbCategoria.setValue(null);

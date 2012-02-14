@@ -1,8 +1,6 @@
 package controlador.jugador;
 
-//Java.Util
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,33 +11,20 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Include;
-import org.zkoss.zul.Intbox;
-import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
-import org.zkoss.zul.api.Tab;
 
 //Servicio Implementacion
 import servicio.implementacion.ServicioAfeccionJugador;
 import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioDatoMedico;
 import servicio.implementacion.ServicioRecaudoPorProceso;
-import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioMedico;
 
 //Comun
-import comun.FileLoader;
 import comun.Ruta;
-import comun.Util;
 import comun.TipoDatoBasico;
-import comun.Mensaje;
-
 
 //Modelos Importados
 import modelo.DatoBasico;
@@ -167,19 +152,13 @@ public class CntrlActualizarDatosMedicos extends GenericForwardComposer {
 		}
 		return documentosMedicos;
 	}
-
-	
 	
 	public void onClick$btnCatalogoMedico() {
-		
-		// se crea el catalogo y se llama
 		Component catalogo = Executions.createComponents(
 				"/Jugador/Vistas/frmBuscarMedico.zul", null, null);
-		// asigna una referencia del formulario al catalogo.
 		catalogo.setVariable("formulario", formulario, false);
 
 		formulario.addEventListener("onCatalogoCerrado", new EventListener() {
-
 			/* (non-Javadoc)
 			 * @see org.zkoss.zk.ui.event.EventListener#onEvent(org.zkoss.zk.ui.event.Event)
 			 */
@@ -195,5 +174,3 @@ public class CntrlActualizarDatosMedicos extends GenericForwardComposer {
 	}
 
 }
-
-

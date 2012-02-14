@@ -202,7 +202,6 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 	}
 
 	public void onChange$cmbTipo() {
-		// buscarTipoLapso(equipo);
 		String valor = cmbCategoria.getValue();
 		String valor2 = tipo.get(cmbTipo.getSelectedIndex()).getNombre();
 		txtNombre.setValue(valor + " " + valor2);
@@ -215,7 +214,6 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 			cmbTipo.setDisabled(true);
 			cmbTipo.setText("  ");
 		} else {
-			// buscarTipoLapso(equipo);
 			txtNombre.setValue("");
 			cmbTipo.setDisabled(false);
 			cmbTipo.setText("  ");
@@ -274,8 +272,7 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 									.getLabel()
 									.equals(equipos.get(i).getCategoria()
 											.getNombre())) {
-								//alert("Ya existe el equipo para la categoria");
-								Mensaje.mostrarMensaje("Ya existe el equipo para la categoria",
+								Mensaje.mostrarMensaje("Ya existe el equipo para la categoría",
 										Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 								return;
 							}
@@ -312,12 +309,6 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 				}
 				Mensaje.mostrarMensaje("Equipo agregado",
 						Mensaje.EXITO, Messagebox.INFORMATION);
-				/*try {
-					Messagebox.show("Equipo agregado", "Exito", Messagebox.OK,
-							Messagebox.INFORMATION);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}*/
 				equipos.add(equipo);
 				limpiar();
 				binder.loadAll();
@@ -353,12 +344,6 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 		}
 		Mensaje.mostrarMensaje("Equipo modificado",
 				Mensaje.EXITO, Messagebox.INFORMATION);
-		/*try {
-			Messagebox.show("Equipo modificado", "Exito", Messagebox.OK,
-					Messagebox.INFORMATION);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
 		limpiar();
 	}
 
@@ -377,7 +362,6 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 			Equipo equipoTemp = (Equipo) listEquipo.getSelectedItem()
 					.getValue();
 			if (servicioEquipo.buscarPorCodigo(equipo) == false){
-				//alert("No se puede borrar mientras existan jugadores en este equipo");
 				Mensaje.mostrarMensaje("No se puede borrar mientras existan jugadores en este equipo",
 						Mensaje.ERROR, Messagebox.ERROR);
 			}
@@ -389,7 +373,6 @@ public class CntrlConfigurarEquipo extends GenericForwardComposer {
 				inicializar();
 			}
 		} else {
-			//alert("Seleccione un dato para eliminar.");
 			Mensaje.mostrarMensaje("Seleccione un dato para eliminar.",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 		}

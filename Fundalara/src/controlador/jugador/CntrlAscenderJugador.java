@@ -80,4 +80,5 @@ public class CntrlAscenderJugador extends GenericForwardComposer {
 		incCuerpo.setDynamicProperty("tipoAscenso", tipoAscenso);
 		enlace.insertarContenido(incCuerpo, src);
 	}
+	
 }

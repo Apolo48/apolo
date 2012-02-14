@@ -1,6 +1,5 @@
 package controlador.jugador;
 
-//import java.awt.Image;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 import javax.swing.ImageIcon;
 
@@ -65,7 +63,6 @@ import servicio.implementacion.ServicioRoster;
  * @version 1.1 25/01/2012
  * 
  * */
-
 public class CntrlConsultarAnuario extends GenericForwardComposer {
 	
 	private ServicioCategoria servicioCategoria;
@@ -91,14 +88,14 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 	private Anuario anuario = new Anuario();
 	private List<Anuario> listaAnuario = new ArrayList<Anuario>();
 
-	List<Jugador> Jugadores = new ArrayList<Jugador>();
-	List<Equipo> Equipos;
+	private List<Jugador> Jugadores = new ArrayList<Jugador>();
+	private List<Equipo> Equipos;
 	private List<Jugador> listaRoster = new ArrayList<Jugador>();
 
-	Listbox listAnuario;
+	private Listbox listAnuario;
 	private Div divLista;
 
-	Component catalogo;
+	private Component catalogo;
 	private AnnotateDataBinder binder;
 
 	private Combobox cmbEquipo, cmbCategoria, cmbTemporada;
@@ -107,8 +104,7 @@ public class CntrlConsultarAnuario extends GenericForwardComposer {
 	
 	private Connection con;
 	private String jrxmlSrc;
-	Map parameters = new HashMap();
-	Iframe ifReport;
+	private Map parameters = new HashMap();
 	
 	private Button btnGenerar;
 	private Button btnsalir;

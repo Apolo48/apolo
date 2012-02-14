@@ -1,7 +1,6 @@
 package controlador.jugador;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import modelo.Competencia;
@@ -14,7 +13,6 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
@@ -30,7 +28,6 @@ import servicio.implementacion.ServicioFamiliarJugador;
 import servicio.implementacion.ServicioHospedaje;
 import comun.Mensaje;
 import comun.Ruta;
-import comun.Util;
 
 /**
  * Clase controladora de los eventos de la vista de igual nombre y manejo de los
@@ -40,7 +37,6 @@ import comun.Util;
  * @version 0.3 12/01/2012
  * 
  * */
-
 public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 
 	private Window winRegistrarHospedaje;
@@ -193,7 +189,6 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	 * competencia, para traer de la BD los datos requeridos para mostrar en la
 	 * vista
 	 */
-
 	public void onChange$cmbCompetencia() {
 		competencia = (Competencia) cmbCompetencia.getSelectedItem().getValue();
 		binder.loadComponent(dtboxFechaIni);
@@ -205,15 +200,11 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 		int esta = 1;
 		Component catalogo = Executions.createComponents(
 				"/Jugador/Vistas/frmBuscarFamiliar.zul", null, null);
-		// asigna una referencia del formulario al catalogo.
 		catalogo.setVariable("formulario", formulario, false);
 		catalogo.setVariable("estatus", esta, false);
 		formulario.addEventListener("onCatalogoBuscarFamiliarCerrado",
 				new EventListener() {
-
 					@Override
-					// Este metodo se llama cuando se envia la señal desde el
-					// catalogo
 					public void onEvent(Event arg0) throws Exception {
 						// se obtiene el familiar
 						familiar = (Familiar) formulario.getVariable(
@@ -330,7 +321,6 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	public void onClick$btnCancelar() throws InterruptedException {
 		if ((cmbCompetencia.getSelectedIndex() >= 0)
 				&& (txtCedulaRep.getValue() != "")) { // AGREGADAS A MODO DE PRUEBA
-			//Messagebox.show("Borrará TODOS los datos, ¿está seguro?", "INFORMACIÓN",
 			Messagebox.show("Borrará TODOS los datos no guardados, ¿está seguro?", "INFORMACIÓN",
 					Messagebox.YES | Messagebox.NO, Messagebox.QUESTION,
 					new EventListener() {
@@ -352,7 +342,6 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	public void onClick$btnSalir() throws InterruptedException {
 		if ((cmbCompetencia.getSelectedIndex() >= 0)
 				&& (txtCedulaRep.getValue() != "")) {    // AGREGADAS A MODO DE PRUEBA
-			//Messagebox.show("Saldrá de la ventana, está seguro?", "INFORMACIÓN",
 			Messagebox.show("Borrará TODOS los datos no guardados, ¿está seguro?", "INFORMACIÓN",
 					Messagebox.YES | Messagebox.NO, Messagebox.QUESTION,
 					new EventListener() {
@@ -372,7 +361,6 @@ public class CntrlRegistrarHospedaje extends GenericForwardComposer {
 	}
 
 	// Métodos propios del Controlador
-
 	// Borra los datos introducidos en la interfaz
 	public void limpiar() {
 		hospedaje = new Hospedaje();

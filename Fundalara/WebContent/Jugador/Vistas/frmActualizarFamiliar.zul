@@ -1,7 +1,6 @@
 <?page title="Actualizar Familiar"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"
-root="winActualizarFamiliar" ?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winActualizarFamiliar" ?>
 
 <zk>
 	<window title="Actualizar Familiar" id="winActualizarFamiliar"
@@ -133,7 +132,8 @@ root="winActualizarFamiliar" ?>
 								label="@{familiarJugador.datoBasico.nombre}" />
 							<listcell>
 								<checkbox
-									checked="@{familiarJugador.representanteActual}" disabled="true" />
+									checked="@{familiarJugador.representanteActual}"
+									disabled="true" />
 							</listcell>
 						</listitem>
 					</listbox>
@@ -190,7 +190,8 @@ root="winActualizarFamiliar" ?>
 														<div>
 															<textbox
 																id="txtCedulaFamiliar" constraint="no negative"
-																width="80%" readonly="true" style='text-transform:uppercase;' />
+																width="80%" readonly="true"
+																style='text-transform:uppercase;' />
 
 														</div>
 													</row>
@@ -200,7 +201,8 @@ root="winActualizarFamiliar" ?>
 															value="Primer Nombre" />
 														<div>
 															<textbox
-																id="txtPrimerNombre" width="80%" style='text-transform:uppercase;'>
+																id="txtPrimerNombre" width="80%"
+																style='text-transform:uppercase;'>
 															</textbox>
 															<label
 																value="(*)" style="color:red" />
@@ -208,7 +210,8 @@ root="winActualizarFamiliar" ?>
 														<label
 															value="Segundo Nombre" />
 														<textbox
-															id="txtSegundoNombre" width="95%" style='text-transform:uppercase;'>
+															id="txtSegundoNombre" width="95%"
+															style='text-transform:uppercase;'>
 														</textbox>
 
 													</row>
@@ -218,7 +221,8 @@ root="winActualizarFamiliar" ?>
 															value="Primer Apellido" />
 														<div>
 															<textbox
-																width="80%" id="txtPrimerApellido" style='text-transform:uppercase;'>
+																width="80%" id="txtPrimerApellido"
+																style='text-transform:uppercase;'>
 															</textbox>
 															<label
 																value="(*)" style="color:red" />
@@ -226,7 +230,8 @@ root="winActualizarFamiliar" ?>
 														<label
 															value="Segundo Apellido" />
 														<textbox
-															width="95%" id="txtSegundoApellido" style='text-transform:uppercase;'>
+															width="95%" id="txtSegundoApellido"
+															style='text-transform:uppercase;'>
 														</textbox>
 													</row>
 
@@ -254,8 +259,7 @@ root="winActualizarFamiliar" ?>
 															value="Ocupación" />
 														<div>
 															<combobox
-																id="cmbProfesion"
-																constraint="no empty"
+																id="cmbProfesion" constraint="no empty"
 																model="@{winActualizarFamiliar$composer.profesiones}"
 																readonly="true" value="--Seleccione--" width="80%"
 																selectedItem="@{controller.profesion}">
@@ -349,8 +353,9 @@ root="winActualizarFamiliar" ?>
 													selectedItem="@{controller.parroquia}"
 													model="@{winActualizarFamiliar$composer.parroquiasMunicipioResi, load-after='cmbMunicipioResi.onChange'}">
 													<comboitem
-														self="@{each='parroquia'}" label="@{parroquia.nombre}" value="parroquia.codigoDatoBasico"/>
-														
+														self="@{each='parroquia'}" label="@{parroquia.nombre}"
+														value="parroquia.codigoDatoBasico" />
+
 												</combobox>
 												<label value="(*)"
 													style="color:red" />
@@ -366,7 +371,8 @@ root="winActualizarFamiliar" ?>
 											<div>
 												<textbox maxlength="180"
 													height="40px" width="90%" multiline="true"
-													id="txtDireccionHabitacion" style='text-transform:uppercase;'/>
+													id="txtDireccionHabitacion"
+													style='text-transform:uppercase;' />
 												<label value="(*)"
 													style="color:red" />
 											</div>
@@ -401,7 +407,8 @@ root="winActualizarFamiliar" ?>
 												</combobox>
 
 												<textbox width="40%"
-													id="txtTelefonoHabitacion" style='text-transform:uppercase;' />
+													id="txtTelefonoHabitacion"
+													style='text-transform:uppercase;' />
 												<label value="(*)"
 													style="color:red" />
 											</div>
@@ -419,7 +426,7 @@ root="winActualizarFamiliar" ?>
 												</combobox>
 
 												<textbox width="40%"
-													id="txtTelefonoCelular" style='text-transform:uppercase;'/>
+													id="txtTelefonoCelular" style='text-transform:uppercase;' />
 												<label value="(*)"
 													style="color:red" />
 											</div>
@@ -429,12 +436,13 @@ root="winActualizarFamiliar" ?>
 											<label
 												value="Correo Electrónico" />
 											<textbox value=""
-												width="88%" id="txtCorreo" style='text-transform:uppercase;'/>
+												width="88%" id="txtCorreo"
+												style='text-transform:uppercase;' />
 											<label value="Twitter" />
 											<hbox>
 												<label value="@" />
 												<textbox width="90%"
-													id="txtTwitter" style='text-transform:uppercase;'/>
+													id="txtTwitter" style='text-transform:uppercase;' />
 											</hbox>
 										</row>
 									</rows>
@@ -547,7 +555,7 @@ root="winActualizarFamiliar" ?>
 										</row>
 									</rows>
 								</grid>
-													
+
 							</groupbox>
 
 						</tabpanel>
@@ -558,8 +566,8 @@ root="winActualizarFamiliar" ?>
 			</panelchildren>
 		</panel>
 
-     	
-          <space></space>
+
+		<space></space>
 		<div align="right">
 			<button id="btnGuardar" label="Guardar"
 				image="../../Recursos/Imagenes/guardar.ico" orient="horizontal"

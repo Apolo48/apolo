@@ -1,6 +1,7 @@
 <?page title="Registrar Jugador"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"  root="winRegistrarJugador" ?>
+
 <zk>
 	<div align="left">
 		<window border="none" width="670px" height="945px"

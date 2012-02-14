@@ -348,11 +348,9 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		deshabilitarCampos(true);
 		tipoIndumentaria = servicioDatoBasico.buscarTipo(
 				TipoDatoBasico.TIPO_UNIFORME, "Entrenamiento");
-
 	}
 
 	// Getters y setters
-
 	public DatoBasico getEstadoVenezuela() {
 		return estadoVenezuela;
 	}
@@ -613,7 +611,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 	}
 
 	// Metodos para carga de combos/listbox
-
 	public List<Categoria> getCategorias() {
 		int edad = (txtEdad.getValue() == null ? 0 : txtEdad.getValue());
 		return servicioCategoria.buscarCategorias(edad);
@@ -671,7 +668,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		return servicioDatoBasico.buscarDatosPorRelacion(municipioResi);
 	}
 
-	// modificado
 	public List<DocumentoEntregado> getRecaudosPersonales() {
 		if (checkPoints.get(Point.DOCUMENTO_PERSONAL) == false) {
 			List<RecaudoPorProceso> lista = servicioRecaudoPorProceso
@@ -683,11 +679,9 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 				documentosPersonales.add(docE);
 			}
 		}
-
 		return documentosPersonales;
 	}
 
-	// Modificado
 	public List<DocumentoEntregado> getRecaudosAcademicos() {
 		if (checkPoints.get(Point.DOCUMENTO_ACADEMICO) == false) {
 			List<RecaudoPorProceso> lista = servicioRecaudoPorProceso
@@ -702,7 +696,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		return documentosAcademicos;
 	}
 
-	// modificado
 	public List<DocumentoEntregado> getRecaudosMedicos() {
 		if (checkPoints.get(Point.DOCUMENTO_MEDICO) == false) {
 			List<RecaudoPorProceso> lista = servicioRecaudoPorProceso
@@ -724,7 +717,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		if (datoInstitucion != null) {
 			lista = servicioInstitucion.buscarInstitucionTipo(datoInstitucion);
 		}
-
 		return lista;
 	}
 
@@ -1145,7 +1137,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 			}
 			binder.loadComponent(listFamiliares);
 			jugadorTemp = null;
-
 		}
 	}
 
@@ -1424,7 +1415,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void mostrarPlanilla(String jrxmlSrc) throws JRException,
@@ -1463,7 +1453,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		guardarDocumentoAcademico();
 		guardarDocumentoMedico();
 		guardarFamiliares(estatus);
-
 	}
 
 	// Metodos propios del ctrl
@@ -1476,7 +1465,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 			}
 		}
 		return flag;
-
 	}
 
 	private void habilitarCatalogoJugador(boolean sw) {
@@ -1589,7 +1577,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		jugador.setPosicionBateo(jugadorBean.getPosicionBateo().getNombre());
 		jugador.setBrazoLanzar(jugadorBean.getBrazoLanzar().getNombre());
 		jugador.setTipoDeSangre(jugadorBean.getTipoSangre().getTipoSangre());
-
 	}
 
 	private List<AfeccionJugador> guardarDatosAfeccionesToModelo() {
@@ -1739,7 +1726,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		Component visor = Executions.createComponents(rutasGen
 				+ "frmVisorDocumento.zul", null, null);
 		visor.setVariable("archivo", archivo, false);
-
 	}
 
 	private byte[] obtenerArchivo(String codigo, List<DocumentoEntregado> lista) {
@@ -1751,7 +1737,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 				break;
 			}
 		}
-
 		return archivo;
 	}
 
@@ -1862,13 +1847,11 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 			if ((valor.find()) || (e == null)) {
 				flag = false;
 			}
-
 		}
 		if (!flag && mostrarMensaje) {
 			Mensaje.mostrarMensaje("Ingrese un valor valido del " + origen,
 					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 		}
-
 		return flag;
 	}
 
@@ -1893,13 +1876,11 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 					flag = false;
 				}
 			}
-
 		}
 		if (!flag && mostrarMensaje) {
 			Mensaje.mostrarMensaje("Ingrese un valor válido.",
 					Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 		}
-
 		return flag;
 	}
 
@@ -2187,7 +2168,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 
 	public void mostrarError(String msj) { // Recibir componente
 		Mensaje.mostrarMensaje(msj, Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
-		// componente.setFocus(true);
 	}
 
 	public void cancelar() {
@@ -2205,7 +2185,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		habilitarCatalogoJugador(false);
 		deshabilitarTipoReingreso(false);
 		deshabilitarCampos(true);
-
 	}
 
 	private void inicializar() {
@@ -2232,7 +2211,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		roster = new Roster();
 	}
 
-	// modificado
 	public void onClick$btnCancelar() {
 		Mensaje.mostrarConfirmacion("¿Está seguro de cancelar la operación? ",
 				Mensaje.CONFIRMAR, Messagebox.YES | Messagebox.NO,
@@ -2243,7 +2221,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 						}
 					}
 				});
-
 	}
 
 	public void limpiarJugador() {
@@ -2254,14 +2231,12 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		txtPrimerApellido.setRawValue("");
 		txtSegundoApellido.setRawValue("");
 		txtGenero.setRawValue("");
-		// imgJugador.setContent(new Image().getContent());
 		imgJugador.setSrc("/Recursos/Imagenes/noFoto.jpg");
 
 		// Limpiando pestanna Personales
 		dtboxFechaNac.setRawValue(null);
 		txtEdad.setRawValue(null);
 		cmbPaisNac.setSelectedIndex(-1);
-		// binder.loadComponent(cmbPaisNac);
 
 		cmbEstadoNac.setSelectedIndex(-1);
 		cmbMunicipioNac.setSelectedIndex(-1);
@@ -2277,10 +2252,8 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 
 		txtDireccion.setRawValue("");
 		cmbCodArea.setSelectedIndex(-1);
-		// binder.loadComponent(cmbCodArea);
 		txtTelefonoHabitacion.setRawValue("");
 		cmbCodCelular.setSelectedIndex(-1);
-		// binder.loadComponent(cmbCodCelular);
 		txtTelefonoCelular.setRawValue("");
 		txtCorreo.setRawValue("");
 		txtTwitter.setRawValue("");
@@ -2292,18 +2265,15 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		// Limpiando pestanna Medicos
 		cmbGrupoSanguineo.setValue("--");
 		cmbGrupoSanguineo.setSelectedIndex(-1);
-		// binder.loadComponent(cmbGrupoSanguineo);
 		cmbFactorRH.setValue("--");
 		cmbFactorRH.setSelectedIndex(-1);
-		// binder.loadComponent(cmbFactorRH);
 		medico = new Medico();
 		txtMedico.setValue("");
 		txtNroColegio.setRawValue("");
 		dtboxFechaRev.setRawValue(null);
 		cmbAfecciones.setSelectedIndex(-1);
-		// binder.loadComponent(cmbAfecciones);
 		afeccionesJugador = new ArrayList<DatoBasico>(); // Limpiar
-															// listAfeccionesActuales;
+
 		binder.loadComponent(listAfeccionesActuales);
 		txtObervaciones.setRawValue("");
 		documentosMedicos = new ArrayList<DocumentoEntregado>();
@@ -2395,13 +2365,11 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 				familiarComision.setFamiliarJugador(familiarJugador);
 				familiaresComisiones.add(familiarComision);
 			}
-
 		}
 		servicioFamiliar.agregar(familiaresModelo);
 		servicioFamiliarJugador.agregar(familiaresJugadores, jugador);
 		servicioComisionFamiliar.agregar(familiaresComisiones);
 		familiaresJugadores = new ArrayList<FamiliarJugador>();
-
 	}
 
 	private controlador.jugador.bean.Familiar guardarFamiliarModeloToBean(
@@ -2428,7 +2396,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 							servicioDatoBasico.buscarTipo(
 									TipoDatoBasico.CODIGO_AREA, numeroHab[0]),
 							numeroHab[1]));
-
 				}
 			}
 			familiarBean.setTwitter(familiar.getPersonaNatural().getPersona()
@@ -2445,7 +2412,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 							servicioDatoBasico
 									.buscarTipo(TipoDatoBasico.CODIGO_CELULAR,
 											numeroCel[0]), numeroCel[1]));
-
 				}
 			}
 			familiarBean.setPrimerNombre(familiar.getPersonaNatural()
@@ -2466,14 +2432,12 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 			familiarBean.setRepresentante(servicioFamiliarJugador
 					.esRepresentanteActual(jugadorBean.getCedulaCompleta(),
 							familiar));
-			// new
 			familiarBean.setEstatus(familiar.getEstatus());
 
 		}
 		return familiarBean;
 	}
 
-	// Modificado
 	private Familiar guardarFamiliarBeanToModelo(
 			controlador.jugador.bean.Familiar familiarBean,
 			DatoBasico tipoPersona, char estatus) {
@@ -2522,7 +2486,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		familiar.setPersonaNatural(personaNFamiliar);
 
 		return familiar;
-
 	}
 
 	private void guardarFamiliarVistaToBean() {
@@ -2559,7 +2522,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 						.getValue()), txtTelefonoCelFamiliar.getRawText()));
 		familiarBean.setCorreoElectronico(txtCorreoFamiliar.getRawText());
 		familiarBean.setTwitter(txtTwitterFamiliar.getRawText());
-
 	}
 
 	public void onClick$btnAgregarFamiliar() {
@@ -2604,7 +2566,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 
 	private void guardarBeanToVista(
 			controlador.jugador.bean.Familiar familiarBean) {
-
 		txtCedulaFamiliar.setReadonly(true);
 		cmbNacionalidadFamiliar.setDisabled(true);
 		txtCedulaFamiliar.setValue(Integer.parseInt(familiarBean.getCedula()));
@@ -2726,7 +2687,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		comision = new DatoBasico();
 		binder.loadComponent(listComisiones);
 		// Limpiando Listbox Familiares
-
 	}
 
 	private void limpiarFaseFamiliar() {
@@ -2746,7 +2706,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 			}
 		}
 		return flag;
-
 	}
 
 	/**
@@ -2830,7 +2789,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 			}
 		}
 		return noValida;
-
 	}
 
 	public boolean numeroDisponible(int valor) {
@@ -2910,7 +2868,7 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 				list40.appendChild(listItem);
 			} else if (i < 80) {
 				list60.appendChild(listItem);
-			} else {// if (i < 60) {
+			} else {// if (i < 100) {
 				list80.appendChild(listItem);
 			}
 		}
@@ -2974,8 +2932,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		return sw;
 	}
 
-	// NUEVO
-
 	public void onCheck$radGroupTipo() {
 		if (radGroupTipo.getSelectedItem().getValue().equals("reincorporacion")) {
 			estatusJugador = EstatusRegistro.ELIMINADO;
@@ -3033,6 +2989,6 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 	private void deshabilitarTipoReingreso(boolean sw) {
 		radioReincorporacion.setDisabled(sw);
 		radioReinscripcion.setDisabled(sw);
-
 	}
+	
 }

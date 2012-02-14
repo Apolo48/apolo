@@ -3,7 +3,6 @@ package controlador.jugador;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
@@ -24,29 +22,23 @@ import org.zkoss.zul.Include;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
-import org.zkoss.zul.api.Tab;
 
 import servicio.implementacion.ServicioCategoria;
 import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioDatoAcademico;
-import servicio.implementacion.ServicioDatoMedico;
 import servicio.implementacion.ServicioDatoSocial;
 import servicio.implementacion.ServicioEquipo;
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioPersona;
-import servicio.implementacion.ServicioPersonaNatural;
 import servicio.implementacion.ServicioRecaudoPorProceso;
 import servicio.implementacion.ServicioInstitucion;
 import servicio.implementacion.ServicioLapsoDeportivo;
 import servicio.implementacion.ServicioRoster;
 import servicio.implementacion.ServicioTallaPorJugador;
 import servicio.implementacion.ServicioCompetencia;
-//import servicio.implementacion.ServicioDatoConducta;
 import servicio.implementacion.ServicioMotivoSancion;
 
 import comun.EstatusRegistro;
@@ -56,25 +48,16 @@ import comun.Util;
 import comun.TipoDatoBasico;
 import comun.Mensaje;
 
-import controlador.jugador.bean.ActividadSocial;
-import controlador.jugador.bean.NuevoCurso;
-import controlador.jugador.bean.SancionJugador;
 import controlador.jugador.bean.Afeccion;
-import controlador.jugador.bean.Telefono;
-//import controlador.jugador.bean.Persona;
 
-import modelo.AfeccionJugador;
 import modelo.Categoria;
 import modelo.Competencia;
 import modelo.DatoBasico;
-import modelo.AfeccionJugadorId;
 import modelo.DatoAcademico;
 import modelo.DatoMedico;
 import modelo.DatoSocial;
-import modelo.DatoConducta;
 import modelo.DocumentoEntregado;
 import modelo.Equipo;
-import modelo.Familiar;
 import modelo.Institucion;
 import modelo.LapsoDeportivo;
 import modelo.Jugador;
@@ -204,14 +187,11 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 	private ServicioCompetencia servicioCompetencia;
 	private ServicioDatoAcademico servicioDatoAcademico;
 	private ServicioDatoSocial servicioDatoSocial;
-	// private ServicioDatoConducta servicioDatoConducta;
 	private ServicioMotivoSancion servicioMotivoSancion;
 
 	// Modelos
 	private Jugador jugador = new Jugador();
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
-	// private controlador.jugador.bean.Persona personaBean = new
-	// controlador.jugador.bean.Persona();
 
 	private Equipo equipo = new Equipo();
 	private Categoria categoria = new Categoria();
@@ -259,9 +239,6 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 
 	private DatoAcademico datoAcademico = new DatoAcademico();
 	private List<DatoAcademico> listaAcademica = new ArrayList<DatoAcademico>();
-
-	// private DatoConducta datoConducta = new DatoConducta();
-	// private List<DatoConducta> listaConducta = new ArrayList<DatoConducta>();
 
 	private MotivoSancion datoConducta = new MotivoSancion();
 	private List<MotivoSancion> listaConducta = new ArrayList<MotivoSancion>();
@@ -841,16 +818,13 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 
 	// Eventos
 	public void onClick$btnCatalogoJugador() {
-		// se crea el catalogo y se llama
 		Component catalogo = Executions.createComponents(
 				"/Jugador/Vistas/frmBuscarJugador.zul", null, null);
-		// asigna una referencia del formulario al catalogo.
 		catalogo.setVariable("formulario", formulario, false);
 		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
 
 		formulario.addEventListener("onCatalogoBuscarJugadorCerrado",
 				new EventListener() {
-
 					@Override
 					public void onEvent(Event arg0) throws Exception {
 						// DATOS DEL JUGADOR
@@ -989,8 +963,6 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 						listaConducta = servicioMotivoSancion
 								.buscarPorJugador(jugador);
 						binder.loadComponent(listConducta);
-
-						// binder.loadAll();
 					}
 				});
 	}

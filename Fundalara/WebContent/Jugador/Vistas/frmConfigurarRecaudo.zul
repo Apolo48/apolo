@@ -93,6 +93,7 @@
 							image="../../Recursos/Imagenes/quitar.ico" />
 					</div>
 		</hbox>
+		
 		<div align="right">
 			<button id="btnImprimir" label="Generar"
 				image="/Recursos/Imagenes/reporte.ico" orient="horizontal" 

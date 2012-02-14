@@ -1,12 +1,14 @@
+<?page title="Actualizar Lesion"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
-<?page title="Actualizar Lesion"?>
+
 <div align="left">
-	<window title="" id="winActualizarLesion" border="none" width="660px"
-		apply="controlador.jugador.CntrlActualizarLesion">
+	<window title="" id="winActualizarLesion" border="none"
+		width="660px" apply="controlador.jugador.CntrlActualizarLesion">
 		<groupbox style="border-color:orange" closable="false">
 			<caption label="Datos de Informe Médico" />
-			<grid style="border:none;" oddRowSclass="none" width="100%">
+			<grid style="border:none;" oddRowSclass="none"
+				width="100%">
 				<columns>
 					<column width="22%" />
 					<column width="28%" />
@@ -71,7 +73,8 @@
 											</combobox>
 										</div>
 									</row>
-									<row style="border:none;" spans="4">
+									<row style="border:none;"
+										spans="4">
 
 										<grid style="border:none;">
 											<columns>
@@ -85,7 +88,8 @@
 														mold="paging" pageSize="2" id="listLesiones"
 														model="@{controller.lesionesJugador}">
 														<listhead>
-															<listheader	label="Lesión" />
+															<listheader
+																label="Lesión" />
 														</listhead>
 														<listitem
 															self="@{each='lesion'}" value="@{lesion}">
@@ -122,17 +126,24 @@
 					</row>
 
 					<row style="border:none;" spans="4">
-						<groupbox style="border-color:orange" closable="false">
+						<groupbox style="border-color:orange"
+							closable="false">
 							<caption label="Documentos" />
-							<listbox id="listDocMedicos" mold="paging" pageSize="2"
+							<listbox id="listDocMedicos" mold="paging"
+								pageSize="2"
 								model="@{winActualizarLesion$composer.recaudosMedicos}"
 								selectedItem="@{controller.docEntMed}">
 								<listhead>
-									<listheader width="30%"	label="Nombre" />
-									<listheader width="15%"	label="Solicitado" />
-									<listheader width="15%"	label="Entregado" />
-									<listheader width="20%"	label="Importancia" />
-									<listheader width="20%"	label="Documento" />
+									<listheader width="30%"
+										label="Nombre" />
+									<listheader width="15%"
+										label="Solicitado" />
+									<listheader width="15%"
+										label="Entregado" />
+									<listheader width="20%"
+										label="Importancia" />
+									<listheader width="20%"
+										label="Documento" />
 								</listhead>
 								<listitem self="@{each='docMed'}"
 									value="docMed">
@@ -157,7 +168,6 @@
 					</row>
 				</rows>
 			</grid>
-
 		</groupbox>
 	</window>
 </div>

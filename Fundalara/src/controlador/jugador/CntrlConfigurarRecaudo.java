@@ -81,7 +81,7 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 	private List<DatoBasico> importancias = new ArrayList<DatoBasico>();
 	private List<RecaudoPorProceso> listrecaudos = new ArrayList<RecaudoPorProceso>();
 
-	Listbox listprocesos;
+	private Listbox listprocesos;
 
 	private String rutasGen = Ruta.GENERAL.getRutaVista();
 
@@ -89,8 +89,8 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 	private String jrxmlSrc;
 	private Map parameters = new HashMap();
 
-	AnnotateDataBinder binder;
-	Component formulario;
+	private AnnotateDataBinder binder;
+	private Component formulario;
 
 	// Eventos
 	public void doAfterCompose(Component comp) throws Exception {

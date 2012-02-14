@@ -1,3 +1,43 @@
+package controlador.jugador;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import modelo.Jugador;
+import modelo.RetiroTraslado;
+import modelo.Roster;
+import modelo.DatoBasico;
+
+import org.zkoss.image.AImage;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.ForwardEvent;
+import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zkplus.databind.AnnotateDataBinder;
+import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Groupbox;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Window;
+
+import servicio.implementacion.ServicioDatoBasico;
+import servicio.implementacion.ServicioRoster;
+import servicio.implementacion.ServicioJugador;
+import servicio.implementacion.ServicioRetiroTraslado;
+
+import comun.EstatusRegistro;
+import comun.Mensaje;
+import comun.Ruta;
+import comun.TipoDatoBasico;
+import modelo.Persona;
+import modelo.PersonaNatural;
+
 /**
  * Clase controladora de los eventos de la vista de igual nombre.
  * 
@@ -10,79 +50,6 @@
  * @version 1.0 12/12/2011
  *
  * */
-
-package controlador.jugador;
-
-
-import java.io.IOException;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import modelo.Categoria;
-import modelo.Institucion;
-import modelo.Jugador;
-import modelo.RetiroTraslado;
-import modelo.Roster;
-import modelo.DatoBasico;
-//import modelo.Parroquia;
-
-
-import org.zkoss.image.AImage;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Sessions;
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.ForwardEvent;
-import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zkplus.databind.AnnotateDataBinder;
-import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Comboitem;
-import org.zkoss.zul.Groupbox;
-import org.zkoss.zul.Image;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Radiogroup;
-import org.zkoss.zul.Include;
-import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Label;
-import org.zkoss.zul.Button;
-import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Intbox;
-import org.zkoss.zul.Window;
-
-import servicio.implementacion.ServicioDatoBasico;
-import servicio.implementacion.ServicioRoster;
-import servicio.implementacion.ServicioDivisa;
-import servicio.implementacion.ServicioCategoria;
-import servicio.implementacion.ServicioEquipo;
-import servicio.implementacion.ServicioFamiliar;
-import servicio.implementacion.ServicioJugador;
-import servicio.implementacion.ServicioRetiroTraslado;
-//import servicio.implementacion.ServicioLiga;
-//import servicio.implementacion.ServicioMunicipio;
-
-
-import comun.EstatusRegistro;
-import comun.FileLoader;
-import comun.Mensaje;
-import comun.Ruta;
-import comun.TipoDatoBasico;
-import comun.Util;
-import controlador.jugador.bean.Afeccion;
-import modelo.AfeccionJugador;
-import modelo.AfeccionJugadorId;
-import modelo.Categoria;
-import modelo.DatoBasico;
-import modelo.DatoSocial;
-import modelo.Institucion;
-import modelo.Jugador;
-import modelo.Persona;
-import modelo.PersonaNatural;
-import modelo.Roster;
-import modelo.RetiroTraslado;
-
 public class CntrlRetiroTraslado extends GenericForwardComposer {
 
 	private Window winRetiroTraslado;
@@ -116,25 +83,24 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 	
 	private String rutasJug = Ruta.JUGADOR.getRutaVista();
 
-	Jugador jugador;
+	private Jugador jugador;
 	private ServicioDatoBasico servicioDatoBasico;
 	private ServicioRetiroTraslado servicioRetiroTraslado;
 	private ServicioJugador servicioJugador;
 	
 	private DatoBasico retiro;
-	List<DatoBasico> retirojugador = new ArrayList<DatoBasico>();
+	private List<DatoBasico> retirojugador = new ArrayList<DatoBasico>();
 	private DatoBasico tipoOperacion = new DatoBasico();
 	private DatoBasico tipoTrasl = new DatoBasico();
-	Roster roster;
-	Persona persona;
+	private Roster roster;
+	private Persona persona;
 
-	RetiroTraslado retiroJugador = new RetiroTraslado();
-	PersonaNatural personaN = new PersonaNatural();
+	private RetiroTraslado retiroJugador = new RetiroTraslado();
+	private PersonaNatural personaN = new PersonaNatural();
 	private controlador.jugador.bean.Jugador jugadorBean = new controlador.jugador.bean.Jugador();
 
 	
 	//Set y Get	
-	
 	public Image getImgJugador() {
 		return imgJugador;
 	}
@@ -191,8 +157,6 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 		this.roster = roster;
 	}
 	
-	
-
 	//Servicios, Procesos y Metodos	
 	public void onCreate$win(ForwardEvent event){
 		 binder = (AnnotateDataBinder) event.getTarget().getVariable("binder", false);  
@@ -206,24 +170,20 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 	}
 	
 	public List<DatoBasico> getPases() {
-		//AHora esto depende del tipo de operacion, asi quu deben usar otro metodo
-		//return servicioDatoBasico.buscar(TipoDatoBasico.RETIRO);
 		return servicioDatoBasico.buscarDatosPorRelacion(tipoOperacion);
 	}
 	
 	//Metodos para la carga del combo
-		public List<DatoBasico> getOperaciones() {
-			return servicioDatoBasico.buscar(TipoDatoBasico.TIPO_OPERACION);
-		}
-		
-		public List<DatoBasico> getMotivosTraslados() {
-			return servicioDatoBasico.buscarDatosPorRelacion(tipoOperacion);
-		}
+	public List<DatoBasico> getOperaciones() {
+		return servicioDatoBasico.buscar(TipoDatoBasico.TIPO_OPERACION);
+	}
+	
+	public List<DatoBasico> getMotivosTraslados() {
+		return servicioDatoBasico.buscarDatosPorRelacion(tipoOperacion);
+	}
 		
 	public void onClick$btnCatalogoJugador() {
-		// se crea el catalogo y se llama
 		Component catalogo = Executions.createComponents("/Jugador/Vistas/frmBuscarJugador.zul", null, null);
-		// asigna una referencia del formulario al catalogo.
 		catalogo.setVariable("formulario", formulario, false);
 		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
 		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
@@ -256,11 +216,9 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 				
 				roster= servicioRoster.buscarRoster(jugador.getCedulaRif());
 				binder.loadAll();
-
 			} 
 		});
 	}
-	
 		
 	public void onClick$btnRetirar(){
 		if (txtCedula.getValue().toString() != ""){
@@ -296,9 +254,7 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 		else {
 			Mensaje.mostrarMensaje("Seleccione un jugador", Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 		}
-			
 	}
-
 
 	public void retirarPase(){
 		retiroJugador.setFechaRetiro(new Date());
@@ -310,7 +266,6 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 		servicioJugador.retirarJugador(jugador);			
 	}
 	
-	
 	public void limpiar() {
 		txtCedula.setValue(null);
 		txtPrimerNombre.setValue(null);
@@ -320,17 +275,7 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
      	txtFechaIngreso.setValue(null);
 	    txtCategoria.setValue(null);
 	    txtGenero.setValue(null);
-	    //imgJugador.setSrc("../../../WebContent/Recursos/Imagenes/noFoto.jpg");
-	    //System.out.println("ruta: " + Sessions.getCurrent().getWebApp().getRealPath("/WebContent/Recursos/Imagenes/noFoto.jpg"));
-	    //imgJugador.setSrc(Sessions.getCurrent().getWebApp().getRealPath("/WebContent/Recursos/Imagenes/noFoto.jpg"));
-	    
-	    //imgJugador.setSrc(Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/classes/noFoto.jpg"));
-	    //Image imgJ = new Image();
-	    //imgJ.setSrc("../../../WebContent/Recursos/Imagenes/noFoto.jpg");
-	    //imgJugador.setContent(imgJ.getContent());
 	    imgJugador.setSrc("/Recursos/Imagenes/noFoto.jpg");
-	    
-	    
 	    cmbTipoTraslado.setSelectedIndex(-1);
 	    cmbMotivo.setSelectedIndex(-1);
 	    txtDivisaNueva.setValue(null);
@@ -349,7 +294,6 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 		tipoTrasl = new DatoBasico();
 		binder.loadAll();
 		limpiar();
-								
 	}	
 	
 	public void onChange$cmbTipoTraslado() {
@@ -372,6 +316,3 @@ public class CntrlRetiroTraslado extends GenericForwardComposer {
 	}
 				
 }
-
-
-

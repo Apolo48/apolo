@@ -1,8 +1,5 @@
 package controlador.jugador;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -10,24 +7,17 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import modelo.DocumentoAcreedor;
-import modelo.FamiliarJugador;
 import modelo.Jugador;
 import modelo.Roster;
 
-import modelo.Persona;
 import modelo.PersonaNatural;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import javax.swing.ImageIcon;
 
@@ -41,7 +31,6 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Textbox;
@@ -134,7 +123,6 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 		this.txtSegundoApellido = txtSegundoApellido;
 	}
 	
-	// ---------------------------------------------------------------------------------------------------
 	public void showReportfromJrxml() throws JRException, IOException{		
 		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
 		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
@@ -146,30 +134,25 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 					+ "frmVisorDocumento.zul", null, null);
 			visor.setVariable("archivo", amedia, false);
 	}
-	// ---------------------------------------------------------------------------------------------------
+
 	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
 		ImageIcon n = new ImageIcon();
 		byte[] foto = jugador.getPersonaNatural().getFoto();
 		if (foto != null) {
 				n = new ImageIcon((byte[]) jugador
 						.getPersonaNatural().getFoto());
-								
 		}else{
 			n= new ImageIcon();
 		}
 		con = ConeccionBD.getCon("postgres","postgres","123456");
-		//jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ReportPlanilla.jrxml");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ExpedienteJugador.jrxml");
 		parameters.put("cedulajug_1" ,jugador.getCedulaRif());
 		parameters.put("fotoJugador" ,n.getImage());
-		//parameters.put("SUBREPORT_DIR","/WEB-INF/reportes/ReportPlanilla_subreport1.jrxml");
     	showReportfromJrxml();		
 	}
 	
 	public void onClick$btnCatalogoJugador() {
-		// se crea el catalogo y se llama
 		Component catalogo = Executions.createComponents("/Jugador/Vistas/frmBuscarJugador.zul", null, null);
-		// asigna una referencia del formulario al catalogo.
 		catalogo.setVariable("formulario", formulario, false);
 		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
 		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
@@ -195,7 +178,6 @@ public class CntrlExpedienteJugador extends GenericForwardComposer {
 			            e.printStackTrace();
 			          }	
 			        }				
-
 			    roster= servicioRoster.buscarRoster(jugador.getCedulaRif());
 				binder.loadAll();
 			} 

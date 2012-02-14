@@ -20,11 +20,8 @@ import org.zkoss.zul.*;
 import comun.EstatusRegistro;
 import comun.Mensaje;
 
-import servicio.implementacion.ServicioCategoria;
-import servicio.implementacion.ServicioEquipo;
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioJugadorPlan;
-import servicio.implementacion.ServicioRoster;
 
 /**
  * Clase controladora de los eventos de la vista de igual nombre, el presente
@@ -37,7 +34,6 @@ import servicio.implementacion.ServicioRoster;
  * @version 1.0 29/12/2011
  * 
  * */
-
 public class CntrlBuscarJugador extends GenericForwardComposer {
 	private ServicioJugador servicioJugador;
 	private ServicioJugadorPlan servicioJugadorPlan;
@@ -90,7 +86,6 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 
 	public void onBlur$filter4() {
 		filtrarLista();
-
 	}
 
 	public void onBlur$filtroCedula() {
@@ -244,6 +239,4 @@ public class CntrlBuscarJugador extends GenericForwardComposer {
 		this.jugadorPlan = jugadorPlan;
 	}
 
-	
-	
 }

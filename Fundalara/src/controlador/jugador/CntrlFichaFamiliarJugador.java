@@ -106,7 +106,6 @@ public class CntrlFichaFamiliarJugador extends GenericForwardComposer {
 
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
-		// TODO Auto-generated method stub
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
 		formulario = comp;
@@ -142,12 +141,6 @@ public class CntrlFichaFamiliarJugador extends GenericForwardComposer {
 	}
 
 	public void mostrarVisor() throws JRException {
-		/*
-		 * Funciona para IExplorer, Firefox, Chrome y Opera Permite ver, guardar
-		 * e imprimir, todo desde el visor Observacion: uso de codigo mas
-		 * sencillo para generar pdf El codigo usado en mostrarFrame tambien
-		 * puede usarse en este caso
-		 */
 		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
 		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters,
 				con);
@@ -163,10 +156,8 @@ public class CntrlFichaFamiliarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnCatalogoJugador() {
-		// se crea el catalogo y se llama
 		Component catalogo = Executions.createComponents(
 				"/Jugador/Vistas/frmBuscarJugador.zul", null, null);
-		// asigna una referencia del formulario al catalogo.
 		catalogo.setVariable("formulario", formulario, false);
 		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
 		formulario.addEventListener("onCatalogoBuscarJugadorCerrado",

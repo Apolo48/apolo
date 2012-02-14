@@ -19,7 +19,6 @@ import org.zkoss.util.media.AMedia;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
@@ -31,10 +30,8 @@ import comun.ConeccionBD;
 import comun.Mensaje;
 import comun.Ruta;
 import comun.TipoDatoBasico;
-import modelo.Equipo;
 import modelo.Institucion;
 import modelo.DatoBasico;
-import modelo.Medico;
 import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioInstitucion;
 
@@ -67,8 +64,8 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 	private Button btnEliminar;
 
 	// Servicios
-	ServicioInstitucion servicioInstitucion;
-	ServicioDatoBasico servicioDatoBasico;
+	private ServicioInstitucion servicioInstitucion;
+	private ServicioDatoBasico servicioDatoBasico;
 
 	private Connection con;
 	private String jrxmlSrc;
@@ -172,34 +169,28 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 
 	public void onClick$btnGuardar() throws InterruptedException {
 		if (txtNombre.getText() == "") {
-			//alert("Seleccione un nombre");
 			Mensaje.mostrarMensaje("Seleccione un nombre",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtNombre.focus();
 		} else if (cmbTipo.getText() == "") {
-			//alert("Seleccione un Tipo");
 			Mensaje.mostrarMensaje("Seleccione un Tipo",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbTipo.focus();
 		} else if (cmbEstadoResi.getText() == "") {
-			//alert("Seleccione un Estado");
 			Mensaje.mostrarMensaje("Seleccione un Estado",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbEstadoResi.focus();
 		} else if (cmbMunicipioResi.getText() == "") {
-			//alert("Seleccione un Municipio");
 			Mensaje.mostrarMensaje("Seleccione un Municipio",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbMunicipioResi.focus();
 		}
 		else if (cmbParroquiaResi.getText() == "") {
-			//alert("Seleccione una Parroquia");
 			Mensaje.mostrarMensaje("Seleccione un Parroquia",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbParroquiaResi.focus();
 		}
 		else if (txtDireccion.getText() == "") {
-			//alert("Seleccione una Dirección");
 			Mensaje.mostrarMensaje("Seleccione un Dirección",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtDireccion.focus();
@@ -207,8 +198,7 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 			institucionAux = servicioInstitucion.buscarpornombre(txtNombre
 					.getValue().toUpperCase());
 			if (institucionAux != null)
-				//alert("La Institución ya había sido agregada");
-				Mensaje.mostrarMensaje("La Institución ya había sido agregada",
+				Mensaje.mostrarMensaje("La Institución ya Existe",
 						Mensaje.ERROR_DATOS, Messagebox.EXCLAMATION);
 			else {
 				Messagebox.show(
@@ -248,32 +238,26 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 
 	public void onClick$btnModificar() throws InterruptedException {
 		if (txtNombre.getText() == "") {
-			//alert("Seleccione un nombre");
 			Mensaje.mostrarMensaje("Seleccione un nombre",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtNombre.focus();
 		} else if (cmbTipo.getText() == "") {
-			//alert("Seleccione un Tipo");
 			Mensaje.mostrarMensaje("Seleccione un Tipo",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbTipo.focus();
 		} else if (cmbEstadoResi.getText() == "") {
-			//alert("Seleccione un Estado");
 			Mensaje.mostrarMensaje("Seleccione un Estado",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbEstadoResi.focus();
 		} else if (cmbMunicipioResi.getText() == "") {
-			//alert("Seleccione un Municipio");
 			Mensaje.mostrarMensaje("Seleccione un Municipio",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbMunicipioResi.focus();
 		} else if (cmbParroquiaResi.getText() == "") {
-			//alert("Seleccione una Parroquia");
 			Mensaje.mostrarMensaje("Seleccione un Parroquia",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			cmbParroquiaResi.focus();
 		} else if (txtDireccion.getText() == "") {
-			//alert("Seleccione una Dirección");
 			Mensaje.mostrarMensaje("Seleccione un Dirección",
 					Mensaje.INFORMACION, Messagebox.EXCLAMATION);
 			txtDireccion.focus();
@@ -292,7 +276,6 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 							}
 						}
 					});
-			// servicioInstitucion.actualizar(institucion);
 		}
 	}
 
@@ -327,7 +310,6 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 						}
 					}
 				});
-		// servicioInstitucion.actualizar(institucion);
 	}
 
 	public void doyes() {

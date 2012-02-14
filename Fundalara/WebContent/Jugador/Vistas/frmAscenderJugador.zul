@@ -1,6 +1,7 @@
 <?page title="Ascender de Categoría" contentType="text/html;charset=UTF-8"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
+
 <zk>
 	<window id="winAscenderCategoria" title="Ascender de Categoría"
 		border="normal" width="677px" closable="true"

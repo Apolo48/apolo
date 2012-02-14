@@ -16,7 +16,7 @@
 					<grid style="border:none;" oddRowSclass="none">
 						<columns>
 							<column width="15%" />
-							<column width="30%" /><!-- 50 -->
+							<column width="30%" />
 							<column width="20%" />
 							<column width="15" />
 						</columns>

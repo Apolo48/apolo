@@ -1,8 +1,8 @@
 <?page title="Médicos"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winConfigurarMedico"?>
-<zk>
 
+<zk>
 	<window id="winConfigurarMedico" title="Registro de Médico"
 		border="normal" width="645px" closable="true"
 		apply="controlador.jugador.CntrlConfigurarMedico">

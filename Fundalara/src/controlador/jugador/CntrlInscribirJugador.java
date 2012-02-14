@@ -5,8 +5,6 @@ import java.util.List;
 import modelo.DatoBasico;
 
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Execution;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.ForwardEvent;
@@ -97,7 +95,6 @@ public class CntrlInscribirJugador extends GenericForwardComposer {
 						}
 					}
 				});
-
 	}
 
 }

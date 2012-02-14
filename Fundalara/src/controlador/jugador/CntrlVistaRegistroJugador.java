@@ -11,7 +11,6 @@ import modelo.DatoBasico;
 import modelo.DatoMedico;
 import modelo.DatoSocial;
 import modelo.Equipo;
-import modelo.FamiliarJugador;
 import modelo.Medico;
 
 import org.zkoss.image.AImage;
@@ -193,7 +192,6 @@ public class CntrlVistaRegistroJugador extends GenericForwardComposer {
 			
 			listAfeccionesActuales.appendChild(listItem);
 		}
-		
 		
 		lblObservacion.setValue(datoMedico.getObservacion());
 		
