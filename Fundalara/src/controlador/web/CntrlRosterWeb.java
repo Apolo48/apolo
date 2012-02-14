@@ -1,53 +1,28 @@
-package controlador.jugador;
+package controlador.web;
 
-import java.io.IOException;
-import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.ImageIcon;
-
-import modelo.Ascenso;
 import modelo.Categoria;
-import modelo.DatoBasico;
 import modelo.Equipo;
 import modelo.Jugador;
-import modelo.LapsoDeportivo;
 import modelo.Roster;
 
-import org.zkoss.image.AImage;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
-import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Div;
-import org.zkoss.zul.Iframe;
-import org.zkoss.zul.Image;
-import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-import servicio.implementacion.ServicioAscenso;
 import servicio.implementacion.ServicioCategoria;
-import servicio.implementacion.ServicioDatoBasico;
 import servicio.implementacion.ServicioEquipo;
-import servicio.implementacion.ServicioJugador;
-import servicio.implementacion.ServicioLapsoDeportivo;
 import servicio.implementacion.ServicioRoster;
-
-import comun.Mensaje;
-import comun.Ruta;
 
 public class CntrlRosterWeb extends GenericForwardComposer {
 
 	private ServicioRoster servicioRoster;
-	private ServicioJugador servicioJugador;
 	private ServicioCategoria servicioCategoria;
 	private ServicioEquipo servicioEquipo;
 
@@ -59,8 +34,6 @@ public class CntrlRosterWeb extends GenericForwardComposer {
 
 	// binder
 	private AnnotateDataBinder binder;
-
-	private Map<String, Object> requestScope;
 
 	// id de la interfaz
 	private Combobox cmbCategoria;
@@ -75,7 +48,6 @@ public class CntrlRosterWeb extends GenericForwardComposer {
 	public void doAfterCompose(Component c) throws Exception {
 		super.doAfterCompose(c);
 		c.setVariable("controller", this, true);
-		// se guarda la referencia al catalogo
 		cmbEquipo.setDisabled(true);
 	}
 
@@ -117,7 +89,6 @@ public class CntrlRosterWeb extends GenericForwardComposer {
 	}
 
 	// Para llenar Listas y combos
-
 	public List<Categoria> getCategorias() {
 		return servicioCategoria.listar();
 	}
@@ -136,18 +107,15 @@ public class CntrlRosterWeb extends GenericForwardComposer {
 			if (equipo != null) {
 				listaJug = servicioRoster.listarJugadores(equipo);
 				binder.loadComponent(listJugadores);
-				
 			}
 		}
 	}
 
 	public List<Jugador> getJugadores() {
-
 		return listaJug;
 	}
 
 	// Metodos
-
 	public void onSelect$cmbCategoria() {
 		cmbEquipo.setDisabled(false);
 		cmbEquipo.getItems().clear();
@@ -157,8 +125,6 @@ public class CntrlRosterWeb extends GenericForwardComposer {
 		binder.loadAll();
 		binder.loadComponent(cmbEquipo);
 		binder.loadComponent(cmbCategoria);
-	
-		
 	}
 	
 	public void limpiar() {
@@ -167,8 +133,6 @@ public class CntrlRosterWeb extends GenericForwardComposer {
 		cmbEquipo.setDisabled(true);
 		equipo = new Equipo();
 		categoria = new Categoria();
-	
-		
 	}
 
 }

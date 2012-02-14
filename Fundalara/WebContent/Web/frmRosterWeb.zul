@@ -4,7 +4,7 @@
 <zk>
 	<window id="winRosterWeb" title="" 
 		border="none" closable="true"
-		apply="controlador.jugador.CntrlRosterWeb" width="695px">
+		apply="controlador.web.CntrlRosterWeb" width="695px">
 		<grid oddRowSclass="none" style="border:none;">
 			<columns style="border:none">
 				<column width="12%" />
@@ -38,7 +38,6 @@
 			model="@{winRosterWeb$composer.jugadores}"
 			selectedItem="@{winRosterWeb$composer.jugador, load-after='cmbEquipo.onChange'}">
 			<listhead>
-			
 				<listheader label="N°" width="5%" />
 				<listheader label="Nombre" width="18%" />
 				<listheader label="Apellido" width="18%" />
@@ -46,7 +45,6 @@
 				<listheader label="Batea" width="15%" />
 				<listheader label="Peso" width="10%" />
 				<listheader label="Altura" width="10%" />
-
 			</listhead>
 			<listitem self="@{each='jugador'}" value="@{jugador}">
 				<listcell label="@{jugador.numero}" />
@@ -56,10 +54,7 @@
 				<listcell label="@{jugador.posicionBateo}" />
 				<listcell label="@{jugador.peso}" />
 				<listcell label="@{jugador.altura}" />
-
 			</listitem>
-
 		</listbox>
-
 	</window>
 </zk>

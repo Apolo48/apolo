@@ -231,7 +231,7 @@
 							</div>
 							<div class="art-layout-cell art-content">
 								<div class="art-post">
-								<jsp:include page="Jugador/Web/frmRosterWeb.zul"/>
+								<jsp:include page="/Web/frmRosterWeb.zul"/>
 								</div>
 
 								<div class="cleared"></div>
