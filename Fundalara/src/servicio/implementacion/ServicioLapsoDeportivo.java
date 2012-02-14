@@ -130,7 +130,7 @@ public class ServicioLapsoDeportivo implements IServicioLapsoDeportivo {
 
 	@Override
 	public List<LapsoDeportivo> listarActivos() {
-		return daoLapsoDeportivo.listarActivos();
+		return daoLapsoDeportivo.listarActivos(LapsoDeportivo.class);
 	}
 
 	@Override

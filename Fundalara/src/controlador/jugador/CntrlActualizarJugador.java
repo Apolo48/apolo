@@ -914,7 +914,7 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 								.getCelular();
 
 						if (telfcel != null && telfcel != "") {
-							String[] numeroCel = Util.separarCadena(telf, "-");
+							String[] numeroCel = Util.separarCadena(telfcel, "-");
 							if (numeroCel.length == 2) {
 								cmbCodCelular.setValue(numeroCel[0]);
 								txtTelefonoCelular.setRawValue(numeroCel[1]);
@@ -974,58 +974,84 @@ public class CntrlActualizarJugador extends GenericForwardComposer {
 		}
 
 		// PERSONALES
-		if (cmbPosicionBateo.getSelectedItem() != null) {
-			jugador.setDatoBasicoByCodigoPais((DatoBasico) cmbPaisNac
-					.getSelectedItem().getValue());
-		}
-
-		if (cmbParroquiaNac.getSelectedItem() != null) {
-			jugador.setDatoBasicoByCodigoParroquiaNacimiento((DatoBasico) cmbParroquiaNac
-					.getSelectedItem().getValue());
-		}
-
-		if (cmbParroquiaResi.getSelectedItem() != null) {
-			jugador.getPersonaNatural()
-					.getPersona()
-					.setDatoBasicoByCodigoParroquia(
-							(DatoBasico) cmbParroquiaResi.getSelectedItem()
-									.getValue());
-		}
+		// Datos de pais, parroquia residencia y parroquia nacimiento estan en
+		// el zul
 
 		jugador.getPersonaNatural().getPersona()
-				.setDireccion(txtDireccion.getText().toString());
+				.setDireccion(jugadorBean.getDireccion());
 
 		if (cmbCodArea.getSelectedItem() != null
 				&& txtTelefonoHabitacion.getText() != "") {
 			jugador.getPersonaNatural()
 					.getPersona()
 					.setTelefonoHabitacion(
-							cmbCodArea.getSelectedItem().getLabel() + "-"
-									+ txtTelefonoHabitacion.getText());
+							jugadorBean.getTelefonoHabitacion()
+									.getTelefonoCompleto());
 		}
 
 		if (cmbCodCelular.getSelectedItem() != null
 				&& txtTelefonoCelular.getText() != "") {
 			jugador.getPersonaNatural().setCelular(
-					cmbCodCelular.getSelectedItem().getLabel() + "-"
-							+ txtTelefonoCelular.getText());
+					jugadorBean.getTelefonoCelular().getTelefonoCompleto());
 		}
 
 		jugador.getPersonaNatural().getPersona()
-				.setCorreoElectronico(txtCorreo.getValue());
+				.setCorreoElectronico(jugadorBean.getCorreoElectronico());
 		jugador.getPersonaNatural().getPersona()
-				.setTwitter(txtTwitter.getValue());
+				.setTwitter(jugadorBean.getTwitter());
 
 		// DEPORTIVOS
-		jugador.setPeso(txtAltura.getValue().doubleValue());
-		jugador.setAltura(txtPeso.getValue().doubleValue());
+		jugador.setPeso(jugadorBean.getPeso());
+		jugador.setAltura(jugadorBean.getAltura());
 		if (cmbBrazoLanzar.getSelectedItem() != null) {
-			jugador.setBrazoLanzar(cmbBrazoLanzar.getSelectedItem().getLabel());
+			jugador.setBrazoLanzar(jugadorBean.getBrazoLanzar().getNombre());
 		}
 		if (cmbPosicionBateo.getSelectedItem() != null) {
-			jugador.setPosicionBateo(cmbPosicionBateo.getSelectedItem()
-					.getLabel());
+			jugador.setPosicionBateo(jugadorBean.getPosicionBateo().getNombre());
 		}
+
+		/*
+		 * if (cmbPosicionBateo.getSelectedItem() != null) {
+		 * jugador.setDatoBasicoByCodigoPais((DatoBasico) cmbPaisNac
+		 * .getSelectedItem().getValue()); }
+		 * 
+		 * if (cmbParroquiaNac.getSelectedItem() != null) {
+		 * jugador.setDatoBasicoByCodigoParroquiaNacimiento((DatoBasico)
+		 * cmbParroquiaNac .getSelectedItem().getValue()); }
+		 * 
+		 * if (cmbParroquiaResi.getSelectedItem() != null) {
+		 * jugador.getPersonaNatural() .getPersona()
+		 * .setDatoBasicoByCodigoParroquia( (DatoBasico)
+		 * cmbParroquiaResi.getSelectedItem() .getValue()); }
+		 * 
+		 * jugador.getPersonaNatural().getPersona()
+		 * .setDireccion(txtDireccion.getText().toString());
+		 * 
+		 * if (cmbCodArea.getSelectedItem() != null &&
+		 * txtTelefonoHabitacion.getText() != "") { jugador.getPersonaNatural()
+		 * .getPersona() .setTelefonoHabitacion(
+		 * cmbCodArea.getSelectedItem().getLabel() + "-" +
+		 * txtTelefonoHabitacion.getText()); }
+		 * 
+		 * if (cmbCodCelular.getSelectedItem() != null &&
+		 * txtTelefonoCelular.getText() != "") {
+		 * jugador.getPersonaNatural().setCelular(
+		 * cmbCodCelular.getSelectedItem().getLabel() + "-" +
+		 * txtTelefonoCelular.getText()); }
+		 * 
+		 * jugador.getPersonaNatural().getPersona()
+		 * .setCorreoElectronico(txtCorreo.getValue());
+		 * jugador.getPersonaNatural().getPersona()
+		 * .setTwitter(txtTwitter.getValue());
+		 * 
+		 * // DEPORTIVOS jugador.setPeso(txtAltura.getValue().doubleValue());
+		 * jugador.setAltura(txtPeso.getValue().doubleValue()); if
+		 * (cmbBrazoLanzar.getSelectedItem() != null) {
+		 * jugador.setBrazoLanzar(cmbBrazoLanzar.getSelectedItem().getLabel());
+		 * } if (cmbPosicionBateo.getSelectedItem() != null) {
+		 * jugador.setPosicionBateo(cmbPosicionBateo.getSelectedItem()
+		 * .getLabel()); }
+		 */
 
 		servicioJugador.actualizar(jugador);
 	}

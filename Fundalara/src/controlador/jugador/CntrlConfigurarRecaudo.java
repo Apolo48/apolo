@@ -53,8 +53,8 @@ import servicio.implementacion.ServicioRecaudoPorProceso;
 public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 
 	// Servicios
-	ServicioDatoBasico servicioDatoBasico;
-	ServicioRecaudoPorProceso servicioRecaudoPorProceso;
+	private ServicioDatoBasico servicioDatoBasico;
+	private ServicioRecaudoPorProceso servicioRecaudoPorProceso;
 
 	// Modelos
 	private DatoBasico datobasico = new DatoBasico();
@@ -63,9 +63,15 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 	private RecaudoPorProceso recaudoporguardar = new RecaudoPorProceso();
 
 	// Componentes visuales
-	private Combobox cmbProceso, cmbAccion, cmbImportancia, cmbRecaudo;
-	private Button btnModificar, btnEliminar, btnGuardar, btnCancelar,
-			btnSalir;
+	private Combobox cmbProceso;
+	private Combobox cmbAccion;
+	private Combobox cmbImportancia;
+	private Combobox cmbRecaudo;
+	private Button btnModificar;
+	private Button btnEliminar;
+	private Button btnGuardar;
+	private Button btnCancelar;
+	private Button btnSalir;
 	private Spinner spnCantidad;
 
 	private DatoBasico proceso = new DatoBasico();
@@ -286,7 +292,7 @@ public class CntrlConfigurarRecaudo extends GenericForwardComposer {
 			System.out.println(spnCantidad.getValue());
 			recaudoporproceso.setCantidad(spnCantidad.getValue());
 			recaudoporproceso.setEstatus('A');
-			Messagebox.show("Esta seguro que Desea Modificar el Medico?",
+			Messagebox.show("Esta seguro que Desea Modificar el Recaudo?",
 					"MODIFICAR", Messagebox.YES | Messagebox.NO,
 					Messagebox.QUESTION, new EventListener() {
 						public void onEvent(Event evt) {

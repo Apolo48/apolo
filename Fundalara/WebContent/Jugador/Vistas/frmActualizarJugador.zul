@@ -1,4 +1,4 @@
-<?page title="Actualizar Jugadorr"?>
+<?page title="Actualizar Jugador"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winActualizarJugador" ?>
 
@@ -183,7 +183,7 @@
 																value="Parroquia" />
 															<combobox
 																id="cmbParroquiaNac" readonly="true"
-																selectedItem="@{controller.jugador.datoBasicoByCodigoParroquiaNacimiento}"
+																selectedItem="@{controller.jugadorBean.parroquiaNac}"
 																value="--Seleccione--" width="70%"
 																model="@{winActualizarJugador$composer.parroquiasMunicipio, load-after='cmbMunicipioNac.onChange'}">
 																<comboitem
@@ -245,7 +245,7 @@
 															<combobox
 																id="cmbParroquiaResi" readonly="true"
 																value="--Seleccione--" width="70%"
-																selectedItem="@{controller.jugador.persona.datoBasico}"
+																selectedItem="@{controller.jugadorBean.parroquiaResi}"
 																model="@{winActualizarJugador$composer.parroquiasMunicipioResi, load-after='cmbMunicipioResi.onChange'}">
 																<comboitem
 																	self="@{each='parroquia'}" label="@{parroquia.nombre}" />
@@ -328,7 +328,7 @@
 																value="Correo Electrónico" />
 															<textbox
 																id="txtCorreo" width="90%"
-																value="@{controller.jugador.personaNatural.persona.correoElectronico}" />
+																value="@{controller.jugadorBean.correoElectronico}" />
 															<label
 																value="Twitter" />
 															<div>
@@ -336,7 +336,7 @@
 																	value="@" />
 																<textbox
 																	id="txtTwitter" width="67%"
-																	value="@{controller.jugador.personaNatural.persona.twitter}" />
+																		value="@{controller.jugadorBean.twitter}" />
 															</div>
 														</row>
 													</rows>
