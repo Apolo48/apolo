@@ -1,9 +1,10 @@
-<?page title="Configurar Recaudos"?>
+<?page title="Parametro Recaudo"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit"?>
+
 <zk>
 	<window id="winConfigurarRecaudo" apply="controlador.jugador.CntrlConfigurarRecaudo" 
-	title="Recaudos" border="normal" width="60%"
+	title="Recaudo" border="normal" width="60%"
 		closable="true">
 		<grid style="border:none" oddRowSclass="none">
 			<columns>
@@ -93,8 +94,9 @@
 					</div>
 		</hbox>
 		<div align="right">
-			<button image="/Recursos/Imagenes/imprimir.ico" width="100px"
-				id="btnImprimir" onClick="" tooltiptext="/Generar" label="Generar" />
+			<button id="btnImprimir" label="Generar"
+				image="/Recursos/Imagenes/reporte.ico" orient="horizontal" 
+			    width="100px" />
 			<button id="btnCancelar" label="Cancelar"
 				image="/Recursos/Imagenes/cancelar.ico" orient="horizontal"
 				width="100px" />

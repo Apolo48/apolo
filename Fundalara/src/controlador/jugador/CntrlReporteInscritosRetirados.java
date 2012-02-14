@@ -18,10 +18,8 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
@@ -83,18 +81,11 @@ public class CntrlReporteInscritosRetirados extends GenericForwardComposer {
 	
 	//Metodos del Controlador
 	public void mostrarVisor() throws JRException {
-		/*
-		 * Funciona para IExplorer, Firefox, Chrome y Opera
-		 * Permite ver, guardar e imprimir, todo desde el visor
-		 * Observacion: uso de codigo mas sencillo para generar pdf
-		 * El codigo usado en mostrarFrame tambien puede usarse en este caso
-		 * */
 		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
 		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
 		
 		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
 		final AMedia amedia = new AMedia("inscritosRetirados.pdf","pdf","application/pdf", archivo);
-		
 		
 		Component visor = Executions.createComponents(rutasGen
 					+ "frmVisorDocumento.zul", null, null);

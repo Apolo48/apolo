@@ -1,104 +1,119 @@
 <?page title="Categoria" contentType="text/html;charset=UTF-8"?>
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
-<zk>
 
-	<window id="winConfigurarCategoria" title="Categorías" border="normal" width="696px"
-	 apply="controlador.jugador.CntrlConfigurarCategoria" closable="true">
+<zk>
+	<window id="winConfigurarCategoria" title="Categorías"
+		border="normal" width="696px"
+		apply="controlador.jugador.CntrlConfigurarCategoria"
+		closable="true">
 		<panel title="">
 			<panelchildren>
-				<groupbox style="border-color:orange" closable="false">
-					<caption style="font-weight:bold" label="Datos de Categoría" />
+				<groupbox style="border-color:orange"
+					closable="false">
+					<caption style="font-weight:bold"
+						label="Datos de Categoría" />
 					<grid style="border:none;" oddRowSclass="none">
 						<columns>
 							<column width="15%" />
-							<column width="30%" /> <!-- 50 -->
+							<column width="30%" /><!-- 50 -->
 							<column width="20%" />
 							<column width="15" />
 						</columns>
 						<rows>
-								<row style="border:none">
+							<row style="border:none">
 								<label value="Edad Inferior" />
-							    <div>
-									 				  <intbox id="intEdadInferior" maxlength="2" readonly="true" constraint="no negative" width="10%" focus="true"/> 
-									 				  <button id="btnAumentarEI" label="+" />
-									 				  <button label="-" id="btnDisminuirEI" />
-													  <label value="años" />
-								</div>
-									<label value="Edad Superior" />
 								<div>
-								
-									<intbox id="intEdadSuperior" maxlength="2" readonly="true" constraint="no negative"  width="10%" focus="true"/> 
-										<button label="+" id="btnAumentarES" />
-													<button label="-" id="btnDisminuirES" />
-													<label value="años" /> 
-
+									<intbox id="intEdadInferior"
+										maxlength="2" readonly="true" constraint="no negative"
+										width="10%" focus="true" />
+									<button id="btnAumentarEI"
+										label="+" />
+									<button label="-"
+										id="btnDisminuirEI" />
+									<label value="años" />
+								</div>
+								<label value="Edad Superior" />
+								<div>
+									<intbox id="intEdadSuperior"
+										maxlength="2" readonly="true" constraint="no negative"
+										width="10%" focus="true" />
+									<button label="+"
+										id="btnAumentarES" />
+									<button label="-"
+										id="btnDisminuirES" />
+									<label value="años" />
 								</div>
 							</row>
 							<row style="border:none">
 								<label value="Nombre" />
-									<textbox id="txtNombre" width="80%" focus="true" value="@{controller.categoria.nombre}" style='text-transform:uppercase;'  />
-									<label value="Cantidad Equipos" />
-									<spinner id="spCantidadEquipo" width="20%" readonly="true" constraint="no negative" value="@{controller.categoria.cantidadEquipo}"/>
+								<textbox id="txtNombre" width="80%"
+									focus="true" value="@{controller.categoria.nombre}"
+									style='text-transform:uppercase;' />
+								<label value="Cantidad Equipos" />
+								<spinner id="spCantidadEquipo"
+									width="20%" readonly="true" constraint="no negative"
+									value="@{controller.categoria.cantidadEquipo}" />
 							</row>
 						</rows>
 					</grid>
 				</groupbox>
 			</panelchildren>
 		</panel>
+		<space></space>
 
-		<space> </space>
-		
-<grid
-	style="border:none">
-	<columns>
-		<column width="95%" />
-		<column />
-	</columns>
-	<rows>
-		<row style="border:none">
-		
-		
-		<listbox id="listCategoria" mold="paging" pageSize="7"  model="@{winConfigurarCategoria$composer.categorias}" 
-					    selectedItem="@{winConfigurarCategoria$composer.categoria}">
+		<grid style="border:none">
+			<columns>
+				<column width="95%" />
+				<column />
+			</columns>
+			<rows>
+				<row style="border:none">
+					<listbox id="listCategoria" mold="paging"
+						pageSize="7" model="@{winConfigurarCategoria$composer.categorias}"
+						selectedItem="@{winConfigurarCategoria$composer.categoria}">
 						<listhead>
-							<listheader label="Nombre Categoría" width="25%" />
-							<listheader label="Edad Inferior" width="22%" />
-							<listheader label="Edad Superior" width="22%" />
-							<listheader label="Cantidad Equipos" width="22%"  />
-							<listheader label="Estado" width="22%"  />
-							
+							<listheader label="Nombre Categoría"
+								width="25%" />
+							<listheader label="Edad Inferior"
+								width="22%" />
+							<listheader label="Edad Superior"
+								width="22%" />
+							<listheader label="Cantidad Equipos"
+								width="22%" />
+							<listheader label="Estado" width="22%" />
 						</listhead>
-						<listitem   self="@{each='categoria'}" value="@{categoria}">
+						<listitem self="@{each='categoria'}"
+							value="@{categoria}">
 							<listcell label="@{categoria.nombre}" />
 							<listcell label="@{categoria.edadInferior}" />
 							<listcell label="@{categoria.edadSuperior}" />
-							<listcell label="@{categoria.cantidadEquipo}" />
+							<listcell
+								label="@{categoria.cantidadEquipo}" />
 							<listcell label="@{categoria.estatus}" />
-							
 						</listitem>
-					
 					</listbox>
-
-	
-			<vbox>
-				<button id="btnAgregar" 
-				image="/Recursos/Imagenes/agregar.ico" />
-			   <button id="btnModificar" image="/Recursos/Imagenes/editar.ico" />
-			   <button id="btnQuitar" image="/Recursos/Imagenes/quitar.ico" />
-			</vbox>
-		</row>
-	</rows>
-</grid>
+					<vbox>
+						<button id="btnAgregar"
+							image="/Recursos/Imagenes/agregar.ico" />
+						<button id="btnModificar"
+							image="/Recursos/Imagenes/editar.ico" />
+						<button id="btnQuitar"
+							image="/Recursos/Imagenes/quitar.ico" />
+					</vbox>
+				</row>
+			</rows>
+		</grid>
 
 		<div align="right">
-		<button image="/Recursos/Imagenes/imprimir.ico" width="100px"
-				id="btnImprimir" onClick="" tooltiptext="/Generar" label="Generar" />
+			<button id="btnImprimir" label="Generar"
+				image="/Recursos/Imagenes/reporte.ico" orient="horizontal"
+				width="100px" />
 			<button id="btnCancelar" label="Cancelar"
-				image="/Recursos/Imagenes/cancelar.ico" orient="horizontal"
+				image="../../Recursos/Imagenes/cancelar.ico" orient="horizontal"
 				width="100px" />
 			<button id="btnSalir" label="Salir"
-				image="/Recursos/Imagenes/salir.png" orient="horizontal"
+				image="../../Recursos/Imagenes/salir.png" orient="horizontal"
 				width="100px" />
 		</div>
 	</window>

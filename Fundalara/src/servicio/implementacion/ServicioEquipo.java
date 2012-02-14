@@ -5,11 +5,8 @@ import java.util.List;
 import servicio.interfaz.IServicioEquipo;
 
 import dao.general.DaoEquipo;
-import dao.general.DaoLapsoDeportivo;
 import modelo.Categoria;
-import modelo.DatoBasico;
 import modelo.Equipo;
-import modelo.LapsoDeportivo;
 
 public class ServicioEquipo implements IServicioEquipo {
 
@@ -41,7 +38,7 @@ public class ServicioEquipo implements IServicioEquipo {
 
 	@Override
 	public List<Equipo> listar() {
-		return daoEquipo.listarActivos(Equipo.class);
+		return daoEquipo.listar(Equipo.class);
 	}
 
 	@Override

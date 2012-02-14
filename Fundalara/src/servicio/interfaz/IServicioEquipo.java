@@ -23,5 +23,5 @@ public interface IServicioEquipo {
 	public abstract List<Equipo> buscarPorCategoria(Categoria categoria, String lapsoDeportivo);
 	
 	public abstract List<Equipo> buscarPorCategoria(Categoria categoria, String lapsoDeportivo, String nombreDivisa);
-	
+
 }

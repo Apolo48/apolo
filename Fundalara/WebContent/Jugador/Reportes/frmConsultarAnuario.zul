@@ -55,8 +55,6 @@
 		</listbox>
 		</div>
 		
-		<iframe id="ifReport" visible="false" />
-		
 		<div align="right">
 			<button id="btnGenerar" label="Generar"
 				image="../../Recursos/Imagenes/reporte.ico" orient="horizontal"
@@ -65,6 +63,5 @@
 				image="../../Recursos/Imagenes/salir.png" orient="horizontal"
 				width="100px" />
 		</div>
-
 	</window>
 </zk>

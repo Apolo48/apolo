@@ -8,7 +8,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.python.antlr.PythonParser.return_stmt_return;
 
 import comun.TipoDatoBasico;
 
@@ -72,20 +71,20 @@ public class DaoEquipo extends GenericDao {
 		return this.buscarEquiposPorCategoria(categoria, "TEMPORADA REGULAR");
 	}
 
-	/**
+/*	*//**
 	 * Busca todos los equipos activos de todas las divisas
 	 * 
 	 * @param o
 	 *            Class del modelo a filtrar
 	 * @return List lista de equipos
-	 */
+	 *//*
 	public List listarActivos(Class o) {
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
 		List lista = session.createCriteria(o)
 				.add(Restrictions.eq("estatus", 'A')).list();
 		return lista;
-	}
+	}*/
 
 	/**
 	 * Agregado para ConfigurarEquipo

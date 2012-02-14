@@ -170,18 +170,20 @@
 				<tabpanel>
 					<panel title="Datos Médicos" collapsible="true" open="false">
 						<panelchildren>
-							<space height="7px" />
-							<grid style="border:none;" oddRowSclass="none">
-								<columns>
-									<column width="25%" />
-								</columns>
-								<rows>
-									<row style="border:none;">
-										<label value="Grupo Sanguineo" />
-										<label id="lblGrupoSan" style="font-weight: bold;"/>
-									</row>
-								</rows>
-							</grid>
+							<groupbox style="border-color:orange" closable="false">
+								<caption  label="Tipo Sangre"/>
+								<grid style="border:none;" oddRowSclass="none">
+									<columns>
+										<column width="25%" />
+									</columns>
+									<rows>
+										<row style="border:none;">
+											<label value="Grupo Sanguineo" />
+											<label id="lblGrupoSan" style="font-weight: bold;"/>
+										</row>
+									</rows>
+								</grid>
+							</groupbox>
 							<groupbox style="border-color:orange" closable="false">
 								<caption
 									label="Datos de Revisión Médica" style="font-weight: bold;" />

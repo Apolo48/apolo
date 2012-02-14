@@ -47,18 +47,23 @@ import servicio.implementacion.ServicioInstitucion;
 
 public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 	// Componentes visuales
-	List<DatoBasico> datosbasicos;
-	Textbox txtCodigo;
-	Textbox txtNombre;
-	Textbox txtDireccion;
-	Window winconfigurarInstitucion;
-	Combobox cmbTipo, cmbEstadoResi, cmbParroquiaResi, cmbMunicipioResi;
-	AnnotateDataBinder binder;
-	Component formulario;
-	Listbox lboxInstitucion;
-	Groupbox grboxInstitucion;
-    Button btnGuardar, btnModificar, btnEliminar;
-	
+	private List<DatoBasico> datosbasicos;
+	private Textbox txtCodigo;
+	private Textbox txtNombre;
+	private Textbox txtDireccion;
+	private Window winconfigurarInstitucion;
+	private Combobox cmbTipo;
+	private Combobox cmbEstadoResi;
+	private Combobox cmbParroquiaResi;
+	private Combobox cmbMunicipioResi;
+	private AnnotateDataBinder binder;
+	private Component formulario;
+	private Listbox lboxInstitucion;
+	private Groupbox grboxInstitucion;
+	private Button btnGuardar;
+	private Button btnModificar;
+	private Button btnEliminar;
+
 	// Servicios
 	ServicioInstitucion servicioInstitucion;
 	ServicioDatoBasico servicioDatoBasico;
@@ -66,16 +71,16 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 	private Connection con;
 	private String jrxmlSrc;
 	private Map parameters = new HashMap();
-	
+
 	private String rutasGen = Ruta.GENERAL.getRutaVista();
-	
+
 	// Modelos
 	private DatoBasico estado = new DatoBasico();
 	private Institucion institucionlista = new Institucion();
 	private Institucion institucion = new Institucion();
 	private Institucion institucionAux = new Institucion();
 	private List<Institucion> listaInstitucion = new ArrayList<Institucion>();
-	
+
 	// Getters y setters
 	public DatoBasico getEstado() {
 		return estado;
@@ -147,7 +152,7 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 	public List<DatoBasico> getParroquiasMunicipioResi() {
 		return servicioDatoBasico.buscarDatosPorRelacion(municipio);
 	}
-    
+
 	public List<Institucion> getListaInstitucion() {
 		return listaInstitucion;
 	}
@@ -155,12 +160,11 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 	public void setListaInstitucion(List<Institucion> listaInstitucion) {
 		this.listaInstitucion = listaInstitucion;
 	}
-	
+
 	// Eventos
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		comp.setVariable("cntrl", this, true);
-		// se guarda la referencia al formulario actual
 		formulario = comp;
 	}
 
@@ -178,56 +182,54 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 			alert("Seleccione un Municipio");
 			cmbMunicipioResi.focus();
 		}
-		
 		else if (cmbParroquiaResi.getText() == "") {
 			alert("Seleccione una Parroquia");
 			cmbParroquiaResi.focus();
 		}
-		
 		else if (txtDireccion.getText() == "") {
 			alert("Seleccione una Dirección");
 			txtDireccion.focus();
+		} else {
+			institucionAux = servicioInstitucion.buscarpornombre(txtNombre
+					.getValue().toUpperCase());
+			if (institucionAux != null)
+				alert("La Institución ya había sido agregada");
+			else {
+				Messagebox.show(
+						"Está seguro que desea agregar la institución?",
+						"AGREGAR", Messagebox.YES | Messagebox.NO,
+						Messagebox.QUESTION, new EventListener() {
+							public void onEvent(Event evt) {
+								switch (((Integer) evt.getData()).intValue()) {
+								case Messagebox.YES:
+									doyes2();
+									break;
+								case Messagebox.NO:
+									limpiar();
+									break;
+								}
+							}
+						});
+			}
 		}
-		else{
-		
-		institucionAux = servicioInstitucion.buscarpornombre(txtNombre.getValue().toUpperCase());
-		if (institucionAux!= null)
-			alert("La Institución ya había sido agregada");
-		else
-		{
-		
-			Messagebox.show("Está seguro que desea agregar la institución?", "AGREGAR", Messagebox.YES|Messagebox.NO, Messagebox.QUESTION,
-				     new EventListener() {
-				       public void onEvent(Event evt) {
-				         switch (((Integer)evt.getData()).intValue()) {
-				           case Messagebox.YES: doyes2(); break; 
-				           case Messagebox.NO: limpiar(); break; 
-				      }
-				    }
-				   });
-		
-		}
-		}
-			
-	
-		
 	}
-	
-	public void doyes2(){
-		institucion.setCodigoInstitucion(servicioInstitucion.listar().size() + 1);
+
+	public void doyes2() {
+		institucion
+				.setCodigoInstitucion(servicioInstitucion.listar().size() + 1);
 		institucion.setNombre(txtNombre.getValue().toUpperCase());
 		institucion.setDireccion(txtDireccion.getValue().toUpperCase());
 		institucion.setDatoBasicoByCodigoParroquia(parroquia);
 		institucion.setEstatus('A');
 		institucion.setDatoBasicoByCodigoTipoInstitucion(tipoinstitucion);
-		 servicioInstitucion.agregar(institucion);
-		listaInstitucion = servicioInstitucion.buscarInstitucionTipo(tipoinstitucion);
+		servicioInstitucion.agregar(institucion);
+		listaInstitucion = servicioInstitucion
+				.buscarInstitucionTipo(tipoinstitucion);
 		limpiar();
 		binder.loadComponent(cmbTipo);
 		binder.loadComponent(lboxInstitucion);
 	}
-	
-    
+
 	public void onClick$btnModificar() throws InterruptedException {
 		if (txtNombre.getText() == "") {
 			alert("Seleccione un nombre");
@@ -241,78 +243,79 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 		} else if (cmbMunicipioResi.getText() == "") {
 			alert("Seleccione un Municipio");
 			cmbMunicipioResi.focus();
-		}
-		
-		else if (cmbParroquiaResi.getText() == "") {
+		} else if (cmbParroquiaResi.getText() == "") {
 			alert("Seleccione una Parroquia");
 			cmbParroquiaResi.focus();
-		}
-		
-		else if (txtDireccion.getText() == "") {
+		} else if (txtDireccion.getText() == "") {
 			alert("Seleccione una Dirección");
 			txtDireccion.focus();
-		}
-		else{
-		
-	
-		Messagebox.show("Está seguro que desea modifciar la institución?", "MODIFICAR", Messagebox.YES|Messagebox.NO, Messagebox.QUESTION,
-			     new EventListener() {
-			       public void onEvent(Event evt) {
-			         switch (((Integer)evt.getData()).intValue()) {
-			           case Messagebox.YES: doyes1(); break; 
-			           case Messagebox.NO: limpiar(); break; 
-			      }
-			    }
-			   });
-		//servicioInstitucion.actualizar(institucion);
-		
+		} else {
+			Messagebox.show("Está seguro que desea modifciar la institución?",
+					"MODIFICAR", Messagebox.YES | Messagebox.NO,
+					Messagebox.QUESTION, new EventListener() {
+						public void onEvent(Event evt) {
+							switch (((Integer) evt.getData()).intValue()) {
+							case Messagebox.YES:
+								doyes1();
+								break;
+							case Messagebox.NO:
+								limpiar();
+								break;
+							}
+						}
+					});
+			// servicioInstitucion.actualizar(institucion);
 		}
 	}
-	
-	public void doyes1(){
-		institucion = servicioInstitucion.buscar(listaInstitucion.get(lboxInstitucion.getSelectedIndex()).getCodigoInstitucion());
+
+	public void doyes1() {
+		institucion = servicioInstitucion.buscar(listaInstitucion.get(
+				lboxInstitucion.getSelectedIndex()).getCodigoInstitucion());
 		institucion.setNombre(txtNombre.getValue().toUpperCase());
 		institucion.setDireccion(txtDireccion.getValue().toUpperCase());
 		institucion.setDatoBasicoByCodigoParroquia(parroquia);
 		institucion.setDatoBasicoByCodigoTipoInstitucion(tipoinstitucion);
 		institucion.setEstatus('A');
 		servicioInstitucion.actualizar(institucion);
-		listaInstitucion = servicioInstitucion.buscarInstitucionTipo(tipoinstitucion);
+		listaInstitucion = servicioInstitucion
+				.buscarInstitucionTipo(tipoinstitucion);
 		limpiar();
 		binder.loadComponent(cmbTipo);
 		binder.loadComponent(lboxInstitucion);
 	}
-	
+
 	public void onClick$btnEliminar() throws InterruptedException {
-		
-		Messagebox.show("Está seguro que desea eliminar la institución?", "ELIMINAR", Messagebox.YES|Messagebox.NO, Messagebox.QUESTION,
-			     new EventListener() {
-			       public void onEvent(Event evt) {
-			         switch (((Integer)evt.getData()).intValue()) {
-			           case Messagebox.YES: doyes(); break; 
-			           case Messagebox.NO: limpiar(); break; 
-			      }
-			    }
-			   });
-		//servicioInstitucion.actualizar(institucion);
-		
-		
+		Messagebox.show("Está seguro que desea eliminar la institución?",
+				"ELIMINAR", Messagebox.YES | Messagebox.NO,
+				Messagebox.QUESTION, new EventListener() {
+					public void onEvent(Event evt) {
+						switch (((Integer) evt.getData()).intValue()) {
+						case Messagebox.YES:
+							doyes();
+							break;
+						case Messagebox.NO:
+							limpiar();
+							break;
+						}
+					}
+				});
+		// servicioInstitucion.actualizar(institucion);
 	}
-	
-	public void doyes(){
-		institucion = servicioInstitucion.buscar(listaInstitucion.get(lboxInstitucion.getSelectedIndex()).getCodigoInstitucion());
+
+	public void doyes() {
+		institucion = servicioInstitucion.buscar(listaInstitucion.get(
+				lboxInstitucion.getSelectedIndex()).getCodigoInstitucion());
 		institucion.setEstatus('E');
 		servicioInstitucion.actualizar(institucion);
-		listaInstitucion = servicioInstitucion.buscarInstitucionTipo(tipoinstitucion);
-		tipoinstitucion=institucion.getDatoBasicoByCodigoTipoInstitucion();
+		listaInstitucion = servicioInstitucion
+				.buscarInstitucionTipo(tipoinstitucion);
+		tipoinstitucion = institucion.getDatoBasicoByCodigoTipoInstitucion();
 		limpiar();
-		
+
 		binder.loadComponent(cmbTipo);
 		binder.loadComponent(lboxInstitucion);
 	}
-	
-	
-	
+
 	public void limpiar() {
 		btnGuardar.setDisabled(false);
 		btnModificar.setDisabled(true);
@@ -327,85 +330,79 @@ public class CntrlConfigurarInstitucion extends GenericForwardComposer {
 		cmbParroquiaResi.setText("");
 		cmbEstadoResi.setText("");
 		cmbMunicipioResi.setText("");
-		estado=new DatoBasico();
-		municipio=new DatoBasico();
-		parroquia=new DatoBasico();
-	
+		estado = new DatoBasico();
+		municipio = new DatoBasico();
+		parroquia = new DatoBasico();
 	}
 
 	public void onClick$btnCancelar() {
 		limpiar();
 	}
 
-	
-
 	public void onChange$cmbTipo() {
-		
+		limpiar();
 		DatoBasico datoB = ((DatoBasico) cmbTipo.getSelectedItem().getValue());
-		listaInstitucion = servicioInstitucion
-				.buscarInstitucionTipo(datoB);
-		
-
+		listaInstitucion = servicioInstitucion.buscarInstitucionTipo(datoB);
 	}
-	
+
 	public void onSelect$lboxInstitucion() {
-		txtNombre.setValue(listaInstitucion.get(lboxInstitucion.getSelectedIndex()).getNombre());
-		txtDireccion.setValue(listaInstitucion.get(lboxInstitucion.getSelectedIndex()).getDireccion());
-		parroquia = listaInstitucion.get(lboxInstitucion.getSelectedIndex()).getDatoBasicoByCodigoParroquia(); 
+		txtNombre.setValue(listaInstitucion.get(
+				lboxInstitucion.getSelectedIndex()).getNombre());
+		txtDireccion.setValue(listaInstitucion.get(
+				lboxInstitucion.getSelectedIndex()).getDireccion());
+		parroquia = listaInstitucion.get(lboxInstitucion.getSelectedIndex())
+				.getDatoBasicoByCodigoParroquia();
 		cmbParroquiaResi.setValue(parroquia.getNombre());
 		municipio = parroquia.getDatoBasico();
 		cmbMunicipioResi.setValue(municipio.getNombre());
-		estado = municipio.getDatoBasico(); 	
+		estado = municipio.getDatoBasico();
 		cmbEstadoResi.setValue(estado.getNombre());
-		cmbTipo.setValue(listaInstitucion.get(lboxInstitucion.getSelectedIndex()).getDatoBasicoByCodigoTipoInstitucion().getNombre());
-		if (listaInstitucion.get(lboxInstitucion.getSelectedIndex()).getEstatus()=='E')
-		{
+		cmbTipo.setValue(listaInstitucion
+				.get(lboxInstitucion.getSelectedIndex())
+				.getDatoBasicoByCodigoTipoInstitucion().getNombre());
+		if (listaInstitucion.get(lboxInstitucion.getSelectedIndex())
+				.getEstatus() == 'E') {
 			btnGuardar.setDisabled(true);
+			btnGuardar.setImage("/Recursos/Imagenes/agregar.ico");
 			btnModificar.setDisabled(false);
+			btnModificar.setImage("/Recursos/Imagenes/editar.ico");
 			btnEliminar.setDisabled(true);
+			btnEliminar.setImage("/Recursos/Imagenes/quitar.ico");
+		} else {
+			btnGuardar.setDisabled(true);
+			btnGuardar.setImage("/Recursos/Imagenes/agregar.ico");
+			btnModificar.setDisabled(false);
+			btnModificar.setImage("/Recursos/Imagenes/editar.ico");
+			btnEliminar.setDisabled(false);
+			btnEliminar.setImage("/Recursos/Imagenes/quitar.ico");
 		}
-		else 
-		{
-		btnGuardar.setDisabled(true);
-		btnModificar.setDisabled(false);
-		btnEliminar.setDisabled(false);
-		}
-		
 	}
-	
-	public void onClick$btnSalir(){
+
+	public void onClick$btnSalir() {
 		winconfigurarInstitucion.detach();
 	}
-	
-	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
-		con = ConeccionBD.getCon("postgres","postgres","123456");
-		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/Reporte_Institucion.jrxml");
-		//parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
+
+	public void onClick$btnImprimir() throws SQLException, JRException,
+			IOException {
+		con = ConeccionBD.getCon("postgres", "postgres", "123456");
+		jrxmlSrc = Sessions.getCurrent().getWebApp()
+				.getRealPath("/WEB-INF/reportes/Reporte_Institucion.jrxml");
 		mostrarVisor();
 	}
-	
-	
-	
 
+	public void mostrarVisor() throws JRException {
+		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
+		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters,
+				con);
 
-public void mostrarVisor() throws JRException {
-	/*
-	 * Funciona para IExplorer, Firefox, Chrome y Opera
-	 * Permite ver, guardar e imprimir, todo desde el visor
-	 * Observacion: uso de codigo mas sencillo para generar pdf
-	 * El codigo usado en mostrarFrame tambien puede usarse en este caso
-	 * */
-	JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
-	JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
-	
-	byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
-	final AMedia amedia = new AMedia("ListadoDeInstituciones.pdf","pdf","application/pdf", archivo);
-	
-	
-	Component visor = Executions.createComponents(rutasGen
+		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);// Generar 
+																			// Pdf
+		final AMedia amedia = new AMedia("ListadoDeInstituciones.pdf", "pdf",
+				"application/pdf", archivo);
+
+		Component visor = Executions.createComponents(rutasGen
 				+ "frmVisorDocumento.zul", null, null);
 		visor.setVariable("archivo", amedia, false);
-}
-	
+	}
 
 }

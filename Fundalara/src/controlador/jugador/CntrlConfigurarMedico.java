@@ -1,6 +1,5 @@
 package controlador.jugador;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,40 +10,24 @@ import java.util.List;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.zkoss.util.media.AMedia;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javassist.expr.NewArray;
-
-import org.hibernate.mapping.Array;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
-
-
 
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Constraint;
-import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Window;
 
 import org.zkoss.zul.Listbox;
@@ -80,15 +63,14 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 
 	// private DatoBasico especialidad = new DatoBasico();
 	private Medico medico = new Medico();
-	Window winConfigurarMedico;
+	private Window winConfigurarMedico;
 
-	Button btnGuardar;
-	Button btnModificar;
-	Button btnEliminar;
-	Button btnCancelar;
-	Button btnSalir;
-	Button btnBuscar;
-
+	private Button btnGuardar;
+	private Button btnModificar;
+	private Button btnEliminar;
+	private Button btnCancelar;
+	private Button btnSalir;
+	private Button btnBuscar;
 
 	private Connection con;
 	private String jrxmlSrc;
@@ -96,21 +78,18 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	
 	private String rutasGen = Ruta.GENERAL.getRutaVista();
 
-	Listbox listmedico;
+	private Listbox listmedico;
 	
-	Textbox txtApellido,txtTelefonoCelular,txtTelefonoHabitacion,txtNumcol, txtCedula,txtMatricula,txtNombre;
-	Component formulario;
+	private Textbox txtApellido,txtTelefonoCelular,txtTelefonoHabitacion,txtNumcol, txtCedula,txtMatricula,txtNombre;
+	private Component formulario;
 	private Combobox cmbEspecialidad,cmbNacionalidad,cmbCodCelular,cmbCodArea;
 	
-	List<Medico> medicos = new ArrayList<Medico>();
-	List<DatoBasico> codigosArea;
-	List<DatoBasico> codigosCelular;
-	List<DatoBasico> especialidades = new ArrayList<DatoBasico>() ;
-
+	private List<Medico> medicos = new ArrayList<Medico>();
+	private List<DatoBasico> codigosArea;
+	private List<DatoBasico> codigosCelular;
+	private List<DatoBasico> especialidades = new ArrayList<DatoBasico>() ;
 
 	private AnnotateDataBinder binder;
-
-	
 	
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -122,31 +101,49 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		btnModificar.setDisabled(true);
 		btnEliminar.setDisabled(true);
 		medicos=servicioMedico.listar();
-		
-		
-		
-
 	}
 
 	public void onClick$btnGuardar() {
-		
-		System.out.println(txtApellido.getValue());
-		System.out.println(txtTelefonoCelular.getText().toString().length());
-		System.out.println(cmbCodCelular.getSelectedIndex());
-		System.out.println(cmbEspecialidad.getSelectedIndex());
-		System.out.println(cmbNacionalidad.getSelectedIndex());
-		System.out.println(txtTelefonoHabitacion.getText().toString().length());
-		System.out.println(txtNombre.getValue());
-		System.out.println(txtCedula.getValue().trim());
-		
-		
-		if(txtApellido.getValue().trim()!="" && txtNombre.getValue().trim()!= "" && txtTelefonoCelular.getText().toString().length()==7 
-				&& txtTelefonoHabitacion.getText().toString().length()==7 
-				&& txtNumcol.getValue().trim()!="" && txtNumcol.getText().toString().length()==6
-				&& txtCedula.getValue().trim()!="" && cmbEspecialidad.getSelectedIndex()!=-1
-				&& cmbNacionalidad.getSelectedIndex()!=-1 && cmbCodCelular.getSelectedIndex()!=-1
-				&& cmbCodArea.getSelectedIndex()!=-1 && txtMatricula.getValue().trim()!="" 
-				&& txtMatricula.getText().length()==6) {		
+		if(txtNumcol.getValue().toString().length()!=6){
+			alert("Debe Indicar Apellido");
+		}
+		else if(txtNumcol.getValue()==""){
+			alert("Debe Indicar Numero de Colegio");
+		}
+		else if(txtMatricula.getValue()==""){
+			alert("Debe Indicar Numero de Matricula");
+		}
+		else if(txtMatricula.getValue().length()!=6){
+			alert("Debe Indicar Numero de Matricula");
+		}
+		else if(cmbEspecialidad.getSelectedIndex()==-1){
+			alert("Debe Seleccionar una Especialidad");
+		}
+		else if(cmbNacionalidad.getSelectedIndex()==-1){
+			alert("Debe Seleccionar la Nacionalidad");
+		}
+		else if(txtCedula.getValue()==""){
+			alert("Debe Indicar Cedula");
+		}
+		else if(txtNombre.getValue().toString().length()==0){
+			alert("Debe Indicar Nombre");
+		}
+		else if(txtApellido.getValue().toString().length()==0) {
+			alert("Debe Indicar Numero de Colegio");
+		}
+		else if(cmbCodArea.getSelectedIndex()==-1){
+			alert("Debe Seleccionar el Codigo de Area");
+		}
+		else if(txtTelefonoHabitacion.getValue().toString().length()!=7){
+			alert("Debe Indicar Telefono de Habitacion");
+		}
+		else if(cmbCodCelular.getSelectedIndex()==-1){
+			alert("Debe Seleccionar el Codigo de Celular");
+		}
+		else if(txtTelefonoCelular.getValue().toString().length()!=7){
+			alert("Debe Indicar Telefono Celular");
+		}		
+		else{
 		especialidades=servicioDatoBasico.buscar(TipoDatoBasico.ESPECIALIDAD);
 		medico.setApellido(txtApellido.getValue().toUpperCase());
 		medico.setNombre(txtNombre.getValue().toUpperCase());
@@ -160,10 +157,6 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		servicioMedico.agregar(medico);
 		limpiar();
 		}
-		else{
-			alert("Debe Completar los Datos Necesarios para Guardar el Medico");
-		}
-		
 	}
 	
 	public void onBlur$txtNumcol(){
@@ -171,15 +164,49 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 			alert("El Numero de Colegio Ya Existe");
 			txtNumcol.setRawValue(null);
 		}
-		
 	}
 
 	public void onClick$btnModificar() throws InterruptedException {
-		if(txtApellido.getValue()!= "" && txtNombre.getValue()!= "" && txtTelefonoCelular.getValue().toString().length()==7 
-				&& txtTelefonoHabitacion.getValue().toString().length()==7 
-				&& txtNumcol.getValue()!="" && txtNumcol.getValue().toString().length()==6
-				&& txtCedula.getValue()!="" && txtMatricula.getValue()!="" 
-				&& txtMatricula.getValue().length()==6){
+		if(txtNumcol.getValue().toString().length()!=6){
+			alert("Debe Indicar Apellido");
+		}
+		else if(txtNumcol.getValue()==""){
+			alert("Debe Indicar Numero de Colegio");
+		}
+		else if(txtMatricula.getValue()==""){
+			alert("Debe Indicar Numero de Matricula");
+		}
+		else if(txtMatricula.getValue().length()!=6){
+			alert("Debe Indicar Numero de Matricula");
+		}
+		else if(cmbEspecialidad.getSelectedIndex()==-1){
+			alert("Debe Seleccionar una Especialidad");
+		}
+		else if(cmbNacionalidad.getSelectedIndex()==-1){
+			alert("Debe Seleccionar la Nacionalidad");
+		}
+		else if(txtCedula.getValue()==""){
+			alert("Debe Indicar Cedula");
+		}
+		else if(txtNombre.getValue().toString().length()==0){
+			alert("Debe Indicar Nombre");
+		}
+		else if(txtApellido.getValue().toString().length()==0) {
+			alert("Debe Indicar Numero de Colegio");
+		}
+		else if(cmbCodArea.getSelectedIndex()==-1){
+			alert("Debe Seleccionar el Codigo de Area");
+		}
+		else if(txtTelefonoHabitacion.getValue().toString().length()!=7){
+			alert("Debe Indicar Telefono de Habitacion");
+		}
+		else if(cmbCodCelular.getSelectedIndex()==-1){
+			alert("Debe Seleccionar el Codigo de Celular");
+		}
+		else if(txtTelefonoCelular.getValue().toString().length()!=7){
+			alert("Debe Indicar Telefono Celular");
+		}		
+		else{
 		especialidades=servicioDatoBasico.buscar(TipoDatoBasico.ESPECIALIDAD);
 		medico.setApellido(txtApellido.getValue().toUpperCase());
 		medico.setNombre(txtNombre.getValue().toUpperCase());
@@ -198,16 +225,12 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 			    }
 			   });
 		}
-		else{
-			alert("Debe Completar los Datos Necesarios para Registro de el Medico");
-		}
 	}
 
 	public void actualizar(){
 		servicioMedico.actualizar(medico);
 		limpiar();
 	}
-
 
 	public void onClick$btnEliminar() throws InterruptedException {
 		Messagebox.show("Esta seguro que Desea Desactivar el Medico?", "ELIMINAR", Messagebox.YES|Messagebox.NO, Messagebox.QUESTION,
@@ -219,9 +242,6 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 			      }
 			    }
 			   });
-		
-		
-		
 	}
 	
 	public void doYes(){
@@ -234,7 +254,6 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		limpiar();
 	}
 
-
 	public Medico getMedico() {
 		return medico;
 	}
@@ -242,7 +261,6 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	public void setMedico(Medico medico) {
 		this.medico = medico;
 	}
-
 
 	public List<DatoBasico> getEspecialidades() {
 		especialidades=servicioDatoBasico.buscar(TipoDatoBasico.ESPECIALIDAD);
@@ -340,13 +358,9 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 	public  List<Medico> getMedicos() {
 		return servicioMedico.filtrar("",""
 				,"","");
-		
 	}
-	
-	
 		
 	public void onSelect$listmedico(){
-		//System.out.println(listmedico.getSelectedIndex());
 		medicos=servicioMedico.filtrar("",""
 				,"","");
 		medico = (Medico) medicos.get(listmedico.getSelectedIndex());
@@ -366,40 +380,32 @@ public class CntrlConfigurarMedico extends GenericForwardComposer {
 		else{
 			btnEliminar.setDisabled(true);	
 		}
+		btnGuardar.setImage("/Recursos/Imagenes/agregar.ico");
+		btnModificar.setImage("/Recursos/Imagenes/editar.ico");
+		btnEliminar.setImage("/Recursos/Imagenes/quitar.ico");
 		binder.loadAll();
-		
 	}
 	
 	public void onClick$btnSalir(){
 		winConfigurarMedico.detach();
 	}
 	
-	
 	public void onClick$btnImprimir() throws SQLException, JRException, IOException {
 		con = ConeccionBD.getCon("postgres","postgres","123456");
 		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/ReporteListadoMedico.jrxml");
-		//parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
 		mostrarVisor();
 	}
 
-
-public void mostrarVisor() throws JRException {
-	/*
-	 * Funciona para IExplorer, Firefox, Chrome y Opera
-	 * Permite ver, guardar e imprimir, todo desde el visor
-	 * Observacion: uso de codigo mas sencillo para generar pdf
-	 * El codigo usado en mostrarFrame tambien puede usarse en este caso
-	 * */
-	JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
-	JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
-	
-	byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
-	final AMedia amedia = new AMedia("ListadoDeMedicos.pdf","pdf","application/pdf", archivo);
-	
-	
-	Component visor = Executions.createComponents(rutasGen
-				+ "frmVisorDocumento.zul", null, null);
-		visor.setVariable("archivo", amedia, false);
-}
+	public void mostrarVisor() throws JRException {
+		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
+		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
+		
+		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
+		final AMedia amedia = new AMedia("ListadoDeMedicos.pdf","pdf","application/pdf", archivo);
+		
+		Component visor = Executions.createComponents(rutasGen
+					+ "frmVisorDocumento.zul", null, null);
+			visor.setVariable("archivo", amedia, false);
+	}
 	
 }

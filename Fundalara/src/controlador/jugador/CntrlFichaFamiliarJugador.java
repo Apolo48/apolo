@@ -1,8 +1,5 @@
 package controlador.jugador;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -10,23 +7,17 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import modelo.DocumentoAcreedor;
-import modelo.FamiliarJugador;
 import modelo.Jugador;
 import modelo.Roster;
 
-import modelo.Persona;
 import modelo.PersonaNatural;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 import org.zkoss.image.AImage;
 import org.zkoss.util.media.AMedia;
@@ -38,8 +29,6 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Iframe;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
@@ -74,8 +63,7 @@ public class CntrlFichaFamiliarJugador extends GenericForwardComposer {
 	private Roster roster;
 	private PersonaNatural personaN = new PersonaNatural();
 	private String rutasGen = Ruta.GENERAL.getRutaVista();
-	
-	
+
 	public Textbox getTxtCedula() {
 		return txtCedula;
 	}
@@ -121,31 +109,29 @@ public class CntrlFichaFamiliarJugador extends GenericForwardComposer {
 		// TODO Auto-generated method stub
 		super.doAfterCompose(comp);
 		comp.setVariable("controller", this, false);
-		formulario  = comp;
+		formulario = comp;
 	}
-	
-	// ---------------------------------------------------------------------------------------------------
-	
-	// ---------------------------------------------------------------------------------------------------
-	
-	
-	
-	public void onClick$btnImprimir() throws SQLException, JRException, IOException, InterruptedException {
-		if(txtCedula.getValue()!=""){
-		con = ConeccionBD.getCon("postgres","postgres","123456");
-		jrxmlSrc = Sessions.getCurrent().getWebApp().getRealPath("/WEB-INF/reportes/FichaFamiliarPrincipal.jrxml");
-		parameters.put("CEDULA",txtCedula.getValue());
-		//parameters.put("nombreTemporada",lapsoDeportivo.getNombre());
-		mostrarVisor();
-		}
-		else{
-			Messagebox.show("Debe seleccionar un jugador", "OLIMPO - ERROR", Messagebox.OK, Messagebox.ERROR);
+
+	public void onClick$btnImprimir() throws SQLException, JRException,
+			IOException, InterruptedException {
+		if (txtCedula.getValue() != "") {
+			con = ConeccionBD.getCon("postgres", "postgres", "123456");
+			jrxmlSrc = Sessions
+					.getCurrent()
+					.getWebApp()
+					.getRealPath(
+							"/WEB-INF/reportes/FichaFamiliarPrincipal.jrxml");
+			parameters.put("CEDULA", txtCedula.getValue());
+			mostrarVisor();
+		} else {
+			Messagebox.show("Debe seleccionar un jugador", "OLIMPO - ERROR",
+					Messagebox.OK, Messagebox.ERROR);
 		}
 	}
 
-	public void onClick$btnCancelar(){
-		jugador=new Jugador();
-		txtCedula.setValue("");				
+	public void onClick$btnCancelar() {
+		jugador = new Jugador();
+		txtCedula.setValue("");
 		txtPrimerNombre.setValue("");
 		txtSegundoNombre.setValue("");
 		txtPrimerApellido.setValue("");
@@ -154,65 +140,71 @@ public class CntrlFichaFamiliarJugador extends GenericForwardComposer {
 		imgJugador.setSrc("/Recursos/Imagenes/noFoto.jpg");
 		binder.loadAll();
 	}
-	
 
-public void mostrarVisor() throws JRException {
-	/*
-	 * Funciona para IExplorer, Firefox, Chrome y Opera
-	 * Permite ver, guardar e imprimir, todo desde el visor
-	 * Observacion: uso de codigo mas sencillo para generar pdf
-	 * El codigo usado en mostrarFrame tambien puede usarse en este caso
-	 * */
-	JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
-	JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters, con);
-	
-	byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);//Generar Pdf
-	final AMedia amedia = new AMedia("FichaFamiliar.pdf","pdf","application/pdf", archivo);
-	
-	
-	Component visor = Executions.createComponents(rutasGen
+	public void mostrarVisor() throws JRException {
+		/*
+		 * Funciona para IExplorer, Firefox, Chrome y Opera Permite ver, guardar
+		 * e imprimir, todo desde el visor Observacion: uso de codigo mas
+		 * sencillo para generar pdf El codigo usado en mostrarFrame tambien
+		 * puede usarse en este caso
+		 */
+		JasperReport jasp = JasperCompileManager.compileReport(jrxmlSrc);
+		JasperPrint jaspPrint = JasperFillManager.fillReport(jasp, parameters,
+				con);
+
+		byte[] archivo = JasperExportManager.exportReportToPdf(jaspPrint);// Generar
+																			// Pdf
+		final AMedia amedia = new AMedia("FichaFamiliar.pdf", "pdf",
+				"application/pdf", archivo);
+
+		Component visor = Executions.createComponents(rutasGen
 				+ "frmVisorDocumento.zul", null, null);
 		visor.setVariable("archivo", amedia, false);
-}
-	
-	
-		
+	}
+
 	public void onClick$btnCatalogoJugador() {
 		// se crea el catalogo y se llama
-		Component catalogo = Executions.createComponents("/Jugador/Vistas/frmBuscarJugador.zul", null, null);
+		Component catalogo = Executions.createComponents(
+				"/Jugador/Vistas/frmBuscarJugador.zul", null, null);
 		// asigna una referencia del formulario al catalogo.
 		catalogo.setVariable("formulario", formulario, false);
 		catalogo.setVariable("estatus", EstatusRegistro.ACTIVO, false);
-		formulario.addEventListener("onCatalogoBuscarJugadorCerrado", new EventListener() {
+		formulario.addEventListener("onCatalogoBuscarJugadorCerrado",
+				new EventListener() {
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						jugador = (Jugador) formulario.getVariable("jugador",
+								false);
+						txtCedula.setValue(jugador.getCedulaRif());
+						txtPrimerNombre.setValue(jugador.getPersonaNatural()
+								.getPrimerNombre());
+						txtSegundoNombre.setValue(jugador.getPersonaNatural()
+								.getSegundoNombre());
+						txtPrimerApellido.setValue(jugador.getPersonaNatural()
+								.getPrimerApellido());
+						txtSegundoApellido.setValue(jugador.getPersonaNatural()
+								.getSegundoApellido());
+						SimpleDateFormat formato = new SimpleDateFormat(
+								"dd/MM/yyyy");
+						String fecha = formato.format(jugador
+								.getPersonaNatural().getPersona()
+								.getFechaIngreso());
+						txtFechaIngreso.setValue(fecha);
 
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				jugador = (Jugador) formulario.getVariable("jugador",false);
-				txtCedula.setValue(jugador.getCedulaRif());				
-				txtPrimerNombre.setValue(jugador.getPersonaNatural().getPrimerNombre());
-				txtSegundoNombre.setValue(jugador.getPersonaNatural().getSegundoNombre());
-				txtPrimerApellido.setValue(jugador.getPersonaNatural().getPrimerApellido());
-				txtSegundoApellido.setValue(jugador.getPersonaNatural().getSegundoApellido());
-				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-				String fecha = formato.format(jugador.getPersonaNatural().getPersona().getFechaIngreso());
-				txtFechaIngreso.setValue(fecha);
-				
-				byte[] foto = jugador.getPersonaNatural().getFoto();
-			        if (foto != null){
-			          try {
-			            AImage aImage = new AImage("foto.jpg", foto);
-			            imgJugador.setContent(aImage);
-			          } catch (IOException e) {
-			            e.printStackTrace();
-			          }	
-			        }				
-				
-							
-				roster= servicioRoster.buscarRoster(jugador.getCedulaRif());
-				binder.loadAll();
-
-			} 
-		});
+						byte[] foto = jugador.getPersonaNatural().getFoto();
+						if (foto != null) {
+							try {
+								AImage aImage = new AImage("foto.jpg", foto);
+								imgJugador.setContent(aImage);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+						roster = servicioRoster.buscarRoster(jugador
+								.getCedulaRif());
+						binder.loadAll();
+					}
+				});
 	}
-	
+
 }

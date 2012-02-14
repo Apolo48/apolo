@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FichaFamiliarPrincipal" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="10" bottomMargin="10">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="107"/>
+	<property name="ireport.y" value="511"/>
 	<parameter name="CEDULA" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -32,7 +32,7 @@
 		<band height="266" splitType="Stretch">
 			<image>
 				<reportElement x="28" y="1" width="351" height="76"/>
-				<imageExpression><![CDATA["G:\\Users\\Miguel Bastidas\\Documents\\Reportes Jasper\\LogoCriollitos.gif"]]></imageExpression>
+				<imageExpression><![CDATA["LogoCriollitos.gif"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement mode="Transparent" x="222" y="4" width="340" height="20"/>
@@ -64,7 +64,7 @@
 			</staticText>
 			<image>
 				<reportElement x="656" y="1" width="180" height="83"/>
-				<imageExpression><![CDATA["G:\\Users\\Miguel Bastidas\\Documents\\Reportes Jasper\\LogoIND.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["LogoIND.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -455,20 +455,35 @@
 	<summary>
 		<band height="484" splitType="Stretch">
 			<staticText>
-				<reportElement x="3" y="17" width="749" height="467"/>
-				<textElement>
+				<reportElement x="3" y="17" width="749" height="430"/>
+				<textElement textAlignment="Justified">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[			         ACTA MANIFESTACIÓN DE VOLUNTAD AL INGRESO COMO MIEMBRO ACTIVO DELA CORPORACIÓN CRIOLLITOS DE VENEZUELA
+				<text><![CDATA[
 
 
 Mediante la suscripción de la presente acta, el representante del niño, niña y/o adolescente que ingresa a la Corporación Criollitos de Venezuela a través del Equipo y/o Divisa, reconoce y acepta expresamente lo siguiente: PRIMERO: Que doy mi consentimiento para que mi hijo y/o representado, ingrese a la Corporación Criollitos de Venezuela. SEGUNDO: Que Yo y mi representado quedamos obligados a cumplir estrictamente lo prescrito en la normativa Interna de la Corporación, establecida dentro de los límites de sus atribuciones legales, TERCERO: Que el objetivo de la Corporación se centra en la labor que se realiza con el fin de ayudar a formar ciudadanos honestos, hijos respetuosos de sus padres, semejantes y excelentes compañeros, cuyo propósito es enseñarle a los niños, niñas y adolescente a utilizar el tiempo libre, en una sana actividad organizada para que aprendan que la práctica repetida y constante de un deporte, mejora el rendimiento físico y mental, produce logros y se alcanzan metas. Que se quiere, que los padres tengan un lenguaje y una oportunidad para comunicarse con sus hijos, por lo que acontece alrededor del juego y en las actividades, debe ser una vivencia para ambos. Los Representantes deben participar en las actividades del equipo: el juego, las prácticas y otros eventos como Inauguraciones, alojamiento de niños visitantes, reuniones, etc. CUARTO: Que en todo caso, en las actividades de la Corporación, los adultos son el entorno y no el centro; que el deporte es un medio y no un fin y que las normas de la Corporación son un camino para facilitar la convivencia entre todos. QUINTO: Que a la Corporación le importa mucho, partir de los grandes ideales que la rigen para adaptarlos a las edades del niño, niña y del adolescente. Por esta razón es que con base en los principios pedagógicos, es que deben canalizarse las relaciones entre jugadores, técnicos, árbitros, representantes, espectadores y dirigentes de la Corporación. SEXTO: Que el principal objetivo de la reglamentación de la Corporación, es proporcionar a los dirigentes, técnicos, árbitros, anotadores, entrenadores y representantes, unas normas y condiciones que deben ser utilizadas con intención educativa, orientadora y formativa. En ningún caso deben ser interpretadas y/o aplicadas con fines legalistas, o artificiosos que pudieran lesionar o alterar el proceso educativo o ' formativo de los niños y jóvenes que hacen vida deportiva dentro de la Corporación. SÉPTIMO: Que el Instructivo General se constituye en el principal texto de orientación para la labor deportiva, en tal sentido, su conocimiento, acatamiento y divulgación debe ser una tarea importante de lodo directivo, técnico, representante y niño, niña y adolescente que sea miembro activo de la Corporación. OCTAVO: Que las instancias dentro de la Corporación Criollitos de Venezuela son las siguientes, a) Directorio de Liga y Consejo de Honor, b) Junta Directiva del Directorio Regional y Consejo de Honor c) junta Directiva del Directorio Nacional y Consejo de Honor. NOVENO: Que para el logro del objetivo de la Corporación de ayudar a formar niños, niñas y adolescentes de manera integral, a través, de la práctica organizada del deporte, dentro de los valores de lealtad a un equipo y de compañerismo para con los otros jugadores, se requiere de un prudente equilibrio entre los distintos equipos, por lo que no se permite para su conformación, configurar conjuntos más tuertas cambiando directa o solapadamente a jugadores de un equipo a otro equipo. A largo plazo, lo que da vida a la Corporación es la sana competencia entre buenos equipos y no un campeonato entre una selección de estrellas y muchos jugadores de menores condiciones. DECIMO: Que otro objetivo es propiciar el compañerismo prolongando, la permanencia del jugador el mayor tiempo posible dentro de un equipo. También se busca desalentar al representante que desea cambiar de equipo, divisa o liga. Por el bien común que está en toda agrupación por encima del interés particular, se establece y así lo acepta expresamente cada representante al dejar participar a su representado en las actividades de la Corporación, que un jugador desde que ingresa a la Corporación, en la categoría Preparatoria, es reserva, de la divisa hasta la categoría Prejunior y de la liga hasta la categoría Júnior, inclusive. Es decir, en principio todo jugador, luego de inscribirse libremente en un equipo debe continuar jugando en él y si las circunstancias lo refrieren, puede inscribirse en otro equipo de la misma divisa hasta transitar completamente la categoría Prejunior. Posteriormente, en la categoría Júnior, puede cambiar de divisa dentro de la misma liga. Ei jugador que desee cambiar de liga puede hacerlo al ingresar a la categoría juvenil. DECIMO PRIMERO: Que la Firma del representante en la ficha familiar, nómina de jugadores (roster) y ficha colectiva, lo obliga expresamente a: a) Autorizar a su representado a participar en cualquier actividad propia, organizada por la CORPORACIÓN (Directorio Nacional, Directorios Regionales, Ligas, Divisas y Equipos, b) Conocer y aceptar la normativa de la Corporación, (Estatutos. Instructivos, Reglamentos. Código de Responsabilidades y Sanciones, y demás Resoluciones), en todo su alcance, así como la obligación de aplicar la filosofía que fundamenta esta normativa. En caso de incumplimiento podrán ser sancionados, según el grado de responsabilidad, tanto el representante como su representado, c) Libera a la CORPORACIÓN CRIOLLITOS DE VENEZUELA de toda responsabilidad en caso de cualquier accidente ocurrido antes, durante y después del desarrollo de un evento deportivo. DECIMO SEGUNDO: Que la obligación alimentaria establecida en el artículo 365 de la L.O.P.N.A., contiene el derecho de recreación y deportes, requeridos por el niño y el adolescente, por lo que el cumplimiento de la obligación corresponde por efecto de la filiación legal o judicialmente establecida, al padre y a la madre del niño, niña y adolescente, en consecuencia, no puede pretender el representante transferir dicha obligación en la persona de la Corporación, en perjuicio del bien común. DECIMO TERCERO: Que en todo caso el representante está obligado personal y directamente a cumplir con todas las obligaciones que asuma para con la Corporación, en beneficio del bien común. DECIMO CUARTO: Que en todo caso el representante es responsable de los gastos judiciales y/o extra judiciales que se ocasionaren por su libre actuación ante instancia externas, cuyo reclamo ponga en entredicho el honor y la dignidad de los otros miembros de la Corporación, sin perjuicio de las costas procésales que resultare del juicio o procedimiento que se incoare contra la Corporación.
-YO,_________________________________, mayor de edad, civilmente     hábil,     titular     de    la     Cédula     de     Identidad     Nro:____________ , domiciliado(a) en:_______________________________________________, declaro: Que acepto todo lo' antes expuesto y me constituyo en Representante Legal de:_______________________________________________________,  titular de  la Cédula  de Identidad Nro: ____________________________ ante la CORPORACIÓN CRIOLLITOS DE VENEZUELA. Y YO ya Identificado (a), declaro: Que estoy conforme con todo lo declarado y aceptado por mi representante. Documento suscrito en:______________________________, Estado:__________ a los ____ días del mes de _______________ del año.
 
-
-
-                              	 			FIRMA DEL REPRESENTANTE			FIRMA DEL NIÑO. NIÑA y/o ADOLESCENTE
 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="447" width="468" height="20"/>
+				<textElement/>
+				<text><![CDATA[FIRMA DEL REPRESENTANTE			FIRMA DEL NIÑO. NIÑA y/o ADOLESCENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="19" width="604" height="20"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[ ACTA MANIFESTACIÓN DE VOLUNTAD AL INGRESO COMO MIEMBRO ACTIVO DELA CORPORACIÓN CRIOLLITOS DE VENEZUELA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="389" width="752" height="68"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[YO,_________________________________, mayor de edad, civilmente     hábil,     titular     de    la     Cédula     de     Identidad     Nro:____________ , domiciliado(a) en:_______________________________________________, declaro: Que acepto todo lo' antes expuesto y me constituyo en Representante Legal de:_______________________________________________________,  titular de  la Cédula  de Identidad Nro: ____________________________ ante la CORPORACIÓN CRIOLLITOS DE VENEZUELA. Y YO ya Identificado (a), declaro: Que estoy conforme con todo lo declarado y aceptado por mi representante. Documento suscrito en:______________________________, Estado:__________ a los ____ días del mes de _______________ del año.]]></text>
 			</staticText>
 		</band>
 	</summary>

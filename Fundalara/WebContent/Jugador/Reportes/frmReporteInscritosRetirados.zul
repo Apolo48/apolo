@@ -42,7 +42,7 @@
 		
 		<div align="right">
 			<button id="btnImprimirVisor" label="Generar"
-					image="../../Recursos/Imagenes/imprimir.ico" orient="horizontal"
+					image="../../Recursos/Imagenes/reporte.ico" orient="horizontal"
 					width="100px" />
 			<button id="btnCancelar" label="Cancelar"
 					image="../../Recursos/Imagenes/cancelar.ico" orient="horizontal"

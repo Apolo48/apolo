@@ -2,6 +2,7 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver" ?>
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="winConfigurarMedico"?>
 <zk>
+
 	<window id="winConfigurarMedico" title="Registro de Médico"
 		border="normal" width="645px" closable="true"
 		apply="controlador.jugador.CntrlConfigurarMedico">
@@ -83,14 +84,13 @@
 										<textbox id="txtCedula"
 											width="60%" maxlength="8" style='text-transform:uppercase;' constraint="/[0-9]+/:Introduzca solo Numeros"/>
 									</div>
-
 								</row>
 								<row style="border:none;">
 									<label value="  Nombres" />
 									<div>
-										<textbox width="88%"
+										<textbox id="txtNombre" width="88%"
 											maxlength="40" value="@{controller.medico.nombre}"
-											style='text-transform:uppercase;' constraint="/[A-Z,a-z, ]+/:Introduzca solo Caracteres Alfanumericos" />
+											style='text-transform:uppercase;' constraint="/[A-Z,a-z, ]+/:Introduzca solo Caracteres Alfanumericos"/>
 									</div>
 									<label value="Apellidos" />
 									<div>
@@ -99,7 +99,6 @@
 											value="@{controller.medico.apellido}"
 											style='text-transform:uppercase;' constraint="/[A-Z,a-z, ]+/:Introduzca solo Caracteres Alfanumericos"/>
 									</div>
-
 								</row>
 								<row style="border:none;">
 									<label value="Telefono Oficina" />
@@ -147,22 +146,12 @@
 						selectedItem="@{winBuscarjugador$composer.medico}"
 						width="590px">
 						<listhead>
-							<listheader width="18%" align="center">
-								Número Colegio
-							</listheader>
-							<listheader width="15%" align="center">
-								Matrícula
-							</listheader>
-							<listheader width="29%">Nombre</listheader>
-							<listheader width="29%">
-								Apellido
-							</listheader>
-							<listheader width="15%"
-								tooltiptext="A=Habilitado E=Deshabilitado">
-								Estado
-							</listheader>
+							<listheader width="18%" align="center" label="Número Colegio"/>
+							<listheader width="15%" align="center" label="Matrícula"/>
+							<listheader width="29%" label="Nombre"/>
+							<listheader width="29%" label="Apellido"/>
+							<listheader width="15%" tooltiptext="A=Habilitado E=Deshabilitado" label="Estado"/>
 						</listhead>
-
 						<listitem self="@{each='medico'}"
 							value="@{medico}">
 							<listcell label="@{medico.numeroColegio}" />
@@ -184,21 +173,19 @@
 							image="../../Recursos/Imagenes/quitar.ico" />
 					</div>
 				</row>
-
 			</rows>
 		</grid>
-         <iframe id="ifReporte"></iframe>
-		<space></space>
+
 		<div align="right">
-		    <button image="/Recursos/Imagenes/reporte.ico" width="100px"
-				id="btnImprimir" onClick="" tooltiptext="/Generar" label="Generar" />
+ 			<button id="btnImprimir" label="Generar"
+ 				image="/Recursos/Imagenes/reporte.ico"  orient="horizontal" 
+ 				width="100px" />
 			<button id="btnCancelar" label="Cancelar"
-				image="/Recursos/Imagenes/cancelar.ico" orient="horizontal"
+				image="../../Recursos/Imagenes/cancelar.ico" orient="horizontal"
 				width="100px" />
 			<button id="btnSalir" label="Salir"
-				image="/Recursos/Imagenes/salir.png" orient="horizontal"
-				width="100px" />
+				image="../../Recursos/Imagenes/salir.png" orient="horizontal"
+				width="100px"/>
 		</div>
-
 	</window>
 </zk>

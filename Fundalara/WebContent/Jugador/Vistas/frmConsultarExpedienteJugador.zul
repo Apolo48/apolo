@@ -1636,8 +1636,8 @@
 			</panel>
 
 			<div align="right">
-				<button label="Imprimir"
-					image="../../Recursos/Imagenes/imprimir.ico" orient="horizontal"
+				<button label="Generar"
+					image="../../Recursos/Imagenes/reporte.ico" orient="horizontal"
 					width="100px" />
 				<button label="Salir"
 					image="../../Recursos/Imagenes/salir.png" orient="horizontal"

@@ -43,7 +43,7 @@
 						<comboitem self="@{each='categoria'}"
 							label="@{categoria.nombre}" />
 					</combobox>
-					<label id="lbTipo" value="Clasificacion" />
+					<label id="lbTipo" value="Clasificación" />
 					<combobox id="cmbTipo" value="--" width="20%"  readonly="true"
 						
 						model="@{controller.tipo}">
@@ -53,7 +53,7 @@
 				</row>
 				<row spans="1,3" style="border:none;">
 					<label value="Nombre" />
-					  <textbox id="txtNombre" width="72%" focus="true" />
+					  <textbox id="txtNombre" width="72%" focus="true" style='text-transform:uppercase;' />
 				</row>
 			</rows>
 		</grid>
@@ -95,8 +95,8 @@
 							<listheader label="Tipo" width="5%" />
 						    <listheader label="Lapso" width="7%" />
 							<listheader label="Divisa" width="11%" />
-							<listheader label="Minimo" width="9%" />
-							<listheader label="Maximo" width="9%" />
+							<listheader label="Mínimo" width="9%" />
+							<listheader label="Máximo" width="9%" />
 							<listheader label="Estado" width="10%" />
 						</listhead>
 						<listitem self="@{each='equipo'}"
@@ -117,12 +117,12 @@
 
 					</listbox>
 					<div>
-						<button id="btnAgregar"	image="../../Recursos/Imagenes/agregar.ico" /> 
+						<button id="btnAgregar"	image="/Recursos/Imagenes/agregar.ico" /> 
 						<separator height="5px" />
-						<button id="btnModificar" image="../../Recursos/Imagenes/editar.ico" />
+						<button id="btnModificar" image="/Recursos/Imagenes/editar.ico" />
 						<separator height="5px" />
 						
-						<button id="btnQuitar" image="../../Recursos/Imagenes/quitar.ico" />
+						<button id="btnQuitar" image="/Recursos/Imagenes/quitar.ico" />
 					</div>
 				</row>
 
@@ -130,19 +130,15 @@
 		</grid>
 
 		<div align="right">
- 			<button image="/Recursos/Imagenes/imprimir.ico" width="100px"
-				id="btnImprimir" onClick="" tooltiptext="/Generar" label="Generar" />
+ 			<button id="btnImprimir" label="Generar"
+ 				image="/Recursos/Imagenes/reporte.ico"  orient="horizontal" 
+ 				width="100px" />
 			<button id="btnCancelar" label="Cancelar"
 				image="../../Recursos/Imagenes/cancelar.ico" orient="horizontal"
 				width="100px" />
-				
 			<button id="btnSalir" label="Salir"
 				image="../../Recursos/Imagenes/salir.png" orient="horizontal"
-				width="100px">
-				<attribute name="onClick"><![CDATA[
-	winConfigurarEquipo.detach();
-]]></attribute>
-			</button>
+				width="100px"/>
 		</div>
 	</window>
 </zk>
