@@ -310,6 +310,22 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 	private Connection con;
 	private Map<String, Object> parameters = new HashMap<String, Object>();
 
+	
+	//////
+	private DatoBasico parroquiaResiFamiliar = new DatoBasico();
+	
+	
+	public DatoBasico getParroquiaResiFamiliar() {
+		return parroquiaResiFamiliar;
+	}
+
+	public void setParroquiaResiFamiliar(DatoBasico parroquiaResiFamiliar) {
+		this.parroquiaResiFamiliar = parroquiaResiFamiliar;
+	}
+	
+	
+	//////
+
 	// Binder
 	private AnnotateDataBinder binder;
 	/**
@@ -2488,6 +2504,7 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		return familiar;
 	}
 
+	//Modificado*
 	private void guardarFamiliarVistaToBean() {
 		//familiarBean =  new controlador.jugador.bean.Familiar();
 		familiarBean.setNacionalidad(cmbNacionalidadFamiliar.getSelectedItem()
@@ -2506,10 +2523,25 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 				.setProfesion((cmbProfesion.getSelectedItem() == null ? null
 						: (DatoBasico) cmbProfesion.getSelectedItem()
 								.getValue()));
-		familiarBean
+		
+		
+		if (cmbParroquiaFamiliar.getSelectedItem() == null){
+			System.out.println("la parroquia es nula");
+		}else{
+			System.out.println("Valor de la parroquia "+cmbParroquiaFamiliar.getSelectedItem()
+					.getLabel());
+		}
+		
+		/*familiarBean
 				.setParroquiaResi((cmbParroquiaFamiliar.getSelectedItem() == null ? null
 						: (DatoBasico) cmbParroquiaFamiliar.getSelectedItem()
 								.getValue()));
+		
+		*/
+		
+		familiarBean
+		.setParroquiaResi(parroquiaResiFamiliar);
+		
 		familiarBean.setDireccion(txtDireccionHabFamiliar.getRawText());
 		familiarBean.setTelefonoHabitacion(new Telefono(
 				(cmbCodAreaFamiliar.getSelectedItem() == null ? null
@@ -2564,6 +2596,7 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		}
 	}
 
+	//Modificado*
 	private void guardarBeanToVista(
 			controlador.jugador.bean.Familiar familiarBean) {
 		txtCedulaFamiliar.setReadonly(true);
@@ -2571,13 +2604,12 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		txtCedulaFamiliar.setValue(Integer.parseInt(familiarBean.getCedula()));
 		cmbNacionalidadFamiliar.setValue(familiarBean.getNacionalidad());
 		txtPrimerNombreFamiliar.setValue(familiarBean.getPrimerNombre());
-
 		txtSegundoNombreFamiliar.setRawValue(familiarBean.getSegundoNombre());
-
 		txtPrimerApellidoFamiliar.setValue(familiarBean.getPrimerApellido());
-
 		txtSegundoApellidoFamiliar.setRawValue(familiarBean
 				.getSegundoApellido());
+		
+		
 		if (familiarBean.getParentesco() != null) {
 			cmbParentesco.setValue(familiarBean.getParentesco().getNombre());
 		}
@@ -2596,10 +2628,23 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		if (familiarBean.getParroquiaResi() != null) {
 			cmbEstadoFamiliar.setValue(familiarBean.getParroquiaResi()
 					.getDatoBasico().getDatoBasico().getNombre());
+			estadoVenezuelaFamiliar= familiarBean.getParroquiaResi()
+					.getDatoBasico().getDatoBasico();
+			binder.loadComponent(cmbMunicipioFamiliar);
 			cmbMunicipioFamiliar.setValue(familiarBean.getParroquiaResi()
 					.getDatoBasico().getNombre());
+			municipioFamiliar= familiarBean.getParroquiaResi()
+					.getDatoBasico();
+			binder.loadComponent(cmbParroquiaFamiliar);
 			cmbParroquiaFamiliar.setValue(familiarBean.getParroquiaResi()
 					.getNombre());
+			parroquiaResiFamiliar=familiarBean.getParroquiaResi();
+			
+			if (cmbParroquiaFamiliar.getSelectedItem()==null){
+				System.out.println("El valor recien seteado es null");
+			}else{
+				System.out.println("el valor si es diferente de null");
+			}
 
 		}
 		txtDireccionHabFamiliar.setValue(familiarBean.getDireccion());
@@ -2649,6 +2694,7 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		}
 	}
 
+	//Modificado*
 	private void limpiarFamiliar() {
 		// Limpiando pestanna Perfil
 		familiarBean = new controlador.jugador.bean.Familiar();
@@ -2663,13 +2709,16 @@ public class CntrlReingresarJugador extends GenericForwardComposer {
 		imgFamiliar.setSrc("/Recursos/Imagenes/noFoto.jpg");
 
 		// Limpiando pestanna Ubicacion
+		estadoVenezuelaFamiliar = new DatoBasico();
 		cmbEstadoFamiliar.setSelectedIndex(-1);
 		cmbEstadoFamiliar.setValue("--Seleccione--");
 		// binder.loadComponent(cmbEstadoFamiliar);
+		municipioFamiliar = new DatoBasico();
 		cmbMunicipioFamiliar.setSelectedIndex(-1);
 		cmbMunicipioFamiliar.setValue("--Seleccione--");
 		// binder.loadComponent(cmbMunicipioFamiliar);
 		// cmbParroquiaFamiliar.setSelectedIndex(-1);
+		parroquiaResiFamiliar= new DatoBasico();
 		binder.loadComponent(cmbParroquiaFamiliar);
 		cmbParroquiaFamiliar.setValue("--Seleccione--");
 

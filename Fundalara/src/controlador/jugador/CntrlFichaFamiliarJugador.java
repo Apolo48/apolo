@@ -32,6 +32,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
 import servicio.implementacion.ServicioJugador;
 import servicio.implementacion.ServicioRoster;
@@ -41,6 +42,7 @@ import comun.EstatusRegistro;
 import comun.Ruta;
 
 public class CntrlFichaFamiliarJugador extends GenericForwardComposer {
+	private Window winFicha;
 	Component component;
 	private Component formulario;
 	private Image imgJugador;
@@ -196,6 +198,11 @@ public class CntrlFichaFamiliarJugador extends GenericForwardComposer {
 						binder.loadAll();
 					}
 				});
+	}
+	
+	
+	public void onClick$btnSalir() {
+		winFicha.detach();
 	}
 
 }

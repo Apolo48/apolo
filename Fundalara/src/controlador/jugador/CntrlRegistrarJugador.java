@@ -306,6 +306,21 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private Connection con;
 	private Map<String, Object> parameters = new HashMap<String, Object>();
 
+	
+	private DatoBasico parroquiaResiFamiliar = new DatoBasico();
+	
+	
+	public DatoBasico getParroquiaResiFamiliar() {
+		return parroquiaResiFamiliar;
+	}
+
+	public void setParroquiaResiFamiliar(DatoBasico parroquiaResiFamiliar) {
+		this.parroquiaResiFamiliar = parroquiaResiFamiliar;
+	}
+	
+	
+	
+	
 	// Binder
 	private AnnotateDataBinder binder;
 	/**
@@ -1396,12 +1411,13 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	}
 
 	public void onClick$btnInscribir() {
+		String cedula ="";
 		if (verificarCedulaJugador(false) == false ||  checkPoints.get(Point.JUGADOR)) {
 			if (btnModificarFamiliar.isDisabled()) { // Existe un familiar en
 														// modo edicion
 				onClick$btnAgregarFamiliar();
 			}
-			String cedula = jugadorBean.getCedulaCompleta();
+			cedula = jugadorBean.getCedulaCompleta();
 			if (verificarCamposInscripcion()) {
 				guadarDatos(EstatusRegistro.ACTIVO);
 				if (jugadorBean.getNacionalidad().equals("R")) {
@@ -2466,6 +2482,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 	private controlador.jugador.bean.Familiar guardarFamiliarModeloToBean(
 			Familiar familiar) {
 		if (familiar != null) {
+			familiarBean = new controlador.jugador.bean.Familiar();
 			String cedula[] = familiar.getCedulaRif().split("-");
 			familiarBean.setNacionalidad(cedula[0]);
 			familiarBean.setCedula(cedula[1]);
@@ -2523,6 +2540,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 					.esRepresentanteActual(jugadorBean.getCedulaCompleta(),
 							familiar));
 			familiarBean.setEstatus(familiar.getEstatus());
+
 		}
 		return familiarBean;
 	}
@@ -2577,6 +2595,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		return familiar;
 	}
 
+
 	private void guardarFamiliarVistaToBean() {
 		//familiarBean =  new controlador.jugador.bean.Familiar();
 		familiarBean.setNacionalidad(cmbNacionalidadFamiliar.getSelectedItem()
@@ -2595,10 +2614,19 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 				.setProfesion((cmbProfesion.getSelectedItem() == null ? null
 						: (DatoBasico) cmbProfesion.getSelectedItem()
 								.getValue()));
+		
+		
+		if (cmbParroquiaFamiliar.getSelectedItem() == null){
+			System.out.println("la parroquia es nula");
+		}else{
+			System.out.println("Valor de la parroquia "+cmbParroquiaFamiliar.getSelectedItem()
+					.getLabel());
+		}
+		
+			
 		familiarBean
-				.setParroquiaResi((cmbParroquiaFamiliar.getSelectedItem() == null ? null
-						: (DatoBasico) cmbParroquiaFamiliar.getSelectedItem()
-								.getValue()));
+		.setParroquiaResi(parroquiaResiFamiliar);
+		
 		familiarBean.setDireccion(txtDireccionHabFamiliar.getRawText());
 		familiarBean.setTelefonoHabitacion(new Telefono(
 				(cmbCodAreaFamiliar.getSelectedItem() == null ? null
@@ -2611,7 +2639,6 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 						.getValue()), txtTelefonoCelFamiliar.getRawText()));
 		familiarBean.setCorreoElectronico(txtCorreoFamiliar.getRawText());
 		familiarBean.setTwitter(txtTwitterFamiliar.getRawText());
-
 	}
 
 	public void onClick$btnAgregarFamiliar() {
@@ -2654,21 +2681,21 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
+
+	
 	private void guardarBeanToVista(
 			controlador.jugador.bean.Familiar familiarBean) {
-
 		txtCedulaFamiliar.setReadonly(true);
 		cmbNacionalidadFamiliar.setDisabled(true);
 		txtCedulaFamiliar.setValue(Integer.parseInt(familiarBean.getCedula()));
 		cmbNacionalidadFamiliar.setValue(familiarBean.getNacionalidad());
 		txtPrimerNombreFamiliar.setValue(familiarBean.getPrimerNombre());
-
 		txtSegundoNombreFamiliar.setRawValue(familiarBean.getSegundoNombre());
-
 		txtPrimerApellidoFamiliar.setValue(familiarBean.getPrimerApellido());
-
 		txtSegundoApellidoFamiliar.setRawValue(familiarBean
 				.getSegundoApellido());
+		
+		
 		if (familiarBean.getParentesco() != null) {
 			cmbParentesco.setValue(familiarBean.getParentesco().getNombre());
 		}
@@ -2687,10 +2714,24 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		if (familiarBean.getParroquiaResi() != null) {
 			cmbEstadoFamiliar.setValue(familiarBean.getParroquiaResi()
 					.getDatoBasico().getDatoBasico().getNombre());
+			estadoVenezuelaFamiliar= familiarBean.getParroquiaResi()
+					.getDatoBasico().getDatoBasico();
+			binder.loadComponent(cmbMunicipioFamiliar);
 			cmbMunicipioFamiliar.setValue(familiarBean.getParroquiaResi()
 					.getDatoBasico().getNombre());
-			cmbParroquiaFamiliar.setValue(familiarBean.getParroquiaResi()
-					.getNombre());
+			municipioFamiliar= familiarBean.getParroquiaResi()
+					.getDatoBasico();
+			
+			binder.loadComponent(cmbParroquiaFamiliar);
+			parroquiaResiFamiliar=familiarBean.getParroquiaResi();
+			cmbParroquiaFamiliar.setValue(familiarBean.getParroquiaResi().getNombre());
+			
+			
+			if (parroquiaResiFamiliar==null){
+				System.out.println("El valor recien seteado es null");
+			}else{
+				System.out.println("el valor si es diferente de null "+parroquiaResiFamiliar.getNombre());
+			}
 
 		}
 		txtDireccionHabFamiliar.setValue(familiarBean.getDireccion());
@@ -2722,7 +2763,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		binder.loadComponent(listFamiliares);
 
 	}
-
+	
+	
 	public void onClick$btnModificarFamiliar() {
 		if (listFamiliares.getSelectedIndex() >= 0) {
 			btnModificarFamiliar.setDisabled(true);
@@ -2740,6 +2782,8 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		}
 	}
 
+	
+	
 	private void limpiarFamiliar() {
 		// Limpiando pestanna Perfil
 		familiarBean = new controlador.jugador.bean.Familiar();
@@ -2754,11 +2798,17 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 		imgFamiliar.setSrc("/Recursos/Imagenes/noFoto.jpg");
 
 		// Limpiando pestanna Ubicacion
+		estadoVenezuelaFamiliar = new DatoBasico();
 		cmbEstadoFamiliar.setSelectedIndex(-1);
 		cmbEstadoFamiliar.setValue("--Seleccione--");
+		// binder.loadComponent(cmbEstadoFamiliar);
+		municipioFamiliar = new DatoBasico();
 		cmbMunicipioFamiliar.setSelectedIndex(-1);
 		cmbMunicipioFamiliar.setValue("--Seleccione--");
-		binder.loadComponent(cmbParroquiaFamiliar);
+		// binder.loadComponent(cmbMunicipioFamiliar);
+		// cmbParroquiaFamiliar.setSelectedIndex(-1);
+		parroquiaResiFamiliar= new DatoBasico();
+		//binder.loadComponent(cmbParroquiaFamiliar);
 		cmbParroquiaFamiliar.setValue("--Seleccione--");
 
 		txtDireccionHabFamiliar.setRawValue("");
@@ -2771,6 +2821,7 @@ public class CntrlRegistrarJugador extends GenericForwardComposer {
 
 		// Limpiando pestanna Ubicacion
 		cmbComisiones.setSelectedIndex(-1);
+		// binder.loadComponent(cmbComisiones);
 		comision = new DatoBasico();
 		binder.loadComponent(listComisiones);
 		// Limpiando Listbox Familiares

@@ -1490,11 +1490,12 @@
 															<div>
 																<combobox
 																	id="cmbParroquiaFamiliar" readonly="true" width="65%"
+																	selectedItem="@{controller.parroquiaResiFamiliar}"
 																	model="@{winRegistrarJugador$composer.parroquiasMunicipioFam, load-after='cmbMunicipioFamiliar.onChange'}">
 																	<comboitem
 																		self="@{each='parroquiaFam'}"
 																		label="@{parroquiaFam.nombre}"
-																		value="@{parroquiaFam}" />
+																		 />
 																</combobox>
 																<label
 																	value="(*)" style="color:red" />
